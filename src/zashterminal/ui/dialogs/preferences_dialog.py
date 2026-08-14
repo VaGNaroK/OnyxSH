@@ -351,7 +351,7 @@ class PreferencesDialog(Adw.PreferencesWindow):
 
     def _setup_profiles_page(self) -> None:
         page = Adw.PreferencesPage(
-            title=_("Profiles & Data"), icon_name="folder-saved-search-symbolic"
+            title=_("Profiles and Data"), icon_name="folder-saved-search-symbolic"
         )
         self.add(page)
 

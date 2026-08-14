@@ -171,7 +171,7 @@ class AIConfigDialog(Adw.PreferencesWindow):
 
         # Secure Agent & Context Group
         agent_group = Adw.PreferencesGroup(
-            title=_("Modo Agente Seguro & Contexto"),
+            title=_("Modo Agente Seguro e Contexto"),
             description=_("Parâmetros de proteção, níveis de autonomia e contexto do sistema."),
         )
         page.add(agent_group)

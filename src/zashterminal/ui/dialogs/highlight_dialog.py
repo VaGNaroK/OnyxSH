@@ -528,7 +528,7 @@ class RuleEditDialog(Adw.Window):
 
         # Colors group
         self._colors_group = Adw.PreferencesGroup(
-            title=_("Colors & Effects"),
+            title=_("Colors and Effects"),
             description=_("First color applies to entire match if no groups."),
         )
         content_box.append(self._colors_group)
@@ -740,7 +740,7 @@ class RuleEditDialog(Adw.Window):
         content.append(quant_group)
 
         # Groups and alternatives
-        groups_group = Adw.PreferencesGroup(title=_("Groups & Alternatives"))
+        groups_group = Adw.PreferencesGroup(title=_("Groups and Alternatives"))
         groups_items = [
             ("(abc)", _("Capture group (gets a color)")),
             ("(?:abc)", _("Non-capturing group")),
