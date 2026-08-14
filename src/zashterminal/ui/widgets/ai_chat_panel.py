@@ -557,6 +557,8 @@ class MessageBubble(Gtk.Box):
         self._label = Gtk.Label()
         self._label.set_wrap(True)
         self._label.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
+        if hasattr(Gtk, "NaturalWrapMode") and hasattr(self._label, "set_natural_wrap_mode"):
+            self._label.set_natural_wrap_mode(Gtk.NaturalWrapMode.WORD)
         self._label.set_xalign(0)
         self._label.set_selectable(True)
         self._label.set_max_width_chars(60)
@@ -1158,6 +1160,8 @@ class MessageBubble(Gtk.Box):
             cmd_label.set_hexpand(True)
             cmd_label.set_wrap(True)
             cmd_label.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
+            if hasattr(Gtk, "NaturalWrapMode") and hasattr(cmd_label, "set_natural_wrap_mode"):
+                cmd_label.set_natural_wrap_mode(Gtk.NaturalWrapMode.WORD)
             cmd_label.add_css_class("ai-command-text")
             cmd_label.set_selectable(True)
             cmd_label.set_markup(self._highlight_code_for_label(cmd_str, "bash"))
