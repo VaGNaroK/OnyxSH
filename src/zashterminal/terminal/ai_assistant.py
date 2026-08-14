@@ -332,21 +332,6 @@ class TerminalAiAssistant(GObject.Object):
 
     def _process_request_thread(self, terminal_id: int, prompt: str) -> None:
         try:
-            if self._should_decline_code_request(prompt):
-                self._build_messages(terminal_id, prompt)
-                refusal = "Desculpe, no momento não estou programado para gerar scripts complexos, apenas comandos diretos."
-                self._record_assistant_message(terminal_id, refusal)
-                # Save to history
-                self._history_manager.add_assistant_message(refusal)
-                GLib.idle_add(
-                    self._display_assistant_reply,
-                    terminal_id,
-                    refusal,
-                    [],
-                    [],
-                )
-                return
-
             messages = self._build_messages(terminal_id, prompt)
             config = self._load_configuration()
 
@@ -1052,52 +1037,6 @@ class TerminalAiAssistant(GObject.Object):
         elif isinstance(value, str) and value.strip():
             commands.append({"command": value.strip(), "description": ""})
         return commands
-
-    @staticmethod
-    def _should_decline_code_request(prompt: str) -> bool:
-        """Detect requests that explicitly ask for code or scripts."""
-        if not isinstance(prompt, str):
-            return False
-        lowered = prompt.lower()
-        if not lowered:
-            return False
-        code_terms = {
-            "codigo",
-            "código",
-            "code",
-            "script",
-            "shell script",
-            "programa",
-            "programação",
-            "function",
-            "função",
-            "classe",
-            "snippet",
-            "trecho de código",
-            "escreva um",
-        }
-        request_terms = {
-            "gere",
-            "gerar",
-            "crie",
-            "criar",
-            "escreva",
-            "escrever",
-            "forneça",
-            "mostrar",
-            "mostre",
-            "faça",
-            "montar",
-            "monta",
-            "me dê",
-            "me mostre",
-            "me forneça",
-            "poderia",
-            "pode",
-        }
-        has_code_term = any(term in lowered for term in code_terms) or "```" in lowered
-        has_request_term = any(term in lowered for term in request_terms)
-        return has_code_term and has_request_term
 
     def _record_assistant_message(self, terminal_id: int, message: str) -> None:
         with self._lock:
