@@ -1,14 +1,14 @@
 # Zashterminal
 
 <p align="center">
-  <img src="https://github.com/leoberbert/zashterminal/blob/main/usr/share/icons/hicolor/scalable/apps/zashterminal.svg" alt="Logo Zashterminal" width="128" height="128">
+  <img src="https://github.com/VaGNaroK/zashterminal-Fork/blob/main/usr/share/icons/hicolor/scalable/apps/zashterminal.svg" alt="Logo Zashterminal" width="128" height="128">
 </p>
 
 <p align="center">
   <strong>A modern terminal for developers, infrastructure, and system administration</strong>
 </p>
 <p align="center">
-  <a href="https://github.com/leoberbert/zashterminal/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-green.svg" alt="Licença"/></a>
+  <a href="https://github.com/VaGNaroK/zashterminal-Fork/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-green.svg" alt="Licença"/></a>
   <a href="https://www.gtk.org/"><img src="https://img.shields.io/badge/GTK-4.0+-orange.svg" alt="Versão GTK"/></a>
   <a href="https://gnome.pages.gitlab.gnome.org/libadwaita/"><img src="https://img.shields.io/badge/libadwaita-1.0+-purple.svg" alt="Versão libadwaita"/></a>
   <a href="https://ko-fi.com/leoberbert"><img src="https://img.shields.io/badge/Support-Ko--fi-ff5f5f.svg" alt="Support on Ko-fi"/></a>
@@ -65,6 +65,55 @@ Zashterminal creates a bridge between your shell and Large Language Models (LLMs
 * **Context Aware**: The AI understands your OS and distribution context to provide accurate and relevant commands.
 * **Chat Panel**: A dedicated side panel for persistent conversations, command suggestions, and "Click-to-Run" code snippets.
 * **Smart Suggestions**: Ask how to perform tasks and receive ready-to-execute commands directly in the UI.
+
+### 🛡️ Modo Agente Seguro (Secure Agent Mode)
+
+O **Modo Agente Seguro** transforma o Zashterminal em um assistente autônomo e seguro para diagnóstico, edição de arquivos e tarefas administrativas no Linux.
+
+Ao contrário de agentes tradicionais que executam comandos arbitrários sem controle, o Zashterminal implementa uma arquitetura **Zero Direct Execution**:
+
+```
+[ Usuário ] ── Solicitação ──▶ [ LLM Provider (Groq / Gemini / Ollama) ]
+                                            │
+                                  Gera ActionPlan JSON
+                                            ▼
+                                   [ PolicyEngine ]
+                              (Classificação 0-4 + Denylists)
+                                            │
+                                            ▼
+                               [ UI: Aprovação do Usuário ]
+                                            │
+                        ┌───────────────────┴───────────────────┐
+                        ▼                                       ▼
+            🟢 Nível 0 (1-clique)                   🔵 Nível 1 (Diff + Backup)
+            🟠 Nível 2 (Polkit Admin)               ⛔ Nível 4 (Bloqueado)
+                        │                                       │
+                        └───────────────────┬───────────────────┘
+                                            ▼
+                                    [ ToolRegistry ]
+                                            │
+                                            ▼
+                             [ AuditLog + Rollback JSONL ]
+```
+
+#### Níveis de Risco Estratificados
+
+| Nível | Categoria | Exemplos | Mecanismo de Aprovação |
+|---|---|---|---|
+| 🟢 **Nível 0** | Leitura Segura | `ls`, `df -h`, `free -m`, `uptime`, `ip route` | **1 Clique:** `[▶ Executar]` ou `[🧪 Simular]` |
+| 🔵 **Nível 1** | Escrita no Usuário | Criação e edição de arquivos na home | **Revisão de Diff:** visualização unificada com backup automático prévio |
+| 🟠 **Nível 2** | Administração do Sistema | Limpeza de logs do journal, manutenção de pacotes | **Elevação Polkit:** autenticação gráfica via `zashterminal-admin-helper` |
+| 🔴 **Nível 3** | Ação Crítica | Desinstalação de dependências do sistema | **Confirmação Explícita** |
+| ⛔ **Nível 4** | Bloqueado / Proibido | `rm -rf /`, `mkfs.*`, `dd of=/dev/sd*`, `chmod 777 /` | **Bloqueio Intransponível:** botão desabilitado na interface |
+
+#### Principais Garantias de Segurança
+- **Isolamento de Contexto:** Saídas externas e terminais são envelopadas em `<untrusted>...</untrusted>` para prevenir injeções indiretas de prompt.
+- **Redator Automático de Segredos:** Mascara chaves de API, chaves privadas RSA/PGP e credenciais antes do envio para modelos remotos.
+- **PathGuard Anti-Bypass:** Bloqueia leitura e escrita em credenciais (`~/.ssh`, `~/.aws`, `.env`) e dotfiles de inicialização (`.bashrc`, `.zshrc`), resolvendo links simbólicos antes da checagem.
+- **Trilha de Auditoria e Rollback:** Histórico contínuo em `audit.jsonl` com possibilidade de reverter alterações de arquivos com integridade SHA-256 garantida.
+
+Consulte o documento completo em [docs/SECURITY.md](docs/SECURITY.md) para detalhes da modelagem de ameaças.
+
 
 
 ### 📂 Advanced File Manager & Remote Editing
@@ -161,7 +210,7 @@ paru -S zashterminal
 
 Local installer (system-wide with venv):
 ```bash
-curl -fsSL https://raw.githubusercontent.com/leoberbert/zashterminal/refs/heads/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
 ```
 
 ### Debian / Ubuntu / Fedora / openSUSE
@@ -170,10 +219,10 @@ The installer detects the distro, installs the required system packages, and ins
 
 ```bash
 # Quick install (no clone required)
-curl -fsSL https://raw.githubusercontent.com/leoberbert/zashterminal/refs/heads/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
 
 # Alternatively, download and run
-curl -fsSLO https://raw.githubusercontent.com/leoberbert/zashterminal/refs/heads/main/install.sh
+curl -fsSLO https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh
 bash install.sh
 ```
 
@@ -199,7 +248,7 @@ Then:
 
 ```bash
 sudo nixos-rebuild switch
-curl -fsSL https://raw.githubusercontent.com/leoberbert/zashterminal/refs/heads/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
 ```
 
 ### WSL on Windows (Experimental)
@@ -210,7 +259,7 @@ Zashterminal can run on WSL, but this is still **experimental** and may present 
 - Installation method: same Debian/Ubuntu flow using `install.sh`
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/leoberbert/zashterminal/refs/heads/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
 ```
 
 If you use a language other than English (default), configure locale and keyboard (example for Brazilian Portuguese):

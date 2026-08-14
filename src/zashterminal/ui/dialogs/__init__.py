@@ -1,5 +1,8 @@
+from .agent_scope_dialog import AgentScopeDialog
+from .audit_log_dialog import AuditLogDialog
 from .base_dialog import BaseDialog
 from .command_manager_dialog import CommandManagerDialog
+from .diff_review_dialog import DiffReviewDialog
 from .folder_edit_dialog import FolderEditDialog
 from .highlight_dialog import HighlightDialog, RuleEditDialog
 from .move_dialogs import MoveLayoutDialog, MoveSessionDialog
@@ -20,4 +23,7 @@ __all__ = [
     "SessionEditDialog",
     "ShortcutsDialog",
     "TftpServerDialog",
+    "DiffReviewDialog",
+    "AuditLogDialog",
+    "AgentScopeDialog",
 ]

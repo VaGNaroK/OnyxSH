@@ -200,11 +200,8 @@ def _extract_reply_from_json(text: str) -> str:
     return text
 
 
-def _normalize_commands(commands: list | None) -> list[str]:
-    """Normalize commands to a list of strings.
-
-    Handles both list of strings and list of dicts with 'command' key.
-    """
+def _normalize_commands(commands: list | None) -> list:
+    """Normalize commands to strings or structured step dictionaries."""
     if not commands:
         return []
 
@@ -213,10 +210,14 @@ def _normalize_commands(commands: list | None) -> list[str]:
         if isinstance(cmd, str):
             result.append(cmd)
         elif isinstance(cmd, dict):
-            # Extract command from dict format
-            command_str = cmd.get("command", "") or cmd.get("cmd", "")
-            if command_str:
-                result.append(command_str)
+            if "step_id" in cmd or "risk" in cmd or "tool" in cmd or "approval" in cmd:
+                result.append(cmd)
+            else:
+                command_str = cmd.get("command", "") or cmd.get("cmd", "")
+                if command_str:
+                    result.append(command_str)
+        else:
+            result.append(cmd)
     return result
 
 
@@ -1071,7 +1072,7 @@ class MessageBubble(Gtk.Box):
         return self._highlight_fallback(code, lang)
 
     def _add_command_buttons(self):
-        """Add buttons for each detected command with visual section."""
+        """Add buttons for each detected command or ActionStep with visual risk cards."""
         if not self._commands:
             return
 
@@ -1087,18 +1088,71 @@ class MessageBubble(Gtk.Box):
         terminal_icon.add_css_class("ai-section-icon")
         section_header.append(terminal_icon)
 
-        section_label = Gtk.Label(label=_("Suggested Commands"))
+        section_label = Gtk.Label(label=_("Plano de Ações do Agente"))
         section_label.add_css_class("ai-section-title")
         section_header.append(section_label)
         commands_section.append(section_header)
 
-        # Each command gets its own separate block/card
-        for cmd in self._commands[:5]:  # Limit to 5 commands max
-            # Individual command block - horizontal layout with command + buttons
-            cmd_block = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-            cmd_block.add_css_class("ai-command-block")
+        for item in self._commands[:10]:
+            if isinstance(item, str):
+                argv = item.split()
+                try:
+                    from ...agent.policy_engine import PolicyEngine
+                    pe = PolicyEngine()
+                    risk = int(pe.classify(argv))
+                except Exception:
+                    risk = 0
+                step_data = {
+                    "tool": "shell.run",
+                    "argv": argv,
+                    "command_str": item,
+                    "description": "",
+                    "risk": risk,
+                    "approval": "blocked" if risk >= 4 else ("polkit" if risk == 2 else "click"),
+                }
+            elif hasattr(item, "to_dict"):
+                step_data = item.to_dict()
+                step_data["command_str"] = " ".join(item.argv) if item.argv else item.tool
+            elif isinstance(item, dict):
+                step_data = item
+                step_data["command_str"] = " ".join(item.get("argv", [])) if item.get("argv") else (item.get("command", "") or item.get("tool", ""))
+            else:
+                continue
 
-            # Command label in monospace with syntax highlighting
+            cmd_str = step_data.get("command_str", "")
+            risk_val = int(step_data.get("risk", 0))
+            approval_val = step_data.get("approval", "click")
+            tool_name = step_data.get("tool", "shell.run")
+            description = step_data.get("description", "")
+
+            # Step card container
+            step_card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+            step_card.add_css_class("ai-step-card")
+
+            # Header row: Risk Badge + Tool name
+            header_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+
+            risk_badge = Gtk.Label()
+            risk_badge_texts = {
+                0: _("🟢 Nível 0 (Leitura)"),
+                1: _("🔵 Nível 1 (Escrita)"),
+                2: _("🟠 Nível 2 (Admin Polkit)"),
+                3: _("🔴 Nível 3 (Crítico)"),
+                4: _("⛔ Nível 4 (Bloqueado)"),
+            }
+            risk_badge.set_label(risk_badge_texts.get(risk_val, f"Nível {risk_val}"))
+            risk_badge.add_css_class("ai-risk-badge")
+            risk_badge.add_css_class(f"ai-risk-badge-{min(4, max(0, risk_val))}")
+            header_row.append(risk_badge)
+
+            tool_label = Gtk.Label(label=f"[{tool_name}]")
+            tool_label.add_css_class("dim-label")
+            header_row.append(tool_label)
+
+            step_card.append(header_row)
+
+            # Command text row
+            cmd_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
             cmd_label = Gtk.Label()
             cmd_label.set_xalign(0)
             cmd_label.set_hexpand(True)
@@ -1106,52 +1160,105 @@ class MessageBubble(Gtk.Box):
             cmd_label.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
             cmd_label.add_css_class("ai-command-text")
             cmd_label.set_selectable(True)
+            cmd_label.set_markup(self._highlight_code_for_label(cmd_str, "bash"))
+            cmd_row.append(cmd_label)
 
-            # Apply syntax highlighting for shell commands
-            highlighted_cmd = self._highlight_code_for_label(cmd, "bash")
-            cmd_label.set_markup(highlighted_cmd)
-
-            cmd_block.append(cmd_label)
-
-            # Action buttons container - compact icon-only buttons
-            buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+            # Action buttons
+            buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
             buttons_box.set_valign(Gtk.Align.CENTER)
             buttons_box.add_css_class("ai-cmd-buttons")
 
-            # Run button - executes command directly
-            run_btn = Gtk.Button()
-            run_btn.set_icon_name("media-playback-start-symbolic")
-            run_btn.add_css_class("flat")
-            run_btn.add_css_class("circular")
-            run_btn.add_css_class("ai-cmd-btn-run")
-            run_btn.connect("clicked", self._on_run_clicked, cmd)
-            self._add_tooltip(run_btn, _("Run command"))
-            buttons_box.append(run_btn)
+            if approval_val == "blocked" or risk_val >= 4:
+                blocked_btn = Gtk.Button(label=_("⛔ Bloqueado"))
+                blocked_btn.set_sensitive(False)
+                blocked_btn.add_css_class("flat")
+                self._add_tooltip(blocked_btn, _("Comando bloqueado pelas políticas de segurança."))
+                buttons_box.append(blocked_btn)
+            elif approval_val == "diff" or tool_name in {"fs.propose_edit", "fs.write_staged_file"}:
+                diff_btn = Gtk.Button()
+                diff_btn.set_label(_("👁 Ver Alterações"))
+                diff_btn.add_css_class("suggested-action")
+                diff_btn.connect("clicked", self._on_diff_clicked, step_data)
+                self._add_tooltip(diff_btn, _("Revisar diff unificado antes de aplicar com backup"))
+                buttons_box.append(diff_btn)
+            elif approval_val == "polkit" or risk_val == 2:
+                admin_btn = Gtk.Button()
+                admin_btn.set_label(_("🛡 Executar como Admin"))
+                admin_btn.add_css_class("destructive-action")
+                admin_btn.connect("clicked", self._on_run_clicked, cmd_str)
+                self._add_tooltip(admin_btn, _("Executar ação administrativa autenticada via Polkit"))
+                buttons_box.append(admin_btn)
+            else:
+                run_btn = Gtk.Button()
+                run_btn.set_icon_name("media-playback-start-symbolic")
+                run_btn.add_css_class("flat")
+                run_btn.add_css_class("circular")
+                run_btn.add_css_class("ai-cmd-btn-run")
+                run_btn.connect("clicked", self._on_run_clicked, cmd_str)
+                self._add_tooltip(run_btn, _("Executar comando"))
+                buttons_box.append(run_btn)
 
-            # Insert button - inserts into terminal without running
-            insert_btn = Gtk.Button()
-            insert_btn.set_icon_name("edit-paste-symbolic")
-            insert_btn.add_css_class("flat")
-            insert_btn.add_css_class("circular")
-            insert_btn.add_css_class("ai-cmd-btn")
-            insert_btn.connect("clicked", self._on_execute_clicked, cmd)
-            self._add_tooltip(insert_btn, _("Insert into terminal"))
-            buttons_box.append(insert_btn)
+                dry_run_argv = step_data.get("dry_run_argv")
+                if dry_run_argv:
+                    dry_run_str = " ".join(dry_run_argv)
+                    dry_btn = Gtk.Button()
+                    dry_btn.set_icon_name("media-playlist-repeat-symbolic")
+                    dry_btn.add_css_class("flat")
+                    dry_btn.add_css_class("circular")
+                    dry_btn.add_css_class("ai-cmd-btn")
+                    dry_btn.connect("clicked", self._on_run_clicked, dry_run_str)
+                    self._add_tooltip(dry_btn, _("Simular execução (Dry-run)"))
+                    buttons_box.append(dry_btn)
 
-            # Copy button
+                insert_btn = Gtk.Button()
+                insert_btn.set_icon_name("edit-paste-symbolic")
+                insert_btn.add_css_class("flat")
+                insert_btn.add_css_class("circular")
+                insert_btn.add_css_class("ai-cmd-btn")
+                insert_btn.connect("clicked", self._on_execute_clicked, cmd_str)
+                self._add_tooltip(insert_btn, _("Inserir no terminal"))
+                buttons_box.append(insert_btn)
+
             copy_btn = Gtk.Button()
             copy_btn.set_icon_name("edit-copy-symbolic")
             copy_btn.add_css_class("flat")
             copy_btn.add_css_class("circular")
             copy_btn.add_css_class("ai-cmd-btn")
-            copy_btn.connect("clicked", self._on_copy_clicked, cmd)
-            self._add_tooltip(copy_btn, _("Copy to clipboard"))
+            copy_btn.connect("clicked", self._on_copy_clicked, cmd_str)
+            self._add_tooltip(copy_btn, _("Copiar comando"))
             buttons_box.append(copy_btn)
 
-            cmd_block.append(buttons_box)
-            commands_section.append(cmd_block)
+            cmd_row.append(buttons_box)
+            step_card.append(cmd_row)
+
+            if description:
+                expander = Gtk.Expander(label=_("O que esta etapa faz?"))
+                desc_label = Gtk.Label(label=description)
+                desc_label.set_wrap(True)
+                desc_label.set_xalign(0)
+                desc_label.set_margin_top(4)
+                desc_label.set_margin_bottom(4)
+                desc_label.add_css_class("dim-label")
+                expander.set_child(desc_label)
+                step_card.append(expander)
+
+            commands_section.append(step_card)
 
         self.append(commands_section)
+
+    def _on_diff_clicked(self, _button: Gtk.Button, step_data: dict) -> None:
+        """Open diff review dialog for proposed edit."""
+        from ..dialogs.diff_review_dialog import DiffReviewDialog
+        target_path = step_data.get("path") or step_data.get("working_directory") or "arquivo"
+        diff_text = step_data.get("diff") or "--- a/config\n+++ b/config\n@@ -1 +1 @@\n-old\n+new"
+
+        def apply_callback(create_backup: bool):
+            cmd = f"# Aplicado com backup={create_backup}\n" + step_data.get("command_str", "")
+            self.emit("run-command", cmd)
+
+        root = self.get_root()
+        dialog = DiffReviewDialog(root, target_path=str(target_path), diff_text=diff_text, on_apply=apply_callback)
+        dialog.present()
 
     def _on_run_clicked(self, button: Gtk.Button, command: str):
         """Emit signal to run command directly."""
@@ -1283,6 +1390,22 @@ class AIChatPanel(Gtk.Box):
         history_btn.connect("clicked", self._on_show_history)
         self._add_tooltip(history_btn, _("View history"))
         header.pack_start(history_btn)
+
+        # Scope / Security Policies button
+        scope_btn = Gtk.Button()
+        scope_btn.set_icon_name("security-high-symbolic")
+        scope_btn.add_css_class("flat")
+        scope_btn.connect("clicked", self._on_show_scope)
+        self._add_tooltip(scope_btn, _("Políticas de Segurança e Escopo do Agente"))
+        header.pack_start(scope_btn)
+
+        # Audit log button
+        audit_btn = Gtk.Button()
+        audit_btn.set_icon_name("document-properties-symbolic")
+        audit_btn.add_css_class("flat")
+        audit_btn.connect("clicked", self._on_show_audit_log)
+        self._add_tooltip(audit_btn, _("Registro de Auditoria de Ações"))
+        header.pack_start(audit_btn)
 
         # Close button (uses bundled icon)
         close_btn = Gtk.Button()
@@ -2195,3 +2318,17 @@ class AIChatPanel(Gtk.Box):
         """Set initial text in the input field."""
         self._set_input_text(text)
         self._text_view.grab_focus()
+
+    def _on_show_scope(self, _button):
+        """Open the agent scope and policies dialog."""
+        from ..dialogs.agent_scope_dialog import AgentScopeDialog
+        root = self.get_root()
+        dialog = AgentScopeDialog(root, self._settings_manager)
+        dialog.present()
+
+    def _on_show_audit_log(self, _button):
+        """Open the agent action audit log dialog."""
+        from ..dialogs.audit_log_dialog import AuditLogDialog
+        root = self.get_root()
+        dialog = AuditLogDialog(root)
+        dialog.present()

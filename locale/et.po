@@ -8435,8 +8435,8 @@ msgstr "Zashterminal - Kaasaegne terminali emulaator sessioonihaldusega"
 # 
 # File: usr/share/zashterminal/main.py, line: 110
 #: NEEDS WORK
-msgid "For more information, visit: https://github.com/leoberbert/zashterminal/"
-msgstr "Rohkem teabe saamiseks külastage: https://github.com/leoberbert/zashterminal/"
+msgid "For more information, visit: https://github.com/VaGNaroK/zashterminal-Fork/"
+msgstr "Rohkem teabe saamiseks külastage: https://github.com/VaGNaroK/zashterminal-Fork/"
 # 
 # File: src/zashterminal/__init__.py, line: 105
 #: NEEDS WORK

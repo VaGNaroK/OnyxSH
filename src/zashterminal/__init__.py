@@ -111,7 +111,7 @@ def main() -> int:
         description=_(
             "Zashterminal - A modern terminal emulator with session management"
         ),
-        epilog=_("For more information, visit: https://github.com/leoberbert/zashterminal/"),
+        epilog=_("For more information, visit: https://github.com/VaGNaroK/zashterminal-Fork/"),
     )
 
     # Custom version action to load APP_VERSION lazily (avoids loading GTK for --version)

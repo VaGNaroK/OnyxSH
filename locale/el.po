@@ -8425,8 +8425,8 @@ msgstr "Zashterminal - Ένας σύγχρονος εξομοιωτής τερμ
 # 
 # File: usr/share/zashterminal/main.py, line: 110
 #: NEEDS WORK
-msgid "For more information, visit: https://github.com/leoberbert/zashterminal/"
-msgstr "Για περισσότερες πληροφορίες, επισκεφθείτε: https://github.com/leoberbert/zashterminal/"
+msgid "For more information, visit: https://github.com/VaGNaroK/zashterminal-Fork/"
+msgstr "Για περισσότερες πληροφορίες, επισκεφθείτε: https://github.com/VaGNaroK/zashterminal-Fork/"
 # 
 # File: src/zashterminal/__init__.py, line: 105
 #: NEEDS WORK

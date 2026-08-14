@@ -285,9 +285,16 @@ def ensure_directory_exists(directory: Union[str, Path], mode: int = 0o755) -> b
                 )
             return True
         return path_manager.create_directory_safe(directory_path, mode)
-    except ConfigError:
-        raise
     except Exception as e:
         logger = get_logger("zashterminal.platform.directory")
         logger.error(f"Failed to ensure directory exists: {directory}: {e}")
         raise ConfigError(f"Failed to create directory: {directory}")
+
+
+def get_package_manager() -> str:
+    """Detect default system package manager (apt, pacman, dnf, zypper)."""
+    for pm in ("apt", "pacman", "dnf", "zypper", "apk"):
+        if shutil.which(pm):
+            return pm
+    return "apt"
+

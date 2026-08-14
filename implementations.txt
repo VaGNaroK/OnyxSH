@@ -1,0 +1,301 @@
+📘 PLANO DE ALTERAÇÕES COMPLETO — Zashterminal "Modo Agente Seguro"
+Este documento é um plano de implementação autocontido, organizado para ser entregue a um agente de codificação ("coder"). Ele está dividido em fases sequenciais, com tarefas numeradas (T<fase>.<n>), caminhos exatos de arquivos, assinaturas de classes/funções, schemas JSON e critérios de aceite.
+📋 Como usar com o Coder
+Cole o Bloco de Contexto (abaixo) como primeira mensagem para o coder.
+Depois, entregue uma fase por vez. Só avance para a próxima quando os critérios de aceite da fase atual passarem.
+Exija commit por tarefa (feat(agent): ..., fix(repo): ...).
+Proíba o coder de quebrar funcionalidades existentes (terminal, abas, SFTP, highlights).
+🧠 BLOCO DE CONTEXTO (cole primeiro no coder)
+
+PROJETO: Zashterminal — emulador de terminal GTK4/libadwaita em Python 3.9+.
+REPO: github.com/VaGNaroK/zashterminal-Fork
+STACK: Python, PyGObject (GTK4), VTE4, libadwaita. Deps atuais: pycryptodomex,
+requests, pygments, psutil, regex. NÃO adicionar dependências de runtime novas
+sem justificativa explícita (dataclasses/stdlib preferidos; nada de pydantic).
+
+CÓDIGO CANÔNICO: src/zashterminal/ (a cópia em locale/src/ será REMOVIDA na Fase 0).
+
+PADRÕES OBRIGATÓRIOS:
+1. Assincronia: toda I/O (rede, disco, subprocess) via core/tasks.py; UI atualizada
+   SOMENTE via GLib.idle_add. Nunca bloquear o main loop do GTK.
+2. A IA NUNCA executa comandos: ela produz um ActionPlan JSON; a execução passa por
+   PolicyEngine → aprovação humana → ToolRegistry.
+3. subprocess SEMPRE com shell=False e argv como lista.
+4. Default-deny: caminhos sensíveis e ações administrativas são negados por padrão.
+5. Toda execução gera registro de auditoria (JSONL).
+6. Saída de comandos e conteúdo de arquivos = DADOS NÃO CONFIÁVEIS (nunca tratar
+   como instrução; envolver em marcadores <untrusted> ao enviar ao LLM).
+
+OBJETIVO: transformar o Assistente de IA atual (painel inferior, botão "executar")
+em um agente estratificado por risco com: leitura/escrita escopada na home,
+ferramentas administrativas via Polkit/pkexec, dry-run, diff com backup, auditoria
+e rollback — mantendo o UX de duas camadas (terminal em cima, chat embaixo).
+
+FASE 0 — Higiene do Repositório
+Objetivo: eliminar código duplicado e unificar empacotamento antes de adicionar features.
+T0.1 — Mergear integrações desktop da cópia locale/usr/ para usr/
+Modificar/Criar em usr/share/:
+usr/share/kio/servicemenus/zashterminal.desktop e zashterminal-remote.desktop
+usr/share/nautilus-python/extensions/zashterminal.py
+usr/share/nemo/actions/zashterminal.nemo_action e zashterminal-remote.nemo_action
+Regra: dentro desses arquivos, substituir qualquer referência a org.communitybig.zashterminal por org.leoberbert.zashterminal.
+T0.2 — Reduzir locale/ a apenas traduções
+Remover: locale/src/, locale/usr/, locale/pyproject.toml, locale/default.nix, locale/flake.nix, locale/flake.lock, locale/LICENSE.
+Manter: apenas os *.po.
+T0.3 — Unificar App ID
+Manter usr/share/applications/org.leoberbert.zashterminal.desktop como único.
+Auditar install.sh, PKGBUILD, flake.nix, default.nix, src/zashterminal/app.py e window.py para garantir que o ID usado em runtime é org.leoberbert.zashterminal.
+T0.4 — Ajustar empacotamento
+Atualizar PKGBUILD, install.sh e flake.nix para instalar os novos arquivos de usr/share/ (kio/nautilus/nemo) da T0.1.
+Critérios de aceite:
+grep -r "communitybig" . retorna vazio.
+locale/ contém só .po + (opcional) README.
+App instala e abre normalmente em Arch (PKGBUILD) e via install.sh.
+🟢 FASE 1 — Modelos de Dados do Agente (schemas)
+Objetivo: definir o contrato JSON que o LLM deve produzir.
+T1.1 — Criar src/zashterminal/agent/__init__.py e agent/models.py
+
+# src/zashterminal/agent/models.py
+from dataclasses import dataclass, field, asdict
+from enum import IntEnum
+from typing import Optional
+
+class RiskLevel(IntEnum):
+    READ_ONLY  = 0   # ls, df, du, journalctl --disk-usage
+    USER_WRITE = 1   # criar/editar arquivos na home
+    ADMIN      = 2   # ações administrativas nomeadas (Polkit)
+    CRITICAL   = 3   # rm -rf escopado, alterações de serviço
+    BLOCKED    = 4   # nunca executar
+
+@dataclass
+class ActionStep:
+    step_id: str
+    tool: str                     # "shell.run" | "fs.read_file" | "fs.write_staged_file" | "admin.run_action" ...
+    argv: list[str]
+    description: str
+    risk: int                     # RiskLevel
+    requires_admin: bool = False
+    dry_run_argv: Optional[list[str]] = None
+    working_directory: Optional[str] = None
+    timeout_seconds: int = 30
+    approval: str = "click"       # "click" | "diff" | "polkit" | "blocked"
+
+@dataclass
+class ActionPlan:
+    plan_id: str
+    intent: str
+    summary: str
+    steps: list[ActionStep] = field(default_factory=list)
+    provider: str = ""
+
+@dataclass
+class ToolResult:
+    status: str                   # "ok" | "error" | "denied" | "timeout"
+    stdout: str = ""
+    stderr: str = ""
+    exit_code: int = 0
+    truncated: bool = False
+    secrets_redacted: int = 0
+
+@dataclass
+class AuditRecord:
+    timestamp: str
+    plan_id: str
+    step_id: str
+    tool: str
+    argv: list[str]
+    risk: int
+    user_decision: str            # "approved" | "denied" | "dry_run"
+    result_status: str
+
+Implementar to_dict()/from_dict() com validação estrita (chaves desconhecidas → erro; risk fora de 0..4 → erro; argv não-lista → erro).
+T1.2 — Criar data/agent_tools_schema.json
+Schema JSON (estilo function-calling) descrevendo cada tool do T3.1 com parameters tipados. Este arquivo é injetado no prompt do LLM.
+Critérios de aceite:
+ActionPlan.from_dict() rejeita payloads inválidos (testes na Fase 8).
+Nenhum import de GTK neste módulo (pure Python, testável headless).
+🟡 FASE 2 — Motor de Políticas e Guarda de Caminhos
+Objetivo: classificar risco e impor default-deny, independente do que o LLM disser.
+T2.1 — Criar data/policies/deny_patterns.json
+Lista de regex aplicados sobre argv (join + por elemento). Mínimo obrigatório:
+
+[
+  {"pattern": "rm\\s+(-[a-zA-Z]*[rf][a-zA-Z]*\\s+)+(/|~|\\$HOME)(\\s|$)", "reason": "remoção recursiva de raiz/home"},
+  {"pattern": "mkfs\\.", "reason": "formatação"},
+  {"pattern": "dd\\s+.*of=/dev/", "reason": "escrita em dispositivo"},
+  {"pattern": "chmod\\s+-R\\s+(777|a\\+rwx)\\s+(/|~)(\\s|$)", "reason": "permissões recursivas perigosas"},
+  {"pattern": "(curl|wget)\\b.*\\|\\s*(sudo\\s+)?(ba)?sh", "reason": "download+execução via pipe"},
+  {"pattern": ">\\s*/etc/(passwd|shadow|sudoers)", "reason": "escrita em arquivos críticos"},
+  {"pattern": "shutdown|reboot|poweroff", "reason": "reinicialização"},
+  {"pattern": ":\\(\\)\\{", "reason": "fork bomb"}
+]
+
+T2.2 — Criar data/policies/admin_actions.json
+Ações administrativas NOMEADAS (única forma de obter privilégio):
+
+{
+  "pkg.autoremove": {"argv": ["{pkg}", "autoremove"], "dry_run_argv": ["{pkg}", "autoremove", "--dry-run"], "risk": 2},
+  "pkg.clean_cache": {"argv": ["{pkg}", "clean"], "risk": 2},
+  "logs.vacuum": {"argv": ["journalctl", "--vacuum-time={period}"], "risk": 2},
+  "flatpak.unused": {"argv": ["flatpak", "uninstall", "--unused"], "dry_run_argv": ["flatpak", "uninstall", "--unused", "--dry-run"], "risk": 2},
+  "system.status": {"argv": ["systemctl", "status", "{unit}", "--no-pager"], "risk": 0}
+}
+
+({pkg} resolvido por utils/platform.py: apt/dnf/zypper.)
+T2.3 — Criar agent/policy_engine.py
+
+class PolicyEngine:
+    def classify(self, argv: list[str], requires_admin: bool) -> RiskLevel
+    def evaluate_step(self, step: ActionStep) -> ActionStep   # sobrescreve risk/approval
+    def evaluate_plan(self, plan: ActionPlan) -> ActionPlan   # marca steps BLOCKED
+
+Regras:
+Casa deny_patterns → BLOCKED.
+requires_admin=True → só prossegue se casar com admin_actions.json (mapeia para tool="admin.run_action" + action_id); senão BLOCKED.
+argv com escrita fora da home → eleva para CRITICAL.
+Define approval: risk 0→click, 1→diff, 2→polkit, 3→blocked (com opção de revisão manual).
+T2.4 — Criar agent/path_guard.py
+
+class PathGuard:
+    def can_read(self, path: str) -> bool
+    def can_write(self, path: str) -> bool
+
+Denylist padrão de leitura: ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, ~/.netrc, ~/.pypirc, ~/.npmrc, **/.env, ~/.git-credentials, ~/.bash_history, ~/.zsh_history, ~/.local/share/keyrings, ~/.config/gcloud.
+Denylist padrão de escrita: ~/.bashrc, ~/.zshrc, ~/.profile, ~/.config/autostart/**, ~/.config/systemd/user/**, ~/.ssh/**.
+Raízes permitidas configuráveis (default: ~/Documents, ~/Projects, ~/Downloads, ~/scripts).
+Resolver symlinks (os.path.realpath) antes de validar (anti-bypass).
+Critérios de aceite:
+PolicyEngine.classify(["rm","-rf","/"]) → BLOCKED; ["ls","-la"] → READ_ONLY.
+PathGuard.can_read("~/.ssh/id_rsa") → False mesmo via symlink.
+🟠 FASE 3 — Registro de Ferramentas e Executores
+T3.1 — Criar agent/tool_registry.py
+class ToolRegistry:
+    def register(self, name: str, handler, schema: dict)
+    async def invoke(self, name: str, params: dict, ctx: ExecContext) -> ToolResult
+
+Tools a registrar:
+Leitura: fs.list_directory, fs.metadata, fs.read_file, fs.search_text, fs.disk_usage
+Escrita: fs.write_staged_file, fs.propose_edit, fs.create_directory, fs.move_to_trash
+Shell: shell.run, shell.dry_run
+Admin: admin.run_action
+T3.2 — Criar agent/shell_tools.py
+run_argv(argv, cwd, timeout, env_sanitized) usando asyncio.create_subprocess_exec (nunca shell=True, nunca sh -c).
+Truncar saída em 10.000 chars (truncated=True).
+Env sanitizado: remover variáveis com tokens/secrets (*_TOKEN, *_KEY, AWS_*).
+Timeout obrigatório → ToolResult(status="timeout").
+T3.3 — Criar agent/fs_tools.py
+fs.read_file: valida PathGuard.can_read; limite de bytes (config, default 20.000); passa pelo Redactor (T3.5).
+fs.write_staged_file: grava em ~/.cache/zashterminal/ai-staging/<plan_id>/<nome>; nunca no destino final.
+fs.propose_edit: gera diff (difflib.unified_diff) entre arquivo atual e versão proposta; retorna diff para a UI.
+fs.apply_staged: (chamado só após aprovação na UI) copia staging→destino com backup automático via utils/backup.py.
+T3.4 — Criar agent/admin_tools.py
+admin.run_action(action_id, params, dry_run):
+Valida action_id + params contra admin_actions.json (regex por parâmetro).
+Monta argv final a partir do template.
+Executa via pkexec /usr/lib/zashterminal/zashterminal-admin-helper --action <id> --args <json> [--dry-run] (helper da Fase 6). Fallback WSL: sudo -n com aviso de experimental.
+T3.5 — Criar agent/redactor.py
+Regex de redação: chaves AWS (AKIA[0-9A-Z]{16}), blocos -----BEGIN *PRIVATE KEY-----, Bearer \w+, password=..., token=..., connection strings.
+Retorna (texto_redigido, contagem).
+Reutilizar/estender utils/security.py se houver função equivalente.
+Critérios de aceite:
+shell.run com ["sh","-c","ls"] → denied.
+fs.read_file em .env → denied; em ~/Projects/x.py com token → conteúdo redigido + secrets_redacted>0.
+🔴 FASE 4 — Providers de LLM e Orquestração
+T4.1 — Refatorar terminal/ai_assistant.py → agent/providers/
+providers/base.py:
+
+class LLMProvider:
+    trust: str  # "local" | "remote"
+    async def complete(self, messages: list[dict], tools_schema: dict) -> dict | str
+
+Mover lógica existente para providers/groq.py, providers/gemini.py, providers/openrouter.py; criar providers/ollama.py (endpoint local http://localhost:11434).
+terminal/ai_assistant.py vira fachada fina que delega ao AgentOrchestrator (compatibilidade com UI atual).
+T4.2 — Criar agent/context_manager.py
+Anexos explícitos: usuário seleciona arquivos/pastas no chat (botão 📎).
+Política por confiança do provider:
+local: permite conteúdo de arquivos dentro do escopo do PathGuard.
+remote: só metadados + trechos selecionados pelo usuário + redação obrigatória.
+Envolver todo conteúdo externo em <untrusted>...</untrusted>.
+T4.3 — Criar agent/orchestrator.py
+
+class AgentOrchestrator:
+    async def handle(self, user_text: str, ctx: ExecContext) -> ActionPlan | str
+
+Fluxo:
+Monta system prompt (regras de ouro + tools schema + <untrusted>).
+Chama provider → espera JSON de ActionPlan.
+agent/planner.py valida via models.from_dict (1 retry; falhou → resposta textual pura).
+PolicyEngine.evaluate_plan() sobrescreve riscos/bloqueios.
+Retorna plano para a UI.
+Executar tudo via core/tasks.py; callbacks de volta com GLib.idle_add.
+T4.4 — Mapear Prompts Rápidos para tools seguras
+Criar data/quick_prompts.json: cada prompt rápido existente ("auditar", "verificar", "consultar"...) vira template de plano pré-aprovado (ex.: "auditar" → plano somente-leitura: df -h, du, journalctl --disk-usage).
+Critérios de aceite:
+Provider remoto jamais recebe conteúdo de arquivo sem anexo explícito.
+Saída de terminal enviada ao LLM sempre dentro de <untrusted>.
+🟣 FASE 5 — UI: Botões Estratificados por Risco
+T5.1 — Modificar ui/widgets/ai_chat_panel.py
+Renderizar ActionPlan como cards de etapas, cada uma com:
+Badge de risco colorido: 🟢 0, 🔵 1, 🟠 2, 🔴 3, ⛔ 4.
+Texto do comando com tokens perigosos destacados (reaproveitar infra de terminal/highlighter/).
+Seção expansível "O que este comando faz?" (description do step).
+Botões conforme approval:
+click → [▶ Executar] + [🧪 Simular] (se dry_run_argv).
+diff → [👁 Ver alterações] → DiffReviewDialog → [Aplicar com backup].
+polkit → [🛡 Executar como admin] (dispara fluxo T3.4; autenticação nativa).
+blocked → botão desabilitado + motivo da política.
+Saída da execução renderizada abaixo do card, com selo "saída = dados".
+T5.2 — Criar ui/dialogs/diff_review_dialog.py
+Mostra difflib colorido; checkbox "criar backup"; botões Aplicar/Cancelar.
+T5.3 — Criar ui/dialogs/audit_log_dialog.py
+Lista AuditRecord (data, comando, risco, decisão, status); botão "Desfazer" para steps de escrita (restaura backup).
+T5.4 — Criar ui/dialogs/agent_scope_dialog.py
+Gerencia raízes permitidas, denylists e política por provider. Acessível pela engrenagem do painel de IA.
+T5.5 — Estender settings/config.py + ui/dialogs/preferences_dialog.py
+Nova seção agent: default_provider, auto_run_level0 (default false), allowed_roots, audit_retention_days, max_read_bytes.
+Critérios de aceite:
+rm -rf ~/ sugerido aparece como ⛔ sem botão executável.
+Escrita em ~/.bashrc obriga diff + confirmação forte.
+Ação admin abre diálogo Polkit nativo (não senha dentro do app).
+⚙️ FASE 6 — Backend Privilegiado (Polkit)
+T6.1 — Criar admin/helper.py (instalado em /usr/lib/zashterminal/zashterminal-admin-helper)
+CLI: --action <id> --args <json> [--dry-run].
+Só executa o que está em admin_actions.json; valida params por regex; log no journal (logger.py).
+Nunca aceita argv livre.
+T6.2 — Criar admin/org.leoberbert.zashterminal.policy (Polkit)
+Instalar em usr/share/polkit-1/actions/; ação org.leoberbert.zashterminal.run-admin-action, auth_admin.
+T6.3 — Empacotamento
+Atualizar install.sh, PKGBUILD, flake.nix para instalar helper + policy.
+Critérios de aceite:
+pkexec ... --action logs.vacuum --args {"period":"7d"} executa; --action "rm" → exit code de negação.
+📼 FASE 7 — Auditoria, Backup e Rollback
+T7.1 — Criar agent/audit.py
+AuditLogger.append(AuditRecord) → ~/.local/share/zashterminal/audit/audit.jsonl (append-only; rotação por audit_retention_days).
+T7.2 — Estender utils/backup.py
+Antes de fs.apply_staged: copia original para ~/.local/share/zashterminal/backups/<ts>/ + manifest.json (origem, hash sha256, staging).
+T7.3 — Rollback
+audit_log_dialog.py → "Desfazer" restaura do manifest (somente steps com backup).
+Critérios de aceite: toda execução (inclusive negada/dry-run) deixa registro; desfazer restaura byte-identical (hash confere).
+🧪 FASE 8 — Testes e CI
+T8.1 — Criar tests/ (pytest, sem GTK):
+test_policy_engine.py (20+ casos: deny patterns, classificação, admin allowlist)
+test_path_guard.py (symlink bypass, denylists)
+test_redactor.py
+test_models.py (schema inválido rejeitado)
+test_shell_tools.py (sh -c negado; timeout)
+test_fs_tools.py (staging, backup, apply)
+T8.2 — pyproject.toml: adicionar [project.optional-dependencies] dev = ["pytest"].
+T8.3 — .github/workflows/tests.yml: pytest -q em Python 3.9/3.11/3.12.
+Critérios de aceite: CI verde; cobertura dos módulos agent/ ≥ 80%.
+📚 FASE 9 — Documentação
+T9.1 — docs/SECURITY.md: modelo de ameaça (prompt injection, sudo cacheado, exfiltração, persistência via dotfiles) + mitigação de cada um.
+T9.2 — README: seção "Modo Agente" com prints do fluxo plano→aprovação→execução e tabela de níveis de risco.
+✅ CHECKLIST FINAL DE ENTREGA
+Fase 0: sem duplicação, ID único, integrações desktop mergeadas.
+LLM só produz planos; shell=False em 100% das chamadas.
+Nível 0 executa com 1 clique; Nível 1 com diff+backup; Nível 2 com Polkit; Nível 3/4 bloqueado.
+Provider remoto nunca recebe segredos (redactor + escopo).
+Auditoria JSONL + rollback funcional.
+Testes e CI verdes; README/SECURITY atualizados.
+Ordem de commits: F0 → F1 → F2 → F3 → F4 → F5 → F6 → F7 → F8 → F9, um commit por tarefa.
+Se quiser, posso gerar agora o prompt de sistema pronto (em um único bloco de texto) para colar no coder junto com a Fase 0, ou detalhar o código completo de qualquer módulo específico (ex.: policy_engine.py).

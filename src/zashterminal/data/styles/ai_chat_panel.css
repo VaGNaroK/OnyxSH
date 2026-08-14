@@ -148,3 +148,61 @@
     min-height: 0px;
     margin: 0px;
 }
+
+/* Secure Agent Mode - Step Cards and Risk Badges */
+.ai-step-card {
+    background-color: mix(@card_bg_color, @view_bg_color, 0.6);
+    border: 1px solid alpha(@borders, 0.4);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.ai-step-card:hover {
+    border-color: alpha(@accent_color, 0.5);
+}
+
+.ai-risk-badge {
+    font-size: 0.78em;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.2px;
+}
+
+.ai-risk-badge-0 {
+    background-color: alpha(#2ecc71, 0.18);
+    color: #27ae60;
+}
+
+.ai-risk-badge-1 {
+    background-color: alpha(#3498db, 0.18);
+    color: #2980b9;
+}
+
+.ai-risk-badge-2 {
+    background-color: alpha(#e67e22, 0.18);
+    color: #d35400;
+}
+
+.ai-risk-badge-3 {
+    background-color: alpha(#e74c3c, 0.18);
+    color: #c0392b;
+}
+
+.ai-risk-badge-4 {
+    background-color: alpha(#7f8c8d, 0.18);
+    color: #95a5a6;
+}
+
+.ai-output-data-badge {
+    font-size: 0.72em;
+    font-weight: 600;
+    color: alpha(@view_fg_color, 0.6);
+    background-color: alpha(@borders, 0.2);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-bottom: 4px;
+}
+

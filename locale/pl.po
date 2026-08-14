@@ -8409,8 +8409,8 @@ msgstr "Zashterminal - Nowoczesny emulator terminala z zarządzaniem sesjami"
 # 
 # File: usr/share/zashterminal/main.py, line: 110
 #: NEEDS WORK
-msgid "For more information, visit: https://github.com/leoberbert/zashterminal/"
-msgstr "Aby uzyskać więcej informacji, odwiedź: https://github.com/leoberbert/zashterminal/"
+msgid "For more information, visit: https://github.com/VaGNaroK/zashterminal-Fork/"
+msgstr "Aby uzyskać więcej informacji, odwiedź: https://github.com/VaGNaroK/zashterminal-Fork/"
 # 
 # File: src/zashterminal/__init__.py, line: 105
 #: NEEDS WORK

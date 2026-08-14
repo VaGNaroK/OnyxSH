@@ -20,14 +20,15 @@ dependencies = ["PyGObject", "pycairo", "setproctitle", "requests", "psutil", "p
 zashterminal = "zashterminal:main"
 
 [project.urls]
-Homepage = "https://github.com/leoberbert/zashterminal"
-Issues = "https://github.com/leoberbert/zashterminal/issues"
+Homepage = "https://github.com/VaGNaroK/zashterminal-Fork"
+Issues = "https://github.com/VaGNaroK/zashterminal-Fork/issues"
 
 [project.optional-dependencies]
 performance = ["regex"]
 syntax-highlighting = ["Pygments"]
 backup = ["py7zr"]
-all = ["regex", "Pygments", "py7zr"]
+dev = ["pytest", "pytest-asyncio"]
+all = ["regex", "Pygments", "py7zr", "pytest", "pytest-asyncio"]
 
 [build-system]
 requires = ["uv_build"]
@@ -46,3 +47,7 @@ zashterminal = ["**/*"]
 "share/applications" = ["usr/share/applications/org.leoberbert.zashterminal.desktop"]
 "share/icons/hicolor/scalable/apps" = ["usr/share/icons/hicolor/scalable/apps/zashterminal.svg"]
 "share/pixmaps" = ["usr/share/icons/hicolor/scalable/apps/zashterminal.svg"]
+"share/kio/servicemenus" = ["usr/share/kio/servicemenus/zashterminal.desktop", "usr/share/kio/servicemenus/zashterminal-remote.desktop"]
+"share/nautilus-python/extensions" = ["usr/share/nautilus-python/extensions/zashterminal.py"]
+"share/nemo/actions" = ["usr/share/nemo/actions/zashterminal.nemo_action", "usr/share/nemo/actions/zashterminal-remote.nemo_action"]
+"share/polkit-1/actions" = ["usr/share/polkit-1/actions/org.leoberbert.zashterminal.policy"]

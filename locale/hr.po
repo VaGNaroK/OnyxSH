@@ -8395,8 +8395,8 @@ msgstr "Zashterminal - Moderni emulator terminala s upravljanjem sesijama"
 # 
 # File: usr/share/zashterminal/main.py, line: 110
 #: NEEDS WORK
-msgid "For more information, visit: https://github.com/leoberbert/zashterminal/"
-msgstr "Za više informacija, posjetite: https://github.com/leoberbert/zashterminal/"
+msgid "For more information, visit: https://github.com/VaGNaroK/zashterminal-Fork/"
+msgstr "Za više informacija, posjetite: https://github.com/VaGNaroK/zashterminal-Fork/"
 # 
 # File: src/zashterminal/__init__.py, line: 105
 #: NEEDS WORK

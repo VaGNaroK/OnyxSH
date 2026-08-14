@@ -433,30 +433,43 @@ class TerminalAiAssistant(GObject.Object):
     def _perform_request(
         self, config: Dict[str, str], messages: List[Dict[str, str]]
     ) -> str:
-        provider = config["provider"]
-        if provider == "groq":
-            return self._perform_groq_request(config, messages)
-        if provider == "gemini":
-            return self._perform_gemini_request(config, messages)
-        if provider == "openrouter":
-            return self._perform_openrouter_request(config, messages)
-        if provider == "local":
-            return self._perform_local_request(config, messages)
-        raise RuntimeError(f"Provider '{provider}' is not supported in this version.")
+        provider_name = config.get("provider", "gemini")
+        try:
+            from ..agent.providers import get_provider
+            provider = get_provider(provider_name, config)
+            return provider.complete(messages)
+        except Exception as e:
+            self.logger.warning("Agent provider dispatch failed, using fallback: %s", e)
+            if provider_name == "groq":
+                return self._perform_groq_request(config, messages)
+            if provider_name == "gemini":
+                return self._perform_gemini_request(config, messages)
+            if provider_name == "openrouter":
+                return self._perform_openrouter_request(config, messages)
+            if provider_name == "local":
+                return self._perform_local_request(config, messages)
+            raise
 
     def _perform_streaming_request(
         self, config: Dict[str, str], messages: List[Dict[str, str]]
     ) -> str:
         """Perform a streaming request, sending chunks via callback."""
-        provider = config["provider"]
-        if provider == "local":
-            return self._perform_local_streaming_request(config, messages)
-        if provider == "openrouter":
-            return self._perform_openrouter_streaming_request(config, messages)
-        if provider == "groq":
-            return self._perform_groq_streaming_request(config, messages)
-        # Fall back to non-streaming for providers that don't support it well
-        return self._perform_request(config, messages)
+        provider_name = config.get("provider", "gemini")
+        try:
+            from ..agent.providers import get_provider
+            provider = get_provider(provider_name, config)
+            if self._streaming_callback:
+                return provider.complete_stream(messages, self._streaming_callback)
+            return provider.complete(messages)
+        except Exception as e:
+            self.logger.warning("Agent provider streaming failed, using fallback: %s", e)
+            if provider_name == "local":
+                return self._perform_local_streaming_request(config, messages)
+            if provider_name == "openrouter":
+                return self._perform_openrouter_streaming_request(config, messages)
+            if provider_name == "groq":
+                return self._perform_groq_streaming_request(config, messages)
+            return self._perform_request(config, messages)
 
     def _perform_local_request(
         self, config: Dict[str, str], messages: List[Dict[str, str]]

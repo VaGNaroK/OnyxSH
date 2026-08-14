@@ -193,3 +193,135 @@ def get_backup_manager() -> BackupManager:
             if _backup_manager is None:
                 _backup_manager = BackupManager()
     return _backup_manager
+
+
+# -------------------------------------------------------------------
+# Agent File Backup & Rollback Helpers
+# -------------------------------------------------------------------
+
+def _compute_sha256(path: Path) -> str:
+    """Compute sha256 checksum of a file."""
+    import hashlib
+    if not path.exists() or not path.is_file():
+        return ""
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def create_file_backup(
+    target_file: str | Path,
+    staged_file: Optional[str | Path] = None,
+    plan_id: str = "",
+    step_id: str = "",
+) -> dict:
+    """
+    Create a timestamped backup and manifest before applying a staged edit.
+
+    Returns:
+        Manifest dictionary with backup details.
+    """
+    import uuid
+    from datetime import datetime, timezone
+
+    target = Path(target_file).resolve()
+    base_backup_dir = Path.home() / ".local" / "share" / "zashterminal" / "backups"
+    ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+    backup_id = f"backup_{ts}_{uuid.uuid4().hex[:8]}"
+    backup_folder = base_backup_dir / backup_id
+    backup_folder.mkdir(parents=True, exist_ok=True)
+
+    backup_copy = backup_folder / "original"
+    sha_orig = ""
+    if target.exists() and target.is_file():
+        shutil.copy2(target, backup_copy)
+        sha_orig = _compute_sha256(backup_copy)
+
+    sha_new = ""
+    if staged_file:
+        staged_p = Path(staged_file).resolve()
+        if staged_p.exists():
+            sha_new = _compute_sha256(staged_p)
+
+    manifest = {
+        "backup_id": backup_id,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "target_path": str(target),
+        "backup_path": str(backup_copy),
+        "sha256_original": sha_orig,
+        "sha256_new": sha_new,
+        "plan_id": plan_id,
+        "step_id": step_id,
+    }
+
+    manifest_file = backup_folder / "manifest.json"
+    with open(manifest_file, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2)
+
+    return manifest
+
+
+def rollback_file_backup(backup_id: str) -> bool:
+    """
+    Restore a file from its backup manifest.
+
+    Returns:
+        True if successfully restored and verified byte-identical.
+    """
+    base_backup_dir = Path.home() / ".local" / "share" / "zashterminal" / "backups"
+    backup_folder = base_backup_dir / backup_id
+    manifest_file = backup_folder / "manifest.json"
+
+    if not manifest_file.exists():
+        raise FileNotFoundError(f"Manifesto não encontrado para backup '{backup_id}'.")
+
+    with open(manifest_file, "r", encoding="utf-8") as f:
+        manifest = json.load(f)
+
+    target_path = Path(manifest["target_path"])
+    backup_path = Path(manifest["backup_path"])
+    expected_sha = manifest.get("sha256_original", "")
+
+    if not backup_path.exists():
+        raise FileNotFoundError(f"Arquivo de backup original não existe: {backup_path}")
+
+    # Verify backup copy hash
+    actual_backup_sha = _compute_sha256(backup_path)
+    if expected_sha and actual_backup_sha != expected_sha:
+        raise ValueError(
+            f"Integridade do arquivo de backup corrompida (esperado {expected_sha}, obtido {actual_backup_sha})"
+        )
+
+    # Ensure parent exists
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(backup_path, target_path)
+
+    # Verify restored target
+    restored_sha = _compute_sha256(target_path)
+    if expected_sha and restored_sha != expected_sha:
+        raise ValueError("Falha ao verificar arquivo restaurado pós-rollback.")
+
+    return True
+
+
+def list_file_backups() -> list[dict]:
+    """List all available file backup manifests ordered newest first."""
+    base_backup_dir = Path.home() / ".local" / "share" / "zashterminal" / "backups"
+    if not base_backup_dir.exists():
+        return []
+
+    manifests = []
+    for folder in base_backup_dir.iterdir():
+        if folder.is_dir():
+            mf = folder / "manifest.json"
+            if mf.exists():
+                try:
+                    with open(mf, "r", encoding="utf-8") as f:
+                        manifests.append(json.load(f))
+                except Exception:
+                    continue
+
+    return sorted(manifests, key=lambda m: m.get("timestamp", ""), reverse=True)
+

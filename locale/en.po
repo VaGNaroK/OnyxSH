@@ -8965,8 +8965,8 @@ msgstr "Zashterminal - A modern terminal emulator with session management"
 
 #
 # File: src/zashterminal/__init__.py, line: 105
-msgid "For more information, visit: https://github.com/leoberbert/zashterminal/"
-msgstr "For more information, visit: https://github.com/leoberbert/zashterminal/"
+msgid "For more information, visit: https://github.com/VaGNaroK/zashterminal-Fork/"
+msgstr "For more information, visit: https://github.com/VaGNaroK/zashterminal-Fork/"
 
 #
 # File: src/zashterminal/__init__.py, line: 121

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>Zashterminal</vendor>
+  <vendor_url>https://github.com/VaGNaroK/zashterminal-Fork</vendor_url>
+  <icon_name>org.leoberbert.zashterminal</icon_name>
+
+  <action id="org.leoberbert.zashterminal.run-admin-action">
+    <description>Executar ação administrativa do Zashterminal</description>
+    <description xml:lang="en">Run Zashterminal administrative action</description>
+    <description xml:lang="pt_BR">Executar ação administrativa do Zashterminal</description>
+    <message>Autenticação necessária para executar tarefas administrativas do sistema pelo Zashterminal.</message>
+    <message xml:lang="en">Authentication is required to perform system administrative tasks with Zashterminal.</message>
+    <message xml:lang="pt_BR">Autenticação necessária para executar tarefas administrativas do sistema pelo Zashterminal.</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/lib/zashterminal/zashterminal-admin-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">false</annotate>
+  </action>
+</policyconfig>

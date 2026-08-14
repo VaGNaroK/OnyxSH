@@ -39,8 +39,8 @@ class AppConstants:
     DEVELOPER_NAME = "Leonardo Berbert"
     DEVELOPER_TEAM = ["Leonardo Berbert"]
     COPYRIGHT = "© 2025 Leonardo Berbert"
-    WEBSITE = "https://github.com/leoberbert/zashterminal/"
-    ISSUE_URL = "https://github.com/leoberbert/zashterminal/issues"
+    WEBSITE = "https://github.com/VaGNaroK/zashterminal-Fork/"
+    ISSUE_URL = "https://github.com/VaGNaroK/zashterminal-Fork/issues"
 
 
 class ConfigPaths:
@@ -241,7 +241,7 @@ class DefaultSettings:
             "tftp_server_port": 6969,
             "tftp_server_upload_dir": str(Path.home()),
             "tftp_server_download_dir": str(Path.home()),
-            # AI Assistant
+            # AI Assistant & Secure Agent
             "ai_assistant_enabled": False,
             "ai_assistant_provider": "groq",
             "ai_assistant_model": "llama-3.1-8b-instant",
@@ -250,6 +250,17 @@ class DefaultSettings:
             "ai_openrouter_site_name": "",
             "ai_local_base_url": "http://localhost:11434/v1",
             "ai_custom_quick_prompts": [],  # List of {"emoji": "🔧", "text": "prompt"}
+            "ai_agent_enabled": True,
+            "ai_agent_default_provider": "gemini",
+            "ai_agent_auto_run_level0": False,
+            "ai_agent_allowed_roots": [
+                str(Path.home() / "Documents"),
+                str(Path.home() / "Projects"),
+                str(Path.home() / "Downloads"),
+                str(Path.home() / "scripts"),
+            ],
+            "ai_agent_audit_retention_days": 30,
+            "ai_agent_max_read_bytes": 20000,
             # Search Settings
             "search_case_sensitive": False,
             "search_use_regex": False,

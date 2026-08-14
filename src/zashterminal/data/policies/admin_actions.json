@@ -1,0 +1,41 @@
+{
+  "pkg.autoremove": {
+    "description": "Remover pacotes e dependências não mais utilizados",
+    "argv": ["{pkg}", "autoremove"],
+    "dry_run_argv": ["{pkg}", "autoremove", "--dry-run"],
+    "risk": 2,
+    "params": {}
+  },
+  "pkg.clean_cache": {
+    "description": "Limpar cache do gerenciador de pacotes",
+    "argv": ["{pkg}", "clean"],
+    "dry_run_argv": null,
+    "risk": 2,
+    "params": {}
+  },
+  "logs.vacuum": {
+    "description": "Remover logs do journal anteriores ao período especificado",
+    "argv": ["journalctl", "--vacuum-time={period}"],
+    "dry_run_argv": null,
+    "risk": 2,
+    "params": {
+      "period": "^[0-9]+[dwmy]$"
+    }
+  },
+  "flatpak.unused": {
+    "description": "Desinstalar runtimes e dependências flatpak não utilizadas",
+    "argv": ["flatpak", "uninstall", "--unused", "-y"],
+    "dry_run_argv": ["flatpak", "uninstall", "--unused", "--dry-run"],
+    "risk": 2,
+    "params": {}
+  },
+  "system.status": {
+    "description": "Consultar status de uma unidade systemd sem paginação",
+    "argv": ["systemctl", "status", "{unit}", "--no-pager"],
+    "dry_run_argv": null,
+    "risk": 0,
+    "params": {
+      "unit": "^[a-zA-Z0-9_@.-]+$"
+    }
+  }
+}

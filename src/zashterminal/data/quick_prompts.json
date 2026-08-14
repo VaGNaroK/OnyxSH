@@ -1,0 +1,120 @@
+{
+  "quick_prompts": [
+    {
+      "id": "audit_system",
+      "title": "Auditoria do Sistema",
+      "description": "Verifica uso de disco, memória, uptime e tamanho dos logs do journal.",
+      "plan": {
+        "intent": "Auditoria de integridade e recursos do sistema",
+        "summary": "Coletando diagnósticos gerais de disco, memória e sistema operacional em modo somente-leitura.",
+        "steps": [
+          {
+            "step_id": "step_1",
+            "tool": "shell.run",
+            "argv": ["df", "-h"],
+            "description": "Exibir espaço livre em todas as partições montadas",
+            "risk": 0,
+            "requires_admin": false
+          },
+          {
+            "step_id": "step_2",
+            "tool": "shell.run",
+            "argv": ["free", "-h"],
+            "description": "Exibir uso de memória RAM e Swap",
+            "risk": 0,
+            "requires_admin": false
+          },
+          {
+            "step_id": "step_3",
+            "tool": "shell.run",
+            "argv": ["uptime"],
+            "description": "Tempo de atividade e carga média do processador",
+            "risk": 0,
+            "requires_admin": false
+          },
+          {
+            "step_id": "step_4",
+            "tool": "shell.run",
+            "argv": ["journalctl", "--disk-usage"],
+            "description": "Verificar espaço ocupado pelos logs do sistema",
+            "risk": 0,
+            "requires_admin": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_network",
+      "title": "Diagnóstico de Rede",
+      "description": "Inspeciona endereços IP, tabela de rotas e testa conectividade com a Internet.",
+      "plan": {
+        "intent": "Diagnóstico de conectividade de rede",
+        "summary": "Executando testes não invasivos de status de interfaces, rotas e conectividade externa.",
+        "steps": [
+          {
+            "step_id": "step_1",
+            "tool": "shell.run",
+            "argv": ["ip", "-brief", "address"],
+            "description": "Listar interfaces de rede e endereços IP atribuídos",
+            "risk": 0,
+            "requires_admin": false
+          },
+          {
+            "step_id": "step_2",
+            "tool": "shell.run",
+            "argv": ["ip", "route"],
+            "description": "Exibir tabela de roteamento padrão e gateways",
+            "risk": 0,
+            "requires_admin": false
+          },
+          {
+            "step_id": "step_3",
+            "tool": "shell.run",
+            "argv": ["ping", "-c", "3", "1.1.1.1"],
+            "description": "Testar latência e perda de pacotes com DNS público Cloudflare",
+            "risk": 0,
+            "requires_admin": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean_cache",
+      "title": "Limpar Cache de Pacotes",
+      "description": "Limpa o cache de downloads do gerenciador de pacotes do sistema.",
+      "plan": {
+        "intent": "Limpeza do cache do gerenciador de pacotes",
+        "summary": "Remoção de pacotes baixados em cache para liberar espaço em disco.",
+        "steps": [
+          {
+            "step_id": "step_1",
+            "tool": "admin.run_action",
+            "argv": ["pkg.clean_cache"],
+            "description": "Executar limpeza do cache de pacotes com privilégios administrativos",
+            "risk": 2,
+            "requires_admin": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "unused_flatpaks",
+      "title": "Limpar Flatpaks Órfãos",
+      "description": "Desinstala runtimes e extensões Flatpak não mais utilizados.",
+      "plan": {
+        "intent": "Limpeza de runtimes Flatpak órfãos",
+        "summary": "Desinstalação de dependências Flatpak não utilizadas com opção de simulação dry-run.",
+        "steps": [
+          {
+            "step_id": "step_1",
+            "tool": "admin.run_action",
+            "argv": ["flatpak.unused"],
+            "description": "Desinstalar runtimes Flatpak órfãos",
+            "risk": 2,
+            "requires_admin": true
+          }
+        ]
+      }
+    }
+  ]
+}

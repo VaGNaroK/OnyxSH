@@ -169,6 +169,37 @@ class AIConfigDialog(Adw.PreferencesWindow):
         self.site_name_row.connect("changed", self._on_site_name_changed)
         self.openrouter_group.add(self.site_name_row)
 
+        # Secure Agent Group
+        agent_group = Adw.PreferencesGroup(
+            title=_("Modo Agente Seguro"),
+            description=_("Parâmetros de proteção, auto-execução e retenção de auditoria."),
+        )
+        page.add(agent_group)
+
+        self.auto_run_l0_row = Adw.SwitchRow(
+            title=_("Auto-executar Comandos Seguros (Nível 0)"),
+            subtitle=_("Executa automaticamente diagnósticos somente-leitura sem exigir confirmação."),
+        )
+        self.auto_run_l0_row.set_active(
+            self.settings_manager.get("ai_agent_auto_run_level0", False)
+        )
+        self.auto_run_l0_row.connect(
+            "notify::active",
+            lambda r, _: self._on_agent_setting_changed("ai_agent_auto_run_level0", r.get_active())
+        )
+        agent_group.add(self.auto_run_l0_row)
+
+        self.scope_row = Adw.ActionRow(
+            title=_("Escopo de Diretórios e Políticas"),
+            subtitle=_("Configurar pastas autorizadas e proteções de sistema."),
+        )
+        scope_btn = Gtk.Button(label=_("Configurar Escopo"))
+        scope_btn.set_valign(Gtk.Align.CENTER)
+        scope_btn.connect("clicked", self._on_scope_clicked)
+        self.scope_row.add_suffix(scope_btn)
+        self.scope_row.set_activatable_widget(scope_btn)
+        agent_group.add(self.scope_row)
+
         # Update UI based on current provider
         self._update_ui_for_provider(current_provider)
 
@@ -247,6 +278,17 @@ class AIConfigDialog(Adw.PreferencesWindow):
         model = entry_row.get_text().strip()
         self.settings_manager.set("ai_assistant_model", model)
         self.emit("setting-changed", "ai_assistant_model", model)
+
+    def _on_agent_setting_changed(self, key: str, value) -> None:
+        """Handle Agent mode setting changes."""
+        self.settings_manager.set(key, value)
+        self.emit("setting-changed", key, value)
+
+    def _on_scope_clicked(self, _button) -> None:
+        """Open the agent scope configuration dialog."""
+        from .agent_scope_dialog import AgentScopeDialog
+        dialog = AgentScopeDialog(self, self.settings_manager)
+        dialog.present()
 
     def _on_site_url_changed(self, entry_row) -> None:
         """Handle site URL change."""

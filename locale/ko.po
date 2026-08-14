@@ -8353,8 +8353,8 @@ msgstr "애쉬 터미널 - 세션 관리 기능을 갖춘 현대적인 터미널
 # 
 # File: usr/share/zashterminal/main.py, line: 110
 #: NEEDS WORK
-msgid "For more information, visit: https://github.com/leoberbert/zashterminal/"
-msgstr "자세한 정보는 다음을 방문하세요: https://github.com/leoberbert/zashterminal/"
+msgid "For more information, visit: https://github.com/VaGNaroK/zashterminal-Fork/"
+msgstr "자세한 정보는 다음을 방문하세요: https://github.com/VaGNaroK/zashterminal-Fork/"
 # 
 # File: src/zashterminal/__init__.py, line: 105
 #: NEEDS WORK

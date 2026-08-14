@@ -2,12 +2,12 @@
 
 pkgname=zashterminal
 # NOTE: CI updates this value automatically based on
-# locale/src/zashterminal/settings/config.py (APP_VERSION).
+# src/zashterminal/settings/config.py (APP_VERSION).
 pkgver=0.8.7
 pkgrel=1
 pkgdesc="A modern GTK4/Adwaita terminal emulator with advanced session management, SSH integration, and security features."
 arch=('any')
-url="https://github.com/leoberbert/zashterminal"
+url="https://github.com/VaGNaroK/zashterminal-Fork"
 license=('GPL3')
 depends=(
     'gtk4' 'libadwaita' 'libsecret' 'python' 'python-cairo' 'python-py7zr'
@@ -43,6 +43,10 @@ package() {
     if [ -d "usr/share" ]; then
         mkdir -p "$pkgdir/usr"
         cp -ra usr/share "$pkgdir/usr/"
+    fi
+
+    if [ -f "src/zashterminal/admin/helper.py" ]; then
+        install -Dm755 src/zashterminal/admin/helper.py "$pkgdir/usr/lib/zashterminal/zashterminal-admin-helper"
     fi
 
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

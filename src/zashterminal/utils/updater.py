@@ -12,8 +12,8 @@ import requests
 from ..settings.config import get_config_paths
 from .logger import get_logger
 
-GITHUB_OWNER = "leoberbert"
-GITHUB_REPO = "zashterminal"
+GITHUB_OWNER = "VaGNaroK"
+GITHUB_REPO = "zashterminal-Fork"
 RELEASES_LATEST_URL = (
     f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/releases/latest"
 )

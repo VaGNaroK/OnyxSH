@@ -1,0 +1,42 @@
+[
+  {
+    "pattern": "rm\\s+(-[a-zA-Z]*[rf][a-zA-Z]*\\s+)+(/|/\\*|~|\\$HOME)(\\s|$)",
+    "reason": "remoção recursiva de raiz/home"
+  },
+  {
+    "pattern": "(^|\\s)rm\\s+(-[a-zA-Z]*[rf][a-zA-Z]*\\s+)*(/|/\\*|/boot|/etc|/usr|/var|/dev|/sys|/proc)(\\s|$)",
+    "reason": "remoção de diretórios críticos do sistema"
+  },
+  {
+    "pattern": "mkfs\\.",
+    "reason": "formatação de sistema de arquivos"
+  },
+  {
+    "pattern": "dd\\s+.*of=/dev/",
+    "reason": "escrita direta em dispositivo de bloco"
+  },
+  {
+    "pattern": "(chmod|chown)\\s+(-[a-zA-Z]*R[a-zA-Z]*\\s+)?([a-zA-Z0-9_:]+|777|000|a\\+rwx)\\s+(/|~|\\$HOME)(\\s|$)",
+    "reason": "alteração recursiva de permissões ou propriedade na raiz ou home"
+  },
+  {
+    "pattern": "(curl|wget)\\b.*\\|\\s*(sudo\\s+)?(ba)?sh",
+    "reason": "download e execução arbitrária via pipe"
+  },
+  {
+    "pattern": ">\\s*/etc/(passwd|shadow|sudoers|group|fstab)",
+    "reason": "sobrescrita direta de arquivos críticos de autenticação e sistema"
+  },
+  {
+    "pattern": "(^|\\s)(shutdown|reboot|poweroff|init\\s+0|init\\s+6|systemctl\\s+(poweroff|reboot|halt))(\\s|$)",
+    "reason": "reinicialização ou desligamento do sistema"
+  },
+  {
+    "pattern": ":\\(\\)\\s*\\{\\s*:\\s*\\|\\s*:\\s*&\\s*\\}\\s*;\\s*:",
+    "reason": "fork bomb"
+  },
+  {
+    "pattern": "(^|\\s)(sh|bash|zsh|ksh)\\s+-c(\\s+|$)",
+    "reason": "invocação aninhada de interpretador shell arbitrário"
+  }
+]
