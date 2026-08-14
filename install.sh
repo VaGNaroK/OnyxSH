@@ -1020,7 +1020,7 @@ do_status() {
   log "Distro: ${DISTRO_FAMILY} (${PKG_MANAGER})"
 
   if is_installed; then
-    log "Status geral: instalado (${installation_state_text})"
+    log "Status geral: instalado ($(installation_state_text))"
   else
     log "Status geral: não instalado"
   fi
