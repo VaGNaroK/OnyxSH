@@ -253,6 +253,9 @@ class DefaultSettings:
             "ai_agent_enabled": True,
             "ai_agent_default_provider": "gemini",
             "ai_agent_auto_run_level0": False,
+            "ai_agent_max_risk_level": 3,
+            "ai_agent_include_system_context": True,
+            "ai_agent_include_pwd_context": True,
             "ai_agent_allowed_roots": [
                 str(Path.home() / "Documents"),
                 str(Path.home() / "Projects"),

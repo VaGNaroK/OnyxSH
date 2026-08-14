@@ -169,12 +169,32 @@ class AIConfigDialog(Adw.PreferencesWindow):
         self.site_name_row.connect("changed", self._on_site_name_changed)
         self.openrouter_group.add(self.site_name_row)
 
-        # Secure Agent Group
+        # Secure Agent & Context Group
         agent_group = Adw.PreferencesGroup(
-            title=_("Modo Agente Seguro"),
-            description=_("Parâmetros de proteção, auto-execução e retenção de auditoria."),
+            title=_("Modo Agente Seguro & Contexto"),
+            description=_("Parâmetros de proteção, níveis de autonomia e contexto do sistema."),
         )
         page.add(agent_group)
+
+        # Max Risk Level Combo
+        self.max_risk_row = Adw.ComboRow(
+            title=_("Nível Máximo de Autonomia Permitido"),
+            subtitle=_("Define o limite máximo de risco para comandos propostos pela IA."),
+        )
+        risk_options = [
+            _("🟢 Nível 0: Somente Leitura (Diagnóstico e Inspeção)"),
+            _("🔵 Nível 1: Escrita no Usuário (Criar/Editar Scripts e Arquivos)"),
+            _("🟠 Nível 2: Administração Polkit (Serviços e Manutenção)"),
+            _("🔴 Nível 3: Operações Críticas (Pacotes e Sistema Global)"),
+        ]
+        self.max_risk_row.set_model(Gtk.StringList.new(risk_options))
+        current_max_risk = min(3, max(0, int(self.settings_manager.get("ai_agent_max_risk_level", 3))))
+        self.max_risk_row.set_selected(current_max_risk)
+        self.max_risk_row.connect(
+            "notify::selected",
+            lambda r, _: self._on_agent_setting_changed("ai_agent_max_risk_level", r.get_selected())
+        )
+        agent_group.add(self.max_risk_row)
 
         self.auto_run_l0_row = Adw.SwitchRow(
             title=_("Auto-executar Comandos Seguros (Nível 0)"),
@@ -189,6 +209,33 @@ class AIConfigDialog(Adw.PreferencesWindow):
         )
         agent_group.add(self.auto_run_l0_row)
 
+        # Context Switches
+        self.sys_context_row = Adw.SwitchRow(
+            title=_("Incluir Contexto do Sistema e Hardware"),
+            subtitle=_("Informa à IA a distribuição Linux, arquitetura e dados do sistema para comandos exatos."),
+        )
+        self.sys_context_row.set_active(
+            self.settings_manager.get("ai_agent_include_system_context", True)
+        )
+        self.sys_context_row.connect(
+            "notify::active",
+            lambda r, _: self._on_agent_setting_changed("ai_agent_include_system_context", r.get_active())
+        )
+        agent_group.add(self.sys_context_row)
+
+        self.pwd_context_row = Adw.SwitchRow(
+            title=_("Incluir Diretório Atual (PWD) no Contexto"),
+            subtitle=_("Permite que a IA use caminhos relativos ao diretório em que você está navegando."),
+        )
+        self.pwd_context_row.set_active(
+            self.settings_manager.get("ai_agent_include_pwd_context", True)
+        )
+        self.pwd_context_row.connect(
+            "notify::active",
+            lambda r, _: self._on_agent_setting_changed("ai_agent_include_pwd_context", r.get_active())
+        )
+        agent_group.add(self.pwd_context_row)
+
         self.scope_row = Adw.ActionRow(
             title=_("Escopo de Diretórios e Políticas"),
             subtitle=_("Configurar pastas autorizadas e proteções de sistema."),
@@ -199,6 +246,44 @@ class AIConfigDialog(Adw.PreferencesWindow):
         self.scope_row.add_suffix(scope_btn)
         self.scope_row.set_activatable_widget(scope_btn)
         agent_group.add(self.scope_row)
+
+        # Visual Levels Guide Expander
+        levels_expander = Adw.ExpanderRow(
+            title=_("ℹ️ Guia dos Níveis de Risco do Contexto"),
+            subtitle=_("Clique para entender o que cada nível de permissão autoriza ou restringe."),
+        )
+        
+        row_l0 = Adw.ActionRow(
+            title=_("🟢 Nível 0: Somente Leitura (Diagnóstico)"),
+            subtitle=_("Comandos puramente informativos (lshw, df, free, ps, ls, cat). Risco zero."),
+        )
+        levels_expander.add_row(row_l0)
+
+        row_l1 = Adw.ActionRow(
+            title=_("🔵 Nível 1: Escrita no Espaço do Usuário"),
+            subtitle=_("Criação de scripts, edição de arquivos e git na pasta home. Requer 1 clique de aprovação."),
+        )
+        levels_expander.add_row(row_l1)
+
+        row_l2 = Adw.ActionRow(
+            title=_("🟠 Nível 2: Administração Polkit"),
+            subtitle=_("Serviços e configurações do sistema (systemctl, journalctl). Requer autenticação segura."),
+        )
+        levels_expander.add_row(row_l2)
+
+        row_l3 = Adw.ActionRow(
+            title=_("🔴 Nível 3: Operações Críticas Globais"),
+            subtitle=_("Instalação/remoção de pacotes e arquivos em /etc (apt, dpkg). Exige confirmação explícita."),
+        )
+        levels_expander.add_row(row_l3)
+
+        row_l4 = Adw.ActionRow(
+            title=_("⛔ Nível 4: Ações Destrutivas (Bloqueado)"),
+            subtitle=_("Comandos perigosos (rm -rf /, mkfs, dd). Permanentemente bloqueados pelo motor de segurança."),
+        )
+        levels_expander.add_row(row_l4)
+
+        agent_group.add(levels_expander)
 
         # Update UI based on current provider
         self._update_ui_for_provider(current_provider)

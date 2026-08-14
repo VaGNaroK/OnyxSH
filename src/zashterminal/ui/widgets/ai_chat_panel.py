@@ -485,6 +485,19 @@ class MessageBubble(Gtk.Box):
             role_label.add_css_class("accent")
             header_box.append(role_label)
 
+            # Spacer and copy full response button
+            spacer = Gtk.Box(hexpand=True)
+            header_box.append(spacer)
+
+            copy_all_btn = Gtk.Button()
+            copy_all_btn.set_icon_name("edit-copy-symbolic")
+            copy_all_btn.add_css_class("flat")
+            copy_all_btn.add_css_class("circular")
+            copy_all_btn.add_css_class("ai-cmd-btn")
+            copy_all_btn.connect("clicked", self._on_copy_full_message)
+            self._add_tooltip(copy_all_btn, _("Copiar resposta completa"))
+            header_box.append(copy_all_btn)
+
         self.append(header_box)
 
         # Main content box
@@ -518,6 +531,7 @@ class MessageBubble(Gtk.Box):
             self._label.set_text(self._content)
 
         content_box.append(self._label)
+        self._add_code_block_actions(content_box)
         self.append(content_box)
 
         # Add command buttons for assistant messages
@@ -1210,6 +1224,50 @@ class MessageBubble(Gtk.Box):
         dialog = DiffReviewDialog(root, target_path=str(target_path), diff_text=diff_text, on_apply=apply_callback)
         dialog.present()
 
+    def _add_code_block_actions(self, container: Gtk.Box) -> None:
+        """Add dedicated copy/insert buttons for code blocks in the message."""
+        if self._role != "assistant":
+            return
+        matches = _CODE_BLOCK_PATTERN.findall(self._content)
+        if not matches:
+            return
+
+        for i, (lang, code) in enumerate(matches):
+            code_clean = code.strip()
+            if not code_clean:
+                continue
+            lang_display = lang.lower() if lang else "code"
+            card = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+            card.add_css_class("ai-code-block-action")
+            card.set_margin_top(4)
+            card.set_margin_bottom(2)
+
+            badge = Gtk.Label(label=f"📜 {lang_display}")
+            badge.add_css_class("dim-label")
+            badge.add_css_class("caption")
+            card.append(badge)
+
+            btn_spacer = Gtk.Box(hexpand=True)
+            card.append(btn_spacer)
+
+            copy_code_btn = Gtk.Button()
+            copy_code_btn.set_label(_("📋 Copiar Código"))
+            copy_code_btn.add_css_class("flat")
+            copy_code_btn.add_css_class("suggested-action")
+            copy_code_btn.connect("clicked", self._on_copy_clicked, code_clean)
+            self._add_tooltip(copy_code_btn, _("Copiar bloco de código/script para a área de transferência"))
+            card.append(copy_code_btn)
+
+            if lang_display in {"bash", "sh", "zsh", "shell"} and len(code_clean.splitlines()) == 1:
+                insert_btn = Gtk.Button()
+                insert_btn.set_icon_name("edit-paste-symbolic")
+                insert_btn.add_css_class("flat")
+                insert_btn.connect("clicked", self._on_execute_clicked, code_clean)
+                self._add_tooltip(insert_btn, _("Inserir no terminal"))
+                card.append(insert_btn)
+
+            container.append(card)
+
     def _on_run_clicked(self, button: Gtk.Button, command: str):
         """Emit signal to run command directly."""
         self.emit("run-command", command)
@@ -1219,9 +1277,21 @@ class MessageBubble(Gtk.Box):
         self.emit("execute-command", command)
 
     def _on_copy_clicked(self, button: Gtk.Button, command: str):
-        """Copy command to clipboard."""
+        """Copy command or code to clipboard with visual confirmation."""
         clipboard = button.get_clipboard()
         clipboard.set(command)
+        old_icon = button.get_icon_name()
+        old_label = button.get_label()
+        if old_icon:
+            button.set_icon_name("emblem-ok-symbolic")
+            GLib.timeout_add(1500, lambda: button.set_icon_name(old_icon))
+        elif old_label:
+            button.set_label(_("✓ Copiado!"))
+            GLib.timeout_add(1500, lambda: button.set_label(old_label))
+
+    def _on_copy_full_message(self, button: Gtk.Button):
+        """Copy the entire message text to clipboard."""
+        self._on_copy_clicked(button, self._content)
 
     def update_content(self, content: str, commands: list[str] | None = None):
         """Update the message content (for streaming)."""
