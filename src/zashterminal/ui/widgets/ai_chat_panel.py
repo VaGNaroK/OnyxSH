@@ -1926,30 +1926,26 @@ class AIChatPanel(Gtk.Box):
 
     def _on_streaming_chunk(self, _assistant, chunk: str, is_done: bool):
         """Handle streaming chunk from AI (GObject signal handler)."""
-        if not is_done and self._current_assistant_bubble:
-            current = self._current_assistant_bubble._content
-            new_content = current + chunk
-            # Try to extract reply from JSON if applicable
-            display_content = _extract_reply_from_json(new_content)
-            self._current_assistant_bubble.update_content(display_content)
-            # Auto-scroll during streaming
-            GLib.idle_add(self._scroll_to_bottom)
+        GLib.idle_add(self._ui_update_streaming_chunk, chunk, is_done)
 
     def _handle_streaming_chunk(self, chunk: str, is_done: bool):
-        """Handle streaming chunk from AI (callback handler)."""
-        if not is_done and self._current_assistant_bubble:
-            # Build the full accumulated content
-            # We need to track raw content separately for JSON parsing
-            self._raw_streaming_content += chunk
+        """Handle streaming chunk from AI (thread callback handler)."""
+        GLib.idle_add(self._ui_update_streaming_chunk, chunk, is_done)
 
-            # Try to extract reply from JSON if applicable
-            display_content = _extract_reply_from_json(self._raw_streaming_content)
-            self._current_assistant_bubble.update_content(display_content)
-            # Auto-scroll during streaming
-            GLib.idle_add(self._scroll_to_bottom)
-        elif is_done:
-            # Reset raw content tracker
-            self._raw_streaming_content = ""
+    def _ui_update_streaming_chunk(self, chunk: str, is_done: bool) -> bool:
+        """Safely update UI with streaming chunk on the GTK main thread."""
+        try:
+            if not is_done and self._current_assistant_bubble:
+                self._raw_streaming_content += chunk
+                display_content = _extract_reply_from_json(self._raw_streaming_content)
+                self._current_assistant_bubble.update_content(display_content)
+                self._scroll_to_bottom()
+            elif is_done:
+                self._raw_streaming_content = ""
+        except Exception as e:
+            logger = get_logger("zashterminal.ui.chat")
+            logger.warning("Error updating streaming chunk: %s", e)
+        return False
 
     def _on_response_ready(self, _assistant, response: str, commands):
         """Handle complete response from AI."""

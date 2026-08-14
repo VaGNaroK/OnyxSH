@@ -57,6 +57,32 @@ def setup_signal_handlers():
         print(_("Warning: Could not set up signal handlers: {}").format(e))
 
 
+def setup_exception_hooks(logger) -> None:
+    """Capture uncaught exceptions in main and worker threads and log them."""
+    import threading
+
+    def handle_exception(exc_type, exc_value, exc_traceback):
+        if issubclass(exc_type, KeyboardInterrupt):
+            sys.__excepthook__(exc_type, exc_value, exc_traceback)
+            return
+        logger.critical(
+            "Unhandled exception in main loop",
+            exc_info=(exc_type, exc_value, exc_traceback),
+        )
+
+    def handle_thread_exception(args):
+        if issubclass(args.exc_type, KeyboardInterrupt):
+            return
+        logger.critical(
+            f"Unhandled exception in thread '{args.thread.name}'",
+            exc_info=(args.exc_type, args.exc_value, args.exc_traceback),
+        )
+
+    sys.excepthook = handle_exception
+    if hasattr(threading, "excepthook"):
+        threading.excepthook = handle_thread_exception
+
+
 def main() -> int:
     """Main entry point for the application."""
     # Apply renderer/environment fallbacks before importing GTK.
@@ -95,6 +121,7 @@ def main() -> int:
             print(f"Warning: Invalid log level '{pre_args.log_level}' provided.")
 
     logger = logger_mod.get_logger("zashterminal.main")
+    setup_exception_hooks(logger)
 
     # Tries to set the process title and logs failures
     try:

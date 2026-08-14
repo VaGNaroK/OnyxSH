@@ -171,23 +171,13 @@ class ThreadSafeLogger:
             console_handler.setFormatter(console_formatter)
             self._logger.addHandler(console_handler)
 
-            if self.config.log_to_file:
+            # Error log handler is always active to capture crashes & errors
+            try:
                 handlers_module = _get_logging_handlers()
                 file_formatter = logging.Formatter(
                     fmt="%(asctime)s | %(name)s | %(levelname)-8s | %(funcName)s:%(lineno)d | %(message)s",
                     datefmt="%Y-%m-%d %H:%M:%S",
                 )
-
-                main_file_handler = handlers_module.RotatingFileHandler(
-                    self.config.main_log_file,
-                    maxBytes=self.config.max_file_size,
-                    backupCount=self.config.backup_count,
-                    encoding="utf-8",
-                )
-                main_file_handler.setLevel(self.config.file_level)
-                main_file_handler.setFormatter(file_formatter)
-                self._logger.addHandler(main_file_handler)
-
                 error_file_handler = handlers_module.RotatingFileHandler(
                     self.config.error_log_file,
                     maxBytes=self.config.max_file_size,
@@ -197,6 +187,19 @@ class ThreadSafeLogger:
                 error_file_handler.setLevel(self.config.error_file_level)
                 error_file_handler.setFormatter(file_formatter)
                 self._logger.addHandler(error_file_handler)
+
+                if self.config.log_to_file:
+                    main_file_handler = handlers_module.RotatingFileHandler(
+                        self.config.main_log_file,
+                        maxBytes=self.config.max_file_size,
+                        backupCount=self.config.backup_count,
+                        encoding="utf-8",
+                    )
+                    main_file_handler.setLevel(self.config.file_level)
+                    main_file_handler.setFormatter(file_formatter)
+                    self._logger.addHandler(main_file_handler)
+            except Exception:
+                pass
 
     def debug(self, message: str, **kwargs):
         self._logger.debug(message, **kwargs)
