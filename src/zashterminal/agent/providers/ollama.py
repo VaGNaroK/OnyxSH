@@ -43,6 +43,8 @@ class OllamaProvider(LLMProvider):
             "model": self.model,
             "messages": messages,
             "temperature": 0.2,
+            "max_tokens": 4096,
+            "options": {"num_predict": 4096},
             "response_format": {"type": "json_object"},
             "stream": False,
         }
@@ -79,6 +81,8 @@ class OllamaProvider(LLMProvider):
             "model": self.model,
             "messages": messages,
             "temperature": 0.2,
+            "max_tokens": 4096,
+            "options": {"num_predict": 4096},
             "stream": True,
         }
 
