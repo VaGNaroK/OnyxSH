@@ -40,8 +40,19 @@ modules:
     build-commands:
       - pip3 install --prefix=/app requests psutil regex pygments pycryptodomex setproctitle
 
+  - name: host-spawn
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 host-spawn /app/bin/host-spawn
+    sources:
+      - type: file
+        url: https://github.com/1player/host-spawn/releases/download/v1.6.2/host-spawn-x86_64
+        sha256: 077bc09a087292447ba17cfe2156a93f71bf56c4c6be8e38d3abe65c1240f34c
+        dest-filename: host-spawn
+
   - name: zashterminal
     buildsystem: simple
+
     build-commands:
       - mkdir -p /app/lib/zashterminal /app/bin /app/share/applications /app/share/icons/hicolor/scalable/apps /app/share/pixmaps /app/share/locale
       - cp -r src/zashterminal/* /app/lib/zashterminal/

@@ -218,7 +218,19 @@ class ProcessSpawner:
             effective_dir = self._resolve_and_validate_working_directory(
                 working_directory
             ) or str(self.platform_info.home_dir)
-            shell_target = f"{shell} -l" if use_login_shell else shell
+            host_spawn_bin = shutil.which("host-spawn") or "/app/bin/host-spawn"
+            if os.path.exists(host_spawn_bin):
+                cmd = [host_spawn_bin, "-cwd", effective_dir]
+                if use_login_shell:
+                    cmd.extend([shell, "-l"])
+                else:
+                    cmd.extend([shell])
+                self.logger.info(
+                    f"Spawning native host shell via host-spawn in {effective_dir}: {shell}"
+                )
+                return cmd, env, None
+
+            # Fallback to flatpak-spawn
             cmd = [
                 "flatpak-spawn",
                 "--host",
@@ -227,17 +239,15 @@ class ProcessSpawner:
                 "--env=TERM=xterm-256color",
                 "--env=COLORTERM=truecolor",
                 "--env=ZASHTERMINAL_HOST=1",
-                "script",
-                "-q",
-                "-e",
-                "-c",
-                shell_target,
-                "/dev/null",
+                shell,
             ]
+            if use_login_shell:
+                cmd.append("-l")
             self.logger.info(
-                f"Spawning host shell with PTY via flatpak-spawn in {effective_dir}: {shell_target}"
+                f"Spawning host shell via flatpak-spawn in {effective_dir}: {shell}"
             )
             return cmd, env, None
+
 
 
         if shell_basename == "zsh":
