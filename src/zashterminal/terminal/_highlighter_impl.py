@@ -1613,89 +1613,38 @@ class HighlightedTerminalProxy:
                     self._suppress_shell_input_highlighting = True
                 return
 
-            # --- 0b. PROMPT REDRAW / CURSOR MOVEMENT BYPASS ---
-            # Readline commonly redraws the prompt/line using a carriage return
-            # plus CSI cursor movement/erase sequences (especially after paste
-            # and when using left/right arrows). Our partial buffering and
-            # split-escape handling are optimized for command output streams
-            # and can introduce visual-only artifacts here (e.g., duplicated
-            # last character under the cursor).
-            #
-            # When we're at an interactive prompt, keep these sequences raw
-            # and never buffer them.
-            #
-            # NOTE: The size limit is set very high (1MB) to handle very long command
-            # lines from history (CTRL+R, arrow up) which would otherwise not be
-            # displayed correctly until the user interacts with them.
-            if self._at_shell_prompt and len(data) < 1048576:
-                # Check if this is an Enter key press (newline from user)
-                # The newline may be bundled with escape sequences like bracketed paste mode
-                is_enter_marker = (
-                    data[0] == 0x00 if len(data) >= 1 else False
-                ) and (b"\r\n" in data or b"\n" in data)
+            # --- 0b. PROMPT REDRAW / CURSOR MOVEMENT / INTERACTIVE INPUT BYPASS ---
+            # When at an interactive shell prompt, all data without a newline is
+            # interactive typing, readline redraw, cursor movement, backspace, or delete.
+            # We must feed it directly to VTE without buffering or duplicate feeding.
+            if self._at_shell_prompt and b"\n" not in data:
+                self._flush_queue(term)
+                self._partial_line_buffer = b""
 
-                # Check for readline redraw sequences:
-                # - \r (carriage return) - line redraw start
-                # - \x1b[D / \x1b[C - cursor left/right
-                # - \x1b[1D / \x1b[1C - cursor left/right by 1
-                # - \x1b[K / \x1b[0K - clear to end of line
-                # - \x1b[J / \x1b[0J - clear to end of screen
-                # - \x1b[A / \x1b[B - cursor up/down (history navigation)
-                # - \x1b[H - cursor home
-                # - \x1b[?25l / \x1b[?25h - hide/show cursor
-                # - \x1b[ followed by digits and G - cursor column move
-                # - \x1b[<n>P - delete characters
-                # - \x1b[<n>@ - insert characters
-                # - (reverse-i-search) etc. - readline search prompts
-                search_prompt_patterns = (
-                    b"(reverse-i-search)",
-                    b"(i-search)",
-                    b"(bck-i-search)",
-                    b"(fwd-i-search)",
-                    b"(failed ",  # "(failed reverse-i-search)" etc.
-                )
-                is_readline_redraw = (
-                    b"\r" in data
-                    or b"\x1b[D" in data
-                    or b"\x1b[C" in data
-                    or b"\x1b[K" in data
-                    or b"\x1b[0K" in data
-                    or b"\x1b[1D" in data
-                    or b"\x1b[1C" in data
-                    or b"\x1b[A" in data
-                    or b"\x1b[B" in data
-                    or b"\x1b[J" in data
-                    or b"\x1b[0J" in data
-                    or b"\x1b[H" in data
-                    or b"\x1b[?25l" in data
-                    or b"\x1b[?25h" in data
-                    # Additional patterns for CTRL+R and history search
-                    or b"\x1b[P" in data  # Delete character
-                    or b"\x1b[@" in data  # Insert character
-                    or any(pattern in data for pattern in search_prompt_patterns)
-                )
+                # Handle backspace / delete / escape sequences
+                if b"\x08" in data or b"\x7f" in data:
+                    self._handle_backspace_in_buffer(data)
+                elif b"\x1b" in data or b"\033" in data:
+                    self._reset_input_buffer()
 
-                # Also check for large line data without escape sequences
-                # When readline selects a long history entry, it may send just the
-                # text with minimal escape sequences
-                is_large_line_at_prompt = (
-                    len(data) > 200 and not is_enter_marker and b"\n" not in data
-                )
-
-                if (not is_enter_marker) and (
-                    is_readline_redraw or is_large_line_at_prompt
-                ):
-                    self._flush_queue(term)
-                    # Any buffered remainder at the prompt is stale and can
-                    # cause visible duplication when readline redraws.
-                    self._partial_line_buffer = b""
-
-                    # Handle backspace - update the input buffer before returning
-                    if b"\x08" in data or b"\x7f" in data:
-                        self._handle_backspace_in_buffer(data)
-
-                    term.feed(data)
+                # Clean NUL markers if present
+                clean_data = data.replace(b"\x00", b"") if b"\x00" in data else data
+                if not clean_data:
                     return
+
+                # Check if shell input syntax highlighting is enabled
+                if (
+                    self._shell_input_highlighter.enabled
+                    and not self._suppress_shell_input_highlighting
+                ):
+                    text = clean_data.decode("utf-8", errors="replace")
+                    highlighted_data = self._apply_shell_input_highlighting(text, term)
+                    if highlighted_data is not None:
+                        return
+
+                term.feed(clean_data)
+                return
+
 
             # --- 1. ALT SCREEN DETECTION ---
             self._update_alt_screen_state(data)

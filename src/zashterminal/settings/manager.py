@@ -766,16 +766,17 @@ class SettingsManager:
             else Vte.EraseBinding.AUTO
         )
         delete_map = [
-            Vte.EraseBinding.AUTO,
-            Vte.EraseBinding.ASCII_DELETE,
             Vte.EraseBinding.DELETE_SEQUENCE,
+            Vte.EraseBinding.ASCII_DELETE,
+            Vte.EraseBinding.AUTO,
         ]
         delete_index = self.get("delete_binding", 0)
         terminal.set_delete_binding(
             delete_map[delete_index]
             if 0 <= delete_index < len(delete_map)
-            else Vte.EraseBinding.AUTO
+            else Vte.EraseBinding.DELETE_SEQUENCE
         )
+
         terminal.set_cjk_ambiguous_width(self.get("cjk_ambiguous_width", 1))
 
     def apply_headerbar_transparency(self, headerbar) -> None:

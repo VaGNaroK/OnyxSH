@@ -25,6 +25,8 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 - **Identificação do Sistema Operacional Hospedeiro na IA**: Resolução automática do `os-release` real do sistema hospedeiro (`/var/run/host/os-release` ou via `flatpak-spawn`), evitando que a IA identifique incorretamente o ambiente como o runtime container do Flatpak.
 - **Alocação de Pseudo-Terminal (PTY) e Teclado no Flatpak**: Gerenciamento de PTY real no host via `host-spawn`, eliminando avisos de `ioctl` do bash, garantindo correto funcionamento de teclas especiais (`Delete`, `Backspace`, setas) e entrada segura de senhas no `sudo`.
 - **Sincronização do Realce de Digitação em Tempo Real**: Reset imediato do buffer de realce de digitação em sequências de escape (setas, `Delete`, `Backspace`) e bloqueio de injeção retroativa de cursor fora da digitação inicial, corrigindo sobreposição e corrupção de caracteres na tela.
+- **Bypass Interativo de Edição no Prompt**: Repasse direto e sem buffer para eventos interativos de teclado sem quebra de linha (setas, `Delete`, `Backspace`, autocompletar), corrigindo duplicação de redesenho do Readline e garantindo exclusão instantânea de caracteres com a tecla `Delete`.
+
 
 
 ---

@@ -3290,9 +3290,15 @@ class TerminalManager:
             Gdk.EVENT_PROPAGATE to allow VTE to process the key normally.
         """
         try:
+            key_name = Gdk.keyval_name(keyval) or f"unknown_{keyval}"
+            self.logger.info(
+                f"[KEY EVENT] keyval={keyval} ({key_name}), keycode={_keycode}, state={int(state)}"
+            )
+
             # Only trigger on Enter or KP_Enter, ignore if modifiers are pressed
             if keyval not in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
                 return Gdk.EVENT_PROPAGATE
+
 
             # Ignore if Shift, Ctrl, or Alt is pressed (might be a different action)
             if state & (
