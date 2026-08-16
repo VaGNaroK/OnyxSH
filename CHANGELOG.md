@@ -23,6 +23,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 - **Localização e Traduções (PT-BR)**: Busca dinâmica de catálogos gettext em `/app/share/locale` e diretórios internos do app, além de compilação explícita para a variante `pt_BR`.
 - **Diretório Inicial do Terminal (CWD)**: Correção no launcher `usr/bin/zashterminal` e no spawner para garantir que novas abas e janelas abram no `$HOME` do usuário em vez do caminho interno de sandbox do app.
 - **Identificação do Sistema Operacional Hospedeiro na IA**: Resolução automática do `os-release` real do sistema hospedeiro (`/var/run/host/os-release` ou via `flatpak-spawn`), evitando que a IA identifique incorretamente o ambiente como o runtime container do Flatpak.
+- **Alocação de Pseudo-Terminal (PTY) no Host (Flatpak)**: Vinculação de PTY real no host via wrapper de pseudo-terminal dentro do `flatpak-spawn`, eliminando avisos de `ioctl inapropriado para dispositivo` do bash e permitindo entrada interativa de senha para o `sudo`.
 
 ---
 

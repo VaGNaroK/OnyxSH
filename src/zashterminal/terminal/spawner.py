@@ -218,7 +218,8 @@ class ProcessSpawner:
             effective_dir = self._resolve_and_validate_working_directory(
                 working_directory
             ) or str(self.platform_info.home_dir)
-            flatpak_prefix = [
+            shell_target = f"{shell} -l" if use_login_shell else shell
+            cmd = [
                 "flatpak-spawn",
                 "--host",
                 "--watch-bus",
@@ -226,15 +227,18 @@ class ProcessSpawner:
                 "--env=TERM=xterm-256color",
                 "--env=COLORTERM=truecolor",
                 "--env=ZASHTERMINAL_HOST=1",
+                "script",
+                "-q",
+                "-e",
+                "-c",
+                shell_target,
+                "/dev/null",
             ]
-            if use_login_shell:
-                cmd = flatpak_prefix + [shell, "-l"]
-            else:
-                cmd = flatpak_prefix + [shell]
             self.logger.info(
-                f"Spawning host shell via flatpak-spawn in {effective_dir}: {shell}"
+                f"Spawning host shell with PTY via flatpak-spawn in {effective_dir}: {shell_target}"
             )
             return cmd, env, None
+
 
         if shell_basename == "zsh":
             try:
