@@ -302,53 +302,72 @@ def get_package_manager() -> str:
 def detect_gpu_info() -> Dict[str, Union[str, int]]:
     """
     Detect GPU device and VRAM capacity for AI model context estimation.
+    Supports native execution and Flatpak sandbox (via flatpak-spawn).
 
     Returns:
         Dict with keys: 'vendor', 'name', 'vram_mb', 'recommended_context_tokens', 'description'
     """
     import glob
     import subprocess
+    import shutil
 
-    # 1. Try NVIDIA via nvidia-smi
-    if shutil.which("nvidia-smi"):
+    def _run_cmd(cmd_list: list) -> str:
+        # 1. Try directly first
+        if shutil.which(cmd_list[0]):
+            try:
+                return subprocess.check_output(
+                    cmd_list, stderr=subprocess.DEVNULL, timeout=2
+                ).decode("utf-8", errors="replace").strip()
+            except Exception:
+                pass
+        # 2. If inside Flatpak sandbox, try running via host portal
+        if shutil.which("flatpak-spawn"):
+            try:
+                return subprocess.check_output(
+                    ["flatpak-spawn", "--host"] + cmd_list,
+                    stderr=subprocess.DEVNULL,
+                    timeout=2,
+                ).decode("utf-8", errors="replace").strip()
+            except Exception:
+                pass
+        return ""
+
+    # 1. Try NVIDIA via nvidia-smi (directly or via host)
+    smi_out = _run_cmd(["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv,noheader,nounits"])
+    if smi_out:
         try:
-            out = subprocess.check_output(
-                ["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv,noheader,nounits"],
-                stderr=subprocess.DEVNULL,
-                timeout=2,
-            ).decode("utf-8", errors="replace").strip()
-            if out:
-                lines = out.splitlines()
-                first = lines[0].split(",")
-                name = first[0].strip()
-                vram_mb = int(first[1].strip())
-                vram_gb = round(vram_mb / 1024, 1)
+            lines = smi_out.splitlines()
+            first = lines[0].split(",")
+            name = first[0].strip()
+            vram_mb = int(first[1].strip())
+            vram_gb = round(vram_mb / 1024, 1)
 
-                if vram_mb >= 24000:
-                    rec_tokens = 65536
-                    rec_label = "64K"
-                elif vram_mb >= 12000:
-                    rec_tokens = 32768
-                    rec_label = "32K"
-                elif vram_mb >= 8000:
-                    rec_tokens = 16384
-                    rec_label = "16K ou 32K"
-                elif vram_mb >= 5000:
-                    rec_tokens = 8192
-                    rec_label = "8K ou 16K"
-                else:
-                    rec_tokens = 4096
-                    rec_label = "4K"
+            if vram_mb >= 24000:
+                rec_tokens = 65536
+                rec_label = "64K"
+            elif vram_mb >= 12000:
+                rec_tokens = 32768
+                rec_label = "32K"
+            elif vram_mb >= 8000:
+                rec_tokens = 16384
+                rec_label = "16K ou 32K"
+            elif vram_mb >= 5000:
+                rec_tokens = 8192
+                rec_label = "8K ou 16K"
+            else:
+                rec_tokens = 4096
+                rec_label = "4K"
 
-                return {
-                    "vendor": "nvidia",
-                    "name": name,
-                    "vram_mb": vram_mb,
-                    "recommended_context_tokens": rec_tokens,
-                    "description": f"{name} ({vram_gb} GB VRAM) — Recomendado: {rec_label}",
-                }
+            return {
+                "vendor": "nvidia",
+                "name": name,
+                "vram_mb": vram_mb,
+                "recommended_context_tokens": rec_tokens,
+                "description": f"{name} ({vram_gb} GB VRAM) — Recomendado: {rec_label}",
+            }
         except Exception:
             pass
+
 
     # 2. Try AMD / Intel / DRM Sysfs
     for vram_file in glob.glob("/sys/class/drm/card*/device/mem_info_vram_total"):
