@@ -57,15 +57,20 @@ Smooth migration from legacy tools to Zashterminal:
 
 ## Key Features
 
-### 🤖 AI Assistant Integration
+### 🤖 AI Assistant & VRAM Management
 
 <img width="1457" height="699" alt="AI Assistant Side Panel" src="https://github.com/user-attachments/assets/762fa599-a266-41c3-83c2-f28fe825f0f6" />
 
 <img width="1457" height="699" alt="Command Suggestions & Execution" src="https://github.com/user-attachments/assets/4dd9482b-420d-4170-878d-e9a652493ec9" />
 
-Zashterminal bridges your shell with Large Language Models (LLMs) with privacy at its core:
-* **Multi-Provider Support**: Native integration with **Groq**, **Google Gemini**, **OpenRouter**, and **Local Models** (Ollama / LM Studio).
-* **Context Aware**: Understands your Linux distribution to provide accurate and relevant commands.
+Zashterminal bridges your shell with Large Language Models (LLMs) with privacy and performance at its core:
+* **Multi-Provider Support**: Native integration with **Local Models** (Ollama / LM Studio), **Groq**, **Google Gemini**, and **OpenRouter**.
+* **Automatic GPU & VRAM Detection**: Identifies NVIDIA (`nvidia-smi`), AMD/Intel (DRM sysfs), and system RAM to calculate recommended context boundaries.
+* **Context Window Selector (4K to 128K tokens)**: Allows adjusting Ollama context size (`num_ctx`) with dynamic recommendations based on detected GPU VRAM.
+* **Intelligent VRAM Lifecycle**:
+  - **Asynchronous Preloading:** Preloads the configured local model into VRAM in the background at startup (zero latency on the first prompt).
+  - **Automatic Unloading:** Automatically unloads the model from VRAM on exit, freeing the GPU for games and other workloads.
+* **Sliding Window Context Retention**: Token-aware message building keeps relevant conversation history and instructions without overflowing model limits.
 * **Dedicated Chat Panel**: Conversation history, command suggestions, and click-to-run buttons.
 
 ---
@@ -144,32 +149,69 @@ See [docs/SECURITY.md](docs/SECURITY.md) for the complete threat model specifica
 
 ---
 
-## 📥 Installation
+## 📥 Installation & Packaging
+
+### 📦 Flatpak (Recommended for Any Linux Distro)
+
+The Flatpak bundle provides secure sandboxing and universal distribution across Fedora, Manjaro, Arch Linux, Debian, Ubuntu, openSUSE, etc.:
+
+```bash
+# Install bundle:
+flatpak install --user dist/zashterminal_0.8.17.flatpak -y
+
+# Run:
+flatpak run org.leoberbert.zashterminal
+```
+
+### 📦 Debian Package (.deb - Ubuntu, Linux Mint, Debian)
+
+For Debian-based systems:
+
+```bash
+# Install .deb package:
+sudo apt install ./dist/zashterminal_0.8.17_all.deb
+# Or: sudo dpkg -i ./dist/zashterminal_0.8.17_all.deb
+```
+
+### ⚡ Universal Installer & Hybrid Packaging (`install.sh`)
+
+The `install.sh` script is modular and supports local installation, package building, and an interactive menu:
+
+```bash
+# Quick installation:
+curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
+
+# Or by cloning the repository:
+git clone https://github.com/VaGNaroK/zashterminal-Fork.git
+cd zashterminal-Fork
+
+# Install on system:
+./install.sh install
+
+# Build .deb package:
+./install.sh package deb --clean-cache
+
+# Build Flatpak bundle:
+./install.sh package flatpak --clean-cache
+
+# Open interactive menu:
+./install.sh menu
+```
 
 ### Arch Linux / Manjaro
 
-```bash
-# Via AUR:
-yay -S zashterminal        # or paru -S zashterminal
-```
-
-### Debian / Ubuntu / Linux Mint / Fedora / openSUSE
-
-The installer detects your distro, installs system dependencies, and sets up Zashterminal in `/opt/zashterminal/venv`:
+> [!IMPORTANT]
+> The `zashterminal` package in the official AUR points to the legacy upstream repository. To get this enhanced Fork with all new features (Secure Agent Mode, VRAM Lifecycle, Flatpak), install by cloning the repository or using Flatpak:
 
 ```bash
-# Quick install:
-curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
-
-# Or download and run:
-curl -fsSLO https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh
-chmod +x install.sh
+git clone https://github.com/VaGNaroK/zashterminal-Fork.git
+cd zashterminal-Fork
 ./install.sh install
 ```
 
 ### NixOS
 
-On NixOS, the installer uses the project flake (`flake.nix` / `default.nix`) and installs into the user profile:
+On NixOS, use the project flake (`flake.nix` / `default.nix`):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash

@@ -57,15 +57,20 @@ Facilite a migração de ferramentas legadas para o Zashterminal:
 
 ## Principais Recursos
 
-### 🤖 Assistente de IA Integrado
+### 🤖 Assistente de IA Integrado & Gestão de VRAM
 
 <img width="1457" height="699" alt="Painel do Assistente de IA" src="https://github.com/user-attachments/assets/762fa599-a266-41c3-83c2-f28fe825f0f6" />
 
 <img width="1457" height="699" alt="Sugestões e Execução de Comandos" src="https://github.com/user-attachments/assets/4dd9482b-420d-4170-878d-e9a652493ec9" />
 
-O Zashterminal integra Modelos de Linguagem (LLMs) ao terminal de forma não-intrusiva e com foco estrito em privacidade:
-* **Múltiplos Provedores**: Suporte nativo a **Groq**, **Google Gemini**, **OpenRouter** e **Modelos Locais** (Ollama / LM Studio).
-* **Consciência de Contexto**: Compreende a distribuição Linux em uso para sugerir comandos específicos e corretos.
+O Zashterminal integra Modelos de Linguagem (LLMs) ao terminal de forma não-intrusiva e com foco estrito em privacidade e desempenho:
+* **Múltiplos Provedores**: Suporte nativo a **Modelos Locais** (Ollama / LM Studio), **Groq**, **Google Gemini** e **OpenRouter**.
+* **Detecção Automática de GPU & VRAM**: Reconhece placas NVIDIA (`nvidia-smi`), AMD/Intel (DRM sysfs) e memória do sistema, calculando o limite seguro de contexto.
+* **Seletor de Janela de Contexto (4K a 128K tokens)**: Permite ajustar a janela de contexto enviada ao Ollama (`num_ctx`) com recomendação dinâmica baseada na VRAM da GPU.
+* **Ciclo de Vida Inteligente de VRAM**:
+  - **Pré-carregamento Assíncrono:** Carrega o modelo local na VRAM em segundo plano ao abrir o terminal (zero espera no primeiro comando).
+  - **Descarregamento Automático:** Libera a VRAM da GPU imediatamente ao fechar o terminal.
+* **Retenção Contínua de Histórico (Sliding Window)**: Janela deslizante token-aware que preserva instruções e contexto relevante em conversas longas sem exceder os limites do modelo.
 * **Painel Lateral Dedicado**: Histórico de conversas, sugestões de comandos e botões para executar com um clique.
 
 ---
@@ -144,32 +149,69 @@ Consulte o documento completo em [docs/SECURITY.md](docs/SECURITY.md) para detal
 
 ---
 
-## 📥 Instalação
+## 📥 Instalação & Empacotamento
+
+### 📦 Flatpak (Recomendado para Qualquer Distribuição Linux)
+
+O pacote Flatpak oferece isolamento seguro e compatibilidade universal (Fedora, Manjaro, Arch Linux, Debian, Ubuntu, openSUSE, etc.):
+
+```bash
+# Instalar bundle gerado:
+flatpak install --user dist/zashterminal_0.8.17.flatpak -y
+
+# Executar:
+flatpak run org.leoberbert.zashterminal
+```
+
+### 📦 Pacote Debian (.deb - Ubuntu, Linux Mint, Debian)
+
+Para distribuições baseadas em Debian:
+
+```bash
+# Instalar pacote .deb:
+sudo apt install ./dist/zashterminal_0.8.17_all.deb
+# Ou: sudo dpkg -i ./dist/zashterminal_0.8.17_all.deb
+```
+
+### ⚡ Instalador Universal & Empacotamento Híbrido (`install.sh`)
+
+O script `install.sh` é modular e suporta instalação local, compilação de pacotes e menu interativo:
+
+```bash
+# Instalação rápida no sistema:
+curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
+
+# Ou clonando o repositório:
+git clone https://github.com/VaGNaroK/zashterminal-Fork.git
+cd zashterminal-Fork
+
+# Instalar no sistema:
+./install.sh install
+
+# Gerar pacote .deb:
+./install.sh package deb --clean-cache
+
+# Gerar pacote Flatpak:
+./install.sh package flatpak --clean-cache
+
+# Abrir menu de opções e empacotamento:
+./install.sh menu
+```
 
 ### Arch Linux / Manjaro
 
-```bash
-# Via AUR:
-yay -S zashterminal        # ou paru -S zashterminal
-```
-
-### Debian / Ubuntu / Linux Mint / Fedora / openSUSE
-
-O script instalador detecta a distribuição, instala os pacotes do sistema necessários e configura o Zashterminal em `/opt/zashterminal/venv`:
+> [!IMPORTANT]
+> O pacote `zashterminal` presente no AUR oficial aponta para a versão legada upstream. Para obter esta versão Fork aprimorada com todos os novos recursos (Modo Agente, VRAM, Flatpak), instale clonando o repositório ou via Flatpak:
 
 ```bash
-# Instalação rápida:
-curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
-
-# Ou baixe e execute:
-curl -fsSLO https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh
-chmod +x install.sh
+git clone https://github.com/VaGNaroK/zashterminal-Fork.git
+cd zashterminal-Fork
 ./install.sh install
 ```
 
 ### NixOS
 
-No NixOS, o instalador utiliza a flake do projeto (`flake.nix` / `default.nix`) e instala o pacote no perfil do usuário:
+No NixOS, utilize a flake do projeto (`flake.nix` / `default.nix`):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
@@ -180,6 +222,7 @@ curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/hea
 ```bash
 curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
 ```
+
 
 ---
 
