@@ -2176,8 +2176,9 @@ class HighlightedTerminalProxy:
             return None
 
         # Don't highlight control sequences or chunks containing them
-        # This prevents interference with prompt colors and escape sequences
-        if text.startswith("\x1b"):
+        # This prevents interference with prompt colors, cursor navigation, and escape sequences
+        if text.startswith("\x1b") or "\x1b" in text or "\033" in text:
+            self._reset_input_buffer()
             return None
 
         # Handle backspace: reuse unified helper function
@@ -2211,9 +2212,6 @@ class HighlightedTerminalProxy:
                     self._reset_input_buffer()
             return None
 
-        # Now check for escape sequences AFTER handling newlines
-        if "\x1b" in text or "\033" in text:
-            return None
 
         # Don't process large chunks - user input comes one character at a time
         # Large chunks are likely command output
@@ -2432,7 +2430,11 @@ class HighlightedTerminalProxy:
                         # Check if we need retroactive recoloring
                         # This happens when the token type changed (e.g., 'i' was Name,
                         # now 'if' is Keyword) and we need to recolor the whole word
-                        if should_retroactive_recolor and actual_token_value:
+                        if (
+                            should_retroactive_recolor
+                            and actual_token_value
+                            and self._input_highlight_buffer == actual_token_value
+                        ):
                             # DEBUG: Log retroactive recolor decision
                             self.logger.debug(f"[RETROACTIVE] Recoloring: token={repr(actual_token_value)}, len={current_token_len}, prev_len={prev_token_len}, buffer={repr(self._input_highlight_buffer)}")
                             # Move cursor back by (token_len - 1) positions to recolor
@@ -2445,6 +2447,7 @@ class HighlightedTerminalProxy:
                                 highlighted_text = f"{cursor_back}{ansi_start}{actual_token_value}{ansi_end}"
                                 term.feed(highlighted_text.encode("utf-8"))
                                 return b""
+
 
                         # Normal case: just color the newly typed character
                         highlighted_text = f"{ansi_start}{text}{ansi_end}"
