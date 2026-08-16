@@ -112,8 +112,15 @@ if command -v msgfmt >/dev/null 2>&1 && [ -d "${REPO_ROOT}/locale" ]; then
     [ -f "$po_file" ] || continue
     lang="$(basename "$po_file" .po)"
     target_dir="${STAGE}/usr/share/locale/${lang}/LC_MESSAGES"
-    mkdir -p "${target_dir}"
+    internal_dir="${STAGE}/usr/lib/${PACKAGE_NAME}/locale/${lang}/LC_MESSAGES"
+    mkdir -p "${target_dir}" "${internal_dir}"
     msgfmt "$po_file" -o "${target_dir}/${PACKAGE_NAME}.mo" 2>/dev/null || true
+    msgfmt "$po_file" -o "${internal_dir}/${PACKAGE_NAME}.mo" 2>/dev/null || true
+    if [ "$lang" = "pt" ]; then
+      mkdir -p "${STAGE}/usr/share/locale/pt_BR/LC_MESSAGES" "${STAGE}/usr/lib/${PACKAGE_NAME}/locale/pt_BR/LC_MESSAGES"
+      msgfmt "$po_file" -o "${STAGE}/usr/share/locale/pt_BR/LC_MESSAGES/${PACKAGE_NAME}.mo" 2>/dev/null || true
+      msgfmt "$po_file" -o "${STAGE}/usr/lib/${PACKAGE_NAME}/locale/pt_BR/LC_MESSAGES/${PACKAGE_NAME}.mo" 2>/dev/null || true
+    fi
   done
 fi
 

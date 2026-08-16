@@ -69,6 +69,20 @@ class ConfigPaths:
                 self.CONFIG_DIR / "backups"
             )  # Directory for manual backups
 
+            # If running in sandbox (e.g. Flatpak) and no settings file exists yet,
+            # import existing settings from ~/.config/zashterminal if accessible
+            if not self.SETTINGS_FILE.exists():
+                host_config = Path.home() / ".config" / "zashterminal"
+                if host_config.exists() and host_config.resolve() != self.CONFIG_DIR.resolve():
+                    import shutil
+                    for fname in ["settings.json", "sessions.json", "ai_history.json"]:
+                        host_file = host_config / fname
+                        if host_file.exists() and not (self.CONFIG_DIR / fname).exists():
+                            try:
+                                shutil.copy2(host_file, self.CONFIG_DIR / fname)
+                            except Exception:
+                                pass
+
             for directory in [
                 self.CACHE_DIR,
                 self.LOG_DIR,

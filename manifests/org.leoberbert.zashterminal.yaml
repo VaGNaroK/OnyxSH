@@ -55,8 +55,14 @@ modules:
         for po_file in locale/*.po; do
           if [ -f "$po_file" ]; then
             lang="$(basename "$po_file" .po)"
-            mkdir -p "/app/share/locale/${lang}/LC_MESSAGES"
+            mkdir -p "/app/share/locale/${lang}/LC_MESSAGES" "/app/lib/zashterminal/locale/${lang}/LC_MESSAGES"
             msgfmt "$po_file" -o "/app/share/locale/${lang}/LC_MESSAGES/zashterminal.mo" 2>/dev/null || true
+            msgfmt "$po_file" -o "/app/lib/zashterminal/locale/${lang}/LC_MESSAGES/zashterminal.mo" 2>/dev/null || true
+            if [ "$lang" = "pt" ]; then
+              mkdir -p "/app/share/locale/pt_BR/LC_MESSAGES" "/app/lib/zashterminal/locale/pt_BR/LC_MESSAGES"
+              msgfmt "$po_file" -o "/app/share/locale/pt_BR/LC_MESSAGES/zashterminal.mo" 2>/dev/null || true
+              msgfmt "$po_file" -o "/app/lib/zashterminal/locale/pt_BR/LC_MESSAGES/zashterminal.mo" 2>/dev/null || true
+            fi
           fi
         done
     sources:
