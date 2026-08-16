@@ -1,0 +1,50 @@
+app-id: org.leoberbert.zashterminal
+runtime: org.gnome.Platform
+runtime-version: '46'
+sdk: org.gnome.Sdk
+command: zashterminal
+
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --filesystem=host
+  - --filesystem=home
+  - --talk-name=org.freedesktop.Secret
+  - --talk-name=org.freedesktop.Notifications
+
+modules:
+  - name: python3-dependencies
+    buildsystem: simple
+    build-options:
+      build-args:
+        - --share=network
+    build-commands:
+      - pip3 install --prefix=/app requests psutil regex pygments pycryptodomex setproctitle
+
+  - name: zashterminal
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/lib/zashterminal /app/bin /app/share/applications /app/share/icons/hicolor/scalable/apps /app/share/pixmaps /app/share/locale
+      - cp -r src/zashterminal/* /app/lib/zashterminal/
+      - cp usr/bin/zashterminal /app/bin/zashterminal
+      - chmod +x /app/bin/zashterminal
+      - cp usr/share/applications/org.leoberbert.zashterminal.desktop /app/share/applications/
+      - sed -i 's/^Icon=.*/Icon=org.leoberbert.zashterminal/' /app/share/applications/org.leoberbert.zashterminal.desktop
+      - cp usr/share/icons/hicolor/scalable/apps/zashterminal.svg /app/share/icons/hicolor/scalable/apps/org.leoberbert.zashterminal.svg
+      - cp usr/share/icons/hicolor/scalable/apps/zashterminal.svg /app/share/icons/hicolor/scalable/apps/zashterminal.svg
+      - cp usr/share/icons/hicolor/scalable/apps/zashterminal.svg /app/share/pixmaps/zashterminal.svg
+      - |
+        for po_file in locale/*.po; do
+          if [ -f "$po_file" ]; then
+            lang="$(basename "$po_file" .po)"
+            mkdir -p "/app/share/locale/${lang}/LC_MESSAGES"
+            msgfmt "$po_file" -o "/app/share/locale/${lang}/LC_MESSAGES/zashterminal.mo" 2>/dev/null || true
+          fi
+        done
+    sources:
+      - type: dir
+        path: ..

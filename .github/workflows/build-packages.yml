@@ -1,0 +1,92 @@
+name: Build Packages (deb & Flatpak)
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+concurrency:
+  group: package-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-deb:
+    name: Build Debian Package (.deb)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install packaging tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dpkg-dev gettext
+
+      - name: Build .deb package
+        run: |
+          ./scripts/build_deb.sh --clean-cache
+
+      - name: Upload .deb Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zashterminal-deb
+          path: dist/*.deb
+          if-no-files-found: error
+
+  build-flatpak:
+    name: Build Flatpak Bundle (.flatpak)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6.2
+        with:
+          bundle: zashterminal.flatpak
+          manifest-path: manifests/org.leoberbert.zashterminal.yaml
+          app-id: org.leoberbert.zashterminal
+          cache-key: flatpak-builder-${{ github.sha }}
+
+      - name: Upload Flatpak Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zashterminal-flatpak
+          path: zashterminal.flatpak
+          if-no-files-found: error
+
+  release:
+    name: Publish Release Assets
+    needs: [build-deb, build-flatpak]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download .deb Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: zashterminal-deb
+          path: release-assets/
+
+      - name: Download Flatpak Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: zashterminal-flatpak
+          path: release-assets/
+
+      - name: Attach Assets to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-assets/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

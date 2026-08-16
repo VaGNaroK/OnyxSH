@@ -1071,6 +1071,109 @@ do_status() {
   fi
 }
 
+do_package_deb() {
+  local clean_flag="${1:-false}"
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  if [ -x "${script_dir}/scripts/build_deb.sh" ]; then
+    if [ "$clean_flag" = true ]; then
+      "${script_dir}/scripts/build_deb.sh" --clean-cache
+    else
+      "${script_dir}/scripts/build_deb.sh"
+    fi
+  else
+    die "Script scripts/build_deb.sh não encontrado ou sem permissão de execução."
+  fi
+}
+
+do_package_flatpak() {
+  local clean_flag="${1:-false}"
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  if [ -x "${script_dir}/scripts/build_flatpak.sh" ]; then
+    if [ "$clean_flag" = true ]; then
+      "${script_dir}/scripts/build_flatpak.sh" --clean-cache
+    else
+      "${script_dir}/scripts/build_flatpak.sh"
+    fi
+  else
+    die "Script scripts/build_flatpak.sh não encontrado ou sem permissão de execução."
+  fi
+}
+
+do_clean_package_cache() {
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  log "Limpando caches de empacotamento (.deb-build, .flatpak-builder, .flatpak-build, .flatpak-repo)..."
+  rm -rf "${script_dir}/.deb-build" "${script_dir}/.flatpak-builder" "${script_dir}/.flatpak-build" "${script_dir}/.flatpak-repo"
+  log "Caches limpos com sucesso."
+}
+
+do_install_deb_bundle() {
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  local deb_file
+  deb_file="$(find "${script_dir}/dist" -name "*.deb" -type f 2>/dev/null | head -n 1 || true)"
+  if [ -n "$deb_file" ] && [ -f "$deb_file" ]; then
+    log "Instalando pacote Debian: ${deb_file}..."
+    sudo apt install -y "$deb_file" || sudo dpkg -i "$deb_file"
+    log "Instalação do .deb concluída."
+  else
+    warn "Nenhum pacote .deb encontrado em dist/. Gere o pacote primeiro (opção 1 ou 2)."
+  fi
+}
+
+do_install_flatpak_bundle() {
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  local flatpak_file
+  flatpak_file="$(find "${script_dir}/dist" -name "*.flatpak" -type f 2>/dev/null | head -n 1 || true)"
+  if [ -n "$flatpak_file" ] && [ -f "$flatpak_file" ]; then
+    log "Instalando pacote Flatpak bundle: ${flatpak_file}..."
+    flatpak install --user -y --bundle "$flatpak_file"
+    log "Instalação do Flatpak concluída. Execute com: flatpak run org.leoberbert.zashterminal"
+  else
+    warn "Nenhum pacote .flatpak encontrado em dist/. Gere o pacote primeiro (opção 3 ou 4)."
+  fi
+}
+
+package_menu() {
+  while true; do
+    cat <<'EOF'
+
+===== Menu de Empacotamento =====
+1) Gerar pacote .deb (Debian/Ubuntu/Mint)
+2) Gerar pacote .deb (com limpeza de cache)
+3) Gerar Flatpak bundle (.flatpak)
+4) Gerar Flatpak bundle (com limpeza de cache)
+5) Gerar ambos (.deb e Flatpak com limpeza de cache)
+6) Instalar pacote .deb gerado (dist/*.deb)
+7) Instalar Flatpak bundle gerado (dist/*.flatpak)
+8) Limpar todos os caches temporários de build
+9) Voltar ao menu principal
+EOF
+
+    local subopt
+    if ! read -rp "Escolha uma opção: " subopt; then
+      echo
+      break
+    fi
+
+    case "$subopt" in
+      1) do_package_deb false ;;
+      2) do_package_deb true ;;
+      3) do_package_flatpak false ;;
+      4) do_package_flatpak true ;;
+      5) do_package_deb true; do_package_flatpak true ;;
+      6) do_install_deb_bundle ;;
+      7) do_install_flatpak_bundle ;;
+      8) do_clean_package_cache ;;
+      9) break ;;
+      *) warn "Opção inválida." ;;
+    esac
+  done
+}
+
 main_menu() {
   while true; do
     echo
@@ -1083,7 +1186,8 @@ main_menu() {
 2) Verificar instalação
 3) Desinstalar (manter dependências)
 4) Desinstalar e remover dependências (ARRISCADO)
-5) Sair
+5) Gerar pacotes (.deb / Flatpak)
+6) Sair
 EOF
 
     local option
@@ -1107,6 +1211,9 @@ EOF
         do_uninstall true
         ;;
       5)
+        package_menu
+        ;;
+      6)
         break
         ;;
       *)
@@ -1136,13 +1243,46 @@ main() {
       menu)
         main_menu
         ;;
+      package)
+        local target="${2:-deb}"
+        local clean=false
+        if [ "${target}" = "deb" ]; then
+          [[ "${3:-}" =~ ^(--clean-cache|-c)$ ]] && clean=true
+          do_package_deb "$clean"
+        elif [ "${target}" = "flatpak" ]; then
+          [[ "${3:-}" =~ ^(--clean-cache|-c)$ ]] && clean=true
+          do_package_flatpak "$clean"
+        elif [ "${target}" = "all" ]; then
+          do_package_deb true
+          do_package_flatpak true
+        else
+          die "Alvo de pacote inválido: ${target} (use deb, flatpak ou all)"
+        fi
+        ;;
+      deb | package-deb)
+        local clean=false
+        [[ "${2:-}" =~ ^(--clean-cache|-c)$ ]] && clean=true
+        do_package_deb "$clean"
+        ;;
+      flatpak | package-flatpak)
+        local clean=false
+        [[ "${2:-}" =~ ^(--clean-cache|-c)$ ]] && clean=true
+        do_package_flatpak "$clean"
+        ;;
+      package-all)
+        do_package_deb true
+        do_package_flatpak true
+        ;;
+      clean-cache)
+        do_clean_package_cache
+        ;;
       *)
-        die "Uso: $0 [install|uninstall|uninstall-purge-deps|status|menu]"
+        die "Uso: $0 [install|uninstall|status|menu|package deb|package flatpak|package all|clean-cache]"
         ;;
     esac
   else
     if [ ! -t 0 ]; then
-      die "Uso: $0 [install|uninstall|uninstall-purge-deps|status|menu]"
+      die "Uso: $0 [install|uninstall|status|menu|package deb|package flatpak|package all|clean-cache]"
     fi
 
     main_menu
