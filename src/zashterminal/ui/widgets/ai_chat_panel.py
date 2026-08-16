@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import random
 import re
+import uuid
+from datetime import datetime
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -13,13 +15,14 @@ import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Adw, Gdk, GLib, GObject, Gtk, Pango
+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk, Pango
 
 from ...utils.icons import icon_image
 from ...utils.logger import get_logger
 from ...utils.tooltip_helper import get_tooltip_helper
 from ...utils.translation_utils import _
 from .conversation_history import ConversationHistoryPanel
+
 
 if TYPE_CHECKING:
     from ...terminal.ai_assistant import AIAssistant
@@ -1488,6 +1491,63 @@ class AIChatPanel(Gtk.Box):
         self._add_tooltip(audit_btn, _("Registro de Auditoria de Ações"))
         header.pack_start(audit_btn)
 
+        # Export conversation menu button
+        export_btn = Gtk.MenuButton()
+        export_btn.set_icon_name("document-save-symbolic")
+        export_btn.add_css_class("flat")
+        self._add_tooltip(export_btn, _("Export conversation"))
+
+        export_popover = Gtk.Popover()
+        export_menu_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+        export_menu_box.set_margin_top(6)
+        export_menu_box.set_margin_bottom(6)
+        export_menu_box.set_margin_start(6)
+        export_menu_box.set_margin_end(6)
+
+        # 1. Export as Markdown
+        md_btn = Gtk.Button()
+        md_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        md_icon = icon_image("text-x-generic-symbolic") or Gtk.Image.new_from_icon_name("text-x-generic-symbolic")
+        md_label = Gtk.Label(label=_("Export as Markdown (.md)"))
+        md_box.append(md_icon)
+        md_box.append(md_label)
+        md_btn.set_child(md_box)
+        md_btn.add_css_class("flat")
+        md_btn.connect("clicked", lambda b: (export_popover.popdown(), self._export_conversation_as("md")))
+        export_menu_box.append(md_btn)
+
+        # 2. Export as JSON
+        json_btn = Gtk.Button()
+        json_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        json_icon = icon_image("text-x-script-symbolic") or Gtk.Image.new_from_icon_name("text-x-script-symbolic")
+        json_label = Gtk.Label(label=_("Export as JSON (.json)"))
+        json_box.append(json_icon)
+        json_box.append(json_label)
+        json_btn.set_child(json_box)
+        json_btn.add_css_class("flat")
+        json_btn.connect("clicked", lambda b: (export_popover.popdown(), self._export_conversation_as("json")))
+        export_menu_box.append(json_btn)
+
+        # Separator
+        export_menu_box.append(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
+
+        # 3. Copy to Clipboard
+        copy_btn = Gtk.Button()
+        copy_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        copy_icon = icon_image("edit-copy-symbolic") or Gtk.Image.new_from_icon_name("edit-copy-symbolic")
+        copy_label = Gtk.Label(label=_("Copy to Clipboard"))
+        copy_box.append(copy_icon)
+        copy_box.append(copy_label)
+        copy_btn.set_child(copy_box)
+        copy_btn.add_css_class("flat")
+        copy_btn.connect("clicked", lambda b: (export_popover.popdown(), self._copy_conversation_to_clipboard()))
+        export_menu_box.append(copy_btn)
+
+        export_popover.set_child(export_menu_box)
+        export_btn.set_popover(export_popover)
+        header.pack_start(export_btn)
+
+
         # Close button (uses bundled icon)
         close_btn = Gtk.Button()
         close_btn.set_child(icon_image("window-close-symbolic"))
@@ -2428,3 +2488,175 @@ class AIChatPanel(Gtk.Box):
         root = self.get_root()
         dialog = AuditLogDialog(root)
         dialog.present()
+
+    def _show_toast(self, message: str) -> None:
+        """Show a toast message on the root window's toast overlay."""
+        root = self.get_root()
+        if root and hasattr(root, "toast_overlay") and root.toast_overlay:
+            root.toast_overlay.add_toast(Adw.Toast(title=message))
+        else:
+            logger.info(f"Toast: {message}")
+
+    def _format_conversation_markdown(self) -> str:
+        """Format the current conversation as Markdown."""
+        messages = self._history_manager.get_history()
+        if not messages:
+            return ""
+
+        conv = self._history_manager.get_current_conversation()
+        created_at = (
+            conv.get("created_at", datetime.now().isoformat())
+            if conv
+            else datetime.now().isoformat()
+        )
+        conv_id = conv.get("id", "current") if conv else "current"
+
+        lines = [
+            f"# Zashterminal AI Chat Export",
+            f"",
+            f"- **Date / Timestamp:** {created_at}",
+            f"- **Conversation ID:** `{conv_id}`",
+            f"- **Total Messages:** {len(messages)}",
+            f"",
+            f"---",
+            f"",
+        ]
+
+        for msg in messages:
+            role = msg.get("role", "user")
+            timestamp = msg.get("timestamp", "")
+            content = msg.get("content", "").strip()
+            commands = msg.get("commands", [])
+
+            if role == "user":
+                lines.append(f"## 👤 User ({timestamp})")
+                lines.append("")
+                lines.append(content)
+                lines.append("")
+            else:
+                lines.append(f"## 🤖 Assistant ({timestamp})")
+                lines.append("")
+                lines.append(content)
+                lines.append("")
+                if commands:
+                    lines.append("### ⚡ Commands / Actions:")
+                    for cmd in commands:
+                        if isinstance(cmd, str):
+                            lines.append(f"```bash\n{cmd}\n```")
+                        elif isinstance(cmd, dict):
+                            cmd_str = (
+                                cmd.get("command_str")
+                                or cmd.get("command")
+                                or " ".join(cmd.get("argv", []))
+                                or cmd.get("tool", "")
+                            )
+                            risk = cmd.get("risk", 0)
+                            lines.append(f"- **Risk Level {risk}**:")
+                            lines.append(f"```bash\n{cmd_str}\n```")
+                    lines.append("")
+            lines.append("---")
+            lines.append("")
+
+        return "\n".join(lines)
+
+    def _format_conversation_json(self) -> str:
+        """Format the current conversation as structured JSON."""
+        conv = self._history_manager.get_current_conversation()
+        if not conv or not conv.get("messages"):
+            messages = self._history_manager.get_history()
+            if not messages:
+                return ""
+            conv_data = {
+                "id": str(uuid.uuid4()),
+                "created_at": datetime.now().isoformat(),
+                "exported_at": datetime.now().isoformat(),
+                "messages": messages,
+            }
+        else:
+            conv_data = dict(conv)
+            conv_data["exported_at"] = datetime.now().isoformat()
+
+        return json.dumps(conv_data, ensure_ascii=False, indent=2)
+
+    def _copy_conversation_to_clipboard(self) -> None:
+        """Copy current conversation transcript to the system clipboard."""
+        markdown_text = self._format_conversation_markdown()
+        if not markdown_text:
+            self._show_toast(_("No messages to export."))
+            return
+
+        display = Gdk.Display.get_default()
+        if display:
+            clipboard = display.get_clipboard()
+            clipboard.set(markdown_text)
+            self._show_toast(_("Conversation copied to clipboard."))
+
+    def _export_conversation_as(self, fmt: str) -> None:
+        """Export conversation to a file via file chooser dialog."""
+        if fmt == "json":
+            content = self._format_conversation_json()
+            ext = ".json"
+            filter_name = _("JSON files (*.json)")
+            mime_type = "application/json"
+            pattern = "*.json"
+        else:
+            content = self._format_conversation_markdown()
+            ext = ".md"
+            filter_name = _("Markdown files (*.md)")
+            mime_type = "text/markdown"
+            pattern = "*.md"
+
+        if not content:
+            self._show_toast(_("No messages to export."))
+            return
+
+        timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+        default_filename = f"zash_ai_chat_{timestamp_str}{ext}"
+
+        file_dialog = Gtk.FileDialog(
+            title=_("Export AI Conversation"),
+            modal=True,
+        )
+        file_dialog.set_initial_name(default_filename)
+
+        # Configure file filters
+        filters = Gio.ListStore.new(Gtk.FileFilter)
+
+        target_filter = Gtk.FileFilter()
+        target_filter.set_name(filter_name)
+        target_filter.add_pattern(pattern)
+        target_filter.add_mime_type(mime_type)
+        filters.append(target_filter)
+
+        all_filter = Gtk.FileFilter()
+        all_filter.set_name(_("All files"))
+        all_filter.add_pattern("*")
+        filters.append(all_filter)
+
+        file_dialog.set_filters(filters)
+        file_dialog.set_default_filter(target_filter)
+
+        root = self.get_root()
+        parent_window = root if isinstance(root, Gtk.Window) else None
+
+        def on_save_finish(dialog, result):
+            try:
+                gfile = dialog.save_finish(result)
+                if gfile:
+                    filepath = gfile.get_path()
+                    if filepath:
+                        with open(filepath, "w", encoding="utf-8") as f:
+                            f.write(content)
+                        self._show_toast(_("Conversation exported successfully."))
+            except GLib.Error as e:
+                # User cancelled dialog
+                if e.matches(Gtk.DialogError.quark(), Gtk.DialogError.DISMISSED):
+                    return
+                logger.error(f"Failed to export conversation: {e}")
+                self._show_toast(_("Failed to export conversation: {}").format(e.message))
+            except Exception as e:
+                logger.error(f"Error saving exported conversation: {e}")
+                self._show_toast(_("Failed to export conversation: {}").format(str(e)))
+
+        file_dialog.save(parent_window, None, on_save_finish)
+

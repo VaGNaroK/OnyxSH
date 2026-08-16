@@ -8814,3 +8814,64 @@ msgstr "Reiniciar agora"
 #: NEEDS WORK
 msgid "Could not restart automatically. Please close and open Zashterminal again."
 msgstr "Não foi possível reiniciar automaticamente. Feche e abra o Zashterminal novamente."
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "Export conversation"
+msgstr "Exportar conversa"
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "Export as Markdown (.md)"
+msgstr "Exportar como Markdown (.md)"
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "Export as JSON (.json)"
+msgstr "Exportar como JSON (.json)"
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "Copy to Clipboard"
+msgstr "Copiar para a área de transferência"
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "No messages to export."
+msgstr "Nenhuma mensagem para exportar."
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "Conversation copied to clipboard."
+msgstr "Conversa copiada para a área de transferência."
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "Export AI Conversation"
+msgstr "Exportar conversa da IA"
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "JSON files (*.json)"
+msgstr "Arquivos JSON (*.json)"
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "Markdown files (*.md)"
+msgstr "Arquivos Markdown (*.md)"
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "All files"
+msgstr "Todos os arquivos"
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "Conversation exported successfully."
+msgstr "Conversa exportada com sucesso."
+
+# 
+# File: src/zashterminal/ui/widgets/ai_chat_panel.py
+msgid "Failed to export conversation: {}"
+msgstr "Falha ao exportar conversa: {}"
+
