@@ -3295,9 +3295,19 @@ class TerminalManager:
                 f"[KEY EVENT] keyval={keyval} ({key_name}), keycode={_keycode}, state={int(state)}"
             )
 
+            # Handle Delete and KP_Delete directly to prevent IMContext / dead-key interception
+            if keyval in (Gdk.KEY_Delete, Gdk.KEY_KP_Delete):
+                if not (state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.ALT_MASK)):
+                    try:
+                        terminal.feed_child(b"\x1b[3~")
+                    except Exception:
+                        pass
+                    return Gdk.EVENT_STOP
+
             # Only trigger on Enter or KP_Enter, ignore if modifiers are pressed
             if keyval not in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
                 return Gdk.EVENT_PROPAGATE
+
 
 
             # Ignore if Shift, Ctrl, or Alt is pressed (might be a different action)

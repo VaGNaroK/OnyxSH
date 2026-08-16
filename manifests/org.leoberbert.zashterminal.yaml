@@ -16,6 +16,9 @@ finish-args:
   - --talk-name=org.freedesktop.Secret
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.freedesktop.Flatpak
+  - --talk-name=org.freedesktop.IBus
+  - --talk-name=org.freedesktop.portal.Fcitx
+
 
 modules:
   - name: vte
