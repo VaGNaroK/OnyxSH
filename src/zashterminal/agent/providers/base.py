@@ -49,3 +49,29 @@ class LLMProvider(ABC):
         res = self.complete(messages, tools_schema)
         callback(res, True)
         return res
+
+    def preload(self) -> bool:
+        """
+        Preload the model into memory/VRAM for immediate availability.
+
+        Default implementation is a no-op for remote cloud providers.
+        Returns True if successful or not needed.
+        """
+        return True
+
+    def unload(self) -> bool:
+        """
+        Unload the model from memory/VRAM to free resources.
+
+        Default implementation is a no-op for remote cloud providers.
+        Returns True if successful or not needed.
+        """
+        return True
+
+    def is_loaded(self) -> bool:
+        """
+        Check if the model is currently active/loaded in memory/VRAM.
+
+        Default implementation returns True for remote cloud providers.
+        """
+        return True

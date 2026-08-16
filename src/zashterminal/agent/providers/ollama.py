@@ -23,11 +23,86 @@ class OllamaProvider(LLMProvider):
         self.base_url = (config.get("local_base_url") or self.DEFAULT_BASE_URL).rstrip("/")
         self.logger = get_logger("zashterminal.agent.providers.ollama")
 
+    def _get_native_base_url(self) -> str:
+        """Get the base URL for native Ollama API endpoints (strip /v1 suffix)."""
+        if self.base_url.endswith("/v1"):
+            return self.base_url[:-3]
+        return self.base_url
+
     def _get_headers(self) -> dict[str, str]:
         headers = {"Content-Type": "application/json"}
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
         return headers
+
+    def preload(self, keep_alive: int | str = -1) -> bool:
+        """
+        Preload the model into GPU VRAM in background.
+
+        Using keep_alive=-1 retains the model indefinitely in VRAM until explicitly unloaded.
+        """
+        import requests
+
+        native_url = f"{self._get_native_base_url()}/api/generate"
+        payload = {
+            "model": self.model,
+            "keep_alive": keep_alive,
+        }
+        try:
+            self.logger.info(f"Preloading local model {self.model} into VRAM (keep_alive={keep_alive})...")
+            resp = requests.post(native_url, json=payload, headers=self._get_headers(), timeout=30)
+            if resp.status_code == 200:
+                self.logger.info(f"Local model {self.model} preloaded into VRAM successfully.")
+                return True
+            self.logger.warning(f"Preload returned status {resp.status_code}: {resp.text}")
+            return False
+        except Exception as e:
+            self.logger.warning(f"Failed to preload local model {self.model} into VRAM: {e}")
+            return False
+
+    def unload(self) -> bool:
+        """
+        Unload the model from GPU VRAM immediately.
+
+        Using keep_alive=0 causes Ollama to release the model from memory.
+        """
+        import requests
+
+        native_url = f"{self._get_native_base_url()}/api/generate"
+        payload = {
+            "model": self.model,
+            "keep_alive": 0,
+        }
+        try:
+            self.logger.info(f"Unloading local model {self.model} from VRAM...")
+            resp = requests.post(native_url, json=payload, headers=self._get_headers(), timeout=5)
+            if resp.status_code == 200:
+                self.logger.info(f"Local model {self.model} unloaded from VRAM successfully.")
+                return True
+            self.logger.warning(f"Unload returned status {resp.status_code}: {resp.text}")
+            return False
+        except Exception as e:
+            self.logger.warning(f"Failed to unload local model {self.model} from VRAM: {e}")
+            return False
+
+    def is_loaded(self) -> bool:
+        """Check if the model is currently active/loaded in VRAM."""
+        import requests
+
+        native_url = f"{self._get_native_base_url()}/api/ps"
+        try:
+            resp = requests.get(native_url, headers=self._get_headers(), timeout=3)
+            if resp.status_code == 200:
+                data = resp.json()
+                models = data.get("models", [])
+                for m in models:
+                    name = m.get("name", "")
+                    model_id = m.get("model", "")
+                    if self.model in (name, model_id) or name.startswith(f"{self.model}:"):
+                        return True
+            return False
+        except Exception:
+            return False
 
     def complete(
         self,

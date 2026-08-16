@@ -223,6 +223,8 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         self.ai_assistant = TerminalAiAssistant(
             self, self.settings_manager, self.terminal_manager
         )
+        if not self._is_for_detached_tab:
+            self.ai_assistant.preload_model_async()
         self.session_tree = SessionTreeView(
             self,
             self.session_store,
@@ -1626,6 +1628,9 @@ class CommTerminalWindow(Adw.ApplicationWindow):
 
         if self.tftp_server:
             self.tftp_server.stop()
+
+        if getattr(self, "ai_assistant", None):
+            self.ai_assistant.unload_model()
 
         # Clean up CSS providers to prevent memory leaks
         self.settings_manager.cleanup_css_providers(self)

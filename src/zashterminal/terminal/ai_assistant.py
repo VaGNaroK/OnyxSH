@@ -170,7 +170,7 @@ class TerminalAiAssistant(GObject.Object):
     def __init__(self, window, settings_manager, terminal_manager):
         super().__init__()
         self.logger = get_logger("zashterminal.terminal.ai_assistant")
-        self._window_ref = weakref.ref(window)
+        self._window_ref = weakref.ref(window) if window is not None else None
         self.settings_manager = settings_manager
         self.terminal_manager = terminal_manager
         self._conversations: Dict[int, List[Dict[str, str]]] = {}
@@ -302,18 +302,76 @@ class TerminalAiAssistant(GObject.Object):
             self._terminal_refs.clear()
             self._inflight.clear()
 
-    def handle_setting_changed(self, key: str, _old_value: Any, new_value: Any) -> None:
-        if key == "ai_assistant_enabled" and not new_value:
-            self.clear_all_conversations()
-        if key in {
+    def preload_model_async(self) -> None:
+        """Trigger background preload of the configured local model into VRAM."""
+        if not self.is_enabled():
+            return
+        if not self.settings_manager.get("ai_preload_local_model", True):
+            return
+
+        provider_name = self.settings_manager.get("ai_assistant_provider", "").strip().lower()
+        if provider_name not in ("local", "ollama"):
+            return
+
+        try:
+            from ..core.tasks import AsyncTaskManager
+            AsyncTaskManager.get().submit_io(self._preload_model_worker)
+        except Exception as e:
+            self.logger.debug("Failed to submit async preload task: %s", e)
+
+    def _preload_model_worker(self) -> None:
+        """Worker executed in background IO thread pool to preload model."""
+        try:
+            config = self._load_configuration()
+            from ..agent.providers import get_provider
+            provider = get_provider(config.get("provider", "ollama"), config)
+            provider.preload()
+        except Exception as e:
+            self.logger.debug("Async model preload failed: %s", e)
+
+    def unload_model(self) -> bool:
+        """Unload local model from VRAM immediately."""
+        if not self.settings_manager.get("ai_unload_on_exit", True):
+            return True
+        provider_name = self.settings_manager.get("ai_assistant_provider", "").strip().lower()
+        if provider_name not in ("local", "ollama"):
+            return True
+        try:
+            config = self._load_configuration()
+            from ..agent.providers import get_provider
+            provider = get_provider(config.get("provider", "ollama"), config)
+            return provider.unload()
+        except Exception as e:
+            self.logger.debug("Model unload failed: %s", e)
+            return False
+
+    def handle_setting_changed(self, key: str, old_value: Any, new_value: Any) -> None:
+        if key == "ai_assistant_enabled":
+            if not new_value:
+                self.clear_all_conversations()
+                self.unload_model()
+            else:
+                self.preload_model_async()
+        elif key in {
             "ai_assistant_provider",
-            "ai_assistant_api_key",
             "ai_assistant_model",
-            "ai_openrouter_site_url",
-            "ai_openrouter_site_name",
             "ai_local_base_url",
         }:
             self.clear_all_conversations()
+            # If changing provider/model, unload previous if local and preload new if local
+            if (old_value and str(old_value).lower() in ("local", "ollama")) or key in ("ai_assistant_model", "ai_local_base_url"):
+                self.unload_model()
+            if self.is_enabled() and self.settings_manager.get("ai_assistant_provider", "").lower() in ("local", "ollama"):
+                self.preload_model_async()
+        elif key in {
+            "ai_assistant_api_key",
+            "ai_openrouter_site_url",
+            "ai_openrouter_site_name",
+        }:
+            self.clear_all_conversations()
+        elif key == "ai_preload_local_model":
+            if new_value:
+                self.preload_model_async()
 
     # ------------------------------------------------------------------
     # Internal helpers

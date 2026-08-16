@@ -1050,12 +1050,35 @@ class CommTerminalApp(Adw.Application):
             if self._main_window:
                 self._main_window.destroy()
                 self._main_window = None
+            self._unload_ai_model_on_exit()
             if self.settings_manager:
                 self.settings_manager.save_settings()
             log_app_shutdown()
             self.logger.info("Graceful shutdown completed")
         except Exception as e:
             self.logger.error(f"Error during graceful shutdown: {e}")
+
+    def _unload_ai_model_on_exit(self) -> None:
+        """Helper to ensure local LLM model is unloaded from VRAM on app exit."""
+        try:
+            if not self.settings_manager:
+                return
+            if not self.settings_manager.get("ai_assistant_enabled", False):
+                return
+            if not self.settings_manager.get("ai_unload_on_exit", True):
+                return
+            provider_name = self.settings_manager.get("ai_assistant_provider", "").strip().lower()
+            if provider_name in ("local", "ollama"):
+                config = {
+                    "provider": provider_name,
+                    "model": self.settings_manager.get("ai_assistant_model", "").strip(),
+                    "local_base_url": self.settings_manager.get("ai_local_base_url", "http://localhost:11434/v1").strip(),
+                }
+                from .agent.providers import get_provider
+                provider = get_provider(provider_name, config)
+                provider.unload()
+        except Exception as e:
+            self.logger.debug("Failed to unload AI model on exit: %s", e)
 
     def _cleanup_on_exit(self) -> None:
         """Cleanup function called on exit."""

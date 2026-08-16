@@ -102,6 +102,27 @@ class AIConfigDialog(Adw.PreferencesWindow):
         self.base_url_row.connect("changed", self._on_base_url_changed)
         provider_group.add(self.base_url_row)
 
+        # Local model options (preload and unload)
+        self.preload_switch = Adw.SwitchRow(
+            title=_("Pré-carregar Modelo na VRAM ao Iniciar"),
+            subtitle=_("Carrega o modelo na GPU em segundo plano ao abrir o terminal para respostas imediatas."),
+        )
+        self.preload_switch.set_active(
+            self.settings_manager.get("ai_preload_local_model", True)
+        )
+        self.preload_switch.connect("notify::active", self._on_preload_changed)
+        provider_group.add(self.preload_switch)
+
+        self.unload_switch = Adw.SwitchRow(
+            title=_("Liberar VRAM ao Fechar o Terminal"),
+            subtitle=_("Descarrega o modelo da memória GPU imediatamente ao fechar a aplicação."),
+        )
+        self.unload_switch.set_active(
+            self.settings_manager.get("ai_unload_on_exit", True)
+        )
+        self.unload_switch.connect("notify::active", self._on_unload_changed)
+        provider_group.add(self.unload_switch)
+
         # API Key group
         api_group = Adw.PreferencesGroup()
         page.add(api_group)
@@ -307,8 +328,10 @@ class AIConfigDialog(Adw.PreferencesWindow):
         is_local = provider_id == "local"
         is_openrouter = provider_id == "openrouter"
 
-        # Show/hide base URL for local provider
+        # Show/hide base URL and VRAM switches for local provider
         self.base_url_row.set_visible(is_local)
+        self.preload_switch.set_visible(is_local)
+        self.unload_switch.set_visible(is_local)
 
         # Show/hide API key (local may not need it)
         self.api_key_row.set_sensitive(not is_local or False)  # Local may or may not need API key
@@ -345,6 +368,18 @@ class AIConfigDialog(Adw.PreferencesWindow):
         self.settings_manager.set("ai_assistant_provider", provider_id)
         self._update_ui_for_provider(provider_id)
         self.emit("setting-changed", "ai_assistant_provider", provider_id)
+
+    def _on_preload_changed(self, switch_row, _param) -> None:
+        """Handle preload local model toggle."""
+        val = switch_row.get_active()
+        self.settings_manager.set("ai_preload_local_model", val)
+        self.emit("setting-changed", "ai_preload_local_model", val)
+
+    def _on_unload_changed(self, switch_row, _param) -> None:
+        """Handle unload on exit toggle."""
+        val = switch_row.get_active()
+        self.settings_manager.set("ai_unload_on_exit", val)
+        self.emit("setting-changed", "ai_unload_on_exit", val)
 
     def _on_base_url_changed(self, entry_row) -> None:
         """Handle base URL change."""
