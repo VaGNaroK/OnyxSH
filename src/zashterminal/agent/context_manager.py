@@ -42,21 +42,13 @@ CRITICAL SECURITY RULES:
 
 
 def _detect_os_context() -> str:
-    os_name = "Linux"
-    base_distro = ""
-    if os.path.exists("/etc/os-release"):
-        try:
-            with open("/etc/os-release", "r", encoding="utf-8") as f:
-                for line in f:
-                    if line.startswith("PRETTY_NAME="):
-                        os_name = line.split("=", 1)[1].strip().strip('"')
-                    elif line.startswith("ID_LIKE="):
-                        base_distro = line.split("=", 1)[1].strip().strip('"')
-        except Exception:
-            pass
-    if base_distro:
-        return f"{os_name} (based on {base_distro})"
-    return os_name
+    """Detects the real host OS name and base to give context to the AI Agent."""
+    try:
+        from ..utils.platform import detect_os_context
+        return detect_os_context()
+    except Exception:
+        return "Linux"
+
 
 
 class ContextManager:

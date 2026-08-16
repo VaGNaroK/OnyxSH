@@ -173,26 +173,90 @@ def get_environment_manager() -> EnvironmentManager:
 
 def _read_os_release() -> Dict[str, str]:
     """
-    Read /etc/os-release as a key/value mapping.
+    Read host or system /etc/os-release as a key/value mapping.
+    Prioritizes the real host OS release file when running inside Flatpak sandboxes.
 
     Returns empty dict when file is unavailable.
     """
-    os_release_path = Path("/etc/os-release")
-    if not os_release_path.exists():
-        return {}
+    candidates = [
+        Path("/var/run/host/os-release"),
+        Path("/run/host/os-release"),
+        Path("/run/host/usr/lib/os-release"),
+        Path("/run/host/etc/os-release"),
+        Path("/etc/os-release"),
+        Path("/usr/lib/os-release"),
+    ]
+    for os_release_path in candidates:
+        if not os_release_path.exists():
+            continue
+        try:
+            data: Dict[str, str] = {}
+            for raw_line in os_release_path.read_text(encoding="utf-8").splitlines():
+                line = raw_line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, value = line.split("=", 1)
+                value = value.strip().strip('"').strip("'")
+                data[key] = value
+            # If this is the real host or native file, return it
+            if data and ("flatpak" not in data.get("NAME", "").lower() or os_release_path == candidates[-1]):
+                return data
+        except Exception:
+            continue
 
-    data: Dict[str, str] = {}
-    try:
-        for raw_line in os_release_path.read_text(encoding="utf-8").splitlines():
-            line = raw_line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            key, value = line.split("=", 1)
-            value = value.strip().strip('"').strip("'")
-            data[key] = value
-    except Exception:
-        return {}
-    return data
+    # If inside Flatpak and candidate files weren't directly accessible, try portal
+    if shutil.which("flatpak-spawn"):
+        try:
+            import subprocess
+            out = subprocess.check_output(
+                ["flatpak-spawn", "--host", "cat", "/etc/os-release"],
+                stderr=subprocess.DEVNULL,
+                timeout=2,
+            ).decode("utf-8", errors="replace")
+            data: Dict[str, str] = {}
+            for raw_line in out.splitlines():
+                line = raw_line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, value = line.split("=", 1)
+                data[key] = value.strip().strip('"').strip("'")
+            if data:
+                return data
+        except Exception:
+            pass
+
+    return {}
+
+
+def detect_os_context() -> str:
+    """
+    Detect the real host OS name and base distribution for AI context.
+    Properly identifies the host operating system even when running inside Flatpak.
+    """
+    info = _read_os_release()
+    os_name = info.get("PRETTY_NAME") or info.get("NAME") or "Linux"
+    base_distro = info.get("ID_LIKE") or info.get("ID") or ""
+
+    # Fallback to lsb-release if os-release did not yield a specific name
+    if os_name == "Linux":
+        for lsb_path in [
+            Path("/var/run/host/etc/lsb-release"),
+            Path("/run/host/etc/lsb-release"),
+            Path("/etc/lsb-release"),
+        ]:
+            if lsb_path.exists():
+                try:
+                    for line in lsb_path.read_text(encoding="utf-8").splitlines():
+                        if line.startswith("DISTRIB_DESCRIPTION="):
+                            os_name = line.split("=", 1)[1].strip().strip('"').strip("'")
+                            break
+                except Exception:
+                    pass
+
+    # Append base distro context (e.g. "Linux Mint 22.3 (based on ubuntu debian)")
+    if base_distro and base_distro.lower() not in os_name.lower() and "freedesktop" not in base_distro.lower():
+        return f"{os_name} (based on {base_distro})"
+    return os_name
 
 
 def _version_tuple(version: str) -> tuple[int, int]:

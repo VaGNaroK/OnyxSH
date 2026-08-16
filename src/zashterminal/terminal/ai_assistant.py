@@ -86,35 +86,13 @@ class TerminalAiAssistant(GObject.Object):
 
     @staticmethod
     def _detect_os_context() -> str:
-        """Detects the OS name and base to give context to the AI."""
-        os_name = "Linux"
-        base_distro = ""
+        """Detects the real host OS name and base to give context to the AI."""
+        try:
+            from ..utils.platform import detect_os_context
+            return detect_os_context()
+        except Exception:
+            return "Linux"
 
-        # Try os-release (Standard modern Linux)
-        if os.path.exists("/etc/os-release"):
-            try:
-                with open("/etc/os-release", "r") as f:
-                    for line in f:
-                        if line.startswith("PRETTY_NAME="):
-                            os_name = line.split("=", 1)[1].strip().strip('"')
-                        elif line.startswith("ID_LIKE="):
-                            base_distro = line.split("=", 1)[1].strip().strip('"')
-            except Exception:
-                pass
-        # Fallback to lsb-release (Legacy/Specific)
-        elif os.path.exists("/etc/lsb-release"):
-            try:
-                with open("/etc/lsb-release", "r") as f:
-                    for line in f:
-                        if line.startswith("DISTRIB_DESCRIPTION="):
-                            os_name = line.split("=", 1)[1].strip().strip('"')
-            except Exception:
-                pass
-
-        # If we found a base (e.g., "arch" for BigLinux/Manjaro, or "debian" for Ubuntu), include it
-        if base_distro:
-            return f"{os_name} (based on {base_distro})"
-        return os_name
 
     @classmethod
     def _get_system_prompt(cls) -> str:

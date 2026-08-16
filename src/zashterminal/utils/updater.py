@@ -24,20 +24,12 @@ RAW_CONFIG_MAIN_URL = (
 
 
 def _read_os_release() -> Dict[str, str]:
-    os_release = Path("/etc/os-release")
-    if not os_release.exists():
-        return {}
-    data: Dict[str, str] = {}
     try:
-        for raw in os_release.read_text(encoding="utf-8").splitlines():
-            line = raw.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            k, v = line.split("=", 1)
-            data[k] = v.strip().strip('"').strip("'")
+        from .platform import _read_os_release as platform_read_os_release
+        return platform_read_os_release()
     except Exception:
         return {}
-    return data
+
 
 
 def _normalize_version(version: str) -> str:
