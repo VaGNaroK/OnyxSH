@@ -1,14 +1,42 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Search zashterminal folder
-for i in /usr/lib/python3.{25..6}/site-packages/zashterminal /usr/share/zashterminal; do
-    if [[ -e "$i" ]]; then
-        cd "$i"
+SEARCH_DIRS=(
+    "/app/lib/zashterminal"
+    "/app/share/zashterminal"
+    "/usr/lib/zashterminal"
+    "/usr/share/zashterminal"
+    "/opt/zashterminal"
+    "/usr/local/lib/zashterminal"
+)
+
+# Also check python site-packages paths
+for py_site in /usr/lib/python3*/site-packages/zashterminal \
+               /usr/local/lib/python3*/site-packages/zashterminal \
+               /app/lib/python3*/site-packages/zashterminal; do
+    if [ -d "$py_site" ]; then
+        SEARCH_DIRS+=("$py_site")
+    fi
+done
+
+for dir in "${SEARCH_DIRS[@]}"; do
+    if [[ -d "$dir" && -f "$dir/__init__.py" ]]; then
+        cd "$dir"
+        break
+    elif [[ -d "$dir/zashterminal" && -f "$dir/zashterminal/__init__.py" ]]; then
+        cd "$dir/zashterminal"
         break
     fi
 done
 
-execute_zashterminal="python3 __init__.py"
+# Check if using custom virtualenv python or system python
+if [[ -f "/opt/zashterminal/venv/bin/python3" ]]; then
+    PYTHON_BIN="/opt/zashterminal/venv/bin/python3"
+else
+    PYTHON_BIN="python3"
+fi
+
+execute_zashterminal="${PYTHON_BIN} __init__.py"
 
 
 execute_with_memory_verification() {
