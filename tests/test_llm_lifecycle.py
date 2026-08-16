@@ -43,7 +43,11 @@ class TestLLMLifecycle(unittest.TestCase):
         mock_post.assert_called_once()
         args, kwargs = mock_post.call_args
         self.assertEqual(args[0], "http://localhost:11434/api/generate")
-        self.assertEqual(kwargs["json"], {"model": "qwen2.5-coder:3b", "keep_alive": -1})
+        self.assertEqual(kwargs["json"], {
+            "model": "qwen2.5-coder:3b",
+            "keep_alive": -1,
+            "options": {"num_ctx": 8192},
+        })
 
     @patch("requests.post")
     def test_ollama_preload_failure_resilient(self, mock_post):
@@ -155,6 +159,59 @@ class TestLLMLifecycle(unittest.TestCase):
         assistant.handle_setting_changed("ai_assistant_model", "qwen2.5-coder:3b", "qwen2.5-coder:7b")
         mock_unload.assert_called_once()
         mock_preload.assert_called_once()
+
+        # 4. Change context size -> preloads with updated num_ctx
+        mock_preload.reset_mock()
+        assistant.handle_setting_changed("ai_context_size", 8192, 16384)
+        mock_preload.assert_called_once()
+
+    def test_detect_gpu_info(self):
+        from zashterminal.utils.platform import detect_gpu_info
+        info = detect_gpu_info()
+        self.assertIn("vendor", info)
+        self.assertIn("name", info)
+        self.assertIn("vram_mb", info)
+        self.assertIn("recommended_context_tokens", info)
+        self.assertIn("description", info)
+        self.assertGreater(info["vram_mb"], 0)
+
+    def test_ollama_num_ctx_in_payload(self):
+        provider = OllamaProvider({
+            "model": "qwen2.5-coder:3b",
+            "context_size": 16384,
+            "local_base_url": "http://localhost:11434/v1",
+        })
+        self.assertEqual(provider.context_size, 16384)
+
+    def test_ai_assistant_context_window_sliding(self):
+        mock_settings = MagicMock()
+        mock_settings.get.side_effect = lambda k, default=None: {
+            "ai_assistant_enabled": True,
+            "ai_assistant_provider": "local",
+            "ai_context_size": 4096,  # Smaller context
+            "ai_assistant_model": "qwen2.5-coder:3b",
+            "ai_local_base_url": "http://localhost:11434/v1",
+            "ai_assistant_api_key": "",
+        }.get(k, default)
+
+        assistant = TerminalAiAssistant(None, mock_settings, None)
+        terminal_id = 999
+
+        # Simulate 20 back-and-forth long messages
+        for i in range(20):
+            assistant._conversations.setdefault(terminal_id, []).append({
+                "role": "user" if i % 2 == 0 else "assistant",
+                "content": f"Message {i}: " + ("x" * 500),
+            })
+
+        messages = assistant._build_messages(terminal_id, "Latest prompt")
+        # Ensure system prompt is first
+        self.assertEqual(messages[0]["role"], "system")
+        # Ensure latest prompt is included
+        self.assertIn("Latest prompt", messages[-1]["content"])
+        # Ensure total message size respects token budget
+        total_len = sum(len(m["content"]) for m in messages)
+        self.assertLessEqual(total_len, int((4096 - 1000) * 3.5) + 3000)
 
 
 if __name__ == "__main__":

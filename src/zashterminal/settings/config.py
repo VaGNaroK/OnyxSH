@@ -258,6 +258,7 @@ class DefaultSettings:
             "ai_agent_max_risk_level": 3,
             "ai_agent_include_system_context": True,
             "ai_agent_include_pwd_context": True,
+            "ai_context_size": 8192,
             "ai_agent_allowed_roots": [
                 str(Path.home() / "Documents"),
                 str(Path.home() / "Projects"),

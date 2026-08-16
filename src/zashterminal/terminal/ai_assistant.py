@@ -372,6 +372,9 @@ class TerminalAiAssistant(GObject.Object):
         elif key == "ai_preload_local_model":
             if new_value:
                 self.preload_model_async()
+        elif key == "ai_context_size":
+            if self.is_enabled() and self.settings_manager.get("ai_assistant_provider", "").lower() in ("local", "ollama"):
+                self.preload_model_async()
 
     # ------------------------------------------------------------------
     # Internal helpers
@@ -438,17 +441,39 @@ class TerminalAiAssistant(GObject.Object):
         with self._lock:
             history = self._conversations.setdefault(terminal_id, [])
             history.append({"role": "user", "content": prompt})
+
+            system_prompt = self._get_system_prompt()
+            context_size = int(self.settings_manager.get("ai_context_size", 8192))
+
+            # Approximate budget: reserve 1000 tokens for output generation
+            # 1 token ~= 3.5 characters
+            total_char_budget = max(4000, int((context_size - 1000) * 3.5))
+            current_chars = len(system_prompt)
+
+            # Fit as many recent messages from history as possible within budget
+            selected_history: List[Dict[str, str]] = []
+            for msg in reversed(history):
+                msg_len = len(msg.get("content", ""))
+                if current_chars + msg_len > total_char_budget and selected_history:
+                    # Budget reached, stop adding older history
+                    break
+                selected_history.append(msg)
+                current_chars += msg_len
+
+            selected_history.reverse()
+
             messages: List[Dict[str, str]] = [
-                {"role": "system", "content": self._get_system_prompt()}
+                {"role": "system", "content": system_prompt}
             ]
-            messages.extend(history)
+            messages.extend(selected_history)
             return messages
 
-    def _load_configuration(self) -> Dict[str, str]:
-        config = {
+    def _load_configuration(self) -> Dict[str, Any]:
+        config: Dict[str, Any] = {
             "provider": self.settings_manager.get("ai_assistant_provider", "").strip(),
             "model": self.settings_manager.get("ai_assistant_model", "").strip(),
             "api_key": self.settings_manager.get("ai_assistant_api_key", "").strip(),
+            "context_size": int(self.settings_manager.get("ai_context_size", 8192)),
         }
         config["openrouter_site_url"] = self.settings_manager.get(
             "ai_openrouter_site_url", ""

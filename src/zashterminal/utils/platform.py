@@ -298,3 +298,108 @@ def get_package_manager() -> str:
             return pm
     return "apt"
 
+
+def detect_gpu_info() -> Dict[str, Union[str, int]]:
+    """
+    Detect GPU device and VRAM capacity for AI model context estimation.
+
+    Returns:
+        Dict with keys: 'vendor', 'name', 'vram_mb', 'recommended_context_tokens', 'description'
+    """
+    import glob
+    import subprocess
+
+    # 1. Try NVIDIA via nvidia-smi
+    if shutil.which("nvidia-smi"):
+        try:
+            out = subprocess.check_output(
+                ["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv,noheader,nounits"],
+                stderr=subprocess.DEVNULL,
+                timeout=2,
+            ).decode("utf-8", errors="replace").strip()
+            if out:
+                lines = out.splitlines()
+                first = lines[0].split(",")
+                name = first[0].strip()
+                vram_mb = int(first[1].strip())
+                vram_gb = round(vram_mb / 1024, 1)
+
+                if vram_mb >= 24000:
+                    rec_tokens = 65536
+                    rec_label = "64K"
+                elif vram_mb >= 12000:
+                    rec_tokens = 32768
+                    rec_label = "32K"
+                elif vram_mb >= 8000:
+                    rec_tokens = 16384
+                    rec_label = "16K ou 32K"
+                elif vram_mb >= 5000:
+                    rec_tokens = 8192
+                    rec_label = "8K ou 16K"
+                else:
+                    rec_tokens = 4096
+                    rec_label = "4K"
+
+                return {
+                    "vendor": "nvidia",
+                    "name": name,
+                    "vram_mb": vram_mb,
+                    "recommended_context_tokens": rec_tokens,
+                    "description": f"{name} ({vram_gb} GB VRAM) — Recomendado: {rec_label}",
+                }
+        except Exception:
+            pass
+
+    # 2. Try AMD / Intel / DRM Sysfs
+    for vram_file in glob.glob("/sys/class/drm/card*/device/mem_info_vram_total"):
+        try:
+            with open(vram_file, "r", encoding="utf-8") as f:
+                vram_bytes = int(f.read().strip())
+                vram_mb = vram_bytes // (1024 * 1024)
+                if vram_mb > 512:
+                    vram_gb = round(vram_mb / 1024, 1)
+                    if vram_mb >= 16000:
+                        rec_tokens, rec_label = 32768, "32K"
+                    elif vram_mb >= 8000:
+                        rec_tokens, rec_label = 16384, "16K"
+                    elif vram_mb >= 4000:
+                        rec_tokens, rec_label = 8192, "8K"
+                    else:
+                        rec_tokens, rec_label = 4096, "4K"
+
+                    return {
+                        "vendor": "drm",
+                        "name": "GPU Dedicada (DRM/Mesa)",
+                        "vram_mb": vram_mb,
+                        "recommended_context_tokens": rec_tokens,
+                        "description": f"GPU Dedicada ({vram_gb} GB VRAM) — Recomendado: {rec_label}",
+                    }
+        except Exception:
+            pass
+
+    # 3. Fallback to System RAM (CPU execution)
+    try:
+        with open("/proc/meminfo", "r", encoding="utf-8") as f:
+            for line in f:
+                if line.startswith("MemTotal:"):
+                    kb = int(line.split()[1])
+                    ram_gb = round(kb / (1024 * 1024), 1)
+                    return {
+                        "vendor": "system",
+                        "name": "CPU / Memória RAM do Sistema",
+                        "vram_mb": kb // 1024,
+                        "recommended_context_tokens": 8192,
+                        "description": f"CPU / RAM ({ram_gb} GB RAM) — Recomendado: 4K ou 8K",
+                    }
+    except Exception:
+        pass
+
+    return {
+        "vendor": "unknown",
+        "name": "Dispositivo Padrão",
+        "vram_mb": 8192,
+        "recommended_context_tokens": 8192,
+        "description": "Recomendado: 8K",
+    }
+
+

@@ -38,6 +38,15 @@ class AIConfigDialog(Adw.PreferencesWindow):
         "local": "llama3.2",
     }
 
+    CONTEXT_SIZES: List[Tuple[int, str]] = [
+        (4096, "4.096 tokens (4K) — Econômico (CPU / GPU < 4GB)"),
+        (8192, "8.192 tokens (8K) — Padrão Equilibrado"),
+        (16384, "16.384 tokens (16K) — Estendido (GPU 8GB - 12GB)"),
+        (32768, "32.768 tokens (32K) — Amplo (GPU 12GB - 16GB / Cloud)"),
+        (65536, "65.536 tokens (64K) — Avançado (GPU 24GB+ / Cloud)"),
+        (131072, "131.072 tokens (128K) — Máximo (Provedores Cloud)"),
+    ]
+
     def __init__(self, parent_window, settings_manager: SettingsManager):
         super().__init__(
             title=_("Configure AI Assistant"),
@@ -257,6 +266,24 @@ class AIConfigDialog(Adw.PreferencesWindow):
         )
         agent_group.add(self.pwd_context_row)
 
+        # Context Size Combo Row with GPU detection
+        from ...utils.platform import detect_gpu_info
+        gpu_info = detect_gpu_info()
+        gpu_desc = gpu_info.get("description", "Recomendado: 8K")
+
+        self.context_size_row = Adw.ComboRow(
+            title=_("Tamanho da Janela de Contexto (Tokens)"),
+            subtitle=_("Hardware: {desc}").format(desc=gpu_desc),
+        )
+        context_labels = [label for _, label in self.CONTEXT_SIZES]
+        self.context_size_row.set_model(Gtk.StringList.new(context_labels))
+
+        current_context_size = int(self.settings_manager.get("ai_context_size", 8192))
+        context_idx = self._get_context_size_index(current_context_size)
+        self.context_size_row.set_selected(context_idx)
+        self.context_size_row.connect("notify::selected", self._on_context_size_changed)
+        agent_group.add(self.context_size_row)
+
         self.scope_row = Adw.ActionRow(
             title=_("Escopo de Diretórios e Políticas"),
             subtitle=_("Configurar pastas autorizadas e proteções de sistema."),
@@ -308,6 +335,21 @@ class AIConfigDialog(Adw.PreferencesWindow):
 
         # Update UI based on current provider
         self._update_ui_for_provider(current_provider)
+
+    def _get_context_size_index(self, size: int) -> int:
+        """Get the index of a context size in the CONTEXT_SIZES list."""
+        for i, (val, _) in enumerate(self.CONTEXT_SIZES):
+            if val == size:
+                return i
+        return 1  # Default 8192
+
+    def _on_context_size_changed(self, combo_row, _param) -> None:
+        """Handle context window size selection change."""
+        idx = combo_row.get_selected()
+        if 0 <= idx < len(self.CONTEXT_SIZES):
+            val = self.CONTEXT_SIZES[idx][0]
+            self.settings_manager.set("ai_context_size", val)
+            self.emit("setting-changed", "ai_context_size", val)
 
     def _get_provider_index(self, provider_id: str) -> int:
         """Get the index of a provider in the PROVIDERS list."""

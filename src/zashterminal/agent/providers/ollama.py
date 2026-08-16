@@ -21,6 +21,7 @@ class OllamaProvider(LLMProvider):
         super().__init__(config)
         self.model = self.model or self.DEFAULT_MODEL
         self.base_url = (config.get("local_base_url") or self.DEFAULT_BASE_URL).rstrip("/")
+        self.context_size = int(config.get("context_size") or 8192)
         self.logger = get_logger("zashterminal.agent.providers.ollama")
 
     def _get_native_base_url(self) -> str:
@@ -47,9 +48,12 @@ class OllamaProvider(LLMProvider):
         payload = {
             "model": self.model,
             "keep_alive": keep_alive,
+            "options": {
+                "num_ctx": self.context_size,
+            },
         }
         try:
-            self.logger.info(f"Preloading local model {self.model} into VRAM (keep_alive={keep_alive})...")
+            self.logger.info(f"Preloading local model {self.model} into VRAM (keep_alive={keep_alive}, num_ctx={self.context_size})...")
             resp = requests.post(native_url, json=payload, headers=self._get_headers(), timeout=30)
             if resp.status_code == 200:
                 self.logger.info(f"Local model {self.model} preloaded into VRAM successfully.")
@@ -119,7 +123,10 @@ class OllamaProvider(LLMProvider):
             "messages": messages,
             "temperature": 0.2,
             "max_tokens": 4096,
-            "options": {"num_predict": 4096},
+            "options": {
+                "num_predict": 4096,
+                "num_ctx": self.context_size,
+            },
             "response_format": {"type": "json_object"},
             "stream": False,
         }
@@ -157,7 +164,10 @@ class OllamaProvider(LLMProvider):
             "messages": messages,
             "temperature": 0.2,
             "max_tokens": 4096,
-            "options": {"num_predict": 4096},
+            "options": {
+                "num_predict": 4096,
+                "num_ctx": self.context_size,
+            },
             "stream": True,
         }
 
