@@ -704,6 +704,9 @@ class TerminalManager:
         try:
             expanded_path = os.path.expanduser(os.path.expandvars(working_directory))
             resolved_path = os.path.abspath(expanded_path)
+            # Ignore internal app sandbox / runtime code directories
+            if resolved_path.startswith("/app") or resolved_path.startswith("/usr") or resolved_path.startswith("/opt/zashterminal") or resolved_path == "/":
+                return None
             path_obj = pathlib.Path(resolved_path)
             if (
                 path_obj.exists()

@@ -1,33 +1,39 @@
 #!/usr/bin/env bash
 
-# Search zashterminal folder
+# Save caller's current working directory
+CALLER_CWD="${PWD:-$HOME}"
+
+# Search zashterminal parent folders and add to PYTHONPATH
 SEARCH_DIRS=(
-    "/app/lib/zashterminal"
-    "/app/share/zashterminal"
-    "/usr/lib/zashterminal"
-    "/usr/share/zashterminal"
-    "/opt/zashterminal"
-    "/usr/local/lib/zashterminal"
+    "/app/lib"
+    "/app/share"
+    "/usr/lib"
+    "/usr/share"
+    "/opt"
+    "/usr/local/lib"
 )
 
-# Also check python site-packages paths
-for py_site in /usr/lib/python3*/site-packages/zashterminal \
-               /usr/local/lib/python3*/site-packages/zashterminal \
-               /app/lib/python3*/site-packages/zashterminal; do
+for py_site in /usr/lib/python3*/site-packages \
+               /usr/local/lib/python3*/site-packages \
+               /app/lib/python3*/site-packages; do
     if [ -d "$py_site" ]; then
         SEARCH_DIRS+=("$py_site")
     fi
 done
 
 for dir in "${SEARCH_DIRS[@]}"; do
-    if [[ -d "$dir" && -f "$dir/__init__.py" ]]; then
-        cd "$dir"
-        break
-    elif [[ -d "$dir/zashterminal" && -f "$dir/zashterminal/__init__.py" ]]; then
-        cd "$dir/zashterminal"
+    if [[ -d "$dir/zashterminal" && -f "$dir/zashterminal/__init__.py" ]]; then
+        export PYTHONPATH="${dir}:${PYTHONPATH}"
         break
     fi
 done
+
+# Ensure the process starts in the caller's working directory or $HOME, never inside internal app paths
+if [[ "$CALLER_CWD" == /app* || "$CALLER_CWD" == /usr* || "$CALLER_CWD" == /opt/zashterminal* || ! -d "$CALLER_CWD" ]]; then
+    cd "$HOME" 2>/dev/null || cd /
+else
+    cd "$CALLER_CWD" 2>/dev/null || true
+fi
 
 # Check if using custom virtualenv python or system python
 if [[ -f "/opt/zashterminal/venv/bin/python3" ]]; then
@@ -36,7 +42,7 @@ else
     PYTHON_BIN="python3"
 fi
 
-execute_zashterminal="${PYTHON_BIN} __init__.py"
+execute_zashterminal="${PYTHON_BIN} -m zashterminal"
 
 
 execute_with_memory_verification() {

@@ -1351,6 +1351,9 @@ class ProcessSpawner:
         try:
             expanded_path = os.path.expanduser(os.path.expandvars(working_directory))
             resolved_path = os.path.abspath(expanded_path)
+            # Prevent defaulting to internal app code / runtime paths in sandboxes
+            if resolved_path.startswith("/app") or resolved_path.startswith("/usr") or resolved_path.startswith("/opt/zashterminal") or resolved_path == "/":
+                return str(self.platform_info.home_dir)
             path_obj = Path(resolved_path)
             if not path_obj.exists():
                 self.logger.error(

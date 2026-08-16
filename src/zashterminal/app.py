@@ -556,7 +556,12 @@ class CommTerminalApp(Adw.Application):
         self, path: Optional[str]
     ) -> Optional[str]:
         path = self._convert_file_uri_to_path(path)
+        if not path:
+            return None
         if path in _DESKTOP_WORKING_DIRECTORY_PLACEHOLDERS:
+            return None
+        # In sandboxes (Flatpak) or desktop launch, ignore internal app / runtime code directories
+        if path.startswith("/app") or path.startswith("/usr") or path.startswith("/opt/zashterminal") or path == "/":
             return None
         return path
 
