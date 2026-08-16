@@ -196,7 +196,10 @@ class ProcessSpawner:
             A tuple of (command_list, environment_dict, temp_dir_path).
             temp_dir_path is the path to the temporary ZDOTDIR for zsh, or None.
         """
-        shell = Vte.get_user_shell()
+        from ..utils.platform import get_user_shell, is_flatpak_sandbox
+
+        in_flatpak = is_flatpak_sandbox() and bool(shutil.which("flatpak-spawn"))
+        shell = get_user_shell()
         shell_basename = os.path.basename(shell)
         temp_dir_path: Optional[str] = None
         use_login_shell = self.settings_manager.get("use_login_shell", False)
@@ -210,6 +213,28 @@ class ProcessSpawner:
             f"__zashterminal_osc7() {{ {OSC7_HOST_DETECTION_SNIPPET} "
             'printf "\\033]7;file://%s%s\\007" "$ZASHTERMINAL_OSC7_HOST" "$PWD"; }; __zashterminal_osc7'
         )
+
+        if in_flatpak:
+            effective_dir = self._resolve_and_validate_working_directory(
+                working_directory
+            ) or str(self.platform_info.home_dir)
+            flatpak_prefix = [
+                "flatpak-spawn",
+                "--host",
+                "--watch-bus",
+                f"--directory={effective_dir}",
+                "--env=TERM=xterm-256color",
+                "--env=COLORTERM=truecolor",
+                "--env=ZASHTERMINAL_HOST=1",
+            ]
+            if use_login_shell:
+                cmd = flatpak_prefix + [shell, "-l"]
+            else:
+                cmd = flatpak_prefix + [shell]
+            self.logger.info(
+                f"Spawning host shell via flatpak-spawn in {effective_dir}: {shell}"
+            )
+            return cmd, env, None
 
         if shell_basename == "zsh":
             try:
@@ -318,6 +343,7 @@ class ProcessSpawner:
 
 
         return cmd, env, temp_dir_path
+
 
     def _get_ssh_control_path(self, session: "SessionItem") -> str:
         user = session.user or os.getlogin()

@@ -259,6 +259,39 @@ def detect_os_context() -> str:
     return os_name
 
 
+def is_flatpak_sandbox() -> bool:
+    """Return True if the current process is running inside a Flatpak container."""
+    return os.path.exists("/.flatpak-info") or bool(os.environ.get("FLATPAK_ID"))
+
+
+def get_user_shell() -> str:
+    """
+    Get the default shell for the user.
+    When running in Flatpak, queries the host system's user shell.
+    """
+    if is_flatpak_sandbox() and shutil.which("flatpak-spawn"):
+        try:
+            import subprocess
+            out = subprocess.check_output(
+                ["flatpak-spawn", "--host", "sh", "-c", 'getent passwd "$USER" | cut -d: -f7 || echo "$SHELL"'],
+                stderr=subprocess.DEVNULL,
+                timeout=2,
+            ).decode("utf-8", errors="replace").strip()
+            if out and os.path.isabs(out):
+                return out
+        except Exception:
+            pass
+        return "/bin/bash"
+
+    try:
+        import gi
+        gi.require_version("Vte", "3.91")
+        from gi.repository import Vte
+        return Vte.get_user_shell()
+    except Exception:
+        return os.environ.get("SHELL", "/bin/bash")
+
+
 def _version_tuple(version: str) -> tuple[int, int]:
     """Parse semantic distro version into (major, minor)."""
     if not version:
