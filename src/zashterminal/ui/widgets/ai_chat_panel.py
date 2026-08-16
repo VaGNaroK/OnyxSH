@@ -793,61 +793,121 @@ class MessageBubble(Gtk.Box):
                 else "#f8f8f2",  # White
             }
         else:
-            # Default Dracula color scheme
-            colors = {
-                "Token.Keyword": "#ff79c6",
-                "Token.Keyword.Namespace": "#ff79c6",
-                "Token.Keyword.Constant": "#ff79c6",
-                "Token.Keyword.Declaration": "#ff79c6",
-                "Token.Keyword.Pseudo": "#ff79c6",
-                "Token.Keyword.Reserved": "#ff79c6",
-                "Token.Keyword.Type": "#8be9fd",
-                "Token.Name.Builtin": "#50fa7b",
-                "Token.Name.Function": "#50fa7b",
-                "Token.Name.Class": "#50fa7b",
-                "Token.Name.Decorator": "#50fa7b",
-                "Token.Name.Variable": "#8be9fd",
-                "Token.Name.Variable.Global": "#8be9fd",
-                "Token.Name.Variable.Instance": "#8be9fd",
-                # String tokens (various pygments token paths)
-                "Token.String": "#f1fa8c",
-                "Token.String.Doc": "#f1fa8c",
-                "Token.String.Double": "#f1fa8c",
-                "Token.String.Single": "#f1fa8c",
-                "Token.String.Backtick": "#f1fa8c",
-                "Token.String.Interpol": "#f1fa8c",
-                "Token.String.Escape": "#ffb86c",
-                # Literal tokens (pygments often uses Token.Literal.* for strings/numbers)
-                "Token.Literal": "#f1fa8c",
-                "Token.Literal.String": "#f1fa8c",
-                "Token.Literal.String.Double": "#f1fa8c",
-                "Token.Literal.String.Single": "#f1fa8c",
-                "Token.Literal.String.Backtick": "#f1fa8c",
-                "Token.Literal.String.Doc": "#f1fa8c",
-                "Token.Literal.String.Escape": "#ffb86c",
-                "Token.Literal.String.Interpol": "#f1fa8c",
-                "Token.Literal.String.Heredoc": "#f1fa8c",
-                "Token.Literal.Number": "#bd93f9",
-                "Token.Literal.Number.Integer": "#bd93f9",
-                "Token.Literal.Number.Float": "#bd93f9",
-                "Token.Literal.Number.Hex": "#bd93f9",
-                "Token.Literal.Number.Oct": "#bd93f9",
-                "Token.Literal.Number.Bin": "#bd93f9",
-                # Number tokens
-                "Token.Number": "#bd93f9",
-                "Token.Number.Integer": "#bd93f9",
-                "Token.Number.Float": "#bd93f9",
-                # Comment tokens
-                "Token.Comment": "#6272a4",
-                "Token.Comment.Single": "#6272a4",
-                "Token.Comment.Multiline": "#6272a4",
-                "Token.Comment.Hashbang": "#6272a4",
-                "Token.Comment.Preproc": "#6272a4",
-                # Operator tokens
-                "Token.Operator": "#ff79c6",
-                "Token.Operator.Word": "#ff79c6",
-                "Token.Punctuation": "#f8f8f2",
-            }
+            style_manager = Adw.StyleManager.get_default()
+            is_dark = style_manager.get_dark()
+            if is_dark:
+                # Default Dracula color scheme for dark theme
+                colors = {
+                    "Token.Keyword": "#ff79c6",
+                    "Token.Keyword.Namespace": "#ff79c6",
+                    "Token.Keyword.Constant": "#ff79c6",
+                    "Token.Keyword.Declaration": "#ff79c6",
+                    "Token.Keyword.Pseudo": "#ff79c6",
+                    "Token.Keyword.Reserved": "#ff79c6",
+                    "Token.Keyword.Type": "#8be9fd",
+                    "Token.Name.Builtin": "#50fa7b",
+                    "Token.Name.Function": "#50fa7b",
+                    "Token.Name.Class": "#50fa7b",
+                    "Token.Name.Decorator": "#50fa7b",
+                    "Token.Name.Variable": "#8be9fd",
+                    "Token.Name.Variable.Global": "#8be9fd",
+                    "Token.Name.Variable.Instance": "#8be9fd",
+                    # String tokens (various pygments token paths)
+                    "Token.String": "#f1fa8c",
+                    "Token.String.Doc": "#f1fa8c",
+                    "Token.String.Double": "#f1fa8c",
+                    "Token.String.Single": "#f1fa8c",
+                    "Token.String.Backtick": "#f1fa8c",
+                    "Token.String.Interpol": "#f1fa8c",
+                    "Token.String.Escape": "#ffb86c",
+                    # Literal tokens
+                    "Token.Literal": "#f1fa8c",
+                    "Token.Literal.String": "#f1fa8c",
+                    "Token.Literal.String.Double": "#f1fa8c",
+                    "Token.Literal.String.Single": "#f1fa8c",
+                    "Token.Literal.String.Backtick": "#f1fa8c",
+                    "Token.Literal.String.Doc": "#f1fa8c",
+                    "Token.Literal.String.Escape": "#ffb86c",
+                    "Token.Literal.String.Interpol": "#f1fa8c",
+                    "Token.Literal.String.Heredoc": "#f1fa8c",
+                    "Token.Literal.Number": "#bd93f9",
+                    "Token.Literal.Number.Integer": "#bd93f9",
+                    "Token.Literal.Number.Float": "#bd93f9",
+                    "Token.Literal.Number.Hex": "#bd93f9",
+                    "Token.Literal.Number.Oct": "#bd93f9",
+                    "Token.Literal.Number.Bin": "#bd93f9",
+                    # Number tokens
+                    "Token.Number": "#bd93f9",
+                    "Token.Number.Integer": "#bd93f9",
+                    "Token.Number.Float": "#bd93f9",
+                    # Comment tokens
+                    "Token.Comment": "#6272a4",
+                    "Token.Comment.Single": "#6272a4",
+                    "Token.Comment.Multiline": "#6272a4",
+                    "Token.Comment.Hashbang": "#6272a4",
+                    "Token.Comment.Preproc": "#6272a4",
+                    # Operator tokens
+                    "Token.Operator": "#ff79c6",
+                    "Token.Operator.Word": "#ff79c6",
+                    "Token.Punctuation": "#f8f8f2",
+                }
+            else:
+                # High contrast color scheme for light theme
+                colors = {
+                    "Token.Keyword": "#cf222e",
+                    "Token.Keyword.Namespace": "#cf222e",
+                    "Token.Keyword.Constant": "#0550ae",
+                    "Token.Keyword.Declaration": "#cf222e",
+                    "Token.Keyword.Pseudo": "#cf222e",
+                    "Token.Keyword.Reserved": "#cf222e",
+                    "Token.Keyword.Type": "#953800",
+                    "Token.Name.Builtin": "#8250df",
+                    "Token.Name.Function": "#116d3d",
+                    "Token.Name.Class": "#953800",
+                    "Token.Name.Decorator": "#8250df",
+                    "Token.Name.Variable": "#0550ae",
+                    "Token.Name.Variable.Global": "#0550ae",
+                    "Token.Name.Variable.Instance": "#0550ae",
+                    # String tokens
+                    "Token.String": "#0a3069",
+                    "Token.String.Doc": "#0a3069",
+                    "Token.String.Double": "#0a3069",
+                    "Token.String.Single": "#0a3069",
+                    "Token.String.Backtick": "#0a3069",
+                    "Token.String.Interpol": "#0a3069",
+                    "Token.String.Escape": "#953800",
+                    # Literal tokens
+                    "Token.Literal": "#0a3069",
+                    "Token.Literal.String": "#0a3069",
+                    "Token.Literal.String.Double": "#0a3069",
+                    "Token.Literal.String.Single": "#0a3069",
+                    "Token.Literal.String.Backtick": "#0a3069",
+                    "Token.Literal.String.Doc": "#0a3069",
+                    "Token.Literal.String.Escape": "#953800",
+                    "Token.Literal.String.Interpol": "#0a3069",
+                    "Token.Literal.String.Heredoc": "#0a3069",
+                    "Token.Literal.Number": "#0550ae",
+                    "Token.Literal.Number.Integer": "#0550ae",
+                    "Token.Literal.Number.Float": "#0550ae",
+                    "Token.Literal.Number.Hex": "#0550ae",
+                    "Token.Literal.Number.Oct": "#0550ae",
+                    "Token.Literal.Number.Bin": "#0550ae",
+                    # Number tokens
+                    "Token.Number": "#0550ae",
+                    "Token.Number.Integer": "#0550ae",
+                    "Token.Number.Float": "#0550ae",
+                    # Comment tokens
+                    "Token.Comment": "#57606a",
+                    "Token.Comment.Single": "#57606a",
+                    "Token.Comment.Multiline": "#57606a",
+                    "Token.Comment.Hashbang": "#57606a",
+                    "Token.Comment.Preproc": "#57606a",
+                    # Operator tokens
+                    "Token.Operator": "#cf222e",
+                    "Token.Operator.Word": "#cf222e",
+                    "Token.Punctuation": "#24292f",
+                }
+
 
         # Tokenize and build Pango markup
         # Use the already lazy-loaded pygments module
@@ -900,13 +960,14 @@ class MessageBubble(Gtk.Box):
             # Light theme colors - darker, high contrast for light backgrounds
             return {
                 "keyword": "#ab296a",      # Darker magenta for keywords
-                "string": "#7c5e00",       # Dark amber/gold for strings
-                "comment": "#5c636a",      # Dark gray for comments
-                "number": "#5a32a3",       # Dark purple for numbers
+                "string": "#0a3069",       # Dark navy for strings
+                "comment": "#57606a",      # Dark gray for comments
+                "number": "#0550ae",       # Dark blue for numbers
                 "function": "#116d3d",     # Dark green for functions/commands
-                "variable": "#0a58ca",     # Dark blue for variables
-                "flag": "#ca6510",         # Dark orange for flags
+                "variable": "#0550ae",     # Dark blue for variables
+                "flag": "#953800",         # Dark orange/brown for flags
             }
+
 
     def _highlight_fallback(self, code: str, lang: str) -> str:
         """Fallback regex-based syntax highlighting.
@@ -1683,14 +1744,13 @@ class AIChatPanel(Gtk.Box):
             else:
                 rgba_bg = f"rgb({r}, {g}, {b})"
 
-            # Command blocks always use dark background for code highlighting consistency
-            command_bg_dark = "#1e1e1e"
-            command_border_dark = "rgba(255, 255, 255, 0.1)"
-            command_hover_bg_dark = "#2d2d2d"
-            command_fg_dark = "#e0e0e0"
-
             # Define solid opaque colors for content areas based on theme
             if gtk_theme == "terminal":
+                command_bg = "#1e1e1e" if is_dark else "#f6f8fa"
+                command_fg = "#e0e0e0" if is_dark else "#1f2328"
+                command_border = "rgba(255, 255, 255, 0.1)" if is_dark else "rgba(0, 0, 0, 0.12)"
+                command_hover_bg = "#2d2d2d" if is_dark else "#eef1f5"
+
                 # Terminal theme - use colors from terminal scheme
                 bubble_user_bg = accent_color
                 # For user bubble text, check if accent is dark enough for white text
@@ -1710,6 +1770,11 @@ class AIChatPanel(Gtk.Box):
                 )
                 content_fg = fg_color_hex
             elif is_dark:
+                command_bg = "#1e1e1e"
+                command_fg = "#e0e0e0"
+                command_border = "rgba(255, 255, 255, 0.1)"
+                command_hover_bg = "#2d2d2d"
+
                 # Dark theme colors - Modern dark palette
                 bubble_user_bg = "#3584e4"  # Accent blue for user
                 bubble_user_fg = "#ffffff"
@@ -1720,6 +1785,11 @@ class AIChatPanel(Gtk.Box):
                 scroll_bg = f"rgba({r}, {g}, {b}, 0.3)" if transparency > 0 else "transparent"
                 content_fg = "#ffffff"
             else:
+                command_bg = "#f6f8fa"
+                command_fg = "#1f2328"
+                command_border = "rgba(0, 0, 0, 0.12)"
+                command_hover_bg = "#eef1f5"
+
                 # Light theme colors - Clean light palette
                 bubble_user_bg = "#3584e4"  # Same accent blue
                 bubble_user_fg = "#ffffff"
@@ -1763,23 +1833,33 @@ class AIChatPanel(Gtk.Box):
                 box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
             }}
 
-            /* Command block - always dark for code highlighting */
+            /* Command block and step cards - responsive to light/dark themes */
             .ai-command-block {{
-                background-color: {command_bg_dark};
-                color: {command_fg_dark};
-                border: 1px solid {command_border_dark};
+                background-color: {command_bg};
+                color: {command_fg};
+                border: 1px solid {command_border};
                 border-radius: 10px;
                 padding: 12px 14px;
                 transition: all 200ms ease;
             }}
             .ai-command-block:hover {{
-                background-color: {command_hover_bg_dark};
+                background-color: {command_hover_bg};
                 border-color: alpha(@accent_color, 0.4);
                 box-shadow: 0 2px 8px alpha(@accent_color, 0.1);
             }}
             .ai-command-text {{
-                color: {command_fg_dark};
+                color: {command_fg};
             }}
+            .ai-step-card {{
+                background-color: {command_bg};
+                border: 1px solid {command_border};
+                color: {command_fg};
+            }}
+            .ai-step-card:hover {{
+                background-color: {command_hover_bg};
+                border-color: alpha(@accent_color, 0.5);
+            }}
+
 
             /* Input area - solid background for visibility */
             .ai-input-box {{

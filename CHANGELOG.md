@@ -27,6 +27,8 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 - **Sincronização do Realce de Digitação em Tempo Real**: Reset imediato do buffer de realce de digitação em sequências de escape (setas, `Delete`, `Backspace`) e bloqueio de injeção retroativa de cursor fora da digitação inicial, corrigindo sobreposição e corrupção de caracteres na tela.
 - **Bypass Interativo de Edição no Prompt**: Repasse direto e sem buffer para eventos interativos de teclado sem quebra de linha (setas, `Delete`, `Backspace`, autocompletar), corrigindo duplicação de redesenho do Readline e garantindo exclusão instantânea de caracteres com a tecla `Delete`.
 - **Isolamento de Teclas de Edição do GtkIMContext no Flatpak**: Envio direto da tecla `Delete` (`\x1b[3~`) para o PTY do terminal via `feed_child` na fase de captura de eventos e concessão de permissões de D-Bus para `IBus` e `Fcitx`, impedindo que o método de entrada do GTK interprete o Delete como tecla morta de composição.
+- **Contraste de Cores no Painel do Assistente de IA em Tema Claro**: Adaptação dinâmica das cores de blocos de comando, cartões de ação do agente e paletas de realce sintático (Pygments e Fallback) para garantir contraste elevado e perfeita legibilidade tanto no tema claro quanto no escuro.
+
 
 
 
