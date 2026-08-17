@@ -1354,6 +1354,10 @@ class TabManager:
         self._find_terminals_recursive(page_content, terminals)
         return terminals[0] if terminals else None
 
+    def get_active_terminal(self) -> Optional[Vte.Terminal]:
+        """Alias for get_selected_terminal."""
+        return self.get_selected_terminal()
+
     def navigate_pane(self, direction: str) -> bool:
         """Move keyboard focus to an adjacent split pane in the given direction."""
         current_terminal = self.get_selected_terminal()
