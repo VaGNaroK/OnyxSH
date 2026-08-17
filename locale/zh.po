@@ -8497,3 +8497,199 @@ msgstr "删除布局时出错"
 #: NEEDS WORK
 msgid "Error Moving Layout"
 msgstr "移动布局时出错"
+
+# 
+msgid "Export conversation"
+msgstr "导出对话"
+
+# 
+msgid "Export as Markdown (.md)"
+msgstr "导出为 Markdown (.md)"
+
+# 
+msgid "Export as JSON (.json)"
+msgstr "导出为 JSON (.json)"
+
+# 
+msgid "Copy to Clipboard"
+msgstr "复制到剪贴板"
+
+# 
+msgid "No messages to export."
+msgstr "没有可导出的消息。"
+
+# 
+msgid "Conversation copied to clipboard."
+msgstr "对话已复制到剪贴板。"
+
+# 
+msgid "Export AI Conversation"
+msgstr "导出 AI 对话"
+
+# 
+msgid "JSON files (*.json)"
+msgstr "JSON 文件 (*.json)"
+
+# 
+msgid "Markdown files (*.md)"
+msgstr "Markdown 文件 (*.md)"
+
+# 
+msgid "All files"
+msgstr "所有文件"
+
+# 
+msgid "Conversation exported successfully."
+msgstr "对话导出成功。"
+
+# 
+msgid "Failed to export conversation: {}"
+msgstr "导出对话失败：{}"
+
+# 
+msgid "Paleta de Comandos"
+msgstr "命令面板"
+
+# 
+msgid "Command Palette"
+msgstr "命令面板"
+
+# 
+msgid "Digite um comando ou busque uma ação..."
+msgstr "输入命令或搜索操作..."
+
+# 
+msgid "Abas e Janelas"
+msgstr "标签与窗口"
+
+# 
+msgid "Divisão de Telas"
+msgstr "屏幕分屏"
+
+# 
+msgid "Sessões & SSH"
+msgstr "会话与 SSH"
+
+# 
+msgid "Fechar Aba Atual"
+msgstr "关闭当前标签"
+
+# 
+msgid "Aba Anterior"
+msgstr "上一标签"
+
+# 
+msgid "Dividir Painel Horizontalmente"
+msgstr "水平分屏"
+
+# 
+msgid "Dividir Painel Verticalmente"
+msgstr "垂直分屏"
+
+# 
+msgid "Fechar Painel Dividido"
+msgstr "关闭分屏"
+
+# 
+msgid "Focar Painel Acima"
+msgstr "聚焦上方分屏"
+
+# 
+msgid "Focar Painel Abaixo"
+msgstr "聚焦下方分屏"
+
+# 
+msgid "Focar Painel à Esquerda"
+msgstr "聚焦左侧分屏"
+
+# 
+msgid "Focar Painel à Direita"
+msgstr "聚焦右侧分屏"
+
+# 
+msgid "Copiar Seleção"
+msgstr "复制所选内容"
+
+# 
+msgid "Colar Área de Transferência"
+msgstr "从剪贴板粘贴"
+
+# 
+msgid "Limpar Tela do Terminal"
+msgstr "清除终端屏幕"
+
+# 
+msgid "Buscar no Terminal"
+msgstr "在终端中搜索"
+
+# 
+msgid "Modo Transmissão (Comando p/ Todas as Abas)"
+msgstr "广播模式 (发送命令至所有标签)"
+
+# 
+msgid "Aumentar Zoom / Tamanho da Fonte"
+msgstr "放大 / 增大字体"
+
+# 
+msgid "Diminuir Zoom / Tamanho da Fonte"
+msgstr "缩小 / 减小字体"
+
+# 
+msgid "Resetar Zoom"
+msgstr "重置缩放"
+
+# 
+msgid "Assistente de IA (Abrir / Fechar)"
+msgstr "AI 助手 (打开 / 关闭)"
+
+# 
+msgid "Configurar Provedores e Modelos de IA"
+msgstr "配置 AI 提供商与模型"
+
+# 
+msgid "Políticas de Segurança e Escopo do Agente"
+msgstr "代理安全策略与作用域"
+
+# 
+msgid "Registro de Auditoria de Ações do Agente"
+msgstr "代理操作审计日志"
+
+# 
+msgid "Painel Lateral de Sessões SSH"
+msgstr "SSH 会话侧边栏"
+
+# 
+msgid "Gerenciador de Arquivos SFTP"
+msgstr "SFTP 文件管理器"
+
+# 
+msgid "Gerenciador de Comandos e Snippets"
+msgstr "命令管理器与代码片段"
+
+# 
+msgid "Servidor TFTP Embutido"
+msgstr "内置 TFTP 服务器"
+
+# 
+msgid "Salvar Layout de Sessões Atual"
+msgstr "保存当前会话布局"
+
+# 
+msgid "Importar Sessões do SecureCRT"
+msgstr "导入 SecureCRT 会话"
+
+# 
+msgid "Preferências do Zashterminal"
+msgstr "Zashterminal 首选项"
+
+# 
+msgid "Atalhos de Teclado"
+msgstr "快捷键"
+
+# 
+msgid "Regras de Realce Sintático e Temas"
+msgstr "语法高亮规则与主题"
+
+# 
+msgid "Conectar:"
+msgstr "连接："

@@ -8502,3 +8502,199 @@ msgstr "レイアウトの削除中にエラーが発生しました"
 #: NEEDS WORK
 msgid "Error Moving Layout"
 msgstr "レイアウトの移動エラー"
+
+# 
+msgid "Export conversation"
+msgstr "会話をエクスポート"
+
+# 
+msgid "Export as Markdown (.md)"
+msgstr "Markdown (.md) としてエクスポート"
+
+# 
+msgid "Export as JSON (.json)"
+msgstr "JSON (.json) としてエクスポート"
+
+# 
+msgid "Copy to Clipboard"
+msgstr "クリップボードにコピー"
+
+# 
+msgid "No messages to export."
+msgstr "エクスポートするメッセージがありません。"
+
+# 
+msgid "Conversation copied to clipboard."
+msgstr "会話をクリップボードにコピーしました。"
+
+# 
+msgid "Export AI Conversation"
+msgstr "AI 会話をエクスポート"
+
+# 
+msgid "JSON files (*.json)"
+msgstr "JSON ファイル (*.json)"
+
+# 
+msgid "Markdown files (*.md)"
+msgstr "Markdown ファイル (*.md)"
+
+# 
+msgid "All files"
+msgstr "すべてのファイル"
+
+# 
+msgid "Conversation exported successfully."
+msgstr "会話が正常にエクスポートされました。"
+
+# 
+msgid "Failed to export conversation: {}"
+msgstr "会話のエクスポートに失敗しました: {}"
+
+# 
+msgid "Paleta de Comandos"
+msgstr "コマンドパレット"
+
+# 
+msgid "Command Palette"
+msgstr "コマンドパレット"
+
+# 
+msgid "Digite um comando ou busque uma ação..."
+msgstr "コマンドを入力するかアクションを検索..."
+
+# 
+msgid "Abas e Janelas"
+msgstr "タブとウィンドウ"
+
+# 
+msgid "Divisão de Telas"
+msgstr "画面分割"
+
+# 
+msgid "Sessões & SSH"
+msgstr "セッションと SSH"
+
+# 
+msgid "Fechar Aba Atual"
+msgstr "現在のタブを閉じる"
+
+# 
+msgid "Aba Anterior"
+msgstr "前のタブ"
+
+# 
+msgid "Dividir Painel Horizontalmente"
+msgstr "ペインを水平分割"
+
+# 
+msgid "Dividir Painel Verticalmente"
+msgstr "ペインを垂直分割"
+
+# 
+msgid "Fechar Painel Dividido"
+msgstr "分割ペインを閉じる"
+
+# 
+msgid "Focar Painel Acima"
+msgstr "上のペインにフォーカス"
+
+# 
+msgid "Focar Painel Abaixo"
+msgstr "下のペインにフォーカス"
+
+# 
+msgid "Focar Painel à Esquerda"
+msgstr "左のペインにフォーカス"
+
+# 
+msgid "Focar Painel à Direita"
+msgstr "右のペインにフォーカス"
+
+# 
+msgid "Copiar Seleção"
+msgstr "選択項目をコピー"
+
+# 
+msgid "Colar Área de Transferência"
+msgstr "クリップボードから貼り付け"
+
+# 
+msgid "Limpar Tela do Terminal"
+msgstr "ターミナル画面をクリア"
+
+# 
+msgid "Buscar no Terminal"
+msgstr "ターミナル内を検索"
+
+# 
+msgid "Modo Transmissão (Comando p/ Todas as Abas)"
+msgstr "ブロードキャストモード (すべてのタブにコマンド送信)"
+
+# 
+msgid "Aumentar Zoom / Tamanho da Fonte"
+msgstr "ズームイン / フォント拡大"
+
+# 
+msgid "Diminuir Zoom / Tamanho da Fonte"
+msgstr "ズームアウト / フォント縮小"
+
+# 
+msgid "Resetar Zoom"
+msgstr "ズームをリセット"
+
+# 
+msgid "Assistente de IA (Abrir / Fechar)"
+msgstr "AI アシスタント (開く / 閉じる)"
+
+# 
+msgid "Configurar Provedores e Modelos de IA"
+msgstr "AI プロバイダーとモデルの設定"
+
+# 
+msgid "Políticas de Segurança e Escopo do Agente"
+msgstr "エージェントのセキュリティポリシーとスコープ"
+
+# 
+msgid "Registro de Auditoria de Ações do Agente"
+msgstr "エージェントアクション監査ログ"
+
+# 
+msgid "Painel Lateral de Sessões SSH"
+msgstr "SSH セッションサイドバー"
+
+# 
+msgid "Gerenciador de Arquivos SFTP"
+msgstr "SFTP ファイルマネージャー"
+
+# 
+msgid "Gerenciador de Comandos e Snippets"
+msgstr "コマンドマネージャーとスニペット"
+
+# 
+msgid "Servidor TFTP Embutido"
+msgstr "組み込み TFTP サーバー"
+
+# 
+msgid "Salvar Layout de Sessões Atual"
+msgstr "現在のセッションレイアウトを保存"
+
+# 
+msgid "Importar Sessões do SecureCRT"
+msgstr "SecureCRT セッションのインポート"
+
+# 
+msgid "Preferências do Zashterminal"
+msgstr "Zashterminal 設定"
+
+# 
+msgid "Atalhos de Teclado"
+msgstr "キーボードショートカット"
+
+# 
+msgid "Regras de Realce Sintático e Temas"
+msgstr "シンタックスハイライトのルールとテーマ"
+
+# 
+msgid "Conectar:"
+msgstr "接続:"

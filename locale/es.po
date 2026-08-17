@@ -8568,3 +8568,199 @@ msgstr "Error al eliminar el diseño"
 #: NEEDS WORK
 msgid "Error Moving Layout"
 msgstr "Error al mover el diseño"
+
+# 
+msgid "Export conversation"
+msgstr "Exportar conversación"
+
+# 
+msgid "Export as Markdown (.md)"
+msgstr "Exportar como Markdown (.md)"
+
+# 
+msgid "Export as JSON (.json)"
+msgstr "Exportar como JSON (.json)"
+
+# 
+msgid "Copy to Clipboard"
+msgstr "Copiar al portapapeles"
+
+# 
+msgid "No messages to export."
+msgstr "No hay mensajes para exportar."
+
+# 
+msgid "Conversation copied to clipboard."
+msgstr "Conversación copiada al portapapeles."
+
+# 
+msgid "Export AI Conversation"
+msgstr "Exportar conversación de IA"
+
+# 
+msgid "JSON files (*.json)"
+msgstr "Archivos JSON (*.json)"
+
+# 
+msgid "Markdown files (*.md)"
+msgstr "Archivos Markdown (*.md)"
+
+# 
+msgid "All files"
+msgstr "Todos los archivos"
+
+# 
+msgid "Conversation exported successfully."
+msgstr "Conversación exportada con éxito."
+
+# 
+msgid "Failed to export conversation: {}"
+msgstr "Error al exportar conversación: {}"
+
+# 
+msgid "Paleta de Comandos"
+msgstr "Paleta de Comandos"
+
+# 
+msgid "Command Palette"
+msgstr "Paleta de Comandos"
+
+# 
+msgid "Digite um comando ou busque uma ação..."
+msgstr "Escriba un comando o busque una acción..."
+
+# 
+msgid "Abas e Janelas"
+msgstr "Pestañas y Ventanas"
+
+# 
+msgid "Divisão de Telas"
+msgstr "División de Pantallas"
+
+# 
+msgid "Sessões & SSH"
+msgstr "Sesiones y SSH"
+
+# 
+msgid "Fechar Aba Atual"
+msgstr "Cerrar Pestaña Actual"
+
+# 
+msgid "Aba Anterior"
+msgstr "Pestaña Anterior"
+
+# 
+msgid "Dividir Painel Horizontalmente"
+msgstr "Dividir Panel Horizontalmente"
+
+# 
+msgid "Dividir Painel Verticalmente"
+msgstr "Dividir Panel Verticalmente"
+
+# 
+msgid "Fechar Painel Dividido"
+msgstr "Cerrar Panel Dividido"
+
+# 
+msgid "Focar Painel Acima"
+msgstr "Enfocar Panel Superior"
+
+# 
+msgid "Focar Painel Abaixo"
+msgstr "Enfocar Panel Inferior"
+
+# 
+msgid "Focar Painel à Esquerda"
+msgstr "Enfocar Panel a la Izquierda"
+
+# 
+msgid "Focar Painel à Direita"
+msgstr "Enfocar Panel a la Derecha"
+
+# 
+msgid "Copiar Seleção"
+msgstr "Copiar Selección"
+
+# 
+msgid "Colar Área de Transferência"
+msgstr "Pegar desde el Portapapeles"
+
+# 
+msgid "Limpar Tela do Terminal"
+msgstr "Limpiar Pantalla del Terminal"
+
+# 
+msgid "Buscar no Terminal"
+msgstr "Buscar en el Terminal"
+
+# 
+msgid "Modo Transmissão (Comando p/ Todas as Abas)"
+msgstr "Modo Transmisión (Comando para Todas las Pestañas)"
+
+# 
+msgid "Aumentar Zoom / Tamanho da Fonte"
+msgstr "Aumentar Zoom / Tamaño de Fuente"
+
+# 
+msgid "Diminuir Zoom / Tamanho da Fonte"
+msgstr "Disminuir Zoom / Tamaño de Fuente"
+
+# 
+msgid "Resetar Zoom"
+msgstr "Restablecer Zoom"
+
+# 
+msgid "Assistente de IA (Abrir / Fechar)"
+msgstr "Asistente de IA (Abrir / Cerrar)"
+
+# 
+msgid "Configurar Provedores e Modelos de IA"
+msgstr "Configurar Proveedores y Modelos de IA"
+
+# 
+msgid "Políticas de Segurança e Escopo do Agente"
+msgstr "Políticas de Seguridad y Alcance del Agente"
+
+# 
+msgid "Registro de Auditoria de Ações do Agente"
+msgstr "Registro de Auditoría de Acciones del Agente"
+
+# 
+msgid "Painel Lateral de Sessões SSH"
+msgstr "Panel Lateral de Sesiones SSH"
+
+# 
+msgid "Gerenciador de Arquivos SFTP"
+msgstr "Administrador de Archivos SFTP"
+
+# 
+msgid "Gerenciador de Comandos e Snippets"
+msgstr "Administrador de Comandos y Snippets"
+
+# 
+msgid "Servidor TFTP Embutido"
+msgstr "Servidor TFTP Integrado"
+
+# 
+msgid "Salvar Layout de Sessões Atual"
+msgstr "Guardar Diseño de Sesiones Actual"
+
+# 
+msgid "Importar Sessões do SecureCRT"
+msgstr "Importar Sesiones de SecureCRT"
+
+# 
+msgid "Preferências do Zashterminal"
+msgstr "Preferencias de Zashterminal"
+
+# 
+msgid "Atalhos de Teclado"
+msgstr "Atajos de Teclado"
+
+# 
+msgid "Regras de Realce Sintático e Temas"
+msgstr "Reglas de Resaltado de Sintaxis y Temas"
+
+# 
+msgid "Conectar:"
+msgstr "Conectar:"

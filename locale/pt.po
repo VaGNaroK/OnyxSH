@@ -9045,4 +9045,14 @@ msgstr "Atalhos de Teclado"
 msgid "Regras de Realce Sintático e Temas"
 msgstr "Regras de Realce Sintático e Temas"
 
+# 
+msgid "Políticas de Segurança e Escopo do Agente"
+msgstr "Políticas de Segurança e Escopo do Agente"
 
+# 
+msgid "Registro de Auditoria de Ações do Agente"
+msgstr "Registro de Auditoria de Ações do Agente"
+
+# 
+msgid "Conectar:"
+msgstr "Conectar:"

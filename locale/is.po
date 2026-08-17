@@ -8541,3 +8541,199 @@ msgstr "Villa að eyða uppsetningu"
 #: NEEDS WORK
 msgid "Error Moving Layout"
 msgstr "Villa að færa uppsetningu"
+
+# 
+msgid "Export conversation"
+msgstr "Export conversation"
+
+# 
+msgid "Export as Markdown (.md)"
+msgstr "Export as Markdown (.md)"
+
+# 
+msgid "Export as JSON (.json)"
+msgstr "Export as JSON (.json)"
+
+# 
+msgid "Copy to Clipboard"
+msgstr "Copy to Clipboard"
+
+# 
+msgid "No messages to export."
+msgstr "No messages to export."
+
+# 
+msgid "Conversation copied to clipboard."
+msgstr "Conversation copied to clipboard."
+
+# 
+msgid "Export AI Conversation"
+msgstr "Export AI Conversation"
+
+# 
+msgid "JSON files (*.json)"
+msgstr "JSON files (*.json)"
+
+# 
+msgid "Markdown files (*.md)"
+msgstr "Markdown files (*.md)"
+
+# 
+msgid "All files"
+msgstr "All files"
+
+# 
+msgid "Conversation exported successfully."
+msgstr "Conversation exported successfully."
+
+# 
+msgid "Failed to export conversation: {}"
+msgstr "Failed to export conversation: {}"
+
+# 
+msgid "Paleta de Comandos"
+msgstr "Command Palette"
+
+# 
+msgid "Command Palette"
+msgstr "Command Palette"
+
+# 
+msgid "Digite um comando ou busque uma ação..."
+msgstr "Type a command or search an action..."
+
+# 
+msgid "Abas e Janelas"
+msgstr "Tabs & Windows"
+
+# 
+msgid "Divisão de Telas"
+msgstr "Screen Splitting"
+
+# 
+msgid "Sessões & SSH"
+msgstr "Sessions & SSH"
+
+# 
+msgid "Fechar Aba Atual"
+msgstr "Close Current Tab"
+
+# 
+msgid "Aba Anterior"
+msgstr "Previous Tab"
+
+# 
+msgid "Dividir Painel Horizontalmente"
+msgstr "Split Pane Horizontally"
+
+# 
+msgid "Dividir Painel Verticalmente"
+msgstr "Split Pane Vertically"
+
+# 
+msgid "Fechar Painel Dividido"
+msgstr "Close Split Pane"
+
+# 
+msgid "Focar Painel Acima"
+msgstr "Focus Pane Above"
+
+# 
+msgid "Focar Painel Abaixo"
+msgstr "Focus Pane Below"
+
+# 
+msgid "Focar Painel à Esquerda"
+msgstr "Focus Pane to the Left"
+
+# 
+msgid "Focar Painel à Direita"
+msgstr "Focus Pane to the Right"
+
+# 
+msgid "Copiar Seleção"
+msgstr "Copy Selection"
+
+# 
+msgid "Colar Área de Transferência"
+msgstr "Paste from Clipboard"
+
+# 
+msgid "Limpar Tela do Terminal"
+msgstr "Clear Terminal Screen"
+
+# 
+msgid "Buscar no Terminal"
+msgstr "Search in Terminal"
+
+# 
+msgid "Modo Transmissão (Comando p/ Todas as Abas)"
+msgstr "Broadcast Mode (Command to All Tabs)"
+
+# 
+msgid "Aumentar Zoom / Tamanho da Fonte"
+msgstr "Zoom In / Increase Font Size"
+
+# 
+msgid "Diminuir Zoom / Tamanho da Fonte"
+msgstr "Zoom Out / Decrease Font Size"
+
+# 
+msgid "Resetar Zoom"
+msgstr "Reset Zoom"
+
+# 
+msgid "Assistente de IA (Abrir / Fechar)"
+msgstr "AI Assistant (Open / Close)"
+
+# 
+msgid "Configurar Provedores e Modelos de IA"
+msgstr "Configure AI Providers & Models"
+
+# 
+msgid "Políticas de Segurança e Escopo do Agente"
+msgstr "Agent Security Policies & Scope"
+
+# 
+msgid "Registro de Auditoria de Ações do Agente"
+msgstr "Agent Action Audit Log"
+
+# 
+msgid "Painel Lateral de Sessões SSH"
+msgstr "SSH Sessions Sidebar"
+
+# 
+msgid "Gerenciador de Arquivos SFTP"
+msgstr "SFTP File Manager"
+
+# 
+msgid "Gerenciador de Comandos e Snippets"
+msgstr "Command Manager & Snippets"
+
+# 
+msgid "Servidor TFTP Embutido"
+msgstr "Built-in TFTP Server"
+
+# 
+msgid "Salvar Layout de Sessões Atual"
+msgstr "Save Current Session Layout"
+
+# 
+msgid "Importar Sessões do SecureCRT"
+msgstr "Import SecureCRT Sessions"
+
+# 
+msgid "Preferências do Zashterminal"
+msgstr "Zashterminal Preferences"
+
+# 
+msgid "Atalhos de Teclado"
+msgstr "Keyboard Shortcuts"
+
+# 
+msgid "Regras de Realce Sintático e Temas"
+msgstr "Syntax Highlighting Rules & Themes"
+
+# 
+msgid "Conectar:"
+msgstr "Connect:"

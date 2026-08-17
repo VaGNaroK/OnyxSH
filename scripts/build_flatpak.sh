@@ -93,6 +93,12 @@ if [ -z "$VERSION" ]; then
   VERSION="0.8.17"
 fi
 
+# Synchronize translations across all 28 languages
+if [ -f "${REPO_ROOT}/scripts/sync_translations.py" ]; then
+  log "Sincronizando traduções nos 28 idiomas..."
+  python3 "${REPO_ROOT}/scripts/sync_translations.py" >/dev/null 2>&1 || true
+fi
+
 # Check if GNOME Sdk / Platform 46 are installed
 has_sdk=false
 has_platform=false

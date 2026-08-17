@@ -78,6 +78,12 @@ if [ -z "$VERSION" ]; then
   VERSION="0.8.17"
 fi
 
+# Synchronize translations across all 28 languages
+if [ -f "${REPO_ROOT}/scripts/sync_translations.py" ]; then
+  log "Sincronizando traduções nos 28 idiomas..."
+  python3 "${REPO_ROOT}/scripts/sync_translations.py" >/dev/null 2>&1 || true
+fi
+
 log "Iniciando empacotamento .deb do ${PACKAGE_NAME} v${VERSION} (${TARGET_ARCH})..."
 
 STAGE="${BUILD_DIR}/zashterminal_${VERSION}_${TARGET_ARCH}"

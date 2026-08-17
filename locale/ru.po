@@ -8538,3 +8538,199 @@ msgstr "Ошибка удаления макета"
 #: NEEDS WORK
 msgid "Error Moving Layout"
 msgstr "Ошибка перемещения макета"
+
+# 
+msgid "Export conversation"
+msgstr "Экспорт диалога"
+
+# 
+msgid "Export as Markdown (.md)"
+msgstr "Экспортировать как Markdown (.md)"
+
+# 
+msgid "Export as JSON (.json)"
+msgstr "Экспортировать как JSON (.json)"
+
+# 
+msgid "Copy to Clipboard"
+msgstr "Скопировать в буфер обмена"
+
+# 
+msgid "No messages to export."
+msgstr "Нет сообщений для экспорта."
+
+# 
+msgid "Conversation copied to clipboard."
+msgstr "Диалог скопирован в буфер обмена."
+
+# 
+msgid "Export AI Conversation"
+msgstr "Экспорт диалога ИИ"
+
+# 
+msgid "JSON files (*.json)"
+msgstr "Файлы JSON (*.json)"
+
+# 
+msgid "Markdown files (*.md)"
+msgstr "Файлы Markdown (*.md)"
+
+# 
+msgid "All files"
+msgstr "Все файлы"
+
+# 
+msgid "Conversation exported successfully."
+msgstr "Диалог успешно экспортирован."
+
+# 
+msgid "Failed to export conversation: {}"
+msgstr "Не удалось экспортировать диалог: {}"
+
+# 
+msgid "Paleta de Comandos"
+msgstr "Палитра команд"
+
+# 
+msgid "Command Palette"
+msgstr "Палитра команд"
+
+# 
+msgid "Digite um comando ou busque uma ação..."
+msgstr "Введите команду или найдите действие..."
+
+# 
+msgid "Abas e Janelas"
+msgstr "Вкладки и окна"
+
+# 
+msgid "Divisão de Telas"
+msgstr "Разделение экрана"
+
+# 
+msgid "Sessões & SSH"
+msgstr "Сессии и SSH"
+
+# 
+msgid "Fechar Aba Atual"
+msgstr "Закрыть текущую вкладку"
+
+# 
+msgid "Aba Anterior"
+msgstr "Предыдущая вкладка"
+
+# 
+msgid "Dividir Painel Horizontalmente"
+msgstr "Разделить панель горизонтально"
+
+# 
+msgid "Dividir Painel Verticalmente"
+msgstr "Разделить панель вертикально"
+
+# 
+msgid "Fechar Painel Dividido"
+msgstr "Закрыть разделенную панель"
+
+# 
+msgid "Focar Painel Acima"
+msgstr "Фокус на верхней панели"
+
+# 
+msgid "Focar Painel Abaixo"
+msgstr "Фокус на нижней панели"
+
+# 
+msgid "Focar Painel à Esquerda"
+msgstr "Фокус на левой панели"
+
+# 
+msgid "Focar Painel à Direita"
+msgstr "Фокус на правой панели"
+
+# 
+msgid "Copiar Seleção"
+msgstr "Скопировать выделенное"
+
+# 
+msgid "Colar Área de Transferência"
+msgstr "Вставить из буфера обмена"
+
+# 
+msgid "Limpar Tela do Terminal"
+msgstr "Очистить экран терминала"
+
+# 
+msgid "Buscar no Terminal"
+msgstr "Поиск в терминале"
+
+# 
+msgid "Modo Transmissão (Comando p/ Todas as Abas)"
+msgstr "Режим трансляции (команда на все вкладки)"
+
+# 
+msgid "Aumentar Zoom / Tamanho da Fonte"
+msgstr "Увеличить масштаб / шрифт"
+
+# 
+msgid "Diminuir Zoom / Tamanho da Fonte"
+msgstr "Уменьшить масштаб / шрифт"
+
+# 
+msgid "Resetar Zoom"
+msgstr "Сбросить масштаб"
+
+# 
+msgid "Assistente de IA (Abrir / Fechar)"
+msgstr "ИИ-помощник (Открыть / Закрыть)"
+
+# 
+msgid "Configurar Provedores e Modelos de IA"
+msgstr "Настроить провайдеров и модели ИИ"
+
+# 
+msgid "Políticas de Segurança e Escopo do Agente"
+msgstr "Политики безопасности и область агента"
+
+# 
+msgid "Registro de Auditoria de Ações do Agente"
+msgstr "Журнал аудита действий агента"
+
+# 
+msgid "Painel Lateral de Sessões SSH"
+msgstr "Боковая панель SSH-сессий"
+
+# 
+msgid "Gerenciador de Arquivos SFTP"
+msgstr "Файловый менеджер SFTP"
+
+# 
+msgid "Gerenciador de Comandos e Snippets"
+msgstr "Менеджер команд и сниппетов"
+
+# 
+msgid "Servidor TFTP Embutido"
+msgstr "Встроенный TFTP-сервер"
+
+# 
+msgid "Salvar Layout de Sessões Atual"
+msgstr "Сохранить текущий макет сессий"
+
+# 
+msgid "Importar Sessões do SecureCRT"
+msgstr "Импортировать сессии SecureCRT"
+
+# 
+msgid "Preferências do Zashterminal"
+msgstr "Настройки Zashterminal"
+
+# 
+msgid "Atalhos de Teclado"
+msgstr "Горячие клавиши"
+
+# 
+msgid "Regras de Realce Sintático e Temas"
+msgstr "Правила подсветки синтаксиса и темы"
+
+# 
+msgid "Conectar:"
+msgstr "Подключить:"

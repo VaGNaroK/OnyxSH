@@ -8571,3 +8571,199 @@ msgstr "Erreur de suppression de la mise en page"
 #: NEEDS WORK
 msgid "Error Moving Layout"
 msgstr "Erreur de déplacement de la mise en page"
+
+# 
+msgid "Export conversation"
+msgstr "Exporter la conversation"
+
+# 
+msgid "Export as Markdown (.md)"
+msgstr "Exporter en Markdown (.md)"
+
+# 
+msgid "Export as JSON (.json)"
+msgstr "Exporter en JSON (.json)"
+
+# 
+msgid "Copy to Clipboard"
+msgstr "Copier dans le presse-papier"
+
+# 
+msgid "No messages to export."
+msgstr "Aucun message à exporter."
+
+# 
+msgid "Conversation copied to clipboard."
+msgstr "Conversation copiée dans le presse-papier."
+
+# 
+msgid "Export AI Conversation"
+msgstr "Exporter la conversation IA"
+
+# 
+msgid "JSON files (*.json)"
+msgstr "Fichiers JSON (*.json)"
+
+# 
+msgid "Markdown files (*.md)"
+msgstr "Fichiers Markdown (*.md)"
+
+# 
+msgid "All files"
+msgstr "Tous les fichiers"
+
+# 
+msgid "Conversation exported successfully."
+msgstr "Conversation exportée avec succès."
+
+# 
+msgid "Failed to export conversation: {}"
+msgstr "Échec de l'exportation de la conversation : {}"
+
+# 
+msgid "Paleta de Comandos"
+msgstr "Palette de commandes"
+
+# 
+msgid "Command Palette"
+msgstr "Palette de commandes"
+
+# 
+msgid "Digite um comando ou busque uma ação..."
+msgstr "Tapez une commande ou recherchez une action..."
+
+# 
+msgid "Abas e Janelas"
+msgstr "Onglets et fenêtres"
+
+# 
+msgid "Divisão de Telas"
+msgstr "Division d'écran"
+
+# 
+msgid "Sessões & SSH"
+msgstr "Sessions et SSH"
+
+# 
+msgid "Fechar Aba Atual"
+msgstr "Fermer l'onglet actuel"
+
+# 
+msgid "Aba Anterior"
+msgstr "Onglet précédent"
+
+# 
+msgid "Dividir Painel Horizontalmente"
+msgstr "Diviser le panneau horizontalement"
+
+# 
+msgid "Dividir Painel Verticalmente"
+msgstr "Diviser le panneau verticalement"
+
+# 
+msgid "Fechar Painel Dividido"
+msgstr "Fermer le panneau divisé"
+
+# 
+msgid "Focar Painel Acima"
+msgstr "Focus sur le panneau au-dessus"
+
+# 
+msgid "Focar Painel Abaixo"
+msgstr "Focus sur le panneau en-dessous"
+
+# 
+msgid "Focar Painel à Esquerda"
+msgstr "Focus sur le panneau à gauche"
+
+# 
+msgid "Focar Painel à Direita"
+msgstr "Focus sur le panneau à droite"
+
+# 
+msgid "Copiar Seleção"
+msgstr "Copier la sélection"
+
+# 
+msgid "Colar Área de Transferência"
+msgstr "Coller depuis le presse-papier"
+
+# 
+msgid "Limpar Tela do Terminal"
+msgstr "Effacer l'écran du terminal"
+
+# 
+msgid "Buscar no Terminal"
+msgstr "Rechercher dans le terminal"
+
+# 
+msgid "Modo Transmissão (Comando p/ Todas as Abas)"
+msgstr "Mode diffusion (commande vers tous les onglets)"
+
+# 
+msgid "Aumentar Zoom / Tamanho da Fonte"
+msgstr "Zoom avant / Augmenter la police"
+
+# 
+msgid "Diminuir Zoom / Tamanho da Fonte"
+msgstr "Zoom arrière / Diminuer la police"
+
+# 
+msgid "Resetar Zoom"
+msgstr "Réinitialiser le zoom"
+
+# 
+msgid "Assistente de IA (Abrir / Fechar)"
+msgstr "Assistant IA (Ouvrir / Fermer)"
+
+# 
+msgid "Configurar Provedores e Modelos de IA"
+msgstr "Configurer les fournisseurs et modèles d'IA"
+
+# 
+msgid "Políticas de Segurança e Escopo do Agente"
+msgstr "Politiques de sécurité et portée de l'agent"
+
+# 
+msgid "Registro de Auditoria de Ações do Agente"
+msgstr "Journal d'audit des actions de l'agent"
+
+# 
+msgid "Painel Lateral de Sessões SSH"
+msgstr "Panneau latéral des sessions SSH"
+
+# 
+msgid "Gerenciador de Arquivos SFTP"
+msgstr "Gestionnaire de fichiers SFTP"
+
+# 
+msgid "Gerenciador de Comandos e Snippets"
+msgstr "Gestionnaire de commandes et extraits"
+
+# 
+msgid "Servidor TFTP Embutido"
+msgstr "Serveur TFTP intégré"
+
+# 
+msgid "Salvar Layout de Sessões Atual"
+msgstr "Enregistrer la disposition des sessions"
+
+# 
+msgid "Importar Sessões do SecureCRT"
+msgstr "Importer des sessions SecureCRT"
+
+# 
+msgid "Preferências do Zashterminal"
+msgstr "Préférences de Zashterminal"
+
+# 
+msgid "Atalhos de Teclado"
+msgstr "Raccourcis clavier"
+
+# 
+msgid "Regras de Realce Sintático e Temas"
+msgstr "Règles de coloration syntaxique et thèmes"
+
+# 
+msgid "Conectar:"
+msgstr "Connexion :"
