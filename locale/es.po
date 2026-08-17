@@ -8792,3 +8792,47 @@ msgstr "Sesión anterior disponible para restaurar."
 # 
 msgid "Restaurar"
 msgstr "Restaurar"
+
+# 
+msgid "Restaurar Sessão Anterior?"
+msgstr "¿Restaurar sesión anterior?"
+
+# 
+msgid "Existem abas e divisões de tela salvas da última sessão. Deseja restaurá-las agora?"
+msgstr "Hay pestañas y paneles divididos guardados de la última sesión. ¿Desea restaurarlos ahora?"
+
+# 
+msgid "Iniciar Limpo"
+msgstr "Iniciar Limpio"
+
+# 
+msgid "Restaurar Sessão"
+msgstr "Restaurar Sesión"
+
+# 
+msgid "Restauração de Sessão"
+msgstr "Restauración de Sesión"
+
+# 
+msgid "Comportamento de inicialização e restauração de abas da sessão anterior"
+msgstr "Comportamiento de inicio y restauración de pestañas de la sesión anterior"
+
+# 
+msgid "Na Inicialização"
+msgstr "Al Iniciar"
+
+# 
+msgid "Escolha se o terminal deve recuperar as abas e divisões da última sessão"
+msgstr "Elija si la terminal debe recuperar las pestañas y divisiones de la última sesión"
+
+# 
+msgid "Sempre restaurar sessão anterior"
+msgstr "Siempre restaurar sesión anterior"
+
+# 
+msgid "Perguntar se deseja restaurar a sessão anterior"
+msgstr "Preguntar si desea restaurar la sesión anterior"
+
+# 
+msgid "Nunca restaurar (iniciar limpo)"
+msgstr "Nunca restaurar (iniciar limpio)"

@@ -8773,3 +8773,47 @@ msgstr "Previous session available for restoration."
 # 
 msgid "Restaurar"
 msgstr "Restore"
+
+# 
+msgid "Restaurar Sessão Anterior?"
+msgstr "Restore Previous Session?"
+
+# 
+msgid "Existem abas e divisões de tela salvas da última sessão. Deseja restaurá-las agora?"
+msgstr "Saved tabs and split panes from your last session are available. Restore them now?"
+
+# 
+msgid "Iniciar Limpo"
+msgstr "Start Clean"
+
+# 
+msgid "Restaurar Sessão"
+msgstr "Restore Session"
+
+# 
+msgid "Restauração de Sessão"
+msgstr "Session Restoration"
+
+# 
+msgid "Comportamento de inicialização e restauração de abas da sessão anterior"
+msgstr "Startup behavior and previous session tabs restoration"
+
+# 
+msgid "Na Inicialização"
+msgstr "On Startup"
+
+# 
+msgid "Escolha se o terminal deve recuperar as abas e divisões da última sessão"
+msgstr "Choose whether the terminal should recover tabs and split panes from last session"
+
+# 
+msgid "Sempre restaurar sessão anterior"
+msgstr "Always restore previous session"
+
+# 
+msgid "Perguntar se deseja restaurar a sessão anterior"
+msgstr "Ask to restore previous session"
+
+# 
+msgid "Nunca restaurar (iniciar limpo)"
+msgstr "Never restore (start clean)"

@@ -8795,3 +8795,47 @@ msgstr "Session précédente disponible pour restauration."
 # 
 msgid "Restaurar"
 msgstr "Restaurer"
+
+# 
+msgid "Restaurar Sessão Anterior?"
+msgstr "Restaurer la session précédente ?"
+
+# 
+msgid "Existem abas e divisões de tela salvas da última sessão. Deseja restaurá-las agora?"
+msgstr "Des onglets et panneaux de votre dernière session sont disponibles. Les restaurer maintenant ?"
+
+# 
+msgid "Iniciar Limpo"
+msgstr "Démarrage vierge"
+
+# 
+msgid "Restaurar Sessão"
+msgstr "Restaurer la session"
+
+# 
+msgid "Restauração de Sessão"
+msgstr "Restauration de session"
+
+# 
+msgid "Comportamento de inicialização e restauração de abas da sessão anterior"
+msgstr "Comportement au démarrage et restauration des onglets de la session précédente"
+
+# 
+msgid "Na Inicialização"
+msgstr "Au démarrage"
+
+# 
+msgid "Escolha se o terminal deve recuperar as abas e divisões da última sessão"
+msgstr "Choisissez si le terminal doit récupérer les onglets et fenêtres de la dernière session"
+
+# 
+msgid "Sempre restaurar sessão anterior"
+msgstr "Toujours restaurer la session précédente"
+
+# 
+msgid "Perguntar se deseja restaurar a sessão anterior"
+msgstr "Demander à restaurer la session précédente"
+
+# 
+msgid "Nunca restaurar (iniciar limpo)"
+msgstr "Ne jamais restaurer (démarrage vierge)"

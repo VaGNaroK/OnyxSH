@@ -8762,3 +8762,47 @@ msgstr "Предыдущая сессия доступна для восстан
 # 
 msgid "Restaurar"
 msgstr "Восстановить"
+
+# 
+msgid "Restaurar Sessão Anterior?"
+msgstr "Восстановить предыдущую сессию?"
+
+# 
+msgid "Existem abas e divisões de tela salvas da última sessão. Deseja restaurá-las agora?"
+msgstr "Доступны сохраненные вкладки и разделенные панели последней сессии. Восстановить их сейчас?"
+
+# 
+msgid "Iniciar Limpo"
+msgstr "Начать заново"
+
+# 
+msgid "Restaurar Sessão"
+msgstr "Восстановить сессию"
+
+# 
+msgid "Restauração de Sessão"
+msgstr "Восстановление сессии"
+
+# 
+msgid "Comportamento de inicialização e restauração de abas da sessão anterior"
+msgstr "Поведение при запуске и восстановление вкладок предыдущей сессии"
+
+# 
+msgid "Na Inicialização"
+msgstr "При запуске"
+
+# 
+msgid "Escolha se o terminal deve recuperar as abas e divisões da última sessão"
+msgstr "Выберите, должен ли терминал восстанавливать вкладки и разделенные панели последней сессии"
+
+# 
+msgid "Sempre restaurar sessão anterior"
+msgstr "Всегда восстанавливать предыдущую сессию"
+
+# 
+msgid "Perguntar se deseja restaurar a sessão anterior"
+msgstr "Спрашивать о восстановлении предыдущей сессии"
+
+# 
+msgid "Nunca restaurar (iniciar limpo)"
+msgstr "Никогда не восстанавливать (чистый запуск)"

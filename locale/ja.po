@@ -8726,3 +8726,47 @@ msgstr "前回のセッションを復元できます。"
 # 
 msgid "Restaurar"
 msgstr "復元"
+
+# 
+msgid "Restaurar Sessão Anterior?"
+msgstr "前回のセッションを復元しますか？"
+
+# 
+msgid "Existem abas e divisões de tela salvas da última sessão. Deseja restaurá-las agora?"
+msgstr "前回のセッションで保存されたタブと画面分割があります。今すぐ復元しますか？"
+
+# 
+msgid "Iniciar Limpo"
+msgstr "新規起動"
+
+# 
+msgid "Restaurar Sessão"
+msgstr "セッションを復元"
+
+# 
+msgid "Restauração de Sessão"
+msgstr "セッション復元"
+
+# 
+msgid "Comportamento de inicialização e restauração de abas da sessão anterior"
+msgstr "起動時の動作と前回のセッションのタブ復元"
+
+# 
+msgid "Na Inicialização"
+msgstr "起動時"
+
+# 
+msgid "Escolha se o terminal deve recuperar as abas e divisões da última sessão"
+msgstr "ターミナルが前回のタブと画面分割を復元するかどうかを選択します"
+
+# 
+msgid "Sempre restaurar sessão anterior"
+msgstr "常に前回のセッションを復元"
+
+# 
+msgid "Perguntar se deseja restaurar a sessão anterior"
+msgstr "前回のセッションを復元するか確認"
+
+# 
+msgid "Nunca restaurar (iniciar limpo)"
+msgstr "復元しない（新規起動）"

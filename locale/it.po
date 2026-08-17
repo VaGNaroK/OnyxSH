@@ -8785,3 +8785,47 @@ msgstr "Sessione precedente disponibile per il ripristino."
 # 
 msgid "Restaurar"
 msgstr "Ripristina"
+
+# 
+msgid "Restaurar Sessão Anterior?"
+msgstr "Ripristinare la sessione precedente?"
+
+# 
+msgid "Existem abas e divisões de tela salvas da última sessão. Deseja restaurá-las agora?"
+msgstr "Sono disponibili schede e pannelli divisi salvati dall'ultima sessione. Ripristinarli ora?"
+
+# 
+msgid "Iniciar Limpo"
+msgstr "Avvia pulito"
+
+# 
+msgid "Restaurar Sessão"
+msgstr "Ripristina sessione"
+
+# 
+msgid "Restauração de Sessão"
+msgstr "Ripristino sessione"
+
+# 
+msgid "Comportamento de inicialização e restauração de abas da sessão anterior"
+msgstr "Comportamento all'avvio e ripristino delle schede della sessione precedente"
+
+# 
+msgid "Na Inicialização"
+msgstr "All'avvio"
+
+# 
+msgid "Escolha se o terminal deve recuperar as abas e divisões da última sessão"
+msgstr "Scegli se il terminale deve recuperare schede e pannelli divisi dell'ultima sessione"
+
+# 
+msgid "Sempre restaurar sessão anterior"
+msgstr "Ripristina sempre la sessione precedente"
+
+# 
+msgid "Perguntar se deseja restaurar a sessão anterior"
+msgstr "Chiedi di ripristinare la sessione precedente"
+
+# 
+msgid "Nunca restaurar (iniciar limpo)"
+msgstr "Non ripristinare mai (avvia pulito)"

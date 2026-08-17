@@ -237,7 +237,12 @@ class CommTerminalApp(Adw.Application):
         """Set up application-level keyboard shortcuts."""
         try:
             self.set_accels_for_action("app.quit", ["<Control><Shift>q"])
-            self.set_accels_for_action("app.preferences", ["<Control><Shift>comma"])
+            self.set_accels_for_action(
+                "app.preferences", ["<Control>comma", "<Control><Shift>comma"]
+            )
+            self.set_accels_for_action(
+                "win.preferences", ["<Control>comma", "<Control><Shift>comma"]
+            )
             self._update_window_shortcuts()
         except Exception as e:
             self.logger.error(f"Failed to setup keyboard shortcuts: {e}")
@@ -248,6 +253,7 @@ class CommTerminalApp(Adw.Application):
             if not self.settings_manager:
                 return
             shortcut_actions = [
+                "preferences",
                 "new-local-tab",
                 "close-tab",
                 "copy",

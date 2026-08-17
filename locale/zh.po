@@ -8721,3 +8721,47 @@ msgstr "上一会话可用于恢复。"
 # 
 msgid "Restaurar"
 msgstr "恢复"
+
+# 
+msgid "Restaurar Sessão Anterior?"
+msgstr "恢复上一会话？"
+
+# 
+msgid "Existem abas e divisões de tela salvas da última sessão. Deseja restaurá-las agora?"
+msgstr "上一会话保存的标签页和分屏可用。立即恢复？"
+
+# 
+msgid "Iniciar Limpo"
+msgstr "全新启动"
+
+# 
+msgid "Restaurar Sessão"
+msgstr "恢复会话"
+
+# 
+msgid "Restauração de Sessão"
+msgstr "会话恢复"
+
+# 
+msgid "Comportamento de inicialização e restauração de abas da sessão anterior"
+msgstr "启动行为与上一会话标签页恢复"
+
+# 
+msgid "Na Inicialização"
+msgstr "启动时"
+
+# 
+msgid "Escolha se o terminal deve recuperar as abas e divisões da última sessão"
+msgstr "选择终端是否应恢复上一会话的标签页和分屏"
+
+# 
+msgid "Sempre restaurar sessão anterior"
+msgstr "始终恢复上一会话"
+
+# 
+msgid "Perguntar se deseja restaurar a sessão anterior"
+msgstr "询问是否恢复上一会话"
+
+# 
+msgid "Nunca restaurar (iniciar limpo)"
+msgstr "从不恢复（全新启动）"

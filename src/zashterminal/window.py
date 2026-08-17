@@ -1526,7 +1526,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
                             close_after_execute=self.close_after_execute,
                         )
                 if policy == "ask" and self.state_manager.has_saved_state():
-                    GLib.timeout_add(600, self._show_restore_session_toast)
+                    GLib.timeout_add(300, self._show_ask_restore_dialog)
         except Exception as e:
             self.logger.error(f"Failed to create initial tab: {e}")
             self._show_error_dialog(
@@ -1534,6 +1534,34 @@ class CommTerminalWindow(Adw.ApplicationWindow):
                 _("Failed to initialize terminal: {error}").format(error=str(e)),
             )
         return False
+
+    def _show_ask_restore_dialog(self) -> bool:
+        """Present a clear prompt on startup asking to restore previous session."""
+        try:
+            dialog = Adw.MessageDialog(
+                transient_for=self,
+                heading=_("Restaurar Sessão Anterior?"),
+                body=_(
+                    "Existem abas e divisões de tela salvas da última sessão. Deseja restaurá-las agora?"
+                ),
+                close_response="clean",
+            )
+            dialog.add_response("clean", _("Iniciar Limpo"))
+            dialog.add_response("restore", _("Restaurar Sessão"))
+            dialog.set_response_appearance("restore", Adw.ResponseAppearance.SUGGESTED)
+            dialog.set_default_response("restore")
+            dialog.connect("response", self._on_ask_restore_dialog_response)
+            dialog.present()
+        except Exception as e:
+            self.logger.debug(f"Could not show restore session dialog: {e}")
+        return False
+
+    def _on_ask_restore_dialog_response(self, dialog, response_id):
+        dialog.close()
+        if response_id == "restore":
+            self.state_manager.restore_session_state(force=True)
+        else:
+            self.state_manager.clear_session_state()
 
     def _show_restore_session_toast(self) -> bool:
         """Show toast allowing user to restore previous session on startup."""

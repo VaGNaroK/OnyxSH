@@ -350,7 +350,7 @@ class DefaultSettings:
                 "paste": "<Control><Shift>v",
                 "select-all": "<Control><Shift>a",
                 "clear-session": "<Control><Shift>l",
-                "preferences": "<Control><Shift>comma",
+                "preferences": "<Control>comma",
                 "quit": "<Control><Shift>q",
                 "new-window": "<Control><Shift>n",
                 "toggle-sidebar": "<Control><Shift>h",

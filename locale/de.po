@@ -8806,3 +8806,47 @@ msgstr "Vorherige Sitzung zur Wiederherstellung verfügbar."
 # 
 msgid "Restaurar"
 msgstr "Wiederherstellen"
+
+# 
+msgid "Restaurar Sessão Anterior?"
+msgstr "Vorherige Sitzung wiederherstellen?"
+
+# 
+msgid "Existem abas e divisões de tela salvas da última sessão. Deseja restaurá-las agora?"
+msgstr "Gespeicherte Tabs und geteilte Fenster der letzten Sitzung sind verfügbar. Jetzt wiederherstellen?"
+
+# 
+msgid "Iniciar Limpo"
+msgstr "Sauber starten"
+
+# 
+msgid "Restaurar Sessão"
+msgstr "Sitzung wiederherstellen"
+
+# 
+msgid "Restauração de Sessão"
+msgstr "Sitzungswiederherstellung"
+
+# 
+msgid "Comportamento de inicialização e restauração de abas da sessão anterior"
+msgstr "Startverhalten und Wiederherstellung von Tabs der vorherigen Sitzung"
+
+# 
+msgid "Na Inicialização"
+msgstr "Beim Start"
+
+# 
+msgid "Escolha se o terminal deve recuperar as abas e divisões da última sessão"
+msgstr "Wählen Sie, ob das Terminal Tabs und geteilte Fenster der letzten Sitzung wiederherstellen soll"
+
+# 
+msgid "Sempre restaurar sessão anterior"
+msgstr "Vorherige Sitzung immer wiederherstellen"
+
+# 
+msgid "Perguntar se deseja restaurar a sessão anterior"
+msgstr "Nach Wiederherstellung der vorherigen Sitzung fragen"
+
+# 
+msgid "Nunca restaurar (iniciar limpo)"
+msgstr "Nie wiederherstellen (sauber starten)"

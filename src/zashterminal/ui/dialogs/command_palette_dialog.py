@@ -586,14 +586,22 @@ class CommandPaletteDialog(BaseDialog):
         # Initial population
         self._filter_items("")
 
+        # Stop search or Escape closes the palette
+        self._search_entry.connect("stop-search", lambda _e: self.close())
+
         # Grab focus on search entry when shown
         self.connect("show", lambda w: self._search_entry.grab_focus())
 
     def _setup_key_controller(self) -> None:
-        """Attach keyboard controller for Up/Down/Enter navigation."""
+        """Attach keyboard controller for Up/Down/Enter/Escape navigation."""
         key_controller = Gtk.EventControllerKey()
         key_controller.connect("key-pressed", self._on_key_pressed)
         self.add_controller(key_controller)
+
+        # Also attach to search entry specifically for immediate Escape handling
+        search_key_ctrl = Gtk.EventControllerKey()
+        search_key_ctrl.connect("key-pressed", self._on_key_pressed)
+        self._search_entry.add_controller(search_key_ctrl)
 
     def _on_key_pressed(
         self,

@@ -42,7 +42,19 @@ class PreferencesDialog(Adw.PreferencesWindow):
         self._setup_terminal_page()
         self._setup_profiles_page()
         self._setup_advanced_page()
+
+        # Enable Escape key to close preferences window
+        key_controller = Gtk.EventControllerKey()
+        key_controller.connect("key-pressed", self._on_key_pressed)
+        self.add_controller(key_controller)
+
         self.logger.info("Preferences dialog initialized")
+
+    def _on_key_pressed(self, _controller, keyval, _keycode, _state):
+        if keyval == Gdk.KEY_Escape:
+            self.close()
+            return True
+        return False
 
     def _create_switch_row(
         self,
@@ -355,18 +367,25 @@ class PreferencesDialog(Adw.PreferencesWindow):
         )
         self.add(page)
 
-        startup_group = Adw.PreferencesGroup()
+        startup_group = Adw.PreferencesGroup(
+            title=_("Restauração de Sessão"),
+            description=_(
+                "Comportamento de inicialização e restauração de abas da sessão anterior"
+            ),
+        )
         page.add(startup_group)
 
         restore_policy_row = Adw.ComboRow(
-            title=_("On Startup"),
-            subtitle=_("How to handle tabs and layout from previous session"),
+            title=_("Na Inicialização"),
+            subtitle=_(
+                "Escolha se o terminal deve recuperar as abas e divisões da última sessão"
+            ),
         )
         policy_map = ["always", "ask", "never"]
         policy_strings = [
-            _("Always restore previous session"),
-            _("Ask to restore previous session"),
-            _("Never restore previous session"),
+            _("Sempre restaurar sessão anterior"),
+            _("Perguntar se deseja restaurar a sessão anterior"),
+            _("Nunca restaurar (iniciar limpo)"),
         ]
         restore_policy_row.set_model(Gtk.StringList.new(policy_strings))
         current_policy = self.settings_manager.get("session_restore_policy", "always")
