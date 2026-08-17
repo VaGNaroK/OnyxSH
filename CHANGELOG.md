@@ -16,6 +16,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 - **Sincronização Multilíngue Automatizada (28 Idiomas)**: Criação de `scripts/sync_translations.py` integrado aos fluxos de compilação Flatpak e DEB, garantindo a sincronização e tradução em lote de todas as novas mensagens e ações para todos os 28 idiomas suportados pelo Zashterminal (`en`, `es`, `fr`, `de`, `it`, `zh`, `ja`, `ru`, `pt`, etc.).
 
 ### Corrigido
+- **Importação do Módulo Gdk em PreferencesDialog**: Adicionada a importação de `Gdk` em `preferences_dialog.py`, eliminando o `NameError: name 'Gdk' is not defined` ao fechar a tela de Preferências com a tecla `Escape`.
 - **Atalho Universal Exclusivo para Preferências (`F2`)**: Configuração da tecla de função `F2` como o atalho padrão e universal em qualquer layout de teclado (ABNT2, US, etc.), com interceptação direta na janela e registro na Command Palette.
 - **Métodos `get_active_tab` e `get_active_tab_index` no TabManager**: Implementação direta dos métodos para acesso seguro à aba ativa durante a serialização de estado da janela (`save_session_state`), prevenindo `AttributeError` no fechamento do aplicativo.
 - **Interceptação Global do Atalho de Preferências (`Ctrl + ,`)**: Captura em nível de janela com `Gtk.PropagationPhase.CAPTURE`, evitando que o terminal VTE absorva o atalho e garantindo abertura instantânea em qualquer aba.
