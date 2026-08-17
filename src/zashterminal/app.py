@@ -238,10 +238,22 @@ class CommTerminalApp(Adw.Application):
         try:
             self.set_accels_for_action("app.quit", ["<Control><Shift>q"])
             self.set_accels_for_action(
-                "app.preferences", ["<Control>comma", "<Control><Shift>comma"]
+                "app.preferences",
+                [
+                    "<Control>comma",
+                    "<Control><Shift>comma",
+                    "<Control><Alt>p",
+                    "F2",
+                ],
             )
             self.set_accels_for_action(
-                "win.preferences", ["<Control>comma", "<Control><Shift>comma"]
+                "win.preferences",
+                [
+                    "<Control>comma",
+                    "<Control><Shift>comma",
+                    "<Control><Alt>p",
+                    "F2",
+                ],
             )
             self._update_window_shortcuts()
         except Exception as e:

@@ -534,22 +534,37 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             keyval, state & Gtk.accelerator_get_default_mod_mask()
         )
 
-        # Handle Preferences (Ctrl+, and Ctrl+Shift+,)
+        # Handle Preferences (Ctrl+,, Ctrl+Shift+,, Ctrl+Alt+P, Ctrl+., F2)
         pref_shortcut = self.settings_manager.get_shortcut("preferences")
-        if (
+        is_pref_key = (
             (
                 accel_string
                 and (
                     accel_string == pref_shortcut
                     or accel_string
-                    in ("<Control>comma", "<Control><Shift>comma", "<Control><Shift>less")
+                    in (
+                        "<Control>comma",
+                        "<Control><Shift>comma",
+                        "<Control><Shift>less",
+                        "<Control><Alt>p",
+                        "<Control><Alt>P",
+                        "<Control>period",
+                    )
                 )
             )
             or (
                 state & Gdk.ModifierType.CONTROL_MASK
-                and keyval in (Gdk.KEY_comma, Gdk.KEY_less)
+                and (
+                    keyval in (Gdk.KEY_comma, Gdk.KEY_less, Gdk.KEY_period)
+                    or (
+                        state & Gdk.ModifierType.ALT_MASK
+                        and keyval in (Gdk.KEY_p, Gdk.KEY_P)
+                    )
+                )
             )
-        ):
+            or keyval == Gdk.KEY_F2
+        )
+        if is_pref_key:
             self.action_handler.preferences()
             return Gdk.EVENT_STOP
 
