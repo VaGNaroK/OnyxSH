@@ -777,8 +777,23 @@ class TerminalManager:
                 if not part:
                     continue
                 if part.startswith("D_"):
-                    exit_code_str = part[2:]
-                    self.semantic_tracker.handle_osc133(terminal, "D", exit_code_str)
+                    subparts = part.split("_", 2)
+                    exit_code_str = subparts[1] if len(subparts) > 1 else "0"
+                    cmd = self.semantic_tracker.handle_osc133(
+                        terminal, "D", exit_code_str
+                    )
+                    if len(subparts) > 2 and subparts[2] and cmd:
+                        try:
+                            import base64
+
+                            b64_str = subparts[2]
+                            decoded_cmd = base64.b64decode(b64_str).decode(
+                                "utf-8", errors="replace"
+                            ).strip()
+                            if decoded_cmd:
+                                cmd.command_text = decoded_cmd
+                        except Exception:
+                            pass
                 elif part == "C":
                     self.semantic_tracker.handle_osc133(terminal, "C")
                 elif part == "A":
@@ -831,6 +846,10 @@ class TerminalManager:
                     uri = terminal.get_current_directory_uri()
                     if uri and uri.startswith("file://"):
                         cwd = uri[7:]
+                        if cwd.startswith("localhost/"):
+                            cwd = cwd[9:]
+                        elif cwd.startswith("localhost"):
+                            cwd = cwd[len("localhost") :]
 
                 host = "localhost"
                 sess_name = ""

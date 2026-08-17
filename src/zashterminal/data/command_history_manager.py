@@ -72,12 +72,17 @@ class CommandHistoryItem:
         """Returns a simplified CWD replacing the home directory with '~'."""
         if not self.cwd:
             return ""
+        clean_cwd = self.cwd
+        if clean_cwd.startswith("localhost/"):
+            clean_cwd = clean_cwd[9:]
+        elif clean_cwd.startswith("localhost"):
+            clean_cwd = clean_cwd[len("localhost") :]
         home = str(Path.home())
-        if self.cwd == home:
+        if clean_cwd == home:
             return "~"
-        if self.cwd.startswith(home + "/"):
-            return "~" + self.cwd[len(home) :]
-        return self.cwd
+        if clean_cwd.startswith(home + "/"):
+            return "~" + clean_cwd[len(home) :]
+        return clean_cwd
 
 
 class CommandHistoryManager:

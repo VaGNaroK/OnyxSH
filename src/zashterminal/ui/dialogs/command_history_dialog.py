@@ -71,7 +71,12 @@ class CommandHistoryDialog(Gtk.Window):
         ):
             uri = self.current_terminal.get_current_directory_uri()
             if uri and uri.startswith("file://"):
-                return uri[7:]
+                path = uri[7:]
+                if path.startswith("localhost/"):
+                    path = path[9:]
+                elif path.startswith("localhost"):
+                    path = path[len("localhost") :]
+                return path
         return str(Path.home())
 
     def _detect_current_host(self) -> str:
