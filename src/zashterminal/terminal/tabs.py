@@ -563,8 +563,61 @@ class TabManager:
         handler_id = terminal.connect_after("realize", on_terminal_realize_once)
         handler_id_ref[0] = handler_id
 
+        # Create floating overlay for single-terminal tab view
+        overlay = Gtk.Overlay()
+        overlay.set_child(scrolled_window)
+
+        semantic_status_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+        semantic_status_box.add_css_class("semantic-floating-badge")
+        semantic_status_box.set_halign(Gtk.Align.END)
+        semantic_status_box.set_valign(Gtk.Align.START)
+        semantic_status_box.set_visible(False)
+
+        semantic_status_label = Gtk.Label(label="")
+        semantic_status_label.add_css_class("caption")
+        semantic_status_box.append(semantic_status_label)
+
+        def _get_window_action_handler():
+            root = terminal.get_root() if hasattr(terminal, "get_root") else None
+            if root and hasattr(root, "action_handler"):
+                return root.action_handler
+            return None
+
+        semantic_ai_btn = icon_button(
+            "sparkles-symbolic", size=14, tooltip=_("Analisar erro com Assistente de IA")
+        )
+        semantic_ai_btn.add_css_class("flat")
+        semantic_ai_btn.set_size_request(24, 24)
+        semantic_ai_btn.set_visible(False)
+        semantic_ai_btn.connect(
+            "clicked",
+            lambda _: _get_window_action_handler()
+            and _get_window_action_handler().analyze_last_error_with_ai(terminal),
+        )
+        semantic_status_box.append(semantic_ai_btn)
+
+        semantic_copy_btn = icon_button(
+            "edit-copy-symbolic", size=14, tooltip=_("Copiar saída do último comando")
+        )
+        semantic_copy_btn.add_css_class("flat")
+        semantic_copy_btn.set_size_request(24, 24)
+        semantic_copy_btn.set_visible(False)
+        semantic_copy_btn.connect(
+            "clicked",
+            lambda _: _get_window_action_handler()
+            and _get_window_action_handler().copy_last_command_output(terminal),
+        )
+        semantic_status_box.append(semantic_copy_btn)
+
+        overlay.add_overlay(semantic_status_box)
+
+        terminal.semantic_status_box = semantic_status_box
+        terminal.semantic_status_label = semantic_status_label
+        terminal.semantic_ai_btn = semantic_ai_btn
+        terminal.semantic_copy_btn = semantic_copy_btn
+
         terminal_area = Adw.Bin()
-        terminal_area.set_child(scrolled_window)
+        terminal_area.set_child(overlay)
 
         content_paned = Gtk.Paned(orientation=Gtk.Orientation.VERTICAL)
         content_paned.add_css_class("terminal-content-paned")
@@ -1434,21 +1487,9 @@ class TabManager:
     def update_semantic_badge_for_terminal(
         self, terminal: Vte.Terminal, cmd: SemanticCommand
     ) -> None:
-        """Updates the status badge and AI error button on the terminal's pane header."""
+        """Updates the status badge and AI error button on the terminal's pane header or floating overlay."""
         page = self.get_page_for_terminal(terminal)
         if not page:
-            return
-
-        pane = self._find_pane_for_terminal(page, terminal)
-        if not pane:
-            return
-
-        status_box = getattr(pane, "semantic_status_box", None)
-        status_label = getattr(pane, "semantic_status_label", None)
-        ai_btn = getattr(pane, "semantic_ai_btn", None)
-        copy_btn = getattr(pane, "semantic_copy_btn", None)
-
-        if not (status_box and status_label):
             return
 
         if not cmd.is_finished:
@@ -1457,27 +1498,53 @@ class TabManager:
         dur_str = cmd.formatted_duration
         if cmd.is_success:
             badge_text = f"⏱ {dur_str}" if (cmd.duration and cmd.duration >= 0.5) else ""
-            status_box.remove_css_class("error")
-            status_box.add_css_class("dim-label")
+            is_error = False
         else:
             badge_text = (
                 f"⏱ {dur_str} [✗ {cmd.exit_code}]"
                 if dur_str
                 else f"[✗ {cmd.exit_code}]"
             )
-            status_box.remove_css_class("dim-label")
-            status_box.add_css_class("error")
+            is_error = True
 
-        if badge_text:
-            status_label.set_text(badge_text)
-            status_box.set_visible(True)
-            if copy_btn:
-                copy_btn.set_visible(True)
-        else:
-            status_box.set_visible(False)
+        def _apply_to_badge(status_box, status_label, ai_btn, copy_btn):
+            if not (status_box and status_label):
+                return
+            if is_error:
+                status_box.remove_css_class("dim-label")
+                status_box.add_css_class("error")
+            else:
+                status_box.remove_css_class("error")
+                status_box.add_css_class("dim-label")
 
-        if ai_btn:
-            ai_btn.set_visible(not cmd.is_success)
+            if badge_text:
+                status_label.set_text(badge_text)
+                status_box.set_visible(True)
+                if copy_btn:
+                    copy_btn.set_visible(True)
+            else:
+                status_box.set_visible(False)
+
+            if ai_btn:
+                ai_btn.set_visible(is_error)
+
+        # 1. Update on terminal itself (floating overlay in single tab view)
+        _apply_to_badge(
+            getattr(terminal, "semantic_status_box", None),
+            getattr(terminal, "semantic_status_label", None),
+            getattr(terminal, "semantic_ai_btn", None),
+            getattr(terminal, "semantic_copy_btn", None),
+        )
+
+        # 2. Update on pane header (split view)
+        pane = self._find_pane_for_terminal(page, terminal)
+        if pane:
+            _apply_to_badge(
+                getattr(pane, "semantic_status_box", None),
+                getattr(pane, "semantic_status_label", None),
+                getattr(pane, "semantic_ai_btn", None),
+                getattr(pane, "semantic_copy_btn", None),
+            )
 
     def set_tab_title(self, page: Adw.ViewStackPage, new_title: str) -> None:
         if not (page and new_title):

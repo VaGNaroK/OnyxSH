@@ -214,47 +214,15 @@ class ProcessSpawner:
             'printf "\\033]7;file://%s%s\\007" "$ZASHTERMINAL_OSC7_HOST" "$PWD"; }; __zashterminal_osc7'
         )
 
-        if in_flatpak:
-            effective_dir = self._resolve_and_validate_working_directory(
-                working_directory
-            ) or str(self.platform_info.home_dir)
-            host_spawn_bin = shutil.which("host-spawn") or "/app/bin/host-spawn"
-            if os.path.exists(host_spawn_bin):
-                cmd = [host_spawn_bin, "-cwd", effective_dir]
-                if use_login_shell:
-                    cmd.extend([shell, "-l"])
-                else:
-                    cmd.extend([shell])
-                self.logger.info(
-                    f"Spawning native host shell via host-spawn in {effective_dir}: {shell}"
-                )
-                return cmd, env, None
-
-            # Fallback to flatpak-spawn
-            cmd = [
-                "flatpak-spawn",
-                "--host",
-                "--watch-bus",
-                f"--directory={effective_dir}",
-                "--env=TERM=xterm-256color",
-                "--env=COLORTERM=truecolor",
-                "--env=ZASHTERMINAL_HOST=1",
-                shell,
-            ]
-            if use_login_shell:
-                cmd.append("-l")
-            self.logger.info(
-                f"Spawning host shell via flatpak-spawn in {effective_dir}: {shell}"
-            )
-            return cmd, env, None
-
-
+        # Prepare shared shell init directory in user cache (shared between Flatpak sandbox and Host)
+        cache_dir = Path.home() / ".cache" / "zashterminal" / "shell_init"
+        cache_dir.mkdir(parents=True, exist_ok=True)
 
         if shell_basename == "zsh":
             try:
-                # Create a temporary directory that we will manage for cleanup
-                temp_dir_path = tempfile.mkdtemp(prefix="zashterminal_zsh_")
-                zshrc_path = os.path.join(temp_dir_path, ".zshrc")
+                zsh_init_dir = str(cache_dir / "zsh")
+                os.makedirs(zsh_init_dir, exist_ok=True)
+                zshrc_path = os.path.join(zsh_init_dir, ".zshrc")
 
                 # This zshrc adds our OSC7 + OSC133 semantic hooks, then sources the user's real .zshrc
                 zshrc_content = (
@@ -277,22 +245,16 @@ class ProcessSpawner:
                 with open(zshrc_path, "w", encoding="utf-8") as f:
                     f.write(zshrc_content)
 
-                env["ZDOTDIR"] = temp_dir_path
+                env["ZDOTDIR"] = zsh_init_dir
                 self.logger.info(
-                    f"Using temporary ZDOTDIR for zsh OSC7/OSC133 integration: {temp_dir_path}"
+                    f"Using shared ZDOTDIR for zsh OSC7/OSC133 integration: {zsh_init_dir}"
                 )
 
             except Exception as e:
                 self.logger.error(f"Failed to set up zsh OSC7/OSC133 integration: {e}")
-                if temp_dir_path:
-                    shutil.rmtree(temp_dir_path, ignore_errors=True)
-                temp_dir_path = None
         elif shell_basename == "bash":
             try:
-                # Use a temporary rcfile so OSC7 and OSC133 setup runs after user shell startup,
-                # avoiding PROMPT_COMMAND being overwritten by shell customizations.
-                temp_dir_path = tempfile.mkdtemp(prefix="zashterminal_bash_")
-                bash_init_path = os.path.join(temp_dir_path, ".zashterminal_bashrc")
+                bash_init_path = str(cache_dir / "zashterminal_bashrc")
                 login_bootstrap = ""
                 if use_login_shell:
                     login_bootstrap = (
@@ -308,14 +270,19 @@ class ProcessSpawner:
                     login_bootstrap
                     +
                     f'_zashterminal_update_cwd() {{ {osc7_command}; }}\n'
+                    '__zashterminal_semantic_preexec() {\n'
+                    '  if [ "${__zashterminal_preexec_done:-0}" -eq 0 ]; then\n'
+                    '    printf "\\033]133;C\\007\\033]0;__zt_sem__:C\\007"\n'
+                    '    __zashterminal_preexec_done=1\n'
+                    '  fi\n'
+                    '}\n'
                     '__zashterminal_semantic_precmd() {\n'
                     '  local exit_code=$?\n'
                     '  printf "\\033]133;D;%d\\007\\033]0;__zt_sem__:D:%d\\007\\033]133;A\\007\\033]0;__zt_sem__:A\\007" "$exit_code" "$exit_code"\n'
+                    '  __zashterminal_preexec_done=0\n'
                     '  _zashterminal_update_cwd\n'
                     '}\n'
-                    '__zashterminal_semantic_preexec() {\n'
-                    '  printf "\\033]133;C\\007\\033]0;__zt_sem__:C\\007"\n'
-                    '}\n'
+                    'trap "__zashterminal_semantic_preexec" DEBUG\n'
                     'if [ -z "$PROMPT_COMMAND" ]; then\n'
                     '  PROMPT_COMMAND="__zashterminal_semantic_precmd"\n'
                     'elif declare -p PROMPT_COMMAND 2>/dev/null | grep -q "declare -a"; then\n'
@@ -335,38 +302,65 @@ class ProcessSpawner:
                     f.write(bashrc_content)
                 env["ZASHTERMINAL_BASH_INIT"] = bash_init_path
                 self.logger.info(
-                    f"Using temporary bash init for OSC7/OSC133 integration: {bash_init_path}"
+                    f"Using shared bash init for OSC7/OSC133 integration: {bash_init_path}"
                 )
             except Exception as e:
                 self.logger.error(f"Failed to set up bash OSC7 integration: {e}")
-                if temp_dir_path:
-                    shutil.rmtree(temp_dir_path, ignore_errors=True)
-                temp_dir_path = None
-        else:  # Other shells
-            self.logger.info(
-                "Non-bash shell detected - relying on native shell behavior for OSC7."
-            )
 
-        # Build command based on login shell preference
-        if use_login_shell:
-            if shell_basename == "bash" and temp_dir_path:
-                # Use a controlled rcfile and simulate login startup within it.
-                cmd = [shell, "--rcfile", env["ZASHTERMINAL_BASH_INIT"], "-i"]
+        if in_flatpak:
+            effective_dir = self._resolve_and_validate_working_directory(
+                working_directory
+            ) or str(self.platform_info.home_dir)
+            host_spawn_bin = shutil.which("host-spawn") or "/app/bin/host-spawn"
+            if os.path.exists(host_spawn_bin):
+                cmd = [host_spawn_bin, "-cwd", effective_dir]
+                if shell_basename == "bash" and "ZASHTERMINAL_BASH_INIT" in env:
+                    cmd.extend([shell, "--rcfile", env["ZASHTERMINAL_BASH_INIT"], "-i"])
+                elif use_login_shell:
+                    cmd.extend([shell, "-l"])
+                else:
+                    cmd.extend([shell])
                 self.logger.info(
-                    f"Spawning '{shell} --rcfile ... -i' with login bootstrap."
+                    f"Spawning native host shell via host-spawn in {effective_dir}: {cmd}"
                 )
+                return cmd, env, None
+
+            # Fallback to flatpak-spawn
+            cmd = [
+                "flatpak-spawn",
+                "--host",
+                "--watch-bus",
+                f"--directory={effective_dir}",
+                "--env=TERM=xterm-256color",
+                "--env=COLORTERM=truecolor",
+                "--env=ZASHTERMINAL_HOST=1",
+            ]
+            if shell_basename == "zsh" and "ZDOTDIR" in env:
+                cmd.append(f"--env=ZDOTDIR={env['ZDOTDIR']}")
+            if shell_basename == "bash" and "ZASHTERMINAL_BASH_INIT" in env:
+                cmd.extend([shell, "--rcfile", env["ZASHTERMINAL_BASH_INIT"], "-i"])
+            elif use_login_shell:
+                cmd.append("-l")
+            else:
+                cmd.append(shell)
+            self.logger.info(
+                f"Spawning host shell via flatpak-spawn in {effective_dir}: {cmd}"
+            )
+            return cmd, env, None
+
+        # Build command for direct native execution
+        if use_login_shell:
+            if shell_basename == "bash" and "ZASHTERMINAL_BASH_INIT" in env:
+                cmd = [shell, "--rcfile", env["ZASHTERMINAL_BASH_INIT"], "-i"]
             else:
                 cmd = [shell, "-l"]
-                self.logger.info(f"Spawning '{shell} -l' as a login shell.")
         else:
-            if shell_basename == "bash" and temp_dir_path:
+            if shell_basename == "bash" and "ZASHTERMINAL_BASH_INIT" in env:
                 cmd = [shell, "--rcfile", env["ZASHTERMINAL_BASH_INIT"], "-i"]
-                self.logger.info(f"Spawning '{shell} --rcfile ... -i'.")
             else:
                 cmd = [shell]
 
-
-        return cmd, env, temp_dir_path
+        return cmd, env, None
 
 
     def _get_ssh_control_path(self, session: "SessionItem") -> str:
