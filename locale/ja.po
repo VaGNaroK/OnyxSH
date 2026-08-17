@@ -8770,3 +8770,19 @@ msgstr "前回のセッションを復元するか確認"
 # 
 msgid "Nunca restaurar (iniciar limpo)"
 msgstr "復元しない（新規起動）"
+
+# 
+msgid "Profiles and Data"
+msgstr "プロファイルとデータ"
+
+# 
+msgid "Sempre restaurar"
+msgstr "常に復元"
+
+# 
+msgid "Perguntar ao iniciar"
+msgstr "起動時に確認"
+
+# 
+msgid "Nunca restaurar"
+msgstr "復元しない"

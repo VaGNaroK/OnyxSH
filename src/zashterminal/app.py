@@ -689,12 +689,13 @@ class CommTerminalApp(Adw.Application):
         return self.do_command_line(command_line)
 
     def _on_quit_action(self, _action, _param) -> None:
-        """Handle quit action with SSH session confirmation."""
+        """Handle quit action routing through window close process to save session state."""
         try:
-            if self._has_active_ssh_sessions():
-                self._show_ssh_close_confirmation()
+            windows = self.get_windows()
+            if windows:
+                for win in list(windows):
+                    win.close()
             else:
-                self.logger.info("Quit action triggered - no SSH sessions")
                 self.quit()
         except Exception as e:
             self.logger.error(f"Quit action failed: {e}")
@@ -705,12 +706,19 @@ class CommTerminalApp(Adw.Application):
         try:
             window = self.get_active_window()
             if not window:
+                windows = self.get_windows()
+                if windows:
+                    window = windows[0]
+            if not window:
                 self._on_activate(self)
                 window = self.get_active_window()
-            if not window.get_visible():
-                window.present()
-            if window and hasattr(window, "activate_action"):
-                window.activate_action("preferences", None)
+            if window:
+                if not window.get_visible():
+                    window.present()
+                if hasattr(window, "action_handler"):
+                    window.action_handler.preferences()
+                elif hasattr(window, "activate_action"):
+                    window.activate_action("preferences", None)
         except Exception as e:
             self.logger.error(f"Failed to open preferences: {e}")
             self._show_error_dialog(

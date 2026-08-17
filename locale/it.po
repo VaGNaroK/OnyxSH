@@ -8829,3 +8829,19 @@ msgstr "Chiedi di ripristinare la sessione precedente"
 # 
 msgid "Nunca restaurar (iniciar limpo)"
 msgstr "Non ripristinare mai (avvia pulito)"
+
+# 
+msgid "Profiles and Data"
+msgstr "Profili e Dati"
+
+# 
+msgid "Sempre restaurar"
+msgstr "Ripristina sempre"
+
+# 
+msgid "Perguntar ao iniciar"
+msgstr "Chiedi all'avvio"
+
+# 
+msgid "Nunca restaurar"
+msgstr "Non ripristinare mai"

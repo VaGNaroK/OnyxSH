@@ -8850,3 +8850,19 @@ msgstr "Nach Wiederherstellung der vorherigen Sitzung fragen"
 # 
 msgid "Nunca restaurar (iniciar limpo)"
 msgstr "Nie wiederherstellen (sauber starten)"
+
+# 
+msgid "Profiles and Data"
+msgstr "Profile und Daten"
+
+# 
+msgid "Sempre restaurar"
+msgstr "Immer wiederherstellen"
+
+# 
+msgid "Perguntar ao iniciar"
+msgstr "Beim Start fragen"
+
+# 
+msgid "Nunca restaurar"
+msgstr "Nie wiederherstellen"

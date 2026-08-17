@@ -8839,3 +8839,19 @@ msgstr "Demander à restaurer la session précédente"
 # 
 msgid "Nunca restaurar (iniciar limpo)"
 msgstr "Ne jamais restaurer (démarrage vierge)"
+
+# 
+msgid "Profiles and Data"
+msgstr "Profils et Données"
+
+# 
+msgid "Sempre restaurar"
+msgstr "Toujours restaurer"
+
+# 
+msgid "Perguntar ao iniciar"
+msgstr "Demander au démarrage"
+
+# 
+msgid "Nunca restaurar"
+msgstr "Ne jamais restaurer"

@@ -16,7 +16,10 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 - **Sincronização Multilíngue Automatizada (28 Idiomas)**: Criação de `scripts/sync_translations.py` integrado aos fluxos de compilação Flatpak e DEB, garantindo a sincronização e tradução em lote de todas as novas mensagens e ações para todos os 28 idiomas suportados pelo Zashterminal (`en`, `es`, `fr`, `de`, `it`, `zh`, `ja`, `ru`, `pt`, etc.).
 
 ### Corrigido
-- **Atalho de Preferências (`Ctrl + ,` e `Ctrl + Shift + ,`)**: Registro direto de aceleradores nos níveis de aplicação e janela, garantindo que `Ctrl + ,` abra as Preferências sem necessidade de combinações adicionais.
+- **Interceptação Global do Atalho de Preferências (`Ctrl + ,`)**: Captura em nível de janela com `Gtk.PropagationPhase.CAPTURE`, evitando que o terminal VTE absorva o atalho e garantindo abertura instantânea em qualquer aba.
+- **Tradução da Aba Perfis e Dados (`Profiles and Data`)**: Internacionalização completa do título da aba nos 28 idiomas suportados.
+- **Ajuste de Rótulos no Dropdown de Inicialização**: Rótulos compactos e elegantes (*Sempre restaurar*, *Perguntar ao iniciar*, *Nunca restaurar*) evitando truncamento e reticências no popover do Libadwaita.
+- **Preservação de Sessão ao Sair pelo Menu Principal**: O botão *Sair* do menu hambúrguer agora fecha as janelas sequencialmente, acionando o salvamento de sessão e confirmações pendentes.
 - **Fechamento por Tecla Escape (Padrão VS Code)**: Suporte completo à tecla `Escape` para fechar imediatamente a Command Palette (`Ctrl + Shift + P`) e o diálogo de Preferências.
 - **Confirmação no Modo Perguntar ao Iniciar**: Exibição de diálogo modal claro ao iniciar o aplicativo quando o modo *Perguntar se deseja restaurar a sessão anterior* estiver ativado, permitindo restaurar abas ou iniciar limpo.
 - **Expansão Visual do Grupo de Inicialização**: Reformulação visual do grupo de inicialização nas Preferências com títulos, subtítulos descritivos e margens generosas.

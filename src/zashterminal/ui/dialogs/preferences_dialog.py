@@ -383,9 +383,9 @@ class PreferencesDialog(Adw.PreferencesWindow):
         )
         policy_map = ["always", "ask", "never"]
         policy_strings = [
-            _("Sempre restaurar sessão anterior"),
-            _("Perguntar se deseja restaurar a sessão anterior"),
-            _("Nunca restaurar (iniciar limpo)"),
+            _("Sempre restaurar"),
+            _("Perguntar ao iniciar"),
+            _("Nunca restaurar"),
         ]
         restore_policy_row.set_model(Gtk.StringList.new(policy_strings))
         current_policy = self.settings_manager.get("session_restore_policy", "always")

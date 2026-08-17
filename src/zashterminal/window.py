@@ -534,6 +534,44 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             keyval, state & Gtk.accelerator_get_default_mod_mask()
         )
 
+        # Handle Preferences (Ctrl+, and Ctrl+Shift+,)
+        pref_shortcut = self.settings_manager.get_shortcut("preferences")
+        if (
+            (
+                accel_string
+                and (
+                    accel_string == pref_shortcut
+                    or accel_string
+                    in ("<Control>comma", "<Control><Shift>comma", "<Control><Shift>less")
+                )
+            )
+            or (
+                state & Gdk.ModifierType.CONTROL_MASK
+                and keyval in (Gdk.KEY_comma, Gdk.KEY_less)
+            )
+        ):
+            self.action_handler.preferences()
+            return Gdk.EVENT_STOP
+
+        # Handle Command Palette (Ctrl+Shift+P)
+        cmd_palette_shortcut = self.settings_manager.get_shortcut("command-palette")
+        if (
+            (
+                accel_string
+                and (
+                    accel_string == cmd_palette_shortcut
+                    or accel_string == "<Control><Shift>p"
+                )
+            )
+            or (
+                state & Gdk.ModifierType.CONTROL_MASK
+                and state & Gdk.ModifierType.SHIFT_MASK
+                and keyval in (Gdk.KEY_p, Gdk.KEY_P)
+            )
+        ):
+            self.action_handler.command_palette()
+            return Gdk.EVENT_STOP
+
         # Get the currently configured shortcuts from the settings manager.
         next_tab_shortcut = self.settings_manager.get_shortcut("next-tab")
         prev_tab_shortcut = self.settings_manager.get_shortcut("previous-tab")

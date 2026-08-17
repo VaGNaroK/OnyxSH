@@ -8765,3 +8765,19 @@ msgstr "询问是否恢复上一会话"
 # 
 msgid "Nunca restaurar (iniciar limpo)"
 msgstr "从不恢复（全新启动）"
+
+# 
+msgid "Profiles and Data"
+msgstr "配置文件与数据"
+
+# 
+msgid "Sempre restaurar"
+msgstr "始终恢复"
+
+# 
+msgid "Perguntar ao iniciar"
+msgstr "启动时询问"
+
+# 
+msgid "Nunca restaurar"
+msgstr "从不恢复"

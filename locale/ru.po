@@ -8806,3 +8806,19 @@ msgstr "Спрашивать о восстановлении предыдуще�
 # 
 msgid "Nunca restaurar (iniciar limpo)"
 msgstr "Никогда не восстанавливать (чистый запуск)"
+
+# 
+msgid "Profiles and Data"
+msgstr "Профили и данные"
+
+# 
+msgid "Sempre restaurar"
+msgstr "Всегда восстанавливать"
+
+# 
+msgid "Perguntar ao iniciar"
+msgstr "Спрашивать при запуске"
+
+# 
+msgid "Nunca restaurar"
+msgstr "Никогда не восстанавливать"

@@ -8836,3 +8836,19 @@ msgstr "Preguntar si desea restaurar la sesión anterior"
 # 
 msgid "Nunca restaurar (iniciar limpo)"
 msgstr "Nunca restaurar (iniciar limpio)"
+
+# 
+msgid "Profiles and Data"
+msgstr "Perfiles y Datos"
+
+# 
+msgid "Sempre restaurar"
+msgstr "Siempre restaurar"
+
+# 
+msgid "Perguntar ao iniciar"
+msgstr "Preguntar al iniciar"
+
+# 
+msgid "Nunca restaurar"
+msgstr "Nunca restaurar"

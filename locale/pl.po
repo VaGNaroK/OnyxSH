@@ -8823,3 +8823,19 @@ msgstr "Ask to restore previous session"
 # 
 msgid "Nunca restaurar (iniciar limpo)"
 msgstr "Never restore (start clean)"
+
+# 
+msgid "Profiles and Data"
+msgstr "Profiles and Data"
+
+# 
+msgid "Sempre restaurar"
+msgstr "Always restore"
+
+# 
+msgid "Perguntar ao iniciar"
+msgstr "Ask on startup"
+
+# 
+msgid "Nunca restaurar"
+msgstr "Never restore"
