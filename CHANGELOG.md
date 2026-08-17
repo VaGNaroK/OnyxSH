@@ -19,6 +19,8 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 - **Integração Nativa do Shell do Host no Flatpak**: Execução do shell do usuário (`bash`, `zsh`, `fish`) diretamente no sistema hospedeiro via módulo integrado `host-spawn` (v1.6.2), habilitando suporte total a elevação de privilégios (`sudo`), gerenciadores de pacotes (`apt`, `pacman`, `dnf`), ferramentas CLI e dotfiles do usuário.
 - **Exportação de Conversas do Assistente de IA**: Novo menu de exportação no cabeçalho do chat com suporte para salvar a conversa completa em **Markdown (.md)**, **JSON (.json)** ou **Copiar para a Área de Transferência**, facilitando o compartilhamento e a depuração de prompts, planos de ação e respostas do modelo.
 - **Otimização de Raciocínio e Engenharia de Prompts na IA**: Novo System Prompt com consciência de terminal ativo no Zashterminal, uso obrigatório de caminhos dinâmicos (`$HOME`, `~`), criação de scripts atômica via heredoc (`cat << 'EOF'`) e priorização estrita de padrões modernos do Linux, eliminando comandos redundantes ou legados.
+- **Relatório Arquitetural e Funcional para Agentes de IA**: Criação do arquivo `PROJECT_REPORT.md` detalhando arquitetura de software, subsistemas de PTY/host-spawn, segurança Zero-Trust do agente, fluxos de empacotamento e diretrizes para manutenção automatizada.
+
 
 
 
