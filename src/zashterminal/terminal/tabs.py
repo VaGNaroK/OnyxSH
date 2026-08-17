@@ -872,6 +872,16 @@ class TabManager:
             current = current.get_parent()
         return False
 
+    def get_active_tab(self) -> Optional[Gtk.Box]:
+        """Returns the currently active tab box."""
+        return self.active_tab
+
+    def get_active_tab_index(self) -> int:
+        """Returns the index of the currently active tab, or 0 if none."""
+        if self.active_tab and self.active_tab in self.tabs:
+            return self.tabs.index(self.active_tab)
+        return 0
+
     def set_active_tab(self, tab_to_activate: Gtk.Box):
         if self.active_tab == tab_to_activate:
             return

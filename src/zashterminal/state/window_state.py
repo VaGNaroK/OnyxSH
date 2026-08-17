@@ -47,10 +47,9 @@ class WindowStateManager:
         if not tabs:
             return
 
-        active_tab = self.tab_manager.get_active_tab()
         active_index = (
-            self.tab_manager.tabs.index(active_tab)
-            if active_tab in self.tab_manager.tabs
+            self.tab_manager.get_active_tab_index()
+            if hasattr(self.tab_manager, "get_active_tab_index")
             else 0
         )
 
