@@ -513,7 +513,7 @@ class CommandPaletteDialog(BaseDialog):
         # 7. Dynamic Saved SSH Sessions
         try:
             storage = SessionStorageManager()
-            saved_sessions, _ = storage.load_sessions()
+            saved_sessions, _folders = storage.load_sessions()
             for session in saved_sessions:
                 session_name = getattr(session, "name", "Session")
                 host = getattr(session, "host", "")

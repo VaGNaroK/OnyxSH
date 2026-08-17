@@ -95,7 +95,22 @@ class TestCommandPalette(unittest.TestCase):
         dialog._execute_item(item_ai)
         mock_window._on_ai_assistant_requested.assert_called_once()
 
+    def test_build_catalog_no_unbound_local_error(self):
+        from zashterminal.ui.dialogs.command_palette_dialog import CommandPaletteDialog
+
+        mock_window = MagicMock()
+        mock_window.settings_manager = None
+        dialog = CommandPaletteDialog.__new__(CommandPaletteDialog)
+        dialog.parent_window = mock_window
+        dialog._items = []
+        dialog.logger = MagicMock()
+
+        # Should execute without UnboundLocalError
+        dialog._build_catalog()
+        self.assertGreater(len(dialog._items), 10)
+
 
 if __name__ == "__main__":
     unittest.main()
+
 
