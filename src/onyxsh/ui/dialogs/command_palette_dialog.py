@@ -608,10 +608,83 @@ class CommandPaletteDialog(BaseDialog):
         except Exception as e:
             self.logger.debug(f"Could not load sessions into palette: {e}")
 
+        # 8. Dynamic Snippets and Command Templates
+        try:
+            from ...data.command_manager_models import get_command_button_manager
+
+            cmd_mgr = get_command_button_manager()
+            all_snippets = cmd_mgr.get_all_commands()
+            for snippet in all_snippets:
+                snip_name = snippet.name
+                snip_template = snippet.command_template
+                snip_category = snippet.category or _("Snippets de Comandos")
+                snip_icon = snippet.icon_name or "format-text-code-symbolic"
+
+                self._items.append(
+                    CommandPaletteItem(
+                        f"snippet:{snippet.id}",
+                        f"{snip_name} ({snip_template[:35]}...)" if len(snip_template) > 35 else f"{snip_name} ({snip_template})",
+                        _("Snippets de Comandos"),
+                        snip_icon,
+                        callback=lambda s=snippet: self._execute_snippet(s),
+                        keywords=[
+                            "snippet",
+                            "template",
+                            "comando",
+                            "exec",
+                            snip_name,
+                            snip_category,
+                            snip_template,
+                        ],
+                    )
+                )
+        except Exception as e:
+            self.logger.debug(f"Could not load snippets into palette: {e}")
+
     def _connect_session(self, session: Any) -> None:
         """Connect to a saved session."""
         if hasattr(self.parent_window, "_on_session_activated"):
             self.parent_window._on_session_activated(session)
+
+    def _execute_snippet(self, snippet: Any) -> None:
+        """Executes or prompts parameters for a selected snippet."""
+        active_terminal = None
+        if hasattr(self.parent_window, "get_current_terminal"):
+            active_terminal = self.parent_window.get_current_terminal()
+
+        # Check if snippet has custom variables requiring user input
+        if hasattr(snippet, "has_custom_variables") and snippet.has_custom_variables():
+            from .snippet_parameter_dialog import SnippetParameterDialog
+
+            def _on_snippet_ready(cmd_str: str, execute_now: bool):
+                if active_terminal and hasattr(active_terminal, "feed_child"):
+                    if execute_now:
+                        active_terminal.feed_child(f"{cmd_str}\n".encode("utf-8"))
+                    else:
+                        active_terminal.feed_child(f"{cmd_str}".encode("utf-8"))
+
+            dialog = SnippetParameterDialog(
+                parent=self.parent_window,
+                snippet_name=snippet.name,
+                template=snippet.command_template,
+                description=snippet.description,
+                current_terminal=active_terminal,
+                on_ready_callback=_on_snippet_ready,
+            )
+            dialog.present()
+        else:
+            # All variables are automatic or no variables - resolve and run
+            if hasattr(snippet, "build_command"):
+                cmd_str = snippet.build_command(terminal=active_terminal)
+            else:
+                from ...data.snippet_resolver import get_snippet_resolver
+
+                cmd_str = get_snippet_resolver().resolve_template(
+                    snippet.command_template, terminal=active_terminal
+                )
+
+            if active_terminal and hasattr(active_terminal, "feed_child") and cmd_str:
+                active_terminal.feed_child(f"{cmd_str}\n".encode("utf-8"))
 
     def _setup_ui(self) -> None:
         """Construct the Command Palette UI."""

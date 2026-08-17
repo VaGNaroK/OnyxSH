@@ -8939,3 +8939,35 @@ msgstr "Clear Failed"
 # 
 msgid "Preferências do OnyxSH"
 msgstr "OnyxSH Preferences"
+
+# 
+msgid "Snippets de Comandos"
+msgstr "Command Snippets"
+
+# 
+msgid "Parâmetros"
+msgstr "Parameters"
+
+# 
+msgid "Preencha os valores para as variáveis do template abaixo:"
+msgstr "Fill in the values for the template variables below:"
+
+# 
+msgid "Inserir no Prompt"
+msgstr "Insert into Prompt"
+
+# 
+msgid "Visualização Dinâmica:"
+msgstr "Live Preview:"
+
+# 
+msgid "Docker Logs"
+msgstr "Docker Logs"
+
+# 
+msgid "Git Commit"
+msgstr "Git Commit"
+
+# 
+msgid "Git Novo Branch"
+msgstr "Git New Branch"

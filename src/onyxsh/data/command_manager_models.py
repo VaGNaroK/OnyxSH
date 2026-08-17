@@ -15,6 +15,7 @@ from typing import List, Optional, Dict, Any
 from ..settings.config import get_config_paths
 from ..utils.logger import get_logger
 from ..utils.translation_utils import _
+from .snippet_resolver import SnippetVariable, get_snippet_resolver
 
 
 class ExecutionMode(Enum):
@@ -144,15 +145,29 @@ class CommandButton:
         ]
         return cls(**data)
 
-    def build_command(self, field_values: Dict[str, Any] = None) -> str:
+    def parse_snippet_variables(self) -> List[SnippetVariable]:
+        """Extracts all {{variable}} and {variable} template variables."""
+        return get_snippet_resolver().extract_variables(self.command_template)
+
+    def has_custom_variables(self) -> bool:
+        """Returns True if the snippet contains custom variables requiring user input."""
+        return (
+            len(
+                get_snippet_resolver().get_custom_variables(
+                    self.command_template
+                )
+            )
+            > 0
+        )
+
+    def build_command(
+        self,
+        field_values: Dict[str, Any] = None,
+        terminal: Optional[Any] = None,
+    ) -> str:
         """
-        Build the final command string by substituting field values.
-        
-        Args:
-            field_values: Dictionary mapping field IDs to their values
-            
-        Returns:
-            The constructed command string
+        Build the final command string by substituting form field values
+        and dynamic contextual snippet variables ({{cwd}}, {{host}}, etc.).
         """
         if not field_values:
             field_values = {}
@@ -166,21 +181,32 @@ class CommandButton:
             if form_field.field_type == FieldType.SWITCH:
                 # For switches, add the flag when ON, or off_value when OFF
                 if value:
-                    # Replace placeholder with flag, or append if no placeholder
                     if f"{{{template_key}}}" in command:
-                        command = command.replace(f"{{{template_key}}}", form_field.command_flag)
+                        command = command.replace(
+                            f"{{{template_key}}}", form_field.command_flag
+                        )
                     else:
                         command = f"{command} {form_field.command_flag}"
                 else:
-                    # Replace placeholder with off_value (can be empty)
                     if f"{{{template_key}}}" in command:
-                        command = command.replace(f"{{{template_key}}}", form_field.off_value)
+                        command = command.replace(
+                            f"{{{template_key}}}", form_field.off_value
+                        )
                     elif form_field.off_value:
                         command = f"{command} {form_field.off_value}"
             else:
                 # For other fields, substitute the value
                 if f"{{{template_key}}}" in command:
-                    command = command.replace(f"{{{template_key}}}", str(value) if value else "")
+                    command = command.replace(
+                        f"{{{template_key}}}", str(value) if value else ""
+                    )
+
+        # Apply snippet resolver for remaining {{variables}} and dynamic system context
+        command = get_snippet_resolver().resolve_template(
+            template=command,
+            user_values=field_values,
+            terminal=terminal,
+        )
 
         # Clean up multiple spaces
         command = " ".join(command.split())
@@ -579,6 +605,79 @@ def get_builtin_commands() -> List[CommandButton]:
                     template_key="package",
                 ),
             ],
+        ),
+        # Snippets Reutilizáveis Parametrizados (Item 1.5)
+        CommandButton(
+            id="snippet_docker_logs",
+            name=_("Docker Logs"),
+            description=_("Stream real-time logs from a specific container"),
+            command_template="docker logs -f {{container}} --tail {{lines=100}}",
+            icon_name="utilities-terminal-symbolic",
+            display_mode=DisplayMode.ICON_AND_TEXT,
+            execution_mode=ExecutionMode.INSERT_AND_EXECUTE,
+            is_builtin=True,
+            category=_("Containers & Docker"),
+            sort_order=10,
+        ),
+        CommandButton(
+            id="snippet_docker_exec",
+            name=_("Docker Exec Shell"),
+            description=_("Open an interactive shell inside a running container"),
+            command_template="docker exec -it {{container}} {{shell=bash}}",
+            icon_name="utilities-terminal-symbolic",
+            display_mode=DisplayMode.ICON_AND_TEXT,
+            execution_mode=ExecutionMode.INSERT_AND_EXECUTE,
+            is_builtin=True,
+            category=_("Containers & Docker"),
+            sort_order=11,
+        ),
+        CommandButton(
+            id="snippet_git_commit",
+            name=_("Git Commit"),
+            description=_("Commit staged changes with a descriptive message"),
+            command_template='git commit -m "{{message}}"',
+            icon_name="document-save-symbolic",
+            display_mode=DisplayMode.ICON_AND_TEXT,
+            execution_mode=ExecutionMode.INSERT_AND_EXECUTE,
+            is_builtin=True,
+            category=_("Git & Version Control"),
+            sort_order=12,
+        ),
+        CommandButton(
+            id="snippet_git_new_branch",
+            name=_("Git New Branch"),
+            description=_("Create and switch to a new local branch"),
+            command_template="git checkout -b {{new_branch}}",
+            icon_name="edit-copy-symbolic",
+            display_mode=DisplayMode.ICON_AND_TEXT,
+            execution_mode=ExecutionMode.INSERT_AND_EXECUTE,
+            is_builtin=True,
+            category=_("Git & Version Control"),
+            sort_order=13,
+        ),
+        CommandButton(
+            id="snippet_rsync_remote",
+            name=_("Rsync Sync Files"),
+            description=_("Synchronize local files to remote host preserving attributes"),
+            command_template="rsync -avzP {{src=.}} {{user}}@{{host}}:{{dest=/tmp/}}",
+            icon_name="folder-remote-symbolic",
+            display_mode=DisplayMode.ICON_AND_TEXT,
+            execution_mode=ExecutionMode.INSERT_AND_EXECUTE,
+            is_builtin=True,
+            category=_("Network & SSH"),
+            sort_order=14,
+        ),
+        CommandButton(
+            id="snippet_journalctl_service",
+            name=_("Systemd Service Logs"),
+            description=_("Follow systemd unit journal logs in real-time"),
+            command_template="journalctl -u {{service}} -f -n {{lines=50}}",
+            icon_name="system-search-symbolic",
+            display_mode=DisplayMode.ICON_AND_TEXT,
+            execution_mode=ExecutionMode.INSERT_AND_EXECUTE,
+            is_builtin=True,
+            category=_("System"),
+            sort_order=15,
         ),
     ]
 

@@ -8938,3 +8938,35 @@ msgstr "Очистить с ошибками"
 # 
 msgid "Preferências do OnyxSH"
 msgstr "Настройки OnyxSH"
+
+# 
+msgid "Snippets de Comandos"
+msgstr "Фрагменты команд"
+
+# 
+msgid "Parâmetros"
+msgstr "Параметры"
+
+# 
+msgid "Preencha os valores para as variáveis do template abaixo:"
+msgstr "Заполните значения для переменных шаблона ниже:"
+
+# 
+msgid "Inserir no Prompt"
+msgstr "Вставить в строку"
+
+# 
+msgid "Visualização Dinâmica:"
+msgstr "Предварительный просмотр:"
+
+# 
+msgid "Docker Logs"
+msgstr "Логи Docker"
+
+# 
+msgid "Git Commit"
+msgstr "Git коммит"
+
+# 
+msgid "Git Novo Branch"
+msgstr "Git новая ветка"

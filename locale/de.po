@@ -8982,3 +8982,35 @@ msgstr "Fehlerhafte löschen"
 # 
 msgid "Preferências do OnyxSH"
 msgstr "OnyxSH-Einstellungen"
+
+# 
+msgid "Snippets de Comandos"
+msgstr "Befehls-Snippets"
+
+# 
+msgid "Parâmetros"
+msgstr "Parameter"
+
+# 
+msgid "Preencha os valores para as variáveis do template abaixo:"
+msgstr "Füllen Sie die Werte für die Vorlagenvariablen unten aus:"
+
+# 
+msgid "Inserir no Prompt"
+msgstr "In Prompt einfügen"
+
+# 
+msgid "Visualização Dinâmica:"
+msgstr "Live-Vorschau:"
+
+# 
+msgid "Docker Logs"
+msgstr "Docker Logs"
+
+# 
+msgid "Git Commit"
+msgstr "Git Commit"
+
+# 
+msgid "Git Novo Branch"
+msgstr "Git Neuer Zweig"

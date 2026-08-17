@@ -9260,3 +9260,35 @@ msgstr "Limpar com Erro"
 # 
 msgid "Preferências do OnyxSH"
 msgstr "Preferências do OnyxSH"
+
+# 
+msgid "Snippets de Comandos"
+msgstr "Snippets de Comandos"
+
+# 
+msgid "Parâmetros"
+msgstr "Parâmetros"
+
+# 
+msgid "Preencha os valores para as variáveis do template abaixo:"
+msgstr "Preencha os valores para as variáveis do template abaixo:"
+
+# 
+msgid "Inserir no Prompt"
+msgstr "Inserir no Prompt"
+
+# 
+msgid "Visualização Dinâmica:"
+msgstr "Visualização Dinâmica:"
+
+# 
+msgid "Docker Logs"
+msgstr "Docker Logs"
+
+# 
+msgid "Git Commit"
+msgstr "Git Commit"
+
+# 
+msgid "Git Novo Branch"
+msgstr "Git Novo Branch"

@@ -67,11 +67,13 @@
 - [x] **Módulos Afetados:** `src/zashterminal/data/command_history_manager.py`, `src/zashterminal/ui/dialogs/command_history_dialog.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/window.py`, `src/zashterminal/terminal/manager.py`.
 
 ### 📌 1.5. Gerenciador de Snippets de Comandos Reutilizáveis
-- [ ] **Descrição:** Criação e execução de templates de comandos parametrizáveis com substituição de variáveis.
-- [ ] **Exemplo:** `docker logs -f {{container_name}} --tail {{lines}}` ou `rsync -avz {{src}} {{user}}@{{host}}:{{dest}}`.
-- [ ] **Variáveis Nativas:** `{{cwd}}`, `{{host}}`, `{{user}}`, `{{date}}`, `{{branch_git}}`.
-- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.9.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/ui/dialogs/command_manager_dialog.py`.
+- [x] **Descrição:** Criação e execução de templates de comandos parametrizáveis com substituição de variáveis.
+- [x] **Exemplo:** `docker logs -f {{container_name}} --tail {{lines=100}}` ou `rsync -avz {{cwd}} {{user}}@{{host}}:{{dest=/tmp/}}`.
+- [x] **Variáveis Nativas Resolvidas:** `{{cwd}}`, `{{host}}`, `{{user}}`, `{{date}}`, `{{time}}`, `{{datetime}}`, `{{git_branch}}`, `{{clipboard}}`, `{{selection}}`.
+- [x] **Recursos:** Diálogo de preenchimento interativo com live preview (`SnippetParameterDialog`), substituição automática de variáveis de sistema, inserção no prompt (`Tab`), execução direta (`Enter`) e indexação na Command Palette (`Ctrl + Shift + P`).
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/onyxsh/data/snippet_resolver.py`, `src/onyxsh/ui/dialogs/snippet_parameter_dialog.py`, `src/onyxsh/data/command_manager_models.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`).
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.9.0`
+- [x] **Módulos Afetados:** `src/onyxsh/data/snippet_resolver.py`, `src/onyxsh/ui/dialogs/snippet_parameter_dialog.py`, `src/onyxsh/data/command_manager_models.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`.
 
 ### 📌 1.6. Notificações Desktop para Comandos Longos
 - [ ] **Descrição:** Notificação nativa via portal XDG/D-Bus (`org.freedesktop.Notifications`) quando um comando em segundo plano ou em aba inativa terminar após um tempo limite configurável (ex: > 10s).

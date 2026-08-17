@@ -8961,3 +8961,35 @@ msgstr "Cancella con errore"
 # 
 msgid "Preferências do OnyxSH"
 msgstr "Preferenze di OnyxSH"
+
+# 
+msgid "Snippets de Comandos"
+msgstr "Snippet di comandi"
+
+# 
+msgid "Parâmetros"
+msgstr "Parametri"
+
+# 
+msgid "Preencha os valores para as variáveis do template abaixo:"
+msgstr "Compila i valori per le variabili del modello di seguito:"
+
+# 
+msgid "Inserir no Prompt"
+msgstr "Inserisci nel prompt"
+
+# 
+msgid "Visualização Dinâmica:"
+msgstr "Anteprima dal vivo:"
+
+# 
+msgid "Docker Logs"
+msgstr "Docker Logs"
+
+# 
+msgid "Git Commit"
+msgstr "Git Commit"
+
+# 
+msgid "Git Novo Branch"
+msgstr "Git Nuovo Branch"

@@ -8897,3 +8897,35 @@ msgstr "清除失败项"
 # 
 msgid "Preferências do OnyxSH"
 msgstr "OnyxSH 首选项"
+
+# 
+msgid "Snippets de Comandos"
+msgstr "命令片段"
+
+# 
+msgid "Parâmetros"
+msgstr "参数"
+
+# 
+msgid "Preencha os valores para as variáveis do template abaixo:"
+msgstr "在下方填写模板变量的值："
+
+# 
+msgid "Inserir no Prompt"
+msgstr "插入至提示符"
+
+# 
+msgid "Visualização Dinâmica:"
+msgstr "实时预览："
+
+# 
+msgid "Docker Logs"
+msgstr "Docker 日志"
+
+# 
+msgid "Git Commit"
+msgstr "Git 提交"
+
+# 
+msgid "Git Novo Branch"
+msgstr "Git 新分支"

@@ -8971,3 +8971,35 @@ msgstr "Effacer les erreurs"
 # 
 msgid "Preferências do OnyxSH"
 msgstr "Préférences de OnyxSH"
+
+# 
+msgid "Snippets de Comandos"
+msgstr "Snippets de commandes"
+
+# 
+msgid "Parâmetros"
+msgstr "Paramètres"
+
+# 
+msgid "Preencha os valores para as variáveis do template abaixo:"
+msgstr "Remplissez les valeurs pour les variables du modèle ci-dessous :"
+
+# 
+msgid "Inserir no Prompt"
+msgstr "Insérer dans le prompt"
+
+# 
+msgid "Visualização Dinâmica:"
+msgstr "Aperçu en direct :"
+
+# 
+msgid "Docker Logs"
+msgstr "Docker Logs"
+
+# 
+msgid "Git Commit"
+msgstr "Git Commit"
+
+# 
+msgid "Git Novo Branch"
+msgstr "Git Nouvelle Branche"

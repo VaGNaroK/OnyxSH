@@ -8902,3 +8902,35 @@ msgstr "エラー項目を消去"
 # 
 msgid "Preferências do OnyxSH"
 msgstr "OnyxSH 設定"
+
+# 
+msgid "Snippets de Comandos"
+msgstr "コマンドスニペット"
+
+# 
+msgid "Parâmetros"
+msgstr "パラメータ"
+
+# 
+msgid "Preencha os valores para as variáveis do template abaixo:"
+msgstr "以下のテンプレート変数の値を入力してください:"
+
+# 
+msgid "Inserir no Prompt"
+msgstr "プロンプトに挿入"
+
+# 
+msgid "Visualização Dinâmica:"
+msgstr "ライブプレビュー:"
+
+# 
+msgid "Docker Logs"
+msgstr "Docker ログ"
+
+# 
+msgid "Git Commit"
+msgstr "Git コミット"
+
+# 
+msgid "Git Novo Branch"
+msgstr "Git 新規ブランチ"
