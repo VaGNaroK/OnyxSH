@@ -8964,3 +8964,7 @@ msgstr "Limpiar No Favoritos"
 # 
 msgid "Limpar com Erro"
 msgstr "Limpiar con Error"
+
+# 
+msgid "Preferências do OnyxSH"
+msgstr "Preferencias de OnyxSH"

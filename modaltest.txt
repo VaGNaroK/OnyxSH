@@ -1,0 +1,54 @@
+abaixo do modal histórico de comandos ele não armazenou o históricos dos comandos segue a saída de teste:
+vagnarok@vagnarok-Product:~/zashterminal-Fork-main$ git status
+No ramo main
+Your branch is up to date with 'origin/main'.
+
+Arquivos não monitorados:
+  (utilize "git add <arquivo>..." para incluir o que será submetido)
+	logerro3.txt
+	logerrors.txt
+
+nada adicionado ao envio mas arquivos não registrados estão presentes (use "git add" to registrar)
+vagnarok@vagnarok-Product:~/zashterminal-Fork-main$ ls -la
+total 356
+drwxrwxr-x  12 vagnarok vagnarok  4096 ago 17 01:33 .
+drwxr-x---+ 41 vagnarok vagnarok  4096 ago 17  2026 ..
+-rw-rw-r--   1 vagnarok vagnarok 15801 ago 17 01:33 CHANGELOG.md
+-rw-rw-r--   1 vagnarok vagnarok   948 ago 16 22:38 default.nix
+drwxrwxr-x   2 vagnarok vagnarok  4096 ago 17 01:33 dist
+drwxr-xr-x   2 vagnarok vagnarok  4096 ago 13 21:44 docs
+-rw-rw-r--   1 vagnarok vagnarok  1499 jun 16 17:07 flake.lock
+-rw-rw-r--   1 vagnarok vagnarok   648 jun 16 17:07 flake.nix
+drwxrwxr-x   8 vagnarok vagnarok  4096 ago 17 10:28 .git
+drwxrwxr-x   3 vagnarok vagnarok  4096 ago 13 22:41 .github
+-rw-rw-r--   1 vagnarok vagnarok  4688 jun 16 17:07 .gitignore
+-rwxrwxr-x   1 vagnarok vagnarok 35043 ago 16 20:57 install.sh
+-rw-rw-r--   1 vagnarok vagnarok 34733 jun 16 17:07 LICENSE
+drwxrwxr-x   2 vagnarok vagnarok  4096 ago 16 22:20 locale
+-rw-rw-r--   1 vagnarok vagnarok 59201 ago 17 01:01 logerro3.txt
+-rw-rw-r--   1 vagnarok vagnarok 59591 ago 17 00:17 logerrors.txt
+drwxrwxr-x   2 vagnarok vagnarok  4096 ago 16 20:57 manifests
+-rw-rw-r--   1 vagnarok vagnarok  1784 ago 16 22:38 PKGBUILD
+-rw-rw-r--   1 vagnarok vagnarok 16875 ago 16 21:01 PROJECT_REPORT.md
+-rw-rw-r--   1 vagnarok vagnarok  2036 ago 16 22:38 pyproject.toml
+-rw-rw-r--   1 vagnarok vagnarok 13223 ago 16 20:57 README.en.md
+-rw-rw-r--   1 vagnarok vagnarok 14431 ago 16 20:57 README.md
+drwxrwxr-x   2 vagnarok vagnarok  4096 ago 16 22:20 scripts
+drwxrwxr-x   3 vagnarok vagnarok  4096 jun 16 17:07 src
+drwxr-xr-x   3 vagnarok vagnarok  4096 ago 17 01:28 tests
+-rw-rw-r--   1 vagnarok vagnarok 18157 ago 17 01:33 TODO.md
+drwxrwxr-x   4 vagnarok vagnarok  4096 jun 16 17:07 usr
+vagnarok@vagnarok-Product:~/zashterminal-Fork-main$ df -h
+Sist. Arq.      Tam. Usado Disp. Uso% Montado em
+tmpfs           3,2G  1,8M  3,2G   1% /run
+efivarfs        128K   61K   63K  49% /sys/firmware/efi/efivars
+/dev/nvme0n1p4  346G   93G  236G  29% /
+tmpfs            16G   23M   16G   1% /dev/shm
+tmpfs           5,0M   12K  5,0M   1% /run/lock
+tmpfs            16G     0   16G   0% /run/qemu
+/dev/nvme0n1p1  196M   38M  159M  20% /boot/efi
+tmpfs           3,2G  232K  3,2G   1% /run/user/1000
+vagnarok@vagnarok-Product:~/zashterminal-Fork-main$ uname -a
+Linux vagnarok-Product 7.0.0-28-generic #28~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Jul  1 15:50:57 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+vagnarok@vagnarok-Product:~/zashterminal-Fork-main$ 
+

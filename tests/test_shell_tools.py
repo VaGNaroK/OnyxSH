@@ -1,14 +1,14 @@
 """Tests for shell tools executor (run_argv)."""
 
 import unittest
-from zashterminal.agent.shell_tools import run_argv
+from onyxsh.agent.shell_tools import run_argv
 
 
 class TestShellTools(unittest.IsolatedAsyncioTestCase):
     async def test_run_argv_valid_command(self):
-        res = await run_argv(["echo", "hello zashterminal"])
+        res = await run_argv(["echo", "hello onyxsh"])
         self.assertTrue(res.success)
-        self.assertIn("hello zashterminal", res.stdout)
+        self.assertIn("hello onyxsh", res.stdout)
         self.assertEqual(res.returncode, 0)
 
     async def test_run_argv_rejects_empty_or_non_list(self):

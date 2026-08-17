@@ -1,7 +1,7 @@
 """Tests for agent data models and schema validation."""
 
 import unittest
-from zashterminal.agent.models import (
+from onyxsh.agent.models import (
     ActionPlan,
     ActionStep,
     AuditRecord,

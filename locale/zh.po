@@ -8893,3 +8893,7 @@ msgstr "清除未收藏项"
 # 
 msgid "Limpar com Erro"
 msgstr "清除失败项"
+
+# 
+msgid "Preferências do OnyxSH"
+msgstr "OnyxSH 首选项"

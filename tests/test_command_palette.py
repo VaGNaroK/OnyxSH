@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
-from zashterminal.ui.dialogs.command_palette_dialog import (
+from onyxsh.ui.dialogs.command_palette_dialog import (
     CommandPaletteItem,
     _normalize,
 )
@@ -68,7 +68,7 @@ class TestCommandPalette(unittest.TestCase):
         mock_callback.assert_called_once()
 
     def test_dialog_execution_dispatch(self):
-        from zashterminal.ui.dialogs.command_palette_dialog import CommandPaletteDialog
+        from onyxsh.ui.dialogs.command_palette_dialog import CommandPaletteDialog
 
         mock_window = MagicMock()
         mock_window.action_handler = MagicMock()
@@ -96,7 +96,7 @@ class TestCommandPalette(unittest.TestCase):
         mock_window._on_ai_assistant_requested.assert_called_once()
 
     def test_build_catalog_no_unbound_local_error(self):
-        from zashterminal.ui.dialogs.command_palette_dialog import CommandPaletteDialog
+        from onyxsh.ui.dialogs.command_palette_dialog import CommandPaletteDialog
 
         mock_window = MagicMock()
         mock_window.settings_manager = None

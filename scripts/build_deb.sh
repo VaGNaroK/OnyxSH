@@ -2,13 +2,13 @@
 set -euo pipefail
 
 # ==============================================================================
-# build_deb.sh — Script para gerar pacote Debian (.deb) do Zashterminal
+# build_deb.sh — Script para gerar pacote Debian (.deb) do OnyxSH
 # ==============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-PACKAGE_NAME="zashterminal"
+PACKAGE_NAME="onyxsh"
 OUTPUT_DIR="${REPO_ROOT}/dist"
 BUILD_DIR="${REPO_ROOT}/.deb-build"
 CLEAN_CACHE=false
@@ -22,7 +22,7 @@ usage() {
   cat <<EOF
 Uso: $0 [opções]
 
-Gera o pacote Debian (.deb) para o Zashterminal.
+Gera o pacote Debian (.deb) para o OnyxSH.
 
 Opções:
   -c, --clean-cache      Remove a pasta de cache temporária (.deb-build) após a compilação.
@@ -71,8 +71,8 @@ VERSION=""
 if [ -f "${REPO_ROOT}/scripts/sync_version.py" ]; then
   VERSION="$(python3 "${REPO_ROOT}/scripts/sync_version.py" --print-current 2>/dev/null || true)"
 fi
-if [ -z "$VERSION" ] && [ -f "${REPO_ROOT}/src/zashterminal/settings/config.py" ]; then
-  VERSION="$(grep -Po 'APP_VERSION\s*=\s*"\K[^"]+' "${REPO_ROOT}/src/zashterminal/settings/config.py" || true)"
+if [ -z "$VERSION" ] && [ -f "${REPO_ROOT}/src/onyxsh/settings/config.py" ]; then
+  VERSION="$(grep -Po 'APP_VERSION\s*=\s*"\K[^"]+' "${REPO_ROOT}/src/onyxsh/settings/config.py" || true)"
 fi
 if [ -z "$VERSION" ]; then
   VERSION="0.8.17"
@@ -86,7 +86,7 @@ fi
 
 log "Iniciando empacotamento .deb do ${PACKAGE_NAME} v${VERSION} (${TARGET_ARCH})..."
 
-STAGE="${BUILD_DIR}/zashterminal_${VERSION}_${TARGET_ARCH}"
+STAGE="${BUILD_DIR}/onyxsh_${VERSION}_${TARGET_ARCH}"
 rm -rf "${STAGE}"
 mkdir -p "${STAGE}/DEBIAN"
 mkdir -p "${STAGE}/usr/bin"
@@ -102,8 +102,8 @@ mkdir -p "${STAGE}/usr/share/locale"
 mkdir -p "${OUTPUT_DIR}"
 
 log "Copiando arquivos de código-fonte e recursos..."
-cp -r "${REPO_ROOT}/src/zashterminal/"* "${STAGE}/usr/lib/${PACKAGE_NAME}/"
-cp "${REPO_ROOT}/usr/bin/zashterminal" "${STAGE}/usr/bin/${PACKAGE_NAME}"
+cp -r "${REPO_ROOT}/src/onyxsh/"* "${STAGE}/usr/lib/${PACKAGE_NAME}/"
+cp "${REPO_ROOT}/usr/bin/onyxsh" "${STAGE}/usr/bin/${PACKAGE_NAME}"
 chmod 755 "${STAGE}/usr/bin/${PACKAGE_NAME}"
 
 # Copy assets
@@ -142,12 +142,12 @@ Section: utils
 Priority: optional
 Architecture: ${TARGET_ARCH}
 Maintainer: Leonardo Berbert <leo4berbert@gmail.com>
-Homepage: https://github.com/VaGNaroK/zashterminal-Fork
+Homepage: https://github.com/VaGNaroK/OnyxSH
 Installed-Size: ${INSTALLED_SIZE}
 Depends: python3 (>= 3.9), python3-gi, python3-gi-cairo, python3-cairo, gir1.2-gtk-4.0, gir1.2-adw-1, gir1.2-vte-3.91, gir1.2-secret-1, libgtk-4-1, libadwaita-1-0, libvte-2.91-gtk4-0, libsecret-1-0, python3-requests, python3-psutil, python3-regex, python3-pygments, rsync, sshpass
 Recommends: python3-pycryptodomex | python3-crypto, gettext
 Description: Modern and secure GTK4/Libadwaita terminal emulator with AI integration
- Zashterminal is a fast, tabbed, customizable terminal emulator built on GTK4,
+ OnyxSH is a fast, tabbed, customizable terminal emulator built on GTK4,
  Libadwaita and VTE, featuring AI Assistant and secure agent workflows.
 EOF
 
@@ -157,7 +157,7 @@ cat <<'EOF' > "${STAGE}/DEBIAN/postinst"
 set -e
 if [ "$1" = "configure" ]; then
   if command -v python3 >/dev/null 2>&1; then
-    python3 -m compileall /usr/lib/zashterminal/ >/dev/null 2>&1 || true
+    python3 -m compileall /usr/lib/onyxsh/ >/dev/null 2>&1 || true
   fi
   if command -v update-desktop-database >/dev/null 2>&1; then
     update-desktop-database -q /usr/share/applications || true

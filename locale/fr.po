@@ -8967,3 +8967,7 @@ msgstr "Effacer non épinglés"
 # 
 msgid "Limpar com Erro"
 msgstr "Effacer les erreurs"
+
+# 
+msgid "Preferências do OnyxSH"
+msgstr "Préférences de OnyxSH"

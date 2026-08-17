@@ -1,13 +1,13 @@
 # Maintainer: Leonardo Berbert <leo4berbert@gmail.com>
 
-pkgname=zashterminal
+pkgname=onyxsh
 # NOTE: CI updates this value automatically based on
-# src/zashterminal/settings/config.py (APP_VERSION).
+# src/onyxsh/settings/config.py (APP_VERSION).
 pkgver=0.8.25
 pkgrel=1
 pkgdesc="A modern GTK4/Adwaita terminal emulator with advanced session management, SSH integration, and security features."
 arch=('any')
-url="https://github.com/VaGNaroK/zashterminal-Fork"
+url="https://github.com/VaGNaroK/OnyxSH"
 license=('GPL3')
 depends=(
     'gtk4' 'libadwaita' 'libsecret' 'python' 'python-cairo' 'python-py7zr'
@@ -16,7 +16,7 @@ depends=(
 )
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'uv' 'gettext')
 conflicts=('zash')
-provides=('zash' 'zashterminal')
+provides=('zash' 'onyxsh')
 replaces=('zash')
 source=("${pkgname}::git+${url}.git")
 sha256sums=('SKIP')
@@ -29,7 +29,7 @@ build() {
   cd "${srcdir}/${pkgname}"
   find locale -name '*.po' -print0 | while IFS= read -r -d '' po; do
     lang=$(basename "${po%.po}")
-    out="usr/share/locale/${lang}/LC_MESSAGES/zashterminal.mo"
+    out="usr/share/locale/${lang}/LC_MESSAGES/onyxsh.mo"
     mkdir -p "$(dirname "$out")"
     msgfmt -o "$out" "$po"
   done
@@ -45,8 +45,8 @@ package() {
         cp -ra usr/share "$pkgdir/usr/"
     fi
 
-    if [ -f "src/zashterminal/admin/helper.py" ]; then
-        install -Dm755 src/zashterminal/admin/helper.py "$pkgdir/usr/lib/zashterminal/zashterminal-admin-helper"
+    if [ -f "src/onyxsh/admin/helper.py" ]; then
+        install -Dm755 src/onyxsh/admin/helper.py "$pkgdir/usr/lib/onyxsh/onyxsh-admin-helper"
     fi
 
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

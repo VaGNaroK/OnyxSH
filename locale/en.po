@@ -9705,3 +9705,7 @@ msgstr "Clear Unpinned"
 # 
 msgid "Limpar com Erro"
 msgstr "Clear Failed"
+
+# 
+msgid "Preferências do OnyxSH"
+msgstr "OnyxSH Preferences"

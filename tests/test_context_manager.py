@@ -1,7 +1,7 @@
 """Tests for ContextManager prompt construction and <untrusted> tags isolation."""
 
 import unittest
-from zashterminal.agent.context_manager import ContextManager
+from onyxsh.agent.context_manager import ContextManager
 
 
 class TestContextManager(unittest.TestCase):

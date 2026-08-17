@@ -17,8 +17,8 @@
       in
       {
         packages = {
-          default = self.packages.${system}.zashterminal;
-          zashterminal = pkgs.callPackage ./. { };
+          default = self.packages.${system}.onyxsh;
+          onyxsh = pkgs.callPackage ./. { };
         };
         devShells.default = pkgs.mkShell {
           inputsFrom = [ self.packages.${system}.default ];

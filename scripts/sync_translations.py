@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Zashterminal Translation Synchronization Tool
+OnyxSH Translation Synchronization Tool
 Synchronizes newly added msgid entries across all 28 supported .po files in locale/
 and compiles them into .mo catalog files.
 """
@@ -15,7 +15,7 @@ from typing import Dict, List, Tuple
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 LOCALE_DIR = REPO_ROOT / "locale"
-INTERNAL_LOCALE_DIR = REPO_ROOT / "src" / "zashterminal" / "locale"
+INTERNAL_LOCALE_DIR = REPO_ROOT / "src" / "onyxsh" / "locale"
 
 # Catalog of newly added strings with multilingual translations
 NEW_TRANSLATIONS: Dict[str, Dict[str, str]] = {
@@ -602,16 +602,16 @@ NEW_TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "ja": "SecureCRT セッションのインポート",
         "ru": "Импортировать сессии SecureCRT",
     },
-    "Preferências do Zashterminal": {
-        "pt": "Preferências do Zashterminal",
-        "en": "Zashterminal Preferences",
-        "es": "Preferencias de Zashterminal",
-        "fr": "Préférences de Zashterminal",
-        "de": "Zashterminal-Einstellungen",
-        "it": "Preferenze di Zashterminal",
-        "zh": "Zashterminal 首选项",
-        "ja": "Zashterminal 設定",
-        "ru": "Настройки Zashterminal",
+    "Preferências do OnyxSH": {
+        "pt": "Preferências do OnyxSH",
+        "en": "OnyxSH Preferences",
+        "es": "Preferencias de OnyxSH",
+        "fr": "Préférences de OnyxSH",
+        "de": "OnyxSH-Einstellungen",
+        "it": "Preferenze di OnyxSH",
+        "zh": "OnyxSH 首选项",
+        "ja": "OnyxSH 設定",
+        "ru": "Настройки OnyxSH",
     },
     "Atalhos de Teclado": {
         "pt": "Atalhos de Teclado",
@@ -1153,7 +1153,7 @@ def compile_mo_files() -> int:
         lang = po_file.stem
         target_dir = INTERNAL_LOCALE_DIR / lang / "LC_MESSAGES"
         target_dir.mkdir(parents=True, exist_ok=True)
-        mo_file = target_dir / "zashterminal.mo"
+        mo_file = target_dir / "onyxsh.mo"
 
         try:
             cmd = ["msgfmt", str(po_file), "-o", str(mo_file)]
@@ -1164,7 +1164,7 @@ def compile_mo_files() -> int:
                 pt_br_dir = INTERNAL_LOCALE_DIR / "pt_BR" / "LC_MESSAGES"
                 pt_br_dir.mkdir(parents=True, exist_ok=True)
                 subprocess.run(
-                    ["msgfmt", str(po_file), "-o", str(pt_br_dir / "zashterminal.mo")],
+                    ["msgfmt", str(po_file), "-o", str(pt_br_dir / "onyxsh.mo")],
                     check=True,
                     capture_output=True,
                 )

@@ -8978,3 +8978,7 @@ msgstr "Nicht angepinnte löschen"
 # 
 msgid "Limpar com Erro"
 msgstr "Fehlerhafte löschen"
+
+# 
+msgid "Preferências do OnyxSH"
+msgstr "OnyxSH-Einstellungen"

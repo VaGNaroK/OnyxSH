@@ -12,7 +12,7 @@
 }:
 
 python3Packages.buildPythonApplication {
-  pname = "zashterminal";
+  pname = "onyxsh";
   version = "0.8.25";
 
   src = ./.;

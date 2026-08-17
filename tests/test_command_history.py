@@ -6,7 +6,7 @@ import time
 import unittest
 from pathlib import Path
 
-from zashterminal.data.command_history_manager import (
+from onyxsh.data.command_history_manager import (
     CommandHistoryItem,
     CommandHistoryManager,
 )

@@ -9,7 +9,7 @@ import gi
 gi.require_version("Vte", "3.91")
 from gi.repository import Vte
 
-from zashterminal.terminal.semantic_tracker import (
+from onyxsh.terminal.semantic_tracker import (
     SemanticCommand,
     SemanticTerminalState,
     SemanticTracker,

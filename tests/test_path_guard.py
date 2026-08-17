@@ -3,7 +3,7 @@
 import tempfile
 import unittest
 from pathlib import Path
-from zashterminal.agent.path_guard import PathGuard
+from onyxsh.agent.path_guard import PathGuard
 
 
 class TestPathGuard(unittest.TestCase):

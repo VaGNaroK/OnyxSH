@@ -3,9 +3,9 @@
 import tempfile
 import unittest
 from pathlib import Path
-from zashterminal.agent.audit import AuditLogger
-from zashterminal.agent.models import AuditRecord, RiskLevel
-from zashterminal.utils.backup import (
+from onyxsh.agent.audit import AuditLogger
+from onyxsh.agent.models import AuditRecord, RiskLevel
+from onyxsh.utils.backup import (
     create_file_backup,
     list_file_backups,
     rollback_file_backup,

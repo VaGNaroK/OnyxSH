@@ -4,8 +4,8 @@ import tempfile
 import unittest
 from unittest.mock import MagicMock, patch
 
-from zashterminal.sessions.models import SessionItem
-from zashterminal.state.window_state import WindowStateManager
+from onyxsh.sessions.models import SessionItem
+from onyxsh.state.window_state import WindowStateManager
 
 
 class TestSessionRestore(unittest.TestCase):
@@ -32,13 +32,13 @@ class TestSessionRestore(unittest.TestCase):
             temp_path = f.name
 
         try:
-            with patch("zashterminal.state.window_state.STATE_FILE", temp_path):
+            with patch("onyxsh.state.window_state.STATE_FILE", temp_path):
                 self.assertTrue(self.state_manager.has_saved_state())
 
             with open(temp_path, "w") as f:
                 json.dump({"tabs": []}, f)
 
-            with patch("zashterminal.state.window_state.STATE_FILE", temp_path):
+            with patch("onyxsh.state.window_state.STATE_FILE", temp_path):
                 self.assertFalse(self.state_manager.has_saved_state())
         finally:
             if os.path.exists(temp_path):
@@ -62,7 +62,7 @@ class TestSessionRestore(unittest.TestCase):
             temp_path = f.name
 
         try:
-            with patch("zashterminal.state.window_state.STATE_FILE", temp_path):
+            with patch("onyxsh.state.window_state.STATE_FILE", temp_path):
                 # When not forced, 'ask' should return False so initial tab + toast is shown
                 self.assertFalse(self.state_manager.restore_session_state(force=False))
 
@@ -99,7 +99,7 @@ class TestSessionRestore(unittest.TestCase):
             self.mock_window.ai_chat_revealer = MagicMock()
             self.mock_window.ai_chat_revealer.get_reveal_child.return_value = False
 
-            with patch("zashterminal.state.window_state.STATE_FILE", temp_path):
+            with patch("onyxsh.state.window_state.STATE_FILE", temp_path):
                 res = self.state_manager.restore_session_state()
                 self.assertTrue(res)
                 self.mock_tab_manager.recreate_tab_from_structure.assert_called_once()

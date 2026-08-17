@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PACKAGE_NAME="zashterminal"
-DESKTOP_ID="org.leoberbert.zashterminal"
-REPO_URL="https://github.com/VaGNaroK/zashterminal-Fork.git"
+PACKAGE_NAME="onyxsh"
+DESKTOP_ID="io.github.vagnarok.OnyxSH"
+REPO_URL="https://github.com/VaGNaroK/OnyxSH.git"
 
 INSTALL_ROOT="/opt/${PACKAGE_NAME}"
 VENV_DIR="${INSTALL_ROOT}/venv"
@@ -347,7 +347,7 @@ prepare_source() {
   local script_dir
   script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-  if [ -f "${script_dir}/pyproject.toml" ] && [ -d "${script_dir}/src/zashterminal" ]; then
+  if [ -f "${script_dir}/pyproject.toml" ] && [ -d "${script_dir}/src/onyxsh" ]; then
     echo "$script_dir"
     return 0
   fi
@@ -413,11 +413,11 @@ install_nixos_via_flake() {
 
   log "Building ${PACKAGE_NAME} via flake..."
   nix --extra-experimental-features "${NIX_FEATURES}" \
-    build "${src_dir}#zashterminal"
+    build "${src_dir}#onyxsh"
 
   log "Installing ${PACKAGE_NAME} to user profile via nix profile..."
   nix --extra-experimental-features "${NIX_FEATURES}" \
-    profile add "${src_dir}#zashterminal"
+    profile add "${src_dir}#onyxsh"
 
   log "Installing desktop/menu integration for current user..."
   install_nixos_menu_entries
@@ -555,9 +555,9 @@ install_desktop_files() {
   sudo mkdir -p "/usr/lib/${PACKAGE_NAME}"
   record_file "/usr/lib/${PACKAGE_NAME}"
 
-  if [ -f "${src_dir}/src/zashterminal/admin/helper.py" ]; then
+  if [ -f "${src_dir}/src/onyxsh/admin/helper.py" ]; then
     sudo install -Dm755 \
-      "${src_dir}/src/zashterminal/admin/helper.py" \
+      "${src_dir}/src/onyxsh/admin/helper.py" \
       "/usr/lib/${PACKAGE_NAME}/${PACKAGE_NAME}-admin-helper"
 
     record_file "/usr/lib/${PACKAGE_NAME}/${PACKAGE_NAME}-admin-helper"
@@ -842,7 +842,7 @@ maybe_remove_file_manager_integrations() {
   local script_dir
   script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-  if [ -f "${script_dir}/pyproject.toml" ] && [ -d "${script_dir}/src/zashterminal" ]; then
+  if [ -f "${script_dir}/pyproject.toml" ] && [ -d "${script_dir}/src/onyxsh" ]; then
     remove_file_manager_integrations_from_source "$script_dir"
   else
     warn "Não foi possível remover integrações de gerenciadores de arquivos automaticamente sem o código-fonte ou manifesto."
@@ -1131,7 +1131,7 @@ do_install_flatpak_bundle() {
   if [ -n "$flatpak_file" ] && [ -f "$flatpak_file" ]; then
     log "Instalando pacote Flatpak bundle: ${flatpak_file}..."
     flatpak install --user -y --bundle "$flatpak_file"
-    log "Instalação do Flatpak concluída. Execute com: flatpak run org.leoberbert.zashterminal"
+    log "Instalação do Flatpak concluída. Execute com: flatpak run io.github.vagnarok.OnyxSH"
   else
     warn "Nenhum pacote .flatpak encontrado em dist/. Gere o pacote primeiro (opção 3 ou 4)."
   fi
@@ -1181,7 +1181,7 @@ main_menu() {
 
     cat <<'EOF'
 
-===== Menu do zashterminal =====
+===== Menu do onyxsh =====
 1) Instalar
 2) Verificar instalação
 3) Desinstalar (manter dependências)

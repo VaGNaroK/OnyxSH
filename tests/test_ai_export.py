@@ -1,7 +1,7 @@
 import json
 import unittest
 from unittest.mock import MagicMock
-from zashterminal.ui.widgets.ai_chat_panel import AIChatPanel
+from onyxsh.ui.widgets.ai_chat_panel import AIChatPanel
 
 
 class TestAIChatExport(unittest.TestCase):
@@ -33,7 +33,7 @@ class TestAIChatExport(unittest.TestCase):
         }
 
         result = AIChatPanel._format_conversation_markdown(panel)
-        self.assertIn("# Zashterminal AI Chat Export", result)
+        self.assertIn("# OnyxSH AI Chat Export", result)
         self.assertIn("Como listar arquivos?", result)
         self.assertIn("Use o comando ls -la", result)
         self.assertIn("```bash\nls -la\n```", result)

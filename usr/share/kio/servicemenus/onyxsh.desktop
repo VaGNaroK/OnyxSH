@@ -1,0 +1,39 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=inode/directory;
+Actions=OpenTerminalHere;
+X-KDE-Priority=TopLevel
+Icon=onyxsh
+
+[Desktop Action OpenTerminalHere]
+Icon=onyxsh
+Name=Open in OnyxSH
+Name[pt]=Abrir no OnyxSH
+Name[es]=Abrir en OnyxSH
+Name[bg]=Отвори в OnyxSH
+Name[cs]=Otevřít v OnyxSH
+Name[da]=Åbn i OnyxSH
+Name[de]=In OnyxSH öffnen
+Name[el]=Άνοιγμα στο OnyxSH
+Name[et]=Ava OnyxSHis
+Name[fi]=Avaa OnyxSHissa
+Name[fr]=Ouvrir dans OnyxSH
+Name[he]=פתח ב-OnyxSH
+Name[hr]=Otvori u OnyxSHu
+Name[hu]=Megnyitás OnyxSHban
+Name[is]=Opna í OnyxSH
+Name[it]=Apri in OnyxSH
+Name[ja]=OnyxSHで開く
+Name[ko]=OnyxSH에서 열기
+Name[nl]=Openen in OnyxSH
+Name[no]=Åpne i OnyxSH
+Name[pl]=Otwórz w OnyxSH
+Name[ro]=Deschide în OnyxSH
+Name[ru]=Открыть в OnyxSH
+Name[sk]=Otvoriť v OnyxSH
+Name[sv]=Öppna i OnyxSH
+Name[tr]=OnyxSH’de aç
+Name[uk]=Відкрити в OnyxSH
+Name[zh]=在 OnyxSH 中打开
+Exec=onyxsh --working-directory %f

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 TARGETS = (
     (
-        "src/zashterminal/settings/config.py",
+        "src/onyxsh/settings/config.py",
         r'(APP_VERSION\s*=\s*")([^"]+)(")',
         "group3",
     ),
@@ -23,7 +23,7 @@ TARGETS = (
 
 
 def read_current_version() -> str:
-    config_path = ROOT / "src/zashterminal/settings/config.py"
+    config_path = ROOT / "src/onyxsh/settings/config.py"
     content = config_path.read_text(encoding="utf-8")
     match = re.search(r'APP_VERSION\s*=\s*"([^"]+)"', content)
     if not match:
@@ -102,7 +102,7 @@ def collect_mismatches(expected_version: str) -> list[str]:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Synchronize Zashterminal version across project files."
+        description="Synchronize OnyxSH version across project files."
     )
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--set", dest="set_version", help="Set an explicit version.")

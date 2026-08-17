@@ -8898,3 +8898,7 @@ msgstr "ピン留め以外を消去"
 # 
 msgid "Limpar com Erro"
 msgstr "エラー項目を消去"
+
+# 
+msgid "Preferências do OnyxSH"
+msgstr "OnyxSH 設定"

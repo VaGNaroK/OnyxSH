@@ -8957,3 +8957,7 @@ msgstr "Cancella non preferiti"
 # 
 msgid "Limpar com Erro"
 msgstr "Cancella con errore"
+
+# 
+msgid "Preferências do OnyxSH"
+msgstr "Preferenze di OnyxSH"

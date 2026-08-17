@@ -8934,3 +8934,7 @@ msgstr "Очистить незакрепленные"
 # 
 msgid "Limpar com Erro"
 msgstr "Очистить с ошибками"
+
+# 
+msgid "Preferências do OnyxSH"
+msgstr "Настройки OnyxSH"

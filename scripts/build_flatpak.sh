@@ -2,14 +2,14 @@
 set -euo pipefail
 
 # ==============================================================================
-# build_flatpak.sh — Script para gerar pacote Flatpak (.flatpak) do Zashterminal
+# build_flatpak.sh — Script para gerar pacote Flatpak (.flatpak) do OnyxSH
 # ==============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-PACKAGE_NAME="zashterminal"
-APP_ID="org.leoberbert.zashterminal"
+PACKAGE_NAME="onyxsh"
+APP_ID="io.github.vagnarok.OnyxSH"
 MANIFEST_FILE="${REPO_ROOT}/manifests/${APP_ID}.yaml"
 OUTPUT_DIR="${REPO_ROOT}/dist"
 BUILD_DIR="${REPO_ROOT}/.flatpak-build"
@@ -27,7 +27,7 @@ usage() {
   cat <<EOF
 Uso: $0 [opções]
 
-Gera o pacote Flatpak bundle (.flatpak) para o Zashterminal.
+Gera o pacote Flatpak bundle (.flatpak) para o OnyxSH.
 
 Opções:
   -c, --clean-cache      Remove as pastas de cache temporárias (.flatpak-builder, .flatpak-build, .flatpak-repo) após a compilação.

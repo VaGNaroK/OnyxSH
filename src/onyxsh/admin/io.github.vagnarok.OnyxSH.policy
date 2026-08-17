@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>OnyxSH</vendor>
+  <vendor_url>https://github.com/VaGNaroK/OnyxSH</vendor_url>
+  <icon_name>io.github.vagnarok.OnyxSH</icon_name>
+
+  <action id="io.github.vagnarok.OnyxSH.run-admin-action">
+    <description>Executar ação administrativa do OnyxSH</description>
+    <description xml:lang="en">Run OnyxSH administrative action</description>
+    <description xml:lang="pt_BR">Executar ação administrativa do OnyxSH</description>
+    <message>Autenticação necessária para executar tarefas administrativas do sistema pelo OnyxSH.</message>
+    <message xml:lang="en">Authentication is required to perform system administrative tasks with OnyxSH.</message>
+    <message xml:lang="pt_BR">Autenticação necessária para executar tarefas administrativas do sistema pelo OnyxSH.</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/lib/onyxsh/onyxsh-admin-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">false</annotate>
+  </action>
+</policyconfig>

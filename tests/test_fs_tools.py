@@ -4,8 +4,8 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from zashterminal.agent.fs_tools import FSTools
-from zashterminal.agent.path_guard import PathGuard
+from onyxsh.agent.fs_tools import FSTools
+from onyxsh.agent.path_guard import PathGuard
 
 
 class TestFSTools(unittest.IsolatedAsyncioTestCase):
@@ -20,11 +20,11 @@ class TestFSTools(unittest.IsolatedAsyncioTestCase):
 
     async def test_fs_read_and_search(self):
         test_file = self.tmp_path / "hello.txt"
-        test_file.write_text("Line 1\nZashterminal Agent\nLine 3", encoding="utf-8")
+        test_file.write_text("Line 1\nOnyxSH Agent\nLine 3", encoding="utf-8")
 
         res = await self.tools.read_file(str(test_file))
         self.assertTrue(res.success)
-        self.assertIn("Zashterminal Agent", res.stdout)
+        self.assertIn("OnyxSH Agent", res.stdout)
 
         search_res = await self.tools.search_text(path=str(self.tmp_path), pattern="Agent")
         self.assertTrue(search_res.success)
@@ -45,7 +45,7 @@ class TestFSTools(unittest.IsolatedAsyncioTestCase):
         self.assertIn("+timeout = 60", prop_res.stdout)
 
         # Locate staged file
-        staging_dir = Path.home() / ".cache" / "zashterminal" / "ai-staging" / "plan_test_1"
+        staging_dir = Path.home() / ".cache" / "onyxsh" / "ai-staging" / "plan_test_1"
         staged_files = list(staging_dir.glob("*.staged"))
         self.assertGreaterEqual(len(staged_files), 1)
         staged_path = str(staged_files[0])

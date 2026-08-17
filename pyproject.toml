@@ -1,5 +1,5 @@
 [project]
-name = "zashterminal"
+name = "onyxsh"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Operating System :: POSIX :: Linux",
@@ -17,11 +17,11 @@ requires-python = ">=3.8"
 dependencies = ["PyGObject", "pycairo", "setproctitle", "requests", "psutil", "pycryptodomex", "regex; extra == 'performance'", "Pygments; extra == 'syntax-highlighting'", "py7zr; extra == 'backup'"]
 
 [project.gui-scripts]
-zashterminal = "zashterminal:main"
+onyxsh = "onyxsh:main"
 
 [project.urls]
-Homepage = "https://github.com/VaGNaroK/zashterminal-Fork"
-Issues = "https://github.com/VaGNaroK/zashterminal-Fork/issues"
+Homepage = "https://github.com/VaGNaroK/OnyxSH"
+Issues = "https://github.com/VaGNaroK/OnyxSH/issues"
 
 [project.optional-dependencies]
 performance = ["regex"]
@@ -35,19 +35,19 @@ requires = ["uv_build"]
 build-backend = "uv_build"
 
 [tool.setuptools.packages.find]
-include = ["zashterminal"]
+include = ["onyxsh"]
 
 [tool.setuptools]
 include-package-data = true
 
 [tool.setuptools.package-data]
-zashterminal = ["**/*"]
+onyxsh = ["**/*"]
 
 [tool.setuptools.data-files]
-"share/applications" = ["usr/share/applications/org.leoberbert.zashterminal.desktop"]
-"share/icons/hicolor/scalable/apps" = ["usr/share/icons/hicolor/scalable/apps/zashterminal.svg"]
-"share/pixmaps" = ["usr/share/icons/hicolor/scalable/apps/zashterminal.svg"]
-"share/kio/servicemenus" = ["usr/share/kio/servicemenus/zashterminal.desktop", "usr/share/kio/servicemenus/zashterminal-remote.desktop"]
-"share/nautilus-python/extensions" = ["usr/share/nautilus-python/extensions/zashterminal.py"]
-"share/nemo/actions" = ["usr/share/nemo/actions/zashterminal.nemo_action", "usr/share/nemo/actions/zashterminal-remote.nemo_action"]
-"share/polkit-1/actions" = ["usr/share/polkit-1/actions/org.leoberbert.zashterminal.policy"]
+"share/applications" = ["usr/share/applications/io.github.vagnarok.OnyxSH.desktop"]
+"share/icons/hicolor/scalable/apps" = ["usr/share/icons/hicolor/scalable/apps/onyxsh.svg"]
+"share/pixmaps" = ["usr/share/icons/hicolor/scalable/apps/onyxsh.svg"]
+"share/kio/servicemenus" = ["usr/share/kio/servicemenus/onyxsh.desktop", "usr/share/kio/servicemenus/onyxsh-remote.desktop"]
+"share/nautilus-python/extensions" = ["usr/share/nautilus-python/extensions/onyxsh.py"]
+"share/nemo/actions" = ["usr/share/nemo/actions/onyxsh.nemo_action", "usr/share/nemo/actions/onyxsh-remote.nemo_action"]
+"share/polkit-1/actions" = ["usr/share/polkit-1/actions/io.github.vagnarok.OnyxSH.policy"]

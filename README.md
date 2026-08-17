@@ -2,29 +2,29 @@
   <strong>🇧🇷 Português</strong> | <a href="README.en.md">🇺🇸 English</a>
 </p>
 
-# Zashterminal
+# OnyxSH
 
 <p align="center">
-  <img src="https://github.com/VaGNaroK/zashterminal-Fork/blob/main/usr/share/icons/hicolor/scalable/apps/zashterminal.svg" alt="Logo Zashterminal" width="128" height="128">
+  <img src="https://github.com/VaGNaroK/OnyxSH/blob/main/usr/share/icons/hicolor/scalable/apps/onyxsh.svg" alt="Logo OnyxSH" width="128" height="128">
 </p>
 
 <p align="center">
   <strong>Um emulador de terminal moderno para desenvolvedores, infraestrutura e administração de sistemas</strong>
 </p>
 <p align="center">
-  <a href="https://github.com/VaGNaroK/zashterminal-Fork/blob/main/LICENSE"><img src="https://img.shields.io/badge/Licen%C3%A7a-GPL--3.0-green.svg" alt="Licença"/></a>
+  <a href="https://github.com/VaGNaroK/OnyxSH/blob/main/LICENSE"><img src="https://img.shields.io/badge/Licen%C3%A7a-GPL--3.0-green.svg" alt="Licença"/></a>
   <a href="https://www.gtk.org/"><img src="https://img.shields.io/badge/GTK-4.0+-orange.svg" alt="Versão GTK"/></a>
   <a href="https://gnome.pages.gitlab.gnome.org/libadwaita/"><img src="https://img.shields.io/badge/libadwaita-1.0+-purple.svg" alt="Versão libadwaita"/></a>
 </p>
 
 > [!NOTE]
-> Este projeto é um fork aprimorado do [Zashterminal](https://github.com/leoberbert/zashterminal) com foco em segurança avançada, **Modo Agente Seguro (Zero Direct Execution)**, integração Polkit, trilha de auditoria append-only, rollback byte-identical e instalador unificado.
+> Este projeto é um fork aprimorado do [OnyxSH](https://github.com/leoberbert/onyxsh) com foco em segurança avançada, **Modo Agente Seguro (Zero Direct Execution)**, integração Polkit, trilha de auditoria append-only, rollback byte-identical e instalador unificado.
 
-O **Zashterminal** é um terminal moderno, intuitivo e poderoso construído em GTK4 e Libadwaita. Ele combina recursos avançados para desenvolvedores e administradores de sistemas (DevOps/SRE) com uma interface amigável e acessível. Gerenciamento de sessões integrado, painel lateral de arquivos remotos, realce de sintaxe em tempo real e ferramentas focadas em produtividade tornam o uso do shell muito mais eficiente no Linux.
+O **OnyxSH** é um terminal moderno, intuitivo e poderoso construído em GTK4 e Libadwaita. Ele combina recursos avançados para desenvolvedores e administradores de sistemas (DevOps/SRE) com uma interface amigável e acessível. Gerenciamento de sessões integrado, painel lateral de arquivos remotos, realce de sintaxe em tempo real e ferramentas focadas em produtividade tornam o uso do shell muito mais eficiente no Linux.
 
 ---
 
-## Por que o Zashterminal?
+## Por que o OnyxSH?
 
 - **Focado em Fluxos de Trabalho Reais**: Gerencie sessões SSH/SFTP, divisões de painéis (*split panes*) e layouts sem sair da janela do terminal.
 - **Acessível e Intuitivo**: Interface limpa, configurações inteligentes e atalhos fáceis de descobrir.
@@ -36,7 +36,7 @@ O **Zashterminal** é um terminal moderno, intuitivo e poderoso construído em G
 
 ## Migração do SecureCRT & Compatibilidade PAM
 
-Facilite a migração de ferramentas legadas para o Zashterminal:
+Facilite a migração de ferramentas legadas para o OnyxSH:
 
 - **Importação Direta de Sessões do SecureCRT**: Importe sessões pelo menu principal (`Importar Sessões do SecureCRT`).
 - **Importação em Lote de Árvores de Diretórios**: Suporte a pastas completas com arquivos `.ini`.
@@ -47,7 +47,7 @@ Facilite a migração de ferramentas legadas para o Zashterminal:
 
 ## Capturas de Tela
 
-<img width="1457" height="699" alt="Interface Principal do Zashterminal" src="https://github.com/user-attachments/assets/4c264548-909e-4edb-95be-a5dc6a6756bb" />
+<img width="1457" height="699" alt="Interface Principal do OnyxSH" src="https://github.com/user-attachments/assets/4c264548-909e-4edb-95be-a5dc6a6756bb" />
 
 <img width="1457" height="699" alt="Gerenciador de Sessões e Painéis" src="https://github.com/user-attachments/assets/6aba3c63-a181-4e3c-8870-d58ceae11daa" />
 
@@ -63,7 +63,7 @@ Facilite a migração de ferramentas legadas para o Zashterminal:
 
 <img width="1457" height="699" alt="Sugestões e Execução de Comandos" src="https://github.com/user-attachments/assets/4dd9482b-420d-4170-878d-e9a652493ec9" />
 
-O Zashterminal integra Modelos de Linguagem (LLMs) ao terminal de forma não-intrusiva e com foco estrito em privacidade e desempenho:
+O OnyxSH integra Modelos de Linguagem (LLMs) ao terminal de forma não-intrusiva e com foco estrito em privacidade e desempenho:
 * **Múltiplos Provedores**: Suporte nativo a **Modelos Locais** (Ollama / LM Studio), **Groq**, **Google Gemini** e **OpenRouter**.
 * **Detecção Automática de GPU & VRAM**: Reconhece placas NVIDIA (`nvidia-smi`), AMD/Intel (DRM sysfs) e memória do sistema, calculando o limite seguro de contexto.
 * **Seletor de Janela de Contexto (4K a 128K tokens)**: Permite ajustar a janela de contexto enviada ao Ollama (`num_ctx`) com recomendação dinâmica baseada na VRAM da GPU.
@@ -79,7 +79,7 @@ O Zashterminal integra Modelos de Linguagem (LLMs) ao terminal de forma não-int
 
 O **Modo Agente Seguro** permite ao assistente de IA planejar e realizar tarefas complexas com supervisão do usuário e garantias de segurança rigorosas.
 
-Ao contrário de agentes tradicionais que executam comandos arbitrários no shell, o Zashterminal adota uma arquitetura de **Zero Direct Execution**:
+Ao contrário de agentes tradicionais que executam comandos arbitrários no shell, o OnyxSH adota uma arquitetura de **Zero Direct Execution**:
 
 ```
 [ Usuário ] ── Solicitação ──▶ [ LLM Provider (Groq / Gemini / Ollama) ]
@@ -111,7 +111,7 @@ Ao contrário de agentes tradicionais que executam comandos arbitrários no shel
 |---|---|---|---|
 | 🟢 **Nível 0** | Leitura Segura | `ls`, `df -h`, `free -m`, `uptime`, `ip route` | **1 Clique:** `[▶ Executar]` ou `[🧪 Simular]` |
 | 🔵 **Nível 1** | Escrita no Usuário | Criação e edição de arquivos na home | **Revisão de Diff:** visualização unificada com backup automático prévio |
-| 🟠 **Nível 2** | Administração do Sistema | Limpeza de logs do journal, manutenção de pacotes | **Elevação Polkit:** autenticação gráfica via `zashterminal-admin-helper` |
+| 🟠 **Nível 2** | Administração do Sistema | Limpeza de logs do journal, manutenção de pacotes | **Elevação Polkit:** autenticação gráfica via `onyxsh-admin-helper` |
 | 🔴 **Nível 3** | Ação Crítica | Desinstalação de dependências do sistema | **Confirmação Explícita** |
 | ⛔ **Nível 4** | Bloqueado / Proibido | `rm -rf /`, `mkfs.*`, `dd of=/dev/sd*`, `chmod 777 /` | **Bloqueio Intransponível:** botão desabilitado na interface |
 
@@ -157,10 +157,10 @@ O pacote Flatpak oferece isolamento seguro e compatibilidade universal (Fedora, 
 
 ```bash
 # Instalar bundle gerado:
-flatpak install --user dist/zashterminal_0.8.17.flatpak -y
+flatpak install --user dist/onyxsh_0.8.17.flatpak -y
 
 # Executar:
-flatpak run org.leoberbert.zashterminal
+flatpak run io.github.vagnarok.OnyxSH
 ```
 
 ### 📦 Pacote Debian (.deb - Ubuntu, Linux Mint, Debian)
@@ -169,8 +169,8 @@ Para distribuições baseadas em Debian:
 
 ```bash
 # Instalar pacote .deb:
-sudo apt install ./dist/zashterminal_0.8.17_all.deb
-# Ou: sudo dpkg -i ./dist/zashterminal_0.8.17_all.deb
+sudo apt install ./dist/onyxsh_0.8.17_all.deb
+# Ou: sudo dpkg -i ./dist/onyxsh_0.8.17_all.deb
 ```
 
 ### ⚡ Instalador Universal & Empacotamento Híbrido (`install.sh`)
@@ -179,11 +179,11 @@ O script `install.sh` é modular e suporta instalação local, compilação de p
 
 ```bash
 # Instalação rápida no sistema:
-curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/VaGNaroK/OnyxSH/refs/heads/main/install.sh | bash
 
 # Ou clonando o repositório:
-git clone https://github.com/VaGNaroK/zashterminal-Fork.git
-cd zashterminal-Fork
+git clone https://github.com/VaGNaroK/OnyxSH.git
+cd OnyxSH
 
 # Instalar no sistema:
 ./install.sh install
@@ -201,11 +201,11 @@ cd zashterminal-Fork
 ### Arch Linux / Manjaro
 
 > [!IMPORTANT]
-> O pacote `zashterminal` presente no AUR oficial aponta para a versão legada upstream. Para obter esta versão Fork aprimorada com todos os novos recursos (Modo Agente, VRAM, Flatpak), instale clonando o repositório ou via Flatpak:
+> O pacote `onyxsh` presente no AUR oficial aponta para a versão legada upstream. Para obter esta versão Fork aprimorada com todos os novos recursos (Modo Agente, VRAM, Flatpak), instale clonando o repositório ou via Flatpak:
 
 ```bash
-git clone https://github.com/VaGNaroK/zashterminal-Fork.git
-cd zashterminal-Fork
+git clone https://github.com/VaGNaroK/OnyxSH.git
+cd OnyxSH
 ./install.sh install
 ```
 
@@ -214,13 +214,13 @@ cd zashterminal-Fork
 No NixOS, utilize a flake do projeto (`flake.nix` / `default.nix`):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/VaGNaroK/OnyxSH/refs/heads/main/install.sh | bash
 ```
 
 ### WSL no Windows (Experimental)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/heads/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/VaGNaroK/OnyxSH/refs/heads/main/install.sh | bash
 ```
 
 
@@ -229,7 +229,7 @@ curl -fsSL https://raw.githubusercontent.com/VaGNaroK/zashterminal-Fork/refs/hea
 ## 💻 Uso
 
 ```bash
-zashterminal [opções] [diretório]
+onyxsh [opções] [diretório]
 ```
 
 ### Opções da Linha de Comando
@@ -246,20 +246,20 @@ zashterminal [opções] [diretório]
 
 ```bash
 # Abrir no diretório do projeto
-zashterminal ~/projetos
+onyxsh ~/projetos
 
 # Conectar diretamente a um servidor SSH
-zashterminal --ssh usuario@servidor.exemplo.com
+onyxsh --ssh usuario@servidor.exemplo.com
 
 # Executar comando e fechar após término
-zashterminal --close-after-execute -e "htop"
+onyxsh --close-after-execute -e "htop"
 ```
 
 ---
 
 ## ⚙️ Arquivos de Configuração
 
-As configurações são salvas em `~/.config/zashterminal/`:
+As configurações são salvas em `~/.config/onyxsh/`:
 
 | Arquivo / Pasta | Descrição |
 |---|---|
@@ -291,5 +291,5 @@ Este projeto é distribuído sob a licença **GNU General Public License v3 (GPL
 
 ## 👏 Créditos e Agradecimentos
 
-- **Projeto Original:** Este repositório é um fork do projeto [Zashterminal](https://github.com/leoberbert/zashterminal), criado originalmente por **Leonardo Berbert**.
+- **Projeto Original:** Este repositório é um fork do projeto [OnyxSH](https://github.com/leoberbert/onyxsh), criado originalmente por **Leonardo Berbert**.
 - Agradecimentos aos desenvolvedores e comunidades do **GNOME**, **GTK**, **libadwaita**, **VTE** e **Pygments**.

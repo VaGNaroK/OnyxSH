@@ -1,7 +1,7 @@
 """Tests for secret redactor (redact_secrets)."""
 
 import unittest
-from zashterminal.agent.redactor import redact_secrets
+from onyxsh.agent.redactor import redact_secrets
 
 
 class TestRedactor(unittest.TestCase):

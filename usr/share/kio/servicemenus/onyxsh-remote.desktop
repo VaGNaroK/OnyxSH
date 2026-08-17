@@ -1,0 +1,40 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=inode/directory
+X-KDE-Protocols=sftp,ssh,fish
+Actions=OpenSSHConnection
+X-KDE-Priority=TopLevel
+Icon=onyxsh
+
+[Desktop Action OpenSSHConnection]
+Icon=onyxsh
+Name=Open in OnyxSH (SSH)
+Name[pt]=Abrir no OnyxSH (SSH)
+Name[es]=Abrir en OnyxSH (SSH)
+Name[bg]=Отвори в OnyxSH (SSH)
+Name[cs]=Otevřít v OnyxSH (SSH)
+Name[da]=Åbn i OnyxSH (SSH)
+Name[de]=In OnyxSH öffnen (SSH)
+Name[el]=Άνοιγμα στο OnyxSH (SSH)
+Name[et]=Ava OnyxSHis (SSH)
+Name[fi]=Avaa OnyxSHissa (SSH)
+Name[fr]=Ouvrir dans OnyxSH (SSH)
+Name[he]=פתח ב-OnyxSH (SSH)
+Name[hr]=Otvori u OnyxSHu (SSH)
+Name[hu]=Megnyitás OnyxSHban (SSH)
+Name[is]=Opna í OnyxSH (SSH)
+Name[it]=Apri in OnyxSH (SSH)
+Name[ja]=OnyxSHで開く (SSH)
+Name[ko]=OnyxSH에서 열기 (SSH)
+Name[nl]=Openen in OnyxSH (SSH)
+Name[no]=Åpne i OnyxSH (SSH)
+Name[pl]=Otwórz w OnyxSH (SSH)
+Name[ro]=Deschide în OnyxSH (SSH)
+Name[ru]=Открыть в OnyxSH (SSH)
+Name[sk]=Otvoriť v OnyxSH (SSH)
+Name[sv]=Öppna i OnyxSH (SSH)
+Name[tr]=OnyxSH’de aç (SSH)
+Name[uk]=Відкрити в OnyxSH (SSH)
+Name[zh]=在 OnyxSH 中打开 (SSH)
+Exec=onyxsh --convert-to-ssh "%u"

@@ -1,8 +1,8 @@
 """Tests for PolicyEngine, command classification, and deny pattern enforcement."""
 
 import unittest
-from zashterminal.agent.models import ActionPlan, ActionStep, RiskLevel
-from zashterminal.agent.policy_engine import PolicyEngine
+from onyxsh.agent.models import ActionPlan, ActionStep, RiskLevel
+from onyxsh.agent.policy_engine import PolicyEngine
 
 
 class TestPolicyEngine(unittest.TestCase):

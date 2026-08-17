@@ -3,9 +3,9 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from zashterminal.agent.providers.base import LLMProvider
-from zashterminal.agent.providers.ollama import OllamaProvider
-from zashterminal.terminal.ai_assistant import TerminalAiAssistant
+from onyxsh.agent.providers.base import LLMProvider
+from onyxsh.agent.providers.ollama import OllamaProvider
+from onyxsh.terminal.ai_assistant import TerminalAiAssistant
 
 
 class DummyBaseProvider(LLMProvider):
@@ -98,7 +98,7 @@ class TestLLMLifecycle(unittest.TestCase):
         mock_response.json.return_value = {"models": [{"name": "other-model:7b"}]}
         self.assertFalse(provider.is_loaded())
 
-    @patch("zashterminal.agent.providers.ollama.OllamaProvider.preload")
+    @patch("onyxsh.agent.providers.ollama.OllamaProvider.preload")
     def test_ai_assistant_preload_async(self, mock_preload):
         mock_settings = MagicMock()
         mock_settings.get.side_effect = lambda k, default=None: {
@@ -114,7 +114,7 @@ class TestLLMLifecycle(unittest.TestCase):
         assistant._preload_model_worker()
         mock_preload.assert_called_once()
 
-    @patch("zashterminal.agent.providers.ollama.OllamaProvider.unload")
+    @patch("onyxsh.agent.providers.ollama.OllamaProvider.unload")
     def test_ai_assistant_unload(self, mock_unload):
         mock_settings = MagicMock()
         mock_settings.get.side_effect = lambda k, default=None: {
@@ -130,8 +130,8 @@ class TestLLMLifecycle(unittest.TestCase):
         assistant.unload_model()
         mock_unload.assert_called_once()
 
-    @patch("zashterminal.terminal.ai_assistant.TerminalAiAssistant.unload_model")
-    @patch("zashterminal.terminal.ai_assistant.TerminalAiAssistant.preload_model_async")
+    @patch("onyxsh.terminal.ai_assistant.TerminalAiAssistant.unload_model")
+    @patch("onyxsh.terminal.ai_assistant.TerminalAiAssistant.preload_model_async")
     def test_handle_setting_changed_lifecycle(self, mock_preload, mock_unload):
         mock_settings = MagicMock()
         mock_settings.get.side_effect = lambda k, default=None: {
@@ -166,7 +166,7 @@ class TestLLMLifecycle(unittest.TestCase):
         mock_preload.assert_called_once()
 
     def test_detect_gpu_info(self):
-        from zashterminal.utils.platform import detect_gpu_info
+        from onyxsh.utils.platform import detect_gpu_info
         info = detect_gpu_info()
         self.assertIn("vendor", info)
         self.assertIn("name", info)

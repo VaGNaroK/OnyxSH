@@ -1,1 +1,1 @@
-"""Test suite for Zashterminal."""
+"""Test suite for OnyxSH."""

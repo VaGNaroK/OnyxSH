@@ -1,7 +1,7 @@
-"""Tests for zashterminal-admin-helper parameter validation and execution dispatch."""
+"""Tests for onyxsh-admin-helper parameter validation and execution dispatch."""
 
 import unittest
-from zashterminal.admin.helper import validate_and_build_command
+from onyxsh.admin.helper import validate_and_build_command
 
 
 class TestAdminHelper(unittest.TestCase):
