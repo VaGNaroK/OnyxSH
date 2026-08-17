@@ -751,16 +751,57 @@ class TerminalManager:
         except Exception as e:
             self.logger.error(f"Directory URI change handling failed: {e}")
 
+    def _on_terminal_file_uri_changed(
+        self, terminal: Vte.Terminal, terminal_id: int
+    ) -> None:
+        try:
+            uri = terminal.get_current_file_uri() or ""
+            if not uri:
+                return
+
+            prefix = "file://localhost/__zt_sem__/"
+            if not uri.startswith(prefix):
+                prefix_alt = "file:///__zt_sem__/"
+                if uri.startswith(prefix_alt):
+                    prefix = prefix_alt
+                else:
+                    return
+
+            payload = uri[len(prefix) :]
+            if "__" in payload:
+                parts = payload.split("__")
+            else:
+                parts = [payload]
+
+            for part in parts:
+                if not part:
+                    continue
+                if part.startswith("D_"):
+                    exit_code_str = part[2:]
+                    self.semantic_tracker.handle_osc133(terminal, "D", exit_code_str)
+                elif part == "C":
+                    self.semantic_tracker.handle_osc133(terminal, "C")
+                elif part == "A":
+                    self.semantic_tracker.handle_osc133(terminal, "A")
+                elif part == "B":
+                    self.semantic_tracker.handle_osc133(terminal, "B")
+        except Exception as e:
+            self.logger.error(f"Error handling file URI change: {e}")
+
     def _on_terminal_window_title_changed(
         self, terminal: Vte.Terminal, terminal_id: int
     ) -> None:
         try:
             raw_title = terminal.get_window_title() or ""
             if raw_title.startswith("__zt_sem__:"):
-                parts = raw_title[len("__zt_sem__:") :].split(":", 1)
-                action = parts[0]
-                param = parts[1] if len(parts) > 1 else ""
-                self.semantic_tracker.handle_osc133(terminal, action, param)
+                payload = raw_title[len("__zt_sem__:") :]
+                for item in payload.split(";"):
+                    if not item:
+                        continue
+                    parts = item.split(":", 1)
+                    action = parts[0]
+                    param = parts[1] if len(parts) > 1 else ""
+                    self.semantic_tracker.handle_osc133(terminal, action, param)
                 self._update_title(terminal)
                 return
 
@@ -1311,6 +1352,13 @@ class TerminalManager:
             handler_id = terminal.connect(
                 "window-title-changed",
                 self._on_terminal_window_title_changed,
+                terminal_id,
+            )
+            terminal.zashterminal_handler_ids.append(handler_id)
+
+            handler_id = terminal.connect(
+                "current-file-uri-changed",
+                self._on_terminal_file_uri_changed,
                 terminal_id,
             )
             terminal.zashterminal_handler_ids.append(handler_id)
