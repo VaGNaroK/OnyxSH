@@ -1682,6 +1682,10 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             return Gdk.EVENT_STOP
 
         self._perform_cleanup()
+        app = self.get_application()
+        if app and len(app.get_windows()) <= 1:
+            GLib.idle_add(app.quit)
+
         if force_close:
             self._force_closing = True
             self.close()

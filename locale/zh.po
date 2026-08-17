@@ -8929,3 +8929,51 @@ msgstr "Git 提交"
 # 
 msgid "Git Novo Branch"
 msgstr "Git 新分支"
+
+# 
+msgid "Parameters"
+msgstr "参数"
+
+# 
+msgid "Fill in the values for the template variables below:"
+msgstr "在下方填写模板变量的值："
+
+# 
+msgid "Live Preview:"
+msgstr "实时预览："
+
+# 
+msgid "Insert into Prompt"
+msgstr "插入至提示符"
+
+# 
+msgid "Insert command without executing (Shift+Enter)"
+msgstr "插入命令而不执行 (Shift+Enter)"
+
+# 
+msgid "Run command immediately in terminal (Enter)"
+msgstr "立即在终端中运行 (Enter)"
+
+# 
+msgid "Stream real-time logs from a specific container"
+msgstr "实时流式传输特定容器的日志"
+
+# 
+msgid "Open an interactive shell inside a running container"
+msgstr "在运行中的容器中打开交互式 Shell"
+
+# 
+msgid "Commit staged changes with a descriptive message"
+msgstr "使用描述性信息提交暂存的更改"
+
+# 
+msgid "Create and switch to a new local branch"
+msgstr "创建并切换到新的本地分支"
+
+# 
+msgid "Synchronize local files to remote host preserving attributes"
+msgstr "同步本地文件到远程主机并保留属性"
+
+# 
+msgid "Follow systemd unit journal logs in real-time"
+msgstr "实时跟踪 systemd 服务的日志"

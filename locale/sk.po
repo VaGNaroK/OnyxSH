@@ -8977,3 +8977,51 @@ msgstr "Git Commit"
 # 
 msgid "Git Novo Branch"
 msgstr "Git New Branch"
+
+# 
+msgid "Parameters"
+msgstr "Parameters"
+
+# 
+msgid "Fill in the values for the template variables below:"
+msgstr "Fill in the values for the template variables below:"
+
+# 
+msgid "Live Preview:"
+msgstr "Live Preview:"
+
+# 
+msgid "Insert into Prompt"
+msgstr "Insert into Prompt"
+
+# 
+msgid "Insert command without executing (Shift+Enter)"
+msgstr "Insert command without executing (Shift+Enter)"
+
+# 
+msgid "Run command immediately in terminal (Enter)"
+msgstr "Run command immediately in terminal (Enter)"
+
+# 
+msgid "Stream real-time logs from a specific container"
+msgstr "Stream real-time logs from a specific container"
+
+# 
+msgid "Open an interactive shell inside a running container"
+msgstr "Open an interactive shell inside a running container"
+
+# 
+msgid "Commit staged changes with a descriptive message"
+msgstr "Commit staged changes with a descriptive message"
+
+# 
+msgid "Create and switch to a new local branch"
+msgstr "Create and switch to a new local branch"
+
+# 
+msgid "Synchronize local files to remote host preserving attributes"
+msgstr "Synchronize local files to remote host preserving attributes"
+
+# 
+msgid "Follow systemd unit journal logs in real-time"
+msgstr "Follow systemd unit journal logs in real-time"

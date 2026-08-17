@@ -691,8 +691,7 @@ class CommTerminalApp(Adw.Application):
             if windows:
                 for win in list(windows):
                     win.close()
-            else:
-                self.quit()
+            self.quit()
         except Exception as e:
             self.logger.error(f"Quit action failed: {e}")
             self.quit()

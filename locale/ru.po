@@ -8970,3 +8970,51 @@ msgstr "Git коммит"
 # 
 msgid "Git Novo Branch"
 msgstr "Git новая ветка"
+
+# 
+msgid "Parameters"
+msgstr "Параметры"
+
+# 
+msgid "Fill in the values for the template variables below:"
+msgstr "Заполните значения для переменных шаблона ниже:"
+
+# 
+msgid "Live Preview:"
+msgstr "Предварительный просмотр:"
+
+# 
+msgid "Insert into Prompt"
+msgstr "Вставить в строку"
+
+# 
+msgid "Insert command without executing (Shift+Enter)"
+msgstr "Вставить команду без выполнения (Shift+Enter)"
+
+# 
+msgid "Run command immediately in terminal (Enter)"
+msgstr "Немедленно выполнить в терминале (Enter)"
+
+# 
+msgid "Stream real-time logs from a specific container"
+msgstr "Трансляция логов контейнера в реальном времени"
+
+# 
+msgid "Open an interactive shell inside a running container"
+msgstr "Открыть интерактивную оболочку внутри контейнера"
+
+# 
+msgid "Commit staged changes with a descriptive message"
+msgstr "Зафиксировать изменения с описанием"
+
+# 
+msgid "Create and switch to a new local branch"
+msgstr "Создать и переключиться на новую ветку"
+
+# 
+msgid "Synchronize local files to remote host preserving attributes"
+msgstr "Синхронизация локальных файлов с удаленным хостом"
+
+# 
+msgid "Follow systemd unit journal logs in real-time"
+msgstr "Отслеживание журналов systemd в реальном времени"
