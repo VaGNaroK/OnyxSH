@@ -8869,3 +8869,83 @@ msgstr "Analyze error with AI Assistant"
 # 
 msgid "Command output copied to clipboard"
 msgstr "Command output copied to clipboard"
+
+# 
+msgid "Histórico de Comandos"
+msgstr "Command History"
+
+# 
+msgid "Histórico Enriquecido de Comandos"
+msgstr "Enriched Command History"
+
+# 
+msgid "Limpar Histórico..."
+msgstr "Clear History..."
+
+# 
+msgid "Buscar comando por texto, diretório ou parâmetros..."
+msgstr "Search command by text, directory or arguments..."
+
+# 
+msgid "Filtrar por diretório:"
+msgstr "Filter by directory:"
+
+# 
+msgid "⭐ Favoritos"
+msgstr "⭐ Pinned"
+
+# 
+msgid "↵ Executar"
+msgstr "↵ Execute"
+
+# 
+msgid "Tab Inserir no Prompt"
+msgstr "Tab Insert to Prompt"
+
+# 
+msgid "Ctrl+P Favoritar"
+msgstr "Ctrl+P Pin"
+
+# 
+msgid "Del Excluir"
+msgstr "Del Delete"
+
+# 
+msgid "Fixar / Desafixar comando"
+msgstr "Pin / Unpin command"
+
+# 
+msgid "Copiar comando"
+msgstr "Copy command"
+
+# 
+msgid "Inserir no prompt para edição (Tab)"
+msgstr "Insert to prompt for editing (Tab)"
+
+# 
+msgid "Executar agora (Enter)"
+msgstr "Execute now (Enter)"
+
+# 
+msgid "Excluir do histórico (Del)"
+msgstr "Delete from history (Del)"
+
+# 
+msgid "Comando copiado para a área de transferência"
+msgstr "Command copied to clipboard"
+
+# 
+msgid "Limpar Histórico de Comandos"
+msgstr "Clear Command History"
+
+# 
+msgid "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+msgstr "Do you want to clear command history? Pinned (favorite) commands will be preserved."
+
+# 
+msgid "Limpar Não Favoritos"
+msgstr "Clear Unpinned"
+
+# 
+msgid "Limpar com Erro"
+msgstr "Clear Failed"

@@ -8898,3 +8898,83 @@ msgstr "Fehler mit dem KI-Assistenten analysieren"
 # 
 msgid "Command output copied to clipboard"
 msgstr "Befehlsausgabe in die Zwischenablage kopiert"
+
+# 
+msgid "Histórico de Comandos"
+msgstr "Befehlsverlauf"
+
+# 
+msgid "Histórico Enriquecido de Comandos"
+msgstr "Erweiterter Befehlsverlauf"
+
+# 
+msgid "Limpar Histórico..."
+msgstr "Verlauf löschen..."
+
+# 
+msgid "Buscar comando por texto, diretório ou parâmetros..."
+msgstr "Befehl nach Text, Verzeichnis oder Parametern suchen..."
+
+# 
+msgid "Filtrar por diretório:"
+msgstr "Nach Verzeichnis filtern:"
+
+# 
+msgid "⭐ Favoritos"
+msgstr "⭐ Angepinnt"
+
+# 
+msgid "↵ Executar"
+msgstr "↵ Ausführen"
+
+# 
+msgid "Tab Inserir no Prompt"
+msgstr "Tab In Prompt einfügen"
+
+# 
+msgid "Ctrl+P Favoritar"
+msgstr "Ctrl+P Anpinnen"
+
+# 
+msgid "Del Excluir"
+msgstr "Entf Löschen"
+
+# 
+msgid "Fixar / Desafixar comando"
+msgstr "Befehl anpinnen / lösen"
+
+# 
+msgid "Copiar comando"
+msgstr "Befehl kopieren"
+
+# 
+msgid "Inserir no prompt para edição (Tab)"
+msgstr "In Prompt zur Bearbeitung einfügen (Tab)"
+
+# 
+msgid "Executar agora (Enter)"
+msgstr "Jetzt ausführen (Eingabe)"
+
+# 
+msgid "Excluir do histórico (Del)"
+msgstr "Aus dem Verlauf löschen (Entf)"
+
+# 
+msgid "Comando copiado para a área de transferência"
+msgstr "Befehl in die Zwischenablage kopiert"
+
+# 
+msgid "Limpar Histórico de Comandos"
+msgstr "Befehlsverlauf löschen"
+
+# 
+msgid "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+msgstr "Möchten Sie den Befehlsverlauf löschen? Angepinnte Befehle bleiben erhalten."
+
+# 
+msgid "Limpar Não Favoritos"
+msgstr "Nicht angepinnte löschen"
+
+# 
+msgid "Limpar com Erro"
+msgstr "Fehlerhafte löschen"

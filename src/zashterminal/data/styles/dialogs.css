@@ -114,3 +114,32 @@
 .highlight-rule-list > row:selected {
     background-color: alpha(@accent_bg_color, 0.15);
 }
+
+/* ==========================================================================
+   Command History Dialog (Ctrl + R)
+   ========================================================================== */
+
+.command-history-dialog .command-history-search-entry {
+    border-radius: 12px;
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+.command-history-dialog .boxed-list > row {
+    border-radius: 8px;
+    margin: 2px 4px;
+    transition: background-color 150ms ease;
+}
+
+.command-history-dialog .boxed-list > row:hover {
+    background-color: alpha(@theme_selected_bg_color, 0.08);
+}
+
+.command-history-dialog .boxed-list > row:selected {
+    background-color: alpha(@accent_bg_color, 0.22);
+}
+
+.command-history-dialog .monospace {
+    font-family: "JetBrains Mono", "Fira Code", "Source Code Pro", monospace;
+    font-size: 13px;
+}

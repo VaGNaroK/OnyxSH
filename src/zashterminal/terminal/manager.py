@@ -815,6 +815,40 @@ class TerminalManager:
         try:
             if self.tab_manager:
                 self.tab_manager.update_semantic_badge_for_terminal(terminal, cmd)
+
+            # Record executed command to enriched SQLite history
+            cmd_text = (
+                cmd.command_text
+                or self.semantic_tracker.get_last_command_text(terminal)
+            )
+            if cmd_text and cmd_text.strip():
+                from ..data.command_history_manager import (
+                    get_command_history_manager,
+                )
+
+                cwd = cmd.cwd or ""
+                if not cwd and hasattr(terminal, "get_current_directory_uri"):
+                    uri = terminal.get_current_directory_uri()
+                    if uri and uri.startswith("file://"):
+                        cwd = uri[7:]
+
+                host = "localhost"
+                sess_name = ""
+                if hasattr(terminal, "zashterminal_session"):
+                    sess = getattr(terminal, "zashterminal_session", None)
+                    if sess:
+                        host = getattr(sess, "host", "localhost")
+                        sess_name = getattr(sess, "name", "")
+
+                dur_ms = int((cmd.duration or 0.0) * 1000)
+                get_command_history_manager().record_command(
+                    command=cmd_text.strip(),
+                    cwd=cwd,
+                    host=host,
+                    session_name=sess_name,
+                    exit_code=cmd.exit_code,
+                    duration_ms=dur_ms,
+                )
         except Exception as e:
             self.logger.debug(f"Error updating semantic badge for terminal: {e}")
 

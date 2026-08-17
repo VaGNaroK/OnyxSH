@@ -8818,3 +8818,83 @@ msgstr "AI アシスタントでエラーを分析"
 # 
 msgid "Command output copied to clipboard"
 msgstr "コマンド出力をクリップボードにコピーしました"
+
+# 
+msgid "Histórico de Comandos"
+msgstr "コマンド履歴"
+
+# 
+msgid "Histórico Enriquecido de Comandos"
+msgstr "拡張コマンド履歴"
+
+# 
+msgid "Limpar Histórico..."
+msgstr "履歴を消去..."
+
+# 
+msgid "Buscar comando por texto, diretório ou parâmetros..."
+msgstr "テキスト、ディレクトリ、または引数でコマンドを検索..."
+
+# 
+msgid "Filtrar por diretório:"
+msgstr "ディレクトリで絞り込み:"
+
+# 
+msgid "⭐ Favoritos"
+msgstr "⭐ ピン留め"
+
+# 
+msgid "↵ Executar"
+msgstr "↵ 実行"
+
+# 
+msgid "Tab Inserir no Prompt"
+msgstr "Tab プロンプトに挿入"
+
+# 
+msgid "Ctrl+P Favoritar"
+msgstr "Ctrl+P ピン留め"
+
+# 
+msgid "Del Excluir"
+msgstr "Del 削除"
+
+# 
+msgid "Fixar / Desafixar comando"
+msgstr "コマンドをピン留め / 解除"
+
+# 
+msgid "Copiar comando"
+msgstr "コマンドをコピー"
+
+# 
+msgid "Inserir no prompt para edição (Tab)"
+msgstr "プロンプトに挿入して編集 (Tab)"
+
+# 
+msgid "Executar agora (Enter)"
+msgstr "今すぐ実行 (Enter)"
+
+# 
+msgid "Excluir do histórico (Del)"
+msgstr "履歴から削除 (Del)"
+
+# 
+msgid "Comando copiado para a área de transferência"
+msgstr "コマンドをクリップボードにコピーしました"
+
+# 
+msgid "Limpar Histórico de Comandos"
+msgstr "コマンド履歴を消去"
+
+# 
+msgid "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+msgstr "コマンド履歴を消去しますか？ピン留め（お気に入り）コマンドは保持されます。"
+
+# 
+msgid "Limpar Não Favoritos"
+msgstr "ピン留め以外を消去"
+
+# 
+msgid "Limpar com Erro"
+msgstr "エラー項目を消去"

@@ -59,11 +59,12 @@
 - [x] **Módulos Afetados:** `src/zashterminal/terminal/semantic_tracker.py`, `src/zashterminal/terminal/spawner.py`, `src/zashterminal/terminal/manager.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/ui/dialogs/command_palette_dialog.py`.
 
 ### 📌 1.4. Histórico Enriquecido de Comandos com Busca Fuzzy
-- [ ] **Descrição:** Persistência estruturada em banco SQLite/JSON com metadados detalhados de cada comando digitado.
-- [ ] **Campos:** `command`, `cwd`, `host`, `exit_code`, `duration_ms`, `timestamp`.
-- [ ] **Recursos:** Busca fuzzy por comandos passados, filtro por diretório atual, comandos favoritos (pin), estatísticas de uso.
-- [ ] **Prioridade:** 🟡 Média | **Esforço:** Médio | **Alvo:** `v0.9.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/data/`, `src/zashterminal/ui/dialogs/`.
+- [x] **Descrição:** Persistência estruturada em banco SQLite com metadados detalhados de cada comando executado.
+- [x] **Campos:** `command`, `cwd`, `host`, `session_name`, `exit_code`, `duration_ms`, `timestamp`, `is_pinned`, `execution_count`, `last_executed`.
+- [x] **Recursos:** Busca fuzzy com ranqueamento, filtros em tempo real (Todos, Diretório Atual `$PWD`, Este Host/Sessão SSH, Favoritos ⭐), inserção no prompt (`Tab`), execução imediata (`Enter`), atalho global `Ctrl + R` e Command Palette.
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/zashterminal/data/command_history_manager.py`, `src/zashterminal/ui/dialogs/command_history_dialog.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/window.py`, `src/zashterminal/terminal/manager.py`).
+- [x] **Prioridade:** 🟡 Média | **Esforço:** Médio | **Alvo:** `v0.9.0`
+- [x] **Módulos Afetados:** `src/zashterminal/data/command_history_manager.py`, `src/zashterminal/ui/dialogs/command_history_dialog.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/window.py`, `src/zashterminal/terminal/manager.py`.
 
 ### 📌 1.5. Gerenciador de Snippets de Comandos Reutilizáveis
 - [ ] **Descrição:** Criação e execução de templates de comandos parametrizáveis com substituição de variáveis.

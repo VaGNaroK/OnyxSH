@@ -372,6 +372,7 @@ class DefaultSettings:
                 "toggle-broadcast": "<Control><Shift>b",
                 "ai-assistant": "<Control><Shift>i",
                 "command-palette": "<Control><Shift>p",
+                "show-command-history": "<Control>r",
             },
         }
 

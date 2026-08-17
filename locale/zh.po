@@ -8813,3 +8813,83 @@ msgstr "使用 AI 助手分析错误"
 # 
 msgid "Command output copied to clipboard"
 msgstr "命令输出已复制到剪贴板"
+
+# 
+msgid "Histórico de Comandos"
+msgstr "命令历史记录"
+
+# 
+msgid "Histórico Enriquecido de Comandos"
+msgstr "增强型命令历史记录"
+
+# 
+msgid "Limpar Histórico..."
+msgstr "清除历史记录..."
+
+# 
+msgid "Buscar comando por texto, diretório ou parâmetros..."
+msgstr "按文本、目录或参数搜索命令..."
+
+# 
+msgid "Filtrar por diretório:"
+msgstr "按目录过滤："
+
+# 
+msgid "⭐ Favoritos"
+msgstr "⭐ 收藏"
+
+# 
+msgid "↵ Executar"
+msgstr "↵ 执行"
+
+# 
+msgid "Tab Inserir no Prompt"
+msgstr "Tab 插入至提示符"
+
+# 
+msgid "Ctrl+P Favoritar"
+msgstr "Ctrl+P 收藏"
+
+# 
+msgid "Del Excluir"
+msgstr "Del 删除"
+
+# 
+msgid "Fixar / Desafixar comando"
+msgstr "固定 / 取消固定命令"
+
+# 
+msgid "Copiar comando"
+msgstr "复制命令"
+
+# 
+msgid "Inserir no prompt para edição (Tab)"
+msgstr "插入至提示符以编辑 (Tab)"
+
+# 
+msgid "Executar agora (Enter)"
+msgstr "立即执行 (Enter)"
+
+# 
+msgid "Excluir do histórico (Del)"
+msgstr "从历史记录中删除 (Del)"
+
+# 
+msgid "Comando copiado para a área de transferência"
+msgstr "命令已复制到剪贴板"
+
+# 
+msgid "Limpar Histórico de Comandos"
+msgstr "清除命令历史记录"
+
+# 
+msgid "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+msgstr "您要清除命令历史记录吗？收藏（固定）的命令将被保留。"
+
+# 
+msgid "Limpar Não Favoritos"
+msgstr "清除未收藏项"
+
+# 
+msgid "Limpar com Erro"
+msgstr "清除失败项"

@@ -562,6 +562,26 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             self.action_handler.command_palette()
             return Gdk.EVENT_STOP
 
+        # Handle Enriched Command History (Ctrl+R)
+        cmd_history_shortcut = self.settings_manager.get_shortcut("show-command-history")
+        if (
+            (
+                accel_string
+                and (
+                    accel_string == cmd_history_shortcut
+                    or accel_string == "<Control>r"
+                )
+            )
+            or (
+                (state & Gdk.ModifierType.CONTROL_MASK)
+                and not (state & Gdk.ModifierType.SHIFT_MASK)
+                and not (state & Gdk.ModifierType.ALT_MASK)
+                and keyval in (Gdk.KEY_r, Gdk.KEY_R)
+            )
+        ):
+            self.action_handler.show_command_history()
+            return Gdk.EVENT_STOP
+
         # Handle Semantic Prompt Jump (Alt+Up / Alt+Down)
         if (
             state & Gdk.ModifierType.ALT_MASK

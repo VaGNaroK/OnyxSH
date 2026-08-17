@@ -357,6 +357,27 @@ class CommandPaletteDialog(BaseDialog):
         )
         self._items.append(
             CommandPaletteItem(
+                "show-command-history",
+                _("Histórico Enriquecido de Comandos"),
+                _("Terminal"),
+                "document-open-recent-symbolic",
+                action_name="show-command-history",
+                shortcut="Ctrl + R",
+                keywords=[
+                    "historico",
+                    "history",
+                    "comandos",
+                    "busca",
+                    "fuzzy",
+                    "sqlite",
+                    "pwd",
+                    "recent",
+                    "favoritos",
+                ],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
                 "toggle-search",
                 _("Buscar no Terminal"),
                 _("Terminal"),

@@ -9,6 +9,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.9.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Histórico Enriquecido de Comandos com Busca Fuzzy (`Ctrl + R`)**: Persistência estruturada em SQLite (`CommandHistoryManager`) registrando metadados completos de cada comando (texto, `$PWD`, host/sessão SSH, código de saída, duração, timestamps, contagem de execuções). Interface modal estilo Spotlight (`CommandHistoryDialog`) com busca fuzzy em tempo real, filtros dinâmicos (*Todos*, *Diretório Atual*, *Host Atual*, *Favoritos ⭐*), comandos favoritos fixados (Pin), inserção no prompt (`Tab`), execução imediata (`Enter`), atalhos de teclado e integração total com a Command Palette.
 - **Integração Semântica com Shell (OSC 133 / Semantic Prompts)**: Rastreamento inteligente do ciclo de vida de comandos no shell (início de prompt, início de comando, início de execução e código de saída), medição de tempo de execução (ex: `⏱ 1.4s`) e badge visual de status no cabeçalho do painel.
 - **Navegação Rápida entre Prompts (`Alt + Up` / `Alt + Down`)**: Salto instantâneo do scroll do terminal entre os prompts de comandos anteriores e posteriores.
 - **Cópia Cirúrgica da Saída do Último Comando**: Extração e cópia direta para a área de transferência apenas do texto produzido pelo último comando executado.

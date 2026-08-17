@@ -8887,3 +8887,83 @@ msgstr "Analyser l'erreur avec l'assistant IA"
 # 
 msgid "Command output copied to clipboard"
 msgstr "Sortie de commande copiée dans le presse-papier"
+
+# 
+msgid "Histórico de Comandos"
+msgstr "Historique des commandes"
+
+# 
+msgid "Histórico Enriquecido de Comandos"
+msgstr "Historique enrichi des commandes"
+
+# 
+msgid "Limpar Histórico..."
+msgstr "Effacer l'historique..."
+
+# 
+msgid "Buscar comando por texto, diretório ou parâmetros..."
+msgstr "Rechercher commande par texte, dossier ou arguments..."
+
+# 
+msgid "Filtrar por diretório:"
+msgstr "Filtrer par dossier :"
+
+# 
+msgid "⭐ Favoritos"
+msgstr "⭐ Épinglés"
+
+# 
+msgid "↵ Executar"
+msgstr "↵ Exécuter"
+
+# 
+msgid "Tab Inserir no Prompt"
+msgstr "Tab Insérer dans le prompt"
+
+# 
+msgid "Ctrl+P Favoritar"
+msgstr "Ctrl+P Épingler"
+
+# 
+msgid "Del Excluir"
+msgstr "Suppr Supprimer"
+
+# 
+msgid "Fixar / Desafixar comando"
+msgstr "Épingler / Désépingler la commande"
+
+# 
+msgid "Copiar comando"
+msgstr "Copier la commande"
+
+# 
+msgid "Inserir no prompt para edição (Tab)"
+msgstr "Insérer dans le prompt pour édition (Tab)"
+
+# 
+msgid "Executar agora (Enter)"
+msgstr "Exécuter maintenant (Entrée)"
+
+# 
+msgid "Excluir do histórico (Del)"
+msgstr "Supprimer de l'historique (Suppr)"
+
+# 
+msgid "Comando copiado para a área de transferência"
+msgstr "Commande copiée dans le presse-papier"
+
+# 
+msgid "Limpar Histórico de Comandos"
+msgstr "Effacer l'historique des commandes"
+
+# 
+msgid "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+msgstr "Voulez-vous effacer l'historique des commandes ? Les commandes épinglées seront conservées."
+
+# 
+msgid "Limpar Não Favoritos"
+msgstr "Effacer non épinglés"
+
+# 
+msgid "Limpar com Erro"
+msgstr "Effacer les erreurs"

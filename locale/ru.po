@@ -8854,3 +8854,83 @@ msgstr "Анализировать ошибку с помощью ИИ"
 # 
 msgid "Command output copied to clipboard"
 msgstr "Вывод команды скопирован в буфер обмена"
+
+# 
+msgid "Histórico de Comandos"
+msgstr "История команд"
+
+# 
+msgid "Histórico Enriquecido de Comandos"
+msgstr "Расширенная история команд"
+
+# 
+msgid "Limpar Histórico..."
+msgstr "Очистить историю..."
+
+# 
+msgid "Buscar comando por texto, diretório ou parâmetros..."
+msgstr "Поиск команды по тексту, каталогу или параметрам..."
+
+# 
+msgid "Filtrar por diretório:"
+msgstr "Фильтр по каталогу:"
+
+# 
+msgid "⭐ Favoritos"
+msgstr "⭐ Избранное"
+
+# 
+msgid "↵ Executar"
+msgstr "↵ Выполнить"
+
+# 
+msgid "Tab Inserir no Prompt"
+msgstr "Tab Вставить в строку"
+
+# 
+msgid "Ctrl+P Favoritar"
+msgstr "Ctrl+P Закрепить"
+
+# 
+msgid "Del Excluir"
+msgstr "Del Удалить"
+
+# 
+msgid "Fixar / Desafixar comando"
+msgstr "Закрепить / открепить команду"
+
+# 
+msgid "Copiar comando"
+msgstr "Скопировать команду"
+
+# 
+msgid "Inserir no prompt para edição (Tab)"
+msgstr "Вставить в строку для редактирования (Tab)"
+
+# 
+msgid "Executar agora (Enter)"
+msgstr "Выполнить сейчас (Enter)"
+
+# 
+msgid "Excluir do histórico (Del)"
+msgstr "Удалить из истории (Del)"
+
+# 
+msgid "Comando copiado para a área de transferência"
+msgstr "Команда скопирована в буфер обмена"
+
+# 
+msgid "Limpar Histórico de Comandos"
+msgstr "Очистить историю команд"
+
+# 
+msgid "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+msgstr "Очистить историю команд? Закрепленные команды будут сохранены."
+
+# 
+msgid "Limpar Não Favoritos"
+msgstr "Очистить незакрепленные"
+
+# 
+msgid "Limpar com Erro"
+msgstr "Очистить с ошибками"

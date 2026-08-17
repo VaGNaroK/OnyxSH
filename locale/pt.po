@@ -9176,3 +9176,83 @@ msgstr "Analisar erro com Assistente de IA"
 # 
 msgid "Command output copied to clipboard"
 msgstr "Saída do comando copiada para a área de transferência"
+
+# 
+msgid "Histórico de Comandos"
+msgstr "Histórico de Comandos"
+
+# 
+msgid "Histórico Enriquecido de Comandos"
+msgstr "Histórico Enriquecido de Comandos"
+
+# 
+msgid "Limpar Histórico..."
+msgstr "Limpar Histórico..."
+
+# 
+msgid "Buscar comando por texto, diretório ou parâmetros..."
+msgstr "Buscar comando por texto, diretório ou parâmetros..."
+
+# 
+msgid "Filtrar por diretório:"
+msgstr "Filtrar por diretório:"
+
+# 
+msgid "⭐ Favoritos"
+msgstr "⭐ Favoritos"
+
+# 
+msgid "↵ Executar"
+msgstr "↵ Executar"
+
+# 
+msgid "Tab Inserir no Prompt"
+msgstr "Tab Inserir no Prompt"
+
+# 
+msgid "Ctrl+P Favoritar"
+msgstr "Ctrl+P Favoritar"
+
+# 
+msgid "Del Excluir"
+msgstr "Del Excluir"
+
+# 
+msgid "Fixar / Desafixar comando"
+msgstr "Fixar / Desafixar comando"
+
+# 
+msgid "Copiar comando"
+msgstr "Copiar comando"
+
+# 
+msgid "Inserir no prompt para edição (Tab)"
+msgstr "Inserir no prompt para edição (Tab)"
+
+# 
+msgid "Executar agora (Enter)"
+msgstr "Executar agora (Enter)"
+
+# 
+msgid "Excluir do histórico (Del)"
+msgstr "Excluir do histórico (Del)"
+
+# 
+msgid "Comando copiado para a área de transferência"
+msgstr "Comando copiado para a área de transferência"
+
+# 
+msgid "Limpar Histórico de Comandos"
+msgstr "Limpar Histórico de Comandos"
+
+# 
+msgid "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+msgstr "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+
+# 
+msgid "Limpar Não Favoritos"
+msgstr "Limpar Não Favoritos"
+
+# 
+msgid "Limpar com Erro"
+msgstr "Limpar com Erro"

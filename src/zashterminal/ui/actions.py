@@ -77,6 +77,7 @@ class WindowActions:
             "jump-next-prompt": self.jump_next_prompt,
             "copy-last-output": self.copy_last_command_output,
             "analyze-last-error-ai": self.analyze_last_error_with_ai,
+            "show-command-history": self.show_command_history,
             "toggle-tftp-server": self.toggle_tftp_server,
             "preferences": self.preferences,
             "shortcuts": self.shortcuts,
@@ -856,6 +857,40 @@ class WindowActions:
                         buf.set_text(full_prompt)
         except Exception as e:
             self.logger.error(f"Error analyzing last error with AI: {e}")
+
+    def show_command_history(self, *args) -> None:
+        """Opens the enriched Command History dialog (Ctrl + R)."""
+        try:
+            terminal = None
+            for arg in args:
+                if isinstance(arg, Vte.Terminal):
+                    terminal = arg
+                    break
+            if not terminal and self.window.tab_manager:
+                terminal = self.window.tab_manager.get_selected_terminal()
+
+            from .dialogs.command_history_dialog import CommandHistoryDialog
+
+            def _on_insert(cmd_text: str, execute: bool) -> None:
+                term = terminal or (
+                    self.window.tab_manager.get_selected_terminal()
+                    if self.window.tab_manager
+                    else None
+                )
+                if term:
+                    if execute:
+                        term.feed_child(cmd_text.encode("utf-8") + b"\n")
+                    else:
+                        term.feed_child(cmd_text.encode("utf-8"))
+
+            dialog = CommandHistoryDialog(
+                parent_window=self.window,
+                current_terminal=terminal,
+                on_insert_callback=_on_insert,
+            )
+            dialog.present()
+        except Exception as e:
+            self.logger.error(f"Error opening command history dialog: {e}")
 
     copy_last_output = copy_last_command_output
     analyze_last_error_ai = analyze_last_error_with_ai

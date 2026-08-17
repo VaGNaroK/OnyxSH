@@ -8877,3 +8877,83 @@ msgstr "Analizza l'errore con l'assistente IA"
 # 
 msgid "Command output copied to clipboard"
 msgstr "Output del comando copiato negli appunti"
+
+# 
+msgid "Histórico de Comandos"
+msgstr "Cronologia dei comandi"
+
+# 
+msgid "Histórico Enriquecido de Comandos"
+msgstr "Cronologia arricchita dei comandi"
+
+# 
+msgid "Limpar Histórico..."
+msgstr "Cancella cronologia..."
+
+# 
+msgid "Buscar comando por texto, diretório ou parâmetros..."
+msgstr "Cerca comando per testo, directory o parametri..."
+
+# 
+msgid "Filtrar por diretório:"
+msgstr "Filtra per directory:"
+
+# 
+msgid "⭐ Favoritos"
+msgstr "⭐ Preferiti"
+
+# 
+msgid "↵ Executar"
+msgstr "↵ Esegui"
+
+# 
+msgid "Tab Inserir no Prompt"
+msgstr "Tab Inserisci nel prompt"
+
+# 
+msgid "Ctrl+P Favoritar"
+msgstr "Ctrl+P Aggiungi a preferiti"
+
+# 
+msgid "Del Excluir"
+msgstr "Canc Elimina"
+
+# 
+msgid "Fixar / Desafixar comando"
+msgstr "Fissa / Rimuovi comando"
+
+# 
+msgid "Copiar comando"
+msgstr "Copia comando"
+
+# 
+msgid "Inserir no prompt para edição (Tab)"
+msgstr "Inserisci nel prompt per modificare (Tab)"
+
+# 
+msgid "Executar agora (Enter)"
+msgstr "Esegui ora (Invio)"
+
+# 
+msgid "Excluir do histórico (Del)"
+msgstr "Elimina dalla cronologia (Canc)"
+
+# 
+msgid "Comando copiado para a área de transferência"
+msgstr "Comando copiato negli appunti"
+
+# 
+msgid "Limpar Histórico de Comandos"
+msgstr "Cancella cronologia comandi"
+
+# 
+msgid "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+msgstr "Vuoi cancellare la cronologia dei comandi? I comandi preferiti verranno preservati."
+
+# 
+msgid "Limpar Não Favoritos"
+msgstr "Cancella non preferiti"
+
+# 
+msgid "Limpar com Erro"
+msgstr "Cancella con errore"
