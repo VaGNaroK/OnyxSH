@@ -67,6 +67,35 @@ class TestCommandPalette(unittest.TestCase):
         item.callback()
         mock_callback.assert_called_once()
 
+    def test_dialog_execution_dispatch(self):
+        from zashterminal.ui.dialogs.command_palette_dialog import CommandPaletteDialog
+
+        mock_window = MagicMock()
+        mock_window.action_handler = MagicMock()
+        mock_window.settings_manager = None
+        
+        # Test direct callback
+        mock_cb = MagicMock()
+        item_cb = CommandPaletteItem("cb", "Test", "Cat", "icon", callback=mock_cb)
+        
+        dialog = CommandPaletteDialog.__new__(CommandPaletteDialog)
+        dialog.parent_window = mock_window
+        dialog.logger = MagicMock()
+
+        dialog._execute_item(item_cb)
+        mock_cb.assert_called_once()
+
+        # Test action handler method dispatch
+        item_action = CommandPaletteItem("new-local-tab", "Nova Aba", "Cat", "icon", action_name="new-local-tab")
+        dialog._execute_item(item_action)
+        mock_window.action_handler.new_local_tab.assert_called_once()
+
+        # Test ai_assistant dispatch
+        item_ai = CommandPaletteItem("ai-assistant", "IA", "Cat", "icon", action_name="ai-assistant")
+        dialog._execute_item(item_ai)
+        mock_window._on_ai_assistant_requested.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()
+

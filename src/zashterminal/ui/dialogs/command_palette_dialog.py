@@ -12,6 +12,7 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gdk, GLib, Gtk, Pango
 
 from ...helpers import accelerator_to_label
+from ...sessions.storage import SessionStorageManager
 from ...utils.icons import icon_image
 from ...utils.logger import get_logger
 from ...utils.translation_utils import _
@@ -116,7 +117,7 @@ class CommandPaletteDialog(BaseDialog):
         self._setup_key_controller()
 
     def _build_catalog(self) -> None:
-        """Build the master catalog of all actions."""
+        """Build the master catalog of all actions and saved sessions."""
         settings = (
             self.parent_window.settings_manager
             if hasattr(self.parent_window, "settings_manager")
@@ -140,7 +141,7 @@ class CommandPaletteDialog(BaseDialog):
                 "tab-new-symbolic",
                 action_name="new-local-tab",
                 shortcut=get_accel_label("new-local-tab"),
-                keywords=["aba", "tab", "novo", "terminal"],
+                keywords=["aba", "tab", "novo", "terminal", "nova"],
             )
         )
         self._items.append(
@@ -377,7 +378,7 @@ class CommandPaletteDialog(BaseDialog):
                 "chat-message-new-symbolic",
                 action_name="ai-assistant",
                 shortcut=get_accel_label("ai-assistant"),
-                keywords=["ia", "ai", "chat", "assistente", "llm"],
+                keywords=["ia", "ai", "chat", "assistente", "llm", "abrir", "fechar"],
             )
         )
         self._items.append(
@@ -420,7 +421,7 @@ class CommandPaletteDialog(BaseDialog):
                 "view-dual-symbolic",
                 action_name="toggle-sidebar",
                 shortcut=get_accel_label("toggle-sidebar"),
-                keywords=["sessoes", "ssh", "sidebar", "painel"],
+                keywords=["sessoes", "ssh", "sidebar", "painel", "sessao"],
             )
         )
         self._items.append(
@@ -509,6 +510,46 @@ class CommandPaletteDialog(BaseDialog):
             )
         )
 
+        # 7. Dynamic Saved SSH Sessions
+        try:
+            storage = SessionStorageManager()
+            saved_sessions, _ = storage.load_sessions()
+            for session in saved_sessions:
+                session_name = getattr(session, "name", "Session")
+                host = getattr(session, "host", "")
+                user = getattr(session, "user", "")
+                icon = (
+                    "network-server-symbolic"
+                    if getattr(session, "protocol", "ssh") == "ssh"
+                    else "utilities-terminal-symbolic"
+                )
+                self._items.append(
+                    CommandPaletteItem(
+                        f"session:{session_name}",
+                        f"{_('Conectar:')} {session_name}",
+                        _("Sessões SSH"),
+                        icon,
+                        callback=lambda s=session: self._connect_session(s),
+                        keywords=[
+                            "ssh",
+                            "conectar",
+                            "connect",
+                            "sessao",
+                            "sessoes",
+                            session_name,
+                            host,
+                            user,
+                        ],
+                    )
+                )
+        except Exception as e:
+            self.logger.debug(f"Could not load sessions into palette: {e}")
+
+    def _connect_session(self, session: Any) -> None:
+        """Connect to a saved session."""
+        if hasattr(self.parent_window, "_on_session_activated"):
+            self.parent_window._on_session_activated(session)
+
     def _setup_ui(self) -> None:
         """Construct the Command Palette UI."""
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -533,6 +574,7 @@ class CommandPaletteDialog(BaseDialog):
         scrolled.set_min_content_height(320)
 
         self._list_box.set_selection_mode(Gtk.SelectionMode.SINGLE)
+        self._list_box.set_activate_on_single_click(True)
         self._list_box.add_css_class("rich-list")
         self._list_box.add_css_class("boxed-list")
         self._list_box.connect("row-activated", self._on_row_activated)
@@ -560,10 +602,19 @@ class CommandPaletteDialog(BaseDialog):
         keycode: int,
         state: Gdk.ModifierType,
     ) -> bool:
-        """Handle arrow keys and Escape."""
+        """Handle Enter, Arrow keys, and Escape."""
         if keyval == Gdk.KEY_Escape:
             self.close()
             return True
+
+        if keyval in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
+            selected_row = self._list_box.get_selected_row()
+            if not selected_row:
+                selected_row = self._list_box.get_row_at_index(0)
+            if selected_row:
+                self._on_row_activated(self._list_box, selected_row)
+                return True
+            return False
 
         if keyval in (Gdk.KEY_Down, Gdk.KEY_Up):
             selected_row = self._list_box.get_selected_row()
@@ -664,6 +715,8 @@ class CommandPaletteDialog(BaseDialog):
     def _on_entry_activate(self, _entry: Gtk.SearchEntry) -> None:
         """Handle Enter key on search entry."""
         selected_row = self._list_box.get_selected_row()
+        if not selected_row:
+            selected_row = self._list_box.get_row_at_index(0)
         if selected_row:
             self._on_row_activated(self._list_box, selected_row)
 
@@ -680,12 +733,60 @@ class CommandPaletteDialog(BaseDialog):
     def _execute_item(self, item: CommandPaletteItem) -> bool:
         """Execute action callback or activate window action."""
         try:
+            self.logger.info(f"Executing palette action: {item.item_id}")
             if item.callback:
                 item.callback()
-            elif item.action_name:
-                self.parent_window.activate_action(item.action_name, None)
+                return False
+
+            if not item.action_name:
+                return False
+
+            handler = getattr(self.parent_window, "action_handler", None)
+
+            # 1. Action-specific handlers
+            if item.action_name == "ai-assistant":
+                if hasattr(self.parent_window, "_on_ai_assistant_requested"):
+                    self.parent_window._on_ai_assistant_requested()
+                    return False
+            elif item.action_name == "next-tab":
+                if hasattr(self.parent_window, "tab_manager"):
+                    self.parent_window.tab_manager.select_next_tab()
+                    return False
+            elif item.action_name == "previous-tab":
+                if hasattr(self.parent_window, "tab_manager"):
+                    self.parent_window.tab_manager.select_previous_tab()
+                    return False
+            elif item.action_name == "toggle-sidebar":
+                if handler and hasattr(handler, "toggle_sidebar_action"):
+                    handler.toggle_sidebar_action()
+                    return False
+
+            # 2. Direct method on WindowActions handler
+            if handler:
+                method_name = item.action_name.replace("-", "_")
+                if hasattr(handler, method_name):
+                    method = getattr(handler, method_name)
+                    method()
+                    return False
+
+            # 3. Lookup and activate Gio.Action on window
+            act = self.parent_window.lookup_action(item.action_name)
+            if act:
+                act.activate(None)
+                return False
+
+            # 4. Lookup on application
+            app = self.parent_window.get_application()
+            if app:
+                app_act = app.lookup_action(item.action_name)
+                if app_act:
+                    app_act.activate(None)
+                    return False
+
+            # 5. Fallback widget activation
+            self.parent_window.activate_action(f"win.{item.action_name}", None)
         except Exception as e:
-            self.logger.error(f"Error executing palette action '{item.item_id}': {e}")
+            self.logger.error(f"Error executing palette action '{item.item_id}': {e}", exc_info=True)
         return False
 
     def _open_agent_scope(self) -> None:
