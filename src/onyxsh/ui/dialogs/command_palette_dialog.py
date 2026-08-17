@@ -649,7 +649,14 @@ class CommandPaletteDialog(BaseDialog):
     def _execute_snippet(self, snippet: Any) -> None:
         """Executes or prompts parameters for a selected snippet."""
         active_terminal = None
-        if hasattr(self.parent_window, "get_current_terminal"):
+        if (
+            hasattr(self.parent_window, "tab_manager")
+            and self.parent_window.tab_manager
+        ):
+            active_terminal = (
+                self.parent_window.tab_manager.get_active_terminal()
+            )
+        elif hasattr(self.parent_window, "get_current_terminal"):
             active_terminal = self.parent_window.get_current_terminal()
 
         # Check if snippet has custom variables requiring user input

@@ -119,14 +119,12 @@ class SnippetParameterDialog(Adw.Window):
 
         for var in self.custom_vars:
             row = Adw.EntryRow()
-            row.set_title(var.display_label)
-            row.set_text(var.default_value)
+            title = var.display_label
             if var.default_value:
-                row.set_placeholder_text(
-                    _("Default: {}").format(var.default_value)
-                )
-            else:
-                row.set_placeholder_text(_("Enter {}").format(var.name))
+                title = f"{var.display_label} ({_('Padrão:')} {var.default_value})"
+            row.set_title(title)
+            if var.default_value:
+                row.set_text(var.default_value)
 
             row.connect("changed", self._on_field_changed)
             row.connect("entry-activated", self._on_execute_clicked)
