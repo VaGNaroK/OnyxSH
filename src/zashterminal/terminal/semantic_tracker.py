@@ -225,10 +225,22 @@ class SemanticTracker:
             if end_row < start_row:
                 end_row = start_row
 
-            # Extract full lines from start_row to end_row
-            text_range = terminal.get_text_range(
-                start_row, 0, end_row + 1, 0, lambda *_: True, None
+            col_count = (
+                terminal.get_column_count()
+                if hasattr(terminal, "get_column_count")
+                else 200
             )
+
+            # Extract full text from start_row to end_row using modern VTE Format API
+            if hasattr(terminal, "get_text_range_format"):
+                text_range = terminal.get_text_range_format(
+                    Vte.Format.TEXT, start_row, 0, end_row + 1, col_count
+                )
+            else:
+                text_range = terminal.get_text_range(
+                    start_row, 0, end_row + 1, col_count, None, None
+                )
+
             if isinstance(text_range, tuple):
                 output_text = text_range[0] or ""
             elif isinstance(text_range, str):

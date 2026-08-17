@@ -28,6 +28,10 @@ class TestSemanticPrompts(unittest.TestCase):
             "total 8\n-rw-r--r-- 1 user user 100 Aug 17 00:00 file.txt\n",
             [],
         )
+        self.mock_terminal.get_text_range_format.return_value = (
+            "total 8\n-rw-r--r-- 1 user user 100 Aug 17 00:00 file.txt\n",
+            50,
+        )
 
     def test_semantic_command_duration_formatting(self):
         """Test human-readable formatting of command durations."""
