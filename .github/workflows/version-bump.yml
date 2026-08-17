@@ -1,9 +1,6 @@
 name: Sync Version
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       bump:
