@@ -76,10 +76,11 @@
 - [x] **Módulos Afetados:** `src/onyxsh/data/snippet_resolver.py`, `src/onyxsh/ui/dialogs/snippet_parameter_dialog.py`, `src/onyxsh/data/command_manager_models.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`.
 
 ### 📌 1.6. Notificações Desktop para Comandos Longos
-- [ ] **Descrição:** Notificação nativa via portal XDG/D-Bus (`org.freedesktop.Notifications`) quando um comando em segundo plano ou em aba inativa terminar após um tempo limite configurável (ex: > 10s).
-- [ ] **Informações:** Nome do comando, tempo de execução e código de retorno (sucesso ou falha).
-- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo | **Alvo:** `v0.9.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/terminal/manager.py`.
+- [x] **Descrição:** Notificação nativa via portal XDG/D-Bus (`org.freedesktop.Notifications` / `Gio.Notification`) quando um comando em segundo plano ou em aba inativa terminar após um tempo limite configurável (padrão: > 10s).
+- [x] **Informações:** Status visual (`✅ Sucesso (0)` ou `❌ Falha (código)`), nome do comando, tempo de execução (`⏱ duration`), localização (`cwd` / host) e clique interativo que foca e seleciona a aba do terminal.
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/onyxsh/terminal/desktop_notifier.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/app.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`).
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo | **Alvo:** `v0.9.0`
+- [x] **Módulos Afetados:** `src/onyxsh/terminal/desktop_notifier.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/app.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`.
 
 ### 📌 1.7. Busca Avançada no Scrollback e Exportação do Terminal
 - [ ] **Descrição:** Aprimorar o painel de busca no buffer do terminal com suporte a Regex, correspondência de maiúsculas/minúsculas e exportação direta do buffer/seleção em múltiplos formatos (`.txt`, `.log`, `.md`, `.html` e `.asciinema`).

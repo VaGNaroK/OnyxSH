@@ -9018,3 +9018,55 @@ msgstr "Синхронизация локальных файлов с удале
 # 
 msgid "Follow systemd unit journal logs in real-time"
 msgstr "Отслеживание журналов systemd в реальном времени"
+
+# 
+msgid "Command Completed"
+msgstr "Команда завершена"
+
+# 
+msgid "Command Failed"
+msgstr "Ошибка команды"
+
+# 
+msgid "Terminal command"
+msgstr "Команда терминала"
+
+# 
+msgid "Notificações de Comandos"
+msgstr "Уведомления о командах"
+
+# 
+msgid "Alertas nativos do desktop para comandos longos"
+msgstr "Нативные уведомления рабочего стола для долгих команд"
+
+# 
+msgid "Notificar Comandos Longos"
+msgstr "Уведомлять о долгих командах"
+
+# 
+msgid "Emitir notificação desktop quando um comando demorado terminar em segundo plano ou em aba inativa"
+msgstr "Отправлять уведомление, когда долгая команда завершается в фоне или неактивной вкладке"
+
+# 
+msgid "Tempo Limite Mínimo (Segundos)"
+msgstr "Минимальный порог длительности (секунды)"
+
+# 
+msgid "Apenas comandos que demorarem mais que este tempo emitirão notificação"
+msgstr "Только команды, выполняющиеся дольше этого времени, вызовут уведомление"
+
+# 
+msgid "Condição de Notificação"
+msgstr "Условие уведомления"
+
+# 
+msgid "Quando a notificação desktop deve ser disparada"
+msgstr "Когда отправлять уведомления рабочего стола"
+
+# 
+msgid "Apenas quando a janela ou aba não estiver em foco"
+msgstr "Только когда окно или вкладка не в фокусе"
+
+# 
+msgid "Tocar sino ou alerta sonoro ao concluir comando longo"
+msgstr "Воспроизводить звуковой сигнал по завершении долгой команды"

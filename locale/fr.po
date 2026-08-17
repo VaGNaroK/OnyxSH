@@ -9051,3 +9051,55 @@ msgstr "Synchroniser les fichiers locaux avec l'hôte distant en préservant les
 # 
 msgid "Follow systemd unit journal logs in real-time"
 msgstr "Suivre les journaux d'unité systemd en temps réel"
+
+# 
+msgid "Command Completed"
+msgstr "Commande terminée"
+
+# 
+msgid "Command Failed"
+msgstr "Échec de la commande"
+
+# 
+msgid "Terminal command"
+msgstr "Commande de terminal"
+
+# 
+msgid "Notificações de Comandos"
+msgstr "Notifications de commandes"
+
+# 
+msgid "Alertas nativos do desktop para comandos longos"
+msgstr "Alertes de bureau natives pour les commandes longues"
+
+# 
+msgid "Notificar Comandos Longos"
+msgstr "Notifier les commandes longues"
+
+# 
+msgid "Emitir notificação desktop quando um comando demorado terminar em segundo plano ou em aba inativa"
+msgstr "Envoyer une notification lorsque la commande se termine en arrière-plan ou dans un onglet inactif"
+
+# 
+msgid "Tempo Limite Mínimo (Segundos)"
+msgstr "Seuil de durée minimale (Secondes)"
+
+# 
+msgid "Apenas comandos que demorarem mais que este tempo emitirão notificação"
+msgstr "Seules les commandes durant plus longtemps déclencheront une notification"
+
+# 
+msgid "Condição de Notificação"
+msgstr "Condition de notification"
+
+# 
+msgid "Quando a notificação desktop deve ser disparada"
+msgstr "Quand la notification de bureau doit être envoyée"
+
+# 
+msgid "Apenas quando a janela ou aba não estiver em foco"
+msgstr "Uniquement lorsque la fenêtre ou l'onglet n'est pas actif"
+
+# 
+msgid "Tocar sino ou alerta sonoro ao concluir comando longo"
+msgstr "Émettre un signal sonore à la fin d'une commande longue"

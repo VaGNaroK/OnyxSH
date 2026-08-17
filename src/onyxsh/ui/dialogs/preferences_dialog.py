@@ -361,6 +361,71 @@ class PreferencesDialog(Adw.PreferencesWindow):
         )
         shell_group.add(bell_row)
 
+        # Command Notifications Group
+        notifications_group = Adw.PreferencesGroup(
+            title=_("Notificações de Comandos"),
+            description=_("Alertas nativos do desktop para comandos longos"),
+        )
+        page.add(notifications_group)
+
+        notify_long_row = self._create_switch_row(
+            _("Notificar Comandos Longos"),
+            _(
+                "Emitir notificação desktop quando um comando demorado terminar em segundo plano ou em aba inativa"
+            ),
+            "notify_long_commands",
+            default_value=True,
+        )
+        notifications_group.add(notify_long_row)
+
+        threshold_row = Adw.ActionRow(
+            title=_("Tempo Limite Mínimo (Segundos)"),
+            subtitle=_(
+                "Apenas comandos que demorarem mais que este tempo emitirão notificação"
+            ),
+        )
+        threshold_spin = Gtk.SpinButton.new_with_range(3, 300, 1)
+        threshold_spin.set_valign(Gtk.Align.CENTER)
+        threshold_spin.set_value(
+            self.settings_manager.get("notify_long_commands_threshold", 10)
+        )
+        threshold_spin.connect(
+            "value-changed", self._on_notify_threshold_changed
+        )
+        threshold_row.add_suffix(threshold_spin)
+        threshold_row.set_activatable_widget(threshold_spin)
+        notifications_group.add(threshold_row)
+
+        condition_row = Adw.ComboRow(
+            title=_("Condição de Notificação"),
+            subtitle=_("Quando a notificação desktop deve ser disparada"),
+        )
+        condition_map = ["unfocused", "always"]
+        condition_strings = [
+            _("Apenas quando a janela ou aba não estiver em foco"),
+            _("Sempre notificar"),
+        ]
+        condition_row.set_model(Gtk.StringList.new(condition_strings))
+        current_condition = self.settings_manager.get(
+            "notify_long_commands_condition", "unfocused"
+        )
+        condition_index = 0 if current_condition == "unfocused" else 1
+        condition_row.set_selected(condition_index)
+        condition_row.connect(
+            "notify::selected",
+            self._on_notify_condition_changed,
+            condition_map,
+        )
+        notifications_group.add(condition_row)
+
+        notify_sound_row = self._create_switch_row(
+            _("Alerta Sonoro"),
+            _("Tocar sino ou alerta sonoro ao concluir comando longo"),
+            "notify_long_commands_sound",
+            default_value=True,
+        )
+        notifications_group.add(notify_sound_row)
+
     def _setup_profiles_page(self) -> None:
         page = Adw.PreferencesPage(
             title=_("Profiles and Data"), icon_name="folder-saved-search-symbolic"
@@ -644,6 +709,17 @@ class PreferencesDialog(Adw.PreferencesWindow):
         if 0 <= index < len(policy_map):
             policy = policy_map[index]
             self._on_setting_changed("session_restore_policy", policy)
+
+    def _on_notify_threshold_changed(self, spin_button) -> None:
+        value = int(spin_button.get_value())
+        self._on_setting_changed("notify_long_commands_threshold", value)
+
+    def _on_notify_condition_changed(self, combo_row, _param, condition_map):
+        index = combo_row.get_selected()
+        if 0 <= index < len(condition_map):
+            self._on_setting_changed(
+                "notify_long_commands_condition", condition_map[index]
+            )
 
     def _on_instance_behavior_changed(self, combo_row, _param, behavior_map):
         index = combo_row.get_selected()

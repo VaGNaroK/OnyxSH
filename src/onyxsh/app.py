@@ -230,6 +230,13 @@ class CommTerminalApp(Adw.Application):
                 action = Gio.SimpleAction.new(action_name, None)
                 action.connect("activate", callback)
                 self.add_action(action)
+
+            # Interactive notification action to focus terminal and its tab
+            focus_action = Gio.SimpleAction.new(
+                "focus-terminal", GLib.VariantType.new("s")
+            )
+            focus_action.connect("activate", self._on_focus_terminal_action)
+            self.add_action(focus_action)
         except Exception as e:
             self.logger.error(f"Failed to setup actions: {e}")
 
@@ -718,6 +725,37 @@ class CommTerminalApp(Adw.Application):
             self.logger.error(f"Failed to open preferences: {e}")
             self._show_error_dialog(
                 _("Preferences Error"), _("Failed to open preferences: {}").format(e)
+            )
+
+    def _on_focus_terminal_action(self, _action, param: GLib.Variant) -> None:
+        """Handles desktop notification click to focus the terminal and its tab."""
+        try:
+            terminal_id_str = param.get_string() if param else ""
+            if not terminal_id_str:
+                return
+            target_id = int(terminal_id_str)
+            for window in self.get_windows():
+                if hasattr(window, "tab_manager") and window.tab_manager:
+                    if hasattr(window, "terminal_manager"):
+                        term = window.terminal_manager.registry.get_terminal(
+                            target_id
+                        )
+                        if term:
+                            window.present()
+                            page = window.tab_manager.get_page_for_terminal(
+                                term
+                            )
+                            if page and hasattr(
+                                window.tab_manager, "view_stack"
+                            ):
+                                window.tab_manager.view_stack.set_visible_child(
+                                    page.get_child()
+                                )
+                            term.grab_focus()
+                            return
+        except Exception as e:
+            self.logger.debug(
+                f"Failed to focus terminal from notification: {e}"
             )
 
     def _on_about_action(self, _action, _param) -> None:

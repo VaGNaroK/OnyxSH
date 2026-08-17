@@ -280,6 +280,11 @@ class DefaultSettings:
             "session_restore_policy": "always",
             "session_restore_ssh_auto_reconnect": True,
             "session_restore_ui_panels": True,
+            # Long-Running Command Notifications
+            "notify_long_commands": True,
+            "notify_long_commands_threshold": 10,
+            "notify_long_commands_condition": "unfocused",
+            "notify_long_commands_sound": True,
             # VTE Features
             "scrollback_lines": 5000,
             "mouse_scroll_sensitivity": 30.0,

@@ -868,8 +868,19 @@ class TerminalManager:
                     exit_code=cmd.exit_code,
                     duration_ms=dur_ms,
                 )
+
+            # Check and send desktop notification for long-running commands
+            from .desktop_notifier import get_desktop_notifier
+
+            get_desktop_notifier().notify_command_finished(
+                terminal=terminal,
+                cmd=cmd,
+                window=self.parent_window,
+            )
         except Exception as e:
-            self.logger.debug(f"Error updating semantic badge for terminal: {e}")
+            self.logger.debug(
+                f"Error updating semantic events/notifications for terminal: {e}"
+            )
 
     def _update_title(
         self, terminal: Vte.Terminal, osc7_info: Optional[OSC7Info] = None

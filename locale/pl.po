@@ -9035,3 +9035,55 @@ msgstr "Synchronize local files to remote host preserving attributes"
 # 
 msgid "Follow systemd unit journal logs in real-time"
 msgstr "Follow systemd unit journal logs in real-time"
+
+# 
+msgid "Command Completed"
+msgstr "Command Completed"
+
+# 
+msgid "Command Failed"
+msgstr "Command Failed"
+
+# 
+msgid "Terminal command"
+msgstr "Terminal command"
+
+# 
+msgid "Notificações de Comandos"
+msgstr "Command Notifications"
+
+# 
+msgid "Alertas nativos do desktop para comandos longos"
+msgstr "Native desktop alerts for long-running commands"
+
+# 
+msgid "Notificar Comandos Longos"
+msgstr "Notify on Long-Running Commands"
+
+# 
+msgid "Emitir notificação desktop quando um comando demorado terminar em segundo plano ou em aba inativa"
+msgstr "Send desktop notification when a long command finishes in background or inactive tab"
+
+# 
+msgid "Tempo Limite Mínimo (Segundos)"
+msgstr "Minimum Duration Threshold (Seconds)"
+
+# 
+msgid "Apenas comandos que demorarem mais que este tempo emitirão notificação"
+msgstr "Only commands taking longer than this threshold will trigger a notification"
+
+# 
+msgid "Condição de Notificação"
+msgstr "Notification Condition"
+
+# 
+msgid "Quando a notificação desktop deve ser disparada"
+msgstr "When desktop notifications should be dispatched"
+
+# 
+msgid "Apenas quando a janela ou aba não estiver em foco"
+msgstr "Only when window or tab is not in focus"
+
+# 
+msgid "Tocar sino ou alerta sonoro ao concluir comando longo"
+msgstr "Play bell or sound alert when long-running command finishes"

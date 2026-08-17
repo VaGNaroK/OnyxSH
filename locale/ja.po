@@ -8982,3 +8982,55 @@ msgstr "属性を保持してローカルファイルをリモートホストと
 # 
 msgid "Follow systemd unit journal logs in real-time"
 msgstr "systemdユニットのジャーナルログをリアルタイムで追跡"
+
+# 
+msgid "Command Completed"
+msgstr "コマンド完了"
+
+# 
+msgid "Command Failed"
+msgstr "コマンド失敗"
+
+# 
+msgid "Terminal command"
+msgstr "ターミナルコマンド"
+
+# 
+msgid "Notificações de Comandos"
+msgstr "コマンド通知"
+
+# 
+msgid "Alertas nativos do desktop para comandos longos"
+msgstr "長時間実行コマンドのネイティブデスクトップ通知"
+
+# 
+msgid "Notificar Comandos Longos"
+msgstr "長時間実行コマンドの通知"
+
+# 
+msgid "Emitir notificação desktop quando um comando demorado terminar em segundo plano ou em aba inativa"
+msgstr "長時間コマンドがバックグラウンドまたは非アクティブタブで完了した時に通知"
+
+# 
+msgid "Tempo Limite Mínimo (Segundos)"
+msgstr "最小実行時間しきい値（秒）"
+
+# 
+msgid "Apenas comandos que demorarem mais que este tempo emitirão notificação"
+msgstr "この時間を超えるコマンドのみが通知をトリガーします"
+
+# 
+msgid "Condição de Notificação"
+msgstr "通知条件"
+
+# 
+msgid "Quando a notificação desktop deve ser disparada"
+msgstr "デスクトップ通知を送信するタイミング"
+
+# 
+msgid "Apenas quando a janela ou aba não estiver em foco"
+msgstr "ウィンドウまたはタブにフォーカスがない場合のみ"
+
+# 
+msgid "Tocar sino ou alerta sonoro ao concluir comando longo"
+msgstr "長時間コマンド完了時にベル音を再生"
