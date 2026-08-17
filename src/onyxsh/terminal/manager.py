@@ -869,6 +869,9 @@ class TerminalManager:
                     duration_ms=dur_ms,
                 )
 
+            if cmd_text and not cmd.command_text:
+                cmd.command_text = cmd_text
+
             # Check and send desktop notification for long-running commands
             from .desktop_notifier import get_desktop_notifier
 

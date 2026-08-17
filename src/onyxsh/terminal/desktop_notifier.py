@@ -56,10 +56,16 @@ class DesktopNotifier:
         if condition == "always":
             return True
 
-        # Unfocused condition: check if window is in background OR tab is inactive
+        # Unfocused condition: check if window is minimized, in background, or tab/terminal is not focused
         if window:
             is_window_active = (
                 window.is_active() if hasattr(window, "is_active") else True
+            )
+            is_window_mapped = (
+                window.get_mapped() if hasattr(window, "get_mapped") else True
+            )
+            has_terminal_focus = (
+                terminal.has_focus() if hasattr(terminal, "has_focus") else True
             )
 
             is_tab_active = True
@@ -70,11 +76,16 @@ class DesktopNotifier:
                 if selected_term is not None and selected_term != terminal:
                     is_tab_active = False
 
-            # If the window is not focused or the tab is not the active visible tab
-            if not is_window_active or not is_tab_active:
+            # If the window is minimized, not active, tab is not selected, or terminal lost focus
+            if (
+                not is_window_active
+                or not is_window_mapped
+                or not is_tab_active
+                or not has_terminal_focus
+            ):
                 return True
 
-            # If user is actively looking at the window AND the tab is focused, no need to spam
+            # If user is actively typing/looking at this specific terminal, suppress
             return False
 
         return True
@@ -93,6 +104,8 @@ class DesktopNotifier:
                 return False
 
             app = Gio.Application.get_default()
+            if not app and window and hasattr(window, "get_application"):
+                app = window.get_application()
             if not app:
                 return False
 
@@ -139,8 +152,8 @@ class DesktopNotifier:
                 GLib.Variant("s", str(terminal_id)),
             )
 
-            # 4. Dispatch via Application Portal / D-Bus
-            notif_id = f"onyxsh-cmd-{terminal_id}"
+            # 4. Dispatch via Application Portal / D-Bus with timestamp to force visual banner
+            notif_id = f"onyxsh-cmd-{terminal_id}-{int(GLib.get_monotonic_time() / 1000)}"
             app.send_notification(notif_id, notification)
             self.logger.info(
                 f"Dispatched long command desktop notification: {title} ({duration_str})"

@@ -94,6 +94,8 @@ class TestDesktopNotifier(unittest.TestCase):
     def test_should_not_notify_when_window_and_tab_focused(self):
         window = MagicMock()
         window.is_active.return_value = True
+        window.get_mapped.return_value = True
+        self.dummy_terminal.has_focus.return_value = True
         window.tab_manager.get_selected_terminal.return_value = self.dummy_terminal
 
         cmd = SemanticCommand(
