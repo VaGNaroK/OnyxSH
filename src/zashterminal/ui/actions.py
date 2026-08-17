@@ -843,15 +843,17 @@ class WindowActions:
             )
             full_prompt = "\n\n".join(prompt_lines)
 
-            # Ensure AI chat panel is open
-            if hasattr(self.window, "ai_chat_panel") and self.window.ai_chat_panel:
-                if hasattr(self.window, "split_view") and self.window.split_view:
-                    self.window.split_view.set_show_sidebar(True)
-                if hasattr(self.window.ai_chat_panel, "send_message"):
-                    self.window.ai_chat_panel.send_message(full_prompt)
-                elif hasattr(self.window.ai_chat_panel, "chat_input_textview"):
-                    buf = self.window.ai_chat_panel.chat_input_textview.get_buffer()
-                    buf.set_text(full_prompt)
+            # Open AI chat panel and send diagnostic prompt
+            if hasattr(self.window, "ui_builder") and self.window.ui_builder:
+                self.window.ui_builder.show_ai_panel(initial_text=full_prompt)
+                ai_panel = getattr(self.window.ui_builder, "ai_chat_panel", None)
+                if ai_panel:
+                    if hasattr(ai_panel, "send_message"):
+                        # Send diagnostic request directly to LLM
+                        ai_panel.send_message(full_prompt)
+                    elif hasattr(ai_panel, "chat_input_textview"):
+                        buf = ai_panel.chat_input_textview.get_buffer()
+                        buf.set_text(full_prompt)
         except Exception as e:
             self.logger.error(f"Error analyzing last error with AI: {e}")
 

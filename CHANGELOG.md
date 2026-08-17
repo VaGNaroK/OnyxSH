@@ -20,6 +20,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 - **Sincronização Multilíngue Automatizada (28 Idiomas)**: Criação de `scripts/sync_translations.py` integrado aos fluxos de compilação Flatpak e DEB, garantindo a sincronização e tradução em lote de todas as novas mensagens e ações para todos os 28 idiomas suportados pelo Zashterminal (`en`, `es`, `fr`, `de`, `it`, `zh`, `ja`, `ru`, `pt`, etc.).
 
 ### Corrigido
+- **Acionamento do Chat de IA e Formatação do Badge Semântico**: Correção da abertura do painel de chat de IA ao clicar no botão ✨ do badge de erro semântico via `ui_builder.show_ai_panel()`, e otimização visual para não exibir `0ms` em comandos com erro de execução instantânea.
 - **Isolamento de Eventos Semânticos com OSC 6 (`current-file-uri-changed`)**: Migração da captura de marcadores semânticos para canal OSC 6 dedicado, prevenindo que o prompt padrão `$PS1` do Linux (que redefine `window-title` para `user@host:dir`) descarte os eventos de término e início de comandos no shell.
 - **Injeção de Hooks Semânticos no Host via Flatpak e Overlay em Aba Individual**: Garantida a injeção correta dos scripts de inicialização de hooks OSC 133 para comandos iniciados via `host-spawn` / `flatpak-spawn`, e adicionado suporte a badge flutuante em abas de terminal único.
 - **Importação do Módulo Gdk em PreferencesDialog**: Adicionada a importação de `Gdk` em `preferences_dialog.py`, eliminando o `NameError: name 'Gdk' is not defined` ao fechar a tela de Preferências com a tecla `Escape`.

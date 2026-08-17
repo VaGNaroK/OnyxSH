@@ -578,6 +578,10 @@ class TabManager:
         semantic_status_box.append(semantic_status_label)
 
         def _get_window_action_handler():
+            if hasattr(self.terminal_manager, "parent_window") and self.terminal_manager.parent_window:
+                handler = getattr(self.terminal_manager.parent_window, "action_handler", None)
+                if handler:
+                    return handler
             root = terminal.get_root() if hasattr(terminal, "get_root") else None
             if root and hasattr(root, "action_handler"):
                 return root.action_handler
@@ -1500,11 +1504,10 @@ class TabManager:
             badge_text = f"⏱ {dur_str}" if (cmd.duration and cmd.duration >= 0.5) else ""
             is_error = False
         else:
-            badge_text = (
-                f"⏱ {dur_str} [✗ {cmd.exit_code}]"
-                if dur_str
-                else f"[✗ {cmd.exit_code}]"
-            )
+            if cmd.duration and cmd.duration >= 0.2:
+                badge_text = f"⏱ {dur_str} [✗ {cmd.exit_code}]"
+            else:
+                badge_text = f"[✗ {cmd.exit_code}]"
             is_error = True
 
         def _apply_to_badge(status_box, status_label, ai_btn, copy_btn):
