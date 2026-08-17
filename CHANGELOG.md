@@ -1,6 +1,6 @@
 # Changelog
 
-Todas as mudanças notáveis no projeto **Zashterminal (Fork)** a partir de 13 de Agosto de 2026 estão documentadas neste arquivo.
+Todas as mudanças notáveis no projeto **OnyxSH** a partir de 13 de Agosto de 2026 estão documentadas neste arquivo.
 
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e este projeto segue o [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
