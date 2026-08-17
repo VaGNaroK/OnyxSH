@@ -8786,3 +8786,35 @@ msgstr "起動時に確認"
 # 
 msgid "Nunca restaurar"
 msgstr "復元しない"
+
+# 
+msgid "Pular para o Prompt Anterior"
+msgstr "前のプロンプトにジャンプ"
+
+# 
+msgid "Pular para o Próximo Prompt"
+msgstr "次のプロンプトにジャンプ"
+
+# 
+msgid "Navegação Semântica"
+msgstr "セマンティックナビゲーション"
+
+# 
+msgid "Copiar Saída do Último Comando"
+msgstr "最後のコマンド出力をコピー"
+
+# 
+msgid "Copiar saída do último comando"
+msgstr "最後のコマンド出力をコピー"
+
+# 
+msgid "Analisar Último Erro com Assistente de IA"
+msgstr "AI アシスタントで最後のエラーを分析"
+
+# 
+msgid "Analisar erro com Assistente de IA"
+msgstr "AI アシスタントでエラーを分析"
+
+# 
+msgid "Command output copied to clipboard"
+msgstr "コマンド出力をクリップボードにコピーしました"

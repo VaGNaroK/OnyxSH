@@ -46,6 +46,7 @@ from ..utils.exceptions import (
 )
 from ..utils.logger import get_logger, log_terminal_event
 from ..utils.osc7_tracker import OSC7Info, get_osc7_tracker
+from .semantic_tracker import SemanticCommand, get_semantic_tracker
 from ..utils.platform import get_environment_manager, get_platform_info
 from ..utils.security import validate_session_data
 from ..utils.translation_utils import _
@@ -479,6 +480,10 @@ class TerminalManager:
         self.spawner = _get_spawner()
         self.lifecycle_manager = TerminalLifecycleManager(self.registry, self.logger)
         self.osc7_tracker = get_osc7_tracker(settings_manager)
+        self.semantic_tracker = get_semantic_tracker()
+        self.semantic_tracker.register_command_finished_callback(
+            self._on_semantic_command_finished
+        )
         self.manual_ssh_tracker = ManualSSHTracker(
             self.registry, self._on_manual_ssh_state_changed
         )
@@ -745,6 +750,32 @@ class TerminalManager:
             self._run_pending_execute_command(terminal)
         except Exception as e:
             self.logger.error(f"Directory URI change handling failed: {e}")
+
+    def _on_terminal_window_title_changed(
+        self, terminal: Vte.Terminal, terminal_id: int
+    ) -> None:
+        try:
+            raw_title = terminal.get_window_title() or ""
+            if raw_title.startswith("__zt_sem__:"):
+                parts = raw_title[len("__zt_sem__:") :].split(":", 1)
+                action = parts[0]
+                param = parts[1] if len(parts) > 1 else ""
+                self.semantic_tracker.handle_osc133(terminal, action, param)
+                self._update_title(terminal)
+                return
+
+            self._update_title(terminal)
+        except Exception as e:
+            self.logger.debug(f"Error handling window title change: {e}")
+
+    def _on_semantic_command_finished(
+        self, terminal: Vte.Terminal, cmd: SemanticCommand
+    ) -> None:
+        try:
+            if self.tab_manager:
+                self.tab_manager.update_semantic_badge_for_terminal(terminal, cmd)
+        except Exception as e:
+            self.logger.debug(f"Error updating semantic badge for terminal: {e}")
 
     def _update_title(
         self, terminal: Vte.Terminal, osc7_info: Optional[OSC7Info] = None
@@ -1273,6 +1304,13 @@ class TerminalManager:
             handler_id = terminal.connect(
                 "selection-changed",
                 self._on_terminal_selection_changed,
+                terminal_id,
+            )
+            terminal.zashterminal_handler_ids.append(handler_id)
+
+            handler_id = terminal.connect(
+                "window-title-changed",
+                self._on_terminal_window_title_changed,
                 terminal_id,
             )
             terminal.zashterminal_handler_ids.append(handler_id)

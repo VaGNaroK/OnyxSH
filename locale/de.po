@@ -8866,3 +8866,35 @@ msgstr "Beim Start fragen"
 # 
 msgid "Nunca restaurar"
 msgstr "Nie wiederherstellen"
+
+# 
+msgid "Pular para o Prompt Anterior"
+msgstr "Zum vorherigen Prompt springen"
+
+# 
+msgid "Pular para o Próximo Prompt"
+msgstr "Zum nächsten Prompt springen"
+
+# 
+msgid "Navegação Semântica"
+msgstr "Semantische Navigation"
+
+# 
+msgid "Copiar Saída do Último Comando"
+msgstr "Ausgabe des letzten Befehls kopieren"
+
+# 
+msgid "Copiar saída do último comando"
+msgstr "Ausgabe des letzten Befehls kopieren"
+
+# 
+msgid "Analisar Último Erro com Assistente de IA"
+msgstr "Letzten Fehler mit dem KI-Assistenten analysieren"
+
+# 
+msgid "Analisar erro com Assistente de IA"
+msgstr "Fehler mit dem KI-Assistenten analysieren"
+
+# 
+msgid "Command output copied to clipboard"
+msgstr "Befehlsausgabe in die Zwischenablage kopiert"

@@ -8781,3 +8781,35 @@ msgstr "启动时询问"
 # 
 msgid "Nunca restaurar"
 msgstr "从不恢复"
+
+# 
+msgid "Pular para o Prompt Anterior"
+msgstr "跳转至上一个提示符"
+
+# 
+msgid "Pular para o Próximo Prompt"
+msgstr "跳转至下一个提示符"
+
+# 
+msgid "Navegação Semântica"
+msgstr "语义导航"
+
+# 
+msgid "Copiar Saída do Último Comando"
+msgstr "复制最后命令的输出"
+
+# 
+msgid "Copiar saída do último comando"
+msgstr "复制最后命令的输出"
+
+# 
+msgid "Analisar Último Erro com Assistente de IA"
+msgstr "使用 AI 助手分析最近的错误"
+
+# 
+msgid "Analisar erro com Assistente de IA"
+msgstr "使用 AI 助手分析错误"
+
+# 
+msgid "Command output copied to clipboard"
+msgstr "命令输出已复制到剪贴板"

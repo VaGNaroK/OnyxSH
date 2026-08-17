@@ -8855,3 +8855,35 @@ msgstr "Demander au démarrage"
 # 
 msgid "Nunca restaurar"
 msgstr "Ne jamais restaurer"
+
+# 
+msgid "Pular para o Prompt Anterior"
+msgstr "Sauter au prompt précédent"
+
+# 
+msgid "Pular para o Próximo Prompt"
+msgstr "Sauter au prompt suivant"
+
+# 
+msgid "Navegação Semântica"
+msgstr "Navigation sémantique"
+
+# 
+msgid "Copiar Saída do Último Comando"
+msgstr "Copier la sortie de la dernière commande"
+
+# 
+msgid "Copiar saída do último comando"
+msgstr "Copier la sortie de la dernière commande"
+
+# 
+msgid "Analisar Último Erro com Assistente de IA"
+msgstr "Analyser la dernière erreur avec l'assistant IA"
+
+# 
+msgid "Analisar erro com Assistente de IA"
+msgstr "Analyser l'erreur avec l'assistant IA"
+
+# 
+msgid "Command output copied to clipboard"
+msgstr "Sortie de commande copiée dans le presse-papier"

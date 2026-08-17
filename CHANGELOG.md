@@ -9,6 +9,10 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.9.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Integração Semântica com Shell (OSC 133 / Semantic Prompts)**: Rastreamento inteligente do ciclo de vida de comandos no shell (início de prompt, início de comando, início de execução e código de saída), medição de tempo de execução (ex: `⏱ 1.4s`) e badge visual de status no cabeçalho do painel.
+- **Navegação Rápida entre Prompts (`Alt + Up` / `Alt + Down`)**: Salto instantâneo do scroll do terminal entre os prompts de comandos anteriores e posteriores.
+- **Cópia Cirúrgica da Saída do Último Comando**: Extração e cópia direta para a área de transferência apenas do texto produzido pelo último comando executado.
+- **Ação Rápida de Diagnóstico de Erros com IA**: Botão inteligente e ação na Command Palette que detecta código de saída com falha (`exit_code != 0`) e abre o chat de IA com o comando e a mensagem de erro já formatados para diagnóstico e correção.
 - **Restauração Automática e Inteligente de Sessões (Session Restore)**: Capacidade de salvar e restaurar o estado completo do terminal entre fechamentos e inicializações, incluindo abas, layouts em split, diretórios correntes `$PWD`, sessões SSH (com auto-reconexão configurável), foco da aba ativa e visibilidade dos painéis de IA e sessões.
 - **Opções de Inicialização nas Preferências**: Novos controles de restauração (*Sempre restaurar*, *Perguntar ao iniciar via Toast*, *Nunca restaurar*), auto-reconexão remota SSH e restauração de painéis da interface.
 - **Command Palette (`Ctrl + Shift + P`)**: Interface modal spotlight para busca rápida e execução instantânea de todas as ações do terminal, abas, divisão de telas, sessões SSH, assistente de IA, regras de realce e preferências com suporte a busca fuzzy, navegação por teclado (`Up`/`Down`/`Enter`) e atalhos customizáveis.

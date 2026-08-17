@@ -73,6 +73,10 @@ class WindowActions:
             "toggle-broadcast": self.toggle_broadcast,
             "show-command-manager": self.show_command_manager,
             "import-securecrt-sessions": self.import_securecrt_sessions,
+            "jump-previous-prompt": self.jump_previous_prompt,
+            "jump-next-prompt": self.jump_next_prompt,
+            "copy-last-output": self.copy_last_command_output,
+            "analyze-last-error-ai": self.analyze_last_error_with_ai,
             "toggle-tftp-server": self.toggle_tftp_server,
             "preferences": self.preferences,
             "shortcuts": self.shortcuts,
@@ -738,3 +742,118 @@ class WindowActions:
 
         dialog.connect("response", on_response)
         dialog.present()
+
+    def jump_previous_prompt(self, *args):
+        """Scrolls active terminal to previous command prompt."""
+        try:
+            terminal = (
+                self.window.tab_manager.get_active_terminal()
+                if self.window.tab_manager
+                else None
+            )
+            if not terminal:
+                return
+            col, row = terminal.get_cursor_position()
+            tracker = self.window.terminal_manager.semantic_tracker
+            target_row = tracker.get_previous_prompt_row(terminal, row)
+            if target_row is not None:
+                scrolled = terminal.get_parent()
+                if isinstance(scrolled, Gtk.ScrolledWindow):
+                    adj = scrolled.get_vadjustment()
+                    if adj:
+                        char_height = terminal.get_char_height() or 18
+                        adj.set_value(target_row * char_height)
+        except Exception as e:
+            self.logger.debug(f"Error jumping to previous prompt: {e}")
+
+    def jump_next_prompt(self, *args):
+        """Scrolls active terminal to next command prompt."""
+        try:
+            terminal = (
+                self.window.tab_manager.get_active_terminal()
+                if self.window.tab_manager
+                else None
+            )
+            if not terminal:
+                return
+            col, row = terminal.get_cursor_position()
+            tracker = self.window.terminal_manager.semantic_tracker
+            target_row = tracker.get_next_prompt_row(terminal, row)
+            if target_row is not None:
+                scrolled = terminal.get_parent()
+                if isinstance(scrolled, Gtk.ScrolledWindow):
+                    adj = scrolled.get_vadjustment()
+                    if adj:
+                        char_height = terminal.get_char_height() or 18
+                        adj.set_value(target_row * char_height)
+        except Exception as e:
+            self.logger.debug(f"Error jumping to next prompt: {e}")
+
+    def copy_last_command_output(self, terminal=None, *args):
+        """Copies output of the last executed command to clipboard."""
+        try:
+            if not terminal or isinstance(terminal, Gio.SimpleAction):
+                terminal = (
+                    self.window.tab_manager.get_active_terminal()
+                    if self.window.tab_manager
+                    else None
+                )
+            if not terminal:
+                return
+            tracker = self.window.terminal_manager.semantic_tracker
+            output = tracker.get_last_output_text(terminal)
+            if output:
+                clipboard = Gdk.Display.get_default().get_clipboard()
+                clipboard.set(output)
+                if hasattr(self.window, "add_toast"):
+                    self.window.add_toast(
+                        Adw.Toast.new(
+                            _("Command output copied to clipboard")
+                        )
+                    )
+        except Exception as e:
+            self.logger.error(f"Error copying last command output: {e}")
+
+    def analyze_last_error_with_ai(self, terminal=None, *args):
+        """Opens AI assistant pre-filled with the last command error output."""
+        try:
+            if not terminal or isinstance(terminal, Gio.SimpleAction):
+                terminal = (
+                    self.window.tab_manager.get_active_terminal()
+                    if self.window.tab_manager
+                    else None
+                )
+            if not terminal:
+                return
+            tracker = self.window.terminal_manager.semantic_tracker
+            cmd = tracker.get_last_command(terminal)
+            output = tracker.get_last_output_text(terminal) or ""
+            exit_code = cmd.exit_code if cmd and cmd.exit_code is not None else 1
+            cmd_text = cmd.command_text if cmd and cmd.command_text else ""
+
+            prompt_lines = [
+                f"O comando executado no terminal falhou com código de saída {exit_code}."
+            ]
+            if cmd_text:
+                prompt_lines.append(f"Comando: `{cmd_text}`")
+            if output:
+                prompt_lines.append(f"Saída do terminal:\n```text\n{output}\n```")
+            prompt_lines.append(
+                "Por favor, analise a causa do erro e forneça a solução recomendada para corrigir o problema."
+            )
+            full_prompt = "\n\n".join(prompt_lines)
+
+            # Ensure AI chat panel is open
+            if hasattr(self.window, "ai_chat_panel") and self.window.ai_chat_panel:
+                if hasattr(self.window, "split_view") and self.window.split_view:
+                    self.window.split_view.set_show_sidebar(True)
+                if hasattr(self.window.ai_chat_panel, "send_message"):
+                    self.window.ai_chat_panel.send_message(full_prompt)
+                elif hasattr(self.window.ai_chat_panel, "chat_input_textview"):
+                    buf = self.window.ai_chat_panel.chat_input_textview.get_buffer()
+                    buf.set_text(full_prompt)
+        except Exception as e:
+            self.logger.error(f"Error analyzing last error with AI: {e}")
+
+    copy_last_output = copy_last_command_output
+    analyze_last_error_ai = analyze_last_error_with_ai

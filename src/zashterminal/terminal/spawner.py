@@ -256,13 +256,21 @@ class ProcessSpawner:
                 temp_dir_path = tempfile.mkdtemp(prefix="zashterminal_zsh_")
                 zshrc_path = os.path.join(temp_dir_path, ".zshrc")
 
-                # This zshrc adds our hook, then sources the user's real .zshrc
+                # This zshrc adds our OSC7 + OSC133 semantic hooks, then sources the user's real .zshrc
                 zshrc_content = (
                     f"_zashterminal_update_cwd() {{ {osc7_command}; }}\n"
-                    'if [[ -z "$precmd_functions" ]]; then\n'
-                    "  typeset -a precmd_functions\n"
-                    "fi\n"
-                    "precmd_functions+=(_zashterminal_update_cwd)\n"
+                    '__zashterminal_semantic_precmd() {\n'
+                    '  local exit_code=$?\n'
+                    '  printf "\\033]133;D;%d\\007\\033]0;__zt_sem__:D:%d\\007\\033]133;A\\007\\033]0;__zt_sem__:A\\007" "$exit_code" "$exit_code"\n'
+                    '  _zashterminal_update_cwd\n'
+                    '}\n'
+                    '__zashterminal_semantic_preexec() {\n'
+                    '  printf "\\033]133;C\\007\\033]0;__zt_sem__:C\\007"\n'
+                    '}\n'
+                    'if [[ -z "$precmd_functions" ]]; then typeset -a precmd_functions; fi\n'
+                    'precmd_functions+=(__zashterminal_semantic_precmd)\n'
+                    'if [[ -z "$preexec_functions" ]]; then typeset -a preexec_functions; fi\n'
+                    'preexec_functions+=(__zashterminal_semantic_preexec)\n'
                     'if [ -f "$HOME/.zshrc" ]; then . "$HOME/.zshrc"; fi\n'
                 )
 
@@ -271,17 +279,17 @@ class ProcessSpawner:
 
                 env["ZDOTDIR"] = temp_dir_path
                 self.logger.info(
-                    f"Using temporary ZDOTDIR for zsh OSC7 integration: {temp_dir_path}"
+                    f"Using temporary ZDOTDIR for zsh OSC7/OSC133 integration: {temp_dir_path}"
                 )
 
             except Exception as e:
-                self.logger.error(f"Failed to set up zsh OSC7 integration: {e}")
+                self.logger.error(f"Failed to set up zsh OSC7/OSC133 integration: {e}")
                 if temp_dir_path:
                     shutil.rmtree(temp_dir_path, ignore_errors=True)
                 temp_dir_path = None
         elif shell_basename == "bash":
             try:
-                # Use a temporary rcfile so OSC7 setup runs after user shell startup,
+                # Use a temporary rcfile so OSC7 and OSC133 setup runs after user shell startup,
                 # avoiding PROMPT_COMMAND being overwritten by shell customizations.
                 temp_dir_path = tempfile.mkdtemp(prefix="zashterminal_bash_")
                 bash_init_path = os.path.join(temp_dir_path, ".zashterminal_bashrc")
@@ -300,32 +308,34 @@ class ProcessSpawner:
                     login_bootstrap
                     +
                     f'_zashterminal_update_cwd() {{ {osc7_command}; }}\n'
-                    '# Preserve existing prompt hooks from user shell customizations\n'
-                    '# instead of replacing them, which can break tools like starship.\n'
-                    'if declare -p PROMPT_COMMAND >/dev/null 2>&1; then\n'
-                    '  if declare -p PROMPT_COMMAND 2>/dev/null | grep -q "declare -a"; then\n'
-                    '    case " ${PROMPT_COMMAND[*]} " in\n'
-                    '      *" _zashterminal_update_cwd "*) ;;\n'
-                    '      *) PROMPT_COMMAND+=("_zashterminal_update_cwd") ;;\n'
-                    '    esac\n'
-                    '  elif [ -n "${PROMPT_COMMAND:-}" ]; then\n'
-                    '    case ";${PROMPT_COMMAND};" in\n'
-                    '      *";_zashterminal_update_cwd;"*) ;;\n'
-                    '      *) PROMPT_COMMAND="${PROMPT_COMMAND};_zashterminal_update_cwd" ;;\n'
-                    '    esac\n'
-                    '  else\n'
-                    '    PROMPT_COMMAND="_zashterminal_update_cwd"\n'
-                    '  fi\n'
+                    '__zashterminal_semantic_precmd() {\n'
+                    '  local exit_code=$?\n'
+                    '  printf "\\033]133;D;%d\\007\\033]0;__zt_sem__:D:%d\\007\\033]133;A\\007\\033]0;__zt_sem__:A\\007" "$exit_code" "$exit_code"\n'
+                    '  _zashterminal_update_cwd\n'
+                    '}\n'
+                    '__zashterminal_semantic_preexec() {\n'
+                    '  printf "\\033]133;C\\007\\033]0;__zt_sem__:C\\007"\n'
+                    '}\n'
+                    'if [ -z "$PROMPT_COMMAND" ]; then\n'
+                    '  PROMPT_COMMAND="__zashterminal_semantic_precmd"\n'
+                    'elif declare -p PROMPT_COMMAND 2>/dev/null | grep -q "declare -a"; then\n'
+                    '  case " ${PROMPT_COMMAND[*]} " in\n'
+                    '    *" __zashterminal_semantic_precmd "*) ;;\n'
+                    '    *) PROMPT_COMMAND+=("__zashterminal_semantic_precmd") ;;\n'
+                    '  esac\n'
                     'else\n'
-                    '  PROMPT_COMMAND="_zashterminal_update_cwd"\n'
+                    '  case ";${PROMPT_COMMAND};" in\n'
+                    '    *";__zashterminal_semantic_precmd;"*) ;;\n'
+                    '    *) PROMPT_COMMAND="${PROMPT_COMMAND};__zashterminal_semantic_precmd" ;;\n'
+                    '  esac\n'
                     'fi\n'
-                    '_zashterminal_update_cwd\n'
+                    '__zashterminal_semantic_precmd\n'
                 )
                 with open(bash_init_path, "w", encoding="utf-8") as f:
                     f.write(bashrc_content)
                 env["ZASHTERMINAL_BASH_INIT"] = bash_init_path
                 self.logger.info(
-                    f"Using temporary bash init for OSC7 integration: {bash_init_path}"
+                    f"Using temporary bash init for OSC7/OSC133 integration: {bash_init_path}"
                 )
             except Exception as e:
                 self.logger.error(f"Failed to set up bash OSC7 integration: {e}")

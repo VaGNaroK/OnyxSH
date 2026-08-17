@@ -8833,3 +8833,35 @@ msgstr "Ask on startup"
 # 
 msgid "Nunca restaurar"
 msgstr "Never restore"
+
+# 
+msgid "Pular para o Prompt Anterior"
+msgstr "Jump to Previous Prompt"
+
+# 
+msgid "Pular para o Próximo Prompt"
+msgstr "Jump to Next Prompt"
+
+# 
+msgid "Navegação Semântica"
+msgstr "Semantic Navigation"
+
+# 
+msgid "Copiar Saída do Último Comando"
+msgstr "Copy Last Command Output"
+
+# 
+msgid "Copiar saída do último comando"
+msgstr "Copy last command output"
+
+# 
+msgid "Analisar Último Erro com Assistente de IA"
+msgstr "Analyze Last Error with AI Assistant"
+
+# 
+msgid "Analisar erro com Assistente de IA"
+msgstr "Analyze error with AI Assistant"
+
+# 
+msgid "Command output copied to clipboard"
+msgstr "Command output copied to clipboard"

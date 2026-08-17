@@ -8852,3 +8852,35 @@ msgstr "Preguntar al iniciar"
 # 
 msgid "Nunca restaurar"
 msgstr "Nunca restaurar"
+
+# 
+msgid "Pular para o Prompt Anterior"
+msgstr "Saltar al Prompt Anterior"
+
+# 
+msgid "Pular para o Próximo Prompt"
+msgstr "Saltar al Siguiente Prompt"
+
+# 
+msgid "Navegação Semântica"
+msgstr "Navegación Semántica"
+
+# 
+msgid "Copiar Saída do Último Comando"
+msgstr "Copiar Salida del Último Comando"
+
+# 
+msgid "Copiar saída do último comando"
+msgstr "Copiar salida del último comando"
+
+# 
+msgid "Analisar Último Erro com Assistente de IA"
+msgstr "Analizar Último Error con Asistente de IA"
+
+# 
+msgid "Analisar erro com Assistente de IA"
+msgstr "Analizar error con Asistente de IA"
+
+# 
+msgid "Command output copied to clipboard"
+msgstr "Salida del comando copiada al portapapeles"

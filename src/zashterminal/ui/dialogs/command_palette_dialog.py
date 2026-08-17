@@ -315,6 +315,48 @@ class CommandPaletteDialog(BaseDialog):
         )
         self._items.append(
             CommandPaletteItem(
+                "jump-previous-prompt",
+                _("Pular para o Prompt Anterior"),
+                _("Navegação Semântica"),
+                "go-up-symbolic",
+                action_name="jump-previous-prompt",
+                shortcut="Alt + ↑",
+                keywords=["prompt", "anterior", "subir", "comando", "osc133", "jump"],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
+                "jump-next-prompt",
+                _("Pular para o Próximo Prompt"),
+                _("Navegação Semântica"),
+                "go-down-symbolic",
+                action_name="jump-next-prompt",
+                shortcut="Alt + ↓",
+                keywords=["prompt", "proximo", "descer", "comando", "osc133", "jump"],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
+                "copy-last-output",
+                _("Copiar Saída do Último Comando"),
+                _("Navegação Semântica"),
+                "edit-copy-symbolic",
+                action_name="copy-last-output",
+                keywords=["copiar", "saida", "output", "ultimo", "comando"],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
+                "analyze-last-error-ai",
+                _("Analisar Último Erro com Assistente de IA"),
+                _("Assistente de IA"),
+                "sparkles-symbolic",
+                action_name="analyze-last-error-ai",
+                keywords=["ia", "erro", "analisar", "corrigir", "ai", "diagnostico", "error"],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
                 "toggle-search",
                 _("Buscar no Terminal"),
                 _("Terminal"),

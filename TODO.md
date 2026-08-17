@@ -47,15 +47,16 @@
 - [x] **Módulos Afetados:** `src/zashterminal/state/window_state.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/window.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/ui/dialogs/preferences_dialog.py`.
 
 ### 📌 1.3. Integração Semântica com Shell (OSC 133 / Semantic Prompts)
-- [ ] **Descrição:** Suporte a sequências de controle OSC 133 (FinalTerm / iTerm2 semantics) para marcação inteligente de prompts, comandos e saídas do shell.
-- [ ] **Funcionalidades Habilitadas:**
+- [x] **Descrição:** Suporte a sequências de controle OSC 133 (FinalTerm / iTerm2 semantics) para marcação inteligente de prompts, comandos e saídas do shell.
+- [x] **Funcionalidades Habilitadas:**
   - Navegação entre comandos: pular para o prompt anterior (`Alt + Up`) / próximo (`Alt + Down`).
   - Seleção cirúrgica de saída: copiar apenas a saída do último comando executado.
-  - Indicador visual de status de saída (ícone de sucesso `0` ou erro `>0` na margem).
+  - Indicador visual de status de saída (ícone de sucesso `0` ou erro `>0` na barra do painel).
   - Medição de tempo de execução por comando (ex: `⏱ 1.4s`).
   - Botão de envio rápido da saída de um comando específico para análise no chat de IA.
-- [ ] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio/Alto | **Alvo:** `v0.9.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/terminal/_highlighter_impl.py`, `src/zashterminal/utils/osc7_tracker.py`.
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/zashterminal/terminal/semantic_tracker.py`, `src/zashterminal/terminal/spawner.py`, `src/zashterminal/terminal/manager.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/ui/dialogs/command_palette_dialog.py`).
+- [x] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio/Alto | **Alvo:** `v0.9.0`
+- [x] **Módulos Afetados:** `src/zashterminal/terminal/semantic_tracker.py`, `src/zashterminal/terminal/spawner.py`, `src/zashterminal/terminal/manager.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/ui/dialogs/command_palette_dialog.py`.
 
 ### 📌 1.4. Histórico Enriquecido de Comandos com Busca Fuzzy
 - [ ] **Descrição:** Persistência estruturada em banco SQLite/JSON com metadados detalhados de cada comando digitado.

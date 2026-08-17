@@ -562,6 +562,18 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             self.action_handler.command_palette()
             return Gdk.EVENT_STOP
 
+        # Handle Semantic Prompt Jump (Alt+Up / Alt+Down)
+        if (
+            state & Gdk.ModifierType.ALT_MASK
+            and not (state & Gdk.ModifierType.CONTROL_MASK)
+        ):
+            if keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up):
+                self.action_handler.jump_previous_prompt()
+                return Gdk.EVENT_STOP
+            elif keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down):
+                self.action_handler.jump_next_prompt()
+                return Gdk.EVENT_STOP
+
         # Get the currently configured shortcuts from the settings manager.
         next_tab_shortcut = self.settings_manager.get_shortcut("next-tab")
         prev_tab_shortcut = self.settings_manager.get_shortcut("previous-tab")

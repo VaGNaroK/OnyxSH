@@ -20,6 +20,7 @@ from ..utils.icons import icon_button, icon_image
 from ..utils.logger import get_logger
 from ..utils.translation_utils import _
 from .manager import TerminalManager
+from .semantic_tracker import SemanticCommand
 
 if TYPE_CHECKING:
     from ..filemanager.manager import FileManager
@@ -60,6 +61,50 @@ def _create_terminal_pane(
     title_label.set_halign(Gtk.Align.START)
     header_box.append(title_label)
 
+    # Semantic command status badge & buttons
+    semantic_status_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+    semantic_status_box.set_valign(Gtk.Align.CENTER)
+    semantic_status_box.set_visible(False)
+
+    semantic_status_label = Gtk.Label(label="")
+    semantic_status_label.add_css_class("caption")
+    semantic_status_label.add_css_class("dim-label")
+    semantic_status_box.append(semantic_status_label)
+
+    def _get_window_action_handler():
+        root = terminal.get_root() if hasattr(terminal, "get_root") else None
+        if root and hasattr(root, "action_handler"):
+            return root.action_handler
+        return None
+
+    semantic_ai_btn = icon_button(
+        "sparkles-symbolic", size=14, tooltip=_("Analisar erro com Assistente de IA")
+    )
+    semantic_ai_btn.add_css_class("flat")
+    semantic_ai_btn.set_size_request(24, 24)
+    semantic_ai_btn.set_visible(False)
+    semantic_ai_btn.connect(
+        "clicked",
+        lambda _: _get_window_action_handler()
+        and _get_window_action_handler().analyze_last_error_with_ai(terminal),
+    )
+    semantic_status_box.append(semantic_ai_btn)
+
+    semantic_copy_btn = icon_button(
+        "edit-copy-symbolic", size=14, tooltip=_("Copiar saída do último comando")
+    )
+    semantic_copy_btn.add_css_class("flat")
+    semantic_copy_btn.set_size_request(24, 24)
+    semantic_copy_btn.set_visible(False)
+    semantic_copy_btn.connect(
+        "clicked",
+        lambda _: _get_window_action_handler()
+        and _get_window_action_handler().copy_last_command_output(terminal),
+    )
+    semantic_status_box.append(semantic_copy_btn)
+
+    header_box.append(semantic_status_box)
+
     # Action buttons (using bundled icons)
     move_to_tab_button = icon_button(
         "go-next-symbolic", size=14, tooltip=_("Move to New Tab")
@@ -92,6 +137,10 @@ def _create_terminal_pane(
     toolbar_view.title_label = title_label
     toolbar_view.move_button = move_to_tab_button
     toolbar_view.close_button = close_button
+    toolbar_view.semantic_status_box = semantic_status_box
+    toolbar_view.semantic_status_label = semantic_status_label
+    toolbar_view.semantic_ai_btn = semantic_ai_btn
+    toolbar_view.semantic_copy_btn = semantic_copy_btn
     # MODIFIED: Store a reference to the header box for live updates
     toolbar_view.header_box = header_box
 
@@ -1381,6 +1430,54 @@ class TabManager:
         pane = self._find_pane_for_terminal(page, terminal)
         if pane and hasattr(pane, "title_label"):
             pane.title_label.set_label(new_title)
+
+    def update_semantic_badge_for_terminal(
+        self, terminal: Vte.Terminal, cmd: SemanticCommand
+    ) -> None:
+        """Updates the status badge and AI error button on the terminal's pane header."""
+        page = self.get_page_for_terminal(terminal)
+        if not page:
+            return
+
+        pane = self._find_pane_for_terminal(page, terminal)
+        if not pane:
+            return
+
+        status_box = getattr(pane, "semantic_status_box", None)
+        status_label = getattr(pane, "semantic_status_label", None)
+        ai_btn = getattr(pane, "semantic_ai_btn", None)
+        copy_btn = getattr(pane, "semantic_copy_btn", None)
+
+        if not (status_box and status_label):
+            return
+
+        if not cmd.is_finished:
+            return
+
+        dur_str = cmd.formatted_duration
+        if cmd.is_success:
+            badge_text = f"⏱ {dur_str}" if (cmd.duration and cmd.duration >= 0.5) else ""
+            status_box.remove_css_class("error")
+            status_box.add_css_class("dim-label")
+        else:
+            badge_text = (
+                f"⏱ {dur_str} [✗ {cmd.exit_code}]"
+                if dur_str
+                else f"[✗ {cmd.exit_code}]"
+            )
+            status_box.remove_css_class("dim-label")
+            status_box.add_css_class("error")
+
+        if badge_text:
+            status_label.set_text(badge_text)
+            status_box.set_visible(True)
+            if copy_btn:
+                copy_btn.set_visible(True)
+        else:
+            status_box.set_visible(False)
+
+        if ai_btn:
+            ai_btn.set_visible(not cmd.is_success)
 
     def set_tab_title(self, page: Adw.ViewStackPage, new_title: str) -> None:
         if not (page and new_title):
