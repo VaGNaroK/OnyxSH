@@ -8764,3 +8764,31 @@ msgstr "Reglas de Resaltado de Sintaxis y Temas"
 # 
 msgid "Conectar:"
 msgstr "Conectar:"
+
+# 
+msgid "How to handle tabs and layout from previous session"
+msgstr "Cómo manejar las pestañas y el diseño de la sesión anterior"
+
+# 
+msgid "Auto-reconnect SSH sessions"
+msgstr "Reconectar automáticamente sesiones SSH"
+
+# 
+msgid "Automatically re-establish open remote connections"
+msgstr "Restablece automáticamente las conexiones remotas abiertas"
+
+# 
+msgid "Restore Sidebars & AI Panel"
+msgstr "Restaurar Paneles Laterales y Asistente de IA"
+
+# 
+msgid "Remember sidebar and AI assistant visibility"
+msgstr "Recordar visibilidad de la barra lateral y del chat de IA"
+
+# 
+msgid "Sessão anterior disponível para restauração."
+msgstr "Sesión anterior disponible para restaurar."
+
+# 
+msgid "Restaurar"
+msgstr "Restaurar"

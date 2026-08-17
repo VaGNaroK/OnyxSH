@@ -360,6 +360,7 @@ class PreferencesDialog(Adw.PreferencesWindow):
 
         restore_policy_row = Adw.ComboRow(
             title=_("On Startup"),
+            subtitle=_("How to handle tabs and layout from previous session"),
         )
         policy_map = ["always", "ask", "never"]
         policy_strings = [
@@ -368,16 +369,46 @@ class PreferencesDialog(Adw.PreferencesWindow):
             _("Never restore previous session"),
         ]
         restore_policy_row.set_model(Gtk.StringList.new(policy_strings))
-        current_policy = self.settings_manager.get("session_restore_policy", "never")
+        current_policy = self.settings_manager.get("session_restore_policy", "always")
         try:
             selected_index = policy_map.index(current_policy)
         except ValueError:
-            selected_index = 2
+            selected_index = 0
         restore_policy_row.set_selected(selected_index)
         restore_policy_row.connect(
             "notify::selected", self._on_restore_policy_changed, policy_map
         )
         startup_group.add(restore_policy_row)
+
+        ssh_reconnect_row = Adw.SwitchRow(
+            title=_("Auto-reconnect SSH sessions"),
+            subtitle=_("Automatically re-establish open remote connections"),
+        )
+        ssh_reconnect_row.set_active(
+            self.settings_manager.get("session_restore_ssh_auto_reconnect", True)
+        )
+        ssh_reconnect_row.connect(
+            "notify::active",
+            lambda w, _p: self._on_setting_changed(
+                "session_restore_ssh_auto_reconnect", w.get_active()
+            ),
+        )
+        startup_group.add(ssh_reconnect_row)
+
+        panels_restore_row = Adw.SwitchRow(
+            title=_("Restore Sidebars & AI Panel"),
+            subtitle=_("Remember sidebar and AI assistant visibility"),
+        )
+        panels_restore_row.set_active(
+            self.settings_manager.get("session_restore_ui_panels", True)
+        )
+        panels_restore_row.connect(
+            "notify::active",
+            lambda w, _p: self._on_setting_changed(
+                "session_restore_ui_panels", w.get_active()
+            ),
+        )
+        startup_group.add(panels_restore_row)
 
         backup_group = Adw.PreferencesGroup()
         page.add(backup_group)

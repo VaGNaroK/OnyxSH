@@ -8734,3 +8734,31 @@ msgstr "Правила подсветки синтаксиса и темы"
 # 
 msgid "Conectar:"
 msgstr "Подключить:"
+
+# 
+msgid "How to handle tabs and layout from previous session"
+msgstr "Как обрабатывать вкладки и макет предыдущей сессии"
+
+# 
+msgid "Auto-reconnect SSH sessions"
+msgstr "Автоматически переподключать сессии SSH"
+
+# 
+msgid "Automatically re-establish open remote connections"
+msgstr "Автоматически восстанавливать открытые удаленные подключения"
+
+# 
+msgid "Restore Sidebars & AI Panel"
+msgstr "Восстанавливать боковые панели и панель ИИ"
+
+# 
+msgid "Remember sidebar and AI assistant visibility"
+msgstr "Запоминать видимость боковой панели и ИИ-помощника"
+
+# 
+msgid "Sessão anterior disponível para restauração."
+msgstr "Предыдущая сессия доступна для восстановления."
+
+# 
+msgid "Restaurar"
+msgstr "Восстановить"

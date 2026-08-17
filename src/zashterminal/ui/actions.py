@@ -77,6 +77,7 @@ class WindowActions:
             "preferences": self.preferences,
             "shortcuts": self.shortcuts,
             "command-palette": self.command_palette,
+            "restore-previous-session": self.restore_previous_session,
             "new-window": self.new_window,
             "save-layout": self.save_layout,
         }
@@ -548,6 +549,9 @@ class WindowActions:
         dialog = CommandPaletteDialog(self.window)
         dialog.present()
 
+    def restore_previous_session(self, *_args):
+        if hasattr(self.window, "state_manager"):
+            self.window.state_manager.restore_session_state(force=True)
 
     def new_window(self, *_args):
         if app := self.window.get_application():

@@ -8698,3 +8698,31 @@ msgstr "シンタックスハイライトのルールとテーマ"
 # 
 msgid "Conectar:"
 msgstr "接続:"
+
+# 
+msgid "How to handle tabs and layout from previous session"
+msgstr "前回のセッションのタブとレイアウトの処理方法"
+
+# 
+msgid "Auto-reconnect SSH sessions"
+msgstr "SSH セッションを自動再接続"
+
+# 
+msgid "Automatically re-establish open remote connections"
+msgstr "開いていたリモート接続を自動的に再確立します"
+
+# 
+msgid "Restore Sidebars & AI Panel"
+msgstr "サイドバーと AI パネルを復元"
+
+# 
+msgid "Remember sidebar and AI assistant visibility"
+msgstr "サイドバーと AI アシスタントの表示状態を記憶"
+
+# 
+msgid "Sessão anterior disponível para restauração."
+msgstr "前回のセッションを復元できます。"
+
+# 
+msgid "Restaurar"
+msgstr "復元"

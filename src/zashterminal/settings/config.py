@@ -228,7 +228,9 @@ class DefaultSettings:
             "cursor_blink": 0,
             "new_instance_behavior": "new_tab",
             "use_login_shell": False,
-            "session_restore_policy": "never",
+            "session_restore_policy": "always",
+            "session_restore_ssh_auto_reconnect": True,
+            "session_restore_ui_panels": True,
             # VTE Features
             "scrollback_lines": 5000,
             "mouse_scroll_sensitivity": 30.0,

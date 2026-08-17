@@ -8778,3 +8778,31 @@ msgstr "Syntaxhervorhebungsregeln & Themes"
 # 
 msgid "Conectar:"
 msgstr "Verbinden:"
+
+# 
+msgid "How to handle tabs and layout from previous session"
+msgstr "Wie Tabs und Layout der vorherigen Sitzung gehandhabt werden"
+
+# 
+msgid "Auto-reconnect SSH sessions"
+msgstr "SSH-Sitzungen automatisch wiederverbinden"
+
+# 
+msgid "Automatically re-establish open remote connections"
+msgstr "Offene Remote-Verbindungen automatisch wiederherstellen"
+
+# 
+msgid "Restore Sidebars & AI Panel"
+msgstr "Seitenleisten & KI-Panel wiederherstellen"
+
+# 
+msgid "Remember sidebar and AI assistant visibility"
+msgstr "Sichtbarkeit von Seitenleiste und KI-Assistent merken"
+
+# 
+msgid "Sessão anterior disponível para restauração."
+msgstr "Vorherige Sitzung zur Wiederherstellung verfügbar."
+
+# 
+msgid "Restaurar"
+msgstr "Wiederherstellen"

@@ -1514,6 +1514,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
     def _create_initial_tab_safe(self) -> bool:
         """Safely create initial tab, trying to restore session first."""
         try:
+            policy = self.settings_manager.get("session_restore_policy", "always")
             if not self.state_manager.restore_session_state():
                 if self.tab_manager.get_tab_count() == 0:
                     if self.initial_ssh_target:
@@ -1524,6 +1525,8 @@ class CommTerminalWindow(Adw.ApplicationWindow):
                             execute_command=self.initial_execute_command,
                             close_after_execute=self.close_after_execute,
                         )
+                if policy == "ask" and self.state_manager.has_saved_state():
+                    GLib.timeout_add(600, self._show_restore_session_toast)
         except Exception as e:
             self.logger.error(f"Failed to create initial tab: {e}")
             self._show_error_dialog(
@@ -1532,17 +1535,26 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             )
         return False
 
+    def _show_restore_session_toast(self) -> bool:
+        """Show toast allowing user to restore previous session on startup."""
+        try:
+            toast = Adw.Toast.new(_("Sessão anterior disponível para restauração."))
+            toast.set_button_label(_("Restaurar"))
+            toast.set_action_name("win.restore-previous-session")
+            toast.set_timeout(10)
+            self.toast_overlay.add_toast(toast)
+        except Exception as e:
+            self.logger.debug(f"Could not show restore session toast: {e}")
+        return False
+
     def _on_window_close_request(self, window) -> bool:
         self.logger.info("Window close request received")
         if self._force_closing:
             return Gdk.EVENT_PROPAGATE
 
         if len(self.get_application().get_windows()) == 1:
-            policy = self.settings_manager.get("session_restore_policy", "never")
-            if policy == "ask":
-                self._show_save_session_dialog()
-                return Gdk.EVENT_STOP
-            elif policy == "always":
+            policy = self.settings_manager.get("session_restore_policy", "always")
+            if policy != "never":
                 self.state_manager.save_session_state()
             else:
                 self.state_manager.clear_session_state()

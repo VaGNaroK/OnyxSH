@@ -9056,3 +9056,31 @@ msgstr "Registro de Auditoria de Ações do Agente"
 # 
 msgid "Conectar:"
 msgstr "Conectar:"
+
+# 
+msgid "How to handle tabs and layout from previous session"
+msgstr "Como gerenciar abas e layout da sessão anterior"
+
+# 
+msgid "Auto-reconnect SSH sessions"
+msgstr "Reconectar sessões SSH automaticamente"
+
+# 
+msgid "Automatically re-establish open remote connections"
+msgstr "Tenta restabelecer conexões remotas que estavam abertas"
+
+# 
+msgid "Restore Sidebars & AI Panel"
+msgstr "Restaurar Painéis Laterais e Assistente de IA"
+
+# 
+msgid "Remember sidebar and AI assistant visibility"
+msgstr "Lembrar visibilidade da barra lateral e do chat de IA"
+
+# 
+msgid "Sessão anterior disponível para restauração."
+msgstr "Sessão anterior disponível para restauração."
+
+# 
+msgid "Restaurar"
+msgstr "Restaurar"

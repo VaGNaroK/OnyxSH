@@ -35,42 +35,104 @@ class WindowStateManager:
         self.logger = get_logger("zashterminal.state")
 
     def save_session_state(self):
-        """Serializes the current tab and pane layout to a state file."""
-        state = {"tabs": []}
+        """Serializes the current tab and pane layout, active tab, and panel states to a state file."""
+        tabs = []
         for page in self.tab_manager.pages.values():
             tab_content = page.get_child()
             if tab_content:
                 tab_structure = self._serialize_widget_tree(tab_content)
                 if tab_structure:
-                    state["tabs"].append(tab_structure)
+                    tabs.append(tab_structure)
+
+        if not tabs:
+            return
+
+        active_tab = self.tab_manager.get_active_tab()
+        active_index = (
+            self.tab_manager.tabs.index(active_tab)
+            if active_tab in self.tab_manager.tabs
+            else 0
+        )
+
+        sidebar_visible = False
+        if hasattr(self.window, "sidebar_revealer"):
+            sidebar_visible = self.window.sidebar_revealer.get_reveal_child()
+
+        ai_panel_visible = False
+        if hasattr(self.window, "ai_chat_revealer"):
+            ai_panel_visible = self.window.ai_chat_revealer.get_reveal_child()
+        elif hasattr(self.window, "ai_chat_panel"):
+            ai_panel_visible = self.window.ai_chat_panel.get_visible()
+
+        state = {
+            "tabs": tabs,
+            "active_tab_index": active_index,
+            "sidebar_visible": sidebar_visible,
+            "ai_panel_visible": ai_panel_visible,
+        }
 
         try:
-            with open(STATE_FILE, "w") as f:
+            with open(STATE_FILE, "w", encoding="utf-8") as f:
                 json.dump(state, f, indent=2)
-            self.logger.info("Session state saved successfully.")
+            self.logger.info(f"Session state saved successfully ({len(tabs)} tabs).")
         except Exception as e:
             self.logger.error(f"Failed to save session state: {e}")
 
-    def restore_session_state(self) -> bool:
+    def has_saved_state(self) -> bool:
+        """Check if a valid session state file exists with tabs to restore."""
+        if not os.path.exists(STATE_FILE):
+            return False
+        try:
+            with open(STATE_FILE, "r", encoding="utf-8") as f:
+                state = json.load(f)
+            return bool(state.get("tabs"))
+        except Exception:
+            return False
+
+    def restore_session_state(self, force: bool = False) -> bool:
         """Restores the window layout from the state file if applicable."""
-        policy = self.settings_manager.get("session_restore_policy", "never")
-        if policy == "never" or not os.path.exists(STATE_FILE):
+        policy = self.settings_manager.get("session_restore_policy", "always")
+        if not force and policy == "never":
             self.clear_session_state()
             return False
 
+        if not os.path.exists(STATE_FILE):
+            return False
+
+        if not force and policy == "ask":
+            return False
+
         try:
-            with open(STATE_FILE, "r") as f:
+            with open(STATE_FILE, "r", encoding="utf-8") as f:
                 state = json.load(f)
         except Exception as e:
             self.logger.error(f"Failed to read session state file: {e}")
             return False
 
-        if not state.get("tabs"):
+        tabs = state.get("tabs", [])
+        if not tabs:
             return False
 
-        self.logger.info(f"Restoring {len(state['tabs'])} tabs from previous session.")
-        for tab_structure in state["tabs"]:
+        self.logger.info(f"Restoring {len(tabs)} tabs from previous session.")
+
+        if force and self.tab_manager.get_tab_count() > 0:
+            self.tab_manager.close_all_tabs()
+
+        for tab_structure in tabs:
             self.tab_manager.recreate_tab_from_structure(tab_structure)
+
+        # Restore active tab
+        active_index = state.get("active_tab_index", 0)
+        if 0 <= active_index < len(self.tab_manager.tabs):
+            self.tab_manager.set_active_tab(self.tab_manager.tabs[active_index])
+
+        # Restore UI panels if enabled
+        if self.settings_manager.get("session_restore_ui_panels", True):
+            if state.get("sidebar_visible") and hasattr(self.window, "sidebar_revealer"):
+                self.window.sidebar_revealer.set_reveal_child(True)
+            if state.get("ai_panel_visible") and hasattr(self.window, "_on_ai_assistant_requested"):
+                if hasattr(self.window, "ai_chat_revealer") and not self.window.ai_chat_revealer.get_reveal_child():
+                    self.window._on_ai_assistant_requested()
 
         self.clear_session_state()
         return True
@@ -83,6 +145,7 @@ class WindowStateManager:
                 self.logger.info("Session state file removed.")
             except OSError as e:
                 self.logger.error(f"Failed to remove state file: {e}")
+
 
     def save_current_layout(self):
         """Prompts for a name and saves the current window layout."""
@@ -341,6 +404,7 @@ class WindowStateManager:
                     "type": "terminal",
                     "session_type": "ssh" if session_info.is_ssh() else "local",
                     "session_name": session_info.name,
+                    "session_data": session_info.to_dict() if hasattr(session_info, "to_dict") else None,
                     "working_dir": working_dir,
                 }
             else:

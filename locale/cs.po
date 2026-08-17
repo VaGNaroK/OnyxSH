@@ -8735,3 +8735,31 @@ msgstr "Syntax Highlighting Rules & Themes"
 # 
 msgid "Conectar:"
 msgstr "Connect:"
+
+# 
+msgid "How to handle tabs and layout from previous session"
+msgstr "How to handle tabs and layout from previous session"
+
+# 
+msgid "Auto-reconnect SSH sessions"
+msgstr "Auto-reconnect SSH sessions"
+
+# 
+msgid "Automatically re-establish open remote connections"
+msgstr "Automatically re-establish open remote connections"
+
+# 
+msgid "Restore Sidebars & AI Panel"
+msgstr "Restore Sidebars & AI Panel"
+
+# 
+msgid "Remember sidebar and AI assistant visibility"
+msgstr "Remember sidebar and AI assistant visibility"
+
+# 
+msgid "Sessão anterior disponível para restauração."
+msgstr "Previous session available for restoration."
+
+# 
+msgid "Restaurar"
+msgstr "Restore"

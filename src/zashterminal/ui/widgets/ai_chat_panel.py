@@ -1026,7 +1026,7 @@ class MessageBubble(Gtk.Box):
                 # Keys
                 (r'"[\w_-]+"(?=\s*:)', 'variable'),
                 # String values
-                (r'(?<=:\s*)"(?:[^"\\]|\\.)*"', 'string'),
+                (r'"(?:[^"\\]|\\.)*"', 'string'),
                 # Booleans and null
                 (r'\b(?:true|false|null)\b', 'keyword'),
                 # Numbers
@@ -2104,7 +2104,7 @@ class AIChatPanel(Gtk.Box):
                 self._raw_streaming_content = ""
         except Exception as e:
             logger = get_logger("zashterminal.ui.chat")
-            logger.warning("Error updating streaming chunk: %s", e)
+            logger.warning(f"Error updating streaming chunk: {e}")
         return False
 
     def _on_response_ready(self, _assistant, response: str, commands):

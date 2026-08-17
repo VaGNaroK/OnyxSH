@@ -2369,36 +2369,42 @@ class TabManager:
             session_type = node.get("session_type", "local")
 
             if session_type == "ssh":
-                session = next(
-                    (
-                        s
-                        for s in self.terminal_manager.parent_window.session_store
-                        if s.name == node["session_name"]
-                    ),
-                    None,
+                session = None
+                session_data = node.get("session_data")
+                if session_data and isinstance(session_data, dict):
+                    try:
+                        session = SessionItem.from_dict(session_data)
+                    except Exception:
+                        session = None
+                if not session and hasattr(self.terminal_manager.parent_window, "session_store"):
+                    session = next(
+                        (
+                            s
+                            for s in self.terminal_manager.parent_window.session_store
+                            if s.name == node.get("session_name")
+                        ),
+                        None,
+                    )
+                auto_reconnect = self.terminal_manager.settings_manager.get(
+                    "session_restore_ssh_auto_reconnect", True
                 )
-                if session and session.is_ssh():
+                if session and session.is_ssh() and auto_reconnect:
                     terminal = self.terminal_manager.create_ssh_terminal(
                         session, initial_command=initial_command
                     )
                 else:
                     self.logger.warning(
-                        f"Could not find SSH session '{node['session_name']}' to restore, or type mismatch."
+                        f"Could not auto-reconnect SSH session '{node.get('session_name')}'."
                     )
                     terminal = self.terminal_manager.create_local_terminal(
-                        title=f"Missing: {title}"
+                        title=f"{title}"
                     )
             else:  # session_type is local
-                session = next(
-                    (
-                        s
-                        for s in self.terminal_manager.parent_window.session_store
-                        if s.name == node["session_name"] and s.is_local()
-                    ),
-                    None,
-                )
+                valid_working_dir = None
+                if working_dir and os.path.isdir(working_dir):
+                    valid_working_dir = working_dir
                 terminal = self.terminal_manager.create_local_terminal(
-                    session=session, title=title, working_directory=working_dir
+                    title=title, working_directory=valid_working_dir
                 )
 
             if not terminal:

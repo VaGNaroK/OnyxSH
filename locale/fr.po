@@ -8767,3 +8767,31 @@ msgstr "Règles de coloration syntaxique et thèmes"
 # 
 msgid "Conectar:"
 msgstr "Connexion :"
+
+# 
+msgid "How to handle tabs and layout from previous session"
+msgstr "Comment gérer les onglets et la disposition de la session précédente"
+
+# 
+msgid "Auto-reconnect SSH sessions"
+msgstr "Reconnecter automatiquement les sessions SSH"
+
+# 
+msgid "Automatically re-establish open remote connections"
+msgstr "Rétablit automatiquement les connexions distantes ouvertes"
+
+# 
+msgid "Restore Sidebars & AI Panel"
+msgstr "Restaurer les panneaux latéraux et le panneau IA"
+
+# 
+msgid "Remember sidebar and AI assistant visibility"
+msgstr "Se souvenir de la visibilité de la barre latérale et du chat IA"
+
+# 
+msgid "Sessão anterior disponível para restauração."
+msgstr "Session précédente disponible pour restauration."
+
+# 
+msgid "Restaurar"
+msgstr "Restaurer"

@@ -8693,3 +8693,31 @@ msgstr "语法高亮规则与主题"
 # 
 msgid "Conectar:"
 msgstr "连接："
+
+# 
+msgid "How to handle tabs and layout from previous session"
+msgstr "如何处理上一会话的标签页和布局"
+
+# 
+msgid "Auto-reconnect SSH sessions"
+msgstr "自动重新连接 SSH 会话"
+
+# 
+msgid "Automatically re-establish open remote connections"
+msgstr "自动重新建立打开的远程连接"
+
+# 
+msgid "Restore Sidebars & AI Panel"
+msgstr "恢复侧边栏和 AI 面板"
+
+# 
+msgid "Remember sidebar and AI assistant visibility"
+msgstr "记住侧边栏和 AI 助手的可见状态"
+
+# 
+msgid "Sessão anterior disponível para restauração."
+msgstr "上一会话可用于恢复。"
+
+# 
+msgid "Restaurar"
+msgstr "恢复"

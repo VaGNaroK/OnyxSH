@@ -9,11 +9,14 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.9.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Restauração Automática e Inteligente de Sessões (Session Restore)**: Capacidade de salvar e restaurar o estado completo do terminal entre fechamentos e inicializações, incluindo abas, layouts em split, diretórios correntes `$PWD`, sessões SSH (com auto-reconexão configurável), foco da aba ativa e visibilidade dos painéis de IA e sessões.
+- **Opções de Inicialização nas Preferências**: Novos controles de restauração (*Sempre restaurar*, *Perguntar ao iniciar via Toast*, *Nunca restaurar*), auto-reconexão remota SSH e restauração de painéis da interface.
 - **Command Palette (`Ctrl + Shift + P`)**: Interface modal spotlight para busca rápida e execução instantânea de todas as ações do terminal, abas, divisão de telas, sessões SSH, assistente de IA, regras de realce e preferências com suporte a busca fuzzy, navegação por teclado (`Up`/`Down`/`Enter`) e atalhos customizáveis.
 - **Indexação Dinâmica de Sessões SSH na Command Palette**: Pesquisa rápida por nome, host ou usuário com conexão direta em 1 clique ou via teclado.
 - **Sincronização Multilíngue Automatizada (28 Idiomas)**: Criação de `scripts/sync_translations.py` integrado aos fluxos de compilação Flatpak e DEB, garantindo a sincronização e tradução em lote de todas as novas mensagens e ações para todos os 28 idiomas suportados pelo Zashterminal (`en`, `es`, `fr`, `de`, `it`, `zh`, `ja`, `ru`, `pt`, etc.).
 
 ### Corrigido
+- **Highlighting de Código JSON e Logs no Chat de IA**: Correção de look-behind de largura variável (`re.error: look-behind requires fixed-width pattern`) em tempo de execução no Python < 3.12 e ajuste de parâmetros no `ThreadSafeLogger.warning`.
 - **Execução Direta de Ações na Command Palette**: Vinculação direta aos métodos do `WindowActions`, `tab_manager` e da janela principal, garantindo que `Enter` ou clique acionem imediatamente a ação selecionada (como abrir o chat de IA, criar abas ou dividir telas).
 - **Escopo de Variável de Tradução na Command Palette**: Correção de `UnboundLocalError` em `_build_catalog` causado por shadowing da função `_()` durante o desempacotamento de sessões salvas.
 

@@ -35,15 +35,16 @@
 
 
 ### 📌 1.2. Restauração Automática e Inteligente de Sessões (Session Restore)
-- [ ] **Descrição:** Salvar e restaurar o estado completo da aplicação entre fechamentos e reinicializações.
-- [ ] **Estado a Restaurar:** Abas ativas, layouts em split, diretórios correntes (`$PWD`), sessões SSH abertas (com opção de auto-reconexão), histórico recente e visibilidade do painel de IA.
-- [ ] **Modos de Operação:**
-  - `Nunca restaurar` (iniciar limpo no `$HOME`).
-  - `Restaurar layout e abas`.
-  - `Restaurar layout, diretórios e histórico recente`.
-  - `Perguntar ao iniciar`.
-- [ ] **Prioridade:** 🔴 Alta | **Esforço:** Alto | **Alvo:** `v0.9.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/state/`, `src/zashterminal/sessions/manager.py`.
+- [x] **Descrição:** Salvar e restaurar o estado completo da aplicação entre fechamentos e reinicializações.
+- [x] **Estado Restaurado:** Abas ativas, layouts em split, diretórios correntes (`$PWD`), sessões SSH abertas (com opção de auto-reconexão), histórico e visibilidade do painel de IA/barras laterais.
+- [x] **Modos de Operação nas Preferências:**
+  - `Sempre restaurar sessão anterior` (padrão com foco e estado completo).
+  - `Perguntar ao iniciar` (toast não-intrusivo de restauração com 1 clique).
+  - `Nunca restaurar` (inicia limpo no `$HOME`).
+  - Switches de configuração: Auto-reconexão SSH e restauração de painéis da UI.
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/zashterminal/state/window_state.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/window.py`, `src/zashterminal/ui/dialogs/preferences_dialog.py`).
+- [x] **Prioridade:** 🔴 Alta | **Esforço:** Alto | **Alvo:** `v0.9.0`
+- [x] **Módulos Afetados:** `src/zashterminal/state/window_state.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/window.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/ui/dialogs/preferences_dialog.py`.
 
 ### 📌 1.3. Integração Semântica com Shell (OSC 133 / Semantic Prompts)
 - [ ] **Descrição:** Suporte a sequências de controle OSC 133 (FinalTerm / iTerm2 semantics) para marcação inteligente de prompts, comandos e saídas do shell.
