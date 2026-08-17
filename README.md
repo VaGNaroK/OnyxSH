@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <strong>Um emulador de terminal moderno para desenvolvedores, infraestrutura e administração de sistemas</strong>
+  <strong>Um emulador de terminal moderno com IA, SSH e inteligência semântica para desenvolvedores e administradores de sistemas</strong>
 </p>
 <p align="center">
   <a href="https://github.com/VaGNaroK/OnyxSH/blob/main/LICENSE"><img src="https://img.shields.io/badge/Licen%C3%A7a-GPL--3.0-green.svg" alt="Licença"/></a>
@@ -18,25 +18,26 @@
 </p>
 
 > [!NOTE]
-> Este projeto é um fork aprimorado do [OnyxSH](https://github.com/leoberbert/onyxsh) com foco em segurança avançada, **Modo Agente Seguro (Zero Direct Execution)**, integração Polkit, trilha de auditoria append-only, rollback byte-identical e instalador unificado.
+> O **OnyxSH** é uma evolução independente e hard fork do [Zashterminal](https://github.com/leoberbert/zashterminal) (criado originalmente por Leonardo Berbert). O projeto traz uma identidade renovada com integração profunda de Inteligência Artificial, rastreamento semântico de shell (OSC 133), histórico enriquecido de comandos em SQLite, Command Palette, restauração automática de sessões e suporte multilíngue em 28 idiomas.
 
-O **OnyxSH** é um terminal moderno, intuitivo e poderoso construído em GTK4 e Libadwaita. Ele combina recursos avançados para desenvolvedores e administradores de sistemas (DevOps/SRE) com uma interface amigável e acessível. Gerenciamento de sessões integrado, painel lateral de arquivos remotos, realce de sintaxe em tempo real e ferramentas focadas em produtividade tornam o uso do shell muito mais eficiente no Linux.
+O **OnyxSH** é um terminal moderno, intuitivo e de alto desempenho construído em GTK4 e Libadwaita. Ele combina recursos avançados para desenvolvedores e administradores de sistemas (DevOps/SRE) com uma interface nativa elegante, rápida e limpa.
 
 ---
 
 ## Por que o OnyxSH?
 
-- **Focado em Fluxos de Trabalho Reais**: Gerencie sessões SSH/SFTP, divisões de painéis (*split panes*) e layouts sem sair da janela do terminal.
-- **Acessível e Intuitivo**: Interface limpa, configurações inteligentes e atalhos fáceis de descobrir.
-- **Assistência de IA Segura e Opcional**: Somente o texto que você selecionar explicitamente é enviado, mantendo privacidade e controle total.
-- **Modo Agente Seguro**: Execução de planos assistidos por IA mediada por políticas, confirmações visuais de diff, elevação Polkit e rollback automático.
-- **Visual Moderno e Nativo**: Construído em GTK4 + Libadwaita com suporte a temas claros e escuros e transparência fluida.
+- **Assistência de IA Integrada e Privativa**: Diagnóstico de erros com 1 clique, múltiplos provedores (Ollama local, Gemini, Groq, OpenRouter), pré-carregamento e gestão inteligente de VRAM.
+- **Integração Semântica com Shell (OSC 133 / OSC 6)**: Rastreia o ciclo de vida de cada comando, mede o tempo de execução (ex: `⏱ 1.4s`), permite saltos rápidos entre prompts (`Alt + Up` / `Alt + Down`) e extração cirúrgica de saída.
+- **Histórico Enriquecido em SQLite (`Ctrl + R`)**: Busca fuzzy instantânea com filtros contextuais (diretório atual, host remoto, favoritos ⭐), contadores de execução e inserção direta no prompt (`Tab`).
+- **Command Palette Spotlight (`Ctrl + Shift + P`)**: Busca rápida e execução de qualquer comando, ação de aba, configuração ou sessão SSH via teclado.
+- **Restauração Automática de Sessões**: Restaura abas, painéis divididos (*splits*), diretórios correntes `$PWD` e sessões SSH entre inicializações.
+- **Gestão Completa de Conexões Remotas**: Árvore de sessões SSH/SFTP em pastas, servidor TFTP integrado, transferência Drag & Drop e edição remota transparente de arquivos.
+- **Visual Moderno e Nativo**: Construído com Libadwaita, suporte a modo escuro/claro, transparência e temas de cores customizáveis.
+- **Internacionalização Completa**: Traduzido e sincronizado em **28 idiomas**.
 
 ---
 
 ## Migração do SecureCRT & Compatibilidade PAM
-
-Facilite a migração de ferramentas legadas para o OnyxSH:
 
 - **Importação Direta de Sessões do SecureCRT**: Importe sessões pelo menu principal (`Importar Sessões do SecureCRT`).
 - **Importação em Lote de Árvores de Diretórios**: Suporte a pastas completas com arquivos `.ini`.
@@ -61,25 +62,28 @@ Facilite a migração de ferramentas legadas para o OnyxSH:
 
 <img width="1457" height="699" alt="Painel do Assistente de IA" src="https://github.com/user-attachments/assets/762fa599-a266-41c3-83c2-f28fe825f0f6" />
 
-<img width="1457" height="699" alt="Sugestões e Execução de Comandos" src="https://github.com/user-attachments/assets/4dd9482b-420d-4170-878d-e9a652493ec9" />
-
-O OnyxSH integra Modelos de Linguagem (LLMs) ao terminal de forma não-intrusiva e com foco estrito em privacidade e desempenho:
 * **Múltiplos Provedores**: Suporte nativo a **Modelos Locais** (Ollama / LM Studio), **Groq**, **Google Gemini** e **OpenRouter**.
 * **Detecção Automática de GPU & VRAM**: Reconhece placas NVIDIA (`nvidia-smi`), AMD/Intel (DRM sysfs) e memória do sistema, calculando o limite seguro de contexto.
 * **Seletor de Janela de Contexto (4K a 128K tokens)**: Permite ajustar a janela de contexto enviada ao Ollama (`num_ctx`) com recomendação dinâmica baseada na VRAM da GPU.
 * **Ciclo de Vida Inteligente de VRAM**:
   - **Pré-carregamento Assíncrono:** Carrega o modelo local na VRAM em segundo plano ao abrir o terminal (zero espera no primeiro comando).
   - **Descarregamento Automático:** Libera a VRAM da GPU imediatamente ao fechar o terminal.
-* **Retenção Contínua de Histórico (Sliding Window)**: Janela deslizante token-aware que preserva instruções e contexto relevante em conversas longas sem exceder os limites do modelo.
-* **Painel Lateral Dedicado**: Histórico de conversas, sugestões de comandos e botões para executar com um clique.
+* **Diagnóstico de Erros em 1 Clique**: Ao ocorrer um erro no shell (`exit_code != 0`), um badge interativo permite enviar a saída diretamente para análise com a IA.
 
 ---
 
-### 🛡️ Modo Agente Seguro (Secure Agent Mode)
+### 🔍 Command Palette (`Ctrl + Shift + P`) & Histórico SQLite (`Ctrl + R`)
 
-O **Modo Agente Seguro** permite ao assistente de IA planejar e realizar tarefas complexas com supervisão do usuário e garantias de segurança rigorosas.
+* **Command Palette**: Diálogo modal spotlight que indexa todas as ações da interface, abas, layouts, assistente de IA, regras de realce e sessões SSH com pesquisa fuzzy.
+* **Histórico Enriquecido**: Gravação estruturada em SQLite de cada comando executado, diretório `$PWD`, duração, data/hora e status.
+  - **Filtros por Pílulas:** *Todos*, *Diretório Atual*, *Host Remoto*, *⭐ Favoritos*.
+  - **Atalhos Rápidos:** `Enter` (executar), `Tab` (inserir no prompt para edição), `Ctrl + P` (fixar como favorito), `Delete` (excluir).
 
-Ao contrário de agentes tradicionais que executam comandos arbitrários no shell, o OnyxSH adota uma arquitetura de **Zero Direct Execution**:
+---
+
+### 🛡️ Modo Agente Seguro (Zero Direct Execution)
+
+Arquitetura de segurança estrita para execução assistida por IA:
 
 ```
 [ Usuário ] ── Solicitação ──▶ [ LLM Provider (Groq / Gemini / Ollama) ]
@@ -105,47 +109,9 @@ Ao contrário de agentes tradicionais que executam comandos arbitrários no shel
                              [ AuditLog + Rollback JSONL ]
 ```
 
-#### Níveis de Risco Estratificados
-
-| Nível | Categoria | Exemplos | Mecanismo de Aprovação |
-|---|---|---|---|
-| 🟢 **Nível 0** | Leitura Segura | `ls`, `df -h`, `free -m`, `uptime`, `ip route` | **1 Clique:** `[▶ Executar]` ou `[🧪 Simular]` |
-| 🔵 **Nível 1** | Escrita no Usuário | Criação e edição de arquivos na home | **Revisão de Diff:** visualização unificada com backup automático prévio |
-| 🟠 **Nível 2** | Administração do Sistema | Limpeza de logs do journal, manutenção de pacotes | **Elevação Polkit:** autenticação gráfica via `onyxsh-admin-helper` |
-| 🔴 **Nível 3** | Ação Crítica | Desinstalação de dependências do sistema | **Confirmação Explícita** |
-| ⛔ **Nível 4** | Bloqueado / Proibido | `rm -rf /`, `mkfs.*`, `dd of=/dev/sd*`, `chmod 777 /` | **Bloqueio Intransponível:** botão desabilitado na interface |
-
-#### Garantias de Segurança
-- **Isolamento de Contexto:** Saídas externas e terminais são envelopadas em `<untrusted>...</untrusted>` para prevenir injeções indiretas de prompt.
-- **Redator Automático de Segredos:** Mascara chaves de API, chaves privadas RSA/PGP e credenciais antes do envio para modelos remotos.
-- **PathGuard Anti-Bypass:** Bloqueia leitura e escrita em credenciais (`~/.ssh`, `~/.aws`, `.env`) e dotfiles de inicialização (`.bashrc`, `.zshrc`), resolvendo links simbólicos antes da checagem.
-- **Trilha de Auditoria e Rollback:** Histórico contínuo em `audit.jsonl` com possibilidade de reverter alterações de arquivos com integridade SHA-256 garantida.
-
-Consulte o documento completo em [docs/SECURITY.md](docs/SECURITY.md) para detalhes técnicos.
-
----
-
-### 📂 Gerenciador de Arquivos e Edição Remota
-
-<img width="1457" height="699" alt="Navegação de Arquivos" src="https://github.com/user-attachments/assets/a40bd623-eb31-4a8b-9fe2-e327d8b7de0c" />
-
-- **Painel de Arquivos Integrado**: Navegue no sistema de arquivos local e remoto sem precisar de ferramentas externas.
-- **Edição Remota Transparente**: Abra arquivos remotos no seu editor local; ao salvar, as alterações são sincronizadas automaticamente via SFTP/SCP.
-- **Transferência por Arraste (Drag & Drop)**: Envie arquivos para servidores remotos arrastando-os para o terminal.
-- **Gerenciador de Transferências**: Acompanhe o progresso de uploads e downloads.
-
----
-
-### ⚡ Produtividade e Administração
-
-<img width="1457" height="699" alt="Broadcast de Comandos" src="https://github.com/user-attachments/assets/97aae8ed-6466-46b9-b7e4-ca1256f425ff" />
-
-- **Broadcast de Entrada**: Digite comandos em um terminal e replique-os simultaneamente em várias abas/painéis selecionados.
-- **Quick Prompts**: Ações de um clique para diagnóstico rápido (ex: "Explicar este erro", "Otimizar comando").
-- **Gerenciamento de Sessões**: Salve e organize conexões Locais, SSH e SFTP em pastas personalizadas.
-- **Divisão de Telas e Layouts**: Divida painéis horizontal e verticalmente e salve layouts complexos.
-- **Rastreamento de Diretório (OSC7)**: Atualiza o título das abas automaticamente conforme o diretório de trabalho.
-- **Realce de Sintaxe em Tempo Real**: Mais de 50 regras integradas (docker, git, systemctl, kubectl, etc.).
+- **Redator Automático de Segredos:** Mascara chaves de API, chaves privadas SSH e credenciais antes do envio para modelos remotos.
+- **PathGuard Anti-Bypass:** Bloqueia leitura e escrita em credenciais (`~/.ssh`, `~/.aws`, `.env`) e dotfiles de inicialização (`.bashrc`, `.zshrc`).
+- **Trilha de Auditoria e Rollback:** Histórico contínuo em `audit.jsonl` com reversão de alterações com integridade SHA-256 garantida.
 
 ---
 
@@ -153,11 +119,9 @@ Consulte o documento completo em [docs/SECURITY.md](docs/SECURITY.md) para detal
 
 ### 📦 Flatpak (Recomendado para Qualquer Distribuição Linux)
 
-O pacote Flatpak oferece isolamento seguro e compatibilidade universal (Fedora, Manjaro, Arch Linux, Debian, Ubuntu, openSUSE, etc.):
-
 ```bash
-# Instalar bundle gerado:
-flatpak install --user dist/onyxsh_0.8.17.flatpak -y
+# Instalar o bundle gerado:
+flatpak install --user -y --reinstall dist/onyxsh_0.9.0.flatpak
 
 # Executar:
 flatpak run io.github.vagnarok.OnyxSH
@@ -165,106 +129,50 @@ flatpak run io.github.vagnarok.OnyxSH
 
 ### 📦 Pacote Debian (.deb - Ubuntu, Linux Mint, Debian)
 
-Para distribuições baseadas em Debian:
-
 ```bash
-# Instalar pacote .deb:
-sudo apt install ./dist/onyxsh_0.8.17_all.deb
-# Ou: sudo dpkg -i ./dist/onyxsh_0.8.17_all.deb
+sudo apt install ./dist/onyxsh_0.9.0_all.deb
 ```
 
 ### ⚡ Instalador Universal & Empacotamento Híbrido (`install.sh`)
 
-O script `install.sh` é modular e suporta instalação local, compilação de pacotes e menu interativo:
-
 ```bash
-# Instalação rápida no sistema:
-curl -fsSL https://raw.githubusercontent.com/VaGNaroK/OnyxSH/refs/heads/main/install.sh | bash
-
-# Ou clonando o repositório:
-git clone https://github.com/VaGNaroK/OnyxSH.git
-cd OnyxSH
-
 # Instalar no sistema:
 ./install.sh install
 
-# Gerar pacote .deb:
-./install.sh package deb --clean-cache
-
 # Gerar pacote Flatpak:
-./install.sh package flatpak --clean-cache
+./scripts/build_flatpak.sh --clean-cache
 
-# Abrir menu de opções e empacotamento:
-./install.sh menu
+# Gerar pacote .deb:
+./scripts/build_deb.sh --clean-cache
 ```
-
-### Arch Linux / Manjaro
-
-> [!IMPORTANT]
-> O pacote `onyxsh` presente no AUR oficial aponta para a versão legada upstream. Para obter esta versão Fork aprimorada com todos os novos recursos (Modo Agente, VRAM, Flatpak), instale clonando o repositório ou via Flatpak:
-
-```bash
-git clone https://github.com/VaGNaroK/OnyxSH.git
-cd OnyxSH
-./install.sh install
-```
-
-### NixOS
-
-No NixOS, utilize a flake do projeto (`flake.nix` / `default.nix`):
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/VaGNaroK/OnyxSH/refs/heads/main/install.sh | bash
-```
-
-### WSL no Windows (Experimental)
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/VaGNaroK/OnyxSH/refs/heads/main/install.sh | bash
-```
-
 
 ---
 
-## 💻 Uso
+## 💻 Atalhos Padrão
 
-```bash
-onyxsh [opções] [diretório]
-```
-
-### Opções da Linha de Comando
-
-| Opção | Descrição |
+| Atalho | Ação |
 |---|---|
-| `-w, --working-directory DIR` | Define o diretório inicial de trabalho |
-| `-e, -x, --execute COMANDO` | Executa um comando ao iniciar |
-| `--close-after-execute` | Fecha a aba após a execução do comando terminar |
-| `--ssh [USUARIO@]HOST` | Conecta-se diretamente a um host SSH |
-| `--new-window` | Força a abertura em uma nova janela em vez de aba |
-
-### Exemplos
-
-```bash
-# Abrir no diretório do projeto
-onyxsh ~/projetos
-
-# Conectar diretamente a um servidor SSH
-onyxsh --ssh usuario@servidor.exemplo.com
-
-# Executar comando e fechar após término
-onyxsh --close-after-execute -e "htop"
-```
+| **`F2`** | Abrir Janela de Preferências |
+| **`Ctrl + R`** | Histórico Enriquecido de Comandos (SQLite) |
+| **`Ctrl + Shift + P`** | Command Palette |
+| **`Alt + Up` / `Alt + Down`** | Navegar entre Prompts Anteriores e Posteriores |
+| **`Ctrl + Shift + T`** | Nova Aba |
+| **`Ctrl + Shift + W`** | Fechar Aba / Painel Ativo |
+| **`Ctrl + Shift + D`** | Dividir Terminal Horizontalmente |
+| **`Ctrl + Shift + E`** | Dividir Terminal Verticalmente |
+| **`Ctrl + Shift + F`** | Buscar no Terminal |
 
 ---
 
 ## ⚙️ Arquivos de Configuração
 
-As configurações são salvas em `~/.config/onyxsh/`:
+As configurações são salvas em `~/.config/onyxsh/` (com migração automática transparente de `~/.config/zashterminal`):
 
 | Arquivo / Pasta | Descrição |
 |---|---|
 | `settings.json` | Preferências gerais, aparência, atalhos e configurações de IA |
 | `sessions.json` | Conexões salvas de SSH/SFTP e pastas de sessão |
+| `command_history.db` | Banco de dados SQLite do histórico enriquecido de comandos |
 | `session_state.json` | Estado das abas e restauração de sessão |
 | `layouts/` | Layouts de janelas e divisão de painéis salvos |
 | `backups/` | Backups e arquivos de manifesto |
@@ -275,7 +183,7 @@ As configurações são salvas em `~/.config/onyxsh/`:
 
 Contribuições, correções e sugestões são muito bem-vindas!
 
-1. Faça um Fork do projeto.
+1. Faça um Fork do projeto (`https://github.com/VaGNaroK/OnyxSH`).
 2. Crie uma branch para sua funcionalidade (`git checkout -b feature/minha-melhoria`).
 3. Commit suas alterações (`git commit -m 'feat: adiciona nova funcionalidade'`).
 4. Envie para o branch (`git push origin feature/minha-melhoria`).
@@ -291,5 +199,5 @@ Este projeto é distribuído sob a licença **GNU General Public License v3 (GPL
 
 ## 👏 Créditos e Agradecimentos
 
-- **Projeto Original:** Este repositório é um fork do projeto [OnyxSH](https://github.com/leoberbert/onyxsh), criado originalmente por **Leonardo Berbert**.
+- **Projeto Original:** Baseado originalmente no [Zashterminal](https://github.com/leoberbert/zashterminal), criado por **Leonardo Berbert**.
 - Agradecimentos aos desenvolvedores e comunidades do **GNOME**, **GTK**, **libadwaita**, **VTE** e **Pygments**.
