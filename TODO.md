@@ -1,9 +1,9 @@
-# 📋 Roadmap & Backlog de Novas Funcionalidades (TODO) — Zashterminal
+# 📋 Roadmap & Backlog de Novas Funcionalidades (TODO) — OnyxSH
 
 > **Documento de Planejamento e Backlog Técnico**  
-> **Versão Base:** `0.8.19` | **Data:** 16 de Agosto de 2026  
+> **Versão:** `0.9.0` | **Data:** 17 de Agosto de 2026  
 > **Origem:** Análise de gaps e propostas arquiteturais em `newfeatures.txt`  
-> **Critério de Filtragem:** *Todas as funcionalidades já implementadas no Zashterminal foram descartadas. Este documento contém exclusivamente propostas futuras organizadas por prioridade, complexidade técnica e marcos de versão.*
+> **Critério de Filtragem:** *Todas as funcionalidades já implementadas no OnyxSH foram descartadas. Este documento contém exclusivamente propostas futuras organizadas por prioridade, complexidade técnica e marcos de versão.*
 
 ---
 
@@ -11,14 +11,14 @@
 
 ```
                     ┌──────────────────────────────────────┐
-                    │       ZASHTERMINAL ROADMAP           │
+                    │          ONYXSH ROADMAP              │
                     └──────────────────┬───────────────────┘
                                        │
       ┌─────────────────┬──────────────┴───────┬─────────────────┐
       │                 │                      │                 │
 ┌─────▼──────────┐ ┌────▼──────────┐ ┌─────────▼────────┐ ┌──────▼──────────┐
-│  1. Core UX &  │ │  2. Zash      │ │ 3. IA Avançada   │ │  4. Qualidade & │
-│  Produtividade │ │  Guard (Sec)  │ │ & Zash Bridge    │ │  Confiabilidade │
+│  1. Core UX &  │ │  2. Onyx      │ │ 3. IA Avançada   │ │  4. Qualidade & │
+│  Produtividade │ │  Guard (Sec)  │ │ & Onyx Bridge    │ │  Confiabilidade │
 └────────────────┘ └───────────────┘ └──────────────────┘ └─────────────────┘
 ```
 
