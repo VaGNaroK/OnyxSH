@@ -6,7 +6,15 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ---
 
+## [0.8.20] - 2026-08-16
+ 
+### Adicionado
+- **Command Palette (`Ctrl + Shift + P`)**: Interface modal spotlight para busca rápida e execução instantânea de todas as ações do terminal, abas, divisão de telas, sessões SSH, assistente de IA, regras de realce e preferências com suporte a busca fuzzy, navegação por teclado (`Up`/`Down`/`Enter`) e atalhos customizáveis.
+
+---
+
 ## [0.8.18] - 2026-08-16
+
 
 ### Adicionado
 - **Arquitetura Híbrida de Empacotamento**:

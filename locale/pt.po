@@ -8875,3 +8875,174 @@ msgstr "Conversa exportada com sucesso."
 msgid "Failed to export conversation: {}"
 msgstr "Falha ao exportar conversa: {}"
 
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Paleta de Comandos"
+msgstr "Paleta de Comandos"
+
+# 
+# File: src/zashterminal/ui/dialogs/shortcuts_dialog.py
+msgid "Command Palette"
+msgstr "Paleta de Comandos"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Digite um comando ou busque uma ação..."
+msgstr "Digite um comando ou busque uma ação..."
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Abas e Janelas"
+msgstr "Abas e Janelas"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Divisão de Telas"
+msgstr "Divisão de Telas"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Sessões & SSH"
+msgstr "Sessões & SSH"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Fechar Aba Atual"
+msgstr "Fechar Aba Atual"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Aba Anterior"
+msgstr "Aba Anterior"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Dividir Painel Horizontalmente"
+msgstr "Dividir Painel Horizontalmente"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Dividir Painel Verticalmente"
+msgstr "Dividir Painel Verticalmente"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Fechar Painel Dividido"
+msgstr "Fechar Painel Dividido"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Focar Painel Acima"
+msgstr "Focar Painel Acima"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Focar Painel Abaixo"
+msgstr "Focar Painel Abaixo"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Focar Painel à Esquerda"
+msgstr "Focar Painel à Esquerda"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Focar Painel à Direita"
+msgstr "Focar Painel à Direita"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Copiar Seleção"
+msgstr "Copiar Seleção"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Colar Área de Transferência"
+msgstr "Colar Área de Transferência"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Limpar Tela do Terminal"
+msgstr "Limpar Tela do Terminal"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Buscar no Terminal"
+msgstr "Buscar no Terminal"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Modo Transmissão (Comando p/ Todas as Abas)"
+msgstr "Modo Transmissão (Comando p/ Todas as Abas)"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Aumentar Zoom / Tamanho da Fonte"
+msgstr "Aumentar Zoom / Tamanho da Fonte"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Diminuir Zoom / Tamanho da Fonte"
+msgstr "Diminuir Zoom / Tamanho da Fonte"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Resetar Zoom"
+msgstr "Resetar Zoom"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Assistente de IA (Abrir / Fechar)"
+msgstr "Assistente de IA (Abrir / Fechar)"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Configurar Provedores e Modelos de IA"
+msgstr "Configurar Provedores e Modelos de IA"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Painel Lateral de Sessões SSH"
+msgstr "Painel Lateral de Sessões SSH"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Gerenciador de Arquivos SFTP"
+msgstr "Gerenciador de Arquivos SFTP"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Gerenciador de Comandos e Snippets"
+msgstr "Gerenciador de Comandos e Snippets"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Servidor TFTP Embutido"
+msgstr "Servidor TFTP Embutido"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Salvar Layout de Sessões Atual"
+msgstr "Salvar Layout de Sessões Atual"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Importar Sessões do SecureCRT"
+msgstr "Importar Sessões do SecureCRT"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Preferências do Zashterminal"
+msgstr "Preferências do Zashterminal"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Atalhos de Teclado"
+msgstr "Atalhos de Teclado"
+
+# 
+# File: src/zashterminal/ui/dialogs/command_palette_dialog.py
+msgid "Regras de Realce Sintático e Temas"
+msgstr "Regras de Realce Sintático e Temas"
+
+

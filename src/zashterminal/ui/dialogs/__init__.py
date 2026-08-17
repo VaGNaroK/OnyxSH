@@ -2,6 +2,7 @@ from .agent_scope_dialog import AgentScopeDialog
 from .audit_log_dialog import AuditLogDialog
 from .base_dialog import BaseDialog
 from .command_manager_dialog import CommandManagerDialog
+from .command_palette_dialog import CommandPaletteDialog
 from .diff_review_dialog import DiffReviewDialog
 from .folder_edit_dialog import FolderEditDialog
 from .highlight_dialog import HighlightDialog, RuleEditDialog
@@ -14,6 +15,7 @@ from .tftp_server_dialog import TftpServerDialog
 __all__ = [
     "BaseDialog",
     "CommandManagerDialog",
+    "CommandPaletteDialog",
     "FolderEditDialog",
     "HighlightDialog",
     "RuleEditDialog",
@@ -27,3 +29,4 @@ __all__ = [
     "AuditLogDialog",
     "AgentScopeDialog",
 ]
+

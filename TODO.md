@@ -27,10 +27,12 @@
 ## 1. Experiência de Terminal & Produtividade (Core UX)
 
 ### 📌 1.1. Command Palette (`Ctrl + Shift + P`)
-- [ ] **Descrição:** Interface de busca fuzzy centralizada (estilo VS Code / Sublime Text) para invocar qualquer ação do terminal sem navegar por menus.
-- [ ] **Ações Disponíveis:** Nova aba, divisão horizontal/vertical, alternar temas, abrir configurações, conectar em sessões SSH, abrir SFTP, exportar conversas, limpar histórico, abrir log de auditoria.
-- [ ] **Prioridade:** 🔴 Alta | **Esforço:** Médio | **Alvo:** `v0.9.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/ui/widgets/`, `src/zashterminal/ui/actions.py`.
+- [x] **Descrição:** Interface de busca fuzzy centralizada (estilo VS Code / Sublime Text) para invocar qualquer ação do terminal sem navegar por menus.
+- [x] **Ações Disponíveis:** Nova aba, divisão horizontal/vertical, alternar temas, abrir configurações, conectar em sessões SSH, abrir SFTP, exportar conversas, limpar histórico, abrir log de auditoria.
+- [x] **Status:** ✅ Implementado na versão `0.8.20` (`src/zashterminal/ui/dialogs/command_palette_dialog.py`).
+- [x] **Prioridade:** 🔴 Alta | **Esforço:** Médio | **Alvo:** `v0.9.0`
+- [x] **Módulos Afetados:** `src/zashterminal/ui/dialogs/command_palette_dialog.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/app.py`, `src/zashterminal/settings/config.py`.
+
 
 ### 📌 1.2. Restauração Automática e Inteligente de Sessões (Session Restore)
 - [ ] **Descrição:** Salvar e restaurar o estado completo da aplicação entre fechamentos e reinicializações.

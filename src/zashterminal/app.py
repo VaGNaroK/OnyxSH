@@ -273,6 +273,7 @@ class CommTerminalApp(Adw.Application):
                 "previous-tab",
                 "toggle-broadcast",
                 "ai-assistant",
+                "command-palette",
             ]
             for action_name in shortcut_actions:
                 shortcut = self.settings_manager.get_shortcut(action_name)

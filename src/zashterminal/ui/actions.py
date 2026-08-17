@@ -76,6 +76,7 @@ class WindowActions:
             "toggle-tftp-server": self.toggle_tftp_server,
             "preferences": self.preferences,
             "shortcuts": self.shortcuts,
+            "command-palette": self.command_palette,
             "new-window": self.new_window,
             "save-layout": self.save_layout,
         }
@@ -540,6 +541,13 @@ class WindowActions:
         from .dialogs import ShortcutsDialog
         dialog = ShortcutsDialog(self.window)
         dialog.present()
+
+    def command_palette(self, *_args):
+        self._hide_tooltip()
+        from .dialogs.command_palette_dialog import CommandPaletteDialog
+        dialog = CommandPaletteDialog(self.window)
+        dialog.present()
+
 
     def new_window(self, *_args):
         if app := self.window.get_application():

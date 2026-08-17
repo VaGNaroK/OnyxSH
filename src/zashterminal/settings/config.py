@@ -369,6 +369,7 @@ class DefaultSettings:
                 "toggle-search": "<Control><Shift>f",
                 "toggle-broadcast": "<Control><Shift>b",
                 "ai-assistant": "<Control><Shift>i",
+                "command-palette": "<Control><Shift>p",
             },
         }
 
