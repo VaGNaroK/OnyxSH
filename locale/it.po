@@ -9253,3 +9253,47 @@ msgstr "Copia output"
 # 
 msgid "Copied!"
 msgstr "Copiato!"
+
+# 
+msgid "Saved successfully:"
+msgstr "Salvato con successo:"
+
+# 
+msgid "Failed to save file:"
+msgstr "Impossibile salvare il file:"
+
+# 
+msgid "Match Case"
+msgstr "Maiuscole/minuscole"
+
+# 
+msgid "Use Regular Expression (Regex)"
+msgstr "Usa espressione regolare (Regex)"
+
+# 
+msgid "Previous Match (Shift+Enter)"
+msgstr "Corrispondenza precedente (Shift+Invio)"
+
+# 
+msgid "Next Match (Enter)"
+msgstr "Corrispondenza successiva (Invio)"
+
+# 
+msgid "rest of output truncated in preview"
+msgstr "resto dell'output troncato nell'anteprima"
+
+# 
+msgid "Failed to render preview."
+msgstr "Impossibile visualizzare l'anteprima."
+
+# 
+msgid "Error copying to clipboard."
+msgstr "Errore durante la copia negli appunti."
+
+# 
+msgid "_Save"
+msgstr "_Salva"
+
+# 
+msgid "_Cancel"
+msgstr "_Annulla"

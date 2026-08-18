@@ -9260,3 +9260,47 @@ msgstr "Copiar Salida"
 # 
 msgid "Copied!"
 msgstr "¡Copiado!"
+
+# 
+msgid "Saved successfully:"
+msgstr "Guardado con éxito:"
+
+# 
+msgid "Failed to save file:"
+msgstr "Error al guardar el archivo:"
+
+# 
+msgid "Match Case"
+msgstr "Coincidir Mayúsculas/Minúsculas"
+
+# 
+msgid "Use Regular Expression (Regex)"
+msgstr "Usar Expresión Regular (Regex)"
+
+# 
+msgid "Previous Match (Shift+Enter)"
+msgstr "Coincidencia Anterior (Shift+Enter)"
+
+# 
+msgid "Next Match (Enter)"
+msgstr "Siguiente Coincidencia (Enter)"
+
+# 
+msgid "rest of output truncated in preview"
+msgstr "resto de la salida truncada en la vista previa"
+
+# 
+msgid "Failed to render preview."
+msgstr "Error al generar la vista previa."
+
+# 
+msgid "Error copying to clipboard."
+msgstr "Error al copiar al portapapeles."
+
+# 
+msgid "_Save"
+msgstr "_Guardar"
+
+# 
+msgid "_Cancel"
+msgstr "_Cancelar"

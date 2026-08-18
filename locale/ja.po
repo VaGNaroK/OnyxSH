@@ -9194,3 +9194,47 @@ msgstr "出力をコピー"
 # 
 msgid "Copied!"
 msgstr "コピー完了！"
+
+# 
+msgid "Saved successfully:"
+msgstr "保存に成功しました:"
+
+# 
+msgid "Failed to save file:"
+msgstr "ファイルの保存に失敗しました:"
+
+# 
+msgid "Match Case"
+msgstr "大文字と小文字を区別"
+
+# 
+msgid "Use Regular Expression (Regex)"
+msgstr "正規表現を使用 (Regex)"
+
+# 
+msgid "Previous Match (Shift+Enter)"
+msgstr "前の一致 (Shift+Enter)"
+
+# 
+msgid "Next Match (Enter)"
+msgstr "次の一致 (Enter)"
+
+# 
+msgid "rest of output truncated in preview"
+msgstr "プレビューで省略された残りの出力"
+
+# 
+msgid "Failed to render preview."
+msgstr "プレビューのレンダリングに失敗しました。"
+
+# 
+msgid "Error copying to clipboard."
+msgstr "クリップボードへのコピーでエラーが発生しました。"
+
+# 
+msgid "_Save"
+msgstr "保存(_S)"
+
+# 
+msgid "_Cancel"
+msgstr "キャンセル(_C)"

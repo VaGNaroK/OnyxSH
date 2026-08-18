@@ -9274,3 +9274,47 @@ msgstr "Ausgabe kopieren"
 # 
 msgid "Copied!"
 msgstr "Kopiert!"
+
+# 
+msgid "Saved successfully:"
+msgstr "Erfolgreich gespeichert:"
+
+# 
+msgid "Failed to save file:"
+msgstr "Fehler beim Speichern der Datei:"
+
+# 
+msgid "Match Case"
+msgstr "Groß-/Kleinschreibung beachten"
+
+# 
+msgid "Use Regular Expression (Regex)"
+msgstr "Regulären Ausdruck verwenden (Regex)"
+
+# 
+msgid "Previous Match (Shift+Enter)"
+msgstr "Vorheriger Treffer (Umschalt+Eingabe)"
+
+# 
+msgid "Next Match (Enter)"
+msgstr "Nächster Treffer (Eingabe)"
+
+# 
+msgid "rest of output truncated in preview"
+msgstr "Rest der Ausgabe in Vorschau abgeschnitten"
+
+# 
+msgid "Failed to render preview."
+msgstr "Vorschau konnte nicht gerendert werden."
+
+# 
+msgid "Error copying to clipboard."
+msgstr "Fehler beim Kopieren in die Zwischenablage."
+
+# 
+msgid "_Save"
+msgstr "_Speichern"
+
+# 
+msgid "_Cancel"
+msgstr "_Abbrechen"

@@ -9263,3 +9263,47 @@ msgstr "Copier la sortie"
 # 
 msgid "Copied!"
 msgstr "Copié !"
+
+# 
+msgid "Saved successfully:"
+msgstr "Enregistré avec succès :"
+
+# 
+msgid "Failed to save file:"
+msgstr "Échec de l'enregistrement du fichier :"
+
+# 
+msgid "Match Case"
+msgstr "Respecter la casse"
+
+# 
+msgid "Use Regular Expression (Regex)"
+msgstr "Utiliser une expression régulière (Regex)"
+
+# 
+msgid "Previous Match (Shift+Enter)"
+msgstr "Résultat précédent (Maj+Entrée)"
+
+# 
+msgid "Next Match (Enter)"
+msgstr "Résultat suivant (Entrée)"
+
+# 
+msgid "rest of output truncated in preview"
+msgstr "reste de la sortie tronqué dans l'aperçu"
+
+# 
+msgid "Failed to render preview."
+msgstr "Échec du rendu de l'aperçu."
+
+# 
+msgid "Error copying to clipboard."
+msgstr "Erreur lors de la copie dans le presse-papier."
+
+# 
+msgid "_Save"
+msgstr "_Enregistrer"
+
+# 
+msgid "_Cancel"
+msgstr "_Annuler"

@@ -9230,3 +9230,47 @@ msgstr "Копировать вывод"
 # 
 msgid "Copied!"
 msgstr "Скопировано!"
+
+# 
+msgid "Saved successfully:"
+msgstr "Успешно сохранено:"
+
+# 
+msgid "Failed to save file:"
+msgstr "Не удалось сохранить файл:"
+
+# 
+msgid "Match Case"
+msgstr "С учетом регистра"
+
+# 
+msgid "Use Regular Expression (Regex)"
+msgstr "Использовать регулярное выражение (Regex)"
+
+# 
+msgid "Previous Match (Shift+Enter)"
+msgstr "Предыдущее совпадение (Shift+Enter)"
+
+# 
+msgid "Next Match (Enter)"
+msgstr "Следующее совпадение (Enter)"
+
+# 
+msgid "rest of output truncated in preview"
+msgstr "остальной вывод обрезан в предпросмотре"
+
+# 
+msgid "Failed to render preview."
+msgstr "Не удалось отобразить предпросмотр."
+
+# 
+msgid "Error copying to clipboard."
+msgstr "Ошибка копирования в буфер обмена."
+
+# 
+msgid "_Save"
+msgstr "_Сохранить"
+
+# 
+msgid "_Cancel"
+msgstr "_Отмена"

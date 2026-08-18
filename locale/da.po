@@ -9241,3 +9241,47 @@ msgstr "Copy Output"
 # 
 msgid "Copied!"
 msgstr "Copied!"
+
+# 
+msgid "Saved successfully:"
+msgstr "Saved successfully:"
+
+# 
+msgid "Failed to save file:"
+msgstr "Failed to save file:"
+
+# 
+msgid "Match Case"
+msgstr "Match Case"
+
+# 
+msgid "Use Regular Expression (Regex)"
+msgstr "Use Regular Expression (Regex)"
+
+# 
+msgid "Previous Match (Shift+Enter)"
+msgstr "Previous Match (Shift+Enter)"
+
+# 
+msgid "Next Match (Enter)"
+msgstr "Next Match (Enter)"
+
+# 
+msgid "rest of output truncated in preview"
+msgstr "rest of output truncated in preview"
+
+# 
+msgid "Failed to render preview."
+msgstr "Failed to render preview."
+
+# 
+msgid "Error copying to clipboard."
+msgstr "Error copying to clipboard."
+
+# 
+msgid "_Save"
+msgstr "_Save"
+
+# 
+msgid "_Cancel"
+msgstr "_Cancel"
