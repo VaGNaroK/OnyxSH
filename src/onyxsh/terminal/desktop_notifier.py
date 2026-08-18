@@ -154,7 +154,55 @@ class DesktopNotifier:
 
             # 4. Dispatch via Application Portal / D-Bus with timestamp to force visual banner
             notif_id = f"onyxsh-cmd-{terminal_id}-{int(GLib.get_monotonic_time() / 1000)}"
-            app.send_notification(notif_id, notification)
+            try:
+                app.send_notification(notif_id, notification)
+            except Exception as e:
+                self.logger.warning(f"Gio.Notification failed: {e}")
+
+            # Also dispatch via notify-send for guaranteed visible desktop popup banner
+            try:
+                import shutil
+                import subprocess
+                from ..utils.platform import is_flatpak_sandbox
+
+                urgency = "normal" if cmd.is_success else "critical"
+                if is_flatpak_sandbox() and shutil.which("flatpak-spawn"):
+                    subprocess.Popen(
+                        [
+                            "flatpak-spawn",
+                            "--host",
+                            "notify-send",
+                            "-a",
+                            "OnyxSH",
+                            "-i",
+                            "utilities-terminal",
+                            "-u",
+                            urgency,
+                            title,
+                            body,
+                        ],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+                elif shutil.which("notify-send"):
+                    subprocess.Popen(
+                        [
+                            "notify-send",
+                            "-a",
+                            "OnyxSH",
+                            "-i",
+                            "utilities-terminal",
+                            "-u",
+                            urgency,
+                            title,
+                            body,
+                        ],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+            except Exception:
+                pass
+
             self.logger.info(
                 f"Dispatched long command desktop notification: {title} ({duration_str})"
             )

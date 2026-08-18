@@ -735,11 +735,58 @@ class TerminalManager:
             uri = terminal.get_current_directory_uri()
             if not uri:
                 return
-            from urllib.parse import unquote, urlparse
+            import base64
+            from urllib.parse import parse_qs, unquote, urlparse
 
             parsed_uri = urlparse(uri)
             if parsed_uri.scheme != "file":
                 return
+
+            # Process semantic prompt tokens in OSC 7 query string (immune to PS1 window title overrides)
+            if parsed_uri.query:
+                query_params = parse_qs(parsed_uri.query)
+                if "__zt_sem__" in query_params:
+                    sem_val = query_params["__zt_sem__"][0]
+                    parts = sem_val.split("__")
+                    for part in parts:
+                        if not part:
+                            continue
+                        if part.startswith("D_"):
+                            subparts = part.split("_", 2)
+                            exit_code_str = (
+                                subparts[1] if len(subparts) > 1 else "0"
+                            )
+                            cmd = self.semantic_tracker.handle_osc133(
+                                terminal, "D", exit_code_str
+                            )
+                            if len(subparts) > 2 and subparts[2] and cmd:
+                                try:
+                                    decoded_cmd = base64.b64decode(
+                                        subparts[2]
+                                    ).decode("utf-8", errors="replace").strip()
+                                    if decoded_cmd:
+                                        cmd.command_text = decoded_cmd
+                                except Exception:
+                                    pass
+                        elif part.startswith("C"):
+                            subparts = part.split("_", 1)
+                            cmd = self.semantic_tracker.handle_osc133(
+                                terminal, "C"
+                            )
+                            if len(subparts) > 1 and subparts[1] and cmd:
+                                try:
+                                    decoded_cmd = base64.b64decode(
+                                        subparts[1]
+                                    ).decode("utf-8", errors="replace").strip()
+                                    if decoded_cmd:
+                                        cmd.command_text = decoded_cmd
+                                except Exception:
+                                    pass
+                        elif part == "A":
+                            self.semantic_tracker.handle_osc133(terminal, "A")
+                        elif part == "B":
+                            self.semantic_tracker.handle_osc133(terminal, "B")
+
             path = unquote(parsed_uri.path)
             hostname = parsed_uri.hostname or "localhost"
             display_path = self.osc7_tracker.parser._create_display_path(path)
