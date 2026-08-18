@@ -254,10 +254,13 @@ class DesktopNotifier:
             )
 
             # Set interactive click action to focus the terminal/tab
-            notification.set_default_action_and_target_value(
-                "app.focus-terminal",
-                GLib.Variant("s", str(terminal_id)),
-            )
+            try:
+                notification.set_default_action_and_target(
+                    "app.focus-terminal",
+                    GLib.Variant("s", str(terminal_id)),
+                )
+            except Exception as e:
+                print(f"[NOTIF-DEBUG] Action target setup warning: {e}", flush=True)
 
             # 4. Dispatch via Application Portal / D-Bus with timestamp to force visual banner
             notif_id = f"onyxsh-cmd-{terminal_id}-{int(GLib.get_monotonic_time() / 1000)}"
