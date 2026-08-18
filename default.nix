@@ -13,7 +13,7 @@
 
 python3Packages.buildPythonApplication {
   pname = "onyxsh";
-  version = "0.8.25";
+  version = "0.9.0";
 
   src = ./.;
 

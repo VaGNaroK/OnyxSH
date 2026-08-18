@@ -36,7 +36,7 @@ jobs:
       - name: Upload .deb Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: zashterminal-deb
+          name: onyxsh-deb
           path: dist/*.deb
           if-no-files-found: error
 
@@ -51,16 +51,15 @@ jobs:
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6.2
         with:
-          bundle: zashterminal.flatpak
-          manifest-path: manifests/org.leoberbert.zashterminal.yaml
-          app-id: org.leoberbert.zashterminal
+          bundle: onyxsh.flatpak
+          manifest-path: manifests/io.github.vagnarok.OnyxSH.yaml
           cache-key: flatpak-builder-${{ github.sha }}
 
       - name: Upload Flatpak Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: zashterminal-flatpak
-          path: zashterminal.flatpak
+          name: onyxsh-flatpak
+          path: onyxsh.flatpak
           if-no-files-found: error
 
   release:
@@ -75,13 +74,13 @@ jobs:
       - name: Download .deb Artifact
         uses: actions/download-artifact@v4
         with:
-          name: zashterminal-deb
+          name: onyxsh-deb
           path: release-assets/
 
       - name: Download Flatpak Artifact
         uses: actions/download-artifact@v4
         with:
-          name: zashterminal-flatpak
+          name: onyxsh-flatpak
           path: release-assets/
 
       - name: Attach Assets to GitHub Release

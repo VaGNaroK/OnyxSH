@@ -56,6 +56,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/zashterminal/settings/config.py pyproject.toml default.nix PKGBUILD scripts/sync_version.py
+          git add src/onyxsh/settings/config.py pyproject.toml default.nix PKGBUILD scripts/sync_version.py
           git commit -m "Bump version to ${{ steps.sync.outputs.version }}"
           git push
