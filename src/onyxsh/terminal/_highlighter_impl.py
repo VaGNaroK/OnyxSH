@@ -647,9 +647,8 @@ class HighlightedTerminalProxy:
                     if match.group(2)
                     else ""
                 )
-                print(
-                    f"[NOTIF-DEBUG] PTY stream detected OSC 133: action={action}, param='{param}'",
-                    flush=True,
+                self.logger.debug(
+                    f"PTY stream detected OSC 133: action={action}, param='{param}'"
                 )
                 tracker.handle_osc133(term, action, param)
 
@@ -664,13 +663,12 @@ class HighlightedTerminalProxy:
                         if match.group(2)
                         else ""
                     )
-                    print(
-                        f"[NOTIF-DEBUG] PTY stream detected __zt_sem__: action={action}, param='{param}'",
-                        flush=True,
+                    self.logger.debug(
+                        f"PTY stream detected __zt_sem__: action={action}, param='{param}'"
                     )
                     tracker.handle_osc133(term, action, param)
         except Exception as e:
-            print(f"[NOTIF-DEBUG] PTY stream parsing error: {e}", flush=True)
+            self.logger.debug(f"PTY stream parsing error: {e}")
 
     def _on_pty_readable(self, fd: int, condition: GLib.IOCondition) -> bool:
         # 1. Fail fast if stopped or destroyed

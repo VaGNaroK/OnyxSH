@@ -47,24 +47,17 @@ class DesktopNotifier:
             "notify_long_commands_condition", "unfocused"
         )
 
-        print(
-            f"[NOTIF-DEBUG] Evaluating should_notify: enabled={enabled}, duration={duration:.2f}s, threshold={threshold:.1f}s, condition={condition}",
-            flush=True,
+        self.logger.debug(
+            f"Evaluating should_notify: enabled={enabled}, duration={duration:.2f}s, threshold={threshold:.1f}s, condition={condition}"
         )
 
         if not enabled:
-            print("[NOTIF-DEBUG] should_notify -> False (disabled in settings)", flush=True)
             return False
 
         if duration < threshold:
-            print(
-                f"[NOTIF-DEBUG] should_notify -> False (duration {duration:.2f}s < threshold {threshold:.1f}s)",
-                flush=True,
-            )
             return False
 
         if condition == "always":
-            print("[NOTIF-DEBUG] should_notify -> True (condition == always)", flush=True)
             return True
 
         # Unfocused condition: check if window is minimized, in background, or tab/terminal is not focused
@@ -87,9 +80,8 @@ class DesktopNotifier:
                 if selected_term is not None and selected_term != terminal:
                     is_tab_active = False
 
-            print(
-                f"[NOTIF-DEBUG] Focus state: window_active={is_window_active}, window_mapped={is_window_mapped}, tab_active={is_tab_active}, term_focus={has_terminal_focus}",
-                flush=True,
+            self.logger.debug(
+                f"Focus state: window_active={is_window_active}, window_mapped={is_window_mapped}, tab_active={is_tab_active}, term_focus={has_terminal_focus}"
             )
 
             # If the window is minimized, not active, tab is not selected, or terminal lost focus
@@ -99,14 +91,11 @@ class DesktopNotifier:
                 or not is_tab_active
                 or not has_terminal_focus
             ):
-                print("[NOTIF-DEBUG] should_notify -> True (unfocused condition met)", flush=True)
                 return True
 
             # If user is actively typing/looking at this specific terminal, suppress
-            print("[NOTIF-DEBUG] should_notify -> False (terminal is actively focused and window is active)", flush=True)
             return False
 
-        print("[NOTIF-DEBUG] should_notify -> True (no window reference)", flush=True)
         return True
 
     def send_test_notification(self, window: Optional[Any] = None) -> bool:
@@ -131,15 +120,9 @@ class DesktopNotifier:
             notif_id = f"onyxsh-test-{int(GLib.get_monotonic_time() / 1000)}"
             try:
                 app.send_notification(notif_id, notif)
-                print(
-                    f"[NOTIF-DEBUG] Gio.Notification test sent successfully: {notif_id}",
-                    flush=True,
-                )
+                self.logger.info(f"Gio.Notification test sent: {notif_id}")
             except Exception as e:
-                print(
-                    f"[NOTIF-DEBUG] Gio.Notification test error: {e}",
-                    flush=True,
-                )
+                self.logger.warning(f"Gio.Notification test error: {e}")
 
         # 2. notify-send
         try:
@@ -165,10 +148,7 @@ class DesktopNotifier:
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
-                print(
-                    "[NOTIF-DEBUG] flatpak-spawn notify-send test dispatched to host!",
-                    flush=True,
-                )
+                self.logger.info("flatpak-spawn notify-send test dispatched to host")
             elif shutil.which("notify-send"):
                 subprocess.Popen(
                     [
@@ -185,12 +165,9 @@ class DesktopNotifier:
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
-                print(
-                    "[NOTIF-DEBUG] direct notify-send test dispatched!",
-                    flush=True,
-                )
+                self.logger.info("direct notify-send test dispatched")
         except Exception as e:
-            print(f"[NOTIF-DEBUG] notify-send error: {e}", flush=True)
+            self.logger.warning(f"notify-send test error: {e}")
         return True
 
     def notify_command_finished(
@@ -203,9 +180,8 @@ class DesktopNotifier:
         Builds and sends a native desktop notification for a completed command.
         """
         try:
-            print(
-                f"[NOTIF-DEBUG] notify_command_finished called: command='{cmd.command_text}', duration={cmd.duration:.2f}s, exit_code={cmd.exit_code}",
-                flush=True,
+            self.logger.debug(
+                f"notify_command_finished called: command='{cmd.command_text}', duration={cmd.duration:.2f}s, exit_code={cmd.exit_code}"
             )
             if not self.should_notify(terminal, cmd, window):
                 return False
@@ -214,7 +190,7 @@ class DesktopNotifier:
             if not app and window and hasattr(window, "get_application"):
                 app = window.get_application()
             if not app:
-                print("[NOTIF-DEBUG] Warning: No Gio.Application found", flush=True)
+                self.logger.warning("No Gio.Application found for notification")
 
             terminal_id = getattr(terminal, "terminal_id", 0)
 
@@ -240,7 +216,15 @@ class DesktopNotifier:
                 if sess and getattr(sess, "host", None):
                     location_info = f" • {sess.host}"
             if not location_info and cmd.cwd:
-                location_info = f" • {cmd.cwd.split('/')[-1] or '/'}"
+                clean_cwd = cmd.cwd.split("?")[0].rstrip("/")
+                home_dir = str(pathlib.Path.home()).rstrip("/")
+                if clean_cwd == home_dir:
+                    dir_name = "~"
+                elif clean_cwd.startswith(home_dir + "/"):
+                    dir_name = f"~/{clean_cwd[len(home_dir)+1:]}"
+                else:
+                    dir_name = clean_cwd.split("/")[-1] if clean_cwd else "/"
+                location_info = f" • {dir_name}"
 
             body = f"{cmd_text}\n⏱ {duration_str}{location_info}"
 
@@ -260,19 +244,18 @@ class DesktopNotifier:
                     GLib.Variant("s", str(terminal_id)),
                 )
             except Exception as e:
-                print(f"[NOTIF-DEBUG] Action target setup warning: {e}", flush=True)
+                self.logger.debug(f"Action target setup warning: {e}")
 
             # 4. Dispatch via Application Portal / D-Bus with timestamp to force visual banner
             notif_id = f"onyxsh-cmd-{terminal_id}-{int(GLib.get_monotonic_time() / 1000)}"
             if app:
                 try:
                     app.send_notification(notif_id, notification)
-                    print(
-                        f"[NOTIF-DEBUG] Gio.Notification sent successfully: {notif_id}",
-                        flush=True,
+                    self.logger.info(
+                        f"Dispatched long command desktop notification: {title} ({duration_str})"
                     )
                 except Exception as e:
-                    print(f"[NOTIF-DEBUG] Gio.Notification error: {e}", flush=True)
+                    self.logger.warning(f"Gio.Notification error: {e}")
 
             # Also dispatch via notify-send for guaranteed visible desktop popup banner
             try:
@@ -299,10 +282,6 @@ class DesktopNotifier:
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL,
                     )
-                    print(
-                        f"[NOTIF-DEBUG] flatpak-spawn notify-send dispatched to host: title='{title}'",
-                        flush=True,
-                    )
                 elif shutil.which("notify-send"):
                     subprocess.Popen(
                         [
@@ -319,12 +298,8 @@ class DesktopNotifier:
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL,
                     )
-                    print(
-                        f"[NOTIF-DEBUG] direct notify-send dispatched: title='{title}'",
-                        flush=True,
-                    )
             except Exception as e:
-                print(f"[NOTIF-DEBUG] notify-send dispatch error: {e}", flush=True)
+                self.logger.debug(f"notify-send dispatch error: {e}")
 
             # 5. Sound alert if configured
             if self.settings_manager.get("notify_long_commands_sound", True):
