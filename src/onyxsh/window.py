@@ -278,9 +278,11 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         self.search_entry = self.ui_builder.sidebar_search_entry
         self.search_prev_button = self.ui_builder.search_prev_button
         self.search_next_button = self.ui_builder.search_next_button
+        self.search_export_button = self.ui_builder.search_export_button
         self.search_occurrence_label = self.ui_builder.search_occurrence_label
         self.case_sensitive_switch = self.ui_builder.case_sensitive_switch
         self.regex_switch = self.ui_builder.regex_switch
+        self.whole_word_switch = self.ui_builder.whole_word_switch
         self.command_toolbar = self.ui_builder.command_toolbar
         self.tab_manager.scrolled_tab_bar = self.scrolled_tab_bar
 
@@ -343,21 +345,37 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         self.terminal_search_entry.connect("activate", self._on_search_next)
         self.search_prev_button.connect("clicked", self._on_search_previous)
         self.search_next_button.connect("clicked", self._on_search_next)
+        if self.search_export_button:
+            self.search_export_button.connect("clicked", self._on_export_terminal_clicked)
+
         self.search_bar.connect(
             "notify::search-mode-enabled", self._on_search_mode_changed
         )
-        # Connect case sensitive switch
+
+        # Keyboard controller on search entry for Shift+Enter (previous) and Escape (stop)
+        search_key_ctrl = Gtk.EventControllerKey.new()
+        search_key_ctrl.connect("key-pressed", self._on_search_entry_key_pressed)
+        self.terminal_search_entry.add_controller(search_key_ctrl)
+
+        # Connect case sensitive switch / toggle
         self.case_sensitive_switch.connect(
             "notify::active", self._on_case_sensitive_changed
         )
-        # Initialize switch state from settings
         self.case_sensitive_switch.set_active(
             self.settings_manager.get("search_case_sensitive", False)
         )
 
-        # Connect regex switch
+        # Connect whole word switch / toggle
+        if self.whole_word_switch:
+            self.whole_word_switch.connect(
+                "notify::active", self._on_whole_word_changed
+            )
+            self.whole_word_switch.set_active(
+                self.settings_manager.get("search_whole_word", False)
+            )
+
+        # Connect regex switch / toggle
         self.regex_switch.connect("notify::active", self._on_regex_changed)
-        # Initialize switch state from settings
         self.regex_switch.set_active(
             self.settings_manager.get("search_use_regex", False)
         )
@@ -1337,25 +1355,69 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         return base
 
     def _on_case_sensitive_changed(self, switch, param):
-        """Handle case sensitive switch changes."""
+        """Handle case sensitive switch/toggle changes."""
         case_sensitive = switch.get_active()
         self.settings_manager.set("search_case_sensitive", case_sensitive)
-        # Re-trigger search if there's text in the search entry
         if self.terminal_search_entry.get_text():
             self._on_search_text_changed(self.terminal_search_entry)
 
     def _on_regex_changed(self, switch, param):
-        """Handle regex switch changes."""
+        """Handle regex switch/toggle changes."""
         use_regex = switch.get_active()
         self.settings_manager.set("search_use_regex", use_regex)
-        # Re-trigger search if there's text in the search entry
         if self.terminal_search_entry.get_text():
             self._on_search_text_changed(self.terminal_search_entry)
 
+    def _on_whole_word_changed(self, switch, param):
+        """Handle whole word switch/toggle changes."""
+        whole_word = switch.get_active()
+        self.settings_manager.set("search_whole_word", whole_word)
+        if self.terminal_search_entry.get_text():
+            self._on_search_text_changed(self.terminal_search_entry)
+
+    def _on_search_entry_key_pressed(self, controller, keyval, keycode, state):
+        """Handle keyboard shortcuts inside the search entry (Shift+Enter, Escape)."""
+        if keyval in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
+            if state & Gdk.ModifierType.SHIFT_MASK:
+                self._on_search_previous()
+                return True
+            else:
+                self._on_search_next()
+                return True
+        elif keyval == Gdk.KEY_Escape:
+            self._on_search_stop(self.terminal_search_entry)
+            self.search_bar.set_search_mode(False)
+            return True
+        return False
+
+    def _on_export_terminal_clicked(self, _button=None):
+        """Action handler for exporting the current terminal scrollback buffer."""
+        self._show_export_terminal_dialog()
+
+    def _show_export_terminal_dialog(self, terminal: Optional[Vte.Terminal] = None):
+        """Opens the terminal export dialog."""
+        target_term = terminal or self.tab_manager.get_selected_terminal()
+        if not target_term:
+            self.toast_overlay.add_toast(
+                Adw.Toast(title=_("No active terminal to export."))
+            )
+            return
+        from .ui.dialogs.export_dialog import ExportTerminalDialog
+
+        dialog = ExportTerminalDialog(self, target_term)
+        dialog.present()
+
     def _update_search_occurrence_display(self):
         """Update the search occurrence counter display."""
-        if self.search_active and self.search_current_occurrence > 0:
-            text = f"{self.search_current_occurrence}"
+        if self.search_active:
+            total = getattr(self, "search_total_occurrences", 0)
+            curr = getattr(self, "search_current_occurrence", 0)
+            if total > 0 and curr > 0:
+                text = f"{curr}/{total}"
+            elif total > 0:
+                text = f"{total}"
+            else:
+                text = _("No matches")
         else:
             text = ""
         self.search_occurrence_label.set_text(text)
@@ -1367,6 +1429,8 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             self.search_bar.set_search_mode(False)
             self.search_active = False
             self.current_search_terminal = None
+            self.search_total_occurrences = 0
+            self.search_current_occurrence = 0
             self._update_search_occurrence_display()
 
     def _on_search_text_changed(self, search_entry):
@@ -1381,6 +1445,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             self.search_active = False
             self.current_search_terminal = None
             self.search_current_occurrence = 0
+            self.search_total_occurrences = 0
             self._update_search_occurrence_display()
             return
 
@@ -1390,16 +1455,12 @@ class CommTerminalWindow(Adw.ApplicationWindow):
     def _search_from_beginning(self, terminal, regex):
         """Search from the beginning of the terminal content."""
         try:
-            # Try to find the first match from the beginning
             found = terminal.search_find_next()
             if found:
-                # Scroll to show the first match
                 v_adjustment = terminal.get_vadjustment()
                 if v_adjustment:
-                    # Get the position of the match and scroll to it
                     match_col, match_row = terminal.get_cursor_position()
-                    # Scroll to show the match
-                    v_adjustment.set_value(max(0, match_row - 5))  # Show some context
+                    v_adjustment.set_value(max(0, match_row - 5))
             return found
         except Exception as e:
             self.logger.debug(f"Error searching from beginning: {e}")
@@ -1415,7 +1476,6 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             )
             return
 
-        # Update search state
         self.current_search_terminal = terminal
         self.search_active = True
 
@@ -1423,21 +1483,25 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         terminal.search_set_regex(None, 0)
 
         try:
-            # Use Vte.Regex for search operations
-            # PCRE2_MULTILINE (0x00000400) and optionally PCRE2_CASELESS (0x00000008)
+            case_sensitive = self.settings_manager.get("search_case_sensitive", False)
+            use_regex = self.settings_manager.get("search_use_regex", False)
+            whole_word = self.settings_manager.get("search_whole_word", False)
+
             pcre2_flags = 0x00000400  # PCRE2_MULTILINE always enabled
-            if not self.settings_manager.get("search_case_sensitive", False):
+            if not case_sensitive:
                 pcre2_flags |= 0x00000008  # PCRE2_CASELESS for case insensitive
 
-            use_regex = self.settings_manager.get("search_use_regex", False)
-            search_text = text
-
             if not use_regex:
-                # For literal search, escape regex special characters
-                search_text = re.escape(text)
+                search_pattern = re.escape(text)
+                if whole_word:
+                    search_pattern = r"\b" + search_pattern + r"\b"
+            else:
+                if whole_word:
+                    search_pattern = r"\b(?:" + text + r")\b"
+                else:
+                    search_pattern = text
 
-            # Always use new_for_search, but with escaped pattern for literal mode
-            regex = Vte.Regex.new_for_search(search_text, -1, pcre2_flags)
+            regex = Vte.Regex.new_for_search(search_pattern, -1, pcre2_flags)
 
             if not regex:
                 self.logger.warning(
@@ -1448,44 +1512,38 @@ class CommTerminalWindow(Adw.ApplicationWindow):
                 )
                 return
 
-            # Completely clear search state before setting new regex
             terminal.search_set_regex(None, 0)
-
-            # Set the regex for search FIRST - establish working search
             terminal.search_set_regex(regex, 0)
 
-            # More robust search: try multiple approaches to ensure consistency
-            found = False
-
-            # Method 1: Try from current position first
-            current_col, current_row = terminal.get_cursor_position()
             found = terminal.search_find_next()
 
-            # Method 2: If not found from current position, search from beginning of scrollback
             if not found:
                 try:
-                    # Save current scroll position
                     v_adjustment = terminal.get_vadjustment()
                     if v_adjustment:
-                        # Scroll to the very beginning (including scrollback)
                         v_adjustment.set_value(0.0)
-
-                        # Try searching from beginning immediately
                         found = self._search_from_beginning(terminal, regex)
-
                 except Exception as e:
                     self.logger.debug(f"Error during scroll-based search: {e}")
-                    # Fallback to just trying again from current position
                     found = terminal.search_find_next()
 
-            # Count occurrences using the EXACT same regex object
+            # Calculate total occurrences in the buffer
+            try:
+                raw_text = terminal.get_text_format(Vte.Format.TEXT) or ""
+                re_flags = re.MULTILINE
+                if not case_sensitive:
+                    re_flags |= re.IGNORECASE
+                matches = list(re.finditer(search_pattern, raw_text, re_flags))
+                self.search_total_occurrences = len(matches)
+            except Exception:
+                self.search_total_occurrences = 1 if found else 0
+
             if found:
-                # Just set current occurrence to 1 since we found at least one match
                 self.search_current_occurrence = 1
-                self._update_search_occurrence_display()
             else:
                 self.search_current_occurrence = 0
-                self._update_search_occurrence_display()
+
+            self._update_search_occurrence_display()
 
         except GLib.Error as e:
             self.logger.error(
@@ -1493,29 +1551,33 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             )
             self.toast_overlay.add_toast(Adw.Toast(title=_("Invalid search pattern.")))
             terminal.search_set_regex(None, 0)
+            self.search_total_occurrences = 0
+            self.search_current_occurrence = 0
+            self._update_search_occurrence_display()
 
     def _on_search_next(self, button=None):
         terminal = self.tab_manager.get_selected_terminal()
         if terminal and self.search_active:
-            # Try to find next match
             found = terminal.search_find_next()
 
-            # If no match found from current position, try wrapping to beginning
             if not found:
                 try:
                     v_adjustment = terminal.get_vadjustment()
                     if v_adjustment:
-                        # Scroll to the beginning and wrap around
                         v_adjustment.set_value(0.0)
                         found = terminal.search_find_next()
-
                         if found:
-                            self.search_current_occurrence = 1  # Wrapped to first match
+                            self.search_current_occurrence = 1
                 except Exception as e:
                     self.logger.debug(f"Error during next search: {e}")
             elif found:
-                # Increment current occurrence
-                self.search_current_occurrence += 1
+                total = getattr(self, "search_total_occurrences", 0)
+                if total > 0:
+                    self.search_current_occurrence = (
+                        (self.search_current_occurrence % total) + 1
+                    )
+                else:
+                    self.search_current_occurrence += 1
 
             if not found:
                 self.toast_overlay.add_toast(
@@ -1527,28 +1589,27 @@ class CommTerminalWindow(Adw.ApplicationWindow):
     def _on_search_previous(self, button=None):
         terminal = self.tab_manager.get_selected_terminal()
         if terminal and self.search_active:
-            # Try to find previous match
             found = terminal.search_find_previous()
 
-            # If no match found, try wrapping to end
             if not found:
                 try:
                     v_adjustment = terminal.get_vadjustment()
                     if v_adjustment:
-                        # Scroll to the end and wrap around
                         v_adjustment.set_value(
                             v_adjustment.get_upper() - v_adjustment.get_page_size()
                         )
                         found = terminal.search_find_previous()
-
                         if found:
-                            self.search_current_occurrence = 1  # Wrapped to match
+                            total = getattr(self, "search_total_occurrences", 0)
+                            self.search_current_occurrence = max(1, total)
                 except Exception as e:
                     self.logger.debug(f"Error during previous search: {e}")
             elif found:
-                # Decrement current occurrence
+                total = getattr(self, "search_total_occurrences", 0)
                 if self.search_current_occurrence > 1:
                     self.search_current_occurrence -= 1
+                elif total > 0:
+                    self.search_current_occurrence = total
 
             if not found:
                 self.toast_overlay.add_toast(
@@ -1567,6 +1628,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         self.search_active = False
         self.current_search_terminal = None
         self.search_current_occurrence = 0
+        self.search_total_occurrences = 0
         self._update_search_occurrence_display()
 
     # --- Window Lifecycle and State ---

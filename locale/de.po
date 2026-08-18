@@ -9114,3 +9114,111 @@ msgstr "Nur wenn Fenster oder Tab nicht im Fokus sind"
 # 
 msgid "Tocar sino ou alerta sonoro ao concluir comando longo"
 msgstr "Signalton abspielen, wenn ein langer Befehl beendet wird"
+
+# 
+msgid "Export Terminal Output"
+msgstr "Terminalausgabe exportieren"
+
+# 
+msgid "Export Terminal Output..."
+msgstr "Terminalausgabe exportieren..."
+
+# 
+msgid "Export Scope"
+msgstr "Exportbereich"
+
+# 
+msgid "Choose whether to export the entire scrollback history or active selection."
+msgstr "Wählen Sie, ob der gesamte Verlauf oder die aktive Auswahl exportiert werden soll."
+
+# 
+msgid "Full Scrollback Buffer"
+msgstr "Vollständiger Puffer"
+
+# 
+msgid "All commands and output in this terminal session"
+msgstr "Alle Befehle und Ausgaben in dieser Terminalsitzung"
+
+# 
+msgid "Selected Text Only"
+msgstr "Nur ausgewählter Text"
+
+# 
+msgid "Only the currently highlighted terminal text"
+msgstr "Nur der aktuell im Terminal markierte Text"
+
+# 
+msgid "No text currently selected in the terminal"
+msgstr "Derzeit kein Text im Terminal ausgewählt"
+
+# 
+msgid "File Format"
+msgstr "Dateiformat"
+
+# 
+msgid "Select the destination format for the exported output."
+msgstr "Wählen Sie das Zielformat für die exportierte Ausgabe."
+
+# 
+msgid "Plain Text (.txt)"
+msgstr "Klartext (.txt)"
+
+# 
+msgid "Clean unformatted terminal output"
+msgstr "Saubere, unformatierte Terminalausgabe"
+
+# 
+msgid "Log File (.log)"
+msgstr "Protokolldatei (.log)"
+
+# 
+msgid "Output with session, date and system headers"
+msgstr "Ausgabe mit Sitzungs-, Datums- und System-Headern"
+
+# 
+msgid "Markdown Document (.md)"
+msgstr "Markdown-Dokument (.md)"
+
+# 
+msgid "Formatted with code blocks and metadata table"
+msgstr "Formatiert mit Codeblöcken und Metadatentabelle"
+
+# 
+msgid "Styled HTML Page (.html)"
+msgstr "Gestylte HTML-Seite (.html)"
+
+# 
+msgid "Self-contained modern dark-themed webpage"
+msgstr "Eigenständige moderne Webseite im dunklen Design"
+
+# 
+msgid "Asciinema Recording (.cast)"
+msgstr "Asciinema-Aufnahme (.cast)"
+
+# 
+msgid "Asciinema v2 JSON format for CLI & web players"
+msgstr "Asciinema v2 JSON-Format für CLI- und Web-Player"
+
+# 
+msgid "Save as File..."
+msgstr "Als Datei speichern..."
+
+# 
+msgid "Save Terminal Output"
+msgstr "Terminalausgabe speichern"
+
+# 
+msgid "Terminal output copied to clipboard."
+msgstr "Terminalausgabe in die Zwischenablage kopiert."
+
+# 
+msgid "Match Whole Word"
+msgstr "Ganzes Wort"
+
+# 
+msgid "Search occurrences"
+msgstr "Suchergebnisse"
+
+# 
+msgid "No matches"
+msgstr "Keine Treffer"

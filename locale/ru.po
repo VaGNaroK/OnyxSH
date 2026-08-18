@@ -9070,3 +9070,111 @@ msgstr "Только когда окно или вкладка не в фоку�
 # 
 msgid "Tocar sino ou alerta sonoro ao concluir comando longo"
 msgstr "Воспроизводить звуковой сигнал по завершении долгой команды"
+
+# 
+msgid "Export Terminal Output"
+msgstr "Экспорт вывода терминала"
+
+# 
+msgid "Export Terminal Output..."
+msgstr "Экспорт вывода терминала..."
+
+# 
+msgid "Export Scope"
+msgstr "Область экспорта"
+
+# 
+msgid "Choose whether to export the entire scrollback history or active selection."
+msgstr "Выберите, экспортировать всю историю прокрутки или активное выделение."
+
+# 
+msgid "Full Scrollback Buffer"
+msgstr "Полный буфер прокрутки"
+
+# 
+msgid "All commands and output in this terminal session"
+msgstr "Все команды и вывод в этой сессии терминала"
+
+# 
+msgid "Selected Text Only"
+msgstr "Только выделенный текст"
+
+# 
+msgid "Only the currently highlighted terminal text"
+msgstr "Только выделенный в данный момент текст терминала"
+
+# 
+msgid "No text currently selected in the terminal"
+msgstr "В терминале нет выделенного текста"
+
+# 
+msgid "File Format"
+msgstr "Формат файла"
+
+# 
+msgid "Select the destination format for the exported output."
+msgstr "Выберите формат для экспортируемого вывода."
+
+# 
+msgid "Plain Text (.txt)"
+msgstr "Простой текст (.txt)"
+
+# 
+msgid "Clean unformatted terminal output"
+msgstr "Чистый неформатированный вывод терминала"
+
+# 
+msgid "Log File (.log)"
+msgstr "Файл журнала (.log)"
+
+# 
+msgid "Output with session, date and system headers"
+msgstr "Вывод с заголовками сессии, даты и системы"
+
+# 
+msgid "Markdown Document (.md)"
+msgstr "Документ Markdown (.md)"
+
+# 
+msgid "Formatted with code blocks and metadata table"
+msgstr "Форматировано с блоками кода и таблицей метаданных"
+
+# 
+msgid "Styled HTML Page (.html)"
+msgstr "Стилизованная веб-страница HTML (.html)"
+
+# 
+msgid "Self-contained modern dark-themed webpage"
+msgstr "Автономная веб-страница в современной темной теме"
+
+# 
+msgid "Asciinema Recording (.cast)"
+msgstr "Запись Asciinema (.cast)"
+
+# 
+msgid "Asciinema v2 JSON format for CLI & web players"
+msgstr "Формат JSON Asciinema v2 для CLI и веб-плееров"
+
+# 
+msgid "Save as File..."
+msgstr "Сохранить как файл..."
+
+# 
+msgid "Save Terminal Output"
+msgstr "Сохранить вывод терминала"
+
+# 
+msgid "Terminal output copied to clipboard."
+msgstr "Вывод терминала скопирован в буфер обмена."
+
+# 
+msgid "Match Whole Word"
+msgstr "Целое слово"
+
+# 
+msgid "Search occurrences"
+msgstr "Совпадения поиска"
+
+# 
+msgid "No matches"
+msgstr "Нет совпадений"

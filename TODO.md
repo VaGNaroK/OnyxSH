@@ -83,9 +83,10 @@
 - [x] **Módulos Afetados:** `src/onyxsh/terminal/desktop_notifier.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/app.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`.
 
 ### 📌 1.7. Busca Avançada no Scrollback e Exportação do Terminal
-- [ ] **Descrição:** Aprimorar o painel de busca no buffer do terminal com suporte a Regex, correspondência de maiúsculas/minúsculas e exportação direta do buffer/seleção em múltiplos formatos (`.txt`, `.log`, `.md`, `.html` e `.asciinema`).
-- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.9.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/ui/window_ui.py`.
+- [x] **Descrição:** Aprimorar o painel de busca no buffer do terminal com suporte a Regex, correspondência de maiúsculas/minúsculas e exportação direta do buffer/seleção em múltiplos formatos (`.txt`, `.log`, `.md`, `.html` e `.asciinema`).
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/onyxsh/terminal/exporter.py`, `src/onyxsh/ui/dialogs/export_dialog.py`, `src/onyxsh/ui/window_ui.py`, `src/onyxsh/window.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/menus.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`).
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.9.0`
+- [x] **Módulos Afetados:** `src/onyxsh/terminal/exporter.py`, `src/onyxsh/ui/dialogs/export_dialog.py`, `src/onyxsh/ui/window_ui.py`, `src/onyxsh/window.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/menus.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`.
 
 ---
 

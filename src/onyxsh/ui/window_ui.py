@@ -193,6 +193,7 @@ class WindowUIBuilder:
         self.search_bar.connect_entry(self.terminal_search_entry)
         self.search_prev_button = icon_button("go-up-symbolic")
         self.search_next_button = icon_button("go-down-symbolic")
+        self.search_export_button = icon_button("document-save-symbolic")
 
         # Create the BroadcastBar
         self.broadcast_bar = Gtk.SearchBar()
@@ -212,33 +213,53 @@ class WindowUIBuilder:
         self.search_occurrence_label = Gtk.Label()
         self.search_occurrence_label.add_css_class("dim-label")
         self.tooltip_helper.add_tooltip(
-            self.search_occurrence_label, _("Current occurrence")
+            self.search_occurrence_label, _("Search occurrences")
         )
 
-        # Case sensitive switch
-        self.case_sensitive_switch = Gtk.Switch()
+        # Search Options Linked Box (Compact toggles)
+        options_box = Gtk.Box(spacing=2)
+        options_box.add_css_class("linked")
+
+        # Case sensitive toggle button (Aa)
+        self.case_sensitive_switch = Gtk.ToggleButton(label="Aa")
+        self.case_sensitive_switch.add_css_class("flat")
         self.tooltip_helper.add_tooltip(
-            self.case_sensitive_switch, _("Case sensitive search")
+            self.case_sensitive_switch, _("Match Case")
         )
-        case_sensitive_box = Gtk.Box(spacing=6)
-        case_sensitive_label = Gtk.Label(label=_("Case sensitive"))
-        case_sensitive_box.append(case_sensitive_label)
-        case_sensitive_box.append(self.case_sensitive_switch)
+        options_box.append(self.case_sensitive_switch)
 
-        # Regex switch
-        self.regex_switch = Gtk.Switch()
-        self.tooltip_helper.add_tooltip(self.regex_switch, _("Use regular expressions"))
-        regex_box = Gtk.Box(spacing=6)
-        regex_label = Gtk.Label(label=_("Regex"))
-        regex_box.append(regex_label)
-        regex_box.append(self.regex_switch)
+        # Whole word toggle button (\b)
+        self.whole_word_switch = Gtk.ToggleButton(label=r"\b")
+        self.whole_word_switch.add_css_class("flat")
+        self.tooltip_helper.add_tooltip(
+            self.whole_word_switch, _("Match Whole Word")
+        )
+        options_box.append(self.whole_word_switch)
+
+        # Regex toggle button (.*)
+        self.regex_switch = Gtk.ToggleButton(label=".*")
+        self.regex_switch.add_css_class("flat")
+        self.tooltip_helper.add_tooltip(
+            self.regex_switch, _("Use Regular Expression (Regex)")
+        )
+        options_box.append(self.regex_switch)
+
+        self.tooltip_helper.add_tooltip(
+            self.search_prev_button, _("Previous Match (Shift+Enter)")
+        )
+        self.tooltip_helper.add_tooltip(
+            self.search_next_button, _("Next Match (Enter)")
+        )
+        self.tooltip_helper.add_tooltip(
+            self.search_export_button, _("Export Terminal Output...")
+        )
 
         search_box.append(self.terminal_search_entry)
         search_box.append(self.search_occurrence_label)
-        search_box.append(case_sensitive_box)
-        search_box.append(regex_box)
+        search_box.append(options_box)
         search_box.append(self.search_prev_button)
         search_box.append(self.search_next_button)
+        search_box.append(self.search_export_button)
         self.search_bar.set_child(search_box)
         main_box.append(self.search_bar)
 

@@ -4,6 +4,7 @@ from .base_dialog import BaseDialog
 from .command_manager_dialog import CommandManagerDialog
 from .command_palette_dialog import CommandPaletteDialog
 from .diff_review_dialog import DiffReviewDialog
+from .export_dialog import ExportTerminalDialog
 from .folder_edit_dialog import FolderEditDialog
 from .highlight_dialog import HighlightDialog, RuleEditDialog
 from .move_dialogs import MoveLayoutDialog, MoveSessionDialog
@@ -28,5 +29,6 @@ __all__ = [
     "DiffReviewDialog",
     "AuditLogDialog",
     "AgentScopeDialog",
+    "ExportTerminalDialog",
 ]
 

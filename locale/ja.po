@@ -9034,3 +9034,111 @@ msgstr "ウィンドウまたはタブにフォーカスがない場合のみ"
 # 
 msgid "Tocar sino ou alerta sonoro ao concluir comando longo"
 msgstr "長時間コマンド完了時にベル音を再生"
+
+# 
+msgid "Export Terminal Output"
+msgstr "ターミナル出力をエクスポート"
+
+# 
+msgid "Export Terminal Output..."
+msgstr "ターミナル出力をエクスポート..."
+
+# 
+msgid "Export Scope"
+msgstr "エクスポート範囲"
+
+# 
+msgid "Choose whether to export the entire scrollback history or active selection."
+msgstr "スクロールバック履歴全体またはアクティブな選択範囲をエクスポートするか選択します。"
+
+# 
+msgid "Full Scrollback Buffer"
+msgstr "完全なスクロールバックバッファ"
+
+# 
+msgid "All commands and output in this terminal session"
+msgstr "このターミナルセッション内のすべてのコマンドと出力"
+
+# 
+msgid "Selected Text Only"
+msgstr "選択したテキストのみ"
+
+# 
+msgid "Only the currently highlighted terminal text"
+msgstr "ターミナルで現在ハイライトされているテキストのみ"
+
+# 
+msgid "No text currently selected in the terminal"
+msgstr "ターミナルでテキストが選択されていません"
+
+# 
+msgid "File Format"
+msgstr "ファイル形式"
+
+# 
+msgid "Select the destination format for the exported output."
+msgstr "エクスポート出力の出力形式を選択してください。"
+
+# 
+msgid "Plain Text (.txt)"
+msgstr "プレーンテキスト (.txt)"
+
+# 
+msgid "Clean unformatted terminal output"
+msgstr "クリーンで未フォーマットのターミナル出力"
+
+# 
+msgid "Log File (.log)"
+msgstr "ログファイル (.log)"
+
+# 
+msgid "Output with session, date and system headers"
+msgstr "セッション、日付、システムヘッダー付きの出力"
+
+# 
+msgid "Markdown Document (.md)"
+msgstr "Markdown ドキュメント (.md)"
+
+# 
+msgid "Formatted with code blocks and metadata table"
+msgstr "コードブロックとメタデータテーブルでフォーマット"
+
+# 
+msgid "Styled HTML Page (.html)"
+msgstr "スタイル付き HTML ページ (.html)"
+
+# 
+msgid "Self-contained modern dark-themed webpage"
+msgstr "モダンなダークテーマの自己完結型 Web ページ"
+
+# 
+msgid "Asciinema Recording (.cast)"
+msgstr "Asciinema 録画 (.cast)"
+
+# 
+msgid "Asciinema v2 JSON format for CLI & web players"
+msgstr "CLI および Web プレーヤー用 Asciinema v2 JSON 形式"
+
+# 
+msgid "Save as File..."
+msgstr "ファイルとして保存..."
+
+# 
+msgid "Save Terminal Output"
+msgstr "ターミナル出力を保存"
+
+# 
+msgid "Terminal output copied to clipboard."
+msgstr "ターミナル出力をクリップボードにコピーしました。"
+
+# 
+msgid "Match Whole Word"
+msgstr "単語全体に一致"
+
+# 
+msgid "Search occurrences"
+msgstr "検索結果の一致"
+
+# 
+msgid "No matches"
+msgstr "一致なし"

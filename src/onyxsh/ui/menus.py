@@ -166,6 +166,7 @@ class MainApplicationMenu:
 
         menu_items = [
             {"label": _("New Window"), "action": "win.new-window"},
+            {"label": _("Export Terminal Output..."), "action": "win.export-terminal-buffer"},
             {"label": _("Preferences"), "action": "win.preferences"},
             {
                 "label": _("Colors"),
@@ -189,6 +190,7 @@ class MainApplicationMenu:
         ]
         actions_that_close_menu = {
             "win.new-window",
+            "win.export-terminal-buffer",
             "win.import-securecrt-sessions",
             "win.toggle-tftp-server",
             "win.preferences",
@@ -328,6 +330,11 @@ def create_terminal_menu(
     standard_section.append(_("Copy"), "win.copy")
     standard_section.append(_("Paste"), "win.paste")
     standard_section.append(_("Select All"), "win.select-all")
+    export_item = Gio.MenuItem.new(
+        _("Export Terminal Output..."), "win.export-terminal-buffer"
+    )
+    export_item.set_icon(Gio.ThemedIcon.new("document-save-symbolic"))
+    standard_section.append_item(export_item)
     standard_section.append(_("Clear Session"), "win.clear-session")
     menu.append_section(None, standard_section)
 

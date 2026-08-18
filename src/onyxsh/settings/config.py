@@ -340,6 +340,7 @@ class DefaultSettings:
             # Search Settings
             "search_case_sensitive": False,
             "search_use_regex": False,
+            "search_whole_word": False,
             # Highlighting Settings
             "ignored_highlight_commands": [
                 "grep",
@@ -427,6 +428,7 @@ class DefaultSettings:
                 "ai-assistant": "<Control><Shift>i",
                 "command-palette": "<Control><Shift>p",
                 "show-command-history": "<Control>r",
+                "export-terminal-buffer": "<Control><Shift>s",
             },
         }
 

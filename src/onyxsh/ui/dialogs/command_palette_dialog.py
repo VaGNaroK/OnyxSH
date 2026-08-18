@@ -384,7 +384,29 @@ class CommandPaletteDialog(BaseDialog):
                 "edit-find-symbolic",
                 action_name="toggle-search",
                 shortcut=get_accel_label("toggle-search"),
-                keywords=["busca", "find", "procurar", "pesquisar"],
+                keywords=["busca", "find", "procurar", "pesquisar", "regex", "palavra"],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
+                "export-terminal-buffer",
+                _("Exportar Saída do Terminal (TXT, Markdown, HTML, Cast)..."),
+                _("Terminal"),
+                "document-save-symbolic",
+                action_name="export-terminal-buffer",
+                shortcut=get_accel_label("export-terminal-buffer"),
+                keywords=[
+                    "exportar",
+                    "salvar",
+                    "export",
+                    "buffer",
+                    "markdown",
+                    "html",
+                    "asciinema",
+                    "cast",
+                    "txt",
+                    "log",
+                ],
             )
         )
         self._items.append(

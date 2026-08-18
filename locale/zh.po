@@ -9029,3 +9029,111 @@ msgstr "仅当窗口或标签页不在焦点时"
 # 
 msgid "Tocar sino ou alerta sonoro ao concluir comando longo"
 msgstr "长时间命令完成时播放提示音"
+
+# 
+msgid "Export Terminal Output"
+msgstr "导出终端输出"
+
+# 
+msgid "Export Terminal Output..."
+msgstr "导出终端输出..."
+
+# 
+msgid "Export Scope"
+msgstr "导出范围"
+
+# 
+msgid "Choose whether to export the entire scrollback history or active selection."
+msgstr "选择是导出整个回滚历史记录还是当前选定内容。"
+
+# 
+msgid "Full Scrollback Buffer"
+msgstr "完整终端缓冲区"
+
+# 
+msgid "All commands and output in this terminal session"
+msgstr "此终端会话中的所有命令和输出"
+
+# 
+msgid "Selected Text Only"
+msgstr "仅选定文本"
+
+# 
+msgid "Only the currently highlighted terminal text"
+msgstr "仅终端中当前高亮的文本"
+
+# 
+msgid "No text currently selected in the terminal"
+msgstr "终端中当前未选择任何文本"
+
+# 
+msgid "File Format"
+msgstr "文件格式"
+
+# 
+msgid "Select the destination format for the exported output."
+msgstr "选择导出输出的目标格式。"
+
+# 
+msgid "Plain Text (.txt)"
+msgstr "纯文本 (.txt)"
+
+# 
+msgid "Clean unformatted terminal output"
+msgstr "干净无格式的终端输出"
+
+# 
+msgid "Log File (.log)"
+msgstr "日志文件 (.log)"
+
+# 
+msgid "Output with session, date and system headers"
+msgstr "包含会话、日期和系统标头的输出"
+
+# 
+msgid "Markdown Document (.md)"
+msgstr "Markdown 文档 (.md)"
+
+# 
+msgid "Formatted with code blocks and metadata table"
+msgstr "使用代码块和元数据表格格式化"
+
+# 
+msgid "Styled HTML Page (.html)"
+msgstr "带样式的 HTML 页面 (.html)"
+
+# 
+msgid "Self-contained modern dark-themed webpage"
+msgstr "自包含的现代暗色主题网页"
+
+# 
+msgid "Asciinema Recording (.cast)"
+msgstr "Asciinema 录制文件 (.cast)"
+
+# 
+msgid "Asciinema v2 JSON format for CLI & web players"
+msgstr "适用于命令行及网页播放器的 Asciinema v2 JSON 格式"
+
+# 
+msgid "Save as File..."
+msgstr "保存为文件..."
+
+# 
+msgid "Save Terminal Output"
+msgstr "保存终端输出"
+
+# 
+msgid "Terminal output copied to clipboard."
+msgstr "终端输出已复制到剪贴板。"
+
+# 
+msgid "Match Whole Word"
+msgstr "全字匹配"
+
+# 
+msgid "Search occurrences"
+msgstr "搜索匹配项"
+
+# 
+msgid "No matches"
+msgstr "无匹配项"

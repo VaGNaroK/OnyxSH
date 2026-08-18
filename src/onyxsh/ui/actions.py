@@ -78,6 +78,7 @@ class WindowActions:
             "copy-last-output": self.copy_last_command_output,
             "analyze-last-error-ai": self.analyze_last_error_with_ai,
             "show-command-history": self.show_command_history,
+            "export-terminal-buffer": self.export_terminal_buffer,
             "toggle-tftp-server": self.toggle_tftp_server,
             "preferences": self.preferences,
             "shortcuts": self.shortcuts,
@@ -416,6 +417,10 @@ class WindowActions:
         self.window.search_button.set_active(
             not self.window.search_button.get_active()
         )
+
+    def export_terminal_buffer(self, *_args):
+        self._hide_tooltip()
+        self.window._show_export_terminal_dialog()
 
     def toggle_broadcast(self, *_args):
         self.window.broadcast_button.set_active(
