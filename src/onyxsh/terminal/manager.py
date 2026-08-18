@@ -1504,22 +1504,9 @@ class TerminalManager:
 
             self.manual_ssh_tracker.track(terminal_id, terminal)
 
-            # Dismiss completion popup when viewport is scrolled
-            v_adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
-            if v_adj:
-                handler_id = v_adj.connect(
-                    "value-changed",
-                    self._on_terminal_scrolled_dismiss_completion,
-                    terminal,
-                )
-                terminal.onyxsh_handler_ids.append(handler_id)
-
             focus_controller = Gtk.EventControllerFocus()
             focus_controller.connect(
                 "enter", self._on_terminal_focus_in, terminal, terminal_id
-            )
-            focus_controller.connect(
-                "leave", self._on_terminal_focus_out, terminal, terminal_id
             )
             terminal.add_controller(focus_controller)
             terminal.onyxsh_controllers.append(focus_controller)
@@ -2093,23 +2080,6 @@ class TerminalManager:
                 self.on_terminal_focus_changed(terminal, False)
         except Exception as e:
             self.logger.error(f"Terminal focus in handling failed: {e}")
-
-    def _on_terminal_focus_out(self, _controller, terminal, terminal_id):
-        try:
-            popup = getattr(terminal, "_completion_popup", None)
-            if popup and popup.get_visible():
-                popup.popdown()
-        except Exception:
-            pass
-
-    def _on_terminal_scrolled_dismiss_completion(self, _adj: Gtk.Adjustment, terminal: Vte.Terminal) -> None:
-        """Dismisses completion popup when user scrolls the terminal viewport."""
-        try:
-            popup = getattr(terminal, "_completion_popup", None)
-            if popup and popup.get_visible():
-                popup.popdown()
-        except Exception:
-            pass
 
     def _on_child_exited(
         self,
@@ -4074,13 +4044,7 @@ class TerminalManager:
                         # Calculate visible viewport row accounting for scrollback offset
                         v_adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
                         scroll_offset = v_adj.get_value() if v_adj else 0.0
-                        visible_row = cursor_row - scroll_offset
-
-                        # If cursor is outside the visible viewport, dismiss popup
-                        if visible_row < 0 or (visible_row * char_h) >= term_h:
-                            if popup.get_visible():
-                                popup.popdown()
-                            return False
+                        visible_row = max(0.0, cursor_row - scroll_offset)
 
                         # Clamp cursor x and y within terminal pixel bounds
                         cur_x = min(max(0, int(cursor_col * char_w)), max(0, term_w - int(char_w)))
