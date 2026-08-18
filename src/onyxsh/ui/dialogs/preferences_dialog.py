@@ -426,6 +426,18 @@ class PreferencesDialog(Adw.PreferencesWindow):
         )
         notifications_group.add(notify_sound_row)
 
+        test_notif_row = Adw.ActionRow(
+            title=_("Testar Notificação"),
+            subtitle=_("Emitir uma notificação de teste agora para verificar o sistema"),
+        )
+        test_btn = Gtk.Button(label=_("Testar Notificação Agora"))
+        test_btn.set_valign(Gtk.Align.CENTER)
+        test_btn.add_css_class("suggested-action")
+        test_btn.connect("clicked", self._on_test_notification_clicked)
+        test_notif_row.add_suffix(test_btn)
+        test_notif_row.set_activatable_widget(test_btn)
+        notifications_group.add(test_notif_row)
+
     def _setup_profiles_page(self) -> None:
         page = Adw.PreferencesPage(
             title=_("Profiles and Data"), icon_name="folder-saved-search-symbolic"
@@ -720,6 +732,13 @@ class PreferencesDialog(Adw.PreferencesWindow):
             self._on_setting_changed(
                 "notify_long_commands_condition", condition_map[index]
             )
+
+    def _on_test_notification_clicked(self, _button):
+        from ...terminal.desktop_notifier import get_desktop_notifier
+
+        get_desktop_notifier().send_test_notification(
+            window=self.get_transient_for()
+        )
 
     def _on_instance_behavior_changed(self, combo_row, _param, behavior_map):
         index = combo_row.get_selected()

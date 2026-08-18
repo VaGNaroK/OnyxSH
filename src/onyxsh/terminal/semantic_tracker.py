@@ -157,6 +157,10 @@ class SemanticTracker:
             state = self.get_or_create_state(terminal)
             col, row = terminal.get_cursor_position()
 
+            print(
+                f"[NOTIF-DEBUG] handle_osc133 called: action={action}, param='{param}'",
+                flush=True,
+            )
             if action == "A":
                 # Prompt start
                 state.start_prompt(row)
@@ -175,6 +179,10 @@ class SemanticTracker:
                     if uri and uri.startswith("file://"):
                         cwd = uri[7:]
                 state.execute_command(row, command_text="", cwd=cwd)
+                print(
+                    f"[NOTIF-DEBUG] Command execution STARTED (C): start_time={state.current_command.start_time if state.current_command else None}",
+                    flush=True,
+                )
                 return state.current_command
 
             elif action == "D":
@@ -188,11 +196,17 @@ class SemanticTracker:
 
                 finished_cmd = state.finish_command(row, exit_code)
                 if finished_cmd:
+                    print(
+                        f"[NOTIF-DEBUG] Command FINISHED (D): text='{finished_cmd.command_text}', duration={finished_cmd.duration:.2f}s, exit_code={finished_cmd.exit_code}",
+                        flush=True,
+                    )
                     self._notify_finished(terminal, finished_cmd)
+                else:
+                    print("[NOTIF-DEBUG] Command finish ignored (debounced or empty)", flush=True)
                 return finished_cmd
 
         except Exception as e:
-            self.logger.error(f"Error processing OSC 133 action {action}: {e}")
+            print(f"[NOTIF-DEBUG] Error processing OSC 133 action {action}: {e}", flush=True)
         return None
 
     def _notify_finished(self, terminal: Vte.Terminal, cmd: SemanticCommand) -> None:
