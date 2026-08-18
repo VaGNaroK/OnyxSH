@@ -1460,6 +1460,8 @@ class TerminalManager:
         try:
             terminal.onyxsh_handler_ids = []
             terminal.onyxsh_controllers = []
+            terminal.onyxsh_session = identifier if isinstance(identifier, SessionItem) else None
+            terminal.is_production = getattr(terminal.onyxsh_session, "is_production", False) if terminal.onyxsh_session else False
 
             handler_id = terminal.connect(
                 "child-exited", self._on_child_exited, identifier, terminal_id
@@ -3610,6 +3612,65 @@ class TerminalManager:
             # Strip whitespace and analyze the command
             line_text = line_text.strip() if line_text else ""
             if line_text:
+                # Check Production Guard for destructive commands
+                is_prod = getattr(terminal, "is_production", False)
+                if not is_prod and hasattr(terminal, "onyxsh_session") and terminal.onyxsh_session:
+                    is_prod = getattr(terminal.onyxsh_session, "is_production", False)
+
+                if is_prod:
+                    import re
+                    from .production_guard import get_production_guard
+                    from ..ui.dialogs.production_confirm_dialog import ProductionConfirmDialog
+
+                    prompt_match = re.search(r"[$#%>➜]\s*(.*)$", line_text)
+                    command_to_check = prompt_match.group(1).strip() if prompt_match else line_text
+
+                    guard = get_production_guard()
+                    violation = guard.evaluate_command(command_to_check)
+                    if violation:
+                        info = self.registry.get_terminal_info(terminal_id)
+                        target_name = ""
+                        if hasattr(terminal, "onyxsh_session") and terminal.onyxsh_session:
+                            target_name = (
+                                getattr(terminal.onyxsh_session, "host", "")
+                                or getattr(terminal.onyxsh_session, "name", "")
+                            )
+                        if not target_name and info:
+                            target_name = info.get("host", "") or info.get("name", "")
+                        if not target_name:
+                            target_name = "production"
+
+                        parent_win = (
+                            terminal.get_root()
+                            if hasattr(terminal, "get_root")
+                            else None
+                        )
+
+                        def on_guard_confirmed(confirmed: bool):
+                            if confirmed:
+                                try:
+                                    terminal.feed_child(b"\r")
+                                except Exception as e:
+                                    self.logger.error(
+                                        f"Failed to feed confirmed command: {e}"
+                                    )
+                            else:
+                                try:
+                                    terminal.feed_child(b"\x03")
+                                except Exception as e:
+                                    self.logger.error(
+                                        f"Failed to cancel guarded command: {e}"
+                                    )
+
+                        dialog = ProductionConfirmDialog(
+                            parent_window=parent_win,
+                            violation=violation,
+                            target_name=target_name,
+                            on_confirmed=on_guard_confirmed,
+                        )
+                        dialog.present()
+                        return Gdk.EVENT_STOP
+
                 self._analyze_command_from_line(line_text, terminal, terminal_id)
 
         except Exception as e:

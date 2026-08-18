@@ -111,6 +111,7 @@ class SessionItem(BaseModel):
         source: str = "user",
         local_working_directory: str = "",
         local_startup_command: str = "",
+        is_production: bool = False,
 
         # Per-session highlighting overrides (tri-state)
         # None = Automatic (inherit global preferences)
@@ -157,6 +158,7 @@ class SessionItem(BaseModel):
             else "shell"
         )
         self._source = source or "user"
+        self._is_production = bool(is_production)
         # Local terminal specific properties
         self._local_working_directory = (
             str(normalize_path(local_working_directory))
@@ -475,6 +477,18 @@ class SessionItem(BaseModel):
             self._mark_modified()
 
     @property
+    def is_production(self) -> bool:
+        """Indicates whether this session connects to a production environment."""
+        return self._is_production
+
+    @is_production.setter
+    def is_production(self, value: bool):
+        new_val = bool(value)
+        if self._is_production != new_val:
+            self._is_production = new_val
+            self._mark_modified()
+
+    @property
     def output_highlighting(self) -> Optional[bool]:
         """Per-session override for output highlighting.
 
@@ -600,6 +614,7 @@ class SessionItem(BaseModel):
             "ssh_connection_mode": self.ssh_connection_mode,
             "local_working_directory": self.local_working_directory,
             "local_startup_command": self.local_startup_command,
+            "is_production": self.is_production,
 
             # Highlighting overrides (tri-state)
             "output_highlighting": self.output_highlighting,
@@ -634,6 +649,7 @@ class SessionItem(BaseModel):
             source=data.get("source", "user"),
             local_working_directory=data.get("local_working_directory", ""),
             local_startup_command=data.get("local_startup_command", ""),
+            is_production=data.get("is_production", False),
 
             # Highlighting overrides (tri-state)
             output_highlighting=data.get("output_highlighting", None),
@@ -674,13 +690,20 @@ class SessionItem(BaseModel):
 class SessionFolder(BaseModel):
     """Data model for a folder used to organize sessions."""
 
-    def __init__(self, name: str, path: str = "", parent_path: str = ""):
+    def __init__(
+        self,
+        name: str,
+        path: str = "",
+        parent_path: str = "",
+        is_production: bool = False,
+    ):
         super().__init__()
         self.logger = get_logger("onyxsh.sessions.folder")
 
         self._name = InputSanitizer.sanitize_filename(name)
         self._path = str(normalize_path(path)) if path else ""
         self._parent_path = str(normalize_path(parent_path)) if parent_path else ""
+        self._is_production = bool(is_production)
         self._children = Gio.ListStore.new(GObject.GObject)
 
     @property
@@ -723,6 +746,18 @@ class SessionFolder(BaseModel):
         self._parent_path = str(normalize_path(value)) if value else ""
         self._mark_modified()
 
+    @property
+    def is_production(self) -> bool:
+        """Indicates whether sessions in this folder inherit production environment status."""
+        return self._is_production
+
+    @is_production.setter
+    def is_production(self, value: bool):
+        new_val = bool(value)
+        if self._is_production != new_val:
+            self._is_production = new_val
+            self._mark_modified()
+
     def get_validation_errors(self) -> List[str]:
         """Returns a list of validation error messages."""
         errors = []
@@ -743,6 +778,7 @@ class SessionFolder(BaseModel):
             "name": self.name,
             "path": self.path,
             "parent_path": self.parent_path,
+            "is_production": self.is_production,
             "created_at": self._created_at,
             "modified_at": self._modified_at,
         }
@@ -754,6 +790,7 @@ class SessionFolder(BaseModel):
             name=data.get("name", _("Unnamed Folder")),
             path=data.get("path", ""),
             parent_path=data.get("parent_path", ""),
+            is_production=data.get("is_production", False),
         )
         # __init__ sets default metadata; overwrite with loaded data
         folder._created_at = data.get("created_at", time.time())

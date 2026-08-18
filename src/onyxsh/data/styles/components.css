@@ -260,3 +260,49 @@
     background-color: alpha(@error_color, 0.2);
     border-color: alpha(@error_color, 0.6);
 }
+
+/* ==========================================================================
+   Production Guard Banner
+   ========================================================================== */
+.production-guard-banner {
+    background: linear-gradient(90deg, rgba(180, 20, 30, 0.92) 0%, rgba(120, 10, 20, 0.88) 100%);
+    border-bottom: 2px solid #e03131;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    min-height: 32px;
+}
+
+.production-guard-icon {
+    color: #ffc9c9;
+}
+
+.production-guard-title {
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #ffe3e3;
+    font-size: 11px;
+}
+
+.production-guard-host {
+    font-weight: 600;
+    color: #ffd8a8;
+    font-size: 11px;
+}
+
+.production-guard-badge {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 200, 200, 0.3);
+    border-radius: 9999px;
+    padding: 2px 8px;
+    font-weight: bold;
+    color: #fff;
+    font-size: 10px;
+}
+
+.production-guard-info-btn {
+    color: #ffe3e3;
+    min-width: 24px;
+    min-height: 24px;
+    padding: 2px;
+}
+

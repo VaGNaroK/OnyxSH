@@ -2056,6 +2056,12 @@ class AIChatPanel(Gtk.Box):
         # Store message for retry support
         self._last_request_message = text
 
+        # Automatic redaction of passwords, tokens and secrets
+        from ...agent.redactor import redact_secrets
+        text_to_send, num_redacted = redact_secrets(text)
+        if num_redacted > 0:
+            logger.info(f"AI Chat redactor filtered {num_redacted} secrets before sending.")
+
         self._text_buffer.set_text("")
         self._text_view.set_sensitive(False)
         self._send_btn.set_sensitive(False)
@@ -2075,7 +2081,7 @@ class AIChatPanel(Gtk.Box):
 
         # Send to AI using request_assistance_simple for panel context
         self._ai_assistant.request_assistance_simple(
-            text,
+            text_to_send,
             streaming_callback=self._handle_streaming_chunk
         )
 

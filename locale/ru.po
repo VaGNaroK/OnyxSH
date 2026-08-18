@@ -10210,3 +10210,43 @@ msgstr "Максимальный уровень сжатия (-9)"
 # 
 msgid "Decompress and expand files compressed with gzip"
 msgstr "Распаковка файлов, сжатых с помощью gzip (gunzip)"
+
+# 
+msgid "Production Environment (Production Guard)"
+msgstr "Продакшн-окружение (Production Guard)"
+
+# 
+msgid "Enables permanent visual warning banner and safety interceptor for high-risk commands"
+msgstr "Включает постоянный предупреждающий баннер и перехват опасных команд"
+
+# 
+msgid "Marks this folder and its sessions as production environment"
+msgstr "Помечает эту папку и её сессии как продакшн-окружение"
+
+# 
+msgid "PRODUCTION ENVIRONMENT"
+msgstr "ПРОДАКШН-ОКРУЖЕНИЕ"
+
+# 
+msgid "🛡️ Guard Active"
+msgstr "🛡️ Защита активна"
+
+# 
+msgid "Destructive commands (rm -rf, dd, mkfs, shutdown, etc.) require hostname confirmation."
+msgstr "Опасные команды (rm -rf, dd, mkfs, shutdown и т.д.) требуют подтверждения имени хоста."
+
+# 
+msgid "Production Guard Safety Confirmation"
+msgstr "Подтверждение безопасности Production Guard"
+
+# 
+msgid "High-Risk Command in Production"
+msgstr "Опасная команда в продакшне"
+
+# 
+msgid "Execute in Production"
+msgstr "Выполнить в продакшне"
+
+# 
+msgid "Cancel & Abort (Esc)"
+msgstr "Отмена и прерывание (Esc)"

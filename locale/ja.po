@@ -10174,3 +10174,43 @@ msgstr "最高圧縮レベル (-9)"
 # 
 msgid "Decompress and expand files compressed with gzip"
 msgstr "gzip 圧縮ファイルを解凍 (gunzip)"
+
+# 
+msgid "Production Environment (Production Guard)"
+msgstr "本番環境 (Production Guard)"
+
+# 
+msgid "Enables permanent visual warning banner and safety interceptor for high-risk commands"
+msgstr "永続的な警告バナーと高リスクコマンドの安全インターセプターを有効化"
+
+# 
+msgid "Marks this folder and its sessions as production environment"
+msgstr "このフォルダーとそのセッションを本番環境としてマーク"
+
+# 
+msgid "PRODUCTION ENVIRONMENT"
+msgstr "本番環境"
+
+# 
+msgid "🛡️ Guard Active"
+msgstr "🛡️ ガード有効"
+
+# 
+msgid "Destructive commands (rm -rf, dd, mkfs, shutdown, etc.) require hostname confirmation."
+msgstr "破壊的コマンド (rm -rf, dd, mkfs, shutdown 等) の実行にはホスト名の確認が必要です。"
+
+# 
+msgid "Production Guard Safety Confirmation"
+msgstr "Production Guard 安全確認"
+
+# 
+msgid "High-Risk Command in Production"
+msgstr "本番環境での高リスクコマンド"
+
+# 
+msgid "Execute in Production"
+msgstr "本番環境で実行"
+
+# 
+msgid "Cancel & Abort (Esc)"
+msgstr "キャンセルして中止 (Esc)"

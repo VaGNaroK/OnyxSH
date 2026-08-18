@@ -107,14 +107,15 @@
 ## 2. Segurança, DevOps & Infraestrutura ("Zash Guard & Ops")
 
 ### 🛡️ 2.1. Modo Proteção de Produção (Production Guard)
-- [ ] **Descrição:** Modo de segurança reforçada ativado automaticamente ao conectar em hosts/sessões marcadas como `Produção`.
-- [ ] **Barreiras de Segurança:**
-  - Banner visual permanente vermelho/laranja no topo do terminal indicando `AMBINETE DE PRODUÇÃO`.
-  - Bloqueio estrito de comandos de alto risco (`rm -rf`, `mkfs`, `dd`, `systemctl disable --now`, `shutdown`).
-  - Exigência de confirmação dupla com digitação do nome do host antes de executar ações de risco nível 2 ou 3.
-  - Bloqueio automático de envio de saídas confidenciais de produção para APIs de IA externas.
-- [ ] **Prioridade:** 🔴 Muito Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/agent/policy_engine.py`, `src/zashterminal/sessions/manager.py`.
+- [x] **Descrição:** Modo de segurança reforçada ativado automaticamente ao conectar em hosts/sessões marcadas como `Produção`.
+- [x] **Barreiras de Segurança:**
+  - Banner visual permanente vermelho/laranja no topo do terminal indicando `AMBIENTE DE PRODUÇÃO`.
+  - Bloqueio e interceptação estrita de comandos de alto risco (`rm -rf`, `mkfs`, `dd`, `systemctl disable/stop`, `shutdown`, `reboot`, `drop database`).
+  - Diálogo modal de confirmação dupla com exigência de digitação do nome do host antes de liberar a execução.
+  - Bloqueio automático e ofuscação/redação de saídas confidenciais de produção antes do envio para modelos de IA externos.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/terminal/production_guard.py`, `src/onyxsh/ui/widgets/production_banner.py`, `src/onyxsh/ui/dialogs/production_confirm_dialog.py`, `src/onyxsh/sessions/models.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`).
+- [x] **Prioridade:** 🔴 Muito Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/terminal/production_guard.py`, `src/onyxsh/ui/widgets/production_banner.py`, `src/onyxsh/ui/dialogs/production_confirm_dialog.py`, `src/onyxsh/sessions/models.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`.
 
 ### 🛡️ 2.2. Gerenciador Visual de Túneis SSH e Port Forwarding
 - [ ] **Descrição:** Interface gráfica para criar, monitorar e alternar túneis SSH de forma visual.

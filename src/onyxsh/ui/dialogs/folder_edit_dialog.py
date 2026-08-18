@@ -96,9 +96,19 @@ class FolderEditDialog(BaseDialog):
         )
         self.name_entry.connect("changed", self._on_name_changed)
         self.name_entry.connect("activate", self._on_save_clicked)
-        name_row.add_suffix(self.name_entry)
         name_row.set_activatable_widget(self.name_entry)
         parent.add(name_row)
+
+        self.production_switch = Adw.SwitchRow(
+            title=_("Production Environment (Production Guard)"),
+            subtitle=_("Marks this folder and its sessions as production environment"),
+            active=self.editing_folder.is_production,
+        )
+        self.production_switch.add_prefix(
+            Gtk.Image.new_from_icon_name("security-high-symbolic")
+        )
+        self.production_switch.connect("notify::active", lambda s, p: self._mark_changed())
+        parent.add(self.production_switch)
 
     def _create_parent_row(self, parent: Adw.PreferencesGroup) -> None:
         parent_row = Adw.ComboRow(
@@ -201,5 +211,6 @@ class FolderEditDialog(BaseDialog):
             "name": name,
             "parent_path": parent_path,
             "path": str(new_path),
+            "is_production": self.production_switch.get_active() if hasattr(self, "production_switch") else self.editing_folder.is_production,
         })
         return SessionFolder.from_dict(updated_data)

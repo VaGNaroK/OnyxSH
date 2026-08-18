@@ -6,7 +6,26 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ---
 
-## [0.9.0] - Em Desenvolvimento
+## [0.10.0] - Em Desenvolvimento
+
+### Adicionado
+- **Modo Proteção de Produção (Production Guard)**: Sistema abrangente de salvaguardas visuais, operacionais e de privacidade para sessões e servidores de produção (`src/onyxsh/terminal/production_guard.py`, `src/onyxsh/ui/widgets/production_banner.py`, `src/onyxsh/ui/dialogs/production_confirm_dialog.py`).
+  - 🛡️ **Banner Visual de Produção**: Banner persistente de alta visibilidade em degradê crimson no topo das abas conectadas a ambientes de produção (`ProductionBanner`), com indicação visual de host/sessão, badge de guarda ativa e popover explicativo das políticas de segurança ativas.
+  - 🔒 **Identificação Visual na Árvore de Sessões e Abas**: Exibição instantânea do badge `🛡️` ao lado de pastas e sessões marcadas como Produção na barra lateral e nas abas de terminal ativas.
+  - ⚙️ **Configuração de Ambiente de Produção**: Novos switches dedicados nos diálogos de criação/edição de sessões (`SessionEditDialog`) e pastas (`FolderEditDialog`), com suporte a herança de ambiente em pastas.
+  - 🛑 **Interceptação Automática de Comandos Destrutivos de Alto Risco**: Interceptação em tempo real no terminal ao pressionar `Enter` antes da execução de operações de risco crítico (`ProductionGuard`):
+    - Destruição de arquivos e diretórios: `rm -rf`, `rm -fr`, `rm -r`, `shred -u`, `wipefs`.
+    - Formatação e manipulação de blocos brutos de disco: `mkfs.*`, `dd of=/dev/...`, `fdisk`, `gdisk`, `parted`.
+    - Desligamento, reinicialização e parada do sistema: `shutdown`, `reboot`, `poweroff`, `halt`, `init 0/6`.
+    - Parada e desativação de serviços críticos: `systemctl stop/disable/mask`, `service ... stop/restart`.
+    - Operações destrutivas em bancos de dados: `DROP DATABASE`, `TRUNCATE TABLE`, `DROP SCHEMA`.
+    - Operações forçadas de Git: `git reset --hard`, `git clean -fd`, `git push --force`.
+    - Suporte automático à remoção de prefixos escaladores (`sudo`, `doas`, `pkexec`, `nohup`, `env`, `time`).
+  - 🔐 **Diálogo Modal de Confirmação Dupla (`ProductionConfirmDialog`)**: Bloqueio da execução exigindo que o usuário digite o nome exato do host ou sessão antes de desbloquear a execução em produção, com cancelamento seguro via `Esc` ou botão de abortar (`Ctrl+C` enviado ao shell).
+  - 🕵️ **Proteção de Privacidade & Redação Automática no Assistente de IA**: Anonimização e ofuscação automática de segredos, senhas, tokens e chaves de API (`redact_secrets`) antes de enviar comandos ou saídas de terminais para modelos de IA externos.
+  - 🌐 **Internacionalização Completa (28 Idiomas)**: Sincronização e compilação de 280 novas traduções em todos os 28 idiomas suportados pelo OnyxSH via `scripts/sync_translations.py`.
+
+## [0.9.0] - 2026-08-18
 
 ### Adicionado
 - **Autocomplete Inteligente de Comandos e Sugestões Inline (Ghost Text & Popup Specs)**: Novo motor nativo de predição e autocompletar de comandos em tempo real (`src/onyxsh/terminal/completion/`).

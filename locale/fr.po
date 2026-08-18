@@ -10243,3 +10243,43 @@ msgstr "Meilleur niveau de compression (-9)"
 # 
 msgid "Decompress and expand files compressed with gzip"
 msgstr "Décompresser les fichiers compressés avec gzip (gunzip)"
+
+# 
+msgid "Production Environment (Production Guard)"
+msgstr "Environnement de production (Production Guard)"
+
+# 
+msgid "Enables permanent visual warning banner and safety interceptor for high-risk commands"
+msgstr "Active une bannière d'avertissement permanente et un intercepteur pour les commandes à haut risque"
+
+# 
+msgid "Marks this folder and its sessions as production environment"
+msgstr "Marque ce dossier et ses sessions comme environnement de production"
+
+# 
+msgid "PRODUCTION ENVIRONMENT"
+msgstr "ENVIRONNEMENT DE PRODUCTION"
+
+# 
+msgid "🛡️ Guard Active"
+msgstr "🛡️ Protection active"
+
+# 
+msgid "Destructive commands (rm -rf, dd, mkfs, shutdown, etc.) require hostname confirmation."
+msgstr "Les commandes destructives (rm -rf, dd, mkfs, shutdown, etc.) nécessitent la confirmation de l'hôte."
+
+# 
+msgid "Production Guard Safety Confirmation"
+msgstr "Confirmation de sécurité Production Guard"
+
+# 
+msgid "High-Risk Command in Production"
+msgstr "Commande à haut risque en production"
+
+# 
+msgid "Execute in Production"
+msgstr "Exécuter en production"
+
+# 
+msgid "Cancel & Abort (Esc)"
+msgstr "Annuler et abandonner (Échap)"

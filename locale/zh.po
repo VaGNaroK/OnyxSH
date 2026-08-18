@@ -10169,3 +10169,43 @@ msgstr "最高压缩级别 (-9)"
 # 
 msgid "Decompress and expand files compressed with gzip"
 msgstr "解压 gzip 格式的压缩文件 (gunzip)"
+
+# 
+msgid "Production Environment (Production Guard)"
+msgstr "生产环境 (Production Guard)"
+
+# 
+msgid "Enables permanent visual warning banner and safety interceptor for high-risk commands"
+msgstr "启用永久视觉警告横幅及高危命令安全拦截"
+
+# 
+msgid "Marks this folder and its sessions as production environment"
+msgstr "将此文件夹及其会话标记为生产环境"
+
+# 
+msgid "PRODUCTION ENVIRONMENT"
+msgstr "生产环境"
+
+# 
+msgid "🛡️ Guard Active"
+msgstr "🛡️ 防护已激活"
+
+# 
+msgid "Destructive commands (rm -rf, dd, mkfs, shutdown, etc.) require hostname confirmation."
+msgstr "破坏性命令 (rm -rf, dd, mkfs, shutdown 等) 需要输入主机名确认。"
+
+# 
+msgid "Production Guard Safety Confirmation"
+msgstr "Production Guard 安全确认"
+
+# 
+msgid "High-Risk Command in Production"
+msgstr "生产环境高危命令"
+
+# 
+msgid "Execute in Production"
+msgstr "在生产环境中执行"
+
+# 
+msgid "Cancel & Abort (Esc)"
+msgstr "取消并中止 (Esc)"

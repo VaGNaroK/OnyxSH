@@ -229,6 +229,20 @@ class SessionEditDialog(BaseDialog):
         color_row.add_suffix(color_box)
         name_group.add(color_row)
 
+        # Production Guard Switch
+        self.production_switch = Adw.SwitchRow(
+            title=_("Production Environment (Production Guard)"),
+            subtitle=_(
+                "Enables permanent visual warning banner and safety interceptor for high-risk commands"
+            ),
+            active=self.editing_session.is_production,
+        )
+        self.production_switch.add_prefix(
+            Gtk.Image.new_from_icon_name("security-high-symbolic")
+        )
+        self.production_switch.connect("notify::active", self._on_production_toggled)
+        name_group.add(self.production_switch)
+
         parent.add(name_group)
 
     def _create_folder_section(self, parent: Adw.PreferencesPage) -> None:
@@ -1102,6 +1116,10 @@ class SessionEditDialog(BaseDialog):
         self.color_button.set_rgba(Gdk.RGBA())  # Set to no color
         self._mark_changed()
 
+    def _on_production_toggled(self, switch, param) -> None:
+        self.editing_session.is_production = switch.get_active()
+        self._mark_changed()
+
     def _on_folder_changed(self, combo_row, param) -> None:
         self._mark_changed()
 
@@ -1551,6 +1569,7 @@ class SessionEditDialog(BaseDialog):
         session_data.update({
             "name": self.name_row.get_text().strip(),
             "session_type": "local" if self.type_combo.get_selected() == 0 else "ssh",
+            "is_production": self.production_switch.get_active() if hasattr(self, "production_switch") else self.editing_session.is_production,
         })
 
         # Per-session highlighting overrides (tri-state)

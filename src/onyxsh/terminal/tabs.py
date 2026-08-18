@@ -617,11 +617,24 @@ class TabManager:
 
         terminal.semantic_status_box = semantic_status_box
         terminal.semantic_status_label = semantic_status_label
-        terminal.semantic_ai_btn = semantic_ai_btn
-        terminal.semantic_copy_btn = semantic_copy_btn
-
-        terminal_area = Adw.Bin()
-        terminal_area.set_child(overlay)
+        is_production = getattr(session, "is_production", False)
+        if is_production:
+            from ..ui.widgets.production_banner import ProductionBanner
+            prod_banner = ProductionBanner(
+                session_name=getattr(session, "name", ""),
+                host=getattr(session, "host", "") or getattr(session, "name", ""),
+                terminal_id=getattr(terminal, "terminal_id", None),
+            )
+            vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+            vbox.append(prod_banner)
+            vbox.append(overlay)
+            overlay.set_vexpand(True)
+            overlay.set_hexpand(True)
+            terminal_area = Adw.Bin()
+            terminal_area.set_child(vbox)
+        else:
+            terminal_area = Adw.Bin()
+            terminal_area.set_child(overlay)
 
         content_paned = Gtk.Paned(orientation=Gtk.Orientation.VERTICAL)
         content_paned.add_css_class("terminal-content-paned")
@@ -705,6 +718,12 @@ class TabManager:
         if icon_name:
             icon = icon_image(icon_name)
             tab_widget.append(icon)
+
+        if getattr(session, "is_production", False):
+            tab_widget.add_css_class("production-tab")
+            prod_tag = Gtk.Label(label="🛡️", css_classes=["caption"])
+            prod_tag.set_tooltip_text(_("Production Environment (Production Guard)"))
+            tab_widget.append(prod_tag)
 
         label = Gtk.Label(
             label=session.name, ellipsize=Pango.EllipsizeMode.START, xalign=1.0

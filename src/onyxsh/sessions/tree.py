@@ -348,8 +348,12 @@ class SessionTreeView:
 
         icon = Gtk.Image()
         label = Gtk.Label(xalign=0.0, hexpand=True)
+        badge = Gtk.Label()
+        badge.set_visible(False)
+        badge.add_css_class("caption")
         box.append(icon)
         box.append(label)
+        box.append(badge)
         list_item.set_child(box)
 
         right_click = Gtk.GestureClick.new()
@@ -379,10 +383,21 @@ class SessionTreeView:
         spacer = box.get_first_child()
         icon = spacer.get_next_sibling()
         label = icon.get_next_sibling()
+        badge = label.get_next_sibling()
 
         tree_list_row = list_item.get_item()
         item = tree_list_row.get_item()
         label.set_label(item.name)
+
+        # Production Badge
+        is_prod = getattr(item, "is_production", False)
+        if badge:
+            if is_prod:
+                badge.set_label("🛡️")
+                badge.set_tooltip_text(_("Production Environment (Production Guard)"))
+                badge.set_visible(True)
+            else:
+                badge.set_visible(False)
 
         # MODIFIED: Dynamic indentation using the spacer widget
         depth = tree_list_row.get_depth()

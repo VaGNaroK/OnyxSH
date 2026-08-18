@@ -13,6 +13,7 @@ from .form_widget_builder import (
     create_field_from_form_field,
 )
 from .inline_context_menu import InlineContextMenu
+from .production_banner import ProductionBanner
 from .regex_text_view import RegexTextView
 from .ssh_error_banner import (
     BannerAction,
@@ -32,6 +33,7 @@ __all__ = [
     "FieldConfig",
     "FormWidgetBuilder",
     "InlineContextMenu",
+    "ProductionBanner",
     "RegexTextView",
     "SSHErrorBanner",
     "SSHErrorBannerManager",
