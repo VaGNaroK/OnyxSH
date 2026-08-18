@@ -93,6 +93,10 @@ class SemanticTerminalState:
     def finish_command(self, row: int, exit_code: int = 0) -> Optional[SemanticCommand]:
         """OSC 133;D: Command finished with exit code."""
         if not self.current_command:
+            # If a command just finished less than 0.5s ago, ignore duplicate finish signal
+            if self.commands and (time.time() - (self.commands[-1].end_time or 0.0)) < 0.5:
+                return None
+
             # Create synthetic command if C was skipped
             self._cmd_counter += 1
             self.current_command = SemanticCommand(

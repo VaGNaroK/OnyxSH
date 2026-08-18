@@ -622,6 +622,48 @@ class HighlightedTerminalProxy:
 
         return changed
 
+    def _handle_semantic_stream_bytes(self, data: bytes) -> None:
+        """Parses OSC 133 and __zt_sem__ sequences directly from the PTY byte stream."""
+        try:
+            import re
+            from .semantic_tracker import get_semantic_tracker
+
+            term = self._terminal
+            if not term:
+                return
+
+            tracker = get_semantic_tracker()
+
+            # Match OSC 133: \x1b]133;([A-D])(?:;([^\x07\x1b]*))?(?:\x07|\x1b\\)
+            osc133_found = False
+            for match in re.finditer(
+                rb"\x1b\]133;([A-D])(?:;([^\x07\x1b]*))?(?:\x07|\x1b\\)",
+                data,
+            ):
+                osc133_found = True
+                action = match.group(1).decode("ascii")
+                param = (
+                    match.group(2).decode("utf-8", errors="ignore")
+                    if match.group(2)
+                    else ""
+                )
+                tracker.handle_osc133(term, action, param)
+
+            # Fallback to __zt_sem__ only if OSC 133 was not found in this chunk
+            if not osc133_found:
+                for match in re.finditer(
+                    rb"__zt_sem__:([A-D])(?::([^\x07\x1b;\s]*))?", data
+                ):
+                    action = match.group(1).decode("ascii")
+                    param = (
+                        match.group(2).decode("utf-8", errors="ignore")
+                        if match.group(2)
+                        else ""
+                    )
+                    tracker.handle_osc133(term, action, param)
+        except Exception:
+            pass
+
     def _on_pty_readable(self, fd: int, condition: GLib.IOCondition) -> bool:
         # 1. Fail fast if stopped or destroyed
         if not self._running or self._widget_destroyed:
@@ -682,6 +724,10 @@ class HighlightedTerminalProxy:
             # Processing logic - skip alt screen check on small packets
             if data_len > 10:
                 self._update_alt_screen_state(data)
+
+            # Intercept semantic command lifecycle sequences directly from PTY stream
+            if b"\x1b]133;" in data or b"__zt_sem__" in data:
+                self._handle_semantic_stream_bytes(data)
 
             try:
                 if self._is_alt_screen:
