@@ -9673,3 +9673,7 @@ msgstr "路由表管理"
 # 
 msgid "Neighbour/ARP table management"
 msgstr "邻居/ARP 表管理"
+
+# 
+msgid "Tab or → to apply • Esc to dismiss"
+msgstr "Tab 或 → 应用 • Esc 关闭"

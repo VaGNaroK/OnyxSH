@@ -34,7 +34,9 @@ class CompletionPopup(Gtk.Popover):
         self.on_item_accepted = on_item_accepted
 
         self.add_css_class("onyxsh-completion-popover")
-        self.set_autohide(True)
+        self.set_autohide(False)
+        self.set_focusable(False)
+        self.set_can_focus(False)
         self.set_has_arrow(False)
         self.set_position(Gtk.PositionType.BOTTOM)
 
@@ -51,12 +53,16 @@ class CompletionPopup(Gtk.Popover):
             margin_top=4,
             margin_bottom=4,
         )
+        main_box.set_focusable(False)
+        main_box.set_can_focus(False)
         main_box.set_size_request(320, -1)
 
         # Scrolled list
         self.list_box = Gtk.ListBox()
         self.list_box.add_css_class("boxed-list")
         self.list_box.add_css_class("rich-list")
+        self.list_box.set_focusable(False)
+        self.list_box.set_can_focus(False)
         self.list_box.set_selection_mode(Gtk.SelectionMode.SINGLE)
         self.list_box.connect("row-activated", self._on_row_activated)
 
@@ -71,8 +77,10 @@ class CompletionPopup(Gtk.Popover):
             margin_top=4,
             margin_bottom=2,
         )
+        hint_box.set_focusable(False)
+        hint_box.set_can_focus(False)
         hint_label = Gtk.Label(
-            label=_("Tab/Enter to apply • Esc to dismiss"),
+            label=_("Tab or → to apply • Esc to dismiss"),
             xalign=0.0,
             hexpand=True,
             css_classes=["dim-label", "caption"],
@@ -106,6 +114,8 @@ class CompletionPopup(Gtk.Popover):
 
         for idx, item in enumerate(items):
             row = Gtk.ListBoxRow()
+            row.set_focusable(False)
+            row.set_can_focus(False)
             row.add_css_class("completion-row")
 
             item_box = Gtk.Box(
@@ -169,24 +179,32 @@ class CompletionPopup(Gtk.Popover):
             self.set_pointing_to(pointing_rect)
 
         self.popup()
+        parent = self.get_parent()
+        if parent and hasattr(parent, "grab_focus"):
+            parent.grab_focus()
 
     def handle_key_event(self, keyval: int, state: Gdk.ModifierType) -> bool:
         """
         Handles keyboard events while popup is active.
-        Returns True if the event was consumed.
+        Returns True ONLY if a navigation/acceptance key was consumed.
         """
         if not self.get_visible() or not self._items:
             return False
 
+        # Up and Down navigate the suggestion list
         if keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down):
-            self._select_next()
-            return True
+            if not (state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.ALT_MASK)):
+                self._select_next()
+                return True
         elif keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up):
-            self._select_previous()
-            return True
-        elif keyval in (Gdk.KEY_Tab, Gdk.KEY_Return, Gdk.KEY_KP_Enter, Gdk.KEY_Right):
-            self._accept_selected()
-            return True
+            if not (state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.ALT_MASK)):
+                self._select_previous()
+                return True
+        # Tab or Right Arrow accepts the current suggestion
+        elif keyval in (Gdk.KEY_Tab, Gdk.KEY_Right, Gdk.KEY_KP_Right):
+            if not (state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.ALT_MASK)):
+                self._accept_selected()
+                return True
         elif keyval == Gdk.KEY_Escape:
             self.popdown()
             return True

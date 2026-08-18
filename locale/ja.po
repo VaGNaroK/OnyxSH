@@ -9678,3 +9678,7 @@ msgstr "ルーティングテーブル管理"
 # 
 msgid "Neighbour/ARP table management"
 msgstr "近隣/ARP テーブル管理"
+
+# 
+msgid "Tab or → to apply • Esc to dismiss"
+msgstr "Tab または → で適用 • Esc で閉じる"

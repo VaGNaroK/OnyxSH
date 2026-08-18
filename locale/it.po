@@ -9737,3 +9737,7 @@ msgstr "Gestione tabella di routing"
 # 
 msgid "Neighbour/ARP table management"
 msgstr "Gestione tabella vicini/ARP"
+
+# 
+msgid "Tab or → to apply • Esc to dismiss"
+msgstr "Tab o → per applicare • Esc per chiudere"

@@ -10036,3 +10036,7 @@ msgstr "Gerenciamento da tabela de roteamento"
 # 
 msgid "Neighbour/ARP table management"
 msgstr "Gerenciamento de tabela vizinha/ARP"
+
+# 
+msgid "Tab or → to apply • Esc to dismiss"
+msgstr "Tab ou → para aplicar • Esc para fechar"

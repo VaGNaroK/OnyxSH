@@ -9714,3 +9714,7 @@ msgstr "Управление таблицей маршрутизации"
 # 
 msgid "Neighbour/ARP table management"
 msgstr "Управление таблицей соседей/ARP"
+
+# 
+msgid "Tab or → to apply • Esc to dismiss"
+msgstr "Tab или → применить • Esc закрыть"

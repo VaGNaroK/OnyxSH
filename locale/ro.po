@@ -9737,3 +9737,7 @@ msgstr "Routing table management"
 # 
 msgid "Neighbour/ARP table management"
 msgstr "Neighbour/ARP table management"
+
+# 
+msgid "Tab or → to apply • Esc to dismiss"
+msgstr "Tab or → to apply • Esc to dismiss"
