@@ -10214,3 +10214,139 @@ msgstr "本番環境で実行"
 # 
 msgid "Cancel & Abort (Esc)"
 msgstr "キャンセルして中止 (Esc)"
+
+# 
+msgid "SSH Tunnel Manager"
+msgstr "SSH トンネルマネージャー"
+
+# 
+msgid "Add SSH Tunnel"
+msgstr "SSH トンネルを追加"
+
+# 
+msgid "Edit SSH Tunnel"
+msgstr "SSH トンネルを編集"
+
+# 
+msgid "Forwarding Mode"
+msgstr "転送モード"
+
+# 
+msgid "Choose between Local, Remote or Dynamic SOCKS5"
+msgstr "ローカル、リモート、動的 SOCKS5 から選択"
+
+# 
+msgid "Local (-L) • Connect local port to remote service"
+msgstr "ローカル (-L) • ローカルポートをリモートサービスに接続"
+
+# 
+msgid "Remote (-R) • Expose local port on remote server"
+msgstr "リモート (-R) • リモートサーバーでローカルポートを公開"
+
+# 
+msgid "Dynamic (-D) • SOCKS5 Proxy through SSH"
+msgstr "動的 (-D) • SSH 経由の SOCKS5 プロキシ"
+
+# 
+msgid "Local Interface / Bind IP"
+msgstr "ローカルインターフェース / バインド IP"
+
+# 
+msgid "Destination Host"
+msgstr "宛先ホスト"
+
+# 
+msgid "Destination Port"
+msgstr "宛先ポート"
+
+# 
+msgid "Auto-start with Session"
+msgstr "セッションと同時に自動起動"
+
+# 
+msgid "Automatically open this tunnel when connecting to the SSH host"
+msgstr "SSH ホストに接続するときにこのトンネルを自動的に開く"
+
+# 
+msgid "SOCKS5 Proxy Port"
+msgstr "SOCKS5 プロキシポート"
+
+# 
+msgid "SOCKS5 Bind Interface"
+msgstr "SOCKS5 バインドインターフェース"
+
+# 
+msgid "Local Source Port"
+msgstr "ローカル送信元ポート"
+
+# 
+msgid "Local Source IP"
+msgstr "ローカル送信元 IP"
+
+# 
+msgid "Remote Bind Host"
+msgstr "リモートバインドホスト"
+
+# 
+msgid "Remote Exposed Port"
+msgstr "リモート公開ポート"
+
+# 
+msgid "Local Listen Port"
+msgstr "ローカル待機ポート"
+
+# 
+msgid "Local Listen IP"
+msgstr "ローカル待機 IP"
+
+# 
+msgid "Remote Destination Host"
+msgstr "リモート宛先ホスト"
+
+# 
+msgid "Remote Destination Port"
+msgstr "リモート宛先ポート"
+
+# 
+msgid "Stop All Active Tunnels"
+msgstr "すべてのアクティブなトンネルを停止"
+
+# 
+msgid "Search tunnels by name, port or host..."
+msgstr "名前、ポート、ホストでトンネルを検索..."
+
+# 
+msgid "No SSH Tunnels"
+msgstr "SSH トンネルがありません"
+
+# 
+msgid "Create a Local (-L), Remote (-R) or Dynamic SOCKS5 (-D) tunnel to forward network ports through SSH."
+msgstr "SSH 経由でネットワークポートを転送するローカル (-L)、リモート (-R)、または動的 SOCKS5 (-D) トンネルを作成します。"
+
+# 
+msgid "Edit Tunnel"
+msgstr "トンネルを編集"
+
+# 
+msgid "Delete Tunnel"
+msgstr "トンネルを削除"
+
+# 
+msgid "Dynamic (SOCKS5)"
+msgstr "動的 (SOCKS5)"
+
+# 
+msgid "Remote (-R)"
+msgstr "リモート (-R)"
+
+# 
+msgid "Local (-L)"
+msgstr "ローカル (-L)"
+
+# 
+msgid "No associated SSH session configured"
+msgstr "関連付けられた SSH セッションが設定されていません"
+
+# 
+msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
+msgstr "ビジュアル SSH トンネルマネージャーとポート転送"

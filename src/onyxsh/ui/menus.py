@@ -180,6 +180,10 @@ class MainApplicationMenu:
                 "action": "win.import-securecrt-sessions",
             },
             {
+                "label": _("SSH Tunnel Manager"),
+                "action": "win.show-tunnel-manager",
+            },
+            {
                 "label": _("Start TFTP Server"),
                 "action": "win.toggle-tftp-server",
                 "dynamic_label": "tftp_server",
@@ -191,6 +195,7 @@ class MainApplicationMenu:
         actions_that_close_menu = {
             "win.new-window",
             "win.export-terminal-buffer",
+            "win.show-tunnel-manager",
             "win.import-securecrt-sessions",
             "win.toggle-tftp-server",
             "win.preferences",

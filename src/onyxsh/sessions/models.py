@@ -398,23 +398,30 @@ class SessionItem(BaseModel):
             raise SessionValidationError(
                 self.name, [_("Invalid port forwarding entry.")]
             )
+        tunnel_type = str(item.get("type", "local")).lower().strip()
+        if tunnel_type not in ("local", "remote", "dynamic"):
+            tunnel_type = "local"
         name = str(item.get("name", "")).strip() or _("Tunnel")
         local_host = str(item.get("local_host", "localhost")).strip() or "localhost"
         remote_host = str(item.get("remote_host", "")).strip()
         try:
             local_port = int(item.get("local_port", 0))
-            remote_port = int(item.get("remote_port", 0))
+            remote_port = int(item.get("remote_port", 0)) if tunnel_type != "dynamic" else 0
         except (TypeError, ValueError):
             raise SessionValidationError(
                 self.name, [_("Port forwarding entries must use numeric ports.")]
             ) from None
 
+        auto_start = bool(item.get("auto_start", True))
+
         return {
+            "type": tunnel_type,
             "name": name,
             "local_host": local_host,
             "local_port": local_port,
             "remote_host": remote_host,
             "remote_port": remote_port,
+            "auto_start": auto_start,
         }
 
     @property
@@ -575,6 +582,7 @@ class SessionItem(BaseModel):
                         _("SFTP local directory must exist and be a directory.")
                     )
             for tunnel in self._port_forwardings:
+                t_type = tunnel.get("type", "local")
                 local_port = tunnel.get("local_port", 0)
                 remote_port = tunnel.get("remote_port", 0)
                 if not (1024 < int(local_port) <= 65535):
@@ -583,12 +591,19 @@ class SessionItem(BaseModel):
                             "Port forward '{name}' has an invalid local port (must be between 1025 and 65535)."
                         ).format(name=tunnel.get("name", ""))
                     )
-                if not (1 <= int(remote_port) <= 65535):
-                    errors.append(
-                        _("Port forward '{name}' has an invalid remote port.").format(
-                            name=tunnel.get("name", "")
+                if t_type != "dynamic":
+                    if not (1 <= int(remote_port) <= 65535):
+                        errors.append(
+                            _("Port forward '{name}' has an invalid remote port.").format(
+                                name=tunnel.get("name", "")
+                            )
                         )
-                    )
+                    if not tunnel.get("remote_host"):
+                        errors.append(
+                            _("Port forward '{name}' requires a remote host.").format(
+                                name=tunnel.get("name", "")
+                            )
+                        )
         return errors
 
     def to_dict(self) -> Dict[str, Any]:

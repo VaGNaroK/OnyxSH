@@ -892,17 +892,31 @@ class SessionEditDialog(BaseDialog):
                 spacing=2,
                 hexpand=True,
             )
+            t_type = tunnel.get("type", "local").upper()
             title = Gtk.Label(
-                label=tunnel.get("name", _("Tunnel")),
+                label=f"<b>{tunnel.get('name', _('Tunnel'))}</b>  <small>[{t_type}]</small>",
+                use_markup=True,
                 xalign=0,
             )
-            remote_host_display = tunnel.get("remote_host") or _("SSH Host")
-            subtitle_text = _("{local_host}:{local_port} → {remote_host}:{remote_port}").format(
-                local_host=tunnel.get("local_host", "localhost"),
-                local_port=tunnel.get("local_port", 0),
-                remote_host=remote_host_display,
-                remote_port=tunnel.get("remote_port", 0),
-            )
+            if tunnel.get("type") == "dynamic":
+                subtitle_text = _("SOCKS5 Proxy on {host}:{port}").format(
+                    host=tunnel.get("local_host", "127.0.0.1"),
+                    port=tunnel.get("local_port", 1080),
+                )
+            elif tunnel.get("type") == "remote":
+                subtitle_text = _("Remote :{remote_port} → Local {local_host}:{local_port}").format(
+                    remote_port=tunnel.get("remote_port", 80),
+                    local_host=tunnel.get("local_host", "localhost"),
+                    local_port=tunnel.get("local_port", 8080),
+                )
+            else:
+                remote_host_display = tunnel.get("remote_host") or self.editing_session.host or _("SSH Host")
+                subtitle_text = _("Local {local_host}:{local_port} → Remote {remote_host}:{remote_port}").format(
+                    local_host=tunnel.get("local_host", "localhost"),
+                    local_port=tunnel.get("local_port", 8080),
+                    remote_host=remote_host_display,
+                    remote_port=tunnel.get("remote_port", 80),
+                )
             subtitle = Gtk.Label(label=subtitle_text, xalign=0)
             subtitle.add_css_class("dim-label")
             labels_box.append(title)
@@ -926,20 +940,38 @@ class SessionEditDialog(BaseDialog):
             self.port_forward_list.append(row)
 
     def _on_add_port_forward_clicked(self, _button) -> None:
-        new_entry = self._show_port_forward_dialog()
-        if new_entry:
+        from .tunnel_edit_dialog import TunnelEditDialog
+
+        def on_save(new_entry: dict):
             self.port_forwardings.append(new_entry)
             self._refresh_port_forward_list()
             self._mark_changed()
 
+        dialog = TunnelEditDialog(
+            parent_window=self,
+            tunnel_data=None,
+            on_save=on_save,
+            session_host=self.editing_session.host,
+        )
+        dialog.present()
+
     def _on_edit_port_forward_clicked(self, _button, index: int) -> None:
         if 0 <= index < len(self.port_forwardings):
+            from .tunnel_edit_dialog import TunnelEditDialog
             existing = copy.deepcopy(self.port_forwardings[index])
-            updated = self._show_port_forward_dialog(existing)
-            if updated:
-                self.port_forwardings[index] = updated
+
+            def on_save(updated_entry: dict):
+                self.port_forwardings[index] = updated_entry
                 self._refresh_port_forward_list()
                 self._mark_changed()
+
+            dialog = TunnelEditDialog(
+                parent_window=self,
+                tunnel_data=existing,
+                on_save=on_save,
+                session_host=self.editing_session.host,
+            )
+            dialog.present()
 
     def _on_delete_port_forward_clicked(self, _button, index: int) -> None:
         if 0 <= index < len(self.port_forwardings):

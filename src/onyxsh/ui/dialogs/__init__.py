@@ -13,6 +13,8 @@ from .production_confirm_dialog import ProductionConfirmDialog
 from .session_edit_dialog import SessionEditDialog
 from .shortcuts_dialog import ShortcutsDialog
 from .tftp_server_dialog import TftpServerDialog
+from .tunnel_edit_dialog import TunnelEditDialog
+from .tunnel_manager_dialog import TunnelManagerDialog
 
 __all__ = [
     "BaseDialog",
@@ -32,5 +34,7 @@ __all__ = [
     "AuditLogDialog",
     "AgentScopeDialog",
     "ExportTerminalDialog",
+    "TunnelEditDialog",
+    "TunnelManagerDialog",
 ]
 

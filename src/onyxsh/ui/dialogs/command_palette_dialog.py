@@ -533,6 +533,28 @@ class CommandPaletteDialog(BaseDialog):
         )
         self._items.append(
             CommandPaletteItem(
+                "show-tunnel-manager",
+                _("Gerenciador Visual de Túneis SSH e Port Forwarding"),
+                _("Sessões & SSH"),
+                "network-wired-symbolic",
+                action_name="show-tunnel-manager",
+                keywords=[
+                    "tunel",
+                    "tunnel",
+                    "port",
+                    "forwarding",
+                    "socks5",
+                    "proxy",
+                    "redirecionamento",
+                    "ssh",
+                    "local",
+                    "remote",
+                    "dinamico",
+                ],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
                 "toggle-tftp-server",
                 _("Servidor TFTP Embutido"),
                 _("Ferramentas"),

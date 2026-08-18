@@ -1118,6 +1118,7 @@ class ProcessSpawner:
         if command_type == "ssh" and getattr(session, "port_forwardings", None):
             for tunnel in session.port_forwardings:
                 try:
+                    t_type = tunnel.get("type", "local")
                     local_host = tunnel.get("local_host", "localhost") or "localhost"
                     local_port = int(tunnel.get("local_port", 0))
                     remote_host = tunnel.get("remote_host") or session.host
@@ -1125,16 +1126,24 @@ class ProcessSpawner:
                 except (TypeError, ValueError):
                     continue
 
-                if (
-                    not remote_host
-                    or not (1 <= local_port <= 65535)
-                    or not (1 <= remote_port <= 65535)
-                ):
+                if not (1 <= local_port <= 65535):
                     continue
 
-                forward_spec = f"{local_host}:{local_port}:{remote_host}:{remote_port}"
                 insertion_index = max(len(cmd) - 1, 1)
-                cmd[insertion_index:insertion_index] = ["-L", forward_spec]
+
+                if t_type == "dynamic":
+                    dynamic_spec = f"{local_host}:{local_port}" if local_host and local_host != "localhost" else str(local_port)
+                    cmd[insertion_index:insertion_index] = ["-D", dynamic_spec]
+                elif t_type == "remote":
+                    if not (1 <= remote_port <= 65535):
+                        continue
+                    remote_spec = f"{remote_port}:{local_host}:{local_port}"
+                    cmd[insertion_index:insertion_index] = ["-R", remote_spec]
+                else:  # local
+                    if not remote_host or not (1 <= remote_port <= 65535):
+                        continue
+                    forward_spec = f"{local_host}:{local_port}:{remote_host}:{remote_port}"
+                    cmd[insertion_index:insertion_index] = ["-L", forward_spec]
 
         if command_type == "ssh" and getattr(
             session, "uses_network_device_mode", False

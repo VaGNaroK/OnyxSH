@@ -9,6 +9,26 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.10.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Gerenciador Visual de Túneis SSH e Port Forwarding (Local, Remote e Dynamic SOCKS5)**: Interface gráfica dedicada e serviço autônomo em background para gerenciamento e monitoramento em tempo real de túneis SSH (`src/onyxsh/terminal/tunnel_manager.py`, `src/onyxsh/ui/dialogs/tunnel_manager_dialog.py`, `src/onyxsh/ui/dialogs/tunnel_edit_dialog.py`).
+  - 🌐 **Suporte aos 3 Modos de Encaminhamento SSH**:
+    - 🟢 **Local Port Forwarding (`-L`)**: Redirecionamento de portas locais para serviços e bancos de dados remotos através da conexão SSH.
+    - 🔄 **Remote Port Forwarding (`-R`)**: Exposição de portas de serviços locais diretamente no servidor SSH remoto.
+    - 🛡️ **Dynamic Port Forwarding SOCKS5 (`-D`)**: Criação instantânea de proxy SOCKS5 local para roteamento de tráfego de rede criptografado via SSH.
+  - 🎛️ **Diálogo de Gerenciamento Visual (`TunnelManagerDialog`)**:
+    - Interface Libadwaita com barra de busca integrada por nome, porta, host ou tipo.
+    - Status em tempo real com chips coloridos (🟢 Ativo / 🟡 Conectando / 🔴 Parado / ⚠️ Erro).
+    - Switches `Gtk.Switch` para ligar e desligar túneis com 1 clique sem necessidade de terminal interativo.
+    - Botão de cópia rápida de endereço local (`localhost:PORT`) para a área de transferência.
+    - Botão de parada global para encerrar todos os túneis ativos de uma só vez.
+  - 📝 **Editor de Túneis com Validação Rigorosa (`TunnelEditDialog`)**:
+    - Diálogo com `Adw.ComboRow` e campos reativos contextuais que ocultam ou adaptam portas e hosts dependendo do tipo selecionado.
+    - Opção de inicialização automática junto com a sessão SSH (`auto_start`).
+  - ⚙️ **Integração com Sessões SSH e Command Palette**:
+    - Integração de `port_forwardings` na aba de opções de conexão do `SessionEditDialog`.
+    - Atalho direto no Menu Principal e indexação com palavras-chave de busca na Command Palette (`Ctrl + Shift + P`).
+  - 🔄 **Serviço de Background com Auto-Detecção de Falhas (`SSHTunnelManager`)**:
+    - Processos autônomos `ssh -N -T` com monitoramento de integridade via `GLib.timeout_add_seconds` e sinais GObject em tempo real.
+  - 🌐 **Internacionalização Completa (28 Idiomas)**: 952 novas traduções sincronizadas e compiladas em todos os 28 idiomas.
 - **Modo Proteção de Produção (Production Guard)**: Sistema abrangente de salvaguardas visuais, operacionais e de privacidade para sessões e servidores de produção (`src/onyxsh/terminal/production_guard.py`, `src/onyxsh/ui/widgets/production_banner.py`, `src/onyxsh/ui/dialogs/production_confirm_dialog.py`).
   - 🛡️ **Banner Visual de Produção**: Banner persistente de alta visibilidade em degradê crimson no topo das abas conectadas a ambientes de produção (`ProductionBanner`), com indicação visual de host/sessão, badge de guarda ativa e popover explicativo das políticas de segurança ativas.
   - 🔒 **Identificação Visual na Árvore de Sessões e Abas**: Exibição instantânea do badge `🛡️` ao lado de pastas e sessões marcadas como Produção na barra lateral e nas abas de terminal ativas.
@@ -23,7 +43,6 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
     - Suporte automático à remoção de prefixos escaladores (`sudo`, `doas`, `pkexec`, `nohup`, `env`, `time`).
   - 🔐 **Diálogo Modal de Confirmação Dupla (`ProductionConfirmDialog`)**: Bloqueio da execução exigindo que o usuário digite o nome exato do host ou sessão antes de desbloquear a execução em produção, com cancelamento seguro via `Esc` ou botão de abortar (`Ctrl+C` enviado ao shell).
   - 🕵️ **Proteção de Privacidade & Redação Automática no Assistente de IA**: Anonimização e ofuscação automática de segredos, senhas, tokens e chaves de API (`redact_secrets`) antes de enviar comandos ou saídas de terminais para modelos de IA externos.
-  - 🌐 **Internacionalização Completa (28 Idiomas)**: Sincronização e compilação de 280 novas traduções em todos os 28 idiomas suportados pelo OnyxSH via `scripts/sync_translations.py`.
 
 ## [0.9.0] - 2026-08-18
 

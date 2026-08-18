@@ -118,14 +118,15 @@
 - [x] **Módulos Afetados:** `src/onyxsh/terminal/production_guard.py`, `src/onyxsh/ui/widgets/production_banner.py`, `src/onyxsh/ui/dialogs/production_confirm_dialog.py`, `src/onyxsh/sessions/models.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`.
 
 ### 🛡️ 2.2. Gerenciador Visual de Túneis SSH e Port Forwarding
-- [ ] **Descrição:** Interface gráfica para criar, monitorar e alternar túneis SSH de forma visual.
-- [ ] **Modos:**
-  - `Local Forwarding` (ex: acessar banco de dados remoto em `localhost:5432`).
-  - `Remote Forwarding` (ex: expor porta local para o servidor remoto).
-  - `Dynamic Forwarding (SOCKS5 Proxy)` para navegação segura através do túnel SSH.
-- [ ] **Recursos:** Indicador de status (conectado / erro), auto-reconexão e ativação automática ao conectar na sessão.
-- [ ] **Prioridade:** 🟡 Alta | **Esforço:** Médio/Alto | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/sessions/`, `src/zashterminal/ui/dialogs/`.
+- [x] **Descrição:** Interface gráfica para criar, monitorar e alternar túneis SSH de forma visual.
+- [x] **Modos:**
+  - `Local Forwarding (-L)` (ex: acessar banco de dados remoto em `localhost:5432`).
+  - `Remote Forwarding (-R)` (ex: expor porta local para o servidor remoto).
+  - `Dynamic Forwarding (SOCKS5 Proxy -D)` para navegação segura através do túnel SSH.
+- [x] **Recursos:** Indicador de status (🟢 Ativo / 🟡 Conectando / 🔴 Parado / ⚠️ Erro), toggle em 1 clique, auto-reconexão inteligente e ativação automática ao conectar na sessão.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/terminal/tunnel_manager.py`, `src/onyxsh/ui/dialogs/tunnel_manager_dialog.py`, `src/onyxsh/ui/dialogs/tunnel_edit_dialog.py`, `src/onyxsh/sessions/models.py`, `src/onyxsh/terminal/spawner.py`, `src/onyxsh/ui/dialogs/session_edit_dialog.py`).
+- [x] **Prioridade:** 🟡 Alta | **Esforço:** Médio/Alto | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/terminal/tunnel_manager.py`, `src/onyxsh/ui/dialogs/tunnel_manager_dialog.py`, `src/onyxsh/ui/dialogs/tunnel_edit_dialog.py`, `src/onyxsh/sessions/models.py`, `src/onyxsh/terminal/spawner.py`.
 
 ### 🛡️ 2.3. Health Check e Auto-Reconexão de Sessões SSH
 - [ ] **Descrição:** Monitoramento proativo da saúde das conexões remotas.

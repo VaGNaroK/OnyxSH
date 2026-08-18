@@ -72,6 +72,7 @@ class WindowActions:
             "toggle-search": self.toggle_search,
             "toggle-broadcast": self.toggle_broadcast,
             "show-command-manager": self.show_command_manager,
+            "show-tunnel-manager": self.show_tunnel_manager,
             "import-securecrt-sessions": self.import_securecrt_sessions,
             "jump-previous-prompt": self.jump_previous_prompt,
             "jump-next-prompt": self.jump_next_prompt,
@@ -430,6 +431,16 @@ class WindowActions:
     def show_command_manager(self, *_args):
         self._hide_tooltip()
         self.window._show_command_manager_dialog()
+
+    def show_tunnel_manager(self, *_args):
+        self._hide_tooltip()
+        from .dialogs import TunnelManagerDialog
+        session_store = getattr(getattr(self.window, "sidebar", None), "session_store", None)
+        dialog = TunnelManagerDialog(
+            parent_window=self.window,
+            session_store=session_store,
+        )
+        dialog.present()
 
     def toggle_tftp_server(self, *_args):
         self._hide_tooltip()

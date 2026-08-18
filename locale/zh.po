@@ -10209,3 +10209,139 @@ msgstr "在生产环境中执行"
 # 
 msgid "Cancel & Abort (Esc)"
 msgstr "取消并中止 (Esc)"
+
+# 
+msgid "SSH Tunnel Manager"
+msgstr "SSH 隧道管理器"
+
+# 
+msgid "Add SSH Tunnel"
+msgstr "添加 SSH 隧道"
+
+# 
+msgid "Edit SSH Tunnel"
+msgstr "编辑 SSH 隧道"
+
+# 
+msgid "Forwarding Mode"
+msgstr "转发模式"
+
+# 
+msgid "Choose between Local, Remote or Dynamic SOCKS5"
+msgstr "选择本地、远程或动态 SOCKS5"
+
+# 
+msgid "Local (-L) • Connect local port to remote service"
+msgstr "本地 (-L) • 将本地端口连接到远程服务"
+
+# 
+msgid "Remote (-R) • Expose local port on remote server"
+msgstr "远程 (-R) • 在远程服务器上公开本地端口"
+
+# 
+msgid "Dynamic (-D) • SOCKS5 Proxy through SSH"
+msgstr "动态 (-D) • 通过 SSH 的 SOCKS5 代理"
+
+# 
+msgid "Local Interface / Bind IP"
+msgstr "本地接口 / 绑定 IP"
+
+# 
+msgid "Destination Host"
+msgstr "目标主机"
+
+# 
+msgid "Destination Port"
+msgstr "目标端口"
+
+# 
+msgid "Auto-start with Session"
+msgstr "随会话自动启动"
+
+# 
+msgid "Automatically open this tunnel when connecting to the SSH host"
+msgstr "连接到 SSH 主机时自动打开此隧道"
+
+# 
+msgid "SOCKS5 Proxy Port"
+msgstr "SOCKS5 代理端口"
+
+# 
+msgid "SOCKS5 Bind Interface"
+msgstr "SOCKS5 绑定接口"
+
+# 
+msgid "Local Source Port"
+msgstr "本地源端口"
+
+# 
+msgid "Local Source IP"
+msgstr "本地源 IP"
+
+# 
+msgid "Remote Bind Host"
+msgstr "远程绑定主机"
+
+# 
+msgid "Remote Exposed Port"
+msgstr "远程公开端口"
+
+# 
+msgid "Local Listen Port"
+msgstr "本地侦听端口"
+
+# 
+msgid "Local Listen IP"
+msgstr "本地侦听 IP"
+
+# 
+msgid "Remote Destination Host"
+msgstr "远程目标主机"
+
+# 
+msgid "Remote Destination Port"
+msgstr "远程目标端口"
+
+# 
+msgid "Stop All Active Tunnels"
+msgstr "停止所有活动隧道"
+
+# 
+msgid "Search tunnels by name, port or host..."
+msgstr "按名称、端口或主机搜索隧道..."
+
+# 
+msgid "No SSH Tunnels"
+msgstr "没有 SSH 隧道"
+
+# 
+msgid "Create a Local (-L), Remote (-R) or Dynamic SOCKS5 (-D) tunnel to forward network ports through SSH."
+msgstr "创建本地 (-L)、远程 (-R) 或动态 SOCKS5 (-D) 隧道以通过 SSH 转发网络端口。"
+
+# 
+msgid "Edit Tunnel"
+msgstr "编辑隧道"
+
+# 
+msgid "Delete Tunnel"
+msgstr "删除隧道"
+
+# 
+msgid "Dynamic (SOCKS5)"
+msgstr "动态 (SOCKS5)"
+
+# 
+msgid "Remote (-R)"
+msgstr "远程 (-R)"
+
+# 
+msgid "Local (-L)"
+msgstr "本地 (-L)"
+
+# 
+msgid "No associated SSH session configured"
+msgstr "未配置关联的 SSH 会话"
+
+# 
+msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
+msgstr "可视化 SSH 隧道管理器与端口转发"

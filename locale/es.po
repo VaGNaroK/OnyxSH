@@ -10280,3 +10280,139 @@ msgstr "Ejecutar en Producción"
 # 
 msgid "Cancel & Abort (Esc)"
 msgstr "Cancelar y Abortar (Esc)"
+
+# 
+msgid "SSH Tunnel Manager"
+msgstr "Gestor de Túneles SSH"
+
+# 
+msgid "Add SSH Tunnel"
+msgstr "Añadir túnel SSH"
+
+# 
+msgid "Edit SSH Tunnel"
+msgstr "Editar túnel SSH"
+
+# 
+msgid "Forwarding Mode"
+msgstr "Modo de reenvío"
+
+# 
+msgid "Choose between Local, Remote or Dynamic SOCKS5"
+msgstr "Elija entre Local, Remoto o Dinámico SOCKS5"
+
+# 
+msgid "Local (-L) • Connect local port to remote service"
+msgstr "Local (-L) • Conectar puerto local al servicio remoto"
+
+# 
+msgid "Remote (-R) • Expose local port on remote server"
+msgstr "Remoto (-R) • Exponer puerto local en el servidor remoto"
+
+# 
+msgid "Dynamic (-D) • SOCKS5 Proxy through SSH"
+msgstr "Dinámico (-D) • Proxy SOCKS5 a través de SSH"
+
+# 
+msgid "Local Interface / Bind IP"
+msgstr "Interfaz local / IP de enlace"
+
+# 
+msgid "Destination Host"
+msgstr "Host de destino"
+
+# 
+msgid "Destination Port"
+msgstr "Puerto de destino"
+
+# 
+msgid "Auto-start with Session"
+msgstr "Iniciar automáticamente con la sesión"
+
+# 
+msgid "Automatically open this tunnel when connecting to the SSH host"
+msgstr "Abrir este túnel automáticamente al conectarse al host SSH"
+
+# 
+msgid "SOCKS5 Proxy Port"
+msgstr "Puerto del proxy SOCKS5"
+
+# 
+msgid "SOCKS5 Bind Interface"
+msgstr "Interfaz de enlace SOCKS5"
+
+# 
+msgid "Local Source Port"
+msgstr "Puerto de origen local"
+
+# 
+msgid "Local Source IP"
+msgstr "IP de origen local"
+
+# 
+msgid "Remote Bind Host"
+msgstr "Host de enlace remoto"
+
+# 
+msgid "Remote Exposed Port"
+msgstr "Puerto expuesto remoto"
+
+# 
+msgid "Local Listen Port"
+msgstr "Puerto de escucha local"
+
+# 
+msgid "Local Listen IP"
+msgstr "IP de escucha local"
+
+# 
+msgid "Remote Destination Host"
+msgstr "Host de destino remoto"
+
+# 
+msgid "Remote Destination Port"
+msgstr "Puerto de destino remoto"
+
+# 
+msgid "Stop All Active Tunnels"
+msgstr "Detener todos los túneles activos"
+
+# 
+msgid "Search tunnels by name, port or host..."
+msgstr "Buscar túneles por nombre, puerto o host..."
+
+# 
+msgid "No SSH Tunnels"
+msgstr "Sin túneles SSH"
+
+# 
+msgid "Create a Local (-L), Remote (-R) or Dynamic SOCKS5 (-D) tunnel to forward network ports through SSH."
+msgstr "Cree un túnel Local (-L), Remoto (-R) o Dinámico SOCKS5 (-D) para redirigir puertos de red a través de SSH."
+
+# 
+msgid "Edit Tunnel"
+msgstr "Editar túnel"
+
+# 
+msgid "Delete Tunnel"
+msgstr "Eliminar túnel"
+
+# 
+msgid "Dynamic (SOCKS5)"
+msgstr "Dinámico (SOCKS5)"
+
+# 
+msgid "Remote (-R)"
+msgstr "Remoto (-R)"
+
+# 
+msgid "Local (-L)"
+msgstr "Local (-L)"
+
+# 
+msgid "No associated SSH session configured"
+msgstr "No hay sesión SSH asociada configurada"
+
+# 
+msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
+msgstr "Gestor Visual de Túneles SSH y Reenvío de Puertos"
