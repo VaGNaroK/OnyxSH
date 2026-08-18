@@ -9677,3 +9677,495 @@ msgstr "邻居/ARP 表管理"
 # 
 msgid "Tab or → to apply • Esc to dismiss"
 msgstr "Tab 或 → 应用 • Esc 关闭"
+
+# 
+msgid "Change the current working directory"
+msgstr "更改当前工作目录"
+
+# 
+msgid "Parent directory (go up one level)"
+msgstr "上级目录（上一层）"
+
+# 
+msgid "User home directory"
+msgstr "用户主目录 (~)"
+
+# 
+msgid "Previous working directory"
+msgstr "上一个工作目录 (-)"
+
+# 
+msgid "Temporary directory"
+msgstr "临时文件目录 (/tmp)"
+
+# 
+msgid "System configuration directory"
+msgstr "系统配置文件目录 (/etc)"
+
+# 
+msgid "System logs directory"
+msgstr "系统日志文件目录 (/var/log)"
+
+# 
+msgid "Print the current working directory name"
+msgstr "打印当前工作目录名称 (pwd)"
+
+# 
+msgid "Avoid all symlinks and print physical directory"
+msgstr "避免所有符号链接并打印物理目录 (-P)"
+
+# 
+msgid "Print the environment PWD including symlinks"
+msgstr "打印包含符号链接的环境 PWD 路径 (-L)"
+
+# 
+msgid "Copy files and directories"
+msgstr "复制文件和目录"
+
+# 
+msgid "Copy directories recursively"
+msgstr "递归复制目录 (-r)"
+
+# 
+msgid "Explain what is being done"
+msgstr "详细解释正在执行的操作（详细模式）"
+
+# 
+msgid "Prompt before overwrite"
+msgstr "覆盖前提示确认 (-i)"
+
+# 
+msgid "Archive mode: preserve attributes, symlinks, recursive"
+msgstr "归档模式：保留属性、符号链接并递归 (-a)"
+
+# 
+msgid "Copy only when source file is newer"
+msgstr "仅在源文件较新时进行复制 (-u)"
+
+# 
+msgid "Preserve specified attributes (mode,ownership,timestamps)"
+msgstr "保留指定的文件属性（权限、所有者、时间戳）(-p)"
+
+# 
+msgid "Move or rename files and directories"
+msgstr "移动或重命名文件和目录"
+
+# 
+msgid "Do not prompt before overwriting"
+msgstr "覆盖时不提示确认 (-f)"
+
+# 
+msgid "Move only when source file is newer"
+msgstr "仅在源文件较新时进行移动 (-u)"
+
+# 
+msgid "Change file timestamps or create empty files"
+msgstr "修改文件时间戳或创建空文件"
+
+# 
+msgid "Change only the access time"
+msgstr "仅更改访问时间 (-a)"
+
+# 
+msgid "Change only the modification time"
+msgstr "仅更改修改时间 (-m)"
+
+# 
+msgid "Do not create any files"
+msgstr "不要创建任何文件 (-c)"
+
+# 
+msgid "Concatenate files and print on the standard output"
+msgstr "连接文件并打印到标准输出 (cat)"
+
+# 
+msgid "Number all output lines"
+msgstr "对所有输出行进行编号 (-n)"
+
+# 
+msgid "Number nonempty output lines, overrides -n"
+msgstr "仅对非空输出行进行编号 (-b)"
+
+# 
+msgid "Suppress repeated empty output lines"
+msgstr "压缩连续的重复空行 (-s)"
+
+# 
+msgid "Equivalent to -vET (show non-printing characters)"
+msgstr "显示不可打印字符与行尾符 (-A)"
+
+# 
+msgid "View file contents with backwards and forwards navigation"
+msgstr "前后导航查看文件内容 (less)"
+
+# 
+msgid "Show line numbers"
+msgstr "显示行号 (-N)"
+
+# 
+msgid "Chop long lines instead of wrapping"
+msgstr "截断长行而非自动换行 (-S)"
+
+# 
+msgid "Quit if the entire file fits on the first screen"
+msgstr "如果整个文件能在一屏内显示则自动退出 (-F)"
+
+# 
+msgid "Output raw control characters (ANSI colors)"
+msgstr "直接输出 ANSI 颜色和控制字符 (-R)"
+
+# 
+msgid "Output the first part of files"
+msgstr "输出文件开头部分 (head)"
+
+# 
+msgid "Print the first 10 lines"
+msgstr "打印前 10 行 (-n 10)"
+
+# 
+msgid "Print the first 20 lines"
+msgstr "打印前 20 行 (-n 20)"
+
+# 
+msgid "Print the first 50 lines"
+msgstr "打印前 50 行 (-n 50)"
+
+# 
+msgid "Print the first K bytes of each file"
+msgstr "打印每个文件的前 K 字节 (-c)"
+
+# 
+msgid "Output the last part of files"
+msgstr "输出文件结尾部分 (tail)"
+
+# 
+msgid "Follow output live (output appended data as file grows)"
+msgstr "实时跟踪追加的文件输出 (-f)"
+
+# 
+msgid "Output the last 50 lines"
+msgstr "输出最后 50 行 (-n 50)"
+
+# 
+msgid "Output the last 100 lines"
+msgstr "输出最后 100 行 (-n 100)"
+
+# 
+msgid "Follow and retry if file is rotated or recreated"
+msgstr "在日志文件被轮转重构时持续重试跟踪 (-F)"
+
+# 
+msgid "Clear the terminal screen"
+msgstr "清空终端屏幕 (clear)"
+
+# 
+msgid "Do not clear scrollback buffer"
+msgstr "保留回滚缓冲区内容 (-x)"
+
+# 
+msgid "List contents of directories in a tree-like format"
+msgstr "以树状格式列出目录内容 (tree)"
+
+# 
+msgid "Max display depth of the directory tree: 2"
+msgstr "目录树最大显示深度：2 (-L 2)"
+
+# 
+msgid "Max display depth of the directory tree: 3"
+msgstr "目录树最大显示深度：3 (-L 3)"
+
+# 
+msgid "All files are printed, including hidden files"
+msgstr "列出所有文件，包括隐藏文件 (-a)"
+
+# 
+msgid "List directories only"
+msgstr "仅列出目录 (-d)"
+
+# 
+msgid "Print the size in human readable format"
+msgstr "以易读格式打印文件大小 (-h)"
+
+# 
+msgid "Report file system disk space usage"
+msgstr "查看文件系统磁盘空间占用情况 (df)"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g., 1K 234M 2G)"
+msgstr "以 1024 进制显示容量（如 1K 234M 2G）(-h)"
+
+# 
+msgid "Print file system type"
+msgstr "打印文件系统类型 (-T)"
+
+# 
+msgid "List inode information instead of block usage"
+msgstr "列出 inode 使用情况而非磁盘块 (-i)"
+
+# 
+msgid "Estimate file and directory space usage"
+msgstr "统计文件和目录的磁盘占用空间 (du)"
+
+# 
+msgid "Summary of size for each item in current directory"
+msgstr "统计当前目录下每个项目的总大小 (-sh *)"
+
+# 
+msgid "Print sizes in human readable format"
+msgstr "以人类可读格式打印大小 (-h)"
+
+# 
+msgid "Print the total for directory depth 1"
+msgstr "打印目录深度为 1 的统计总量 (-d 1)"
+
+# 
+msgid "Write counts for all files, not just directories"
+msgstr "统计所有文件而不仅仅是目录 (-a)"
+
+# 
+msgid "Display amount of free and used memory in the system"
+msgstr "查看系统中空闲和已用的内存总量 (free)"
+
+# 
+msgid "Display memory in human-readable format"
+msgstr "以人类可读格式显示内存容量 (-h)"
+
+# 
+msgid "Display amount of memory in megabytes"
+msgstr "以兆字节 (MB) 为单位显示内存 (-m)"
+
+# 
+msgid "Display amount of memory in gigabytes"
+msgstr "以吉字节 (GB) 为单位显示内存 (-g)"
+
+# 
+msgid "Continuously display memory every 2 seconds"
+msgstr "每隔 2 秒持续刷新内存显示 (-s 2)"
+
+# 
+msgid "Interactive process viewer and system monitor"
+msgstr "交互式进程查看器与系统监控 (htop)"
+
+# 
+msgid "Display Linux processes in real time"
+msgstr "实时显示 Linux 系统进程 (top)"
+
+# 
+msgid "Batch mode operation"
+msgstr "批处理模式运行 (-b)"
+
+# 
+msgid "Number of iterations before exiting"
+msgstr "退出前的刷新迭代次数 (-n 1)"
+
+# 
+msgid "Monitor only specific user processes"
+msgstr "仅监视特定用户的进程 (-u)"
+
+# 
+msgid "Report a snapshot of the current processes"
+msgstr "报告当前系统进程快照 (ps)"
+
+# 
+msgid "See every process on the system (BSD style)"
+msgstr "查看系统中的每一个进程（BSD 风格）(aux)"
+
+# 
+msgid "Standard full format listing of all processes"
+msgstr "标准全格式列出所有进程 (-ef)"
+
+# 
+msgid "Display user-oriented format"
+msgstr "以面向用户的格式显示 (-u)"
+
+# 
+msgid "ASCII art process tree"
+msgstr "以 ASCII 字符树状显示进程关系 (--forest)"
+
+# 
+msgid "Locate a command executable in PATH"
+msgstr "在 PATH 中查找命令的可执行文件路径 (which)"
+
+# 
+msgid "Print all matching pathnames of each argument"
+msgstr "打印每个参数的所有匹配路径名 (-a)"
+
+# 
+msgid "Locate the binary, source, and manual page files for a command"
+msgstr "查找命令的二进制、源码和手册文件位置 (whereis)"
+
+# 
+msgid "Display a line of text or variable value"
+msgstr "输出一行文本或变量值 (echo)"
+
+# 
+msgid "Enable interpretation of backslash escapes"
+msgstr "启用反斜杠转义字符解释（如 \n, \t）(-e)"
+
+# 
+msgid "Do not output the trailing newline"
+msgstr "末尾不输出换行符 (-n)"
+
+# 
+msgid "Simple, user-friendly terminal text editor"
+msgstr "简单易用的终端文本编辑器 (nano)"
+
+# 
+msgid "Show line numbers in editor"
+msgstr "在编辑器中显示行号 (-l)"
+
+# 
+msgid "Enable mouse support"
+msgstr "启用鼠标交互支持 (-m)"
+
+# 
+msgid "Vi IMproved, a highly configurable text editor"
+msgstr "Vi IMproved，高度可配置的强大文本编辑器 (vim)"
+
+# 
+msgid "Open at the end of the file"
+msgstr "直接打开到文件末尾 (+)"
+
+# 
+msgid "Read-only mode"
+msgstr "只读模式 (-R)"
+
+# 
+msgid "Make links between files"
+msgstr "在文件之间创建链接 (ln)"
+
+# 
+msgid "Make symbolic (soft) links instead of hard links"
+msgstr "创建符号链接（软链接）而非硬链接 (-s)"
+
+# 
+msgid "Remove existing destination files"
+msgstr "强制覆盖已存在的目标文件 (-f)"
+
+# 
+msgid "Print name of each linked file"
+msgstr "打印每个创建的链接名称 (-v)"
+
+# 
+msgid "Print operating system and kernel information"
+msgstr "打印操作系统与内核信息 (uname)"
+
+# 
+msgid "Print all system information"
+msgstr "打印所有系统信息 (-a)"
+
+# 
+msgid "Print the kernel release"
+msgstr "打印内核版本号 (-r)"
+
+# 
+msgid "Print the machine hardware architecture"
+msgstr "打印机器硬件架构 (-m)"
+
+# 
+msgid "Display or manipulate the command history list"
+msgstr "显示或管理命令历史列表 (history)"
+
+# 
+msgid "Clear the history list"
+msgstr "清空历史记录列表 (-c)"
+
+# 
+msgid "Show last 10 commands"
+msgstr "显示最近执行的 10 条命令"
+
+# 
+msgid "Send ICMP ECHO_REQUEST to network hosts"
+msgstr "向网络主机发送 ICMP 请求检测连通性 (ping)"
+
+# 
+msgid "Stop after sending 4 ECHO_REQUEST packets"
+msgstr "发送 4 个数据包后停止 (-c 4)"
+
+# 
+msgid "Wait 1 second between sending each packet"
+msgstr "每发送一个数据包等待 1 秒 (-i 1)"
+
+# 
+msgid "Time to wait for a response in seconds"
+msgstr "等待响应的超时秒数 (-W 2)"
+
+# 
+msgid "Non-interactive network downloader"
+msgstr "非交互式网络文件下载工具 (wget)"
+
+# 
+msgid "Resume getting a partially-downloaded file"
+msgstr "断点续传未下载完成的文件 (-c)"
+
+# 
+msgid "Write output to specific file"
+msgstr "将下载内容写入指定文件 (-O)"
+
+# 
+msgid "Go to background immediately after startup"
+msgstr "启动后立即转入后台运行 (-b)"
+
+# 
+msgid "Secure copy files between hosts over SSH"
+msgstr "通过 SSH 在主机间安全复制文件 (scp)"
+
+# 
+msgid "Recursively copy entire directories"
+msgstr "递归复制整个目录 (-r)"
+
+# 
+msgid "Port to connect to on the remote host"
+msgstr "连接到远程主机的 SSH 端口 (-P)"
+
+# 
+msgid "Verbose mode"
+msgstr "详细输出模式 (-v)"
+
+# 
+msgid "Enable compression"
+msgstr "启用数据压缩 (-C)"
+
+# 
+msgid "Package and compress files into a zip archive"
+msgstr "打包并压缩文件为 ZIP 归档 (zip)"
+
+# 
+msgid "Travel the directory structure recursively"
+msgstr "递归遍历目录结构 (-r)"
+
+# 
+msgid "Encrypt contents with password"
+msgstr "使用密码加密压缩包内容 (-e)"
+
+# 
+msgid "Extract compressed files from a ZIP archive"
+msgstr "从 ZIP 归档中解压提取文件 (unzip)"
+
+# 
+msgid "List archive files without extracting"
+msgstr "仅列出归档内容而不进行解压 (-l)"
+
+# 
+msgid "Extract files into specified directory"
+msgstr "解压文件到指定目标目录 (-d)"
+
+# 
+msgid "Compress or expand files with Lempel-Ziv coding (LZ77)"
+msgstr "使用 gzip 算法压缩或解压文件 (.gz)"
+
+# 
+msgid "Decompress / expand files"
+msgstr "解压文件 (-d)"
+
+# 
+msgid "Keep (do not delete) input files"
+msgstr "保留原始输入文件不删除 (-k)"
+
+# 
+msgid "Best compression level"
+msgstr "最高压缩级别 (-9)"
+
+# 
+msgid "Decompress and expand files compressed with gzip"
+msgstr "解压 gzip 格式的压缩文件 (gunzip)"

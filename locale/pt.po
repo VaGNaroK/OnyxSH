@@ -10040,3 +10040,495 @@ msgstr "Gerenciamento de tabela vizinha/ARP"
 # 
 msgid "Tab or → to apply • Esc to dismiss"
 msgstr "Tab ou → para aplicar • Esc para fechar"
+
+# 
+msgid "Change the current working directory"
+msgstr "Alterar o diretório de trabalho atual"
+
+# 
+msgid "Parent directory (go up one level)"
+msgstr "Diretório pai (subir um nível)"
+
+# 
+msgid "User home directory"
+msgstr "Diretório pessoal do usuário (~)"
+
+# 
+msgid "Previous working directory"
+msgstr "Diretório de trabalho anterior (-)"
+
+# 
+msgid "Temporary directory"
+msgstr "Diretório de arquivos temporários (/tmp)"
+
+# 
+msgid "System configuration directory"
+msgstr "Diretório de configurações do sistema (/etc)"
+
+# 
+msgid "System logs directory"
+msgstr "Diretório de logs do sistema (/var/log)"
+
+# 
+msgid "Print the current working directory name"
+msgstr "Imprimir o nome do diretório de trabalho atual (pwd)"
+
+# 
+msgid "Avoid all symlinks and print physical directory"
+msgstr "Evitar links simbólicos e exibir diretório físico (-P)"
+
+# 
+msgid "Print the environment PWD including symlinks"
+msgstr "Exibir PWD do ambiente incluindo links simbólicos (-L)"
+
+# 
+msgid "Copy files and directories"
+msgstr "Copiar arquivos e diretórios"
+
+# 
+msgid "Copy directories recursively"
+msgstr "Copiar diretórios recursivamente (-r)"
+
+# 
+msgid "Explain what is being done"
+msgstr "Explicar detalhadamente o que está sendo feito (verbose)"
+
+# 
+msgid "Prompt before overwrite"
+msgstr "Confirmar antes de sobrescrever arquivos (-i)"
+
+# 
+msgid "Archive mode: preserve attributes, symlinks, recursive"
+msgstr "Modo arquivo: preservar atributos, links e recursivo (-a)"
+
+# 
+msgid "Copy only when source file is newer"
+msgstr "Copiar apenas se o arquivo de origem for mais recente (-u)"
+
+# 
+msgid "Preserve specified attributes (mode,ownership,timestamps)"
+msgstr "Preservar atributos especificados (permissões, data/hora) (-p)"
+
+# 
+msgid "Move or rename files and directories"
+msgstr "Mover ou renomear arquivos e diretórios"
+
+# 
+msgid "Do not prompt before overwriting"
+msgstr "Não pedir confirmação antes de sobrescrever (-f)"
+
+# 
+msgid "Move only when source file is newer"
+msgstr "Mover apenas se o arquivo de origem for mais recente (-u)"
+
+# 
+msgid "Change file timestamps or create empty files"
+msgstr "Alterar carimbos de data/hora ou criar arquivos vazios"
+
+# 
+msgid "Change only the access time"
+msgstr "Alterar apenas o horário de último acesso (-a)"
+
+# 
+msgid "Change only the modification time"
+msgstr "Alterar apenas o horário de modificação (-m)"
+
+# 
+msgid "Do not create any files"
+msgstr "Não criar nenhum arquivo se não existir (-c)"
+
+# 
+msgid "Concatenate files and print on the standard output"
+msgstr "Concatenar e exibir o conteúdo de arquivos (cat)"
+
+# 
+msgid "Number all output lines"
+msgstr "Numerar todas as linhas de saída (-n)"
+
+# 
+msgid "Number nonempty output lines, overrides -n"
+msgstr "Numerar apenas linhas não vazias (-b)"
+
+# 
+msgid "Suppress repeated empty output lines"
+msgstr "Omitir linhas vazias repetidas (-s)"
+
+# 
+msgid "Equivalent to -vET (show non-printing characters)"
+msgstr "Exibir caracteres não imprimíveis (-A)"
+
+# 
+msgid "View file contents with backwards and forwards navigation"
+msgstr "Visualizar conteúdo de arquivos com paginação e busca (less)"
+
+# 
+msgid "Show line numbers"
+msgstr "Exibir números de linha (-N)"
+
+# 
+msgid "Chop long lines instead of wrapping"
+msgstr "Truncar linhas longas em vez de quebrar (-S)"
+
+# 
+msgid "Quit if the entire file fits on the first screen"
+msgstr "Sair automaticamente se o arquivo couber em uma tela (-F)"
+
+# 
+msgid "Output raw control characters (ANSI colors)"
+msgstr "Preservar caracteres de controle e cores ANSI (-R)"
+
+# 
+msgid "Output the first part of files"
+msgstr "Exibir o início do conteúdo de arquivos (head)"
+
+# 
+msgid "Print the first 10 lines"
+msgstr "Exibir as primeiras 10 linhas (-n 10)"
+
+# 
+msgid "Print the first 20 lines"
+msgstr "Exibir as primeiras 20 linhas (-n 20)"
+
+# 
+msgid "Print the first 50 lines"
+msgstr "Exibir as primeiras 50 linhas (-n 50)"
+
+# 
+msgid "Print the first K bytes of each file"
+msgstr "Exibir os primeiros K bytes do arquivo (-c)"
+
+# 
+msgid "Output the last part of files"
+msgstr "Exibir o final do conteúdo de arquivos (tail)"
+
+# 
+msgid "Follow output live (output appended data as file grows)"
+msgstr "Acompanhar saída ao vivo em tempo real (-f)"
+
+# 
+msgid "Output the last 50 lines"
+msgstr "Exibir as últimas 50 linhas (-n 50)"
+
+# 
+msgid "Output the last 100 lines"
+msgstr "Exibir as últimas 100 linhas (-n 100)"
+
+# 
+msgid "Follow and retry if file is rotated or recreated"
+msgstr "Acompanhar e reconectar se arquivo for rotacionado (-F)"
+
+# 
+msgid "Clear the terminal screen"
+msgstr "Limpar a tela do terminal (clear)"
+
+# 
+msgid "Do not clear scrollback buffer"
+msgstr "Não limpar o buffer de rolagem do terminal (-x)"
+
+# 
+msgid "List contents of directories in a tree-like format"
+msgstr "Listar conteúdo de diretórios em formato de árvore (tree)"
+
+# 
+msgid "Max display depth of the directory tree: 2"
+msgstr "Profundidade máxima da árvore de diretórios: 2 (-L 2)"
+
+# 
+msgid "Max display depth of the directory tree: 3"
+msgstr "Profundidade máxima da árvore de diretórios: 3 (-L 3)"
+
+# 
+msgid "All files are printed, including hidden files"
+msgstr "Exibir todos os arquivos, incluindo ocultos (-a)"
+
+# 
+msgid "List directories only"
+msgstr "Listar apenas diretórios (-d)"
+
+# 
+msgid "Print the size in human readable format"
+msgstr "Exibir tamanhos em formato legível para humanos (-h)"
+
+# 
+msgid "Report file system disk space usage"
+msgstr "Exibir o uso de espaço em disco dos sistemas de arquivos (df)"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g., 1K 234M 2G)"
+msgstr "Exibir tamanhos em potências de 1024 (ex: 1K, 234M, 2G) (-h)"
+
+# 
+msgid "Print file system type"
+msgstr "Exibir o tipo de sistema de arquivos (-T)"
+
+# 
+msgid "List inode information instead of block usage"
+msgstr "Listar informações de inodes em vez de blocos (-i)"
+
+# 
+msgid "Estimate file and directory space usage"
+msgstr "Calcular o espaço em disco utilizado por arquivos e pastas (du)"
+
+# 
+msgid "Summary of size for each item in current directory"
+msgstr "Resumo do tamanho de cada item no diretório atual (-sh *)"
+
+# 
+msgid "Print sizes in human readable format"
+msgstr "Exibir tamanhos em formato legível (-h)"
+
+# 
+msgid "Print the total for directory depth 1"
+msgstr "Exibir total para profundidade de diretório 1 (-d 1)"
+
+# 
+msgid "Write counts for all files, not just directories"
+msgstr "Contabilizar todos os arquivos individuais (-a)"
+
+# 
+msgid "Display amount of free and used memory in the system"
+msgstr "Exibir quantidade de memória livre e usada no sistema (free)"
+
+# 
+msgid "Display memory in human-readable format"
+msgstr "Exibir memória em formato legível (-h)"
+
+# 
+msgid "Display amount of memory in megabytes"
+msgstr "Exibir quantidade de memória em megabytes (-m)"
+
+# 
+msgid "Display amount of memory in gigabytes"
+msgstr "Exibir quantidade de memória em gigabytes (-g)"
+
+# 
+msgid "Continuously display memory every 2 seconds"
+msgstr "Atualizar exibição de memória continuamente a cada 2s (-s 2)"
+
+# 
+msgid "Interactive process viewer and system monitor"
+msgstr "Monitor de processos e sistema interativo (htop)"
+
+# 
+msgid "Display Linux processes in real time"
+msgstr "Exibir processos do sistema em tempo real (top)"
+
+# 
+msgid "Batch mode operation"
+msgstr "Operação em modo lote (-b)"
+
+# 
+msgid "Number of iterations before exiting"
+msgstr "Número de iterações antes de sair (-n 1)"
+
+# 
+msgid "Monitor only specific user processes"
+msgstr "Monitorar apenas processos de um usuário específico (-u)"
+
+# 
+msgid "Report a snapshot of the current processes"
+msgstr "Exibir relatório dos processos em execução (ps)"
+
+# 
+msgid "See every process on the system (BSD style)"
+msgstr "Listar todos os processos do sistema em estilo BSD (aux)"
+
+# 
+msgid "Standard full format listing of all processes"
+msgstr "Listagem completa padrão de todos os processos (-ef)"
+
+# 
+msgid "Display user-oriented format"
+msgstr "Exibir formato orientado ao usuário (-u)"
+
+# 
+msgid "ASCII art process tree"
+msgstr "Exibir árvore hierárquica de processos (--forest)"
+
+# 
+msgid "Locate a command executable in PATH"
+msgstr "Localizar o executável de um comando no PATH (which)"
+
+# 
+msgid "Print all matching pathnames of each argument"
+msgstr "Exibir todos os caminhos correspondentes encontrados (-a)"
+
+# 
+msgid "Locate the binary, source, and manual page files for a command"
+msgstr "Localizar binário, código-fonte e página de manual de um comando (whereis)"
+
+# 
+msgid "Display a line of text or variable value"
+msgstr "Exibir uma linha de texto ou valor de variável (echo)"
+
+# 
+msgid "Enable interpretation of backslash escapes"
+msgstr "Interpretar sequências de escape como \n e \t (-e)"
+
+# 
+msgid "Do not output the trailing newline"
+msgstr "Não quebrar linha ao final da saída (-n)"
+
+# 
+msgid "Simple, user-friendly terminal text editor"
+msgstr "Editor de texto simples e amigável para terminal (nano)"
+
+# 
+msgid "Show line numbers in editor"
+msgstr "Exibir números de linha no editor (-l)"
+
+# 
+msgid "Enable mouse support"
+msgstr "Habilitar suporte ao mouse (-m)"
+
+# 
+msgid "Vi IMproved, a highly configurable text editor"
+msgstr "Vi IMproved, editor de texto poderoso e configurável (vim)"
+
+# 
+msgid "Open at the end of the file"
+msgstr "Abrir o arquivo diretamente na última linha (+)"
+
+# 
+msgid "Read-only mode"
+msgstr "Modo somente leitura (-R)"
+
+# 
+msgid "Make links between files"
+msgstr "Criar links entre arquivos (ln)"
+
+# 
+msgid "Make symbolic (soft) links instead of hard links"
+msgstr "Criar link simbólico em vez de hard link (-s)"
+
+# 
+msgid "Remove existing destination files"
+msgstr "Sobrescrever arquivos de destino existentes (-f)"
+
+# 
+msgid "Print name of each linked file"
+msgstr "Exibir o nome de cada link criado (-v)"
+
+# 
+msgid "Print operating system and kernel information"
+msgstr "Exibir informações do sistema operacional e kernel (uname)"
+
+# 
+msgid "Print all system information"
+msgstr "Exibir todas as informações do sistema (-a)"
+
+# 
+msgid "Print the kernel release"
+msgstr "Exibir versão do kernel (-r)"
+
+# 
+msgid "Print the machine hardware architecture"
+msgstr "Exibir arquitetura de hardware da máquina (-m)"
+
+# 
+msgid "Display or manipulate the command history list"
+msgstr "Exibir e gerenciar o histórico de comandos do shell (history)"
+
+# 
+msgid "Clear the history list"
+msgstr "Limpar o histórico da sessão (-c)"
+
+# 
+msgid "Show last 10 commands"
+msgstr "Exibir os últimos 10 comandos executados"
+
+# 
+msgid "Send ICMP ECHO_REQUEST to network hosts"
+msgstr "Enviar pacotes ICMP para testar conectividade de rede (ping)"
+
+# 
+msgid "Stop after sending 4 ECHO_REQUEST packets"
+msgstr "Parar após enviar 4 pacotes (-c 4)"
+
+# 
+msgid "Wait 1 second between sending each packet"
+msgstr "Intervalo de 1 segundo entre pacotes (-i 1)"
+
+# 
+msgid "Time to wait for a response in seconds"
+msgstr "Tempo limite de resposta em segundos (-W 2)"
+
+# 
+msgid "Non-interactive network downloader"
+msgstr "Utilitário de download de arquivos da rede (wget)"
+
+# 
+msgid "Resume getting a partially-downloaded file"
+msgstr "Continuar download interrompido (-c)"
+
+# 
+msgid "Write output to specific file"
+msgstr "Salvar saída com nome de arquivo especificado (-O)"
+
+# 
+msgid "Go to background immediately after startup"
+msgstr "Executar download em segundo plano (-b)"
+
+# 
+msgid "Secure copy files between hosts over SSH"
+msgstr "Cópia segura de arquivos entre máquinas via SSH (scp)"
+
+# 
+msgid "Recursively copy entire directories"
+msgstr "Copiar diretórios inteiros recursivamente (-r)"
+
+# 
+msgid "Port to connect to on the remote host"
+msgstr "Porta SSH do servidor remoto (-P)"
+
+# 
+msgid "Verbose mode"
+msgstr "Modo detalhado / depuração (-v)"
+
+# 
+msgid "Enable compression"
+msgstr "Habilitar compressão de dados (-C)"
+
+# 
+msgid "Package and compress files into a zip archive"
+msgstr "Empacotar e compactar arquivos em arquivo ZIP (zip)"
+
+# 
+msgid "Travel the directory structure recursively"
+msgstr "Incluir subdiretórios recursivamente (-r)"
+
+# 
+msgid "Encrypt contents with password"
+msgstr "Criptografar arquivos com senha (-e)"
+
+# 
+msgid "Extract compressed files from a ZIP archive"
+msgstr "Descompactar e extrair arquivos de um ZIP (unzip)"
+
+# 
+msgid "List archive files without extracting"
+msgstr "Listar arquivos do ZIP sem extrair (-l)"
+
+# 
+msgid "Extract files into specified directory"
+msgstr "Extrair arquivos para o diretório indicado (-d)"
+
+# 
+msgid "Compress or expand files with Lempel-Ziv coding (LZ77)"
+msgstr "Compactar ou descompactar arquivos com gzip (.gz)"
+
+# 
+msgid "Decompress / expand files"
+msgstr "Descompactar arquivos (-d)"
+
+# 
+msgid "Keep (do not delete) input files"
+msgstr "Manter arquivos originais sem deletar (-k)"
+
+# 
+msgid "Best compression level"
+msgstr "Nível máximo de compressão (-9)"
+
+# 
+msgid "Decompress and expand files compressed with gzip"
+msgstr "Descompactar arquivos comprimidos com gzip (gunzip)"

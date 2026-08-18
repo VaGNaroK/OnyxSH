@@ -9682,3 +9682,495 @@ msgstr "近隣/ARP テーブル管理"
 # 
 msgid "Tab or → to apply • Esc to dismiss"
 msgstr "Tab または → で適用 • Esc で閉じる"
+
+# 
+msgid "Change the current working directory"
+msgstr "現在の作業ディレクトリを変更"
+
+# 
+msgid "Parent directory (go up one level)"
+msgstr "親ディレクトリ（1つ上の階層へ）"
+
+# 
+msgid "User home directory"
+msgstr "ユーザーのホームディレクトリ (~)"
+
+# 
+msgid "Previous working directory"
+msgstr "前の作業ディレクトリ (-)"
+
+# 
+msgid "Temporary directory"
+msgstr "一時ファイルディレクトリ (/tmp)"
+
+# 
+msgid "System configuration directory"
+msgstr "システム設定ディレクトリ (/etc)"
+
+# 
+msgid "System logs directory"
+msgstr "システムログディレクトリ (/var/log)"
+
+# 
+msgid "Print the current working directory name"
+msgstr "現在の作業ディレクトリ名を出力 (pwd)"
+
+# 
+msgid "Avoid all symlinks and print physical directory"
+msgstr "シンボリックリンクを回避して物理ディレクトリを出力 (-P)"
+
+# 
+msgid "Print the environment PWD including symlinks"
+msgstr "シンボリックリンクを含む環境の PWD を出力 (-L)"
+
+# 
+msgid "Copy files and directories"
+msgstr "ファイルとディレクトリをコピー"
+
+# 
+msgid "Copy directories recursively"
+msgstr "ディレクトリを再帰的にコピー (-r)"
+
+# 
+msgid "Explain what is being done"
+msgstr "実行内容を詳細に説明（詳細モード）"
+
+# 
+msgid "Prompt before overwrite"
+msgstr "上書きする前に確認 (-i)"
+
+# 
+msgid "Archive mode: preserve attributes, symlinks, recursive"
+msgstr "アーカイブモード：属性、リンクを保持して再帰処理 (-a)"
+
+# 
+msgid "Copy only when source file is newer"
+msgstr "ソースファイルの方が新しい場合のみコピー (-u)"
+
+# 
+msgid "Preserve specified attributes (mode,ownership,timestamps)"
+msgstr "指定された属性（権限、所有権、タイムスタンプ）を保持 (-p)"
+
+# 
+msgid "Move or rename files and directories"
+msgstr "ファイルやディレクトリの移動または名前変更"
+
+# 
+msgid "Do not prompt before overwriting"
+msgstr "上書き時に確認を求めない (-f)"
+
+# 
+msgid "Move only when source file is newer"
+msgstr "ソースファイルの方が新しい場合のみ移動 (-u)"
+
+# 
+msgid "Change file timestamps or create empty files"
+msgstr "ファイルのタイムスタンプを変更または空ファイルを作成"
+
+# 
+msgid "Change only the access time"
+msgstr "アクセス時刻のみを変更 (-a)"
+
+# 
+msgid "Change only the modification time"
+msgstr "変更時刻のみを変更 (-m)"
+
+# 
+msgid "Do not create any files"
+msgstr "ファイルを新規作成しない (-c)"
+
+# 
+msgid "Concatenate files and print on the standard output"
+msgstr "ファイルを連結して標準出力に出力 (cat)"
+
+# 
+msgid "Number all output lines"
+msgstr "すべての出力行に行番号を付ける (-n)"
+
+# 
+msgid "Number nonempty output lines, overrides -n"
+msgstr "空行以外の出力行に行番号を付ける (-b)"
+
+# 
+msgid "Suppress repeated empty output lines"
+msgstr "連続する空行を1行にまとめる (-s)"
+
+# 
+msgid "Equivalent to -vET (show non-printing characters)"
+msgstr "印刷不能な文字を表示 (-A)"
+
+# 
+msgid "View file contents with backwards and forwards navigation"
+msgstr "前後にナビゲートしてファイル内容を閲覧 (less)"
+
+# 
+msgid "Show line numbers"
+msgstr "行番号を表示 (-N)"
+
+# 
+msgid "Chop long lines instead of wrapping"
+msgstr "長行を折り返さずに切り詰める (-S)"
+
+# 
+msgid "Quit if the entire file fits on the first screen"
+msgstr "ファイル全体が1画面に収まる場合は自動終了 (-F)"
+
+# 
+msgid "Output raw control characters (ANSI colors)"
+msgstr "ANSI カラーと制御文字を生のまま出力 (-R)"
+
+# 
+msgid "Output the first part of files"
+msgstr "ファイルの先頭部分を出力 (head)"
+
+# 
+msgid "Print the first 10 lines"
+msgstr "最初の 10 行を出力 (-n 10)"
+
+# 
+msgid "Print the first 20 lines"
+msgstr "最初の 20 行を出力 (-n 20)"
+
+# 
+msgid "Print the first 50 lines"
+msgstr "最初の 50 行を出力 (-n 50)"
+
+# 
+msgid "Print the first K bytes of each file"
+msgstr "各ファイルの先頭 K バイトを出力 (-c)"
+
+# 
+msgid "Output the last part of files"
+msgstr "ファイルの末尾部分を出力 (tail)"
+
+# 
+msgid "Follow output live (output appended data as file grows)"
+msgstr "追記される出力をリアルタイムで追跡 (-f)"
+
+# 
+msgid "Output the last 50 lines"
+msgstr "最後の 50 行を出力 (-n 50)"
+
+# 
+msgid "Output the last 100 lines"
+msgstr "最後の 100 行を出力 (-n 100)"
+
+# 
+msgid "Follow and retry if file is rotated or recreated"
+msgstr "ファイルがローテーションされた場合も再試行して追跡 (-F)"
+
+# 
+msgid "Clear the terminal screen"
+msgstr "ターミナル画面をクリア (clear)"
+
+# 
+msgid "Do not clear scrollback buffer"
+msgstr "スクロールバックバッファを消去しない (-x)"
+
+# 
+msgid "List contents of directories in a tree-like format"
+msgstr "ディレクトリの内容をツリー形式で一覧表示 (tree)"
+
+# 
+msgid "Max display depth of the directory tree: 2"
+msgstr "ディレクトリツリーの最大表示深度: 2 (-L 2)"
+
+# 
+msgid "Max display depth of the directory tree: 3"
+msgstr "ディレクトリツリーの最大表示深度: 3 (-L 3)"
+
+# 
+msgid "All files are printed, including hidden files"
+msgstr "隠しファイルを含むすべてのファイルを表示 (-a)"
+
+# 
+msgid "List directories only"
+msgstr "ディレクトリのみを一覧表示 (-d)"
+
+# 
+msgid "Print the size in human readable format"
+msgstr "人間が読みやすい形式でサイズを出力 (-h)"
+
+# 
+msgid "Report file system disk space usage"
+msgstr "ファイルシステムのディスク容量使用状況を表示 (df)"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g., 1K 234M 2G)"
+msgstr "1024 単位でサイズを出力 (例: 1K 234M 2G) (-h)"
+
+# 
+msgid "Print file system type"
+msgstr "ファイルシステムタイプを表示 (-T)"
+
+# 
+msgid "List inode information instead of block usage"
+msgstr "ブロック使用量の代わりに inode 情報を一覧表示 (-i)"
+
+# 
+msgid "Estimate file and directory space usage"
+msgstr "ファイルとディレクトリのディスク使用量を推定 (du)"
+
+# 
+msgid "Summary of size for each item in current directory"
+msgstr "カレントディレクトリ内の各項目のサイズ概要 (-sh *)"
+
+# 
+msgid "Print sizes in human readable format"
+msgstr "読みやすい形式でサイズを出力 (-h)"
+
+# 
+msgid "Print the total for directory depth 1"
+msgstr "ディレクトリ深度 1 の合計を出力 (-d 1)"
+
+# 
+msgid "Write counts for all files, not just directories"
+msgstr "ディレクトリだけでなくすべてのファイルをカウント (-a)"
+
+# 
+msgid "Display amount of free and used memory in the system"
+msgstr "システム内の空きメモリと使用中メモリを表示 (free)"
+
+# 
+msgid "Display memory in human-readable format"
+msgstr "読みやすい形式でメモリを表示 (-h)"
+
+# 
+msgid "Display amount of memory in megabytes"
+msgstr "メガバイト単位でメモリを表示 (-m)"
+
+# 
+msgid "Display amount of memory in gigabytes"
+msgstr "ギガバイト単位でメモリを表示 (-g)"
+
+# 
+msgid "Continuously display memory every 2 seconds"
+msgstr "2秒ごとにメモリ表示を継続更新 (-s 2)"
+
+# 
+msgid "Interactive process viewer and system monitor"
+msgstr "対話型プロセスビューアおよびシステムモニター (htop)"
+
+# 
+msgid "Display Linux processes in real time"
+msgstr "Linux プロセスをリアルタイムで表示 (top)"
+
+# 
+msgid "Batch mode operation"
+msgstr "バッチモード動作 (-b)"
+
+# 
+msgid "Number of iterations before exiting"
+msgstr "終了するまでの繰り返し回数 (-n 1)"
+
+# 
+msgid "Monitor only specific user processes"
+msgstr "特定のユーザーのプロセスのみを監視 (-u)"
+
+# 
+msgid "Report a snapshot of the current processes"
+msgstr "現在のプロセスのスナップショットを出力 (ps)"
+
+# 
+msgid "See every process on the system (BSD style)"
+msgstr "システム上の全プロセスを表示 (BSD スタイル) (aux)"
+
+# 
+msgid "Standard full format listing of all processes"
+msgstr "すべてのプロセスの標準フルフォーマット一覧 (-ef)"
+
+# 
+msgid "Display user-oriented format"
+msgstr "ユーザー向けフォーマットで表示 (-u)"
+
+# 
+msgid "ASCII art process tree"
+msgstr "ASCII アートのプロセスクリーを表示 (--forest)"
+
+# 
+msgid "Locate a command executable in PATH"
+msgstr "PATH 内のコマンド実行可能ファイルを特定 (which)"
+
+# 
+msgid "Print all matching pathnames of each argument"
+msgstr "一致するすべてのパス名を出力 (-a)"
+
+# 
+msgid "Locate the binary, source, and manual page files for a command"
+msgstr "コマンドのバイナリ、ソース、マニュアルページを特定 (whereis)"
+
+# 
+msgid "Display a line of text or variable value"
+msgstr "テキスト行または変数値を出力 (echo)"
+
+# 
+msgid "Enable interpretation of backslash escapes"
+msgstr "バックスラッシュエスケープの解釈を有効化 (-e)"
+
+# 
+msgid "Do not output the trailing newline"
+msgstr "末尾の改行を出力しない (-n)"
+
+# 
+msgid "Simple, user-friendly terminal text editor"
+msgstr "シンプルで使いやすいターミナルテキストエディタ (nano)"
+
+# 
+msgid "Show line numbers in editor"
+msgstr "エディタ内に行番号を表示 (-l)"
+
+# 
+msgid "Enable mouse support"
+msgstr "マウスサポートを有効化 (-m)"
+
+# 
+msgid "Vi IMproved, a highly configurable text editor"
+msgstr "高度にカスタマイズ可能なテキストエディタ (vim)"
+
+# 
+msgid "Open at the end of the file"
+msgstr "ファイルの末尾で開く (+)"
+
+# 
+msgid "Read-only mode"
+msgstr "読み取り専用モード (-R)"
+
+# 
+msgid "Make links between files"
+msgstr "ファイル間のリンクを作成 (ln)"
+
+# 
+msgid "Make symbolic (soft) links instead of hard links"
+msgstr "ハードリンクの代わりにシンボリックリンクを作成 (-s)"
+
+# 
+msgid "Remove existing destination files"
+msgstr "既存の宛先ファイルを強制上書き (-f)"
+
+# 
+msgid "Print name of each linked file"
+msgstr "リンクされた各ファイル名を出力 (-v)"
+
+# 
+msgid "Print operating system and kernel information"
+msgstr "オペレーティングシステムとカーネル情報を出力 (uname)"
+
+# 
+msgid "Print all system information"
+msgstr "すべてのシステム情報を出力 (-a)"
+
+# 
+msgid "Print the kernel release"
+msgstr "カーネルリリースを出力 (-r)"
+
+# 
+msgid "Print the machine hardware architecture"
+msgstr "ハードウェアアーキテクチャを出力 (-m)"
+
+# 
+msgid "Display or manipulate the command history list"
+msgstr "コマンド履歴リストを表示または操作 (history)"
+
+# 
+msgid "Clear the history list"
+msgstr "履歴リストを消去 (-c)"
+
+# 
+msgid "Show last 10 commands"
+msgstr "最後の 10 個のコマンドを表示"
+
+# 
+msgid "Send ICMP ECHO_REQUEST to network hosts"
+msgstr "ネットワークホストに ICMP 要求を送信 (ping)"
+
+# 
+msgid "Stop after sending 4 ECHO_REQUEST packets"
+msgstr "4 個のパケットを送信後に停止 (-c 4)"
+
+# 
+msgid "Wait 1 second between sending each packet"
+msgstr "パケット送信間隔を 1 秒にする (-i 1)"
+
+# 
+msgid "Time to wait for a response in seconds"
+msgstr "応答を待機する時間（秒）(-W 2)"
+
+# 
+msgid "Non-interactive network downloader"
+msgstr "非対話型ネットワークダウンローダー (wget)"
+
+# 
+msgid "Resume getting a partially-downloaded file"
+msgstr "中断したファイルのダウンロードを再開 (-c)"
+
+# 
+msgid "Write output to specific file"
+msgstr "出力を指定したファイルに保存 (-O)"
+
+# 
+msgid "Go to background immediately after startup"
+msgstr "起動直後にバックグラウンドに移行 (-b)"
+
+# 
+msgid "Secure copy files between hosts over SSH"
+msgstr "SSH 経由でホスト間でファイルを安全にコピー (scp)"
+
+# 
+msgid "Recursively copy entire directories"
+msgstr "ディレクトリ全体を再帰的にコピー (-r)"
+
+# 
+msgid "Port to connect to on the remote host"
+msgstr "リモートホストの接続ポート (-P)"
+
+# 
+msgid "Verbose mode"
+msgstr "詳細モード (-v)"
+
+# 
+msgid "Enable compression"
+msgstr "圧縮を有効化 (-C)"
+
+# 
+msgid "Package and compress files into a zip archive"
+msgstr "ファイルを ZIP アーカイブに圧縮 (zip)"
+
+# 
+msgid "Travel the directory structure recursively"
+msgstr "ディレクトリ構造を再帰的に処理 (-r)"
+
+# 
+msgid "Encrypt contents with password"
+msgstr "パスワードでコンテンツを暗号化 (-e)"
+
+# 
+msgid "Extract compressed files from a ZIP archive"
+msgstr "ZIP アーカイブからファイルを展開 (unzip)"
+
+# 
+msgid "List archive files without extracting"
+msgstr "展開せずにアーカイブファイルを一覧表示 (-l)"
+
+# 
+msgid "Extract files into specified directory"
+msgstr "指定したディレクトリにファイルを展開 (-d)"
+
+# 
+msgid "Compress or expand files with Lempel-Ziv coding (LZ77)"
+msgstr "gzip でファイルを圧縮または展開 (.gz)"
+
+# 
+msgid "Decompress / expand files"
+msgstr "ファイルを解凍/展開 (-d)"
+
+# 
+msgid "Keep (do not delete) input files"
+msgstr "入力ファイルを削除せず保持 (-k)"
+
+# 
+msgid "Best compression level"
+msgstr "最高圧縮レベル (-9)"
+
+# 
+msgid "Decompress and expand files compressed with gzip"
+msgstr "gzip 圧縮ファイルを解凍 (gunzip)"

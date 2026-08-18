@@ -10,7 +10,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ### Adicionado
 - **Autocomplete Inteligente de Comandos e Sugestões Inline (Ghost Text & Popup Specs)**: Novo motor nativo de predição e autocompletar de comandos em tempo real (`src/onyxsh/terminal/completion/`).
-  - 🛠️ **Catálogo de Specs Linux**: Dicionário curado de comandos e opções com explicações ricas em linguagem natural para `sudo`, `apt`, `systemctl`, `journalctl`, `docker`, `git`, `ssh`, `curl`, `tar`, `ufw`, `ip`, `rsync`, `ss`, `chmod`, `chown`, `mkdir`, `rm`, `ls`, `grep`, `find`, `kill`, `pkill`.
+  - 🛠️ **Catálogo de Specs Linux**: Dicionário curado de comandos e opções com explicações ricas em linguagem natural para `cd`, `pwd`, `cp`, `mv`, `touch`, `cat`, `less`, `head`, `tail`, `clear`, `tree`, `df`, `du`, `free`, `htop`, `top`, `ps`, `which`, `whereis`, `echo`, `nano`, `vim`, `ln`, `uname`, `history`, `ping`, `wget`, `scp`, `zip`, `unzip`, `gzip`, `gunzip`, `sudo`, `apt`, `systemctl`, `journalctl`, `docker`, `git`, `ssh`, `curl`, `tar`, `ufw`, `ip`, `rsync`, `ss`, `chmod`, `chown`, `mkdir`, `rm`, `ls`, `grep`, `find`, `kill`, `pkill`.
   - 📚 **Sugestões a partir do Histórico SQLite**: Priorização inteligente de comandos frequentes no mesmo diretório e host.
   - 🧩 **Templates de Snippets**: Sugestão de comandos parametrizados a partir do gerenciador de snippets.
   - ⚡ **Popup Flutuante Ancorado ao Cursor**: Widget popover moderno com ícones e descrições, navegável com `↑` e `↓`, e confirmação em 1 tecla com `Tab` ou `Enter`.

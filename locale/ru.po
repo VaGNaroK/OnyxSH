@@ -9718,3 +9718,495 @@ msgstr "Управление таблицей соседей/ARP"
 # 
 msgid "Tab or → to apply • Esc to dismiss"
 msgstr "Tab или → применить • Esc закрыть"
+
+# 
+msgid "Change the current working directory"
+msgstr "Сменить текущий рабочий каталог"
+
+# 
+msgid "Parent directory (go up one level)"
+msgstr "Родительский каталог (на один уровень выше)"
+
+# 
+msgid "User home directory"
+msgstr "Домашний каталог пользователя (~)"
+
+# 
+msgid "Previous working directory"
+msgstr "Предыдущий рабочий каталог (-)"
+
+# 
+msgid "Temporary directory"
+msgstr "Каталог временных файлов (/tmp)"
+
+# 
+msgid "System configuration directory"
+msgstr "Каталог конфигурации системы (/etc)"
+
+# 
+msgid "System logs directory"
+msgstr "Каталог системных журналов (/var/log)"
+
+# 
+msgid "Print the current working directory name"
+msgstr "Вывести имя текущего рабочего каталога (pwd)"
+
+# 
+msgid "Avoid all symlinks and print physical directory"
+msgstr "Избегать символических ссылок и выводить физический каталог (-P)"
+
+# 
+msgid "Print the environment PWD including symlinks"
+msgstr "Вывести переменную PWD с учетом символических ссылок (-L)"
+
+# 
+msgid "Copy files and directories"
+msgstr "Копирование файлов и директорий"
+
+# 
+msgid "Copy directories recursively"
+msgstr "Рекурсивное копирование каталогов (-r)"
+
+# 
+msgid "Explain what is being done"
+msgstr "Подробное объяснение выполняемых действий (verbose)"
+
+# 
+msgid "Prompt before overwrite"
+msgstr "Запрашивать подтверждение перед перезаписью (-i)"
+
+# 
+msgid "Archive mode: preserve attributes, symlinks, recursive"
+msgstr "Режим архивации: сохранение атрибутов, ссылок и рекурсия (-a)"
+
+# 
+msgid "Copy only when source file is newer"
+msgstr "Копировать только если исходный файл новее (-u)"
+
+# 
+msgid "Preserve specified attributes (mode,ownership,timestamps)"
+msgstr "Сохранять указанные атрибуты (права, владелец, время) (-p)"
+
+# 
+msgid "Move or rename files and directories"
+msgstr "Перемещение или переименование файлов и каталогов"
+
+# 
+msgid "Do not prompt before overwriting"
+msgstr "Не запрашивать подтверждение перед перезаписью (-f)"
+
+# 
+msgid "Move only when source file is newer"
+msgstr "Перемещать только если исходный файл новее (-u)"
+
+# 
+msgid "Change file timestamps or create empty files"
+msgstr "Изменение меток времени или создание пустых файлов"
+
+# 
+msgid "Change only the access time"
+msgstr "Изменять только время доступа (-a)"
+
+# 
+msgid "Change only the modification time"
+msgstr "Изменять только время изменения (-m)"
+
+# 
+msgid "Do not create any files"
+msgstr "Не создавать файлы если они отсутствуют (-c)"
+
+# 
+msgid "Concatenate files and print on the standard output"
+msgstr "Конкатенация и вывод содержимого файлов (cat)"
+
+# 
+msgid "Number all output lines"
+msgstr "Нумеровать все строки вывода (-n)"
+
+# 
+msgid "Number nonempty output lines, overrides -n"
+msgstr "Нумеровать только непустые строки (-b)"
+
+# 
+msgid "Suppress repeated empty output lines"
+msgstr "Сжимать повторяющиеся пустые строки (-s)"
+
+# 
+msgid "Equivalent to -vET (show non-printing characters)"
+msgstr "Отображать непечатаемые символы (-A)"
+
+# 
+msgid "View file contents with backwards and forwards navigation"
+msgstr "Просмотр содержимого файлов с навигацией (less)"
+
+# 
+msgid "Show line numbers"
+msgstr "Показывать номера строк (-N)"
+
+# 
+msgid "Chop long lines instead of wrapping"
+msgstr "Обрезать длинные строки вместо переноса (-S)"
+
+# 
+msgid "Quit if the entire file fits on the first screen"
+msgstr "Выйти если файл помещается на одном экране (-F)"
+
+# 
+msgid "Output raw control characters (ANSI colors)"
+msgstr "Выводить управляющие символы и цвета ANSI (-R)"
+
+# 
+msgid "Output the first part of files"
+msgstr "Вывод начальной части файлов (head)"
+
+# 
+msgid "Print the first 10 lines"
+msgstr "Вывести первые 10 строк (-n 10)"
+
+# 
+msgid "Print the first 20 lines"
+msgstr "Вывести первые 20 строк (-n 20)"
+
+# 
+msgid "Print the first 50 lines"
+msgstr "Вывести первые 50 строк (-n 50)"
+
+# 
+msgid "Print the first K bytes of each file"
+msgstr "Вывести первые K байт каждого файла (-c)"
+
+# 
+msgid "Output the last part of files"
+msgstr "Вывод конечной части файлов (tail)"
+
+# 
+msgid "Follow output live (output appended data as file grows)"
+msgstr "Отслеживать вывод файла в реальном времени (-f)"
+
+# 
+msgid "Output the last 50 lines"
+msgstr "Вывести последние 50 строк (-n 50)"
+
+# 
+msgid "Output the last 100 lines"
+msgstr "Вывести последние 100 строк (-n 100)"
+
+# 
+msgid "Follow and retry if file is rotated or recreated"
+msgstr "Следить с повторными попытками при ротации файла (-F)"
+
+# 
+msgid "Clear the terminal screen"
+msgstr "Очистить экран терминала (clear)"
+
+# 
+msgid "Do not clear scrollback buffer"
+msgstr "Не очищать буфер прокрутки (-x)"
+
+# 
+msgid "List contents of directories in a tree-like format"
+msgstr "Отображение содержимого каталогов в виде дерева (tree)"
+
+# 
+msgid "Max display depth of the directory tree: 2"
+msgstr "Максимальная глубина дерева каталогов: 2 (-L 2)"
+
+# 
+msgid "Max display depth of the directory tree: 3"
+msgstr "Максимальная глубина дерева каталогов: 3 (-L 3)"
+
+# 
+msgid "All files are printed, including hidden files"
+msgstr "Отображать все файлы, включая скрытые (-a)"
+
+# 
+msgid "List directories only"
+msgstr "Отображать только каталоги (-d)"
+
+# 
+msgid "Print the size in human readable format"
+msgstr "Выводить размер в удобном для чтения формате (-h)"
+
+# 
+msgid "Report file system disk space usage"
+msgstr "Отчет об использовании дискового пространства файловыми системами (df)"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g., 1K 234M 2G)"
+msgstr "Выводить размеры в единицах 1024 (например, 1K 234M 2G) (-h)"
+
+# 
+msgid "Print file system type"
+msgstr "Выводить тип файловой системы (-T)"
+
+# 
+msgid "List inode information instead of block usage"
+msgstr "Отображать информацию об inode вместо блоков (-i)"
+
+# 
+msgid "Estimate file and directory space usage"
+msgstr "Оценка занимаемого файлами и каталогами места на диске (du)"
+
+# 
+msgid "Summary of size for each item in current directory"
+msgstr "Итоговый размер для каждого элемента в каталоге (-sh *)"
+
+# 
+msgid "Print sizes in human readable format"
+msgstr "Выводить размеры в удобном формате (-h)"
+
+# 
+msgid "Print the total for directory depth 1"
+msgstr "Выводить итог для глубины каталога 1 (-d 1)"
+
+# 
+msgid "Write counts for all files, not just directories"
+msgstr "Учитывать все файлы, а не только каталоги (-a)"
+
+# 
+msgid "Display amount of free and used memory in the system"
+msgstr "Отображение объема свободной и занятой памяти (free)"
+
+# 
+msgid "Display memory in human-readable format"
+msgstr "Отображать память в удобном формате (-h)"
+
+# 
+msgid "Display amount of memory in megabytes"
+msgstr "Отображать память в мегабайтах (-m)"
+
+# 
+msgid "Display amount of memory in gigabytes"
+msgstr "Отображать память в гигабайтах (-g)"
+
+# 
+msgid "Continuously display memory every 2 seconds"
+msgstr "Непрерывно обновлять память каждые 2 секунды (-s 2)"
+
+# 
+msgid "Interactive process viewer and system monitor"
+msgstr "Интерактивный просмотр процессов и монитор системы (htop)"
+
+# 
+msgid "Display Linux processes in real time"
+msgstr "Отображение процессов Linux в реальном времени (top)"
+
+# 
+msgid "Batch mode operation"
+msgstr "Работа в пакетном режиме (-b)"
+
+# 
+msgid "Number of iterations before exiting"
+msgstr "Количество итераций перед выходом (-n 1)"
+
+# 
+msgid "Monitor only specific user processes"
+msgstr "Отслеживать только процессы указанного пользователя (-u)"
+
+# 
+msgid "Report a snapshot of the current processes"
+msgstr "Снимок текущих процессов системы (ps)"
+
+# 
+msgid "See every process on the system (BSD style)"
+msgstr "Показать все процессы системы (в стиле BSD) (aux)"
+
+# 
+msgid "Standard full format listing of all processes"
+msgstr "Стандартный полный список всех процессов (-ef)"
+
+# 
+msgid "Display user-oriented format"
+msgstr "Выводить в формате с привязкой к пользователю (-u)"
+
+# 
+msgid "ASCII art process tree"
+msgstr "Дерево процессов в формате ASCII (--forest)"
+
+# 
+msgid "Locate a command executable in PATH"
+msgstr "Поиск исполняемого файла команды в PATH (which)"
+
+# 
+msgid "Print all matching pathnames of each argument"
+msgstr "Вывести все совпадающие пути для каждого аргумента (-a)"
+
+# 
+msgid "Locate the binary, source, and manual page files for a command"
+msgstr "Поиск исполняемых файлов, исходников и страниц справки команды (whereis)"
+
+# 
+msgid "Display a line of text or variable value"
+msgstr "Вывод строки текста или значения переменной (echo)"
+
+# 
+msgid "Enable interpretation of backslash escapes"
+msgstr "Включить интерпретацию escape-последовательностей (-e)"
+
+# 
+msgid "Do not output the trailing newline"
+msgstr "Не выводить завершающий перевод строки (-n)"
+
+# 
+msgid "Simple, user-friendly terminal text editor"
+msgstr "Простой и удобный текстовый редактор для терминала (nano)"
+
+# 
+msgid "Show line numbers in editor"
+msgstr "Показывать номера строк в редакторе (-l)"
+
+# 
+msgid "Enable mouse support"
+msgstr "Включить поддержку мыши (-m)"
+
+# 
+msgid "Vi IMproved, a highly configurable text editor"
+msgstr "Vi IMproved, мощный настраиваемый текстовый редактор (vim)"
+
+# 
+msgid "Open at the end of the file"
+msgstr "Открыть в конце файла (+)"
+
+# 
+msgid "Read-only mode"
+msgstr "Режим только для чтения (-R)"
+
+# 
+msgid "Make links between files"
+msgstr "Создание ссылок между файлами (ln)"
+
+# 
+msgid "Make symbolic (soft) links instead of hard links"
+msgstr "Создавать символические (мягкие) ссылки вместо жестких (-s)"
+
+# 
+msgid "Remove existing destination files"
+msgstr "Удалять существующие файлы назначения (-f)"
+
+# 
+msgid "Print name of each linked file"
+msgstr "Выводить имя каждого созданного файла ссылки (-v)"
+
+# 
+msgid "Print operating system and kernel information"
+msgstr "Вывод информации об операционной системе и ядре (uname)"
+
+# 
+msgid "Print all system information"
+msgstr "Вывести всю информацию о системе (-a)"
+
+# 
+msgid "Print the kernel release"
+msgstr "Вывести версию релиза ядра (-r)"
+
+# 
+msgid "Print the machine hardware architecture"
+msgstr "Вывести аппаратную архитектуру машины (-m)"
+
+# 
+msgid "Display or manipulate the command history list"
+msgstr "Просмотр и управление историей команд (history)"
+
+# 
+msgid "Clear the history list"
+msgstr "Очистить список истории (-c)"
+
+# 
+msgid "Show last 10 commands"
+msgstr "Показать последние 10 команд"
+
+# 
+msgid "Send ICMP ECHO_REQUEST to network hosts"
+msgstr "Отправка пакетов ICMP для проверки связи с узлом (ping)"
+
+# 
+msgid "Stop after sending 4 ECHO_REQUEST packets"
+msgstr "Остановиться после отправки 4 пакетов (-c 4)"
+
+# 
+msgid "Wait 1 second between sending each packet"
+msgstr "Интервал в 1 секунду между пакетами (-i 1)"
+
+# 
+msgid "Time to wait for a response in seconds"
+msgstr "Время ожидания ответа в секундах (-W 2)"
+
+# 
+msgid "Non-interactive network downloader"
+msgstr "Неинтерактивная утилита загрузки файлов по сети (wget)"
+
+# 
+msgid "Resume getting a partially-downloaded file"
+msgstr "Возобновить прерванную загрузку файла (-c)"
+
+# 
+msgid "Write output to specific file"
+msgstr "Записать вывод в указанный файл (-O)"
+
+# 
+msgid "Go to background immediately after startup"
+msgstr "Перейти в фоновый режим сразу после запуска (-b)"
+
+# 
+msgid "Secure copy files between hosts over SSH"
+msgstr "Безопасное копирование файлов между узлами по SSH (scp)"
+
+# 
+msgid "Recursively copy entire directories"
+msgstr "Рекурсивное копирование директорий целиком (-r)"
+
+# 
+msgid "Port to connect to on the remote host"
+msgstr "Порт для подключения к удаленному узлу (-P)"
+
+# 
+msgid "Verbose mode"
+msgstr "Подробный режим (-v)"
+
+# 
+msgid "Enable compression"
+msgstr "Включить сжатие данных (-C)"
+
+# 
+msgid "Package and compress files into a zip archive"
+msgstr "Упаковка и сжатие файлов в архив ZIP (zip)"
+
+# 
+msgid "Travel the directory structure recursively"
+msgstr "Рекурсивно обходить структуру каталогов (-r)"
+
+# 
+msgid "Encrypt contents with password"
+msgstr "Зашифровать содержимое паролем (-e)"
+
+# 
+msgid "Extract compressed files from a ZIP archive"
+msgstr "Извлечение файлов из архива ZIP (unzip)"
+
+# 
+msgid "List archive files without extracting"
+msgstr "Список файлов архива без извлечения (-l)"
+
+# 
+msgid "Extract files into specified directory"
+msgstr "Извлечь файлы в указанный каталог (-d)"
+
+# 
+msgid "Compress or expand files with Lempel-Ziv coding (LZ77)"
+msgstr "Сжатие или распаковка файлов с помощью gzip (.gz)"
+
+# 
+msgid "Decompress / expand files"
+msgstr "Распаковать файлы (-d)"
+
+# 
+msgid "Keep (do not delete) input files"
+msgstr "Сохранять исходные файлы (-k)"
+
+# 
+msgid "Best compression level"
+msgstr "Максимальный уровень сжатия (-9)"
+
+# 
+msgid "Decompress and expand files compressed with gzip"
+msgstr "Распаковка файлов, сжатых с помощью gzip (gunzip)"
