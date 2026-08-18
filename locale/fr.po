@@ -9307,3 +9307,47 @@ msgstr "_Enregistrer"
 # 
 msgid "_Cancel"
 msgstr "_Annuler"
+
+# 
+msgid "Autocomplete e Sugestões Inteligentes"
+msgstr "Saisie semi-automatique et suggestions intelligentes"
+
+# 
+msgid "Sugestões preditivas inline e catálogo de comandos Linux"
+msgstr "Suggestions prédictives en ligne et catalogue de commandes Linux"
+
+# 
+msgid "Ativar Autocomplete Inteligente"
+msgstr "Activer la saisie semi-automatique intelligente"
+
+# 
+msgid "Exibir sugestões de comandos enquanto digita no terminal"
+msgstr "Afficher les suggestions de commandes lors de la frappe"
+
+# 
+msgid "Catálogo de Comandos Linux (Specs)"
+msgstr "Catalogue de commandes Linux (Specs)"
+
+# 
+msgid "Sugerir subcomandos e parâmetros para apt, systemctl, docker, git e ferramentas comuns"
+msgstr "Suggérer des sous-commandes et options pour apt, systemctl, docker, git et outils courants"
+
+# 
+msgid "Sugerir a partir do Histórico"
+msgstr "Suggérer à partir de l'historique"
+
+# 
+msgid "Completar com comandos usados anteriormente no mesmo diretório ou host"
+msgstr "Compléter avec les commandes précédemment utilisées dans le même répertoire ou hôte"
+
+# 
+msgid "Sugerir Snippets Salvos"
+msgstr "Suggérer des snippets enregistrés"
+
+# 
+msgid "Incluir templates do gerenciador de snippets nas sugestões"
+msgstr "Inclure les modèles du gestionnaire de snippets dans les suggestions"
+
+# 
+msgid "Tab/Enter to apply • Esc to dismiss"
+msgstr "Tab/Entrée pour appliquer • Échap pour fermer"

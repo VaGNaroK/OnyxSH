@@ -9,6 +9,13 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.9.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Autocomplete Inteligente de Comandos e Sugestões Inline (Ghost Text & Popup Specs)**: Novo motor nativo de predição e autocompletar de comandos em tempo real (`src/onyxsh/terminal/completion/`).
+  - 🛠️ **Catálogo de Specs Linux**: Dicionário curado de comandos e opções com explicações ricas em linguagem natural para `sudo`, `apt`, `systemctl`, `journalctl`, `docker`, `git`, `ssh`, `curl`, `tar`, `ufw`, `ip`, `rsync`, `ss`, `chmod`, `chown`, `mkdir`, `rm`, `ls`, `grep`, `find`, `kill`, `pkill`.
+  - 📚 **Sugestões a partir do Histórico SQLite**: Priorização inteligente de comandos frequentes no mesmo diretório e host.
+  - 🧩 **Templates de Snippets**: Sugestão de comandos parametrizados a partir do gerenciador de snippets.
+  - ⚡ **Popup Flutuante Ancorado ao Cursor**: Widget popover moderno com ícones e descrições, navegável com `↑` e `↓`, e confirmação em 1 tecla com `Tab` ou `Enter`.
+  - 🛡️ **Segurança Semântica com OSC 133**: Ativação restrita ao prompt de comando, desativando-se automaticamente em editores e ferramentas interativas (`vim`, `nano`, `top`, `fzf`).
+  - ⚙️ **Painel de Configurações nas Preferências (`F2`)**: Controle total para habilitar/desabilitar fontes e autocompletar.
 - **Busca Avançada no Scrollback do Terminal**: Modernização completa da barra de busca do terminal (`Ctrl + Shift + F`) com botões compactos e elegantes estilo flat para **`Aa`** (Diferenciar Maiúsculas e Minúsculas), **`\b`** (Palavra Inteira / Whole Word) e **`.*`** (Expressões Regulares / Regex). Exibição de contagem de correspondências totais em tempo real (`1/14` ou `Nenhum resultado`), navegação por teclado (`Enter` para próxima correspondência, `Shift + Enter` para anterior e `Escape` para fechar) e atalho de exportação rápida na própria barra.
 - **Exportação do Terminal em Múltiplos Formatos (`.txt`, `.log`, `.md`, `.html`, `.cast`)**: Novo subsistema modular `TerminalExporter` e diálogo modal Libadwaita `ExportTerminalDialog` permitindo exportar o buffer completo do terminal ou apenas o texto selecionado. Suporte nativo a 5 formatos profissionais:
   - 📄 **Texto Puro (`.txt`)**: Saída do terminal limpa e sem formatação.

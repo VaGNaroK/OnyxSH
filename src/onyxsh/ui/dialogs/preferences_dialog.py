@@ -418,6 +418,45 @@ class PreferencesDialog(Adw.PreferencesWindow):
         )
         notifications_group.add(condition_row)
 
+        # Autocomplete and Suggestions Group
+        autocomplete_group = Adw.PreferencesGroup(
+            title=_("Autocomplete e Sugestões Inteligentes"),
+            description=_("Sugestões preditivas inline e catálogo de comandos Linux"),
+        )
+        page.add(autocomplete_group)
+
+        autocomplete_enable_row = self._create_switch_row(
+            _("Ativar Autocomplete Inteligente"),
+            _("Exibir sugestões de comandos enquanto digita no terminal"),
+            "autocomplete_enabled",
+            default_value=True,
+        )
+        autocomplete_group.add(autocomplete_enable_row)
+
+        autocomplete_specs_row = self._create_switch_row(
+            _("Catálogo de Comandos Linux (Specs)"),
+            _("Sugerir subcomandos e parâmetros para apt, systemctl, docker, git e ferramentas comuns"),
+            "autocomplete_specs_enabled",
+            default_value=True,
+        )
+        autocomplete_group.add(autocomplete_specs_row)
+
+        autocomplete_history_row = self._create_switch_row(
+            _("Sugerir a partir do Histórico"),
+            _("Completar com comandos usados anteriormente no mesmo diretório ou host"),
+            "autocomplete_history_enabled",
+            default_value=True,
+        )
+        autocomplete_group.add(autocomplete_history_row)
+
+        autocomplete_snippets_row = self._create_switch_row(
+            _("Sugerir Snippets Salvos"),
+            _("Incluir templates do gerenciador de snippets nas sugestões"),
+            "autocomplete_snippets_enabled",
+            default_value=True,
+        )
+        autocomplete_group.add(autocomplete_snippets_row)
+
         notify_sound_row = self._create_switch_row(
             _("Alerta Sonoro"),
             _("Tocar sino ou alerta sonoro ao concluir comando longo"),

@@ -285,6 +285,12 @@ class DefaultSettings:
             "notify_long_commands_threshold": 10,
             "notify_long_commands_condition": "unfocused",
             "notify_long_commands_sound": True,
+            # Autocomplete & Suggestions Settings
+            "autocomplete_enabled": True,
+            "autocomplete_style": "both",  # "both", "popup", "ghost"
+            "autocomplete_specs_enabled": True,
+            "autocomplete_history_enabled": True,
+            "autocomplete_snippets_enabled": True,
             # VTE Features
             "scrollback_lines": 5000,
             "mouse_scroll_sensitivity": 30.0,

@@ -9274,3 +9274,47 @@ msgstr "_Сохранить"
 # 
 msgid "_Cancel"
 msgstr "_Отмена"
+
+# 
+msgid "Autocomplete e Sugestões Inteligentes"
+msgstr "Автодополнение и умные подсказки"
+
+# 
+msgid "Sugestões preditivas inline e catálogo de comandos Linux"
+msgstr "Встроенные предиктивные подсказки и каталог команд Linux"
+
+# 
+msgid "Ativar Autocomplete Inteligente"
+msgstr "Включить умное автодополнение"
+
+# 
+msgid "Exibir sugestões de comandos enquanto digita no terminal"
+msgstr "Показывать подсказки команд при вводе в терминале"
+
+# 
+msgid "Catálogo de Comandos Linux (Specs)"
+msgstr "Каталог команд Linux (Specs)"
+
+# 
+msgid "Sugerir subcomandos e parâmetros para apt, systemctl, docker, git e ferramentas comuns"
+msgstr "Предлагать подкоманды и параметры для apt, systemctl, docker, git и утилит"
+
+# 
+msgid "Sugerir a partir do Histórico"
+msgstr "Предлагать из истории команд"
+
+# 
+msgid "Completar com comandos usados anteriormente no mesmo diretório ou host"
+msgstr "Дополнять командами, использованными ранее в том же каталоге или хосте"
+
+# 
+msgid "Sugerir Snippets Salvos"
+msgstr "Предлагать сохраненные сниппеты"
+
+# 
+msgid "Incluir templates do gerenciador de snippets nas sugestões"
+msgstr "Включать шаблоны из диспетчера сниппетов в подсказки"
+
+# 
+msgid "Tab/Enter to apply • Esc to dismiss"
+msgstr "Tab/Enter применить • Esc закрыть"

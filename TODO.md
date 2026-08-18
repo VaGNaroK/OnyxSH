@@ -89,17 +89,18 @@
 - [x] **Módulos Afetados:** `src/onyxsh/terminal/exporter.py`, `src/onyxsh/ui/dialogs/export_dialog.py`, `src/onyxsh/ui/window_ui.py`, `src/onyxsh/window.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/menus.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`.
 
 ### 📌 1.8. Autocomplete Inteligente de Comandos e Sugestões Inline (Ghost Text & Popup Specs)
-- [ ] **Descrição:** Motor nativo de autocompletar e sugestões preditivas em tempo real no terminal com suporte a dois modos visuais (Texto Fantasma inline estilo Fish/Zsh e Popup Flutuante com descrições estilo Warp/Fig).
-- [ ] **Fontes de Dados:**
+- [x] **Descrição:** Motor nativo de autocompletar e sugestões preditivas em tempo real no terminal com suporte a dois modos visuais (Texto Fantasma inline estilo Fish/Zsh e Popup Flutuante com descrições estilo Warp/Fig).
+- [x] **Fontes de Dados:**
   - 📚 **Histórico Enriquecido (`CommandHistoryManager`)**: Sugestões automáticas baseadas em comandos passados, frequência e contexto de diretório/host.
   - 🛠️ **Catálogo de Specs de Comandos Linux**: Dicionário curado de comandos e subcomandos populares (`sudo`, `apt`, `systemctl`, `journalctl`, `docker`, `git`, `ssh`, `curl`, `tar`, `ufw`, `chmod`, `chown`, etc.) com descrições em linguagem natural.
   - 🧩 **Gerenciador de Snippets (`SnippetManager`)**: Sugestões de templates parametrizados.
-- [ ] **Mecanismos e Segurança:**
+- [x] **Mecanismos e Segurança:**
   - Ativação exclusiva em estado de prompt ativo via marcadores semânticos OSC 133 (`PROMPT`), desativando-se automaticamente em editores/ferramentas interativas (`vim`, `nano`, `top`, `fzf`).
   - Aceitação rápida com `Tab`, `Seta Direita` ou `Enter`.
   - Configurações completas nas Preferências (`F2`): Ativar/desativar, escolha de estilo visual e fontes de dados.
-- [ ] **Prioridade:** 🟢 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/terminal/completion/`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/settings/config.py`.
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/onyxsh/terminal/completion/`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/settings/config.py`).
+- [x] **Prioridade:** 🟢 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.9.0`
+- [x] **Módulos Afetados:** `src/onyxsh/terminal/completion/`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/settings/config.py`.
 
 ---
 

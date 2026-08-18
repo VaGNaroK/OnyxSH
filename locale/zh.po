@@ -9233,3 +9233,47 @@ msgstr "保存(_S)"
 # 
 msgid "_Cancel"
 msgstr "取消(_C)"
+
+# 
+msgid "Autocomplete e Sugestões Inteligentes"
+msgstr "自动补全与智能建议"
+
+# 
+msgid "Sugestões preditivas inline e catálogo de comandos Linux"
+msgstr "行内预测建议与 Linux 命令目录"
+
+# 
+msgid "Ativar Autocomplete Inteligente"
+msgstr "启用智能自动补全"
+
+# 
+msgid "Exibir sugestões de comandos enquanto digita no terminal"
+msgstr "在终端中输入时显示命令建议"
+
+# 
+msgid "Catálogo de Comandos Linux (Specs)"
+msgstr "Linux 命令规范目录 (Specs)"
+
+# 
+msgid "Sugerir subcomandos e parâmetros para apt, systemctl, docker, git e ferramentas comuns"
+msgstr "为 apt、systemctl、docker、git 及常用工具建议子命令和参数"
+
+# 
+msgid "Sugerir a partir do Histórico"
+msgstr "从命令历史记录中建议"
+
+# 
+msgid "Completar com comandos usados anteriormente no mesmo diretório ou host"
+msgstr "使用同目录或主机下先前使用的命令进行补全"
+
+# 
+msgid "Sugerir Snippets Salvos"
+msgstr "建议已保存的代码片段"
+
+# 
+msgid "Incluir templates do gerenciador de snippets nas sugestões"
+msgstr "在建议中包含代码片段管理器的模板"
+
+# 
+msgid "Tab/Enter to apply • Esc to dismiss"
+msgstr "Tab/Enter 应用 • Esc 关闭"

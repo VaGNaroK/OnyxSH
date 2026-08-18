@@ -506,11 +506,22 @@ class TerminalManager:
         self._balabit_gateway_prompt_submitted: set[int] = set()
         self._balabit_gateway_pending_auth: Dict[int, Dict[str, str]] = {}
         self._selection_copy_timers: Dict[int, int] = {}
+        self._completion_debounce_timers: Dict[int, int] = {}
+        self._completion_engine = None
         # Process check timer runs every 1 second for responsive context detection
         self._process_check_timer_id = GLib.timeout_add_seconds(
             1, self._periodic_process_check
         )
         self.logger.info("Terminal manager initialized")
+
+    @property
+    def completion_engine(self):
+        """Lazy-loaded singleton completion engine."""
+        if self._completion_engine is None:
+            from .completion import get_completion_engine
+
+            self._completion_engine = get_completion_engine(self.settings_manager)
+        return self._completion_engine
 
     def _is_highlighting_preload_needed(self) -> bool:
         """
@@ -1331,6 +1342,7 @@ class TerminalManager:
                 )
             self._setup_context_menu(terminal)
             self._setup_url_patterns(terminal)
+            self._setup_autocomplete_popup(terminal)
             return terminal
         except Exception as e:
             self.logger.error(f"Base terminal creation failed: {e}")
@@ -3508,6 +3520,12 @@ class TerminalManager:
                 f"[KEY EVENT] keyval={keyval} ({key_name}), keycode={_keycode}, state={int(state)}"
             )
 
+            # 1. Check if completion popup is active and route navigation keys
+            popup = getattr(terminal, "_completion_popup", None)
+            if popup and popup.get_visible():
+                if popup.handle_key_event(keyval, state):
+                    return Gdk.EVENT_STOP
+
             # Handle Delete and KP_Delete directly to prevent IMContext / dead-key interception
             if keyval in (Gdk.KEY_Delete, Gdk.KEY_KP_Delete):
                 if not (state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.ALT_MASK)):
@@ -3517,11 +3535,32 @@ class TerminalManager:
                         pass
                     return Gdk.EVENT_STOP
 
-            # Only trigger on Enter or KP_Enter, ignore if modifiers are pressed
+            # Handle Escape to dismiss popup
+            if keyval == Gdk.KEY_Escape:
+                if popup and popup.get_visible():
+                    popup.popdown()
+                    return Gdk.EVENT_STOP
+
+            # If Enter or KP_Enter: dismiss popup and continue command detection
+            if keyval in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
+                if popup and popup.get_visible():
+                    popup.popdown()
+            else:
+                # For non-Enter keys, trigger debounced autocomplete if enabled
+                if self.settings_manager.get("autocomplete_enabled", True):
+                    # Ignore standalone modifier keys
+                    if keyval not in (
+                        Gdk.KEY_Control_L, Gdk.KEY_Control_R,
+                        Gdk.KEY_Alt_L, Gdk.KEY_Alt_R,
+                        Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
+                        Gdk.KEY_Super_L, Gdk.KEY_Super_R,
+                        Gdk.KEY_Caps_Lock, Gdk.KEY_Num_Lock
+                    ):
+                        self._schedule_autocomplete_lookup(terminal, terminal_id)
+
+            # Only proceed with command analysis if Enter was pressed without modifiers
             if keyval not in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
                 return Gdk.EVENT_PROPAGATE
-
-
 
             # Ignore if Shift, Ctrl, or Alt is pressed (might be a different action)
             if state & (
@@ -3535,19 +3574,11 @@ class TerminalManager:
             col, row = terminal.get_cursor_position()
 
             # Extract the text of the current line using get_text_range_format
-            # This is the modern VTE API that doesn't use deprecated callbacks
-            # Signature: get_text_range_format(format, start_row, start_col, end_row, end_col)
-            # Returns: tuple[Optional[str], int] - (text, length)
             try:
-                # Get column count for the full line width
                 col_count = terminal.get_column_count()
-
-                # Use Vte.Format.TEXT for plain text extraction
                 text_result = terminal.get_text_range_format(
                     Vte.Format.TEXT, row, 0, row, col_count
                 )
-
-                # get_text_range_format returns (text, length)
                 if isinstance(text_result, tuple) and len(text_result) >= 1:
                     line_text = text_result[0] if text_result[0] else ""
                 else:
@@ -3888,3 +3919,114 @@ class TerminalManager:
         except Exception as e:
             self.logger.error(f"Failed to open hyperlink '{uri}': {e}")
             return False
+
+    def _setup_autocomplete_popup(self, terminal: Vte.Terminal) -> None:
+        """Sets up interactive autocomplete popup anchored to the terminal widget."""
+        try:
+            from .completion import CompletionPopup
+
+            popup = CompletionPopup(
+                terminal,
+                on_item_accepted=lambda item, term=terminal: self._on_completion_accepted(term, item),
+            )
+            terminal._completion_popup = popup
+        except Exception as e:
+            self.logger.debug(f"Failed to setup autocomplete popup for terminal: {e}")
+
+    def _on_completion_accepted(self, terminal: Vte.Terminal, item: Any) -> None:
+        """Injects accepted autocomplete selection into the terminal's active shell."""
+        try:
+            if hasattr(item, "suffix_to_insert") and item.suffix_to_insert:
+                text_to_feed = item.suffix_to_insert
+                if not text_to_feed.endswith(" "):
+                    text_to_feed += " "
+                terminal.feed_child(text_to_feed.encode("utf-8"))
+            elif hasattr(item, "prefix_to_replace") and item.prefix_to_replace:
+                # Erase the partially typed prefix and feed the full replacement text
+                erase_bytes = b"\x08" * len(item.prefix_to_replace)
+                text_to_feed = item.text
+                if not text_to_feed.endswith(" "):
+                    text_to_feed += " "
+                terminal.feed_child(erase_bytes + text_to_feed.encode("utf-8"))
+            else:
+                text_to_feed = item.text
+                if not text_to_feed.endswith(" "):
+                    text_to_feed += " "
+                terminal.feed_child(text_to_feed.encode("utf-8"))
+        except Exception as e:
+            self.logger.error(f"Failed to feed completion into terminal: {e}")
+
+    def _schedule_autocomplete_lookup(self, terminal: Vte.Terminal, terminal_id: int) -> None:
+        """Schedules debounced autocomplete suggestion extraction for the active prompt line."""
+        existing_timer = self._completion_debounce_timers.get(terminal_id)
+        if existing_timer:
+            GLib.source_remove(existing_timer)
+
+        def _do_lookup():
+            self._completion_debounce_timers.pop(terminal_id, None)
+            try:
+                # Check semantic tracker prompt state if available
+                proxy = self._highlight_proxies.get(terminal_id)
+                if proxy and hasattr(proxy, "_in_prompt") and not proxy._in_prompt:
+                    popup = getattr(terminal, "_completion_popup", None)
+                    if popup and popup.get_visible():
+                        popup.popdown()
+                    return False
+
+                # Extract current cursor position and line content
+                cursor_col, cursor_row = terminal.get_cursor_position()
+                col_count = terminal.get_column_count()
+                text_result = terminal.get_text_range_format(
+                    Vte.Format.TEXT, cursor_row, 0, cursor_row, col_count
+                )
+                full_line = text_result[0] if text_result and text_result[0] else ""
+
+                # Extract directory / host
+                cwd = ""
+                host = "localhost"
+                info = self.registry.get_terminal_info(terminal_id)
+                if info:
+                    cwd = info.get("cwd", "")
+                    host = info.get("host", "localhost")
+
+                # Detect prompt boundary ($ , # , % , > )
+                clean_command_line = full_line
+                prompt_match = re.search(r"[$#%>]\s*(.*)$", full_line)
+                if prompt_match:
+                    clean_command_line = prompt_match.group(1)
+
+                clean_command_line = clean_command_line.strip("\r\n")
+
+                if not clean_command_line.strip():
+                    popup = getattr(terminal, "_completion_popup", None)
+                    if popup and popup.get_visible():
+                        popup.popdown()
+                    return False
+
+                items = self.completion_engine.get_completions(
+                    clean_command_line,
+                    cwd=cwd,
+                    host=host,
+                    limit=6,
+                )
+
+                popup = getattr(terminal, "_completion_popup", None)
+                if popup:
+                    if items:
+                        char_w = terminal.get_char_width()
+                        char_h = terminal.get_char_height()
+                        rect = Gdk.Rectangle()
+                        rect.x = max(0, int(cursor_col * char_w))
+                        rect.y = max(0, int(cursor_row * char_h))
+                        rect.width = max(10, int(char_w))
+                        rect.height = max(10, int(char_h))
+                        popup.show_completions(items, rect)
+                    else:
+                        if popup.get_visible():
+                            popup.popdown()
+            except Exception as exc:
+                self.logger.debug(f"Autocomplete lookup error: {exc}")
+            return False
+
+        self._completion_debounce_timers[terminal_id] = GLib.timeout_add(70, _do_lookup)
+

@@ -9238,3 +9238,47 @@ msgstr "保存(_S)"
 # 
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
+
+# 
+msgid "Autocomplete e Sugestões Inteligentes"
+msgstr "オートコンプリートとスマート提案"
+
+# 
+msgid "Sugestões preditivas inline e catálogo de comandos Linux"
+msgstr "インライン予測提案と Linux コマンドカタログ"
+
+# 
+msgid "Ativar Autocomplete Inteligente"
+msgstr "スマートオートコンプリートを有効にする"
+
+# 
+msgid "Exibir sugestões de comandos enquanto digita no terminal"
+msgstr "ターミナルで入力中にコマンド候補を表示する"
+
+# 
+msgid "Catálogo de Comandos Linux (Specs)"
+msgstr "Linux コマンド仕様カタログ (Specs)"
+
+# 
+msgid "Sugerir subcomandos e parâmetros para apt, systemctl, docker, git e ferramentas comuns"
+msgstr "apt、systemctl、docker、git、共通ツールのサブコマンドとオプションを提案"
+
+# 
+msgid "Sugerir a partir do Histórico"
+msgstr "コマンド履歴から提案"
+
+# 
+msgid "Completar com comandos usados anteriormente no mesmo diretório ou host"
+msgstr "同じディレクトリまたはホストで以前使用したコマンドで補完"
+
+# 
+msgid "Sugerir Snippets Salvos"
+msgstr "保存されたスニペットを提案"
+
+# 
+msgid "Incluir templates do gerenciador de snippets nas sugestões"
+msgstr "スニペットマネージャーのテンプレートを提案に含める"
+
+# 
+msgid "Tab/Enter to apply • Esc to dismiss"
+msgstr "Tab/Enter で適用 • Esc で閉じる"
