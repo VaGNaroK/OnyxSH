@@ -1504,9 +1504,22 @@ class TerminalManager:
 
             self.manual_ssh_tracker.track(terminal_id, terminal)
 
+            # Dismiss completion popup when viewport is scrolled
+            v_adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
+            if v_adj:
+                handler_id = v_adj.connect(
+                    "value-changed",
+                    self._on_terminal_scrolled_dismiss_completion,
+                    terminal,
+                )
+                terminal.onyxsh_handler_ids.append(handler_id)
+
             focus_controller = Gtk.EventControllerFocus()
             focus_controller.connect(
                 "enter", self._on_terminal_focus_in, terminal, terminal_id
+            )
+            focus_controller.connect(
+                "leave", self._on_terminal_focus_out, terminal, terminal_id
             )
             terminal.add_controller(focus_controller)
             terminal.onyxsh_controllers.append(focus_controller)
@@ -2080,6 +2093,23 @@ class TerminalManager:
                 self.on_terminal_focus_changed(terminal, False)
         except Exception as e:
             self.logger.error(f"Terminal focus in handling failed: {e}")
+
+    def _on_terminal_focus_out(self, _controller, terminal, terminal_id):
+        try:
+            popup = getattr(terminal, "_completion_popup", None)
+            if popup and popup.get_visible():
+                popup.popdown()
+        except Exception:
+            pass
+
+    def _on_terminal_scrolled_dismiss_completion(self, _adj: Gtk.Adjustment, terminal: Vte.Terminal) -> None:
+        """Dismisses completion popup when user scrolls the terminal viewport."""
+        try:
+            popup = getattr(terminal, "_completion_popup", None)
+            if popup and popup.get_visible():
+                popup.popdown()
+        except Exception:
+            pass
 
     def _on_child_exited(
         self,
@@ -3448,6 +3478,11 @@ class TerminalManager:
 
     def _on_terminal_clicked(self, gesture, _n_press, x, y, terminal, terminal_id):
         try:
+            # Dismiss autocomplete popup on mouse click
+            popup = getattr(terminal, "_completion_popup", None)
+            if popup and popup.get_visible():
+                popup.popdown()
+
             modifiers = gesture.get_current_event_state()
             ctrl_pressed = bool(modifiers & Gdk.ModifierType.CONTROL_MASK)
 
@@ -3476,6 +3511,11 @@ class TerminalManager:
         self, gesture, _n_press, x, y, terminal, terminal_id
     ):
         try:
+            # Dismiss autocomplete popup on right click
+            popup = getattr(terminal, "_completion_popup", None)
+            if popup and popup.get_visible():
+                popup.popdown()
+
             self._update_context_menu_with_url(terminal, x, y)
             return Gdk.EVENT_PROPAGATE
         except Exception as e:
@@ -3541,20 +3581,27 @@ class TerminalManager:
                     popup.popdown()
                     return Gdk.EVENT_STOP
 
+            # If Ctrl or Alt is held (e.g. Ctrl+L, Ctrl+C, Ctrl+U, Ctrl+D, Alt+...): dismiss popup immediately and do not autocomplete
+            if state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.ALT_MASK):
+                if popup and popup.get_visible():
+                    popup.popdown()
             # If Enter or KP_Enter: dismiss popup and continue command detection
-            if keyval in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
+            elif keyval in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
                 if popup and popup.get_visible():
                     popup.popdown()
             else:
-                # For non-Enter keys, trigger debounced autocomplete if enabled
+                # For non-Enter, non-Ctrl, non-Alt keys, trigger debounced autocomplete if enabled
                 if self.settings_manager.get("autocomplete_enabled", True):
-                    # Ignore standalone modifier keys
+                    # Ignore standalone modifier keys and navigation keys
                     if keyval not in (
                         Gdk.KEY_Control_L, Gdk.KEY_Control_R,
                         Gdk.KEY_Alt_L, Gdk.KEY_Alt_R,
                         Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
                         Gdk.KEY_Super_L, Gdk.KEY_Super_R,
-                        Gdk.KEY_Caps_Lock, Gdk.KEY_Num_Lock
+                        Gdk.KEY_Caps_Lock, Gdk.KEY_Num_Lock,
+                        Gdk.KEY_Escape, Gdk.KEY_Tab,
+                        Gdk.KEY_Up, Gdk.KEY_Down, Gdk.KEY_Left, Gdk.KEY_Right,
+                        Gdk.KEY_Page_Up, Gdk.KEY_Page_Down, Gdk.KEY_Home, Gdk.KEY_End
                     ):
                         self._schedule_autocomplete_lookup(terminal, terminal_id)
 
@@ -4024,9 +4071,20 @@ class TerminalManager:
                         char_w = max(1, terminal.get_char_width())
                         char_h = max(1, terminal.get_char_height())
 
+                        # Calculate visible viewport row accounting for scrollback offset
+                        v_adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
+                        scroll_offset = v_adj.get_value() if v_adj else 0.0
+                        visible_row = cursor_row - scroll_offset
+
+                        # If cursor is outside the visible viewport, dismiss popup
+                        if visible_row < 0 or (visible_row * char_h) >= term_h:
+                            if popup.get_visible():
+                                popup.popdown()
+                            return False
+
                         # Clamp cursor x and y within terminal pixel bounds
                         cur_x = min(max(0, int(cursor_col * char_w)), max(0, term_w - int(char_w)))
-                        cur_y = min(max(0, int(cursor_row * char_h)), max(0, term_h - int(char_h)))
+                        cur_y = min(max(0, int(visible_row * char_h)), max(0, term_h - int(char_h)))
 
                         rect = Gdk.Rectangle()
                         rect.x = cur_x
