@@ -10409,3 +10409,119 @@ msgstr "Nessuna sessione SSH associata configurata"
 # 
 msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
 msgstr "Gestore visivo di tunnel SSH e inoltro porte"
+
+# 
+msgid "This terminal is connected to an active production environment."
+msgstr "Questo terminale è connesso a un ambiente di produzione attivo."
+
+# 
+msgid "To confirm and execute, type the target name: <b>{target}</b>"
+msgstr "Per confermare ed eseguire, digita il nome di destinazione: <b>{target}</b>"
+
+# 
+msgid "Type '{target}' to confirm..."
+msgstr "Digita '{target}' per confermare..."
+
+# 
+msgid "View Production Guard Policies"
+msgstr "Visualizza le politiche di Production Guard"
+
+# 
+msgid "Production Guard Policies"
+msgstr "Politiche di Production Guard"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Questo terminale è connesso a un sistema di produzione verificato.\n\n• Le eliminazioni distruttive di file (rm -rf) richiedono conferma.\n• Le modifiche a disco e filesystem (dd, mkfs) sono bloccate.\n• Arresti e riavvii di servizi richiedono la verifica dell'host.\n• L'output condiviso con l'assistente IA è oscurato e protetto."
+
+# 
+msgid "File System"
+msgstr "File system"
+
+# 
+msgid "Storage & Partitions"
+msgstr "Archiviazione e partizioni"
+
+# 
+msgid "System Power"
+msgstr "Alimentazione del sistema"
+
+# 
+msgid "Services & Daemons"
+msgstr "Servizi e daemon"
+
+# 
+msgid "Version Control"
+msgstr "Controllo versione"
+
+# 
+msgid "Database"
+msgstr "Database"
+
+# 
+msgid "Recursive force deletion (rm -rf)"
+msgstr "Eliminazione forzata ricorsiva (rm -rf)"
+
+# 
+msgid "Recursive directory deletion (rm -r)"
+msgstr "Eliminazione ricorsiva directory (rm -r)"
+
+# 
+msgid "Permanent file or filesystem wipe (shred/wipefs)"
+msgstr "Cancellazione permanente di file o filesystem (shred/wipefs)"
+
+# 
+msgid "Filesystem creation / format (mkfs)"
+msgstr "Creazione / formattazione filesystem (mkfs)"
+
+# 
+msgid "Raw disk block overwrite (dd of=/dev/...)"
+msgstr "Sovrascrittura blocchi disco grezzi (dd of=/dev/...)"
+
+# 
+msgid "Partition table modification (fdisk/parted)"
+msgstr "Modifica tabella delle partizioni (fdisk/parted)"
+
+# 
+msgid "Host shutdown or reboot operation"
+msgstr "Operazione di arresto o riavvio dell'host"
+
+# 
+msgid "Runlevel switch to halt or reboot (init 0/6)"
+msgstr "Cambio di runlevel per arrestare o riavviare (init 0/6)"
+
+# 
+msgid "Critical systemd service stop or disable"
+msgstr "Arresto o disattivazione di un servizio systemd critico"
+
+# 
+msgid "System service stoppage or restart"
+msgstr "Arresto o riavvio del servizio di sistema"
+
+# 
+msgid "Hard git reset discarding uncommitted changes"
+msgstr "Hard git reset che scarta le modifiche non salvate"
+
+# 
+msgid "Untracked files deletion (git clean)"
+msgstr "Eliminazione file non tracciati (git clean)"
+
+# 
+msgid "Force push overwriting remote Git history"
+msgstr "Force push che sovrascrive la cronologia Git remota"
+
+# 
+msgid "Database drop or truncate operation"
+msgstr "Operazione DROP o TRUNCATE sul database"
+
+# 
+msgid "Ambiente de Produção (Production Guard)"
+msgstr "Ambiente di produzione (Production Guard)"
+
+# 
+msgid "Ativa avisos e proteção contra comandos destrutivos"
+msgstr "Abilita avvisi e protezione contro i comandi distruttivi"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Questo terminale è connesso a un sistema di produzione verificato.\n\n• Le eliminazioni distruttive di file (rm -rf) richiedono conferma.\n• Le modifiche a disco e filesystem (dd, mkfs) sono bloccate.\n• Arresti e riavvii di servizi richiedono la verifica dell'host.\n• L'output condiviso con l'assistente IA è oscurato e protetto."

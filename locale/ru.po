@@ -10386,3 +10386,119 @@ msgstr "Связанная сессия SSH не настроена"
 # 
 msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
 msgstr "Визуальный менеджер SSH-туннелей и проброса портов"
+
+# 
+msgid "This terminal is connected to an active production environment."
+msgstr "Этот терминал подключен к активной рабочей среде."
+
+# 
+msgid "To confirm and execute, type the target name: <b>{target}</b>"
+msgstr "Для подтверждения и выполнения введите имя цели: <b>{target}</b>"
+
+# 
+msgid "Type '{target}' to confirm..."
+msgstr "Введите '{target}' для подтверждения..."
+
+# 
+msgid "View Production Guard Policies"
+msgstr "Просмотреть политики Production Guard"
+
+# 
+msgid "Production Guard Policies"
+msgstr "Политики Production Guard"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Этот терминал подключен к проверенной рабочей системе.\n\n• Удаление файлов (rm -rf) требует подтверждения.\n• Изменения дисков и файловых систем (dd, mkfs) заблокированы.\n• Остановка и перезапуск служб требуют проверки хоста.\n• Данные, передаваемые ИИ-ассистенту, обезличены и защищены."
+
+# 
+msgid "File System"
+msgstr "Файловая система"
+
+# 
+msgid "Storage & Partitions"
+msgstr "Хранилище и разделы"
+
+# 
+msgid "System Power"
+msgstr "Питание системы"
+
+# 
+msgid "Services & Daemons"
+msgstr "Службы и демоны"
+
+# 
+msgid "Version Control"
+msgstr "Контроль версий"
+
+# 
+msgid "Database"
+msgstr "База данных"
+
+# 
+msgid "Recursive force deletion (rm -rf)"
+msgstr "Рекурсивное принудительное удаление (rm -rf)"
+
+# 
+msgid "Recursive directory deletion (rm -r)"
+msgstr "Рекурсивное удаление каталогов (rm -r)"
+
+# 
+msgid "Permanent file or filesystem wipe (shred/wipefs)"
+msgstr "Безвозвратное удаление файлов или файловой системы (shred/wipefs)"
+
+# 
+msgid "Filesystem creation / format (mkfs)"
+msgstr "Создание / форматирование файловой системы (mkfs)"
+
+# 
+msgid "Raw disk block overwrite (dd of=/dev/...)"
+msgstr "Прямая перезапись блоков диска (dd of=/dev/...)"
+
+# 
+msgid "Partition table modification (fdisk/parted)"
+msgstr "Модификация таблицы разделов (fdisk/parted)"
+
+# 
+msgid "Host shutdown or reboot operation"
+msgstr "Операция выключения или перезагрузки хоста"
+
+# 
+msgid "Runlevel switch to halt or reboot (init 0/6)"
+msgstr "Смена уровня выполнения для остановки или перезагрузки (init 0/6)"
+
+# 
+msgid "Critical systemd service stop or disable"
+msgstr "Остановка или отключение критической службы systemd"
+
+# 
+msgid "System service stoppage or restart"
+msgstr "Остановка или перезапуск системной службы"
+
+# 
+msgid "Hard git reset discarding uncommitted changes"
+msgstr "Жесткий сброс git с удалением незафиксированных изменений"
+
+# 
+msgid "Untracked files deletion (git clean)"
+msgstr "Удаление неотслеживаемых файлов (git clean)"
+
+# 
+msgid "Force push overwriting remote Git history"
+msgstr "Принудительный push с перезаписью удаленной истории Git"
+
+# 
+msgid "Database drop or truncate operation"
+msgstr "Операция DROP или TRUNCATE базы данных"
+
+# 
+msgid "Ambiente de Produção (Production Guard)"
+msgstr "Рабочая среда (Production Guard)"
+
+# 
+msgid "Ativa avisos e proteção contra comandos destrutivos"
+msgstr "Включает предупреждения и защиту от разрушительных команд"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Этот терминал подключен к проверенной рабочей системе.\n\n• Удаление файлов (rm -rf) требует подтверждения.\n• Изменения дисков и файловых систем (dd, mkfs) заблокированы.\n• Остановка и перезапуск служб требуют проверки хоста.\n• Данные, передаваемые ИИ-ассистенту, обезличены и защищены."

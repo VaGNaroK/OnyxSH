@@ -41,15 +41,15 @@ class ProductionGuard:
         self._file_delete_patterns = [
             (
                 re.compile(r"\brm\s+-[a-zA-Z]*[rR][a-zA-Z]*[fF]|\brm\s+-[a-zA-Z]*[fF][a-zA-Z]*[rR]|\brm\s+.*--recursive.*--force|\brm\s+.*--force.*--recursive", re.IGNORECASE),
-                _("Recursive force deletion (rm -rf)"),
+                "Recursive force deletion (rm -rf)",
             ),
             (
                 re.compile(r"\brm\s+-[a-zA-Z]*r[a-zA-Z]*|\brm\s+--recursive", re.IGNORECASE),
-                _("Recursive directory deletion (rm -r)"),
+                "Recursive directory deletion (rm -r)",
             ),
             (
                 re.compile(r"\bshred\s+-[a-zA-Z]*u|\bwipefs\b", re.IGNORECASE),
-                _("Permanent file or filesystem wipe (shred/wipefs)"),
+                "Permanent file or filesystem wipe (shred/wipefs)",
             ),
         ]
 
@@ -57,15 +57,15 @@ class ProductionGuard:
         self._disk_patterns = [
             (
                 re.compile(r"\bmkfs(?:\.[a-zA-Z0-9_-]+)?\b", re.IGNORECASE),
-                _("Filesystem creation / format (mkfs)"),
+                "Filesystem creation / format (mkfs)",
             ),
             (
                 re.compile(r"\bdd\s+.*(?:of=/dev/|if=/dev/zero|if=/dev/urandom)", re.IGNORECASE),
-                _("Raw disk block overwrite (dd of=/dev/...)"),
+                "Raw disk block overwrite (dd of=/dev/...)",
             ),
             (
                 re.compile(r"\b(?:fdisk|gdisk|parted|sfdisk)\s+/dev/", re.IGNORECASE),
-                _("Partition table modification (fdisk/parted)"),
+                "Partition table modification (fdisk/parted)",
             ),
         ]
 
@@ -73,11 +73,11 @@ class ProductionGuard:
         self._system_power_patterns = [
             (
                 re.compile(r"\b(?:shutdown|reboot|poweroff|halt)\b", re.IGNORECASE),
-                _("Host shutdown or reboot operation"),
+                "Host shutdown or reboot operation",
             ),
             (
                 re.compile(r"\b(?:init|telinit)\s+[06]\b"),
-                _("Runlevel switch to halt or reboot (init 0/6)"),
+                "Runlevel switch to halt or reboot (init 0/6)",
             ),
         ]
 
@@ -85,11 +85,11 @@ class ProductionGuard:
         self._service_patterns = [
             (
                 re.compile(r"\bsystemctl\s+(?:stop|disable|mask|isolate)\b", re.IGNORECASE),
-                _("Critical systemd service stop or disable"),
+                "Critical systemd service stop or disable",
             ),
             (
                 re.compile(r"\bservice\s+[\w.-]+\s+(?:stop|restart|reload)\b", re.IGNORECASE),
-                _("System service stoppage or restart"),
+                "System service stoppage or restart",
             ),
         ]
 
@@ -97,15 +97,15 @@ class ProductionGuard:
         self._git_patterns = [
             (
                 re.compile(r"\bgit\s+reset\s+--hard\b", re.IGNORECASE),
-                _("Hard git reset discarding uncommitted changes"),
+                "Hard git reset discarding uncommitted changes",
             ),
             (
                 re.compile(r"\bgit\s+clean\s+-[a-zA-Z]*[fdx]", re.IGNORECASE),
-                _("Untracked files deletion (git clean)"),
+                "Untracked files deletion (git clean)",
             ),
             (
                 re.compile(r"\bgit\s+push\s+.*(?:--force|-f\b|\+)", re.IGNORECASE),
-                _("Force push overwriting remote Git history"),
+                "Force push overwriting remote Git history",
             ),
         ]
 
@@ -113,7 +113,7 @@ class ProductionGuard:
         self._db_patterns = [
             (
                 re.compile(r"\b(?:DROP|TRUNCATE)\s+(?:DATABASE|SCHEMA|TABLE)\b", re.IGNORECASE),
-                _("Database drop or truncate operation"),
+                "Database drop or truncate operation",
             ),
         ]
 
@@ -150,24 +150,26 @@ class ProductionGuard:
         stripped_cmd = self._strip_wrapper_commands(clean_cmd)
 
         all_rules: List[Tuple[List[Tuple[re.Pattern, str]], str, str]] = [
-            (self._file_delete_patterns, _("File System"), "critical"),
-            (self._disk_patterns, _("Storage & Partitions"), "critical"),
-            (self._system_power_patterns, _("System Power"), "critical"),
-            (self._service_patterns, _("Services & Daemons"), "high"),
-            (self._git_patterns, _("Version Control"), "high"),
-            (self._db_patterns, _("Database"), "critical"),
+            (self._file_delete_patterns, "File System", "critical"),
+            (self._disk_patterns, "Storage & Partitions", "critical"),
+            (self._system_power_patterns, "System Power", "critical"),
+            (self._service_patterns, "Services & Daemons", "high"),
+            (self._git_patterns, "Version Control", "high"),
+            (self._db_patterns, "Database", "critical"),
         ]
 
         for pattern_list, category, severity in all_rules:
             for pattern, description in pattern_list:
                 if pattern.search(clean_cmd) or pattern.search(stripped_cmd):
+                    translated_category = _(category)
+                    translated_desc = _(description)
                     self.logger.warning(
-                        f"Production Guard intercepted dangerous command: '{clean_cmd}' -> {description}"
+                        f"Production Guard intercepted dangerous command: '{clean_cmd}' -> {translated_desc}"
                     )
                     return GuardViolation(
                         command=clean_cmd,
-                        category=category,
-                        risk_summary=description,
+                        category=translated_category,
+                        risk_summary=translated_desc,
                         severity=severity,
                     )
 

@@ -10430,3 +10430,119 @@ msgstr "Keine zugehörige SSH-Sitzung konfiguriert"
 # 
 msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
 msgstr "Visueller SSH-Tunnel-Manager & Portweiterleitung"
+
+# 
+msgid "This terminal is connected to an active production environment."
+msgstr "Dieses Terminal ist mit einer aktiven Produktionsumgebung verbunden."
+
+# 
+msgid "To confirm and execute, type the target name: <b>{target}</b>"
+msgstr "Zur Bestätigung und Ausführung geben Sie den Zielnamen ein: <b>{target}</b>"
+
+# 
+msgid "Type '{target}' to confirm..."
+msgstr "Geben Sie '{target}' zur Bestätigung ein..."
+
+# 
+msgid "View Production Guard Policies"
+msgstr "Production Guard Richtlinien anzeigen"
+
+# 
+msgid "Production Guard Policies"
+msgstr "Production Guard Richtlinien"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Dieses Terminal ist mit einem verifizierten Produktionssystem verbunden.\n\n• Destruktives Löschen von Dateien (rm -rf) erfordert eine Bestätigung.\n• Festplatten- und Dateisystemänderungen (dd, mkfs) sind geschützt.\n• Herunterfahren und Neustarten von Diensten erfordern Host-Verifizierung.\n• Datenfreigabe an den KI-Assistenten ist geschwärzt und geschützt."
+
+# 
+msgid "File System"
+msgstr "Dateisystem"
+
+# 
+msgid "Storage & Partitions"
+msgstr "Speicher & Partitionen"
+
+# 
+msgid "System Power"
+msgstr "Systemenergie"
+
+# 
+msgid "Services & Daemons"
+msgstr "Dienste & Daemons"
+
+# 
+msgid "Version Control"
+msgstr "Versionskontrolle"
+
+# 
+msgid "Database"
+msgstr "Datenbank"
+
+# 
+msgid "Recursive force deletion (rm -rf)"
+msgstr "Rekursives erzwungenes Löschen (rm -rf)"
+
+# 
+msgid "Recursive directory deletion (rm -r)"
+msgstr "Rekursives Löschen von Verzeichnissen (rm -r)"
+
+# 
+msgid "Permanent file or filesystem wipe (shred/wipefs)"
+msgstr "Dauerhaftes Löschen von Dateien oder Dateisystemen (shred/wipefs)"
+
+# 
+msgid "Filesystem creation / format (mkfs)"
+msgstr "Dateisystemerstellung / Formatierung (mkfs)"
+
+# 
+msgid "Raw disk block overwrite (dd of=/dev/...)"
+msgstr "Überschreiben von Rohdaten-Diskblöcken (dd of=/dev/...)"
+
+# 
+msgid "Partition table modification (fdisk/parted)"
+msgstr "Partitionstabellenänderung (fdisk/parted)"
+
+# 
+msgid "Host shutdown or reboot operation"
+msgstr "Host herunterfahren oder neustarten"
+
+# 
+msgid "Runlevel switch to halt or reboot (init 0/6)"
+msgstr "Runlevel-Wechsel zum Anhalten oder Neustarten (init 0/6)"
+
+# 
+msgid "Critical systemd service stop or disable"
+msgstr "Stoppen oder Deaktivieren kritischer systemd-Dienste"
+
+# 
+msgid "System service stoppage or restart"
+msgstr "Systemdienst anhalten oder neu starten"
+
+# 
+msgid "Hard git reset discarding uncommitted changes"
+msgstr "Harter Git-Reset verwirft nicht committete Änderungen"
+
+# 
+msgid "Untracked files deletion (git clean)"
+msgstr "Löschen nicht verfolgter Dateien (git clean)"
+
+# 
+msgid "Force push overwriting remote Git history"
+msgstr "Force-Push überschreibt Remote-Git-Historie"
+
+# 
+msgid "Database drop or truncate operation"
+msgstr "DROP- oder TRUNCATE-Operation für Datenbank"
+
+# 
+msgid "Ambiente de Produção (Production Guard)"
+msgstr "Produktionsumgebung (Production Guard)"
+
+# 
+msgid "Ativa avisos e proteção contra comandos destrutivos"
+msgstr "Aktiviert Warnungen und Schutz vor destruktiven Befehlen"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Dieses Terminal ist mit einem verifizierten Produktionssystem verbunden.\n\n• Destruktives Löschen von Dateien (rm -rf) erfordert eine Bestätigung.\n• Festplatten- und Dateisystemänderungen (dd, mkfs) sind geschützt.\n• Herunterfahren und Neustarten von Diensten erfordern Host-Verifizierung.\n• Datenfreigabe an den KI-Assistenten ist geschwärzt und geschützt."

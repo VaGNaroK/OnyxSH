@@ -4,6 +4,7 @@ import unittest
 
 from onyxsh.sessions.models import SessionFolder, SessionItem
 from onyxsh.terminal.production_guard import ProductionGuard, get_production_guard
+from onyxsh.utils.translation_utils import _
 
 
 class TestProductionGuard(unittest.TestCase):
@@ -50,7 +51,7 @@ class TestProductionGuard(unittest.TestCase):
         for cmd in dangerous:
             violation = self.guard.evaluate_command(cmd)
             self.assertIsNotNone(violation, f"Command should be detected as dangerous: {cmd}")
-            self.assertIn(violation.category, ["File System", "Storage & Partitions"])
+            self.assertIn(violation.category, [_("File System"), _("Storage & Partitions")])
 
     def test_destructive_disk_commands(self):
         dangerous = [
@@ -63,7 +64,7 @@ class TestProductionGuard(unittest.TestCase):
         for cmd in dangerous:
             violation = self.guard.evaluate_command(cmd)
             self.assertIsNotNone(violation, f"Command should be detected as dangerous: {cmd}")
-            self.assertEqual(violation.category, "Storage & Partitions")
+            self.assertEqual(violation.category, _("Storage & Partitions"))
 
     def test_system_power_commands(self):
         dangerous = [
@@ -77,7 +78,7 @@ class TestProductionGuard(unittest.TestCase):
         for cmd in dangerous:
             violation = self.guard.evaluate_command(cmd)
             self.assertIsNotNone(violation, f"Command should be detected as dangerous: {cmd}")
-            self.assertEqual(violation.category, "System Power")
+            self.assertEqual(violation.category, _("System Power"))
 
     def test_service_commands(self):
         dangerous = [
@@ -89,7 +90,7 @@ class TestProductionGuard(unittest.TestCase):
         for cmd in dangerous:
             violation = self.guard.evaluate_command(cmd)
             self.assertIsNotNone(violation, f"Command should be detected as dangerous: {cmd}")
-            self.assertEqual(violation.category, "Services & Daemons")
+            self.assertEqual(violation.category, _("Services & Daemons"))
 
     def test_git_destructive_commands(self):
         dangerous = [
@@ -101,7 +102,7 @@ class TestProductionGuard(unittest.TestCase):
         for cmd in dangerous:
             violation = self.guard.evaluate_command(cmd)
             self.assertIsNotNone(violation, f"Command should be detected as dangerous: {cmd}")
-            self.assertEqual(violation.category, "Version Control")
+            self.assertEqual(violation.category, _("Version Control"))
 
     def test_database_destructive_commands(self):
         dangerous = [
@@ -112,7 +113,7 @@ class TestProductionGuard(unittest.TestCase):
         for cmd in dangerous:
             violation = self.guard.evaluate_command(cmd)
             self.assertIsNotNone(violation, f"Command should be detected as dangerous: {cmd}")
-            self.assertEqual(violation.category, "Database")
+            self.assertEqual(violation.category, _("Database"))
 
     def test_safe_commands_allowed(self):
         safe = [

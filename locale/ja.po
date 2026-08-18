@@ -10350,3 +10350,119 @@ msgstr "関連付けられた SSH セッションが設定されていません"
 # 
 msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
 msgstr "ビジュアル SSH トンネルマネージャーとポート転送"
+
+# 
+msgid "This terminal is connected to an active production environment."
+msgstr "このターミナルはアクティブな本番環境に接続されています。"
+
+# 
+msgid "To confirm and execute, type the target name: <b>{target}</b>"
+msgstr "確認して実行するには、ターゲット名を入力してください: <b>{target}</b>"
+
+# 
+msgid "Type '{target}' to confirm..."
+msgstr "確認のため '{target}' と入力..."
+
+# 
+msgid "View Production Guard Policies"
+msgstr "Production Guard ポリシーを表示"
+
+# 
+msgid "Production Guard Policies"
+msgstr "Production Guard ポリシー"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "このターミナルは検証済みの本番システムに接続されています。\n\n• 破壊的なファイル削除 (rm -rf) には確認が必要です。\n• ディスクおよびファイルシステムの変更 (dd, mkfs) は保護されています。\n• サービスの停止と再起動にはホストの確認が必要です。\n• AI アシスタントへの出力共有は難読化され保護されます。"
+
+# 
+msgid "File System"
+msgstr "ファイルシステム"
+
+# 
+msgid "Storage & Partitions"
+msgstr "ストレージとパーティション"
+
+# 
+msgid "System Power"
+msgstr "システム電源"
+
+# 
+msgid "Services & Daemons"
+msgstr "サービスとデーモン"
+
+# 
+msgid "Version Control"
+msgstr "バージョン管理"
+
+# 
+msgid "Database"
+msgstr "データベース"
+
+# 
+msgid "Recursive force deletion (rm -rf)"
+msgstr "再帰的強制削除 (rm -rf)"
+
+# 
+msgid "Recursive directory deletion (rm -r)"
+msgstr "ディレクトリの再帰的削除 (rm -r)"
+
+# 
+msgid "Permanent file or filesystem wipe (shred/wipefs)"
+msgstr "ファイルまたはファイルシステムの完全消去 (shred/wipefs)"
+
+# 
+msgid "Filesystem creation / format (mkfs)"
+msgstr "ファイルシステムの作成 / フォーマット (mkfs)"
+
+# 
+msgid "Raw disk block overwrite (dd of=/dev/...)"
+msgstr "RAW ディスクブロックの上書き (dd of=/dev/...)"
+
+# 
+msgid "Partition table modification (fdisk/parted)"
+msgstr "パーティションテーブルの変更 (fdisk/parted)"
+
+# 
+msgid "Host shutdown or reboot operation"
+msgstr "ホストのシャットダウンまたは再起動操作"
+
+# 
+msgid "Runlevel switch to halt or reboot (init 0/6)"
+msgstr "停止または再起動へのランレベル切り替え (init 0/6)"
+
+# 
+msgid "Critical systemd service stop or disable"
+msgstr "重要な systemd サービスの停止または無効化"
+
+# 
+msgid "System service stoppage or restart"
+msgstr "システムサービスの停止または再起動"
+
+# 
+msgid "Hard git reset discarding uncommitted changes"
+msgstr "コミットされていない変更を破棄するハード Git リセット"
+
+# 
+msgid "Untracked files deletion (git clean)"
+msgstr "未追跡ファイルの削除 (git clean)"
+
+# 
+msgid "Force push overwriting remote Git history"
+msgstr "リモート Git 履歴を上書きする強制プッシュ"
+
+# 
+msgid "Database drop or truncate operation"
+msgstr "データベースの DROP または TRUNCATE 操作"
+
+# 
+msgid "Ambiente de Produção (Production Guard)"
+msgstr "本番環境 (Production Guard)"
+
+# 
+msgid "Ativa avisos e proteção contra comandos destrutivos"
+msgstr "破壊的コマンドに対する警告と保護を有効にする"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "このターミナルは検証済みの本番システムに接続されています。\n\n• 破壊的なファイル削除 (rm -rf) には確認が必要です。\n• ディスクおよびファイルシステムの変更 (dd, mkfs) は保護されています。\n• サービスの停止と再起動にはホストの確認が必要です。\n• AI アシスタントへの出力共有は難読化され保護されます。"

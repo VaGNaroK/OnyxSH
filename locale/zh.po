@@ -10345,3 +10345,119 @@ msgstr "未配置关联的 SSH 会话"
 # 
 msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
 msgstr "可视化 SSH 隧道管理器与端口转发"
+
+# 
+msgid "This terminal is connected to an active production environment."
+msgstr "此终端已连接到处于活动状态的生产环境。"
+
+# 
+msgid "To confirm and execute, type the target name: <b>{target}</b>"
+msgstr "要确认并执行，请输入目标名称：<b>{target}</b>"
+
+# 
+msgid "Type '{target}' to confirm..."
+msgstr "输入 '{target}' 进行确认..."
+
+# 
+msgid "View Production Guard Policies"
+msgstr "查看 Production Guard 策略"
+
+# 
+msgid "Production Guard Policies"
+msgstr "Production Guard 策略"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "此终端已连接到经过验证的生产系统。\n\n• 破坏性文件删除 (rm -rf) 需要确认。\n• 磁盘和文件系统修改 (dd, mkfs) 受到保护。\n• 服务关闭和重启需要主机验证。\n• 发送给 AI 助手的输出已脱敏并受到保护。"
+
+# 
+msgid "File System"
+msgstr "文件系统"
+
+# 
+msgid "Storage & Partitions"
+msgstr "存储与分区"
+
+# 
+msgid "System Power"
+msgstr "系统电源"
+
+# 
+msgid "Services & Daemons"
+msgstr "服务与守护进程"
+
+# 
+msgid "Version Control"
+msgstr "版本控制"
+
+# 
+msgid "Database"
+msgstr "数据库"
+
+# 
+msgid "Recursive force deletion (rm -rf)"
+msgstr "递归强制删除 (rm -rf)"
+
+# 
+msgid "Recursive directory deletion (rm -r)"
+msgstr "递归目录删除 (rm -r)"
+
+# 
+msgid "Permanent file or filesystem wipe (shred/wipefs)"
+msgstr "永久文件或文件系统擦除 (shred/wipefs)"
+
+# 
+msgid "Filesystem creation / format (mkfs)"
+msgstr "文件系统创建 / 格式化 (mkfs)"
+
+# 
+msgid "Raw disk block overwrite (dd of=/dev/...)"
+msgstr "原始磁盘块覆盖 (dd of=/dev/...)"
+
+# 
+msgid "Partition table modification (fdisk/parted)"
+msgstr "分区表修改 (fdisk/parted)"
+
+# 
+msgid "Host shutdown or reboot operation"
+msgstr "主机关闭或重启操作"
+
+# 
+msgid "Runlevel switch to halt or reboot (init 0/6)"
+msgstr "切换运行级别以停止或重启 (init 0/6)"
+
+# 
+msgid "Critical systemd service stop or disable"
+msgstr "关键 systemd 服务停止或禁用"
+
+# 
+msgid "System service stoppage or restart"
+msgstr "系统服务停止或重启"
+
+# 
+msgid "Hard git reset discarding uncommitted changes"
+msgstr "硬 Git 重置，丢弃未提交的更改"
+
+# 
+msgid "Untracked files deletion (git clean)"
+msgstr "未跟踪文件删除 (git clean)"
+
+# 
+msgid "Force push overwriting remote Git history"
+msgstr "强制推送覆盖远程 Git 历史记录"
+
+# 
+msgid "Database drop or truncate operation"
+msgstr "数据库 DROP 或 TRUNCATE 操作"
+
+# 
+msgid "Ambiente de Produção (Production Guard)"
+msgstr "生产环境 (Production Guard)"
+
+# 
+msgid "Ativa avisos e proteção contra comandos destrutivos"
+msgstr "启用针对破坏性命令的警告和保护"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "此终端已连接到经过验证的生产系统。\n\n• 破坏性文件删除 (rm -rf) 需要确认。\n• 磁盘和文件系统修改 (dd, mkfs) 受到保护。\n• 服务关闭和重启需要主机验证。\n• 发送给 AI 助手的输出已脱敏并受到保护。"

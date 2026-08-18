@@ -10397,3 +10397,119 @@ msgstr "No associated SSH session configured"
 # 
 msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
 msgstr "Visual SSH Tunnel Manager & Port Forwarding"
+
+# 
+msgid "This terminal is connected to an active production environment."
+msgstr "This terminal is connected to an active production environment."
+
+# 
+msgid "To confirm and execute, type the target name: <b>{target}</b>"
+msgstr "To confirm and execute, type the target name: <b>{target}</b>"
+
+# 
+msgid "Type '{target}' to confirm..."
+msgstr "Type '{target}' to confirm..."
+
+# 
+msgid "View Production Guard Policies"
+msgstr "View Production Guard Policies"
+
+# 
+msgid "Production Guard Policies"
+msgstr "Production Guard Policies"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+
+# 
+msgid "File System"
+msgstr "File System"
+
+# 
+msgid "Storage & Partitions"
+msgstr "Storage & Partitions"
+
+# 
+msgid "System Power"
+msgstr "System Power"
+
+# 
+msgid "Services & Daemons"
+msgstr "Services & Daemons"
+
+# 
+msgid "Version Control"
+msgstr "Version Control"
+
+# 
+msgid "Database"
+msgstr "Database"
+
+# 
+msgid "Recursive force deletion (rm -rf)"
+msgstr "Recursive force deletion (rm -rf)"
+
+# 
+msgid "Recursive directory deletion (rm -r)"
+msgstr "Recursive directory deletion (rm -r)"
+
+# 
+msgid "Permanent file or filesystem wipe (shred/wipefs)"
+msgstr "Permanent file or filesystem wipe (shred/wipefs)"
+
+# 
+msgid "Filesystem creation / format (mkfs)"
+msgstr "Filesystem creation / format (mkfs)"
+
+# 
+msgid "Raw disk block overwrite (dd of=/dev/...)"
+msgstr "Raw disk block overwrite (dd of=/dev/...)"
+
+# 
+msgid "Partition table modification (fdisk/parted)"
+msgstr "Partition table modification (fdisk/parted)"
+
+# 
+msgid "Host shutdown or reboot operation"
+msgstr "Host shutdown or reboot operation"
+
+# 
+msgid "Runlevel switch to halt or reboot (init 0/6)"
+msgstr "Runlevel switch to halt or reboot (init 0/6)"
+
+# 
+msgid "Critical systemd service stop or disable"
+msgstr "Critical systemd service stop or disable"
+
+# 
+msgid "System service stoppage or restart"
+msgstr "System service stoppage or restart"
+
+# 
+msgid "Hard git reset discarding uncommitted changes"
+msgstr "Hard git reset discarding uncommitted changes"
+
+# 
+msgid "Untracked files deletion (git clean)"
+msgstr "Untracked files deletion (git clean)"
+
+# 
+msgid "Force push overwriting remote Git history"
+msgstr "Force push overwriting remote Git history"
+
+# 
+msgid "Database drop or truncate operation"
+msgstr "Database drop or truncate operation"
+
+# 
+msgid "Ambiente de Produção (Production Guard)"
+msgstr "Production Environment (Production Guard)"
+
+# 
+msgid "Ativa avisos e proteção contra comandos destrutivos"
+msgstr "Enables warnings and protection against destructive commands"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."

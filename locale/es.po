@@ -10416,3 +10416,119 @@ msgstr "No hay sesión SSH asociada configurada"
 # 
 msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
 msgstr "Gestor Visual de Túneles SSH y Reenvío de Puertos"
+
+# 
+msgid "This terminal is connected to an active production environment."
+msgstr "Este terminal está conectado a un entorno de producción activo."
+
+# 
+msgid "To confirm and execute, type the target name: <b>{target}</b>"
+msgstr "Para confirmar y ejecutar, escriba el nombre del destino: <b>{target}</b>"
+
+# 
+msgid "Type '{target}' to confirm..."
+msgstr "Escriba '{target}' para confirmar..."
+
+# 
+msgid "View Production Guard Policies"
+msgstr "Ver políticas de Production Guard"
+
+# 
+msgid "Production Guard Policies"
+msgstr "Políticas de Production Guard"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Este terminal está conectado a un sistema de producción verificado.\n\n• La eliminación destructiva de archivos (rm -rf) requiere confirmación.\n• Las modificaciones de disco y sistema de archivos (dd, mkfs) están protegidas.\n• Los apagados y reinicios de servicios requieren verificación del host.\n• La salida compartida con el asistente de IA está ofuscada y protegida."
+
+# 
+msgid "File System"
+msgstr "Sistema de archivos"
+
+# 
+msgid "Storage & Partitions"
+msgstr "Almacenamiento y particiones"
+
+# 
+msgid "System Power"
+msgstr "Energía del sistema"
+
+# 
+msgid "Services & Daemons"
+msgstr "Servicios y demonios"
+
+# 
+msgid "Version Control"
+msgstr "Control de versiones"
+
+# 
+msgid "Database"
+msgstr "Base de datos"
+
+# 
+msgid "Recursive force deletion (rm -rf)"
+msgstr "Eliminación recursiva forzada (rm -rf)"
+
+# 
+msgid "Recursive directory deletion (rm -r)"
+msgstr "Eliminación recursiva de directorios (rm -r)"
+
+# 
+msgid "Permanent file or filesystem wipe (shred/wipefs)"
+msgstr "Borrado permanente de archivos o sistema de archivos (shred/wipefs)"
+
+# 
+msgid "Filesystem creation / format (mkfs)"
+msgstr "Creación / formateo de sistema de archivos (mkfs)"
+
+# 
+msgid "Raw disk block overwrite (dd of=/dev/...)"
+msgstr "Sobrescritura de bloques de disco sin formato (dd of=/dev/...)"
+
+# 
+msgid "Partition table modification (fdisk/parted)"
+msgstr "Modificación de tabla de particiones (fdisk/parted)"
+
+# 
+msgid "Host shutdown or reboot operation"
+msgstr "Operación de apagado o reinicio del host"
+
+# 
+msgid "Runlevel switch to halt or reboot (init 0/6)"
+msgstr "Cambio de nivel de ejecución para apagar o reiniciar (init 0/6)"
+
+# 
+msgid "Critical systemd service stop or disable"
+msgstr "Parada o desactivación de servicio crítico de systemd"
+
+# 
+msgid "System service stoppage or restart"
+msgstr "Parada o reinicio de servicio del sistema"
+
+# 
+msgid "Hard git reset discarding uncommitted changes"
+msgstr "Reset forzado de git descartando cambios sin confirmar"
+
+# 
+msgid "Untracked files deletion (git clean)"
+msgstr "Eliminación de archivos no rastreados (git clean)"
+
+# 
+msgid "Force push overwriting remote Git history"
+msgstr "Push forzado sobrescribiendo historial remoto de Git"
+
+# 
+msgid "Database drop or truncate operation"
+msgstr "Operación de DROP o TRUNCATE en base de datos"
+
+# 
+msgid "Ambiente de Produção (Production Guard)"
+msgstr "Entorno de producción (Production Guard)"
+
+# 
+msgid "Ativa avisos e proteção contra comandos destrutivos"
+msgstr "Activa advertencias y protección contra comandos destructivos"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Este terminal está conectado a un sistema de producción verificado.\n\n• La eliminación destructiva de archivos (rm -rf) requiere confirmación.\n• Las modificaciones de disco y sistema de archivos (dd, mkfs) están protegidas.\n• Los apagados y reinicios de servicios requieren verificación del host.\n• La salida compartida con el asistente de IA está ofuscada y protegida."

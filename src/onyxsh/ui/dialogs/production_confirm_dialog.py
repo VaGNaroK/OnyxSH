@@ -126,27 +126,21 @@ class ProductionConfirmDialog(Adw.Window):
         main_box.append(card)
 
         # 3. Verification Challenge Input
-        challenge_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        instruction_label = Gtk.Label(
-            label=_("To confirm and execute, type the target name: <b>{target}</b>").format(
+        challenge_group = Adw.PreferencesGroup(
+            title=_("To confirm and execute, type the target name: <b>{target}</b>").format(
                 target=self.target_name
             ),
-            use_markup=True,
-            xalign=0.0,
-            css_classes=["caption"],
         )
-        challenge_box.append(instruction_label)
 
-        self.confirm_entry = Gtk.Entry(
-            placeholder_text=_("Type '{target}' to confirm...").format(
+        self.confirm_entry = Adw.EntryRow(
+            title=_("Type '{target}' to confirm...").format(
                 target=self.target_name
             ),
-            hexpand=True,
         )
         self.confirm_entry.connect("changed", self._on_entry_changed)
-        self.confirm_entry.connect("activate", self._on_entry_activated)
-        challenge_box.append(self.confirm_entry)
-        main_box.append(challenge_box)
+        self.confirm_entry.connect("entry-activated", self._on_entry_activated)
+        challenge_group.add(self.confirm_entry)
+        main_box.append(challenge_group)
 
         # 4. Action Buttons
         btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
@@ -170,34 +164,28 @@ class ProductionConfirmDialog(Adw.Window):
 
         main_box.append(btn_box)
 
-        # Key controller for Escape
-        key_ctrl = Gtk.EventControllerKey()
-        key_ctrl.connect("key-pressed", self._on_key_pressed)
-        self.add_controller(key_ctrl)
+        # Escape key shortcut controller (does not intercept text typing)
+        esc_shortcut = Gtk.Shortcut.new(
+            Gtk.ShortcutTrigger.parse_string("Escape"),
+            Gtk.CallbackAction.new(lambda *_: self._finish(False) or True),
+        )
+        shortcut_ctrl = Gtk.ShortcutController.new_for_scope(
+            Gtk.ShortcutScope.LOCAL
+        )
+        shortcut_ctrl.add_shortcut(esc_shortcut)
+        self.add_controller(shortcut_ctrl)
 
-        # Focus cancel by default
+        # Focus entry by default
         GLib.idle_add(self.confirm_entry.grab_focus)
 
-    def _on_entry_changed(self, entry: Gtk.Entry) -> None:
+    def _on_entry_changed(self, entry: Adw.EntryRow) -> None:
         typed = entry.get_text().strip()
         matched = typed == self.target_name
         self.exec_btn.set_sensitive(matched)
 
-    def _on_entry_activated(self, entry: Gtk.Entry) -> None:
+    def _on_entry_activated(self, _entry: Adw.EntryRow) -> None:
         if self.exec_btn.get_sensitive():
             self._finish(True)
-
-    def _on_key_pressed(
-        self,
-        _ctrl: Gtk.EventControllerKey,
-        keyval: int,
-        _keycode: int,
-        _state: Gdk.ModifierType,
-    ) -> bool:
-        if keyval == Gdk.KEY_Escape:
-            self._finish(False)
-            return Gdk.EVENT_STOP
-        return Gdk.EVENT_PROPAGATE
 
     def _finish(self, confirmed: bool) -> None:
         if self._decision_made:

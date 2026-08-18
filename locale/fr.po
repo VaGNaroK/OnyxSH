@@ -10419,3 +10419,119 @@ msgstr "Aucune session SSH associée configurée"
 # 
 msgid "Gerenciador Visual de Túneis SSH e Port Forwarding"
 msgstr "Gestionnaire visuel de tunnels SSH et redirection de ports"
+
+# 
+msgid "This terminal is connected to an active production environment."
+msgstr "Ce terminal est connecté à un environnement de production actif."
+
+# 
+msgid "To confirm and execute, type the target name: <b>{target}</b>"
+msgstr "Pour confirmer et exécuter, saisissez le nom de la cible : <b>{target}</b>"
+
+# 
+msgid "Type '{target}' to confirm..."
+msgstr "Tapez '{target}' pour confirmer..."
+
+# 
+msgid "View Production Guard Policies"
+msgstr "Afficher les politiques de Production Guard"
+
+# 
+msgid "Production Guard Policies"
+msgstr "Politiques de Production Guard"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Ce terminal est connecté à un système de production vérifié.\n\n• Les suppressions destructives de fichiers (rm -rf) nécessitent une confirmation.\n• Les modifications de disque et de système de fichiers (dd, mkfs) sont restreintes.\n• Les arrêts et redémarrages de services nécessitent une vérification de l'hôte.\n• Les sorties partagées avec l'assistant IA sont masquées et protégées."
+
+# 
+msgid "File System"
+msgstr "Système de fichiers"
+
+# 
+msgid "Storage & Partitions"
+msgstr "Stockage et partitions"
+
+# 
+msgid "System Power"
+msgstr "Alimentation du système"
+
+# 
+msgid "Services & Daemons"
+msgstr "Services et démons"
+
+# 
+msgid "Version Control"
+msgstr "Contrôle de version"
+
+# 
+msgid "Database"
+msgstr "Base de données"
+
+# 
+msgid "Recursive force deletion (rm -rf)"
+msgstr "Suppression récursive forcée (rm -rf)"
+
+# 
+msgid "Recursive directory deletion (rm -r)"
+msgstr "Suppression récursive de répertoires (rm -r)"
+
+# 
+msgid "Permanent file or filesystem wipe (shred/wipefs)"
+msgstr "Effacement permanent de fichiers ou de système de fichiers (shred/wipefs)"
+
+# 
+msgid "Filesystem creation / format (mkfs)"
+msgstr "Création / formatage de système de fichiers (mkfs)"
+
+# 
+msgid "Raw disk block overwrite (dd of=/dev/...)"
+msgstr "Écrasement direct de blocs de disque (dd of=/dev/...)"
+
+# 
+msgid "Partition table modification (fdisk/parted)"
+msgstr "Modification de la table de partitions (fdisk/parted)"
+
+# 
+msgid "Host shutdown or reboot operation"
+msgstr "Opération d'arrêt ou de redémarrage de l'hôte"
+
+# 
+msgid "Runlevel switch to halt or reboot (init 0/6)"
+msgstr "Changement de niveau d'exécution pour arrêter ou redémarrer (init 0/6)"
+
+# 
+msgid "Critical systemd service stop or disable"
+msgstr "Arrêt ou désactivation d'un service systemd critique"
+
+# 
+msgid "System service stoppage or restart"
+msgstr "Arrêt ou redémarrage d'un service système"
+
+# 
+msgid "Hard git reset discarding uncommitted changes"
+msgstr "Reset forcé git annulant les modifications non commitées"
+
+# 
+msgid "Untracked files deletion (git clean)"
+msgstr "Suppression des fichiers non suivis (git clean)"
+
+# 
+msgid "Force push overwriting remote Git history"
+msgstr "Push forcé écrasant l'historique Git distant"
+
+# 
+msgid "Database drop or truncate operation"
+msgstr "Opération DROP ou TRUNCATE de base de données"
+
+# 
+msgid "Ambiente de Produção (Production Guard)"
+msgstr "Environnement de production (Production Guard)"
+
+# 
+msgid "Ativa avisos e proteção contra comandos destrutivos"
+msgstr "Active les avertissements et la protection contre les commandes destructrices"
+
+# 
+msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
+msgstr "Ce terminal est connecté à un système de production vérifié.\n\n• Les suppressions destructives de fichiers (rm -rf) nécessitent une confirmation.\n• Les modifications de disque et de système de fichiers (dd, mkfs) sont restreintes.\n• Les arrêts et redémarrages de services nécessitent une vérification de l'hôte.\n• Les sorties partagées avec l'assistant IA sont masquées et protégées."
