@@ -48,18 +48,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Flatpak
-        uses: flatpak/flatpak-github-actions/flatpak-builder@v6.2
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          bundle: onyxsh.flatpak
-          manifest-path: manifests/io.github.vagnarok.OnyxSH.yaml
-          cache-key: flatpak-builder-${{ github.sha }}
+          python-version: '3.12'
+
+      - name: Install Flatpak packaging tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder elfutils gettext
+
+      - name: Build Flatpak bundle
+        run: |
+          ./scripts/build_flatpak.sh --install-sdk --clean-cache
 
       - name: Upload Flatpak Artifact
         uses: actions/upload-artifact@v4
         with:
           name: onyxsh-flatpak
-          path: onyxsh.flatpak
+          path: dist/*.flatpak
           if-no-files-found: error
 
   release:
