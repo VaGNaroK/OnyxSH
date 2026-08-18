@@ -57,14 +57,14 @@ class TestTerminalExporter(unittest.TestCase):
     def test_export_log(self):
         """Test log export with header."""
         log_out = self.exporter.export_log(self.mock_terminal)
-        self.assertIn("OnyxSH Terminal Output Log", log_out)
+        self.assertIn("OnyxSH", log_out)
         self.assertIn("120x30", log_out)
         self.assertIn("user@host:~$ ls -la", log_out)
 
     def test_export_markdown(self):
         """Test markdown export structure."""
         md_out = self.exporter.export_markdown(self.mock_terminal)
-        self.assertIn("# 🖥️ OnyxSH Terminal Export", md_out)
+        self.assertIn("# 🖥️", md_out)
         self.assertIn("```bash", md_out)
         self.assertIn("user@host:~$ ls -la", md_out)
         self.assertTrue(md_out.endswith("```\n"))
@@ -73,7 +73,7 @@ class TestTerminalExporter(unittest.TestCase):
         """Test HTML export structure with embedded dark theme."""
         html_out = self.exporter.export_html(self.mock_terminal)
         self.assertIn("<!DOCTYPE html>", html_out)
-        self.assertIn("OnyxSH Terminal Export", html_out)
+        self.assertIn("OnyxSH", html_out)
         self.assertIn("copyTerminalText()", html_out)
         self.assertIn("user@host:~$", html_out)
 

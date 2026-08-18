@@ -9137,3 +9137,55 @@ msgstr "搜索匹配项"
 # 
 msgid "No matches"
 msgstr "无匹配项"
+
+# 
+msgid "OnyxSH Terminal Output Log"
+msgstr "OnyxSH 终端输出日志"
+
+# 
+msgid "OnyxSH Terminal Export"
+msgstr "OnyxSH 终端导出"
+
+# 
+msgid "CWD"
+msgstr "当前目录"
+
+# 
+msgid "Date"
+msgstr "日期"
+
+# 
+msgid "Dimensions"
+msgstr "尺寸"
+
+# 
+msgid "Session:"
+msgstr "会话："
+
+# 
+msgid "Host:"
+msgstr "主机："
+
+# 
+msgid "Directory:"
+msgstr "目录："
+
+# 
+msgid "Date / Time:"
+msgstr "日期/时间："
+
+# 
+msgid "Dimensions:"
+msgstr "尺寸："
+
+# 
+msgid "Total Lines:"
+msgstr "总行数："
+
+# 
+msgid "Copy Output"
+msgstr "复制输出"
+
+# 
+msgid "Copied!"
+msgstr "已复制！"

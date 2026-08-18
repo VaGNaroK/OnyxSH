@@ -428,7 +428,6 @@ class DefaultSettings:
                 "ai-assistant": "<Control><Shift>i",
                 "command-palette": "<Control><Shift>p",
                 "show-command-history": "<Control>r",
-                "export-terminal-buffer": "<Control><Shift>s",
             },
         }
 

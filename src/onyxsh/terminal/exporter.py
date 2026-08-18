@@ -68,7 +68,7 @@ class TerminalExporter:
         """Gathers runtime metadata for the export header."""
         cwd = "~"
         host = "localhost"
-        session_name = "Local Terminal"
+        session_name = _("Local Terminal")
 
         if hasattr(terminal, "get_current_directory_uri"):
             try:
@@ -123,11 +123,18 @@ class TerminalExporter:
     ) -> str:
         """Exports as a structured log file with header."""
         meta = self.extract_metadata(terminal)
+        log_title = _("OnyxSH Terminal Output Log")
+        session_label = _("Session")
+        host_label = _("Host")
+        cwd_label = _("CWD")
+        date_label = _("Date")
+        dim_label = _("Dimensions")
+
         header = (
             f"================================================================================\n"
-            f" OnyxSH Terminal Output Log\n"
-            f" Session: {meta['session_name']} | Host: {meta['host']} | CWD: {meta['cwd']}\n"
-            f" Date: {meta['timestamp']} | Dimensions: {meta['cols']}x{meta['rows']}\n"
+            f" {log_title}\n"
+            f" {session_label}: {meta['session_name']} | {host_label}: {meta['host']} | {cwd_label}: {meta['cwd']}\n"
+            f" {date_label}: {meta['timestamp']} | {dim_label}: {meta['cols']}x{meta['rows']}\n"
             f"================================================================================\n\n"
         )
         content = self.export_plain_text(terminal, selection_only)
@@ -141,14 +148,22 @@ class TerminalExporter:
         content = self.export_plain_text(terminal, selection_only)
         line_count = len(content.splitlines())
 
+        md_title = _("OnyxSH Terminal Export")
+        session_label = _("Session:")
+        host_label = _("Host:")
+        dir_label = _("Directory:")
+        date_label = _("Date / Time:")
+        dim_label = _("Dimensions:")
+        lines_label = _("Total Lines:")
+
         md_header = (
-            f"# 🖥️ OnyxSH Terminal Export\n\n"
-            f"- **Sessão:** `{meta['session_name']}`\n"
-            f"- **Host:** `{meta['host']}`\n"
-            f"- **Diretório:** `{meta['cwd']}`\n"
-            f"- **Data / Hora:** `{meta['timestamp']}`\n"
-            f"- **Dimensões:** `{meta['cols']} x {meta['rows']}`\n"
-            f"- **Total de Linhas:** `{line_count}`\n\n"
+            f"# 🖥️ {md_title}\n\n"
+            f"- **{session_label}** `{meta['session_name']}`\n"
+            f"- **{host_label}** `{meta['host']}`\n"
+            f"- **{dir_label}** `{meta['cwd']}`\n"
+            f"- **{date_label}** `{meta['timestamp']}`\n"
+            f"- **{dim_label}** `{meta['cols']} x {meta['rows']}`\n"
+            f"- **{lines_label}** `{line_count}`\n\n"
             f"---\n\n"
             f"```bash\n"
         )
@@ -167,12 +182,21 @@ class TerminalExporter:
         if inner_content.startswith("<pre>") and inner_content.endswith("</pre>"):
             inner_content = inner_content[5:-6]
 
+        html_title = _("OnyxSH Terminal Export")
+        copy_label = _("Copy Output")
+        copied_label = _("Copied!")
+        session_label = _("Session:")
+        host_label = _("Host:")
+        dir_label = _("Directory:")
+        date_label = _("Date:")
+        dim_label = _("Dimensions:")
+
         html_template = f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OnyxSH Terminal Export - {meta['session_name']}</title>
+  <title>{html_title} - {meta['session_name']}</title>
   <style>
     :root {{
       --bg-color: #121418;
@@ -290,15 +314,15 @@ class TerminalExporter:
   <div class="container">
     <div class="header-card">
       <div class="header-title">
-        <span>⚡ OnyxSH Terminal Export</span>
+        <span>⚡ {html_title}</span>
       </div>
-      <button class="copy-btn" onclick="copyTerminalText()">📋 Copiar Saída</button>
+      <button class="copy-btn" onclick="copyTerminalText()">📋 {copy_label}</button>
       <div class="metadata-grid">
-        <div class="metadata-item">Sessão: <span>{meta['session_name']}</span></div>
-        <div class="metadata-item">Host: <span>{meta['host']}</span></div>
-        <div class="metadata-item">Diretório: <span>{meta['cwd']}</span></div>
-        <div class="metadata-item">Data: <span>{meta['timestamp']}</span></div>
-        <div class="metadata-item">Dimensões: <span>{meta['cols']} x {meta['rows']}</span></div>
+        <div class="metadata-item">{session_label} <span>{meta['session_name']}</span></div>
+        <div class="metadata-item">{host_label} <span>{meta['host']}</span></div>
+        <div class="metadata-item">{dir_label} <span>{meta['cwd']}</span></div>
+        <div class="metadata-item">{date_label} <span>{meta['timestamp']}</span></div>
+        <div class="metadata-item">{dim_label} <span>{meta['cols']} x {meta['rows']}</span></div>
       </div>
     </div>
 
@@ -318,8 +342,8 @@ class TerminalExporter:
       const el = document.getElementById('terminal-pre');
       navigator.clipboard.writeText(el.innerText).then(() => {{
         const btn = document.querySelector('.copy-btn');
-        btn.innerText = '✅ Copiado!';
-        setTimeout(() => {{ btn.innerText = '📋 Copiar Saída'; }}, 2000);
+        btn.innerText = '✅ {copied_label}';
+        setTimeout(() => {{ btn.innerText = '📋 {copy_label}'; }}, 2000);
       }});
     }}
   </script>

@@ -9949,3 +9949,55 @@ msgstr "Search occurrences"
 # 
 msgid "No matches"
 msgstr "No matches"
+
+# 
+msgid "OnyxSH Terminal Output Log"
+msgstr "OnyxSH Terminal Output Log"
+
+# 
+msgid "OnyxSH Terminal Export"
+msgstr "OnyxSH Terminal Export"
+
+# 
+msgid "CWD"
+msgstr "CWD"
+
+# 
+msgid "Date"
+msgstr "Date"
+
+# 
+msgid "Dimensions"
+msgstr "Dimensions"
+
+# 
+msgid "Session:"
+msgstr "Session:"
+
+# 
+msgid "Host:"
+msgstr "Host:"
+
+# 
+msgid "Directory:"
+msgstr "Directory:"
+
+# 
+msgid "Date / Time:"
+msgstr "Date / Time:"
+
+# 
+msgid "Dimensions:"
+msgstr "Dimensions:"
+
+# 
+msgid "Total Lines:"
+msgstr "Total Lines:"
+
+# 
+msgid "Copy Output"
+msgstr "Copy Output"
+
+# 
+msgid "Copied!"
+msgstr "Copied!"

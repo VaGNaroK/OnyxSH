@@ -9142,3 +9142,55 @@ msgstr "検索結果の一致"
 # 
 msgid "No matches"
 msgstr "一致なし"
+
+# 
+msgid "OnyxSH Terminal Output Log"
+msgstr "OnyxSH ターミナル出力ログ"
+
+# 
+msgid "OnyxSH Terminal Export"
+msgstr "OnyxSH ターミナルエクスポート"
+
+# 
+msgid "CWD"
+msgstr "カレントディレクトリ"
+
+# 
+msgid "Date"
+msgstr "日付"
+
+# 
+msgid "Dimensions"
+msgstr "サイズ"
+
+# 
+msgid "Session:"
+msgstr "セッション:"
+
+# 
+msgid "Host:"
+msgstr "ホスト:"
+
+# 
+msgid "Directory:"
+msgstr "ディレクトリ:"
+
+# 
+msgid "Date / Time:"
+msgstr "日時:"
+
+# 
+msgid "Dimensions:"
+msgstr "サイズ:"
+
+# 
+msgid "Total Lines:"
+msgstr "合計行数:"
+
+# 
+msgid "Copy Output"
+msgstr "出力をコピー"
+
+# 
+msgid "Copied!"
+msgstr "コピー完了！"

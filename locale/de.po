@@ -9222,3 +9222,55 @@ msgstr "Suchergebnisse"
 # 
 msgid "No matches"
 msgstr "Keine Treffer"
+
+# 
+msgid "OnyxSH Terminal Output Log"
+msgstr "OnyxSH Terminal-Ausgabeprotokoll"
+
+# 
+msgid "OnyxSH Terminal Export"
+msgstr "OnyxSH Terminal-Export"
+
+# 
+msgid "CWD"
+msgstr "Verzeichnis"
+
+# 
+msgid "Date"
+msgstr "Datum"
+
+# 
+msgid "Dimensions"
+msgstr "Dimensionen"
+
+# 
+msgid "Session:"
+msgstr "Sitzung:"
+
+# 
+msgid "Host:"
+msgstr "Host:"
+
+# 
+msgid "Directory:"
+msgstr "Verzeichnis:"
+
+# 
+msgid "Date / Time:"
+msgstr "Datum / Zeit:"
+
+# 
+msgid "Dimensions:"
+msgstr "Dimensionen:"
+
+# 
+msgid "Total Lines:"
+msgstr "Gesamtzeilen:"
+
+# 
+msgid "Copy Output"
+msgstr "Ausgabe kopieren"
+
+# 
+msgid "Copied!"
+msgstr "Kopiert!"

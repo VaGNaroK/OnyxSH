@@ -193,7 +193,6 @@ class WindowUIBuilder:
         self.search_bar.connect_entry(self.terminal_search_entry)
         self.search_prev_button = icon_button("go-up-symbolic")
         self.search_next_button = icon_button("go-down-symbolic")
-        self.search_export_button = icon_button("document-save-symbolic")
 
         # Create the BroadcastBar
         self.broadcast_bar = Gtk.SearchBar()
@@ -250,16 +249,12 @@ class WindowUIBuilder:
         self.tooltip_helper.add_tooltip(
             self.search_next_button, _("Next Match (Enter)")
         )
-        self.tooltip_helper.add_tooltip(
-            self.search_export_button, _("Export Terminal Output...")
-        )
 
         search_box.append(self.terminal_search_entry)
         search_box.append(self.search_occurrence_label)
         search_box.append(options_box)
         search_box.append(self.search_prev_button)
         search_box.append(self.search_next_button)
-        search_box.append(self.search_export_button)
         self.search_bar.set_child(search_box)
         main_box.append(self.search_bar)
 

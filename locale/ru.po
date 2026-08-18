@@ -9178,3 +9178,55 @@ msgstr "Совпадения поиска"
 # 
 msgid "No matches"
 msgstr "Нет совпадений"
+
+# 
+msgid "OnyxSH Terminal Output Log"
+msgstr "Журнал вывода терминала OnyxSH"
+
+# 
+msgid "OnyxSH Terminal Export"
+msgstr "Экспорт терминала OnyxSH"
+
+# 
+msgid "CWD"
+msgstr "Каталог"
+
+# 
+msgid "Date"
+msgstr "Дата"
+
+# 
+msgid "Dimensions"
+msgstr "Размеры"
+
+# 
+msgid "Session:"
+msgstr "Сессия:"
+
+# 
+msgid "Host:"
+msgstr "Хост:"
+
+# 
+msgid "Directory:"
+msgstr "Каталог:"
+
+# 
+msgid "Date / Time:"
+msgstr "Дата / Время:"
+
+# 
+msgid "Dimensions:"
+msgstr "Размеры:"
+
+# 
+msgid "Total Lines:"
+msgstr "Всего строк:"
+
+# 
+msgid "Copy Output"
+msgstr "Копировать вывод"
+
+# 
+msgid "Copied!"
+msgstr "Скопировано!"

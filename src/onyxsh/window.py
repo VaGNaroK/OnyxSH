@@ -278,7 +278,6 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         self.search_entry = self.ui_builder.sidebar_search_entry
         self.search_prev_button = self.ui_builder.search_prev_button
         self.search_next_button = self.ui_builder.search_next_button
-        self.search_export_button = self.ui_builder.search_export_button
         self.search_occurrence_label = self.ui_builder.search_occurrence_label
         self.case_sensitive_switch = self.ui_builder.case_sensitive_switch
         self.regex_switch = self.ui_builder.regex_switch
@@ -345,8 +344,6 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         self.terminal_search_entry.connect("activate", self._on_search_next)
         self.search_prev_button.connect("clicked", self._on_search_previous)
         self.search_next_button.connect("clicked", self._on_search_next)
-        if self.search_export_button:
-            self.search_export_button.connect("clicked", self._on_export_terminal_clicked)
 
         self.search_bar.connect(
             "notify::search-mode-enabled", self._on_search_mode_changed
