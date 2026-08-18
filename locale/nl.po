@@ -9333,3 +9333,399 @@ msgstr "Include snippet manager templates in autocomplete suggestions"
 # 
 msgid "Tab/Enter to apply • Esc to dismiss"
 msgstr "Tab/Enter to apply • Esc to dismiss"
+
+# 
+msgid "Execute a command as the superuser or another user"
+msgstr "Execute a command as the superuser or another user"
+
+# 
+msgid "Debian/Ubuntu package manager utility"
+msgstr "Debian/Ubuntu package manager utility"
+
+# 
+msgid "Control the systemd system and service manager"
+msgstr "Control the systemd system and service manager"
+
+# 
+msgid "Query the systemd journal logs"
+msgstr "Query the systemd journal logs"
+
+# 
+msgid "Container runtime and image management CLI"
+msgstr "Container runtime and image management CLI"
+
+# 
+msgid "Distributed version control system"
+msgstr "Distributed version control system"
+
+# 
+msgid "OpenSSH remote login client"
+msgstr "OpenSSH remote login client"
+
+# 
+msgid "Command line tool for transferring data with URLs"
+msgstr "Command line tool for transferring data with URLs"
+
+# 
+msgid "Archive utility for storing and extracting files"
+msgstr "Archive utility for storing and extracting files"
+
+# 
+msgid "Program for managing a netfilter firewall (Uncomplicated Firewall)"
+msgstr "Program for managing a netfilter firewall (Uncomplicated Firewall)"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces and tunnels"
+msgstr "Show and manipulate routing, network devices, interfaces and tunnels"
+
+# 
+msgid "Fast, versatile, remote (and local) file-copying tool"
+msgstr "Fast, versatile, remote (and local) file-copying tool"
+
+# 
+msgid "Another utility to investigate sockets (modern netstat replacement)"
+msgstr "Another utility to investigate sockets (modern netstat replacement)"
+
+# 
+msgid "Change file mode bits (permissions)"
+msgstr "Change file mode bits (permissions)"
+
+# 
+msgid "Change file owner and group"
+msgstr "Change file owner and group"
+
+# 
+msgid "Create directories if they do not already exist"
+msgstr "Create directories if they do not already exist"
+
+# 
+msgid "Remove files or directories"
+msgstr "Remove files or directories"
+
+# 
+msgid "List directory contents"
+msgstr "List directory contents"
+
+# 
+msgid "Print lines that match patterns"
+msgstr "Print lines that match patterns"
+
+# 
+msgid "Search for files in a directory hierarchy"
+msgstr "Search for files in a directory hierarchy"
+
+# 
+msgid "Send a signal to a process (terminate/kill)"
+msgstr "Send a signal to a process (terminate/kill)"
+
+# 
+msgid "Look up or signal processes based on name and other attributes"
+msgstr "Look up or signal processes based on name and other attributes"
+
+# 
+msgid "Install one or more packages"
+msgstr "Install one or more packages"
+
+# 
+msgid "Update list of available packages from repositories"
+msgstr "Update list of available packages from repositories"
+
+# 
+msgid "Upgrade all installed packages to newest versions"
+msgstr "Upgrade all installed packages to newest versions"
+
+# 
+msgid "Upgrade packages removing/installing dependencies if needed"
+msgstr "Upgrade packages removing/installing dependencies if needed"
+
+# 
+msgid "Remove one or more installed packages"
+msgstr "Remove one or more installed packages"
+
+# 
+msgid "Remove packages and all their configuration files"
+msgstr "Remove packages and all their configuration files"
+
+# 
+msgid "Remove automatically installed dependencies no longer needed"
+msgstr "Remove automatically installed dependencies no longer needed"
+
+# 
+msgid "Search package names and descriptions"
+msgstr "Search package names and descriptions"
+
+# 
+msgid "Display detailed package information"
+msgstr "Display detailed package information"
+
+# 
+msgid "List packages based on criteria"
+msgstr "List packages based on criteria"
+
+# 
+msgid "Clear out the local repository cache of retrieved package files"
+msgstr "Clear out the local repository cache of retrieved package files"
+
+# 
+msgid "Erase old downloaded archive files"
+msgstr "Erase old downloaded archive files"
+
+# 
+msgid "Show runtime status information about units/services"
+msgstr "Show runtime status information about units/services"
+
+# 
+msgid "Start (activate) one or more units"
+msgstr "Start (activate) one or more units"
+
+# 
+msgid "Stop (deactivate) one or more units"
+msgstr "Stop (deactivate) one or more units"
+
+# 
+msgid "Stop and then start one or more units"
+msgstr "Stop and then start one or more units"
+
+# 
+msgid "Reload configuration without dropping connections"
+msgstr "Reload configuration without dropping connections"
+
+# 
+msgid "Reload service or restart if reload is not supported"
+msgstr "Reload service or restart if reload is not supported"
+
+# 
+msgid "Enable one or more units to start automatically at boot"
+msgstr "Enable one or more units to start automatically at boot"
+
+# 
+msgid "Disable one or more units from starting at boot"
+msgstr "Disable one or more units from starting at boot"
+
+# 
+msgid "Check whether units are active (running)"
+msgstr "Check whether units are active (running)"
+
+# 
+msgid "Check whether units are enabled to start on boot"
+msgstr "Check whether units are enabled to start on boot"
+
+# 
+msgid "Reload systemd manager configuration and unit files"
+msgstr "Reload systemd manager configuration and unit files"
+
+# 
+msgid "List currently active units in memory"
+msgstr "List currently active units in memory"
+
+# 
+msgid "List installed unit files and their enabled/disabled status"
+msgstr "List installed unit files and their enabled/disabled status"
+
+# 
+msgid "Mask one or more units completely preventing activation"
+msgstr "Mask one or more units completely preventing activation"
+
+# 
+msgid "Unmask units allowing activation again"
+msgstr "Unmask units allowing activation again"
+
+# 
+msgid "List active containers"
+msgstr "List active containers"
+
+# 
+msgid "Create and run a new container from an image"
+msgstr "Create and run a new container from an image"
+
+# 
+msgid "Execute a command inside a running container"
+msgstr "Execute a command inside a running container"
+
+# 
+msgid "Fetch the logs of a container"
+msgstr "Fetch the logs of a container"
+
+# 
+msgid "List local container images"
+msgstr "List local container images"
+
+# 
+msgid "Download an image from a container registry"
+msgstr "Download an image from a container registry"
+
+# 
+msgid "Upload an image to a container registry"
+msgstr "Upload an image to a container registry"
+
+# 
+msgid "Build an image from a Dockerfile"
+msgstr "Build an image from a Dockerfile"
+
+# 
+msgid "Stop one or more running containers"
+msgstr "Stop one or more running containers"
+
+# 
+msgid "Start one or more stopped containers"
+msgstr "Start one or more stopped containers"
+
+# 
+msgid "Restart one or more containers"
+msgstr "Restart one or more containers"
+
+# 
+msgid "Remove one or more stopped containers"
+msgstr "Remove one or more stopped containers"
+
+# 
+msgid "Remove one or more container images"
+msgstr "Remove one or more container images"
+
+# 
+msgid "Define and run multi-container applications with Docker Compose"
+msgstr "Define and run multi-container applications with Docker Compose"
+
+# 
+msgid "Manage Docker system resources"
+msgstr "Manage Docker system resources"
+
+# 
+msgid "Create and start containers"
+msgstr "Create and start containers"
+
+# 
+msgid "Stop and remove containers, networks, and volumes"
+msgstr "Stop and remove containers, networks, and volumes"
+
+# 
+msgid "View output from containers"
+msgstr "View output from containers"
+
+# 
+msgid "Restart compose services"
+msgstr "Restart compose services"
+
+# 
+msgid "List compose containers"
+msgstr "List compose containers"
+
+# 
+msgid "Remove unused data (containers, networks, dangling images)"
+msgstr "Remove unused data (containers, networks, dangling images)"
+
+# 
+msgid "Show docker disk usage"
+msgstr "Show docker disk usage"
+
+# 
+msgid "Show the working tree status"
+msgstr "Show the working tree status"
+
+# 
+msgid "Add file contents to the staging index"
+msgstr "Add file contents to the staging index"
+
+# 
+msgid "Record staged changes to the repository repository"
+msgstr "Record staged changes to the repository repository"
+
+# 
+msgid "Update remote refs along with associated objects"
+msgstr "Update remote refs along with associated objects"
+
+# 
+msgid "Fetch from and integrate with another repository or a local branch"
+msgstr "Fetch from and integrate with another repository or a local branch"
+
+# 
+msgid "Download objects and refs from another repository"
+msgstr "Download objects and refs from another repository"
+
+# 
+msgid "Switch branches or restore working tree files"
+msgstr "Switch branches or restore working tree files"
+
+# 
+msgid "Switch branches"
+msgstr "Switch branches"
+
+# 
+msgid "List, create, or delete branches"
+msgstr "List, create, or delete branches"
+
+# 
+msgid "Show commit logs"
+msgstr "Show commit logs"
+
+# 
+msgid "Show changes between commits, commit and working tree, etc."
+msgstr "Show changes between commits, commit and working tree, etc."
+
+# 
+msgid "Stash the changes in a dirty working directory away"
+msgstr "Stash the changes in a dirty working directory away"
+
+# 
+msgid "Restore working tree files"
+msgstr "Restore working tree files"
+
+# 
+msgid "Clone a repository into a new directory"
+msgstr "Clone a repository into a new directory"
+
+# 
+msgid "Join two or more development histories together"
+msgstr "Join two or more development histories together"
+
+# 
+msgid "Reapply commits on top of another base tip"
+msgstr "Reapply commits on top of another base tip"
+
+# 
+msgid "Show firewall status"
+msgstr "Show firewall status"
+
+# 
+msgid "Enable the firewall"
+msgstr "Enable the firewall"
+
+# 
+msgid "Disable the firewall"
+msgstr "Disable the firewall"
+
+# 
+msgid "Reload firewall configuration"
+msgstr "Reload firewall configuration"
+
+# 
+msgid "Allow traffic for service or port"
+msgstr "Allow traffic for service or port"
+
+# 
+msgid "Deny traffic for service or port"
+msgstr "Deny traffic for service or port"
+
+# 
+msgid "Delete a rule"
+msgstr "Delete a rule"
+
+# 
+msgid "Reset firewall to factory defaults"
+msgstr "Reset firewall to factory defaults"
+
+# 
+msgid "Protocol address management"
+msgstr "Protocol address management"
+
+# 
+msgid "Network device configuration"
+msgstr "Network device configuration"
+
+# 
+msgid "Routing table management"
+msgstr "Routing table management"
+
+# 
+msgid "Neighbour/ARP table management"
+msgstr "Neighbour/ARP table management"

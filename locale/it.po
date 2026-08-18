@@ -9341,3 +9341,399 @@ msgstr "Includi i modelli del gestore snippet nei suggerimenti"
 # 
 msgid "Tab/Enter to apply • Esc to dismiss"
 msgstr "Tab/Invio per applicare • Esc per chiudere"
+
+# 
+msgid "Execute a command as the superuser or another user"
+msgstr "Esegui un comando come superutente o altro utente"
+
+# 
+msgid "Debian/Ubuntu package manager utility"
+msgstr "Gestore di pacchetti Debian/Ubuntu"
+
+# 
+msgid "Control the systemd system and service manager"
+msgstr "Controlla il gestore di sistema e servizi systemd"
+
+# 
+msgid "Query the systemd journal logs"
+msgstr "Interroga i log del journal di systemd"
+
+# 
+msgid "Container runtime and image management CLI"
+msgstr "CLI per la gestione di container e immagini"
+
+# 
+msgid "Distributed version control system"
+msgstr "Sistema di controllo versione distribuito"
+
+# 
+msgid "OpenSSH remote login client"
+msgstr "Client di accesso remoto OpenSSH"
+
+# 
+msgid "Command line tool for transferring data with URLs"
+msgstr "Strumento da riga di comando per trasferire dati con URL"
+
+# 
+msgid "Archive utility for storing and extracting files"
+msgstr "Utility di archiviazione per salvare ed estrarre file"
+
+# 
+msgid "Program for managing a netfilter firewall (Uncomplicated Firewall)"
+msgstr "Programma per gestire il firewall netfilter (UFW)"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces and tunnels"
+msgstr "Mostra e manipola routing, dispositivi di rete, interfacce e tunnel"
+
+# 
+msgid "Fast, versatile, remote (and local) file-copying tool"
+msgstr "Strumento di copia file rapido e versatile"
+
+# 
+msgid "Another utility to investigate sockets (modern netstat replacement)"
+msgstr "Utility per esaminare i socket di rete (sostituto di netstat)"
+
+# 
+msgid "Change file mode bits (permissions)"
+msgstr "Modifica i permessi di file e directory"
+
+# 
+msgid "Change file owner and group"
+msgstr "Modifica proprietario e gruppo di file"
+
+# 
+msgid "Create directories if they do not already exist"
+msgstr "Crea directory se non esistono già"
+
+# 
+msgid "Remove files or directories"
+msgstr "Rimuovi file o directory"
+
+# 
+msgid "List directory contents"
+msgstr "Elenca il contenuto della directory"
+
+# 
+msgid "Print lines that match patterns"
+msgstr "Stampa le righe corrispondenti al pattern"
+
+# 
+msgid "Search for files in a directory hierarchy"
+msgstr "Cerca file in una gerarchia di directory"
+
+# 
+msgid "Send a signal to a process (terminate/kill)"
+msgstr "Invia un segnale a un processo (termina/uccidi)"
+
+# 
+msgid "Look up or signal processes based on name and other attributes"
+msgstr "Cerca o invia segnali a processi in base al nome"
+
+# 
+msgid "Install one or more packages"
+msgstr "Installa uno o più pacchetti"
+
+# 
+msgid "Update list of available packages from repositories"
+msgstr "Aggiorna l'elenco dei pacchetti disponibili"
+
+# 
+msgid "Upgrade all installed packages to newest versions"
+msgstr "Aggiorna tutti i pacchetti installati alle versioni più recenti"
+
+# 
+msgid "Upgrade packages removing/installing dependencies if needed"
+msgstr "Aggiorna i pacchetti rimuovendo/installando dipendenze se necessario"
+
+# 
+msgid "Remove one or more installed packages"
+msgstr "Rimuovi uno o più pacchetti installati"
+
+# 
+msgid "Remove packages and all their configuration files"
+msgstr "Rimuovi i pacchetti e tutti i file di configurazione"
+
+# 
+msgid "Remove automatically installed dependencies no longer needed"
+msgstr "Rimuovi le dipendenze orfane non più necessarie"
+
+# 
+msgid "Search package names and descriptions"
+msgstr "Cerca nomi e descrizioni dei pacchetti"
+
+# 
+msgid "Display detailed package information"
+msgstr "Mostra informazioni dettagliate sul pacchetto"
+
+# 
+msgid "List packages based on criteria"
+msgstr "Elenca i pacchetti in base ai criteri"
+
+# 
+msgid "Clear out the local repository cache of retrieved package files"
+msgstr "Pulisci la cache locale dei pacchetti scaricati"
+
+# 
+msgid "Erase old downloaded archive files"
+msgstr "Elimina i vecchi file di archivio scaricati"
+
+# 
+msgid "Show runtime status information about units/services"
+msgstr "Mostra lo stato di esecuzione di servizi e unità"
+
+# 
+msgid "Start (activate) one or more units"
+msgstr "Avvia (attiva) una o più unità"
+
+# 
+msgid "Stop (deactivate) one or more units"
+msgstr "Arresta (disattiva) una o più unità"
+
+# 
+msgid "Stop and then start one or more units"
+msgstr "Riavvia una o più unità"
+
+# 
+msgid "Reload configuration without dropping connections"
+msgstr "Ricarica la configurazione senza interrompere le connessioni"
+
+# 
+msgid "Reload service or restart if reload is not supported"
+msgstr "Ricarica il servizio o riavvia se il reload non è supportato"
+
+# 
+msgid "Enable one or more units to start automatically at boot"
+msgstr "Abilita l'avvio automatico all'avvio del sistema"
+
+# 
+msgid "Disable one or more units from starting at boot"
+msgstr "Disabilita l'avvio automatico all'avvio del sistema"
+
+# 
+msgid "Check whether units are active (running)"
+msgstr "Controlla se le unità sono attive (in esecuzione)"
+
+# 
+msgid "Check whether units are enabled to start on boot"
+msgstr "Controlla se le unità sono abilitate all'avvio"
+
+# 
+msgid "Reload systemd manager configuration and unit files"
+msgstr "Ricarica la configurazione di systemd e i file unit"
+
+# 
+msgid "List currently active units in memory"
+msgstr "Elenca le unità attualmente attive in memoria"
+
+# 
+msgid "List installed unit files and their enabled/disabled status"
+msgstr "Elenca i file unit installati e il loro stato"
+
+# 
+msgid "Mask one or more units completely preventing activation"
+msgstr "Maschera le unità impedendone completamente l'attivazione"
+
+# 
+msgid "Unmask units allowing activation again"
+msgstr "Rimuovi la maschera alle unità consentendone l'attivazione"
+
+# 
+msgid "List active containers"
+msgstr "Elenca i container attivi"
+
+# 
+msgid "Create and run a new container from an image"
+msgstr "Crea ed esegui un nuovo container da un'immagine"
+
+# 
+msgid "Execute a command inside a running container"
+msgstr "Esegui un comando all'interno di un container in esecuzione"
+
+# 
+msgid "Fetch the logs of a container"
+msgstr "Recupera i log di un container"
+
+# 
+msgid "List local container images"
+msgstr "Elenca le immagini dei container locali"
+
+# 
+msgid "Download an image from a container registry"
+msgstr "Scarica un'immagine da un registro"
+
+# 
+msgid "Upload an image to a container registry"
+msgstr "Carica un'immagine in un registro"
+
+# 
+msgid "Build an image from a Dockerfile"
+msgstr "Compila un'immagine da un Dockerfile"
+
+# 
+msgid "Stop one or more running containers"
+msgstr "Arresta uno o più container in esecuzione"
+
+# 
+msgid "Start one or more stopped containers"
+msgstr "Avvia uno o più container arrestati"
+
+# 
+msgid "Restart one or more containers"
+msgstr "Riavvia uno o più container"
+
+# 
+msgid "Remove one or more stopped containers"
+msgstr "Rimuovi uno o più container arrestati"
+
+# 
+msgid "Remove one or more container images"
+msgstr "Rimuovi una o più immagini di container"
+
+# 
+msgid "Define and run multi-container applications with Docker Compose"
+msgstr "Definisci ed esegui applicazioni multi-container con Docker Compose"
+
+# 
+msgid "Manage Docker system resources"
+msgstr "Gestisci le risorse di sistema di Docker"
+
+# 
+msgid "Create and start containers"
+msgstr "Crea e avvia i container"
+
+# 
+msgid "Stop and remove containers, networks, and volumes"
+msgstr "Arresta e rimuovi container, reti e volumi"
+
+# 
+msgid "View output from containers"
+msgstr "Visualizza l'output dei container"
+
+# 
+msgid "Restart compose services"
+msgstr "Riavvia i servizi compose"
+
+# 
+msgid "List compose containers"
+msgstr "Elenca i container compose"
+
+# 
+msgid "Remove unused data (containers, networks, dangling images)"
+msgstr "Rimuovi i dati non utilizzati (prune)"
+
+# 
+msgid "Show docker disk usage"
+msgstr "Mostra l'utilizzo del disco di Docker"
+
+# 
+msgid "Show the working tree status"
+msgstr "Mostra lo stato dell'albero di lavoro"
+
+# 
+msgid "Add file contents to the staging index"
+msgstr "Aggiungi i file all'area di staging"
+
+# 
+msgid "Record staged changes to the repository repository"
+msgstr "Registra le modifiche preparate nel repository (commit)"
+
+# 
+msgid "Update remote refs along with associated objects"
+msgstr "Invia i commit al repository remoto (push)"
+
+# 
+msgid "Fetch from and integrate with another repository or a local branch"
+msgstr "Scarica e integra le modifiche remote (pull)"
+
+# 
+msgid "Download objects and refs from another repository"
+msgstr "Scarica oggetti e riferimenti da un altro repository (fetch)"
+
+# 
+msgid "Switch branches or restore working tree files"
+msgstr "Cambia branch o ripristina file di lavoro"
+
+# 
+msgid "Switch branches"
+msgstr "Cambia branch"
+
+# 
+msgid "List, create, or delete branches"
+msgstr "Elenca, crea o elimina branch"
+
+# 
+msgid "Show commit logs"
+msgstr "Mostra la cronologia dei commit"
+
+# 
+msgid "Show changes between commits, commit and working tree, etc."
+msgstr "Mostra le differenze tra commit e file modificati (diff)"
+
+# 
+msgid "Stash the changes in a dirty working directory away"
+msgstr "Salva temporaneamente le modifiche non committate (stash)"
+
+# 
+msgid "Restore working tree files"
+msgstr "Ripristina i file dell'albero di lavoro"
+
+# 
+msgid "Clone a repository into a new directory"
+msgstr "Clona un repository in una nuova directory"
+
+# 
+msgid "Join two or more development histories together"
+msgstr "Unisci due o più rami di sviluppo (merge)"
+
+# 
+msgid "Reapply commits on top of another base tip"
+msgstr "Riapplica i commit su un'altra base (rebase)"
+
+# 
+msgid "Show firewall status"
+msgstr "Mostra lo stato del firewall"
+
+# 
+msgid "Enable the firewall"
+msgstr "Abilita il firewall"
+
+# 
+msgid "Disable the firewall"
+msgstr "Disabilita il firewall"
+
+# 
+msgid "Reload firewall configuration"
+msgstr "Ricarica la configurazione del firewall"
+
+# 
+msgid "Allow traffic for service or port"
+msgstr "Consenti traffico per servizio o porta"
+
+# 
+msgid "Deny traffic for service or port"
+msgstr "Blocca traffico per servizio o porta"
+
+# 
+msgid "Delete a rule"
+msgstr "Elimina una regola"
+
+# 
+msgid "Reset firewall to factory defaults"
+msgstr "Ripristina il firewall ai valori predefiniti"
+
+# 
+msgid "Protocol address management"
+msgstr "Gestione indirizzi IP"
+
+# 
+msgid "Network device configuration"
+msgstr "Configurazione dispositivi di rete"
+
+# 
+msgid "Routing table management"
+msgstr "Gestione tabella di routing"
+
+# 
+msgid "Neighbour/ARP table management"
+msgstr "Gestione tabella vicini/ARP"

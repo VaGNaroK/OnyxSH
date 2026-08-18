@@ -9282,3 +9282,399 @@ msgstr "スニペットマネージャーのテンプレートを提案に含め
 # 
 msgid "Tab/Enter to apply • Esc to dismiss"
 msgstr "Tab/Enter で適用 • Esc で閉じる"
+
+# 
+msgid "Execute a command as the superuser or another user"
+msgstr "スーパーユーザーまたは他のユーザーとしてコマンドを実行"
+
+# 
+msgid "Debian/Ubuntu package manager utility"
+msgstr "Debian/Ubuntu パッケージマネージャー"
+
+# 
+msgid "Control the systemd system and service manager"
+msgstr "systemd システムおよびサービスマネージャーを制御"
+
+# 
+msgid "Query the systemd journal logs"
+msgstr "systemd ジャーナルログを照会"
+
+# 
+msgid "Container runtime and image management CLI"
+msgstr "コンテナランタイムおよびイメージ管理 CLI"
+
+# 
+msgid "Distributed version control system"
+msgstr "分散型バージョン管理システム"
+
+# 
+msgid "OpenSSH remote login client"
+msgstr "OpenSSH リモートログインクライアント"
+
+# 
+msgid "Command line tool for transferring data with URLs"
+msgstr "URL を使用してデータを転送するコマンドラインツール"
+
+# 
+msgid "Archive utility for storing and extracting files"
+msgstr "ファイルの保存と展開を行うアーカイブユーティリティ"
+
+# 
+msgid "Program for managing a netfilter firewall (Uncomplicated Firewall)"
+msgstr "netfilter ファイアウォールを管理するプログラム (UFW)"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces and tunnels"
+msgstr "ルーティング、ネットワークデバイス、インターフェース、トンネルを表示および操作"
+
+# 
+msgid "Fast, versatile, remote (and local) file-copying tool"
+msgstr "高速で汎用性の高いリモート（およびローカル）ファイルコピー機能"
+
+# 
+msgid "Another utility to investigate sockets (modern netstat replacement)"
+msgstr "ソケットを調査するユーティリティ (最新の netstat 代替)"
+
+# 
+msgid "Change file mode bits (permissions)"
+msgstr "ファイルモードビット（権限）を変更"
+
+# 
+msgid "Change file owner and group"
+msgstr "ファイルの所有者とグループを変更"
+
+# 
+msgid "Create directories if they do not already exist"
+msgstr "ディレクトリが存在しない場合は作成"
+
+# 
+msgid "Remove files or directories"
+msgstr "ファイルまたはディレクトリを削除"
+
+# 
+msgid "List directory contents"
+msgstr "ディレクトリの内容を一覧表示"
+
+# 
+msgid "Print lines that match patterns"
+msgstr "パターンに一致する行を出力"
+
+# 
+msgid "Search for files in a directory hierarchy"
+msgstr "ディレクトリ階層内でファイルを検索"
+
+# 
+msgid "Send a signal to a process (terminate/kill)"
+msgstr "プロセスにシグナルを送信（終了/強制終了）"
+
+# 
+msgid "Look up or signal processes based on name and other attributes"
+msgstr "名前などの属性に基づいてプロセスを検索またはシグナル送信"
+
+# 
+msgid "Install one or more packages"
+msgstr "1つ以上のパッケージをインストール"
+
+# 
+msgid "Update list of available packages from repositories"
+msgstr "リポジトリから利用可能なパッケージリストを更新"
+
+# 
+msgid "Upgrade all installed packages to newest versions"
+msgstr "インストールされているすべてのパッケージを最新版にアップグレード"
+
+# 
+msgid "Upgrade packages removing/installing dependencies if needed"
+msgstr "必要に応じて依存関係を処理しながらパッケージをアップグレード"
+
+# 
+msgid "Remove one or more installed packages"
+msgstr "インストールされているパッケージを削除"
+
+# 
+msgid "Remove packages and all their configuration files"
+msgstr "パッケージとその設定ファイルを完全に削除"
+
+# 
+msgid "Remove automatically installed dependencies no longer needed"
+msgstr "不要になった自動インストール依存関係を削除"
+
+# 
+msgid "Search package names and descriptions"
+msgstr "パッケージ名と説明を検索"
+
+# 
+msgid "Display detailed package information"
+msgstr "パッケージの詳細情報を表示"
+
+# 
+msgid "List packages based on criteria"
+msgstr "条件に基づいてパッケージを一覧表示"
+
+# 
+msgid "Clear out the local repository cache of retrieved package files"
+msgstr "ダウンロードしたパッケージのローカルキャッシュを消去"
+
+# 
+msgid "Erase old downloaded archive files"
+msgstr "古いダウンロードアーカイブファイルを削除"
+
+# 
+msgid "Show runtime status information about units/services"
+msgstr "ユニット/サービスの実行状態を表示"
+
+# 
+msgid "Start (activate) one or more units"
+msgstr "1つ以上のユニットを開始（アクティブ化）"
+
+# 
+msgid "Stop (deactivate) one or more units"
+msgstr "1つ以上のユニットを停止（非アクティブ化）"
+
+# 
+msgid "Stop and then start one or more units"
+msgstr "1つ以上のユニットを再起動"
+
+# 
+msgid "Reload configuration without dropping connections"
+msgstr "接続を切断せずに設定を再読み込み"
+
+# 
+msgid "Reload service or restart if reload is not supported"
+msgstr "サービスを再読み込み（非対応の場合は再起動）"
+
+# 
+msgid "Enable one or more units to start automatically at boot"
+msgstr "起動時に自動開始するようにユニットを有効化"
+
+# 
+msgid "Disable one or more units from starting at boot"
+msgstr "起動時の自動開始を無効化"
+
+# 
+msgid "Check whether units are active (running)"
+msgstr "ユニットがアクティブ（実行中）か確認"
+
+# 
+msgid "Check whether units are enabled to start on boot"
+msgstr "ユニットが起動時有効になっているか確認"
+
+# 
+msgid "Reload systemd manager configuration and unit files"
+msgstr "systemd マネージャー設定とユニットファイルを再読み込み"
+
+# 
+msgid "List currently active units in memory"
+msgstr "メモリ内の現在アクティブなユニットを一覧表示"
+
+# 
+msgid "List installed unit files and their enabled/disabled status"
+msgstr "インストールされているユニットファイルとその状態を一覧表示"
+
+# 
+msgid "Mask one or more units completely preventing activation"
+msgstr "ユニットをマスクしてアクティブ化を完全に防止"
+
+# 
+msgid "Unmask units allowing activation again"
+msgstr "ユニットのマスクを解除して再有効化を許可"
+
+# 
+msgid "List active containers"
+msgstr "アクティブなコンテナを一覧表示"
+
+# 
+msgid "Create and run a new container from an image"
+msgstr "イメージから新しいコンテナを作成して実行"
+
+# 
+msgid "Execute a command inside a running container"
+msgstr "実行中のコンテナ内でコマンドを実行"
+
+# 
+msgid "Fetch the logs of a container"
+msgstr "コンテナのログを取得"
+
+# 
+msgid "List local container images"
+msgstr "ローカルのコンテナイメージを一覧表示"
+
+# 
+msgid "Download an image from a container registry"
+msgstr "コンテナレジストリからイメージをダウンロード"
+
+# 
+msgid "Upload an image to a container registry"
+msgstr "コンテナレジストリにイメージをアップロード"
+
+# 
+msgid "Build an image from a Dockerfile"
+msgstr "Dockerfile からイメージをビルド"
+
+# 
+msgid "Stop one or more running containers"
+msgstr "実行中のコンテナを停止"
+
+# 
+msgid "Start one or more stopped containers"
+msgstr "停止しているコンテナを開始"
+
+# 
+msgid "Restart one or more containers"
+msgstr "1つ以上のコンテナを再起動"
+
+# 
+msgid "Remove one or more stopped containers"
+msgstr "停止したコンテナを削除"
+
+# 
+msgid "Remove one or more container images"
+msgstr "1つ以上のコンテナイメージを削除"
+
+# 
+msgid "Define and run multi-container applications with Docker Compose"
+msgstr "Docker Compose でマルチコンテナアプリを定義および実行"
+
+# 
+msgid "Manage Docker system resources"
+msgstr "Docker システムリソースを管理"
+
+# 
+msgid "Create and start containers"
+msgstr "コンテナを作成して開始"
+
+# 
+msgid "Stop and remove containers, networks, and volumes"
+msgstr "コンテナ、ネットワーク、ボリュームを停止および削除"
+
+# 
+msgid "View output from containers"
+msgstr "コンテナからの出力を表示"
+
+# 
+msgid "Restart compose services"
+msgstr "Compose サービスを再起動"
+
+# 
+msgid "List compose containers"
+msgstr "Compose コンテナを一覧表示"
+
+# 
+msgid "Remove unused data (containers, networks, dangling images)"
+msgstr "未使用のデータ（コンテナ、ネットワーク、未タグ付きイメージ）を削除"
+
+# 
+msgid "Show docker disk usage"
+msgstr "Docker のディスク使用量を表示"
+
+# 
+msgid "Show the working tree status"
+msgstr "作業ツリーの状態を表示"
+
+# 
+msgid "Add file contents to the staging index"
+msgstr "ファイルの内容をステージングインデックスに追加"
+
+# 
+msgid "Record staged changes to the repository repository"
+msgstr "ステージされた変更をリポジトリに記録（コミット）"
+
+# 
+msgid "Update remote refs along with associated objects"
+msgstr "ローカルコミットをリモートリポジトリにプッシュ"
+
+# 
+msgid "Fetch from and integrate with another repository or a local branch"
+msgstr "リモートリポジトリから取得して統合（プル）"
+
+# 
+msgid "Download objects and refs from another repository"
+msgstr "別のリポジトリからオブジェクトと参照をダウンロード (fetch)"
+
+# 
+msgid "Switch branches or restore working tree files"
+msgstr "ブランチを切り替えるか作業ツリーファイルを復元"
+
+# 
+msgid "Switch branches"
+msgstr "ブランチを切り替える"
+
+# 
+msgid "List, create, or delete branches"
+msgstr "ブランチの一覧表示、作成、削除"
+
+# 
+msgid "Show commit logs"
+msgstr "コミット履歴を表示"
+
+# 
+msgid "Show changes between commits, commit and working tree, etc."
+msgstr "コミット間、作業ツリーなどの変更差分を表示"
+
+# 
+msgid "Stash the changes in a dirty working directory away"
+msgstr "作業ディレクトリの変更を一時退避 (stash)"
+
+# 
+msgid "Restore working tree files"
+msgstr "作業ツリーのファイルを復元"
+
+# 
+msgid "Clone a repository into a new directory"
+msgstr "リポジトリを新しいディレクトリにクローン"
+
+# 
+msgid "Join two or more development histories together"
+msgstr "2つ以上の開発履歴をマージ"
+
+# 
+msgid "Reapply commits on top of another base tip"
+msgstr "別のベース先端の上にコミットを再適用 (rebase)"
+
+# 
+msgid "Show firewall status"
+msgstr "ファイアウォールの状態を表示"
+
+# 
+msgid "Enable the firewall"
+msgstr "ファイアウォールを有効化"
+
+# 
+msgid "Disable the firewall"
+msgstr "ファイアウォールを無効化"
+
+# 
+msgid "Reload firewall configuration"
+msgstr "ファイアウォール設定を再読み込み"
+
+# 
+msgid "Allow traffic for service or port"
+msgstr "サービスまたはポートのトラフィックを許可"
+
+# 
+msgid "Deny traffic for service or port"
+msgstr "サービスまたはポートのトラフィックを拒否"
+
+# 
+msgid "Delete a rule"
+msgstr "ルールを削除"
+
+# 
+msgid "Reset firewall to factory defaults"
+msgstr "ファイアウォールを初期設定にリセット"
+
+# 
+msgid "Protocol address management"
+msgstr "プロトコルアドレス（IP）管理"
+
+# 
+msgid "Network device configuration"
+msgstr "ネットワークデバイス設定"
+
+# 
+msgid "Routing table management"
+msgstr "ルーティングテーブル管理"
+
+# 
+msgid "Neighbour/ARP table management"
+msgstr "近隣/ARP テーブル管理"

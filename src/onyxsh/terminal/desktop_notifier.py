@@ -5,6 +5,7 @@ Dispatches native OS notifications (via Gio.Notification / D-Bus portal)
 when background or inactive tab commands finish after a configurable duration.
 """
 
+import pathlib
 from typing import Any, Optional
 
 import gi

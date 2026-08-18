@@ -45,6 +45,14 @@ class CompletionItem:
         """Returns display text for UI row."""
         return self.display_text or self.text
 
+    def get_description(self) -> str:
+        """Returns localized description text."""
+        try:
+            from ...utils.translation_utils import _
+            return _(self.description) if self.description else ""
+        except Exception:
+            return self.description or ""
+
     def get_icon(self) -> str:
         """Returns relevant symbolic icon name."""
         if self.source == CompletionSource.HISTORY:

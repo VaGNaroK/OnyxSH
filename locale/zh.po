@@ -9277,3 +9277,399 @@ msgstr "在建议中包含代码片段管理器的模板"
 # 
 msgid "Tab/Enter to apply • Esc to dismiss"
 msgstr "Tab/Enter 应用 • Esc 关闭"
+
+# 
+msgid "Execute a command as the superuser or another user"
+msgstr "以超级用户或其他用户身份执行命令"
+
+# 
+msgid "Debian/Ubuntu package manager utility"
+msgstr "Debian/Ubuntu 软件包管理工具"
+
+# 
+msgid "Control the systemd system and service manager"
+msgstr "控制 systemd 系统和服务管理器"
+
+# 
+msgid "Query the systemd journal logs"
+msgstr "查询 systemd 日志"
+
+# 
+msgid "Container runtime and image management CLI"
+msgstr "容器运行和镜像管理 CLI"
+
+# 
+msgid "Distributed version control system"
+msgstr "分布式版本控制系统"
+
+# 
+msgid "OpenSSH remote login client"
+msgstr "OpenSSH 远程登录客户端"
+
+# 
+msgid "Command line tool for transferring data with URLs"
+msgstr "用于通过 URL 传输数据的命令行工具"
+
+# 
+msgid "Archive utility for storing and extracting files"
+msgstr "用于存储和提取文件的归档实用工具"
+
+# 
+msgid "Program for managing a netfilter firewall (Uncomplicated Firewall)"
+msgstr "管理 netfilter 防火墙的程序 (UFW)"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces and tunnels"
+msgstr "显示和操作路由、网络设备、接口与隧道"
+
+# 
+msgid "Fast, versatile, remote (and local) file-copying tool"
+msgstr "快速、通用的远程（和本地）文件同步与复制工具"
+
+# 
+msgid "Another utility to investigate sockets (modern netstat replacement)"
+msgstr "用于检查套接字的实用工具（现代 netstat 替代方案）"
+
+# 
+msgid "Change file mode bits (permissions)"
+msgstr "更改文件访问权限"
+
+# 
+msgid "Change file owner and group"
+msgstr "更改文件所有者和所属组"
+
+# 
+msgid "Create directories if they do not already exist"
+msgstr "创建目录（如果不存在）"
+
+# 
+msgid "Remove files or directories"
+msgstr "删除文件或目录"
+
+# 
+msgid "List directory contents"
+msgstr "列出目录内容"
+
+# 
+msgid "Print lines that match patterns"
+msgstr "打印匹配模式的行"
+
+# 
+msgid "Search for files in a directory hierarchy"
+msgstr "在目录层次结构中搜索文件"
+
+# 
+msgid "Send a signal to a process (terminate/kill)"
+msgstr "向进程发送信号（终止/结束）"
+
+# 
+msgid "Look up or signal processes based on name and other attributes"
+msgstr "根据名称等属性查找进程或发送信号"
+
+# 
+msgid "Install one or more packages"
+msgstr "安装一个或多个软件包"
+
+# 
+msgid "Update list of available packages from repositories"
+msgstr "从软件源更新可用软件包列表"
+
+# 
+msgid "Upgrade all installed packages to newest versions"
+msgstr "将所有已安装的软件包升级到最新版本"
+
+# 
+msgid "Upgrade packages removing/installing dependencies if needed"
+msgstr "升级软件包（必要时移除/安装依赖项）"
+
+# 
+msgid "Remove one or more installed packages"
+msgstr "卸载一个或多个已安装的软件包"
+
+# 
+msgid "Remove packages and all their configuration files"
+msgstr "彻底清除软件包及其所有配置文件"
+
+# 
+msgid "Remove automatically installed dependencies no longer needed"
+msgstr "自动清理不再需要的孤立依赖项"
+
+# 
+msgid "Search package names and descriptions"
+msgstr "搜索软件包名称和描述"
+
+# 
+msgid "Display detailed package information"
+msgstr "显示软件包的详细信息"
+
+# 
+msgid "List packages based on criteria"
+msgstr "根据条件列出软件包"
+
+# 
+msgid "Clear out the local repository cache of retrieved package files"
+msgstr "清理已下载软件包的本地缓存"
+
+# 
+msgid "Erase old downloaded archive files"
+msgstr "清除旧版本已下载的软件包归档"
+
+# 
+msgid "Show runtime status information about units/services"
+msgstr "查看服务/单元的运行时状态"
+
+# 
+msgid "Start (activate) one or more units"
+msgstr "启动（激活）一个或多个单元/服务"
+
+# 
+msgid "Stop (deactivate) one or more units"
+msgstr "停止（停用）一个或多个单元/服务"
+
+# 
+msgid "Stop and then start one or more units"
+msgstr "重启（先停止后启动）一个或多个单元/服务"
+
+# 
+msgid "Reload configuration without dropping connections"
+msgstr "重载服务配置（保持连接不中断）"
+
+# 
+msgid "Reload service or restart if reload is not supported"
+msgstr "重载服务配置，若不支持则进行重启"
+
+# 
+msgid "Enable one or more units to start automatically at boot"
+msgstr "设置单元在系统开机时自启动"
+
+# 
+msgid "Disable one or more units from starting at boot"
+msgstr "禁用单元的开机自启动"
+
+# 
+msgid "Check whether units are active (running)"
+msgstr "检查单元是否处于活动（运行）状态"
+
+# 
+msgid "Check whether units are enabled to start on boot"
+msgstr "检查单元是否已配置开机自启"
+
+# 
+msgid "Reload systemd manager configuration and unit files"
+msgstr "重新加载 systemd 守护进程和单元文件配置"
+
+# 
+msgid "List currently active units in memory"
+msgstr "列出内存中当前处于活动状态的单元"
+
+# 
+msgid "List installed unit files and their enabled/disabled status"
+msgstr "列出已安装的单元文件及其启用状态"
+
+# 
+msgid "Mask one or more units completely preventing activation"
+msgstr "屏蔽单元以完全阻止其被激活"
+
+# 
+msgid "Unmask units allowing activation again"
+msgstr "解除单元屏蔽以允许重新激活"
+
+# 
+msgid "List active containers"
+msgstr "列出正在运行的容器"
+
+# 
+msgid "Create and run a new container from an image"
+msgstr "根据镜像创建并运行新容器"
+
+# 
+msgid "Execute a command inside a running container"
+msgstr "在正在运行的容器内执行命令"
+
+# 
+msgid "Fetch the logs of a container"
+msgstr "获取容器的运行日志"
+
+# 
+msgid "List local container images"
+msgstr "列出本地已下载的容器镜像"
+
+# 
+msgid "Download an image from a container registry"
+msgstr "从容器镜像仓库拉取镜像"
+
+# 
+msgid "Upload an image to a container registry"
+msgstr "将镜像推送到容器镜像仓库"
+
+# 
+msgid "Build an image from a Dockerfile"
+msgstr "使用 Dockerfile 构建容器镜像"
+
+# 
+msgid "Stop one or more running containers"
+msgstr "停止一个或多个正在运行的容器"
+
+# 
+msgid "Start one or more stopped containers"
+msgstr "启动一个或多个已停止的容器"
+
+# 
+msgid "Restart one or more containers"
+msgstr "重启一个或多个容器"
+
+# 
+msgid "Remove one or more stopped containers"
+msgstr "删除一个或多个容器"
+
+# 
+msgid "Remove one or more container images"
+msgstr "删除一个或多个容器镜像"
+
+# 
+msgid "Define and run multi-container applications with Docker Compose"
+msgstr "使用 Docker Compose 定义和运行多容器应用"
+
+# 
+msgid "Manage Docker system resources"
+msgstr "管理 Docker 系统资源与磁盘清理"
+
+# 
+msgid "Create and start containers"
+msgstr "创建并启动容器"
+
+# 
+msgid "Stop and remove containers, networks, and volumes"
+msgstr "停止并移除容器、网络与数据卷"
+
+# 
+msgid "View output from containers"
+msgstr "查看容器的输出日志"
+
+# 
+msgid "Restart compose services"
+msgstr "重启 Compose 服务"
+
+# 
+msgid "List compose containers"
+msgstr "列出 Compose 容器"
+
+# 
+msgid "Remove unused data (containers, networks, dangling images)"
+msgstr "清理无用的数据（容器、网络、虚悬镜像）"
+
+# 
+msgid "Show docker disk usage"
+msgstr "查看 Docker 磁盘空间占用"
+
+# 
+msgid "Show the working tree status"
+msgstr "显示工作区和暂存区状态"
+
+# 
+msgid "Add file contents to the staging index"
+msgstr "将文件更改添加到暂存区"
+
+# 
+msgid "Record staged changes to the repository repository"
+msgstr "将暂存的更改记录到版本库（commit）"
+
+# 
+msgid "Update remote refs along with associated objects"
+msgstr "将本地分支和提交推送到远程仓库（push）"
+
+# 
+msgid "Fetch from and integrate with another repository or a local branch"
+msgstr "从远程仓库拉取并合并更改（pull）"
+
+# 
+msgid "Download objects and refs from another repository"
+msgstr "从其他仓库下载对象和引用（fetch）"
+
+# 
+msgid "Switch branches or restore working tree files"
+msgstr "切换分支或恢复工作区文件"
+
+# 
+msgid "Switch branches"
+msgstr "切换分支"
+
+# 
+msgid "List, create, or delete branches"
+msgstr "列出、创建或删除分支"
+
+# 
+msgid "Show commit logs"
+msgstr "查看提交历史日志"
+
+# 
+msgid "Show changes between commits, commit and working tree, etc."
+msgstr "查看提交之间或与工作区之间的差异（diff）"
+
+# 
+msgid "Stash the changes in a dirty working directory away"
+msgstr "将工作区未提交的更改临时暂存（stash）"
+
+# 
+msgid "Restore working tree files"
+msgstr "恢复工作区中的修改文件"
+
+# 
+msgid "Clone a repository into a new directory"
+msgstr "将远程仓库克隆到新目录"
+
+# 
+msgid "Join two or more development histories together"
+msgstr "合并两个或多个开发历史分支（merge）"
+
+# 
+msgid "Reapply commits on top of another base tip"
+msgstr "在另一基底之上重新应用提交（rebase）"
+
+# 
+msgid "Show firewall status"
+msgstr "查看防火墙状态"
+
+# 
+msgid "Enable the firewall"
+msgstr "启用防火墙"
+
+# 
+msgid "Disable the firewall"
+msgstr "禁用防火墙"
+
+# 
+msgid "Reload firewall configuration"
+msgstr "重载防火墙配置规则"
+
+# 
+msgid "Allow traffic for service or port"
+msgstr "允许指定服务或端口的网络流量"
+
+# 
+msgid "Deny traffic for service or port"
+msgstr "拒绝指定服务或端口的网络流量"
+
+# 
+msgid "Delete a rule"
+msgstr "删除防火墙规则"
+
+# 
+msgid "Reset firewall to factory defaults"
+msgstr "将防火墙重置为出厂默认设置"
+
+# 
+msgid "Protocol address management"
+msgstr "网络协议 IP 地址管理"
+
+# 
+msgid "Network device configuration"
+msgstr "网络设备与接口配置"
+
+# 
+msgid "Routing table management"
+msgstr "路由表管理"
+
+# 
+msgid "Neighbour/ARP table management"
+msgstr "邻居/ARP 表管理"

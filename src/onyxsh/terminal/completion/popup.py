@@ -138,9 +138,10 @@ class CompletionPopup(Gtk.Popover):
             )
             content_box.append(title_label)
 
-            if item.description:
+            desc_text = item.get_description()
+            if desc_text:
                 desc_label = Gtk.Label(
-                    label=item.description,
+                    label=desc_text,
                     xalign=0.0,
                     ellipsize=Pango.EllipsizeMode.END,
                     css_classes=["dim-label", "caption"],

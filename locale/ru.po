@@ -9318,3 +9318,399 @@ msgstr "Включать шаблоны из диспетчера сниппет
 # 
 msgid "Tab/Enter to apply • Esc to dismiss"
 msgstr "Tab/Enter применить • Esc закрыть"
+
+# 
+msgid "Execute a command as the superuser or another user"
+msgstr "Выполнить команду от имени суперпользователя"
+
+# 
+msgid "Debian/Ubuntu package manager utility"
+msgstr "Менеджер пакетов Debian/Ubuntu"
+
+# 
+msgid "Control the systemd system and service manager"
+msgstr "Управление системой и службами systemd"
+
+# 
+msgid "Query the systemd journal logs"
+msgstr "Просмотр журналов systemd"
+
+# 
+msgid "Container runtime and image management CLI"
+msgstr "CLI управления контейнерами и образами"
+
+# 
+msgid "Distributed version control system"
+msgstr "Распределенная система контроля версий"
+
+# 
+msgid "OpenSSH remote login client"
+msgstr "Клиент удаленного входа OpenSSH"
+
+# 
+msgid "Command line tool for transferring data with URLs"
+msgstr "Утилита командной строки для передачи данных по URL"
+
+# 
+msgid "Archive utility for storing and extracting files"
+msgstr "Утилита архивации для сжатия и извлечения файлов"
+
+# 
+msgid "Program for managing a netfilter firewall (Uncomplicated Firewall)"
+msgstr "Программа управления фаерволом netfilter (UFW)"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces and tunnels"
+msgstr "Отображение и управление маршрутами, сетевыми устройствами и интерфейсами"
+
+# 
+msgid "Fast, versatile, remote (and local) file-copying tool"
+msgstr "Быстрая и универсальная утилита удаленного копирования файлов"
+
+# 
+msgid "Another utility to investigate sockets (modern netstat replacement)"
+msgstr "Утилита для исследования сетевых сокетов (замена netstat)"
+
+# 
+msgid "Change file mode bits (permissions)"
+msgstr "Изменение прав доступа к файлам и директориям"
+
+# 
+msgid "Change file owner and group"
+msgstr "Изменение владельца и группы файлов"
+
+# 
+msgid "Create directories if they do not already exist"
+msgstr "Создание директорий, если они еще не существуют"
+
+# 
+msgid "Remove files or directories"
+msgstr "Удаление файлов или директорий"
+
+# 
+msgid "List directory contents"
+msgstr "Вывод содержимого директории"
+
+# 
+msgid "Print lines that match patterns"
+msgstr "Поиск и вывод строк, соответствующих шаблону"
+
+# 
+msgid "Search for files in a directory hierarchy"
+msgstr "Поиск файлов в иерархии каталогов"
+
+# 
+msgid "Send a signal to a process (terminate/kill)"
+msgstr "Отправка сигнала процессу (завершение/уничтожение)"
+
+# 
+msgid "Look up or signal processes based on name and other attributes"
+msgstr "Поиск и отправка сигналов процессам по имени"
+
+# 
+msgid "Install one or more packages"
+msgstr "Установка одного или нескольких пакетов"
+
+# 
+msgid "Update list of available packages from repositories"
+msgstr "Обновление списка доступных пакетов из репозиториев"
+
+# 
+msgid "Upgrade all installed packages to newest versions"
+msgstr "Обновление всех установленных пакетов до новейших версий"
+
+# 
+msgid "Upgrade packages removing/installing dependencies if needed"
+msgstr "Полное обновление пакетов с разрешением зависимостей"
+
+# 
+msgid "Remove one or more installed packages"
+msgstr "Удаление одного или нескольких установленных пакетов"
+
+# 
+msgid "Remove packages and all their configuration files"
+msgstr "Полная очистка пакетов вместе с конфигурационными файлами"
+
+# 
+msgid "Remove automatically installed dependencies no longer needed"
+msgstr "Автоматическое удаление неиспользуемых зависимостей"
+
+# 
+msgid "Search package names and descriptions"
+msgstr "Поиск по именам и описаниям пакетов"
+
+# 
+msgid "Display detailed package information"
+msgstr "Отображение подробной информации о пакете"
+
+# 
+msgid "List packages based on criteria"
+msgstr "Вывод списка пакетов по критериям"
+
+# 
+msgid "Clear out the local repository cache of retrieved package files"
+msgstr "Очистка локального кэша загруженных пакетов"
+
+# 
+msgid "Erase old downloaded archive files"
+msgstr "Удаление устаревших загруженных файлов архивов"
+
+# 
+msgid "Show runtime status information about units/services"
+msgstr "Просмотр статуса работы служб и юнитов"
+
+# 
+msgid "Start (activate) one or more units"
+msgstr "Запуск (активация) служб или юнитов"
+
+# 
+msgid "Stop (deactivate) one or more units"
+msgstr "Остановка (деактивация) служб или юнитов"
+
+# 
+msgid "Stop and then start one or more units"
+msgstr "Перезапуск одной или нескольких служб"
+
+# 
+msgid "Reload configuration without dropping connections"
+msgstr "Перезагрузка конфигурации без разрыва соединений"
+
+# 
+msgid "Reload service or restart if reload is not supported"
+msgstr "Перезагрузка конфигурации службы или ее перезапуск"
+
+# 
+msgid "Enable one or more units to start automatically at boot"
+msgstr "Включение автозапуска службы при загрузке системы"
+
+# 
+msgid "Disable one or more units from starting at boot"
+msgstr "Отключение автозапуска службы при загрузке"
+
+# 
+msgid "Check whether units are active (running)"
+msgstr "Проверка активности (работы) служб"
+
+# 
+msgid "Check whether units are enabled to start on boot"
+msgstr "Проверка включения автозапуска служб"
+
+# 
+msgid "Reload systemd manager configuration and unit files"
+msgstr "Перезагрузка конфигурации менеджера systemd и файлов юнитов"
+
+# 
+msgid "List currently active units in memory"
+msgstr "Список активных юнитов в памяти"
+
+# 
+msgid "List installed unit files and their enabled/disabled status"
+msgstr "Список установленных файлов юнитов и их статус"
+
+# 
+msgid "Mask one or more units completely preventing activation"
+msgstr "Маскирование юнитов для полного предотвращения запуска"
+
+# 
+msgid "Unmask units allowing activation again"
+msgstr "Снятие маскировки с юнитов"
+
+# 
+msgid "List active containers"
+msgstr "Список активных контейнеров"
+
+# 
+msgid "Create and run a new container from an image"
+msgstr "Создание и запуск нового контейнера из образа"
+
+# 
+msgid "Execute a command inside a running container"
+msgstr "Выполнение команды внутри запущенного контейнера"
+
+# 
+msgid "Fetch the logs of a container"
+msgstr "Получение логов контейнера"
+
+# 
+msgid "List local container images"
+msgstr "Список локальных образов контейнеров"
+
+# 
+msgid "Download an image from a container registry"
+msgstr "Загрузка образа из реестра контейнеров"
+
+# 
+msgid "Upload an image to a container registry"
+msgstr "Отправка образа в реестр контейнеров"
+
+# 
+msgid "Build an image from a Dockerfile"
+msgstr "Сборка образа из Dockerfile"
+
+# 
+msgid "Stop one or more running containers"
+msgstr "Остановка одного или нескольких контейнеров"
+
+# 
+msgid "Start one or more stopped containers"
+msgstr "Запуск одного или нескольких остановленных контейнеров"
+
+# 
+msgid "Restart one or more containers"
+msgstr "Перезапуск одного или нескольких контейнеров"
+
+# 
+msgid "Remove one or more stopped containers"
+msgstr "Удаление остановленных контейнеров"
+
+# 
+msgid "Remove one or more container images"
+msgstr "Удаление одного или нескольких образов контейнеров"
+
+# 
+msgid "Define and run multi-container applications with Docker Compose"
+msgstr "Управление многоконтейнерными приложениями с Docker Compose"
+
+# 
+msgid "Manage Docker system resources"
+msgstr "Управление системными ресурсами и дисковым пространством Docker"
+
+# 
+msgid "Create and start containers"
+msgstr "Создание и запуск контейнеров"
+
+# 
+msgid "Stop and remove containers, networks, and volumes"
+msgstr "Остановка и удаление контейнеров, сетей и томов"
+
+# 
+msgid "View output from containers"
+msgstr "Просмотр логов контейнеров"
+
+# 
+msgid "Restart compose services"
+msgstr "Перезапуск служб compose"
+
+# 
+msgid "List compose containers"
+msgstr "Список контейнеров compose"
+
+# 
+msgid "Remove unused data (containers, networks, dangling images)"
+msgstr "Очистка неиспользуемых данных (prune)"
+
+# 
+msgid "Show docker disk usage"
+msgstr "Отображение использования дискового пространства Docker"
+
+# 
+msgid "Show the working tree status"
+msgstr "Просмотр статуса рабочей копии"
+
+# 
+msgid "Add file contents to the staging index"
+msgstr "Добавление содержимого файлов в индекс (staging)"
+
+# 
+msgid "Record staged changes to the repository repository"
+msgstr "Запись подготовленных изменений в репозиторий (commit)"
+
+# 
+msgid "Update remote refs along with associated objects"
+msgstr "Отправка локальных изменений в удаленный репозиторий (push)"
+
+# 
+msgid "Fetch from and integrate with another repository or a local branch"
+msgstr "Получение и интеграция изменений из удаленного репозитория (pull)"
+
+# 
+msgid "Download objects and refs from another repository"
+msgstr "Загрузка объектов и ссылок из другого репозитория (fetch)"
+
+# 
+msgid "Switch branches or restore working tree files"
+msgstr "Переключение веток или восстановление файлов"
+
+# 
+msgid "Switch branches"
+msgstr "Переключение веток"
+
+# 
+msgid "List, create, or delete branches"
+msgstr "Просмотр, создание или удаление веток"
+
+# 
+msgid "Show commit logs"
+msgstr "Просмотр истории коммитов"
+
+# 
+msgid "Show changes between commits, commit and working tree, etc."
+msgstr "Просмотр различий между коммитами и файлами (diff)"
+
+# 
+msgid "Stash the changes in a dirty working directory away"
+msgstr "Временное сохранение незакоммиченных изменений (stash)"
+
+# 
+msgid "Restore working tree files"
+msgstr "Восстановление файлов в рабочей директории"
+
+# 
+msgid "Clone a repository into a new directory"
+msgstr "Клонирование репозитория в новый каталог"
+
+# 
+msgid "Join two or more development histories together"
+msgstr "Слияние двух или более веток разработки (merge)"
+
+# 
+msgid "Reapply commits on top of another base tip"
+msgstr "Перебазирование коммитов на новую основу (rebase)"
+
+# 
+msgid "Show firewall status"
+msgstr "Просмотр статуса фаервола"
+
+# 
+msgid "Enable the firewall"
+msgstr "Включение фаервола"
+
+# 
+msgid "Disable the firewall"
+msgstr "Отключение фаервола"
+
+# 
+msgid "Reload firewall configuration"
+msgstr "Перезагрузка конфигурации фаервола"
+
+# 
+msgid "Allow traffic for service or port"
+msgstr "Разрешить трафик для службы или порта"
+
+# 
+msgid "Deny traffic for service or port"
+msgstr "Запретить трафик для службы или порта"
+
+# 
+msgid "Delete a rule"
+msgstr "Удаление правила фаервола"
+
+# 
+msgid "Reset firewall to factory defaults"
+msgstr "Сброс настроек фаервола к значениям по умолчанию"
+
+# 
+msgid "Protocol address management"
+msgstr "Управление IP-адресами протоколов"
+
+# 
+msgid "Network device configuration"
+msgstr "Настройка сетевых устройств и интерфейсов"
+
+# 
+msgid "Routing table management"
+msgstr "Управление таблицей маршрутизации"
+
+# 
+msgid "Neighbour/ARP table management"
+msgstr "Управление таблицей соседей/ARP"
