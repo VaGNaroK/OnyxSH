@@ -175,7 +175,7 @@ class SemanticTracker:
                     if uri and uri.startswith("file://"):
                         cwd = uri[7:]
                 state.execute_command(row, command_text="", cwd=cwd)
-                return None
+                return state.current_command
 
             elif action == "D":
                 # Command finished with exit code

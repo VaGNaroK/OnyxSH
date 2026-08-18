@@ -841,8 +841,21 @@ class TerminalManager:
                                 cmd.command_text = decoded_cmd
                         except Exception:
                             pass
-                elif part == "C":
-                    self.semantic_tracker.handle_osc133(terminal, "C")
+                elif part.startswith("C"):
+                    subparts = part.split("_", 1)
+                    cmd = self.semantic_tracker.handle_osc133(terminal, "C")
+                    if len(subparts) > 1 and subparts[1] and cmd:
+                        try:
+                            import base64
+
+                            b64_str = subparts[1]
+                            decoded_cmd = base64.b64decode(b64_str).decode(
+                                "utf-8", errors="replace"
+                            ).strip()
+                            if decoded_cmd:
+                                cmd.command_text = decoded_cmd
+                        except Exception:
+                            pass
                 elif part == "A":
                     self.semantic_tracker.handle_osc133(terminal, "A")
                 elif part == "B":
