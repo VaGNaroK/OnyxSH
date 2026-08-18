@@ -98,6 +98,11 @@ class CompletionPopup(Gtk.Popover):
         """
         Populates the popup with completion items and presents it at the cursor rectangle.
         """
+        parent = self.get_parent()
+        if not parent or not (parent.get_realized() and parent.get_mapped()):
+            self.popdown()
+            return
+
         self._items = items
         self._row_widgets.clear()
 

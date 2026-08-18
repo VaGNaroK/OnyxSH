@@ -312,7 +312,7 @@ class DesktopNotifier:
 
             return True
         except Exception as e:
-            print(f"[NOTIF-DEBUG] General error in notify_command_finished: {e}", flush=True)
+            self.logger.error(f"General error in notify_command_finished: {e}")
             return False
 
 

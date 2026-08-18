@@ -4013,13 +4013,26 @@ class TerminalManager:
                 popup = getattr(terminal, "_completion_popup", None)
                 if popup:
                     if items:
-                        char_w = terminal.get_char_width()
-                        char_h = terminal.get_char_height()
+                        if not terminal.get_realized() or not terminal.get_mapped():
+                            return False
+
+                        term_w = terminal.get_width()
+                        term_h = terminal.get_height()
+                        if term_w <= 0 or term_h <= 0:
+                            return False
+
+                        char_w = max(1, terminal.get_char_width())
+                        char_h = max(1, terminal.get_char_height())
+
+                        # Clamp cursor x and y within terminal pixel bounds
+                        cur_x = min(max(0, int(cursor_col * char_w)), max(0, term_w - int(char_w)))
+                        cur_y = min(max(0, int(cursor_row * char_h)), max(0, term_h - int(char_h)))
+
                         rect = Gdk.Rectangle()
-                        rect.x = max(0, int(cursor_col * char_w))
-                        rect.y = max(0, int(cursor_row * char_h))
-                        rect.width = max(10, int(char_w))
-                        rect.height = max(10, int(char_h))
+                        rect.x = cur_x
+                        rect.y = cur_y
+                        rect.width = max(1, int(char_w))
+                        rect.height = max(1, int(char_h))
                         popup.show_completions(items, rect)
                     else:
                         if popup.get_visible():
