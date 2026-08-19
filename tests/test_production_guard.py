@@ -137,6 +137,20 @@ class TestProductionGuard(unittest.TestCase):
             violation = self.guard.evaluate_command(cmd)
             self.assertIsNone(violation, f"Safe command should NOT be blocked: {cmd}")
 
+    def test_composite_and_multiline_destructive_commands(self):
+        composite_dangerous = [
+            "cd /tmp && rm -rf /tmp/pasta",
+            "ls -la ; sudo rm -rf /tmp/test",
+            "mkdir /tmp/x || rm -fr /tmp/x",
+            "echo 'hello' | rm -rf /tmp/demo",
+            "cd /tmp\nls -la pasta\nrm -rf /tmp/pasta",
+            "sudo -s\nrm -rf /var/cache/*",
+        ]
+        for cmd in composite_dangerous:
+            violation = self.guard.evaluate_command(cmd)
+            self.assertIsNotNone(violation, f"Composite command should be detected as dangerous: {cmd}")
+            self.assertEqual(violation.category, _("File System"))
+
 
 if __name__ == "__main__":
     unittest.main()

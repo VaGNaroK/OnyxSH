@@ -894,10 +894,15 @@ class WindowActions:
                     else None
                 )
                 if term:
-                    if execute:
-                        term.feed_child(cmd_text.encode("utf-8") + b"\n")
+                    if hasattr(self.window, "terminal_manager") and self.window.terminal_manager:
+                        self.window.terminal_manager.safe_feed_command(
+                            term, cmd_text, execute=execute, parent_window=self.window
+                        )
                     else:
-                        term.feed_child(cmd_text.encode("utf-8"))
+                        if execute:
+                            term.feed_child(cmd_text.encode("utf-8") + b"\n")
+                        else:
+                            term.feed_child(cmd_text.encode("utf-8"))
 
             dialog = CommandHistoryDialog(
                 parent_window=self.window,

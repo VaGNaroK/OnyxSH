@@ -3601,16 +3601,7 @@ class TerminalManager:
                 return Gdk.EVENT_PROPAGATE
 
             # Check Production Guard for destructive commands
-            is_prod = getattr(terminal, "is_production", False)
-            if not is_prod and hasattr(terminal, "onyxsh_session") and terminal.onyxsh_session:
-                is_prod = getattr(terminal.onyxsh_session, "is_production", False)
-            if not is_prod:
-                info = self.registry.get_terminal_info(terminal_id)
-                if info:
-                    is_prod = bool(info.get("is_production", False))
-                    ident = info.get("identifier")
-                    if not is_prod and hasattr(ident, "is_production"):
-                        is_prod = bool(getattr(ident, "is_production", False))
+            is_prod, target_name = self.is_terminal_production(terminal, terminal_id)
 
             # Get cursor position to read the current line
             col, row = terminal.get_cursor_position()
@@ -3655,19 +3646,6 @@ class TerminalManager:
                         violation = guard.evaluate_command(line_text)
 
                     if violation:
-                        target_name = ""
-                        if hasattr(terminal, "onyxsh_session") and terminal.onyxsh_session:
-                            target_name = (
-                                getattr(terminal.onyxsh_session, "host", "")
-                                or getattr(terminal.onyxsh_session, "name", "")
-                            )
-                        if not target_name:
-                            info = self.registry.get_terminal_info(terminal_id)
-                            if info:
-                                target_name = info.get("host", "") or info.get("name", "")
-                        if not target_name:
-                            target_name = "production"
-
                         parent_win = (
                             terminal.get_root()
                             if hasattr(terminal, "get_root")
@@ -3710,6 +3688,107 @@ class TerminalManager:
 
         # CRUCIAL: Always propagate the event so VTE processes the newline
         return Gdk.EVENT_PROPAGATE
+
+    def is_terminal_production(
+        self, terminal: Vte.Terminal, terminal_id: Optional[int] = None
+    ) -> Tuple[bool, str]:
+        """
+        Determines whether a terminal is connected to a production environment
+        and extracts the appropriate target name for confirmation dialogs.
+        """
+        if not terminal:
+            return False, "production"
+
+        is_prod = getattr(terminal, "is_production", False)
+        target_name = ""
+
+        if hasattr(terminal, "onyxsh_session") and terminal.onyxsh_session:
+            if not is_prod:
+                is_prod = bool(getattr(terminal.onyxsh_session, "is_production", False))
+            target_name = (
+                getattr(terminal.onyxsh_session, "host", "")
+                or getattr(terminal.onyxsh_session, "name", "")
+            )
+
+        tid = terminal_id if terminal_id is not None else getattr(terminal, "terminal_id", None)
+        if tid is not None and hasattr(self, "registry") and self.registry:
+            info = self.registry.get_terminal_info(tid)
+            if info:
+                if not is_prod:
+                    is_prod = bool(info.get("is_production", False))
+                if not target_name:
+                    target_name = info.get("host", "") or info.get("name", "")
+                ident = info.get("identifier")
+                if not is_prod and ident and hasattr(ident, "is_production"):
+                    is_prod = bool(getattr(ident, "is_production", False))
+                if not target_name and ident:
+                    target_name = getattr(ident, "host", "") or getattr(ident, "name", "")
+
+        if not target_name:
+            target_name = "production"
+
+        return is_prod, target_name
+
+    def safe_feed_command(
+        self,
+        terminal: Vte.Terminal,
+        command: str,
+        execute: bool = True,
+        parent_window: Optional[Gtk.Window] = None,
+    ) -> None:
+        """
+        Safely feeds a command to a terminal. If the terminal is in a production environment
+        and the command is flagged as destructive by Production Guard, prompts the user
+        with a double-confirmation dialog before execution.
+        """
+        if not terminal:
+            return
+
+        clean_cmd = command.strip()
+        if not execute:
+            terminal.feed_child(command.encode("utf-8"))
+            return
+
+        is_prod, target_name = self.is_terminal_production(terminal)
+
+        if is_prod and clean_cmd:
+            from .production_guard import get_production_guard
+            from ..ui.dialogs.production_confirm_dialog import ProductionConfirmDialog
+
+            guard = get_production_guard()
+            violation = guard.evaluate_command(clean_cmd)
+
+            if violation:
+                parent_win = parent_window
+                if not parent_win:
+                    parent_win = (
+                        terminal.get_root()
+                        if hasattr(terminal, "get_root")
+                        else None
+                    )
+                if not parent_win and hasattr(self, "parent_window"):
+                    parent_win = self.parent_window
+
+                def on_guard_confirmed(confirmed: bool):
+                    if confirmed:
+                        try:
+                            terminal.feed_child(command.encode("utf-8") + b"\n")
+                        except Exception as e:
+                            self.logger.error(f"Failed to feed confirmed command: {e}")
+                    else:
+                        self.logger.info("Guarded command execution cancelled by user.")
+
+                dialog = ProductionConfirmDialog(
+                    parent_window=parent_win,
+                    violation=violation,
+                    target_name=target_name,
+                    on_confirmed=on_guard_confirmed,
+                )
+                dialog.present()
+                return
+
+        # Not in production or no violation: execute immediately
+        terminal.feed_child(command.encode("utf-8") + b"\n")
 
     def _analyze_command_from_line(
         self, line: str, terminal: Vte.Terminal, terminal_id: int

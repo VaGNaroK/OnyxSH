@@ -135,19 +135,37 @@ class ProductionGuard:
 
         return stripped
 
+    def _split_subcommands(self, cmd_line: str) -> List[str]:
+        """Splits composite command line into individual subcommands (newlines, semicolons, &&, ||, pipes)."""
+        parts = re.split(r"[\n;]|&&|\|\||\|", cmd_line)
+        return [p.strip() for p in parts if p.strip()]
+
     def evaluate_command(self, raw_command: str) -> Optional[GuardViolation]:
         """
         Evaluates a shell command string to determine if it is a destructive
         action in a production environment.
 
-        Returns a GuardViolation if the command is destructive, otherwise None.
+        Handles multiline scripts, chained commands (;, &&, ||), pipelines,
+        and wrapper commands (sudo, doas, pkexec, etc.).
+
+        Returns a GuardViolation if any part of the command is destructive, otherwise None.
         """
         clean_cmd = raw_command.strip()
         if not clean_cmd:
             return None
 
-        # Check raw command and wrapper-stripped command
-        stripped_cmd = self._strip_wrapper_commands(clean_cmd)
+        # Build list of candidate expressions to test:
+        # 1. Full raw command
+        # 2. Wrapper-stripped full command
+        # 3. Each individual subcommand (split by newline, semicolon, &&, ||, |)
+        # 4. Wrapper-stripped subcommands
+        candidates = [clean_cmd, self._strip_wrapper_commands(clean_cmd)]
+        for subcmd in self._split_subcommands(clean_cmd):
+            if subcmd not in candidates:
+                candidates.append(subcmd)
+            stripped_sub = self._strip_wrapper_commands(subcmd)
+            if stripped_sub not in candidates:
+                candidates.append(stripped_sub)
 
         all_rules: List[Tuple[List[Tuple[re.Pattern, str]], str, str]] = [
             (self._file_delete_patterns, "File System", "critical"),
@@ -160,18 +178,19 @@ class ProductionGuard:
 
         for pattern_list, category, severity in all_rules:
             for pattern, description in pattern_list:
-                if pattern.search(clean_cmd) or pattern.search(stripped_cmd):
-                    translated_category = _(category)
-                    translated_desc = _(description)
-                    self.logger.warning(
-                        f"Production Guard intercepted dangerous command: '{clean_cmd}' -> {translated_desc}"
-                    )
-                    return GuardViolation(
-                        command=clean_cmd,
-                        category=translated_category,
-                        risk_summary=translated_desc,
-                        severity=severity,
-                    )
+                for candidate in candidates:
+                    if pattern.search(candidate):
+                        translated_category = _(category)
+                        translated_desc = _(description)
+                        self.logger.warning(
+                            f"Production Guard intercepted dangerous command: '{candidate}' in '{clean_cmd}' -> {translated_desc}"
+                        )
+                        return GuardViolation(
+                            command=clean_cmd,
+                            category=translated_category,
+                            risk_summary=translated_desc,
+                            severity=severity,
+                        )
 
         return None
 

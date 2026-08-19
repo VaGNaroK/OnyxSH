@@ -842,20 +842,25 @@ class WindowUIBuilder:
 
     def _on_ai_execute_command(self, _panel, command: str) -> None:
         """Handle command execution request from AI panel - insert into terminal."""
-        # Get current terminal and insert command (without newline - user must press Enter)
         terminal = self.tab_manager.get_selected_terminal()
         if terminal:
-            # Feed the command to the terminal without executing (no newline)
-            terminal.feed_child(command.encode("utf-8"))
+            if hasattr(self.window, "terminal_manager") and self.window.terminal_manager:
+                self.window.terminal_manager.safe_feed_command(
+                    terminal, command, execute=False, parent_window=self.window
+                )
+            else:
+                terminal.feed_child(command.encode("utf-8"))
 
     def _on_ai_run_command(self, _panel, command: str) -> None:
-        """Handle run command request from AI panel - insert and execute in terminal."""
-        # Get current terminal, insert command and send Ctrl+J (newline) to execute
+        """Handle run command request from AI panel - safely check Production Guard and execute in terminal."""
         terminal = self.tab_manager.get_selected_terminal()
         if terminal:
-            # Feed the command followed by newline (Ctrl+J = 0x0a = \n)
-            terminal.feed_child(command.encode("utf-8"))
-            terminal.feed_child(b"\n")  # Ctrl+J or Enter to execute
+            if hasattr(self.window, "terminal_manager") and self.window.terminal_manager:
+                self.window.terminal_manager.safe_feed_command(
+                    terminal, command, execute=True, parent_window=self.window
+                )
+            else:
+                terminal.feed_child(command.encode("utf-8") + b"\n")
 
     def show_ai_panel(self, initial_text: Optional[str] = None) -> None:
         """Show the AI chat panel."""

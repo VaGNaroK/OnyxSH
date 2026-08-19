@@ -61,6 +61,9 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - 📚 **Manual Completo do Usuário (`docs/MANUAL.md` e `docs/MANUAL.en.md`)**: Criação de manual exaustivo bilíngue cobrindo 15 tópicos essenciais (arquitetura, túneis SSH, Production Guard, autocomplete, histórico, agente IA, exportador e atalhos).
   - 📝 **Atualização do `README.md` e `README.en.md`**: Atualização do catálogo de recursos, atalhos (<kbd>Ctrl + H</kbd>) e inclusão de links diretos para o manual.
 
+### Corrigido
+- **Interceptação do Production Guard no Assistente de IA e Paleta**: Corrigido vazamento de execução direta onde comandos disparados via botão de Play/Executar do chat de IA, Command Palette ou histórico executavam comandos destrutivos (`rm -rf`, etc.) no terminal sem disparar o diálogo de dupla confirmação em abas de produção. Centralizado o fluxo de injeção em `TerminalManager.safe_feed_command` com suporte a scripts multilinhas e subcomandos encadeados (`&&`, `||`, `;`, `|`).
+
 ## [0.9.0] - 2026-08-18
 
 ### Adicionado

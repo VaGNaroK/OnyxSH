@@ -714,10 +714,15 @@ class CommandPaletteDialog(BaseDialog):
 
             def _on_snippet_ready(cmd_str: str, execute_now: bool):
                 if active_terminal and hasattr(active_terminal, "feed_child"):
-                    if execute_now:
-                        active_terminal.feed_child(f"{cmd_str}\n".encode("utf-8"))
+                    if hasattr(self.parent_window, "terminal_manager") and self.parent_window.terminal_manager:
+                        self.parent_window.terminal_manager.safe_feed_command(
+                            active_terminal, cmd_str, execute=execute_now, parent_window=self.parent_window
+                        )
                     else:
-                        active_terminal.feed_child(f"{cmd_str}".encode("utf-8"))
+                        if execute_now:
+                            active_terminal.feed_child(f"{cmd_str}\n".encode("utf-8"))
+                        else:
+                            active_terminal.feed_child(f"{cmd_str}".encode("utf-8"))
 
             dialog = SnippetParameterDialog(
                 parent=self.parent_window,
@@ -740,7 +745,12 @@ class CommandPaletteDialog(BaseDialog):
                 )
 
             if active_terminal and hasattr(active_terminal, "feed_child") and cmd_str:
-                active_terminal.feed_child(f"{cmd_str}\n".encode("utf-8"))
+                if hasattr(self.parent_window, "terminal_manager") and self.parent_window.terminal_manager:
+                    self.parent_window.terminal_manager.safe_feed_command(
+                        active_terminal, cmd_str, execute=True, parent_window=self.parent_window
+                    )
+                else:
+                    active_terminal.feed_child(f"{cmd_str}\n".encode("utf-8"))
 
     def _setup_ui(self) -> None:
         """Construct the Command Palette UI."""

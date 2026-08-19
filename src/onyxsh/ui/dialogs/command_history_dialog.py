@@ -515,10 +515,15 @@ class CommandHistoryDialog(Gtk.Window):
         if self.on_insert_callback:
             self.on_insert_callback(command_text, execute)
         elif self.current_terminal:
-            if execute:
-                self.current_terminal.feed_child(command_text.encode("utf-8") + b"\n")
+            if hasattr(self.parent_window, "terminal_manager") and self.parent_window.terminal_manager:
+                self.parent_window.terminal_manager.safe_feed_command(
+                    self.current_terminal, command_text, execute=execute, parent_window=self.parent_window
+                )
             else:
-                self.current_terminal.feed_child(command_text.encode("utf-8"))
+                if execute:
+                    self.current_terminal.feed_child(command_text.encode("utf-8") + b"\n")
+                else:
+                    self.current_terminal.feed_child(command_text.encode("utf-8"))
 
     def _on_clear_clicked(self, _btn: Optional[Gtk.Button] = None) -> None:
         """Prompts confirmation dialog to clear history."""
