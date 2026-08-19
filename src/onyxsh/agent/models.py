@@ -28,6 +28,25 @@ def _check_allowed_keys(data: dict[str, Any], allowed_keys: set[str], class_name
         raise ValueError(f"Unknown fields in {class_name}: {sorted(unknown)}")
 
 
+class StepStatus:
+    """Execution status for an ActionStep."""
+
+    PENDING = "pending"
+    RUNNING = "running"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    SKIPPED = "skipped"
+
+
+VALID_STEP_STATUSES = {
+    StepStatus.PENDING,
+    StepStatus.RUNNING,
+    StepStatus.COMPLETED,
+    StepStatus.FAILED,
+    StepStatus.SKIPPED,
+}
+
+
 @dataclass
 class ActionStep:
     """A single executable step within an ActionPlan."""
@@ -42,6 +61,9 @@ class ActionStep:
     working_directory: Optional[str] = None
     timeout_seconds: int = 30
     approval: str = "click"
+    status: str = "pending"
+    selected: bool = True
+    execution_error: Optional[str] = None
 
     def __post_init__(self) -> None:
         self._validate()
@@ -88,6 +110,9 @@ class ActionStep:
             "working_directory": self.working_directory,
             "timeout_seconds": self.timeout_seconds,
             "approval": self.approval,
+            "status": self.status,
+            "selected": self.selected,
+            "execution_error": self.execution_error,
         }
 
     @classmethod
@@ -107,6 +132,9 @@ class ActionStep:
             "working_directory",
             "timeout_seconds",
             "approval",
+            "status",
+            "selected",
+            "execution_error",
         }
         _check_allowed_keys(data, allowed, "ActionStep")
 
@@ -126,6 +154,9 @@ class ActionStep:
             working_directory=data.get("working_directory"),
             timeout_seconds=data.get("timeout_seconds", 30),
             approval=data.get("approval", "click"),
+            status=data.get("status", "pending"),
+            selected=data.get("selected", True),
+            execution_error=data.get("execution_error"),
         )
 
 

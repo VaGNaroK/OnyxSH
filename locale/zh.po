@@ -10645,3 +10645,99 @@ msgstr "当前目录不是 Git 存储库。"
 # 
 msgid "Nenhuma modificação detectada no repositório para gerar commit."
 msgstr "在存储库中未检测到要生成提交的修改。"
+
+# 
+msgid "Plano de Execução ({n} etapas)"
+msgstr "执行计划（{n} 个步骤）"
+
+# 
+msgid "🟢 Apenas Leitura"
+msgstr "🟢 只读"
+
+# 
+msgid "🔵 Modificações no Usuário"
+msgstr "🔵 用户修改"
+
+# 
+msgid "🟠 Requer Polkit/Admin"
+msgstr "🟠 需要 Polkit/管理员权限"
+
+# 
+msgid "🔴 Ações Críticas"
+msgstr "🔴 关键操作"
+
+# 
+msgid "⛔ Contém Bloqueados"
+msgstr "⛔ 包含已阻止的操作"
+
+# 
+msgid "concluídos"
+msgstr "已完成"
+
+# 
+msgid "🚀 Executar Tudo"
+msgstr "🚀 执行全部"
+
+# 
+msgid "Executar sequencialmente todas as etapas selecionadas no terminal"
+msgstr "在终端中顺序执行所有选定的步骤"
+
+# 
+msgid "🟢 Apenas Diagnósticos ({count})"
+msgstr "🟢 仅诊断（{count}）"
+
+# 
+msgid "Executar com segurança apenas as etapas de leitura e diagnóstico sem alterar o sistema"
+msgstr "安全执行只读诊断步骤，不修改系统"
+
+# 
+msgid "👁️ Passo a Passo"
+msgstr "👁️ 逐步执行"
+
+# 
+msgid "Executar uma etapa por vez com revisão interativa"
+msgstr "逐步执行并进行交互式审核"
+
+# 
+msgid "⏹️ Parar"
+msgstr "⏹️ 停止"
+
+# 
+msgid "Interromper a execução do lote em andamento"
+msgstr "中止当前运行的批处理执行"
+
+# 
+msgid "Alternar seleção de todas as etapas"
+msgstr "切换所有步骤的选择"
+
+# 
+msgid "Ação Sugerida pelo Agente"
+msgstr "代理建议的操作"
+
+# 
+msgid "Incluir ou excluir esta etapa da execução"
+msgstr "在执行中包含或排除此步骤"
+
+# 
+msgid "⚪ Pendente"
+msgstr "⚪ 待处理"
+
+# 
+msgid "🟡 Executando..."
+msgstr "🟡 正在运行..."
+
+# 
+msgid "🟢 Concluído"
+msgstr "🟢 已完成"
+
+# 
+msgid "🔴 Falha"
+msgstr "🔴 失败"
+
+# 
+msgid "⏭️ Ignorado"
+msgstr "⏭️ 已跳过"
+
+# 
+msgid "Executar esta etapa"
+msgstr "执行此步骤"

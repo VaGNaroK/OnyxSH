@@ -10716,3 +10716,99 @@ msgstr "El directorio actual no es un repositorio Git."
 # 
 msgid "Nenhuma modificação detectada no repositório para gerar commit."
 msgstr "No se detectaron modificaciones en el repositorio para generar el commit."
+
+# 
+msgid "Plano de Execução ({n} etapas)"
+msgstr "Plan de ejecución ({n} pasos)"
+
+# 
+msgid "🟢 Apenas Leitura"
+msgstr "🟢 Solo lectura"
+
+# 
+msgid "🔵 Modificações no Usuário"
+msgstr "🔵 Modificaciones de usuario"
+
+# 
+msgid "🟠 Requer Polkit/Admin"
+msgstr "🟠 Requiere Polkit/Admin"
+
+# 
+msgid "🔴 Ações Críticas"
+msgstr "🔴 Acciones críticas"
+
+# 
+msgid "⛔ Contém Bloqueados"
+msgstr "⛔ Contiene acciones bloqueadas"
+
+# 
+msgid "concluídos"
+msgstr "completados"
+
+# 
+msgid "🚀 Executar Tudo"
+msgstr "🚀 Ejecutar todo"
+
+# 
+msgid "Executar sequencialmente todas as etapas selecionadas no terminal"
+msgstr "Ejecutar secuencialmente todos los pasos seleccionados en la terminal"
+
+# 
+msgid "🟢 Apenas Diagnósticos ({count})"
+msgstr "🟢 Solo diagnósticos ({count})"
+
+# 
+msgid "Executar com segurança apenas as etapas de leitura e diagnóstico sem alterar o sistema"
+msgstr "Ejecutar de forma segura solo los pasos de lectura y diagnóstico sin modificar el sistema"
+
+# 
+msgid "👁️ Passo a Passo"
+msgstr "👁️ Paso a paso"
+
+# 
+msgid "Executar uma etapa por vez com revisão interativa"
+msgstr "Ejecutar un paso a la vez con revisión interactiva"
+
+# 
+msgid "⏹️ Parar"
+msgstr "⏹️ Detener"
+
+# 
+msgid "Interromper a execução do lote em andamento"
+msgstr "Interrumpir la ejecución del lote en curso"
+
+# 
+msgid "Alternar seleção de todas as etapas"
+msgstr "Alternar selección de todos los pasos"
+
+# 
+msgid "Ação Sugerida pelo Agente"
+msgstr "Acción sugerida por el agente"
+
+# 
+msgid "Incluir ou excluir esta etapa da execução"
+msgstr "Incluir o excluir este paso de la ejecución"
+
+# 
+msgid "⚪ Pendente"
+msgstr "⚪ Pendiente"
+
+# 
+msgid "🟡 Executando..."
+msgstr "🟡 Ejecutando..."
+
+# 
+msgid "🟢 Concluído"
+msgstr "🟢 Completado"
+
+# 
+msgid "🔴 Falha"
+msgstr "🔴 Falló"
+
+# 
+msgid "⏭️ Ignorado"
+msgstr "⏭️ Omitido"
+
+# 
+msgid "Executar esta etapa"
+msgstr "Ejecutar este paso"

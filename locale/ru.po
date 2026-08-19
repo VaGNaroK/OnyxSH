@@ -10686,3 +10686,99 @@ msgstr "Текущий каталог не является репозитори
 # 
 msgid "Nenhuma modificação detectada no repositório para gerar commit."
 msgstr "В репозитории не обнаружено изменений для создания коммита."
+
+# 
+msgid "Plano de Execução ({n} etapas)"
+msgstr "План выполнения ({n} шагов)"
+
+# 
+msgid "🟢 Apenas Leitura"
+msgstr "🟢 Только для чтения"
+
+# 
+msgid "🔵 Modificações no Usuário"
+msgstr "🔵 Изменения пользователя"
+
+# 
+msgid "🟠 Requer Polkit/Admin"
+msgstr "🟠 Требуется Polkit/Admin"
+
+# 
+msgid "🔴 Ações Críticas"
+msgstr "🔴 Критические действия"
+
+# 
+msgid "⛔ Contém Bloqueados"
+msgstr "⛔ Содержит заблокированные действия"
+
+# 
+msgid "concluídos"
+msgstr "завершено"
+
+# 
+msgid "🚀 Executar Tudo"
+msgstr "🚀 Выполнить все"
+
+# 
+msgid "Executar sequencialmente todas as etapas selecionadas no terminal"
+msgstr "Последовательно выполнить все выбранные шаги в терминале"
+
+# 
+msgid "🟢 Apenas Diagnósticos ({count})"
+msgstr "🟢 Только диагностика ({count})"
+
+# 
+msgid "Executar com segurança apenas as etapas de leitura e diagnóstico sem alterar o sistema"
+msgstr "Безопасно выполнять только шаги чтения и диагностики без изменения системы"
+
+# 
+msgid "👁️ Passo a Passo"
+msgstr "👁️ Пошагово"
+
+# 
+msgid "Executar uma etapa por vez com revisão interativa"
+msgstr "Выполнять по одному шагу за раз с интерактивным просмотром"
+
+# 
+msgid "⏹️ Parar"
+msgstr "⏹️ Остановить"
+
+# 
+msgid "Interromper a execução do lote em andamento"
+msgstr "Прервать текущее выполнение пакета"
+
+# 
+msgid "Alternar seleção de todas as etapas"
+msgstr "Переключить выбор всех шагов"
+
+# 
+msgid "Ação Sugerida pelo Agente"
+msgstr "Действие, предложенное агентом"
+
+# 
+msgid "Incluir ou excluir esta etapa da execução"
+msgstr "Включить или исключить этот шаг из выполнения"
+
+# 
+msgid "⚪ Pendente"
+msgstr "⚪ В ожидании"
+
+# 
+msgid "🟡 Executando..."
+msgstr "🟡 Выполняется..."
+
+# 
+msgid "🟢 Concluído"
+msgstr "🟢 Завершено"
+
+# 
+msgid "🔴 Falha"
+msgstr "🔴 Ошибка"
+
+# 
+msgid "⏭️ Ignorado"
+msgstr "⏭️ Пропущено"
+
+# 
+msgid "Executar esta etapa"
+msgstr "Выполнить этот шаг"

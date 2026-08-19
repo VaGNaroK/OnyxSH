@@ -10703,3 +10703,99 @@ msgstr "Current directory is not a Git repository."
 # 
 msgid "Nenhuma modificação detectada no repositório para gerar commit."
 msgstr "No modifications detected in repository to generate commit."
+
+# 
+msgid "Plano de Execução ({n} etapas)"
+msgstr "Execution Plan ({n} steps)"
+
+# 
+msgid "🟢 Apenas Leitura"
+msgstr "🟢 Read-Only"
+
+# 
+msgid "🔵 Modificações no Usuário"
+msgstr "🔵 User Modifications"
+
+# 
+msgid "🟠 Requer Polkit/Admin"
+msgstr "🟠 Requires Polkit/Admin"
+
+# 
+msgid "🔴 Ações Críticas"
+msgstr "🔴 Critical Actions"
+
+# 
+msgid "⛔ Contém Bloqueados"
+msgstr "⛔ Contains Blocked Actions"
+
+# 
+msgid "concluídos"
+msgstr "completed"
+
+# 
+msgid "🚀 Executar Tudo"
+msgstr "🚀 Execute All"
+
+# 
+msgid "Executar sequencialmente todas as etapas selecionadas no terminal"
+msgstr "Sequentially execute all selected steps in terminal"
+
+# 
+msgid "🟢 Apenas Diagnósticos ({count})"
+msgstr "🟢 Diagnostics Only ({count})"
+
+# 
+msgid "Executar com segurança apenas as etapas de leitura e diagnóstico sem alterar o sistema"
+msgstr "Safely execute read-only diagnostic steps without modifying the system"
+
+# 
+msgid "👁️ Passo a Passo"
+msgstr "👁️ Step-by-Step"
+
+# 
+msgid "Executar uma etapa por vez com revisão interativa"
+msgstr "Execute one step at a time with interactive review"
+
+# 
+msgid "⏹️ Parar"
+msgstr "⏹️ Stop"
+
+# 
+msgid "Interromper a execução do lote em andamento"
+msgstr "Abort currently running batch execution"
+
+# 
+msgid "Alternar seleção de todas as etapas"
+msgstr "Toggle selection of all steps"
+
+# 
+msgid "Ação Sugerida pelo Agente"
+msgstr "Action Suggested by Agent"
+
+# 
+msgid "Incluir ou excluir esta etapa da execução"
+msgstr "Include or exclude this step from execution"
+
+# 
+msgid "⚪ Pendente"
+msgstr "⚪ Pending"
+
+# 
+msgid "🟡 Executando..."
+msgstr "🟡 Running..."
+
+# 
+msgid "🟢 Concluído"
+msgstr "🟢 Completed"
+
+# 
+msgid "🔴 Falha"
+msgstr "🔴 Failed"
+
+# 
+msgid "⏭️ Ignorado"
+msgstr "⏭️ Skipped"
+
+# 
+msgid "Executar esta etapa"
+msgstr "Execute this step"

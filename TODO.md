@@ -156,12 +156,19 @@
 ## 3. IA Avançada, Agente Autônomo & Extensibilidade ("Zash Agent & Bridge")
 
 ### 🤖 3.1. Modo Interativo "Plan before Execute"
-- [ ] **Descrição:** Quando o agente receber uma tarefa complexa de múltiplos passos, gerar primeiro uma árvore de plano visual no chat antes de qualquer execução.
-- [ ] **Recursos:**
-  - Detalhamento de cada etapa com indicador de risco, comando e arquivo afetado.
-  - **Aprovação Granular por Etapas:** Usuário pode aprovar tudo de uma vez, aprovar apenas leituras, aprovar escritas com revisão de diff ou revisar passo a passo.
-- [ ] **Prioridade:** 🔴 Muito Alta | **Esforço:** Alto | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/agent/context_manager.py`, `src/zashterminal/ui/widgets/ai_chat_panel.py`.
+- [x] **Descrição:** Quando o agente de IA sugerir uma tarefa de múltiplos passos, gera uma árvore de plano visual interativa no painel de chat com controle total antes e durante a execução.
+- [x] **Recursos:**
+  - Painel de controle em lote (`.ai-plan-control-bar`) com contagem de etapas, badge de risco máximo consolidado e barra de progresso visual em tempo real.
+  - **Aprovação Granular e Modos de Lote:**
+    - 🚀 **Executar Tudo:** Execução sequencial assíncrona de todas as etapas selecionadas e não bloqueadas com feedback dinâmico.
+    - 🟢 **Apenas Diagnósticos:** Filtra e executa com segurança apenas as etapas de leitura (`RiskLevel.READ_ONLY` / Nível 0) sem modificar o sistema.
+    - 👁️ **Passo a Passo:** Execução guiada etapa por etapa com revisão e confirmação interativa.
+    - ⏹️ **Parar:** Interrupção imediata da fila de lote em andamento.
+  - **Seleção Granular por Checkbox:** Checkboxes individuais em cada etapa para incluir/excluir comandos antes do disparo.
+  - **Indicadores de Estado e Lifecycle:** Rastreamento dinâmico de status por etapa (`⚪ Pendente`, `🟡 Executando...`, `🟢 Concluído`, `🔴 Falha`, `⏭️ Ignorado`) com spinners visuais.
+  - **Compatibilidade e Fallbacks Multi-Provedor:** Suporte tanto para modelos estruturados com JSON Schema (Gemini, Claude) quanto fallback de extração de blocos markdown ````bash```` para LLMs locais compactos (Ollama, LM Studio).
+- [x] **Prioridade:** 🔴 Muito Alta | **Esforço:** Alto | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/agent/models.py`, `src/onyxsh/agent/planner.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/data/styles/ai_chat_panel.css`, `tests/test_plan_execution.py`.
 
 ### 🤖 3.2. Verificação Pós-Execução Automatizada (Post-Verification Loop)
 - [ ] **Descrição:** Após o agente executar um comando que altera o sistema (ex: reiniciar um serviço ou aplicar uma configuração), ele executa verificações automáticas de validação.

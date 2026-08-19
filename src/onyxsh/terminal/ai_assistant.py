@@ -1031,12 +1031,12 @@ class TerminalAiAssistant(GObject.Object):
 
     def _parse_assistant_payload(
         self, content: str
-    ) -> Tuple[str, List[Dict[str, str]], List[Dict[str, str]]]:
+    ) -> Tuple[str, List[Dict[str, Any]], List[Dict[str, str]]]:
         # Tenta limpar marcadores de markdown que as IAs adoram colocar
         clean_content = self._clean_response(content)
 
         reply_text = ""
-        commands: List[Dict[str, str]] = []
+        commands: List[Dict[str, Any]] = []
         code_snippets: List[Dict[str, str]] = []
         payload = None
 
@@ -1048,85 +1048,136 @@ class TerminalAiAssistant(GObject.Object):
             payload = self._extract_json_object(clean_content)
 
         if isinstance(payload, dict):
-            # Sucesso no JSON
-            reply_text = payload.get("reply", "")
-            commands_field = payload.get("commands", [])
+            # Sucesso no JSON: Suporta ActionPlan (summary/steps) e formato legado (reply/commands)
+            reply_text = (
+                payload.get("summary")
+                or payload.get("reply")
+                or payload.get("content")
+                or payload.get("message")
+                or ""
+            )
+            commands_field = (
+                payload.get("steps")
+                if "steps" in payload
+                else payload.get("commands", [])
+            )
             commands = self._normalize_commands(commands_field)
         else:
             # FALHA NO JSON (Fallback):
             # A IA respondeu texto puro. Vamos usar o texto como resposta
-            # e tentar extrair comandos via Regex dos blocos de código.
+            # e extrair comandos via Regex dos blocos de código markdown.
             reply_text = content  # Usa o conteúdo original para manter formatação
 
-            # Extrai comandos de blocos de código bash/sh/zsh automaticamente
-            # Regex procura por ```bash ou ```sh seguido de conteúdo
-            code_block_pattern = r"```(?:bash|sh|zsh)?\n(.*?)```"
+            # Extrai comandos de blocos de código bash/sh/zsh/shell automaticamente
+            code_block_pattern = r"```(?:bash|sh|zsh|shell)?\n(.*?)```"
             matches = re.findall(code_block_pattern, content, re.DOTALL)
 
             for match in matches:
-                cmd_str = match.strip()
-                # Evita adicionar scripts longos como botões de comando único
-                if cmd_str and len(cmd_str.splitlines()) == 1:
-                    commands.append({
-                        "command": cmd_str,
-                        "description": "Suggested command",
-                    })
+                body = match.strip()
+                if body:
+                    for line in body.splitlines():
+                        cmd_str = line.strip()
+                        if cmd_str and not cmd_str.startswith("#") and not cmd_str.startswith("//"):
+                            commands.append({
+                                "command": cmd_str,
+                                "description": "",
+                            })
 
         return reply_text, commands, code_snippets
 
     def _clean_response(self, raw_content: str) -> str:
-        """Remove markdown code fences wrapping the JSON."""
+        """Remove markdown code fences, comments, and trailing commas from JSON."""
         clean = raw_content.strip()
 
         # Remove ```json no início e ``` no fim
         if clean.startswith("```"):
-            # Encontra a primeira quebra de linha
             first_newline = clean.find("\n")
             if first_newline != -1:
-                # Remove a primeira linha (ex: ```json)
                 clean = clean[first_newline + 1 :]
-
-            # Remove o fechamento ``` se existir no final
             if clean.endswith("```"):
                 clean = clean[:-3]
 
-        return clean.strip()
+        return self._strip_json_comments_and_commas(clean)
+
+    @staticmethod
+    def _strip_json_comments_and_commas(text: str) -> str:
+        """Removes // and # comments and trailing commas from JSON/JSONC text."""
+        lines = []
+        for line in text.splitlines():
+            in_quote = False
+            quote_char = None
+            cleaned_chars = []
+            i = 0
+            while i < len(line):
+                ch = line[i]
+                if ch in ('"', "'") and (i == 0 or line[i - 1] != "\\"):
+                    if not in_quote:
+                        in_quote = True
+                        quote_char = ch
+                    elif quote_char == ch:
+                        in_quote = False
+                        quote_char = None
+                    cleaned_chars.append(ch)
+                elif not in_quote and ch == "/" and i + 1 < len(line) and line[i + 1] == "/":
+                    break
+                elif not in_quote and ch == "#" and (i == 0 or line[i - 1].isspace() or line[i - 1] in (",", "{", "[")):
+                    break
+                else:
+                    cleaned_chars.append(ch)
+                i += 1
+            lines.append("".join(cleaned_chars))
+        cleaned = "\n".join(lines)
+        cleaned = re.sub(r"/\*[\s\S]*?\*/", "", cleaned)
+        cleaned = re.sub(r",\s*([}\]])", r"\1", cleaned)
+        return cleaned.strip()
 
     def _extract_json_object(self, text: str) -> Optional[Dict[str, Any]]:
-        start = text.find("{")
+        cleaned_text = self._strip_json_comments_and_commas(text)
+        start = cleaned_text.find("{")
         while start != -1:
             brace_level = 0
-            for end in range(start, len(text)):
-                char = text[end]
+            for end in range(start, len(cleaned_text)):
+                char = cleaned_text[end]
                 if char == "{":
                     brace_level += 1
                 elif char == "}":
                     brace_level -= 1
                     if brace_level == 0:
-                        candidate = text[start : end + 1]
+                        candidate = cleaned_text[start : end + 1]
                         try:
                             return json.loads(candidate)
                         except json.JSONDecodeError:
                             break
-            start = text.find("{", start + 1)
+            start = cleaned_text.find("{", start + 1)
         return None
 
-    def _normalize_commands(self, value: Any) -> List[Dict[str, str]]:
-        commands: List[Dict[str, str]] = []
+    def _normalize_commands(self, value: Any) -> List[Dict[str, Any]]:
+        commands: List[Dict[str, Any]] = []
         if isinstance(value, list):
             for item in value:
                 if isinstance(item, str) and item.strip():
                     commands.append({"command": item.strip(), "description": ""})
                 elif isinstance(item, dict):
                     candidate = item.get("command") or item.get("cmd")
+                    if not candidate and "argv" in item:
+                        argv_val = item["argv"]
+                        if isinstance(argv_val, list):
+                            candidate = " ".join(str(tok) for tok in argv_val)
+                        elif isinstance(argv_val, str):
+                            candidate = argv_val
+                    if not candidate and "tool" in item:
+                        candidate = item["tool"]
                     description = item.get("description") or ""
                     if isinstance(candidate, str) and candidate.strip():
-                        commands.append({
-                            "command": candidate.strip(),
-                            "description": description.strip()
-                            if isinstance(description, str)
-                            else "",
-                        })
+                        item_dict = dict(item)
+                        item_dict["command"] = candidate.strip()
+                        item_dict["description"] = description.strip() if isinstance(description, str) else ""
+                        commands.append(item_dict)
+                elif hasattr(item, "to_dict"):
+                    d = item.to_dict()
+                    cmd_str = " ".join(item.argv) if getattr(item, "argv", None) else getattr(item, "tool", "")
+                    d["command"] = cmd_str
+                    commands.append(d)
         elif isinstance(value, str) and value.strip():
             commands.append({"command": value.strip(), "description": ""})
         return commands
@@ -1140,16 +1191,22 @@ class TerminalAiAssistant(GObject.Object):
         self,
         terminal_id: int,
         reply: str,
-        commands: List[Dict[str, str]],
+        commands: List[Dict[str, Any]],
         code_snippets: List[Dict[str, str]],
     ) -> bool:
-        # Extract command strings for the signal
-        command_strings = [
-            cmd.get("command", "") for cmd in commands if isinstance(cmd, dict)
-        ]
+        # Extract command items/strings for the signal
+        command_list: List[Any] = []
+        for cmd in commands:
+            if isinstance(cmd, dict):
+                if "step_id" in cmd or "risk" in cmd or "approval" in cmd:
+                    command_list.append(cmd)
+                else:
+                    command_list.append(cmd.get("command", ""))
+            elif isinstance(cmd, str):
+                command_list.append(cmd)
 
         # Emit response-ready signal for the chat panel
-        self.emit("response-ready", reply, command_strings)
+        self.emit("response-ready", reply, command_list)
 
         # For terminal_id == -1 (overlay panel), skip terminal output
         if terminal_id == -1:

@@ -9,6 +9,24 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.10.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Modo Interativo "Plan before Execute" com Aprovação Granular (Secure Agent Batch Runner)**: Transformação completa do fluxo de execução de planos de múltiplos passos do agente de IA em um painel interativo, visual e auditável antes de qualquer alteração no sistema (`src/onyxsh/agent/models.py`, `src/onyxsh/agent/planner.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/data/styles/ai_chat_panel.css`, `tests/test_plan_execution.py`):
+  - 🎛️ **Painel de Controle de Lote (`.ai-plan-control-bar`)**:
+    - Cabeçalho consolidado com contador de etapas, badge de risco máximo do plano (`🟢 Apenas Leitura`, `🔵 Modificações no Usuário`, `🟠 Requer Polkit/Admin`, `🔴 Ações Críticas`, `⛔ Contém Bloqueados`) e indicador `X/Y concluídos`.
+    - Barra de progresso visual em tempo real (`Gtk.ProgressBar`) sincronizada com o andamento da fila.
+  - 🚀 **Aprovação Granular e Modos de Execução em Lote**:
+    - **🚀 Executar Tudo**: Execução sequencial assíncrona de todas as etapas selecionadas e não bloqueadas com feedback dinâmico no terminal ativo.
+    - **🟢 Apenas Diagnósticos / Leituras**: Filtra e executa com segurança apenas as etapas de leitura (`RiskLevel.READ_ONLY` / Nível 0) sem realizar nenhuma alteração de estado no sistema.
+    - **👁️ Passo a Passo**: Modo guiado para revisão e execução interativa etapa por etapa com foco no terminal.
+    - **⏹️ Parar**: Botão de parada imediata que cancela a fila de lote em andamento preservando o status das etapas já executadas.
+    - **Alternar Seleção**: Botão rápido para marcar ou desmarcar todas as checkboxes de uma vez.
+  - ☑️ **Seleção Granular por Checkbox em cada Etapa**:
+    - Checkboxes individuais `Gtk.CheckButton` permitindo ao usuário incluir ou excluir comandos específicos do plano antes do disparo.
+  - 🔄 **Rastreador de Estado e Lifecycle Dinâmico por Etapa**:
+    - Badges de status em tempo real em cada cartão (`⚪ Pendente`, `🟡 Executando...`, `🟢 Concluído`, `🔴 Falha`, `⏭️ Ignorado`) com `Gtk.Spinner` animado durante a execução.
+  - 🧠 **Fallback Multi-Provedor para LLMs Locais e Nuvem**:
+    - Suporte a modelos com JSON Schema estruturado (Gemini, Claude, Llama 3.2 estruturado).
+    - Extrator inteligente com fallback para blocos markdown ````bash```` / ````sh```` para modelos locais compactos (Ollama, LM Studio).
+  - 🧪 **Testes Automatizados & Internacionalização**: Nova suíte em `tests/test_plan_execution.py` (total de 141 testes unitários passando) e 672 novas traduções sincronizadas em todos os 28 idiomas.
 - **Assistente Integrado de Git (Conventional Commits e Auditoria de Segredos Pré-Commit)**: Ferramenta gráfica e orientada por IA para inspeção de repositórios, auditoria de credenciais no diff e geração automatizada de mensagens de commit padronizadas (`src/onyxsh/utils/git_utils.py`, `src/onyxsh/terminal/git_assistant.py`, `src/onyxsh/ui/dialogs/git_commit_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`):
   - 🤖 **Geração Inteligente no Padrão Conventional Commits**:
     - Análise profunda do `git diff --cached` (staged) ou `git diff` (modificações ativas) com identificação precisa do escopo (`feat`, `fix`, `docs`, `refactor`, `perf`, `test`, `chore`, etc.).

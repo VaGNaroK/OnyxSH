@@ -10730,3 +10730,99 @@ msgstr "Das aktuelle Verzeichnis ist kein Git-Repository."
 # 
 msgid "Nenhuma modificação detectada no repositório para gerar commit."
 msgstr "Im Repository wurden keine Änderungen zum Generieren eines Commits erkannt."
+
+# 
+msgid "Plano de Execução ({n} etapas)"
+msgstr "Ausführungsplan ({n} Schritte)"
+
+# 
+msgid "🟢 Apenas Leitura"
+msgstr "🟢 Nur-Lesen"
+
+# 
+msgid "🔵 Modificações no Usuário"
+msgstr "🔵 Benutzeränderungen"
+
+# 
+msgid "🟠 Requer Polkit/Admin"
+msgstr "🟠 Erfordert Polkit/Admin"
+
+# 
+msgid "🔴 Ações Críticas"
+msgstr "🔴 Kritische Aktionen"
+
+# 
+msgid "⛔ Contém Bloqueados"
+msgstr "⛔ Enthält blockierte Aktionen"
+
+# 
+msgid "concluídos"
+msgstr "abgeschlossen"
+
+# 
+msgid "🚀 Executar Tudo"
+msgstr "🚀 Alles ausführen"
+
+# 
+msgid "Executar sequencialmente todas as etapas selecionadas no terminal"
+msgstr "Alle ausgewählten Schritte nacheinander im Terminal ausführen"
+
+# 
+msgid "🟢 Apenas Diagnósticos ({count})"
+msgstr "🟢 Nur Diagnose ({count})"
+
+# 
+msgid "Executar com segurança apenas as etapas de leitura e diagnóstico sem alterar o sistema"
+msgstr "Nur Lese- und Diagnoseschritte sicher ausführen, ohne das System zu ändern"
+
+# 
+msgid "👁️ Passo a Passo"
+msgstr "👁️ Schritt für Schritt"
+
+# 
+msgid "Executar uma etapa por vez com revisão interativa"
+msgstr "Einen Schritt nach dem anderen mit interaktiver Überprüfung ausführen"
+
+# 
+msgid "⏹️ Parar"
+msgstr "⏹️ Stopp"
+
+# 
+msgid "Interromper a execução do lote em andamento"
+msgstr "Laufende Batch-Ausführung abbrechen"
+
+# 
+msgid "Alternar seleção de todas as etapas"
+msgstr "Auswahl aller Schritte umschalten"
+
+# 
+msgid "Ação Sugerida pelo Agente"
+msgstr "Vom Agenten vorgeschlagene Aktion"
+
+# 
+msgid "Incluir ou excluir esta etapa da execução"
+msgstr "Diesen Schritt in die Ausführung einbeziehen oder ausschließen"
+
+# 
+msgid "⚪ Pendente"
+msgstr "⚪ Ausstehend"
+
+# 
+msgid "🟡 Executando..."
+msgstr "🟡 Wird ausgeführt..."
+
+# 
+msgid "🟢 Concluído"
+msgstr "🟢 Abgeschlossen"
+
+# 
+msgid "🔴 Falha"
+msgstr "🔴 Fehlgeschlagen"
+
+# 
+msgid "⏭️ Ignorado"
+msgstr "⏭️ Übersprungen"
+
+# 
+msgid "Executar esta etapa"
+msgstr "Diesen Schritt ausführen"

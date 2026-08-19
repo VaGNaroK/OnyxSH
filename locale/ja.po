@@ -10650,3 +10650,99 @@ msgstr "現在のディレクトリは Git リポジトリではありません�
 # 
 msgid "Nenhuma modificação detectada no repositório para gerar commit."
 msgstr "コミットを生成するための変更がリポジトリで検出されませんでした。"
+
+# 
+msgid "Plano de Execução ({n} etapas)"
+msgstr "実行計画（{n} ステップ）"
+
+# 
+msgid "🟢 Apenas Leitura"
+msgstr "🟢 読み取り専用"
+
+# 
+msgid "🔵 Modificações no Usuário"
+msgstr "🔵 ユーザー変更"
+
+# 
+msgid "🟠 Requer Polkit/Admin"
+msgstr "🟠 Polkit/管理者権限が必要"
+
+# 
+msgid "🔴 Ações Críticas"
+msgstr "🔴 重大な操作"
+
+# 
+msgid "⛔ Contém Bloqueados"
+msgstr "⛔ ブロックされた操作が含まれます"
+
+# 
+msgid "concluídos"
+msgstr "完了"
+
+# 
+msgid "🚀 Executar Tudo"
+msgstr "🚀 すべて実行"
+
+# 
+msgid "Executar sequencialmente todas as etapas selecionadas no terminal"
+msgstr "ターミナルで選択したすべてのステップを順番に実行"
+
+# 
+msgid "🟢 Apenas Diagnósticos ({count})"
+msgstr "🟢 診断のみ（{count}）"
+
+# 
+msgid "Executar com segurança apenas as etapas de leitura e diagnóstico sem alterar o sistema"
+msgstr "システムを変更せずに読み取り専用の診断ステップを安全に実行"
+
+# 
+msgid "👁️ Passo a Passo"
+msgstr "👁️ ステップバイステップ"
+
+# 
+msgid "Executar uma etapa por vez com revisão interativa"
+msgstr "対話形式のレビューで1ステップずつ実行"
+
+# 
+msgid "⏹️ Parar"
+msgstr "⏹️ 停止"
+
+# 
+msgid "Interromper a execução do lote em andamento"
+msgstr "実行中のバッチ実行を中止"
+
+# 
+msgid "Alternar seleção de todas as etapas"
+msgstr "すべてのステップの選択を切り替え"
+
+# 
+msgid "Ação Sugerida pelo Agente"
+msgstr "エージェントによって提案された操作"
+
+# 
+msgid "Incluir ou excluir esta etapa da execução"
+msgstr "このステップを実行に含める/除外する"
+
+# 
+msgid "⚪ Pendente"
+msgstr "⚪ 保留中"
+
+# 
+msgid "🟡 Executando..."
+msgstr "🟡 実行中..."
+
+# 
+msgid "🟢 Concluído"
+msgstr "🟢 完了"
+
+# 
+msgid "🔴 Falha"
+msgstr "🔴 失敗"
+
+# 
+msgid "⏭️ Ignorado"
+msgstr "⏭️ スキップ"
+
+# 
+msgid "Executar esta etapa"
+msgstr "このステップを実行"

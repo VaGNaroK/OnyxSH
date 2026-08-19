@@ -72,26 +72,55 @@ def _get_pygments():
     return _pygments_module
 
 
+def _strip_json_comments_and_commas(text: str) -> str:
+    """Removes // and # comments and trailing commas from JSON/JSONC text."""
+    lines = []
+    for line in text.splitlines():
+        in_quote = False
+        quote_char = None
+        cleaned_chars = []
+        i = 0
+        while i < len(line):
+            ch = line[i]
+            if ch in ('"', "'") and (i == 0 or line[i - 1] != "\\"):
+                if not in_quote:
+                    in_quote = True
+                    quote_char = ch
+                elif quote_char == ch:
+                    in_quote = False
+                    quote_char = None
+                cleaned_chars.append(ch)
+            elif not in_quote and ch == "/" and i + 1 < len(line) and line[i + 1] == "/":
+                break
+            elif not in_quote and ch == "#" and (i == 0 or line[i - 1].isspace() or line[i - 1] in (",", "{", "[")):
+                break
+            else:
+                cleaned_chars.append(ch)
+            i += 1
+        lines.append("".join(cleaned_chars))
+    cleaned = "\n".join(lines)
+    cleaned = re.sub(r"/\*[\s\S]*?\*/", "", cleaned)
+    cleaned = re.sub(r",\s*([}\]])", r"\1", cleaned)
+    return cleaned.strip()
+
+
 def _extract_reply_from_json(text: str) -> str:
-    """Extract 'reply' field from JSON response or return text safely.
+    """Extract 'reply' or 'summary' field from JSON response or return text safely.
 
     Handles complete and partial responses without truncating code/quotes.
     """
     if not text:
         return text
 
-    stripped = text.strip()
+    stripped = _strip_json_comments_and_commas(text.strip())
 
     # 1. If it's valid JSON
     try:
         data = json.loads(stripped)
         if isinstance(data, dict):
-            if "reply" in data and isinstance(data["reply"], str):
-                return data["reply"]
-            if "content" in data and isinstance(data["content"], str):
-                return data["content"]
-            if "message" in data and isinstance(data["message"], str):
-                return data["message"]
+            for k in ("summary", "reply", "content", "message"):
+                if k in data and isinstance(data[k], str):
+                    return data[k]
     except Exception:
         pass
 
@@ -103,15 +132,17 @@ def _extract_reply_from_json(text: str) -> str:
             if inner.endswith("```"):
                 inner = inner[:-3].strip()
             try:
-                data = json.loads(inner)
-                if isinstance(data, dict) and "reply" in data and isinstance(data["reply"], str):
-                    return data["reply"]
+                data = json.loads(_strip_json_comments_and_commas(inner))
+                if isinstance(data, dict):
+                    for k in ("summary", "reply", "content", "message"):
+                        if k in data and isinstance(data[k], str):
+                            return data[k]
             except Exception:
                 pass
 
-    # 3. Robust regex extraction for JSON reply
+    # 3. Robust regex extraction for JSON reply / summary
     reply_match = re.search(
-        r'"reply"\s*:\s*"(.*?)(?:"\s*,\s*"(?:commands|cmd|tools)"\s*:|"\s*\}\s*$)',
+        r'"(?:summary|reply|content|message)"\s*:\s*"(.*?)(?:"\s*,\s*"(?:commands|cmd|tools|steps|plan_id)"\s*:|"\s*\}\s*$)',
         stripped,
         re.DOTALL,
     )
@@ -127,12 +158,12 @@ def _extract_reply_from_json(text: str) -> str:
 
     # 4. Partial streaming case:
     if stripped.startswith("{"):
-        match_start = re.search(r'["\']reply["\']\s*:\s*["\']', stripped)
+        match_start = re.search(r'["\'](?:summary|reply|content|message)["\']\s*:\s*["\']', stripped)
         if match_start:
             content_start = match_start.end()
             partial = stripped[content_start:]
             trailing_commands = re.search(
-                r'["\']\s*,\s*["\']commands["\'].*$', partial, re.DOTALL
+                r'["\']\s*,\s*["\'](?:commands|steps|tools)["\'].*$', partial, re.DOTALL
             )
             if trailing_commands:
                 partial = partial[: trailing_commands.start()]
@@ -442,6 +473,19 @@ class MessageBubble(Gtk.Box):
         self._commands = commands or []
         self._settings_manager = settings_manager
         self._palette = None
+
+        # Plan before Execute tracking
+        self._parsed_steps: list[dict] = []
+        self._is_running_batch: bool = False
+        self._abort_batch: bool = False
+        self._batch_queue: list[dict] = []
+        self._completed_step_count: int = 0
+        self._plan_progress_bar: Optional[Gtk.ProgressBar] = None
+        self._plan_progress_label: Optional[Gtk.Label] = None
+        self._plan_stop_btn: Optional[Gtk.Button] = None
+        self._plan_run_all_btn: Optional[Gtk.Button] = None
+        self._plan_run_diag_btn: Optional[Gtk.Button] = None
+        self._plan_step_btn: Optional[Gtk.Button] = None
 
         # Get terminal palette if using terminal theme
         if settings_manager and settings_manager.get("gtk_theme", "") == "terminal":
@@ -1098,28 +1142,13 @@ class MessageBubble(Gtk.Box):
         return self._highlight_fallback(code, lang)
 
     def _add_command_buttons(self):
-        """Add buttons for each detected command or ActionStep with visual risk cards."""
+        """Add buttons for each detected command or ActionStep with visual risk cards and batch controls."""
         if not self._commands:
             return
 
-        # Commands section container
-        commands_section = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        commands_section.set_margin_start(8)
-        commands_section.set_margin_end(8)
-        commands_section.set_margin_top(12)
-
-        # Section header
-        section_header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-        terminal_icon = icon_image("utilities-terminal-symbolic")
-        terminal_icon.add_css_class("ai-section-icon")
-        section_header.append(terminal_icon)
-
-        section_label = Gtk.Label(label=_("Plano de Ações do Agente"))
-        section_label.add_css_class("ai-section-title")
-        section_header.append(section_label)
-        commands_section.append(section_header)
-
-        for item in self._commands[:10]:
+        # Prepare parsed steps
+        self._parsed_steps = []
+        for i, item in enumerate(self._commands[:15]):
             if isinstance(item, str):
                 argv = item.split()
                 try:
@@ -1129,34 +1158,172 @@ class MessageBubble(Gtk.Box):
                 except Exception:
                     risk = 0
                 step_data = {
+                    "step_id": f"step_{i+1}",
                     "tool": "shell.run",
                     "argv": argv,
                     "command_str": item,
                     "description": "",
                     "risk": risk,
                     "approval": "blocked" if risk >= 4 else ("polkit" if risk == 2 else "click"),
+                    "status": "pending",
+                    "selected": True,
                 }
             elif hasattr(item, "to_dict"):
                 step_data = item.to_dict()
+                step_data["step_id"] = getattr(item, "step_id", f"step_{i+1}")
                 step_data["command_str"] = " ".join(item.argv) if item.argv else item.tool
+                step_data["status"] = getattr(item, "status", "pending")
+                step_data["selected"] = getattr(item, "selected", True)
             elif isinstance(item, dict):
-                step_data = item
+                step_data = dict(item)
+                step_data["step_id"] = item.get("step_id", f"step_{i+1}")
                 step_data["command_str"] = " ".join(item.get("argv", [])) if item.get("argv") else (item.get("command", "") or item.get("tool", ""))
+                step_data["status"] = item.get("status", "pending")
+                step_data["selected"] = item.get("selected", True)
             else:
                 continue
 
+            self._parsed_steps.append(step_data)
+
+        if not self._parsed_steps:
+            return
+
+        # Commands section container
+        commands_section = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        commands_section.set_margin_start(8)
+        commands_section.set_margin_end(8)
+        commands_section.set_margin_top(12)
+
+        total_steps = len(self._parsed_steps)
+        max_risk = max((s.get("risk", 0) for s in self._parsed_steps), default=0)
+        read_only_count = sum(1 for s in self._parsed_steps if s.get("risk", 0) == 0 and s.get("approval") != "blocked")
+
+        # Render Plan Overview & Batch Control Bar if 2 or more steps
+        if total_steps >= 2:
+            plan_bar = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+            plan_bar.add_css_class("ai-plan-control-bar")
+
+            # Header row: Title + Max Risk + Progress Label
+            bar_header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+
+            plan_icon = icon_image("view-list-bullet-symbolic")
+            plan_icon.add_css_class("ai-section-icon")
+            bar_header.append(plan_icon)
+
+            plan_title = Gtk.Label(label=_("Plano de Execução ({n} etapas)").format(n=total_steps))
+            plan_title.add_css_class("ai-plan-title")
+            bar_header.append(plan_title)
+
+            risk_badge = Gtk.Label()
+            risk_badge_texts = {
+                0: _("🟢 Apenas Leitura"),
+                1: _("🔵 Modificações no Usuário"),
+                2: _("🟠 Requer Polkit/Admin"),
+                3: _("🔴 Ações Críticas"),
+                4: _("⛔ Contém Bloqueados"),
+            }
+            risk_badge.set_label(risk_badge_texts.get(max_risk, f"Risco {max_risk}"))
+            risk_badge.add_css_class("ai-risk-badge")
+            risk_badge.add_css_class(f"ai-risk-badge-{min(4, max(0, max_risk))}")
+            bar_header.append(risk_badge)
+
+            spacer = Gtk.Box(hexpand=True)
+            bar_header.append(spacer)
+
+            self._plan_progress_label = Gtk.Label(label=f"0/{total_steps} " + _("concluídos"))
+            self._plan_progress_label.add_css_class("caption")
+            self._plan_progress_label.add_css_class("dim-label")
+            bar_header.append(self._plan_progress_label)
+
+            plan_bar.append(bar_header)
+
+            # Progress Bar
+            self._plan_progress_bar = Gtk.ProgressBar()
+            self._plan_progress_bar.set_fraction(0.0)
+            self._plan_progress_bar.set_margin_top(2)
+            self._plan_progress_bar.set_margin_bottom(2)
+            plan_bar.append(self._plan_progress_bar)
+
+            # Action Buttons Row
+            btn_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+
+            self._plan_run_all_btn = Gtk.Button(label=_("🚀 Executar Tudo"))
+            self._plan_run_all_btn.add_css_class("suggested-action")
+            self._plan_run_all_btn.connect("clicked", self._on_batch_run_all_clicked)
+            self._add_tooltip(self._plan_run_all_btn, _("Executar sequencialmente todas as etapas selecionadas no terminal"))
+            btn_row.append(self._plan_run_all_btn)
+
+            if read_only_count > 0:
+                self._plan_run_diag_btn = Gtk.Button(
+                    label=_("🟢 Apenas Diagnósticos ({count})").format(count=read_only_count)
+                )
+                self._plan_run_diag_btn.add_css_class("flat")
+                self._plan_run_diag_btn.connect("clicked", self._on_batch_run_diagnostics_clicked)
+                self._add_tooltip(self._plan_run_diag_btn, _("Executar com segurança apenas as etapas de leitura e diagnóstico sem alterar o sistema"))
+                btn_row.append(self._plan_run_diag_btn)
+
+            self._plan_step_btn = Gtk.Button(label=_("👁️ Passo a Passo"))
+            self._plan_step_btn.add_css_class("flat")
+            self._plan_step_btn.connect("clicked", self._on_batch_step_by_step_clicked)
+            self._add_tooltip(self._plan_step_btn, _("Executar uma etapa por vez com revisão interativa"))
+            btn_row.append(self._plan_step_btn)
+
+            self._plan_stop_btn = Gtk.Button(label=_("⏹️ Parar"))
+            self._plan_stop_btn.add_css_class("destructive-action")
+            self._plan_stop_btn.set_sensitive(False)
+            self._plan_stop_btn.connect("clicked", self._on_batch_stop_clicked)
+            self._add_tooltip(self._plan_stop_btn, _("Interromper a execução do lote em andamento"))
+            btn_row.append(self._plan_stop_btn)
+
+            toggle_all_btn = Gtk.Button()
+            toggle_all_btn.set_icon_name("object-select-symbolic")
+            toggle_all_btn.add_css_class("flat")
+            toggle_all_btn.connect("clicked", self._on_toggle_all_selection)
+            self._add_tooltip(toggle_all_btn, _("Alternar seleção de todas as etapas"))
+            btn_row.append(toggle_all_btn)
+
+            plan_bar.append(btn_row)
+            commands_section.append(plan_bar)
+        else:
+            # Single action header
+            section_header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+            terminal_icon = icon_image("utilities-terminal-symbolic")
+            terminal_icon.add_css_class("ai-section-icon")
+            section_header.append(terminal_icon)
+
+            section_label = Gtk.Label(label=_("Ação Sugerida pelo Agente"))
+            section_label.add_css_class("ai-section-title")
+            section_header.append(section_label)
+            commands_section.append(section_header)
+
+        # Render Step Cards
+        for i, step_data in enumerate(self._parsed_steps):
             cmd_str = step_data.get("command_str", "")
             risk_val = int(step_data.get("risk", 0))
             approval_val = step_data.get("approval", "click")
             tool_name = step_data.get("tool", "shell.run")
             description = step_data.get("description", "")
+            is_blocked = approval_val == "blocked" or risk_val >= 4
 
             # Step card container
             step_card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
             step_card.add_css_class("ai-step-card")
+            step_data["card_widget"] = step_card
 
-            # Header row: Risk Badge + Tool name
+            # Header row: Checkbox + Step Number + Risk Badge + Status Badge + Spinner
             header_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+
+            check_btn = Gtk.CheckButton()
+            check_btn.set_active(not is_blocked)
+            check_btn.set_sensitive(not is_blocked)
+            check_btn.connect("toggled", self._on_step_check_toggled, step_data)
+            self._add_tooltip(check_btn, _("Incluir ou excluir esta etapa da execução"))
+            header_row.append(check_btn)
+            step_data["check_btn"] = check_btn
+
+            step_num_label = Gtk.Label(label=f"<b>#{i+1}</b>")
+            step_num_label.set_use_markup(True)
+            header_row.append(step_num_label)
 
             risk_badge = Gtk.Label()
             risk_badge_texts = {
@@ -1174,6 +1341,23 @@ class MessageBubble(Gtk.Box):
             tool_label = Gtk.Label(label=f"[{tool_name}]")
             tool_label.add_css_class("dim-label")
             header_row.append(tool_label)
+
+            header_spacer = Gtk.Box(hexpand=True)
+            header_row.append(header_spacer)
+
+            # Spinner for live execution
+            spinner = Gtk.Spinner()
+            spinner.set_spinning(False)
+            spinner.set_visible(False)
+            header_row.append(spinner)
+            step_data["spinner_widget"] = spinner
+
+            # Status Badge
+            status_badge = Gtk.Label(label=_("⚪ Pendente"))
+            status_badge.add_css_class("ai-step-status-badge")
+            status_badge.add_css_class("ai-step-status-pending")
+            header_row.append(status_badge)
+            step_data["status_badge_widget"] = status_badge
 
             step_card.append(header_row)
 
@@ -1196,7 +1380,7 @@ class MessageBubble(Gtk.Box):
             buttons_box.set_valign(Gtk.Align.CENTER)
             buttons_box.add_css_class("ai-cmd-buttons")
 
-            if approval_val == "blocked" or risk_val >= 4:
+            if is_blocked:
                 blocked_btn = Gtk.Button(label=_("⛔ Bloqueado"))
                 blocked_btn.set_sensitive(False)
                 blocked_btn.add_css_class("flat")
@@ -1222,9 +1406,10 @@ class MessageBubble(Gtk.Box):
                 run_btn.add_css_class("flat")
                 run_btn.add_css_class("circular")
                 run_btn.add_css_class("ai-cmd-btn-run")
-                run_btn.connect("clicked", self._on_run_clicked, cmd_str)
-                self._add_tooltip(run_btn, _("Executar comando"))
+                run_btn.connect("clicked", self._on_single_step_run_clicked, step_data)
+                self._add_tooltip(run_btn, _("Executar esta etapa"))
                 buttons_box.append(run_btn)
+                step_data["run_btn_widget"] = run_btn
 
                 dry_run_argv = step_data.get("dry_run_argv")
                 if dry_run_argv:
@@ -1273,6 +1458,167 @@ class MessageBubble(Gtk.Box):
             commands_section.append(step_card)
 
         self.append(commands_section)
+
+    def _on_step_check_toggled(self, check_btn: Gtk.CheckButton, step_data: dict) -> None:
+        """Update step selection state when user toggles checkbox."""
+        step_data["selected"] = check_btn.get_active()
+
+    def _on_toggle_all_selection(self, _button: Gtk.Button) -> None:
+        """Toggles selection for all unblocked steps."""
+        any_unselected = any(
+            not s.get("check_btn").get_active()
+            for s in self._parsed_steps
+            if s.get("check_btn") and s.get("check_btn").get_sensitive()
+        )
+        new_state = any_unselected
+        for s in self._parsed_steps:
+            if s.get("check_btn") and s.get("check_btn").get_sensitive():
+                s["check_btn"].set_active(new_state)
+
+    def _on_single_step_run_clicked(self, _button: Gtk.Button, step_data: dict) -> None:
+        """Run a single step with status tracking."""
+        self._update_step_status_ui(step_data, "running")
+        cmd_str = step_data.get("command_str", "")
+        self.emit("run-command", cmd_str)
+        GLib.timeout_add(400, lambda: self._update_step_status_ui(step_data, "completed"))
+        GLib.timeout_add(450, self._update_plan_progress)
+
+    def _on_batch_run_all_clicked(self, _button: Gtk.Button) -> None:
+        """Executes all checked and unblocked steps sequentially."""
+        steps_to_run = [
+            s for s in self._parsed_steps
+            if s.get("check_btn") and s.get("check_btn").get_active() and s.get("approval") != "blocked" and s.get("risk", 0) < 4
+        ]
+        if not steps_to_run:
+            return
+        self._start_batch_execution(steps_to_run, step_by_step=False)
+
+    def _on_batch_run_diagnostics_clicked(self, _button: Gtk.Button) -> None:
+        """Selects only read-only steps and executes them."""
+        for s in self._parsed_steps:
+            if s.get("check_btn") and s.get("check_btn").get_sensitive():
+                is_diag = s.get("risk", 0) == 0
+                s["check_btn"].set_active(is_diag)
+
+        diag_steps = [
+            s for s in self._parsed_steps
+            if s.get("risk", 0) == 0 and s.get("approval") != "blocked"
+        ]
+        if diag_steps:
+            self._start_batch_execution(diag_steps, step_by_step=False)
+
+    def _on_batch_step_by_step_clicked(self, _button: Gtk.Button) -> None:
+        """Runs the next pending checked step one at a time."""
+        steps_to_run = [
+            s for s in self._parsed_steps
+            if s.get("check_btn") and s.get("check_btn").get_active() and s.get("status") in ("pending", "skipped")
+        ]
+        if steps_to_run:
+            self._start_batch_execution(steps_to_run[:1], step_by_step=True)
+
+    def _on_batch_stop_clicked(self, _button: Gtk.Button) -> None:
+        """Aborts the currently running batch execution."""
+        self._abort_batch = True
+        self._is_running_batch = False
+        if self._plan_stop_btn:
+            self._plan_stop_btn.set_sensitive(False)
+        if self._plan_run_all_btn:
+            self._plan_run_all_btn.set_sensitive(True)
+
+    def _start_batch_execution(self, steps: list[dict], step_by_step: bool = False) -> None:
+        """Starts batch execution worker queue."""
+        if self._is_running_batch and not step_by_step:
+            return
+
+        self._is_running_batch = True
+        self._abort_batch = False
+        self._batch_queue = list(steps)
+
+        if self._plan_stop_btn:
+            self._plan_stop_btn.set_sensitive(True)
+        if self._plan_run_all_btn:
+            self._plan_run_all_btn.set_sensitive(False)
+
+        GLib.timeout_add(100, self._process_batch_queue)
+
+    def _process_batch_queue(self) -> bool:
+        """Pulls and executes the next step in the queue."""
+        if self._abort_batch or not self._batch_queue:
+            self._is_running_batch = False
+            if self._plan_stop_btn:
+                self._plan_stop_btn.set_sensitive(False)
+            if self._plan_run_all_btn:
+                self._plan_run_all_btn.set_sensitive(True)
+            self._update_plan_progress()
+            return False
+
+        step = self._batch_queue.pop(0)
+        self._update_step_status_ui(step, "running")
+
+        cmd_str = step.get("command_str", "")
+        self.emit("run-command", cmd_str)
+
+        GLib.timeout_add(350, lambda: self._update_step_status_ui(step, "completed"))
+        GLib.timeout_add(400, self._update_plan_progress)
+
+        if self._batch_queue and not self._abort_batch:
+            GLib.timeout_add(600, self._process_batch_queue)
+
+        return False
+
+    def _update_step_status_ui(self, step_data: dict, status: str, error_msg: Optional[str] = None) -> None:
+        """Updates the status badge, card border, and spinner for a specific step."""
+        step_data["status"] = status
+        badge = step_data.get("status_badge_widget")
+        spinner = step_data.get("spinner_widget")
+
+        if not badge:
+            return
+
+        # Clear existing status classes
+        for cls in ("ai-step-status-pending", "ai-step-status-running", "ai-step-status-completed", "ai-step-status-failed", "ai-step-status-skipped"):
+            badge.remove_css_class(cls)
+
+        if status == "running":
+            badge.set_label(_("🟡 Executando..."))
+            badge.add_css_class("ai-step-status-running")
+            if spinner:
+                spinner.set_visible(True)
+                spinner.set_spinning(True)
+        elif status == "completed":
+            badge.set_label(_("🟢 Concluído"))
+            badge.add_css_class("ai-step-status-completed")
+            if spinner:
+                spinner.set_spinning(False)
+                spinner.set_visible(False)
+        elif status == "failed":
+            badge.set_label(_("🔴 Falha"))
+            badge.add_css_class("ai-step-status-failed")
+            if spinner:
+                spinner.set_spinning(False)
+                spinner.set_visible(False)
+        elif status == "skipped":
+            badge.set_label(_("⏭️ Ignorado"))
+            badge.add_css_class("ai-step-status-skipped")
+            if spinner:
+                spinner.set_spinning(False)
+                spinner.set_visible(False)
+        else:
+            badge.set_label(_("⚪ Pendente"))
+            badge.add_css_class("ai-step-status-pending")
+            if spinner:
+                spinner.set_spinning(False)
+                spinner.set_visible(False)
+
+    def _update_plan_progress(self) -> None:
+        """Updates the progress bar and summary label."""
+        if not self._parsed_steps or not self._plan_progress_bar or not self._plan_progress_label:
+            return
+        total = len(self._parsed_steps)
+        completed = sum(1 for s in self._parsed_steps if s.get("status") == "completed")
+        fraction = completed / total if total > 0 else 0.0
+        self._plan_progress_bar.set_fraction(fraction)
+        self._plan_progress_label.set_label(f"{completed}/{total} " + _("concluídos"))
 
     def _on_diff_clicked(self, _button: Gtk.Button, step_data: dict) -> None:
         """Open diff review dialog for proposed edit."""
