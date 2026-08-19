@@ -10459,5 +10459,29 @@ msgid "Ativa avisos e proteção contra comandos destrutivos"
 msgstr "启用针对破坏性命令的警告和保护"
 
 # 
-msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
-msgstr "此终端已连接到经过验证的生产系统。\n\n• 破坏性文件删除 (rm -rf) 需要确认。\n• 磁盘和文件系统修改 (dd, mkfs) 受到保护。\n• 服务关闭和重启需要主机验证。\n• 发送给 AI 助手的输出已脱敏并受到保护。"
+msgid "Copy local address (localhost:{port})"
+msgstr "复制本地地址 (localhost:{port})"
+
+# 
+msgid "Add New Tunnel"
+msgstr "添加新隧道"
+
+# 
+msgid "Active (Listening on {src})"
+msgstr "活动 (正在监听 {src})"
+
+# 
+msgid "Connecting..."
+msgstr "正在连接..."
+
+# 
+msgid "Stopped"
+msgstr "已停止"
+
+# 
+msgid "Tunnel Type"
+msgstr "隧道类型"
+
+# 
+msgid "Endpoints & Ports"
+msgstr "端点与端口"

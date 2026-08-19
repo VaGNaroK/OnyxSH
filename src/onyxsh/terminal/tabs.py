@@ -617,7 +617,9 @@ class TabManager:
 
         terminal.semantic_status_box = semantic_status_box
         terminal.semantic_status_label = semantic_status_label
-        is_production = getattr(session, "is_production", False)
+        terminal.onyxsh_session = session
+        is_production = bool(getattr(session, "is_production", False))
+        terminal.is_production = is_production
         if is_production:
             from ..ui.widgets.production_banner import ProductionBanner
             prod_banner = ProductionBanner(

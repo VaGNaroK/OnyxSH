@@ -10464,5 +10464,29 @@ msgid "Ativa avisos e proteção contra comandos destrutivos"
 msgstr "破壊的コマンドに対する警告と保護を有効にする"
 
 # 
-msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
-msgstr "このターミナルは検証済みの本番システムに接続されています。\n\n• 破壊的なファイル削除 (rm -rf) には確認が必要です。\n• ディスクおよびファイルシステムの変更 (dd, mkfs) は保護されています。\n• サービスの停止と再起動にはホストの確認が必要です。\n• AI アシスタントへの出力共有は難読化され保護されます。"
+msgid "Copy local address (localhost:{port})"
+msgstr "ローカルアドレスをコピー (localhost:{port})"
+
+# 
+msgid "Add New Tunnel"
+msgstr "新規トンネルを追加"
+
+# 
+msgid "Active (Listening on {src})"
+msgstr "アクティブ ({src} でリッスン中)"
+
+# 
+msgid "Connecting..."
+msgstr "接続中..."
+
+# 
+msgid "Stopped"
+msgstr "停止"
+
+# 
+msgid "Tunnel Type"
+msgstr "トンネルの種類"
+
+# 
+msgid "Endpoints & Ports"
+msgstr "エンドポイントとポート"

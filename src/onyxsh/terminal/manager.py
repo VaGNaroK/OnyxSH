@@ -3589,19 +3589,37 @@ class TerminalManager:
             ):
                 return Gdk.EVENT_PROPAGATE
 
+            # Check Production Guard for destructive commands
+            is_prod = getattr(terminal, "is_production", False)
+            if not is_prod and hasattr(terminal, "onyxsh_session") and terminal.onyxsh_session:
+                is_prod = getattr(terminal.onyxsh_session, "is_production", False)
+            if not is_prod:
+                info = self.registry.get_terminal_info(terminal_id)
+                if info:
+                    is_prod = bool(info.get("is_production", False))
+                    ident = info.get("identifier")
+                    if not is_prod and hasattr(ident, "is_production"):
+                        is_prod = bool(getattr(ident, "is_production", False))
+
             # Get cursor position to read the current line
             col, row = terminal.get_cursor_position()
 
-            # Extract the text of the current line using get_text_range_format
+            # Extract the text of the current line using get_text_range_format with full buffer fallback
+            line_text = ""
             try:
-                col_count = terminal.get_column_count()
+                col_count = max(terminal.get_column_count(), 250)
                 text_result = terminal.get_text_range_format(
                     Vte.Format.TEXT, row, 0, row, col_count
                 )
-                if isinstance(text_result, tuple) and len(text_result) >= 1:
-                    line_text = text_result[0] if text_result[0] else ""
-                else:
-                    line_text = ""
+                if isinstance(text_result, tuple) and len(text_result) >= 1 and text_result[0]:
+                    line_text = text_result[0]
+
+                if not line_text.strip():
+                    full_buf = terminal.get_text_format(Vte.Format.TEXT)
+                    if full_buf:
+                        non_empty = [l for l in full_buf.splitlines() if l.strip()]
+                        if non_empty:
+                            line_text = non_empty[-1]
 
             except Exception as e:
                 self.logger.debug(
@@ -3612,31 +3630,30 @@ class TerminalManager:
             # Strip whitespace and analyze the command
             line_text = line_text.strip() if line_text else ""
             if line_text:
-                # Check Production Guard for destructive commands
-                is_prod = getattr(terminal, "is_production", False)
-                if not is_prod and hasattr(terminal, "onyxsh_session") and terminal.onyxsh_session:
-                    is_prod = getattr(terminal.onyxsh_session, "is_production", False)
-
                 if is_prod:
                     import re
                     from .production_guard import get_production_guard
                     from ..ui.dialogs.production_confirm_dialog import ProductionConfirmDialog
 
-                    prompt_match = re.search(r"[$#%>➜]\s*(.*)$", line_text)
+                    prompt_match = re.search(r"[$#%>➜❯]\s*(.*)$", line_text)
                     command_to_check = prompt_match.group(1).strip() if prompt_match else line_text
 
                     guard = get_production_guard()
                     violation = guard.evaluate_command(command_to_check)
+                    if not violation and command_to_check != line_text:
+                        violation = guard.evaluate_command(line_text)
+
                     if violation:
-                        info = self.registry.get_terminal_info(terminal_id)
                         target_name = ""
                         if hasattr(terminal, "onyxsh_session") and terminal.onyxsh_session:
                             target_name = (
                                 getattr(terminal.onyxsh_session, "host", "")
                                 or getattr(terminal.onyxsh_session, "name", "")
                             )
-                        if not target_name and info:
-                            target_name = info.get("host", "") or info.get("name", "")
+                        if not target_name:
+                            info = self.registry.get_terminal_info(terminal_id)
+                            if info:
+                                target_name = info.get("host", "") or info.get("name", "")
                         if not target_name:
                             target_name = "production"
 
@@ -3645,6 +3662,8 @@ class TerminalManager:
                             if hasattr(terminal, "get_root")
                             else None
                         )
+                        if not parent_win and hasattr(self, "parent_window"):
+                            parent_win = self.parent_window
 
                         def on_guard_confirmed(confirmed: bool):
                             if confirmed:

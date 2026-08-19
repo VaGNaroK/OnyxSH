@@ -10822,5 +10822,29 @@ msgid "Ativa avisos e proteção contra comandos destrutivos"
 msgstr "Ativa avisos e proteção contra comandos destrutivos"
 
 # 
-msgid "This terminal is connected to a verified production system.\n\n• Destructive file deletions (rm -rf) require confirmation.\n• Disk and filesystem modifications (dd, mkfs) are gated.\n• Service shutdowns & reboots require host verification.\n• AI assistant output sharing is redacted and protected."
-msgstr "Este terminal está conectado a um sistema de produção verificado.\n\n• Exclusão destrutiva de arquivos (rm -rf) requer confirmação.\n• Modificações em discos e sistemas de arquivos (dd, mkfs) são bloqueadas.\n• Paradas e reinicializações de serviços exigem verificação do host.\n• Saídas enviadas ao assistente de IA são ofuscadas e protegidas."
+msgid "Copy local address (localhost:{port})"
+msgstr "Copiar endereço local (localhost:{port})"
+
+# 
+msgid "Add New Tunnel"
+msgstr "Adicionar Novo Túnel"
+
+# 
+msgid "Active (Listening on {src})"
+msgstr "Ativo (Escutando em {src})"
+
+# 
+msgid "Connecting..."
+msgstr "Conectando..."
+
+# 
+msgid "Stopped"
+msgstr "Parado"
+
+# 
+msgid "Tunnel Type"
+msgstr "Tipo de Túnel"
+
+# 
+msgid "Endpoints & Ports"
+msgstr "Endpoints e Portas"

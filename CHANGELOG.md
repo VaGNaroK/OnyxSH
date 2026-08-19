@@ -28,7 +28,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
     - Atalho direto no Menu Principal e indexação com palavras-chave de busca na Command Palette (`Ctrl + Shift + P`).
   - 🔄 **Serviço de Background com Auto-Detecção de Falhas (`SSHTunnelManager`)**:
     - Processos autônomos `ssh -N -T` com monitoramento de integridade via `GLib.timeout_add_seconds` e sinais GObject em tempo real.
-  - 🌐 **Internacionalização Completa (28 Idiomas)**: 952 novas traduções sincronizadas e compiladas em todos os 28 idiomas.
+  - 🌐 **Internacionalização Completa (28 Idiomas)**: 980 novas traduções sincronizadas e compiladas em todos os 28 idiomas.
 - **Modo Proteção de Produção (Production Guard)**: Sistema abrangente de salvaguardas visuais, operacionais e de privacidade para sessões e servidores de produção (`src/onyxsh/terminal/production_guard.py`, `src/onyxsh/ui/widgets/production_banner.py`, `src/onyxsh/ui/dialogs/production_confirm_dialog.py`).
   - 🛡️ **Banner Visual de Produção**: Banner persistente de alta visibilidade em degradê crimson no topo das abas conectadas a ambientes de produção (`ProductionBanner`), com indicação visual de host/sessão, badge de guarda ativa e popover explicativo das políticas de segurança ativas.
   - 🔒 **Identificação Visual na Árvore de Sessões e Abas**: Exibição instantânea do badge `🛡️` ao lado de pastas e sessões marcadas como Produção na barra lateral e nas abas de terminal ativas.
