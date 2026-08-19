@@ -81,6 +81,7 @@ class WindowActions:
             "show-command-history": self.show_command_history,
             "export-terminal-buffer": self.export_terminal_buffer,
             "toggle-tftp-server": self.toggle_tftp_server,
+            "git-ai-commit": self.git_ai_commit,
             "preferences": self.preferences,
             "shortcuts": self.shortcuts,
             "command-palette": self.command_palette,
@@ -214,6 +215,25 @@ class WindowActions:
         if key == "ai_assistant_enabled":
             # Update button visibility
             self.window.ui_builder.update_ai_button_visibility()
+
+    def git_ai_commit(self, *_args):
+        """Open the Git Commit AI Assistant dialog for the active terminal's repository."""
+        self._hide_tooltip()
+        from .dialogs.git_commit_dialog import GitCommitDialog
+        from ..utils.git_utils import clean_file_uri_to_path
+
+        terminal = self.window.tab_manager.get_selected_terminal()
+        cwd = None
+        if terminal and hasattr(terminal, "get_current_directory_uri"):
+            uri = terminal.get_current_directory_uri()
+            cwd = clean_file_uri_to_path(uri)
+
+        dialog = GitCommitDialog(
+            parent_window=self.window,
+            ai_assistant=self.window.ai_assistant,
+            repo_cwd=cwd,
+        )
+        dialog.present()
 
     def highlight_settings(self, *_args):
         """Open the Highlight Colors settings dialog."""

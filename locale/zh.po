@@ -10533,3 +10533,115 @@ msgstr "严格离线模式处于活动状态：与云提供商的连接已被阻
 # 
 msgid "Privacidade e Modo Offline"
 msgstr "隐私与离线模式"
+
+# 
+msgid "Assistente Git — Conventional Commits"
+msgstr "Git 助手 — 常规提交（Conventional Commits）"
+
+# 
+msgid "Git: Gerar Mensagem de Commit Inteligente (AI)"
+msgstr "Git：生成智能提交信息（AI）"
+
+# 
+msgid "Status dos Arquivos Modificados"
+msgstr "已修改文件状态"
+
+# 
+msgid "Carregando status do repositório..."
+msgstr "正在加载存储库状态..."
+
+# 
+msgid "Estagiar Tudo (+)"
+msgstr "全部暂存 (+)"
+
+# 
+msgid "Desestagiar Tudo (-)"
+msgstr "取消全部暂存 (-)"
+
+# 
+msgid "Formato:"
+msgstr "格式："
+
+# 
+msgid "Conventional Commits (Padrão)"
+msgstr "常规提交（默认）"
+
+# 
+msgid "Resumido (1 Linha)"
+msgstr "摘要（1 行）"
+
+# 
+msgid "Detalhado (Com Tópicos e Escopo)"
+msgstr "详细（带项目符号和作用域）"
+
+# 
+msgid "✨ Gerar Mensagem com IA"
+msgstr "✨ 使用 AI 生成信息"
+
+# 
+msgid "Gerando..."
+msgstr "正在生成..."
+
+# 
+msgid "Mensagem de Commit (Editável):"
+msgstr "提交信息（可编辑）："
+
+# 
+msgid "Atualizar Status"
+msgstr "刷新状态"
+
+# 
+msgid "Copiar Mensagem"
+msgstr "复制信息"
+
+# 
+msgid "🚀 Commitar Agora"
+msgstr "🚀 立即提交"
+
+# 
+msgid "Não é um repositório Git válido."
+msgstr "不是有效的 Git 存储库。"
+
+# 
+msgid "{staged} arquivos estagiados | {unstaged} modificados não-estagiados"
+msgstr "{staged} 个暂存文件 | {unstaged} 个未暂存修改文件"
+
+# 
+msgid "Nenhum arquivo estagiado no momento."
+msgstr "当前没有暂存文件。"
+
+# 
+msgid "⚠️ Alerta de Segurança: Foram detectados potenciais segredos/chaves de API no diff staged!"
+msgstr "⚠️ 安全警报：在暂存的 diff 中检测到潜在的机密或 API 密钥！"
+
+# 
+msgid "Erro ao gerar commit: {}"
+msgstr "生成提交时出错：{}"
+
+# 
+msgid "Nenhuma mensagem para copiar."
+msgstr "没有可复制的信息。"
+
+# 
+msgid "Mensagem copiada para a área de transferência!"
+msgstr "信息已复制到剪贴板！"
+
+# 
+msgid "Por favor, insira uma mensagem de commit."
+msgstr "请输入提交信息。"
+
+# 
+msgid "✅ Commit realizado com sucesso!"
+msgstr "✅ 提交成功完成！"
+
+# 
+msgid "Falha no commit: {}"
+msgstr "提交失败：{}"
+
+# 
+msgid "O diretório atual não é um repositório Git."
+msgstr "当前目录不是 Git 存储库。"
+
+# 
+msgid "Nenhuma modificação detectada no repositório para gerar commit."
+msgstr "在存储库中未检测到要生成提交的修改。"

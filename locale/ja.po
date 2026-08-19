@@ -10538,3 +10538,115 @@ msgstr "完全オフラインモードが有効です: クラウドプロバイ�
 # 
 msgid "Privacidade e Modo Offline"
 msgstr "プライバシーとオフラインモード"
+
+# 
+msgid "Assistente Git — Conventional Commits"
+msgstr "Git アシスタント — Conventional Commits"
+
+# 
+msgid "Git: Gerar Mensagem de Commit Inteligente (AI)"
+msgstr "Git: スマートなコミットメッセージを生成（AI）"
+
+# 
+msgid "Status dos Arquivos Modificados"
+msgstr "変更されたファイルの状態"
+
+# 
+msgid "Carregando status do repositório..."
+msgstr "リポジトリの状態を読み込んでいます..."
+
+# 
+msgid "Estagiar Tudo (+)"
+msgstr "すべてステージ (+)"
+
+# 
+msgid "Desestagiar Tudo (-)"
+msgstr "すべてのステージを解除 (-)"
+
+# 
+msgid "Formato:"
+msgstr "形式:"
+
+# 
+msgid "Conventional Commits (Padrão)"
+msgstr "Conventional Commits（デフォルト）"
+
+# 
+msgid "Resumido (1 Linha)"
+msgstr "要約（1行）"
+
+# 
+msgid "Detalhado (Com Tópicos e Escopo)"
+msgstr "詳細（箇条書きとスコープ付き）"
+
+# 
+msgid "✨ Gerar Mensagem com IA"
+msgstr "✨ AI でメッセージを生成"
+
+# 
+msgid "Gerando..."
+msgstr "生成中..."
+
+# 
+msgid "Mensagem de Commit (Editável):"
+msgstr "コミットメッセージ（編集可能）:"
+
+# 
+msgid "Atualizar Status"
+msgstr "状態を更新"
+
+# 
+msgid "Copiar Mensagem"
+msgstr "メッセージをコピー"
+
+# 
+msgid "🚀 Commitar Agora"
+msgstr "🚀 今すぐコミット"
+
+# 
+msgid "Não é um repositório Git válido."
+msgstr "有効な Git リポジトリではありません。"
+
+# 
+msgid "{staged} arquivos estagiados | {unstaged} modificados não-estagiados"
+msgstr "{staged} 件のステージ済み | {unstaged} 件の未ステージ変更"
+
+# 
+msgid "Nenhum arquivo estagiado no momento."
+msgstr "現在ステージされているファイルはありません。"
+
+# 
+msgid "⚠️ Alerta de Segurança: Foram detectados potenciais segredos/chaves de API no diff staged!"
+msgstr "⚠️ セキュリティ警告: ステージされた diff 内に潜在的なシークレットまたは API キーが検出されました！"
+
+# 
+msgid "Erro ao gerar commit: {}"
+msgstr "コミットの生成エラー: {}"
+
+# 
+msgid "Nenhuma mensagem para copiar."
+msgstr "コピーするメッセージがありません。"
+
+# 
+msgid "Mensagem copiada para a área de transferência!"
+msgstr "メッセージをクリップボードにコピーしました！"
+
+# 
+msgid "Por favor, insira uma mensagem de commit."
+msgstr "コミットメッセージを入力してください。"
+
+# 
+msgid "✅ Commit realizado com sucesso!"
+msgstr "✅ コミットが正常に完了しました！"
+
+# 
+msgid "Falha no commit: {}"
+msgstr "コミットに失敗しました: {}"
+
+# 
+msgid "O diretório atual não é um repositório Git."
+msgstr "現在のディレクトリは Git リポジトリではありません。"
+
+# 
+msgid "Nenhuma modificação detectada no repositório para gerar commit."
+msgstr "コミットを生成するための変更がリポジトリで検出されませんでした。"

@@ -183,11 +183,11 @@
 - [x] **Prioridade:** 🟡 Alta | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
 - [x] **Módulos Afetados:** `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`.
 
-### 🤖 3.5. Integrações Específicas com Git
-- [ ] **Descrição:** Assistente especializado em fluxos de trabalho com Git.
-- [ ] **Recursos:** Gerador de mensagens de commit baseadas no `git diff --staged` (padrão Conventional Commits), detecção de segredos esquecidos antes do commit, explicação e resolução guiada de conflitos de merge.
-- [ ] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/agent/tools/`.
+### 🤖 3.5. Integrações Específicas com Git (Assistente de Commit & Auditoria de Segredos)
+- [x] **Descrição:** Assistente especializado em fluxos de trabalho com Git.
+- [x] **Recursos:** Gerador de mensagens de commit inteligentes no padrão **Conventional Commits** (`feat:`, `fix:`, `refactor:`, `docs:`, etc.) baseadas no `git diff --cached` / staged, auditoria e detecção proativa de segredos/chaves de API pré-commit, interface gráfica modal Libadwaita (`GitCommitDialog`), opções de estilo (Conventional, Resumido, Detalhado), botões de estagiar/desestagiar tudo e integração com a Command Palette (<kbd>Ctrl + Shift + P</kbd>).
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/utils/git_utils.py`, `src/onyxsh/terminal/git_assistant.py`, `src/onyxsh/ui/dialogs/git_commit_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_git_assistant.py`.
 
 ### 🔌 3.6. API de Extensibilidade e Plugins ("Zash Bridge")
 - [ ] **Descrição:** Framework de extensões em Python que permite à comunidade criar plugins modulares.

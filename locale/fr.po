@@ -10607,3 +10607,115 @@ msgstr "Mode Strictement Hors Ligne actif : les connexions aux fournisseurs de c
 # 
 msgid "Privacidade e Modo Offline"
 msgstr "Confidentialité et Mode Hors Ligne"
+
+# 
+msgid "Assistente Git — Conventional Commits"
+msgstr "Assistant Git — Conventional Commits"
+
+# 
+msgid "Git: Gerar Mensagem de Commit Inteligente (AI)"
+msgstr "Git : Générer un message de commit intelligent (IA)"
+
+# 
+msgid "Status dos Arquivos Modificados"
+msgstr "État des fichiers modifiés"
+
+# 
+msgid "Carregando status do repositório..."
+msgstr "Chargement de l'état du dépôt..."
+
+# 
+msgid "Estagiar Tudo (+)"
+msgstr "Tout indexer (+)"
+
+# 
+msgid "Desestagiar Tudo (-)"
+msgstr "Tout désindexer (-)"
+
+# 
+msgid "Formato:"
+msgstr "Format :"
+
+# 
+msgid "Conventional Commits (Padrão)"
+msgstr "Conventional Commits (Par défaut)"
+
+# 
+msgid "Resumido (1 Linha)"
+msgstr "Résumé (1 ligne)"
+
+# 
+msgid "Detalhado (Com Tópicos e Escopo)"
+msgstr "Détaillé (Avec puces et portée)"
+
+# 
+msgid "✨ Gerar Mensagem com IA"
+msgstr "✨ Générer le message avec l'IA"
+
+# 
+msgid "Gerando..."
+msgstr "Génération en cours..."
+
+# 
+msgid "Mensagem de Commit (Editável):"
+msgstr "Message de commit (Modifiable) :"
+
+# 
+msgid "Atualizar Status"
+msgstr "Actualiser l'état"
+
+# 
+msgid "Copiar Mensagem"
+msgstr "Copier le message"
+
+# 
+msgid "🚀 Commitar Agora"
+msgstr "🚀 Commiter maintenant"
+
+# 
+msgid "Não é um repositório Git válido."
+msgstr "Ce n'est pas un dépôt Git valide."
+
+# 
+msgid "{staged} arquivos estagiados | {unstaged} modificados não-estagiados"
+msgstr "{staged} fichiers indexés | {unstaged} modifiés non indexés"
+
+# 
+msgid "Nenhum arquivo estagiado no momento."
+msgstr "Aucun fichier indexé actuellement."
+
+# 
+msgid "⚠️ Alerta de Segurança: Foram detectados potenciais segredos/chaves de API no diff staged!"
+msgstr "⚠️ Alerte de sécurité : Secrets ou clés API potentiels détectés dans le diff indexé !"
+
+# 
+msgid "Erro ao gerar commit: {}"
+msgstr "Erreur lors de la génération du commit : {}"
+
+# 
+msgid "Nenhuma mensagem para copiar."
+msgstr "Aucun message à copier."
+
+# 
+msgid "Mensagem copiada para a área de transferência!"
+msgstr "Message copié dans le presse-papiers !"
+
+# 
+msgid "Por favor, insira uma mensagem de commit."
+msgstr "Veuillez saisir un message de commit."
+
+# 
+msgid "✅ Commit realizado com sucesso!"
+msgstr "✅ Commit effectué avec succès !"
+
+# 
+msgid "Falha no commit: {}"
+msgstr "Échec du commit : {}"
+
+# 
+msgid "O diretório atual não é um repositório Git."
+msgstr "Le répertoire actuel n'est pas un dépôt Git."
+
+# 
+msgid "Nenhuma modificação detectada no repositório para gerar commit."
+msgstr "Aucune modification détectée dans le dépôt pour générer un commit."

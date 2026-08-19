@@ -506,6 +506,16 @@ class CommandPaletteDialog(BaseDialog):
                 keywords=["ia", "ai", "offline", "privacidade", "local", "ollama", "nuvem", "bloquear"],
             )
         )
+        self._items.append(
+            CommandPaletteItem(
+                "git-ai-commit",
+                _("Git: Gerar Mensagem de Commit Inteligente (AI)"),
+                _("Assistente de IA"),
+                "vcs-branch-symbolic",
+                action_name="git-ai-commit",
+                keywords=["git", "commit", "conventional", "ia", "ai", "mensagem", "diff", "staged"],
+            )
+        )
 
         # 5. Sessions & Management
         self._items.append(

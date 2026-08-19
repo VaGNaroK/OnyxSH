@@ -10574,3 +10574,115 @@ msgstr "Активен строго автономный режим: подкл�
 # 
 msgid "Privacidade e Modo Offline"
 msgstr "Конфиденциальность и автономный режим"
+
+# 
+msgid "Assistente Git — Conventional Commits"
+msgstr "Git-ассистент — Conventional Commits"
+
+# 
+msgid "Git: Gerar Mensagem de Commit Inteligente (AI)"
+msgstr "Git: Создать умное сообщение коммита (ИИ)"
+
+# 
+msgid "Status dos Arquivos Modificados"
+msgstr "Статус измененных файлов"
+
+# 
+msgid "Carregando status do repositório..."
+msgstr "Загрузка статуса репозитория..."
+
+# 
+msgid "Estagiar Tudo (+)"
+msgstr "Индексировать все (+)"
+
+# 
+msgid "Desestagiar Tudo (-)"
+msgstr "Отменить индексацию всех (-)"
+
+# 
+msgid "Formato:"
+msgstr "Формат:"
+
+# 
+msgid "Conventional Commits (Padrão)"
+msgstr "Conventional Commits (по умолчанию)"
+
+# 
+msgid "Resumido (1 Linha)"
+msgstr "Кратко (1 строка)"
+
+# 
+msgid "Detalhado (Com Tópicos e Escopo)"
+msgstr "Подробно (с пунктами и областью)"
+
+# 
+msgid "✨ Gerar Mensagem com IA"
+msgstr "✨ Создать сообщение с помощью ИИ"
+
+# 
+msgid "Gerando..."
+msgstr "Генерация..."
+
+# 
+msgid "Mensagem de Commit (Editável):"
+msgstr "Сообщение коммита (редактируемое):"
+
+# 
+msgid "Atualizar Status"
+msgstr "Обновить статус"
+
+# 
+msgid "Copiar Mensagem"
+msgstr "Копировать сообщение"
+
+# 
+msgid "🚀 Commitar Agora"
+msgstr "🚀 Закоммитить сейчас"
+
+# 
+msgid "Não é um repositório Git válido."
+msgstr "Не является действительным репозиторием Git."
+
+# 
+msgid "{staged} arquivos estagiados | {unstaged} modificados não-estagiados"
+msgstr "{staged} индексированных файлов | {unstaged} неиндексированных изменений"
+
+# 
+msgid "Nenhum arquivo estagiado no momento."
+msgstr "В настоящее время нет индексированных файлов."
+
+# 
+msgid "⚠️ Alerta de Segurança: Foram detectados potenciais segredos/chaves de API no diff staged!"
+msgstr "⚠️ Предупреждение безопасности: В индексированном diff обнаружены возможные секреты или API-ключи!"
+
+# 
+msgid "Erro ao gerar commit: {}"
+msgstr "Ошибка при создании коммита: {}"
+
+# 
+msgid "Nenhuma mensagem para copiar."
+msgstr "Нет сообщения для копирования."
+
+# 
+msgid "Mensagem copiada para a área de transferência!"
+msgstr "Сообщение скопировано в буфер обмена!"
+
+# 
+msgid "Por favor, insira uma mensagem de commit."
+msgstr "Пожалуйста, введите сообщение коммита."
+
+# 
+msgid "✅ Commit realizado com sucesso!"
+msgstr "✅ Коммит успешно выполнен!"
+
+# 
+msgid "Falha no commit: {}"
+msgstr "Ошибка коммита: {}"
+
+# 
+msgid "O diretório atual não é um repositório Git."
+msgstr "Текущий каталог не является репозиторием Git."
+
+# 
+msgid "Nenhuma modificação detectada no repositório para gerar commit."
+msgstr "В репозитории не обнаружено изменений для создания коммита."

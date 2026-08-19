@@ -10896,3 +10896,115 @@ msgstr "Modo Estritamente Offline ativo: conexões com provedores de nuvem estã
 # 
 msgid "Privacidade e Modo Offline"
 msgstr "Privacidade e Modo Offline"
+
+# 
+msgid "Assistente Git — Conventional Commits"
+msgstr "Assistente Git — Conventional Commits"
+
+# 
+msgid "Git: Gerar Mensagem de Commit Inteligente (AI)"
+msgstr "Git: Gerar Mensagem de Commit Inteligente (AI)"
+
+# 
+msgid "Status dos Arquivos Modificados"
+msgstr "Status dos Arquivos Modificados"
+
+# 
+msgid "Carregando status do repositório..."
+msgstr "Carregando status do repositório..."
+
+# 
+msgid "Estagiar Tudo (+)"
+msgstr "Estagiar Tudo (+)"
+
+# 
+msgid "Desestagiar Tudo (-)"
+msgstr "Desestagiar Tudo (-)"
+
+# 
+msgid "Formato:"
+msgstr "Formato:"
+
+# 
+msgid "Conventional Commits (Padrão)"
+msgstr "Conventional Commits (Padrão)"
+
+# 
+msgid "Resumido (1 Linha)"
+msgstr "Resumido (1 Linha)"
+
+# 
+msgid "Detalhado (Com Tópicos e Escopo)"
+msgstr "Detalhado (Com Tópicos e Escopo)"
+
+# 
+msgid "✨ Gerar Mensagem com IA"
+msgstr "✨ Gerar Mensagem com IA"
+
+# 
+msgid "Gerando..."
+msgstr "Gerando..."
+
+# 
+msgid "Mensagem de Commit (Editável):"
+msgstr "Mensagem de Commit (Editável):"
+
+# 
+msgid "Atualizar Status"
+msgstr "Atualizar Status"
+
+# 
+msgid "Copiar Mensagem"
+msgstr "Copiar Mensagem"
+
+# 
+msgid "🚀 Commitar Agora"
+msgstr "🚀 Commitar Agora"
+
+# 
+msgid "Não é um repositório Git válido."
+msgstr "Não é um repositório Git válido."
+
+# 
+msgid "{staged} arquivos estagiados | {unstaged} modificados não-estagiados"
+msgstr "{staged} arquivos estagiados | {unstaged} modificados não-estagiados"
+
+# 
+msgid "Nenhum arquivo estagiado no momento."
+msgstr "Nenhum arquivo estagiado no momento."
+
+# 
+msgid "⚠️ Alerta de Segurança: Foram detectados potenciais segredos/chaves de API no diff staged!"
+msgstr "⚠️ Alerta de Segurança: Foram detectados potenciais segredos/chaves de API no diff staged!"
+
+# 
+msgid "Erro ao gerar commit: {}"
+msgstr "Erro ao gerar commit: {}"
+
+# 
+msgid "Nenhuma mensagem para copiar."
+msgstr "Nenhuma mensagem para copiar."
+
+# 
+msgid "Mensagem copiada para a área de transferência!"
+msgstr "Mensagem copiada para a área de transferência!"
+
+# 
+msgid "Por favor, insira uma mensagem de commit."
+msgstr "Por favor, insira uma mensagem de commit."
+
+# 
+msgid "✅ Commit realizado com sucesso!"
+msgstr "✅ Commit realizado com sucesso!"
+
+# 
+msgid "Falha no commit: {}"
+msgstr "Falha no commit: {}"
+
+# 
+msgid "O diretório atual não é um repositório Git."
+msgstr "O diretório atual não é um repositório Git."
+
+# 
+msgid "Nenhuma modificação detectada no repositório para gerar commit."
+msgstr "Nenhuma modificação detectada no repositório para gerar commit."

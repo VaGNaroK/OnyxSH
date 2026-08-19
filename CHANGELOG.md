@@ -9,6 +9,24 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.10.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Assistente Integrado de Git (Conventional Commits e Auditoria de Segredos Pré-Commit)**: Ferramenta gráfica e orientada por IA para inspeção de repositórios, auditoria de credenciais no diff e geração automatizada de mensagens de commit padronizadas (`src/onyxsh/utils/git_utils.py`, `src/onyxsh/terminal/git_assistant.py`, `src/onyxsh/ui/dialogs/git_commit_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`):
+  - 🤖 **Geração Inteligente no Padrão Conventional Commits**:
+    - Análise profunda do `git diff --cached` (staged) ou `git diff` (modificações ativas) com identificação precisa do escopo (`feat`, `fix`, `docs`, `refactor`, `perf`, `test`, `chore`, etc.).
+    - Suporte a múltiplos formatos (Conventional Commits Padrão, Resumido em 1 Linha, ou Detalhado com tópicos e escopo).
+    - Opção de geração em Português (pt-BR) ou Inglês (en-US).
+  - 🛡️ **Auditor de Segredos Pré-Commit (Secret Leak Guard)**:
+    - Varredura em tempo real das linhas adicionadas no diff (`+`) contra padrões conhecidos de credenciais (chaves AWS `AKIA...`, OpenAI `sk-...`, Groq `gsk_...`, GitHub PATs `ghp_...`, blocos de chaves privadas SSH/PGP, senhas em atribuições e strings de conexão de bancos de dados).
+    - Exibição de banner de alerta de segurança em destaque com lista dos tipos e arquivos afetados antes de efetivar o commit.
+    - Sanitização e mascaramento automático antes do envio de diffs ao modelo de IA.
+  - 🎛️ **Diálogo Modal Moderno Libadwaita (`GitCommitDialog`)**:
+    - Exibição do repositório ativo e badge estilizado de branch (`🌿 main`).
+    - Resumo de status com contagem de arquivos estagiados e modificados.
+    - Ações rápidas de conveniência: *Estagiar Tudo (`git add -A`)* e *Desestagiar Tudo (`git reset HEAD`)* com 1 clique.
+    - Editor com monospace e quebra automática para ajuste fino da mensagem gerada antes do commit.
+    - Botão primário **🚀 Commitar Agora** para execução direta do commit no repositório.
+    - Botão **Copiar Mensagem** para a área de transferência.
+  - ⌨️ **Integração com Command Palette**: Nova ação *"Git: Gerar Mensagem de Commit Inteligente (AI)"* acessível via <kbd>Ctrl + Shift + P</kbd>.
+  - 🧪 **Testes Automatizados & Internacionalização**: Nova suíte de testes unitários em `tests/test_git_assistant.py` e 784 novas traduções sincronizadas em todos os 28 idiomas.
 - **Modo Estritamente Offline / Local-Only de IA (Privacy Guard)**: Sistema abrangente de privacidade e segurança que restringe 100% das consultas de IA ao hardware local, bloqueando qualquer transmissão de dados para a nuvem (`src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`):
   - 🛡️ **Badge Interativo no Cabeçalho do Chat (`AIChatPanel`)**:
     - Indicador de status dinâmico na barra superior do chat com ícone e cores temáticas (`🛡️ Offline (Local)` em verde/azul vs `🌐 Nuvem (Online)`).
@@ -77,6 +95,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - 📝 **Atualização do `README.md` e `README.en.md`**: Atualização do catálogo de recursos, atalhos (<kbd>Ctrl + H</kbd>) e inclusão de links diretos para o manual.
 
 ### Corrigido
+- **Construção do Diálogo do Assistente Git (`GitCommitDialog`)**: Corrigido crash (`Adwaita-ERROR: gtk_window_set_child() is not supported for AdwWindow`) substituindo a chamada genérica de container GTK por `self.set_body_content(main_box)` nativa do `BaseDialog` Libadwaita.
 - **Inicialização do Painel de IA (`AIChatPanel`) e Atalho `<Ctrl>+<Shift>+I`**: Corrigida falha silenciosa (`AttributeError: 'SettingsManager' object has no attribute 'connect'`) ao abrir o painel de chat de IA pela primeira vez, substituindo o método incorreto de conexão pelo listener nativo do `SettingsManager` (`add_change_listener`) com atualização assíncrona na thread principal via `GLib.idle_add`.
 - **Interceptação do Production Guard no Assistente de IA e Paleta**: Corrigido vazamento de execução direta onde comandos disparados via botão de Play/Executar do chat de IA, Command Palette ou histórico executavam comandos destrutivos (`rm -rf`, etc.) no terminal sem disparar o diálogo de dupla confirmação em abas de produção. Centralizado o fluxo de injeção em `TerminalManager.safe_feed_command` com suporte a scripts multilinhas e subcomandos encadeados (`&&`, `||`, `;`, `|`).
 
