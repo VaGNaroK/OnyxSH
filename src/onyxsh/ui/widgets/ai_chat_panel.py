@@ -1547,7 +1547,6 @@ class AIChatPanel(Gtk.Box):
         export_btn.set_popover(export_popover)
         header.pack_start(export_btn)
 
-
         # Close button (uses bundled icon)
         close_btn = Gtk.Button()
         close_btn.set_child(icon_image("window-close-symbolic"))
@@ -1555,6 +1554,13 @@ class AIChatPanel(Gtk.Box):
         close_btn.connect("clicked", lambda b: self.emit("close-requested"))
         self._add_tooltip(close_btn, _("Close panel"))
         header.pack_end(close_btn)
+
+        # Offline Mode Toggle Button / Badge
+        self._offline_btn = Gtk.Button()
+        self._offline_btn.add_css_class("flat")
+        self._offline_btn.connect("clicked", self._on_toggle_offline_mode)
+        self._update_offline_badge_ui()
+        header.pack_end(self._offline_btn)
 
         self.append(header)
 
@@ -1725,7 +1731,7 @@ class AIChatPanel(Gtk.Box):
             self._quick_prompts_box.append(btn)
 
     def _connect_signals(self):
-        """Connect to AI assistant signals and theme changes."""
+        """Connect to AI assistant signals, theme changes, and settings."""
         self._ai_assistant.connect("streaming-chunk", self._on_streaming_chunk)
         self._ai_assistant.connect("response-ready", self._on_response_ready)
         self._ai_assistant.connect("error", self._on_error)
@@ -1733,6 +1739,72 @@ class AIChatPanel(Gtk.Box):
         # Listen for theme changes to update styles
         style_manager = Adw.StyleManager.get_default()
         style_manager.connect("notify::dark", self._on_theme_changed)
+
+        if self._settings_manager and hasattr(self._settings_manager, "add_change_listener"):
+            self._settings_manager.add_change_listener(self._on_setting_changed)
+
+    def _on_setting_changed(self, key: str, _old_value: Any, _new_value: Any) -> None:
+        """Handle settings changes dynamically."""
+        if key == "ai_assistant_offline_mode":
+            GLib.idle_add(self._update_offline_badge_ui)
+
+    def _update_offline_badge_ui(self) -> None:
+        """Updates the visual state of the Offline Mode badge in the header bar."""
+        if not hasattr(self, "_offline_btn") or not self._offline_btn:
+            return
+
+        is_offline = (
+            self._ai_assistant.is_offline_mode()
+            if hasattr(self._ai_assistant, "is_offline_mode")
+            else False
+        )
+
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        if is_offline:
+            icon = Gtk.Image.new_from_icon_name("security-high-symbolic")
+            icon.add_css_class("success")
+            label = Gtk.Label(label=_("Offline (Local)"))
+            label.add_css_class("caption")
+            label.add_css_class("success")
+            box.append(icon)
+            box.append(label)
+            self._offline_btn.set_child(box)
+            self._offline_btn.remove_css_class("dim-label")
+            self._add_tooltip(
+                self._offline_btn,
+                _(
+                    "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\n"
+                    "Todo o processamento ocorre localmente no Ollama/LM Studio.\n"
+                    "Clique para alternar."
+                ),
+            )
+        else:
+            icon = Gtk.Image.new_from_icon_name("network-wireless-symbolic")
+            icon.add_css_class("dim-label")
+            label = Gtk.Label(label=_("Nuvem (Online)"))
+            label.add_css_class("caption")
+            label.add_css_class("dim-label")
+            box.append(icon)
+            box.append(label)
+            self._offline_btn.set_child(box)
+            self._offline_btn.add_css_class("dim-label")
+            self._add_tooltip(
+                self._offline_btn,
+                _(
+                    "🌐 Modo Nuvem Ativo.\n"
+                    "Clique para ativar o Modo Estritamente Offline (Local-Only)."
+                ),
+            )
+
+    def _on_toggle_offline_mode(self, _button: Gtk.Button) -> None:
+        """Toggle AI offline mode on/off."""
+        if hasattr(self._ai_assistant, "is_offline_mode") and hasattr(
+            self._ai_assistant, "set_offline_mode"
+        ):
+            current = self._ai_assistant.is_offline_mode()
+            new_state = not current
+            self._ai_assistant.set_offline_mode(new_state)
+            self._update_offline_badge_ui()
 
     def _on_theme_changed(self, style_manager, param):
         """Handle theme change (light/dark) to update styles."""

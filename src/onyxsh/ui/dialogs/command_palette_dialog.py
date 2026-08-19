@@ -496,6 +496,16 @@ class CommandPaletteDialog(BaseDialog):
                 keywords=["auditoria", "log", "rollback", "historico", "agente"],
             )
         )
+        self._items.append(
+            CommandPaletteItem(
+                "toggle-ai-offline-mode",
+                _("Alternar Modo Estritamente Offline de IA (Local-Only)"),
+                _("Assistente de IA"),
+                "security-high-symbolic",
+                callback=self._toggle_ai_offline_mode,
+                keywords=["ia", "ai", "offline", "privacidade", "local", "ollama", "nuvem", "bloquear"],
+            )
+        )
 
         # 5. Sessions & Management
         self._items.append(
@@ -1017,3 +1027,19 @@ class CommandPaletteDialog(BaseDialog):
 
         dialog = AuditLogDialog(self.parent_window)
         dialog.present()
+
+    def _toggle_ai_offline_mode(self) -> None:
+        """Helper to toggle AI strictly offline mode."""
+        if hasattr(self.parent_window, "ai_assistant") and self.parent_window.ai_assistant:
+            current = self.parent_window.ai_assistant.is_offline_mode()
+            self.parent_window.ai_assistant.set_offline_mode(not current)
+            msg = (
+                _("Modo Estritamente Offline Ativado (Zero Cloud)")
+                if not current
+                else _("Modo Estritamente Offline Desativado")
+            )
+            if hasattr(self.parent_window, "toast_overlay") and self.parent_window.toast_overlay:
+                self.parent_window.toast_overlay.add_toast(Adw.Toast(title=msg))
+        elif hasattr(self.parent_window, "settings_manager") and self.parent_window.settings_manager:
+            current = self.parent_window.settings_manager.get("ai_assistant_offline_mode", False)
+            self.parent_window.settings_manager.set("ai_assistant_offline_mode", not current)

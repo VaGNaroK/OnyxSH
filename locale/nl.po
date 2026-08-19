@@ -10541,3 +10541,51 @@ msgstr "Tunnel Type"
 # 
 msgid "Endpoints & Ports"
 msgstr "Endpoints & Ports"
+
+# 
+msgid "Privacidade & Modo Offline"
+msgstr "Privacy & Offline Mode"
+
+# 
+msgid "Modo Estritamente Offline (Local-Only)"
+msgstr "Strictly Offline Mode (Local-Only)"
+
+# 
+msgid "Bloqueia qualquer requisição externa (Gemini, Groq, OpenRouter) e restringe a IA a modelos locais no Ollama ou LM Studio."
+msgstr "Blocks all external requests (Gemini, Groq, OpenRouter) and restricts AI to local models in Ollama or LM Studio."
+
+# 
+msgid "Controle de conexão externa e isolamento de dados."
+msgstr "External connection control and data isolation."
+
+# 
+msgid "Offline (Local)"
+msgstr "Offline (Local)"
+
+# 
+msgid "Nuvem (Online)"
+msgstr "Cloud (Online)"
+
+# 
+msgid "🔒 Restrito ao provedor Local pelo Modo Estritamente Offline."
+msgstr "🔒 Restricted to Local provider by Strictly Offline Mode."
+
+# 
+msgid "Alternar Modo Estritamente Offline de IA (Local-Only)"
+msgstr "Toggle Strictly Offline AI Mode (Local-Only)"
+
+# 
+msgid "Modo Estritamente Offline Ativado (Zero Cloud)"
+msgstr "Strictly Offline Mode Activated (Zero Cloud)"
+
+# 
+msgid "Modo Estritamente Offline Desativado"
+msgstr "Strictly Offline Mode Deactivated"
+
+# 
+msgid "Modo Estritamente Offline ativo: conexões com provedores de nuvem estão bloqueadas."
+msgstr "Strictly Offline Mode active: connections to cloud providers are blocked."
+
+# 
+msgid "Privacidade e Modo Offline"
+msgstr "Privacy and Offline Mode"

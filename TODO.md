@@ -179,9 +179,9 @@
 - [ ] **Módulos Afetados:** `src/zashterminal/terminal/ai_assistant.py`, `src/zashterminal/settings/manager.py`.
 
 ### 🤖 3.4. Modo Estritamente Offline / Local-Only com Indicador Visual
-- [ ] **Descrição:** Chave global de privacidade que desativa qualquer saída para provedores externos de IA (Gemini, Groq, OpenRouter), forçando o uso exclusivo de modelos locais via Ollama/LocalAI e exibindo um selo visual `MODO OFFLINE ATIVO`.
-- [ ] **Prioridade:** 🟡 Alta | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/ui/dialogs/ai_config_dialog.py`, `src/zashterminal/terminal/ai_assistant.py`.
+- [x] **Descrição:** Chave global de privacidade que desativa qualquer saída para provedores externos de IA (Gemini, Groq, OpenRouter), forçando o uso exclusivo de modelos locais via Ollama/LocalAI e exibindo um selo visual interativo `🛡️ Offline (Local)` no cabeçalho do chat, no diálogo de configurações e na Command Palette.
+- [x] **Prioridade:** 🟡 Alta | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`.
 
 ### 🤖 3.5. Integrações Específicas com Git
 - [ ] **Descrição:** Assistente especializado em fluxos de trabalho com Git.

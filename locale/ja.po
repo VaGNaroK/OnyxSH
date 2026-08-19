@@ -10490,3 +10490,51 @@ msgstr "トンネルの種類"
 # 
 msgid "Endpoints & Ports"
 msgstr "エンドポイントとポート"
+
+# 
+msgid "Privacidade & Modo Offline"
+msgstr "プライバシーとオフラインモード"
+
+# 
+msgid "Modo Estritamente Offline (Local-Only)"
+msgstr "完全オフラインモード（ローカル限定）"
+
+# 
+msgid "Bloqueia qualquer requisição externa (Gemini, Groq, OpenRouter) e restringe a IA a modelos locais no Ollama ou LM Studio."
+msgstr "すべての外部リクエスト（Gemini、Groq、OpenRouter）をブロックし、AI を Ollama または LM Studio のローカルモデルに制限します。"
+
+# 
+msgid "Controle de conexão externa e isolamento de dados."
+msgstr "外部接続制御とデータの完全分離。"
+
+# 
+msgid "Offline (Local)"
+msgstr "オフライン（ローカル）"
+
+# 
+msgid "Nuvem (Online)"
+msgstr "クラウド（オンライン）"
+
+# 
+msgid "🔒 Restrito ao provedor Local pelo Modo Estritamente Offline."
+msgstr "🔒 完全オフラインモードによりローカルプロバイダーに制限されています。"
+
+# 
+msgid "Alternar Modo Estritamente Offline de IA (Local-Only)"
+msgstr "完全オフライン AI モードの切り替え（ローカル限定）"
+
+# 
+msgid "Modo Estritamente Offline Ativado (Zero Cloud)"
+msgstr "完全オフラインモード有効（ゼロクラウド）"
+
+# 
+msgid "Modo Estritamente Offline Desativado"
+msgstr "完全オフラインモード無効"
+
+# 
+msgid "Modo Estritamente Offline ativo: conexões com provedores de nuvem estão bloqueadas."
+msgstr "完全オフラインモードが有効です: クラウドプロバイダーへの接続はブロックされています。"
+
+# 
+msgid "Privacidade e Modo Offline"
+msgstr "プライバシーとオフラインモード"

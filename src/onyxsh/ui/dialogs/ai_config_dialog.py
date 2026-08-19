@@ -82,6 +82,25 @@ class AIConfigDialog(Adw.PreferencesWindow):
         self.enable_switch.connect("notify::active", self._on_enable_changed)
         enable_group.add(self.enable_switch)
 
+        # Privacy & Offline Mode Group
+        privacy_group = Adw.PreferencesGroup(
+            title=_("Privacidade e Modo Offline"),
+            description=_("Controle de conexão externa e isolamento de dados."),
+        )
+        page.add(privacy_group)
+
+        self.offline_switch = Adw.SwitchRow(
+            title=_("Modo Estritamente Offline (Local-Only)"),
+            subtitle=_(
+                "Bloqueia qualquer requisição externa (Gemini, Groq, OpenRouter) e restringe a IA a modelos locais no Ollama ou LM Studio."
+            ),
+        )
+        self.offline_switch.set_active(
+            self.settings_manager.get("ai_assistant_offline_mode", False)
+        )
+        self.offline_switch.connect("notify::active", self._on_offline_changed)
+        privacy_group.add(self.offline_switch)
+
         # Provider selection group
         provider_group = Adw.PreferencesGroup()
         page.add(provider_group)
@@ -366,23 +385,35 @@ class AIConfigDialog(Adw.PreferencesWindow):
         return "groq"
 
     def _update_ui_for_provider(self, provider_id: str) -> None:
-        """Update UI elements based on the selected provider."""
+        """Update UI elements based on the selected provider and offline mode."""
+        is_offline = self.settings_manager.get("ai_assistant_offline_mode", False)
         is_local = provider_id == "local"
         is_openrouter = provider_id == "openrouter"
+
+        # If offline mode is active, provider is strictly local and combo is restricted
+        if is_offline:
+            self.provider_row.set_subtitle(
+                _("🔒 Restrito ao provedor Local pelo Modo Estritamente Offline.")
+            )
+            self.provider_row.set_sensitive(False)
+            self.api_key_row.set_sensitive(False)
+        else:
+            self.provider_row.set_subtitle(
+                _("Choose between cloud providers or local models.")
+            )
+            self.provider_row.set_sensitive(True)
+            self.api_key_row.set_sensitive(not is_local or False)
 
         # Show/hide base URL and VRAM switches for local provider
         self.base_url_row.set_visible(is_local)
         self.preload_switch.set_visible(is_local)
         self.unload_switch.set_visible(is_local)
 
-        # Show/hide API key (local may not need it)
-        self.api_key_row.set_sensitive(not is_local or False)  # Local may or may not need API key
-
         # Show/hide browse models button (only for OpenRouter)
-        self.browse_models_row.set_visible(is_openrouter)
+        self.browse_models_row.set_visible(is_openrouter and not is_offline)
 
         # Show/hide OpenRouter-specific settings
-        self.openrouter_group.set_visible(is_openrouter)
+        self.openrouter_group.set_visible(is_openrouter and not is_offline)
 
         # Update model placeholder
         default_model = self.DEFAULT_MODELS.get(provider_id, "")
@@ -403,6 +434,19 @@ class AIConfigDialog(Adw.PreferencesWindow):
         elif provider_id == "local":
             self.model_row.set_title(_("Model Name"))
             self.api_key_row.set_title(_("API Key (if required)"))
+
+    def _on_offline_changed(self, switch_row: Adw.SwitchRow, _param) -> None:
+        """Handle offline mode toggle."""
+        val = switch_row.get_active()
+        self.settings_manager.set("ai_assistant_offline_mode", val)
+        self.emit("setting-changed", "ai_assistant_offline_mode", val)
+        if val:
+            # Switch provider combo to local if current is cloud
+            current_provider = self.settings_manager.get("ai_assistant_provider", "groq")
+            if current_provider != "local":
+                local_idx = self._get_provider_index("local")
+                self.provider_row.set_selected(local_idx)
+        self._update_ui_for_provider(self._get_selected_provider_id())
 
     def _on_provider_changed(self, combo_row, _param) -> None:
         """Handle provider selection change."""

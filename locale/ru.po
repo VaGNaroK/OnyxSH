@@ -10526,3 +10526,51 @@ msgstr "Тип туннеля"
 # 
 msgid "Endpoints & Ports"
 msgstr "Конечные точки и порты"
+
+# 
+msgid "Privacidade & Modo Offline"
+msgstr "Конфиденциальность и автономный режим"
+
+# 
+msgid "Modo Estritamente Offline (Local-Only)"
+msgstr "Строго автономный режим (только локально)"
+
+# 
+msgid "Bloqueia qualquer requisição externa (Gemini, Groq, OpenRouter) e restringe a IA a modelos locais no Ollama ou LM Studio."
+msgstr "Блокирует все внешние запросы (Gemini, Groq, OpenRouter) и ограничивает ИИ локальными моделями в Ollama или LM Studio."
+
+# 
+msgid "Controle de conexão externa e isolamento de dados."
+msgstr "Контроль внешних подключений и изоляция данных."
+
+# 
+msgid "Offline (Local)"
+msgstr "Автономно (локально)"
+
+# 
+msgid "Nuvem (Online)"
+msgstr "Облако (онлайн)"
+
+# 
+msgid "🔒 Restrito ao provedor Local pelo Modo Estritamente Offline."
+msgstr "🔒 Ограничено локальным провайдером из-за строго автономного режима."
+
+# 
+msgid "Alternar Modo Estritamente Offline de IA (Local-Only)"
+msgstr "Переключить строго автономный режим ИИ (только локально)"
+
+# 
+msgid "Modo Estritamente Offline Ativado (Zero Cloud)"
+msgstr "Строго автономный режим включен (ноль облака)"
+
+# 
+msgid "Modo Estritamente Offline Desativado"
+msgstr "Строго автономный режим отключен"
+
+# 
+msgid "Modo Estritamente Offline ativo: conexões com provedores de nuvem estão bloqueadas."
+msgstr "Активен строго автономный режим: подключения к облачным провайдерам заблокированы."
+
+# 
+msgid "Privacidade e Modo Offline"
+msgstr "Конфиденциальность и автономный режим"

@@ -319,6 +319,7 @@ class DefaultSettings:
             "tftp_server_download_dir": str(Path.home()),
             # AI Assistant & Secure Agent
             "ai_assistant_enabled": False,
+            "ai_assistant_offline_mode": False,
             "ai_assistant_provider": "groq",
             "ai_assistant_model": "llama-3.1-8b-instant",
             "ai_assistant_api_key": "",

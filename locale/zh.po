@@ -10485,3 +10485,51 @@ msgstr "隧道类型"
 # 
 msgid "Endpoints & Ports"
 msgstr "端点与端口"
+
+# 
+msgid "Privacidade & Modo Offline"
+msgstr "隐私与离线模式"
+
+# 
+msgid "Modo Estritamente Offline (Local-Only)"
+msgstr "严格离线模式（仅本地）"
+
+# 
+msgid "Bloqueia qualquer requisição externa (Gemini, Groq, OpenRouter) e restringe a IA a modelos locais no Ollama ou LM Studio."
+msgstr "阻止所有外部请求（Gemini、Groq、OpenRouter），并将 AI 限制为 Ollama 或 LM Studio 中的本地模型。"
+
+# 
+msgid "Controle de conexão externa e isolamento de dados."
+msgstr "外部连接控制与数据隔离。"
+
+# 
+msgid "Offline (Local)"
+msgstr "离线（本地）"
+
+# 
+msgid "Nuvem (Online)"
+msgstr "云端（在线）"
+
+# 
+msgid "🔒 Restrito ao provedor Local pelo Modo Estritamente Offline."
+msgstr "🔒 受严格离线模式限制，仅允许本地提供商。"
+
+# 
+msgid "Alternar Modo Estritamente Offline de IA (Local-Only)"
+msgstr "切换严格离线 AI 模式（仅本地）"
+
+# 
+msgid "Modo Estritamente Offline Ativado (Zero Cloud)"
+msgstr "严格离线模式已激活（零云端）"
+
+# 
+msgid "Modo Estritamente Offline Desativado"
+msgstr "严格离线模式已停用"
+
+# 
+msgid "Modo Estritamente Offline ativo: conexões com provedores de nuvem estão bloqueadas."
+msgstr "严格离线模式处于活动状态：与云提供商的连接已被阻止。"
+
+# 
+msgid "Privacidade e Modo Offline"
+msgstr "隐私与离线模式"

@@ -175,9 +175,19 @@ class TerminalAiAssistant(GObject.Object):
     def is_enabled(self) -> bool:
         return self.settings_manager.get("ai_assistant_enabled", False)
 
+    def is_offline_mode(self) -> bool:
+        """Returns whether strictly offline local-only mode is active."""
+        return bool(self.settings_manager.get("ai_assistant_offline_mode", False))
+
+    def set_offline_mode(self, enabled: bool) -> None:
+        """Enables or disables strictly offline local-only mode."""
+        self.settings_manager.set("ai_assistant_offline_mode", bool(enabled))
+
     def missing_configuration(self) -> List[str]:
         missing = []
         provider = self.settings_manager.get("ai_assistant_provider", "").strip()
+        if self.is_offline_mode():
+            provider = "local"
         api_key = self.settings_manager.get("ai_assistant_api_key", "").strip()
         if not provider:
             missing.append("provider")
@@ -465,9 +475,20 @@ class TerminalAiAssistant(GObject.Object):
         config["local_base_url"] = self.settings_manager.get(
             "ai_local_base_url", "http://localhost:11434/v1"
         ).strip()
+
+        if self.is_offline_mode():
+            # Strictly enforce local offline mode
+            config["provider"] = "local"
+            if not config["model"] or config["model"] in {
+                self.DEFAULT_GROQ_MODEL,
+                self.DEFAULT_GEMINI_MODEL,
+                self.DEFAULT_OPENROUTER_MODEL,
+            }:
+                config["model"] = self.DEFAULT_LOCAL_MODEL
+
         if not config["provider"]:
             raise RuntimeError(
-                "Select a provider in Preferences > Terminal > AI Assistant."
+                _("Select a provider in Preferences > Terminal > AI Assistant.")
             )
         if config["provider"] == "groq" and not config["model"]:
             config["model"] = self.DEFAULT_GROQ_MODEL
@@ -483,6 +504,10 @@ class TerminalAiAssistant(GObject.Object):
         self, config: Dict[str, str], messages: List[Dict[str, str]]
     ) -> str:
         provider_name = config.get("provider", "gemini")
+        if self.is_offline_mode() and provider_name != "local":
+            raise RuntimeError(
+                _("Modo Estritamente Offline ativo: conexões com provedores de nuvem estão bloqueadas.")
+            )
         try:
             from ..agent.providers import get_provider
             provider = get_provider(provider_name, config)
@@ -504,6 +529,10 @@ class TerminalAiAssistant(GObject.Object):
     ) -> str:
         """Perform a streaming request, sending chunks via callback."""
         provider_name = config.get("provider", "gemini")
+        if self.is_offline_mode() and provider_name != "local":
+            raise RuntimeError(
+                _("Modo Estritamente Offline ativo: conexões com provedores de nuvem estão bloqueadas.")
+            )
         try:
             from ..agent.providers import get_provider
             provider = get_provider(provider_name, config)

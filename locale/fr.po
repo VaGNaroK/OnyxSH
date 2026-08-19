@@ -10559,3 +10559,51 @@ msgstr "Type de tunnel"
 # 
 msgid "Endpoints & Ports"
 msgstr "Points de terminaison et ports"
+
+# 
+msgid "Privacidade & Modo Offline"
+msgstr "Confidentialité et Mode Hors Ligne"
+
+# 
+msgid "Modo Estritamente Offline (Local-Only)"
+msgstr "Mode Strictement Hors Ligne (Local uniquement)"
+
+# 
+msgid "Bloqueia qualquer requisição externa (Gemini, Groq, OpenRouter) e restringe a IA a modelos locais no Ollama ou LM Studio."
+msgstr "Bloque toutes les requêtes externes (Gemini, Groq, OpenRouter) et restreint l'IA aux modèles locaux dans Ollama ou LM Studio."
+
+# 
+msgid "Controle de conexão externa e isolamento de dados."
+msgstr "Contrôle des connexions externes et isolation des données."
+
+# 
+msgid "Offline (Local)"
+msgstr "Hors ligne (Local)"
+
+# 
+msgid "Nuvem (Online)"
+msgstr "Cloud (En ligne)"
+
+# 
+msgid "🔒 Restrito ao provedor Local pelo Modo Estritamente Offline."
+msgstr "🔒 Limité au fournisseur local par le Mode Strictement Hors Ligne."
+
+# 
+msgid "Alternar Modo Estritamente Offline de IA (Local-Only)"
+msgstr "Basculer le Mode IA Strictement Hors Ligne (Local uniquement)"
+
+# 
+msgid "Modo Estritamente Offline Ativado (Zero Cloud)"
+msgstr "Mode Strictement Hors Ligne Activé (Zéro Cloud)"
+
+# 
+msgid "Modo Estritamente Offline Desativado"
+msgstr "Mode Strictement Hors Ligne Désactivé"
+
+# 
+msgid "Modo Estritamente Offline ativo: conexões com provedores de nuvem estão bloqueadas."
+msgstr "Mode Strictement Hors Ligne actif : les connexions aux fournisseurs de cloud sont bloquées."
+
+# 
+msgid "Privacidade e Modo Offline"
+msgstr "Confidentialité et Mode Hors Ligne"

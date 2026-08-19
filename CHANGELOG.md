@@ -9,6 +9,21 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.10.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Modo Estritamente Offline / Local-Only de IA (Privacy Guard)**: Sistema abrangente de privacidade e segurança que restringe 100% das consultas de IA ao hardware local, bloqueando qualquer transmissão de dados para a nuvem (`src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`):
+  - 🛡️ **Badge Interativo no Cabeçalho do Chat (`AIChatPanel`)**:
+    - Indicador de status dinâmico na barra superior do chat com ícone e cores temáticas (`🛡️ Offline (Local)` em verde/azul vs `🌐 Nuvem (Online)`).
+    - Alternância instantânea com 1 clique diretamente pelo cabeçalho sem necessidade de abrir janelas de configuração.
+  - 🔒 **Bloqueio Rígido no Backend de IA (`TerminalAiAssistant`)**:
+    - Forçamento estrito do provedor `local` (Ollama/LM Studio) e do modelo local padrão (`llama3.2`) quando o modo offline está ativado.
+    - Barreira de segurança em `_perform_request` e `_perform_streaming_request` que bloqueia qualquer tentativa de conexão externa com provedores remotos (Gemini, Groq, OpenRouter) lançando exceção segura.
+    - Flexibilização de `missing_configuration` em modo offline para dispensar chaves de API remotas, exigindo apenas a URL base local (`ai_local_base_url`).
+  - ⚙️ **Seção de Privacidade e Modo Offline no Diálogo de Configurações (`AIConfigDialog`)**:
+    - Novo grupo de configurações *Privacidade & Modo Offline* com switch `Adw.SwitchRow` e descrições detalhadas sobre isolamento de dados.
+    - Restrição e desativação automática da seleção de provedores de nuvem e campos de API keys quando o modo offline estiver ativo.
+  - ⌨️ **Integração com Command Palette (`CommandPaletteDialog`)**:
+    - Nova ação *"Alternar Modo Estritamente Offline de IA (Local-Only)"* acessível via <kbd>Ctrl + Shift + P</kbd> com notificação de toast na tela.
+  - 🧪 **Suíte de Testes Automatizados**: Novos testes unitários em `tests/test_ai_offline_mode.py` validando o bloqueio de requisições externas e integridade do modo local.
+  - 🌐 **Internacionalização (28 Idiomas)**: 308 novas traduções adicionadas e compiladas em todos os catálogos `.po`/`.mo`.
 - **Gerenciador Visual de Túneis SSH e Port Forwarding (Local, Remote e Dynamic SOCKS5)**: Interface gráfica dedicada e serviço autônomo em background para gerenciamento e monitoramento em tempo real de túneis SSH (`src/onyxsh/terminal/tunnel_manager.py`, `src/onyxsh/ui/dialogs/tunnel_manager_dialog.py`, `src/onyxsh/ui/dialogs/tunnel_edit_dialog.py`).
   - 🌐 **Suporte aos 3 Modos de Encaminhamento SSH**:
     - 🟢 **Local Port Forwarding (`-L`)**: Redirecionamento de portas locais para serviços e bancos de dados remotos através da conexão SSH.
@@ -62,6 +77,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - 📝 **Atualização do `README.md` e `README.en.md`**: Atualização do catálogo de recursos, atalhos (<kbd>Ctrl + H</kbd>) e inclusão de links diretos para o manual.
 
 ### Corrigido
+- **Inicialização do Painel de IA (`AIChatPanel`) e Atalho `<Ctrl>+<Shift>+I`**: Corrigida falha silenciosa (`AttributeError: 'SettingsManager' object has no attribute 'connect'`) ao abrir o painel de chat de IA pela primeira vez, substituindo o método incorreto de conexão pelo listener nativo do `SettingsManager` (`add_change_listener`) com atualização assíncrona na thread principal via `GLib.idle_add`.
 - **Interceptação do Production Guard no Assistente de IA e Paleta**: Corrigido vazamento de execução direta onde comandos disparados via botão de Play/Executar do chat de IA, Command Palette ou histórico executavam comandos destrutivos (`rm -rf`, etc.) no terminal sem disparar o diálogo de dupla confirmação em abas de produção. Centralizado o fluxo de injeção em `TerminalManager.safe_feed_command` com suporte a scripts multilinhas e subcomandos encadeados (`&&`, `||`, `;`, `|`).
 
 ## [0.9.0] - 2026-08-18
