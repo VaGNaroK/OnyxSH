@@ -27,13 +27,19 @@
 ## Why OnyxSH?
 
 - **Integrated & Privacy-First AI**: 1-click error diagnostics, multiple providers (Local Ollama, Gemini, Groq, OpenRouter), background VRAM preloading and auto-unload.
+- **Visual SSH Tunnel Manager & Port Forwarding**: Real-time management of Local (`-L`), Remote (`-R`), and Dynamic SOCKS5 (`-D`) SSH tunnels with 1-click activation switches.
+- **Production Guard Security Mode**: Persistent high-visibility banner, secret redaction, and automatic interception of destructive commands on production servers.
+- **Intelligent Autocomplete with Linux Specs**: Rich cursor-anchored completion with declarative specifications for 50+ Linux commands, SQLite history, and snippet templates.
 - **Semantic Shell Integration (OSC 133 / OSC 6)**: Tracks command lifecycle, measures execution time (`⏱ 1.4s`), enables quick prompt jumping (`Alt + Up` / `Alt + Down`), and surgical output extraction.
-- **Enriched SQLite History (`Ctrl + R`)**: Instant fuzzy search with contextual filters (current directory, remote host, ⭐ pinned favorites), execution counters, and prompt injection (`Tab`).
-- **Spotlight Command Palette (`Ctrl + Shift + P`)**: Fast keyboard-driven discovery and execution of all terminal actions, SSH sessions, tabs, and preferences.
+- **Enriched SQLite History (`Ctrl + H`)**: Instant fuzzy search with contextual filters (current directory, remote host, ⭐ pinned favorites), execution counters, clear options, and prompt injection (`Tab`).
+- **Spotlight Command Palette (`Ctrl + Shift + P`)**: Fast keyboard-driven discovery and execution of all terminal actions, SSH tunnels, sessions, tabs, and preferences.
+- **Multi-format Terminal Exporter**: Export terminal history or selections into `.txt`, `.log`, `.md`, `.html`, and `.cast` (Asciinema).
 - **Automatic Session Restoration**: Restores tabs, split layouts, `$PWD` working directories, and SSH sessions across app restarts.
 - **Complete Remote Workflow Management**: SSH/SFTP folder trees, integrated TFTP server, Drag & Drop transfers, and transparent remote file editing.
 - **Native & Elegant Design**: Built on Libadwaita with light/dark modes, smooth transparency, and customizable color themes.
 - **Full Internationalization**: Fully translated and synchronized across **28 languages**.
+
+📖 **Check out the [Complete User Manual](docs/MANUAL.md)** for an in-depth guide on all features!
 
 ---
 
@@ -58,6 +64,31 @@
 
 ## Key Features
 
+### 🌐 Visual SSH Tunnel Manager and Port Forwarding
+* **3 Forwarding Modes**:
+  - 🟢 **Local Forwarding (`-L`)**: Access remote databases, web dashboards, and internal services via local ports.
+  - 🔄 **Remote Forwarding (`-R`)**: Expose local developer services directly onto the remote server.
+  - 🛡️ **Dynamic Port Forwarding (`-D`)**: Instant encrypted SOCKS5 proxy creation over SSH.
+* **Real-time Control Panel**: 1-click toggling with `Gtk.Switch`, quick clipboard copy of local address, and global stop button.
+* **Session Auto-Start**: Automatically start tunnels when connecting to associated SSH sessions.
+
+---
+
+### 🛡️ Production Guard Protection Mode
+* **Production Banner**: High-visibility persistent crimson gradient banner on tabs connected to production environments.
+* **Destructive Command Interception**: Intercepts high-risk operations such as `rm -rf`, `mkfs`, `dd of=/dev/...`, `shutdown`, `reboot`, `systemctl stop`, `DROP DATABASE`, and `git push --force`.
+* **Safe Double Confirmation**: Requires typing the exact session/host name before unlocking execution.
+* **Secret Redaction**: Automatically sanitizes API tokens, private keys, and passwords before AI transmission.
+
+---
+
+### ⚡ Intelligent Autocomplete & Linux Command Specs
+* **Cursor-Anchored Floating Popup**: Declarative explanations and flags for 50+ standard Linux commands (`apt`, `docker`, `git`, `systemctl`, `curl`, `rsync`, `chmod`, etc.).
+* **Contextual Suggestions**: Intelligent scoring combining command specs, frequent commands from SQLite in the current directory, and snippets.
+* **Seamless Navigation**: Navigate with `↑`/`↓` and complete with `Tab` or `Enter`.
+
+---
+
 ### 🤖 Integrated AI Assistant & VRAM Management
 
 <img width="1457" height="699" alt="AI Chat Assistant Panel" src="https://github.com/user-attachments/assets/762fa599-a266-41c3-83c2-f28fe825f0f6" />
@@ -72,12 +103,23 @@
 
 ---
 
-### 🔍 Command Palette (`Ctrl + Shift + P`) & SQLite History (`Ctrl + R`)
+### 🔍 Command Palette (`Ctrl + Shift + P`) & SQLite History (`Ctrl + H`)
 
-* **Command Palette**: Modal spotlight dialog indexing all application actions, split controls, AI assistant, syntax highlights, and SSH sessions.
+* **Command Palette**: Modal spotlight dialog indexing all application actions, split controls, AI assistant, syntax highlights, SSH tunnels, and sessions.
 * **Enriched History**: Structured SQLite storage for every executed command, directory `$PWD`, duration, timestamps, and exit codes.
   - **Pill Filters:** *All*, *Current Directory*, *Remote Host*, *⭐ Pinned*.
-  - **Quick Keybindings:** `Enter` (execute), `Tab` (insert into prompt for editing), `Ctrl + P` (pin favorite), `Delete` (delete entry).
+  - **Quick Keybindings:** `Enter` (execute), `Tab` (insert into prompt for editing), `Ctrl + P` (pin favorite), `Delete` (delete entry), `Ctrl + Shift + Delete` (open clear options).
+  - **Flexible Clear Options:** Clear non-favorite commands, failed commands, or the entire history in 1 click.
+
+---
+
+### 📤 Multi-Format Terminal Exporter
+* Export terminal buffer or selected text into 5 formats:
+  - 📄 **Plain Text (`.txt`)**
+  - 📋 **Log File (`.log`)** with complete session metadata
+  - 📝 **Markdown (`.md`)** formatted in code blocks
+  - 🌐 **HTML (`.html`)** with full ANSI colors and dark theme styling
+  - 🎬 **Asciinema (`.cast`)** for sharing terminal recordings
 
 ---
 
@@ -153,14 +195,16 @@ sudo apt install ./dist/onyxsh_0.9.0_all.deb
 | Shortcut | Action |
 |---|---|
 | **`F2`** | Open Preferences Dialog |
-| **`Ctrl + R`** | Enriched Command History (SQLite) |
-| **`Ctrl + Shift + P`** | Command Palette |
+| **`Ctrl + H`** | Enriched Command History (SQLite) |
+| **`Ctrl + Shift + P`** | Command Palette (Spotlight) |
 | **`Alt + Up` / `Alt + Down`** | Jump Between Prompts |
 | **`Ctrl + Shift + T`** | New Tab |
 | **`Ctrl + Shift + W`** | Close Tab / Active Split Pane |
 | **`Ctrl + Shift + D`** | Split Terminal Horizontally |
 | **`Ctrl + Shift + E`** | Split Terminal Vertically |
-| **`Ctrl + Shift + F`** | Search in Terminal |
+| **`Ctrl + Shift + F`** | Search in Terminal Scrollback (with Regex support) |
+| **`Ctrl + Shift + I`** | Open AI Assistant Panel |
+| **`Ctrl + Shift + B`** | Broadcast Command to All Tabs |
 
 ---
 

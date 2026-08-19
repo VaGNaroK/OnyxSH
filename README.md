@@ -27,13 +27,19 @@ O **OnyxSH** é um terminal moderno, intuitivo e de alto desempenho construído 
 ## Por que o OnyxSH?
 
 - **Assistência de IA Integrada e Privativa**: Diagnóstico de erros com 1 clique, múltiplos provedores (Ollama local, Gemini, Groq, OpenRouter), pré-carregamento e gestão inteligente de VRAM.
+- **Gerenciador Visual de Túneis SSH & Port Forwarding**: Gerenciamento em tempo real de túneis Locais (`-L`), Remotos (`-R`) e SOCKS5 Dinâmicos (`-D`) com switches de ativação em 1 clique.
+- **Modo Proteção de Produção (Production Guard)**: Banner visual persistente, salvaguardas de privacidade e interceptação automática de comandos destrutivos em servidores de produção.
+- **Autocomplete Inteligente com Specs Linux**: Sugestões ricas ancoradas ao cursor com descrições declarativas de mais de 50 comandos Linux, histórico e templates de snippets.
 - **Integração Semântica com Shell (OSC 133 / OSC 6)**: Rastreia o ciclo de vida de cada comando, mede o tempo de execução (ex: `⏱ 1.4s`), permite saltos rápidos entre prompts (`Alt + Up` / `Alt + Down`) e extração cirúrgica de saída.
-- **Histórico Enriquecido em SQLite (`Ctrl + R`)**: Busca fuzzy instantânea com filtros contextuais (diretório atual, host remoto, favoritos ⭐), contadores de execução e inserção direta no prompt (`Tab`).
-- **Command Palette Spotlight (`Ctrl + Shift + P`)**: Busca rápida e execução de qualquer comando, ação de aba, configuração ou sessão SSH via teclado.
+- **Histórico Enriquecido em SQLite (`Ctrl + H`)**: Busca fuzzy instantânea com filtros contextuais (diretório atual, host remoto, favoritos ⭐), contadores de execução, opções de limpeza e inserção no prompt (`Tab`).
+- **Command Palette Spotlight (`Ctrl + Shift + P`)**: Busca rápida e execução de qualquer comando, ação de aba, túnel SSH, configuração ou sessão via teclado.
+- **Exportação Multi-formato do Terminal**: Exporte buffers ou seleções do terminal em `.txt`, `.log`, `.md`, `.html` e `.cast` (Asciinema).
 - **Restauração Automática de Sessões**: Restaura abas, painéis divididos (*splits*), diretórios correntes `$PWD` e sessões SSH entre inicializações.
 - **Gestão Completa de Conexões Remotas**: Árvore de sessões SSH/SFTP em pastas, servidor TFTP integrado, transferência Drag & Drop e edição remota transparente de arquivos.
 - **Visual Moderno e Nativo**: Construído com Libadwaita, suporte a modo escuro/claro, transparência e temas de cores customizáveis.
 - **Internacionalização Completa**: Traduzido e sincronizado em **28 idiomas**.
+
+📖 **Confira o [Manual Completo de Uso](docs/MANUAL.md)** para um guia detalhado de todas as funcionalidades!
 
 ---
 
@@ -58,6 +64,31 @@ O **OnyxSH** é um terminal moderno, intuitivo e de alto desempenho construído 
 
 ## Principais Recursos
 
+### 🌐 Gerenciador Visual de Túneis SSH e Port Forwarding
+* **3 Modos de Redirecionamento**:
+  - 🟢 **Local Forwarding (`-L`)**: Acesso a bancos de dados, dashboards e serviços internos remotos via portas locais.
+  - 🔄 **Remote Forwarding (`-R`)**: Exposição de portas locais diretamente em servidores remotos.
+  - 🛡️ **Dynamic Port Forwarding (`-D`)**: Criação instantânea de proxy SOCKS5 local criptografado via SSH.
+* **Painel de Controle em Tempo Real**: Ativação e desativação em 1 clique com `Gtk.Switch`, cópia de endereço local e botão de parada global.
+* **Auto-start com a Sessão**: Inicialização automática de túneis vinculados ao abrir a sessão SSH correspondente.
+
+---
+
+### 🛡️ Modo Proteção de Produção (Production Guard)
+* **Banner de Produção**: Faixa visual persistente de alta visibilidade em degradê crimson no topo de abas conectadas a servidores de produção.
+* **Bloqueio de Comandos Destrutivos**: Intercepta comandos críticos como `rm -rf`, `mkfs`, `dd of=/dev/...`, `shutdown`, `reboot`, `systemctl stop`, `DROP DATABASE` e `git push --force`.
+* **Confirmação Dupla Segura**: Exige a digitação do nome exato do host/sessão antes de desbloquear a execução.
+* **Ofuscação de Segredos**: Mascaramento automático de chaves de API, senhas e credenciais antes do envio para modelos de IA.
+
+---
+
+### ⚡ Autocomplete Inteligente com Catálogo de Specs Linux
+* **Popup Flutuante Ancorado ao Cursor**: Dicionário nativo com mais de 50 comandos Linux essenciais (`apt`, `docker`, `git`, `systemctl`, `curl`, `rsync`, `chmod`, etc.), com descrições e flags explicadas.
+* **Sugestões Contextuais**: Ranquemento inteligente combinando specs oficiais, comandos frequentes do histórico SQLite no mesmo diretório e snippets salvos.
+* **Navegação Eficiente**: Navegue com `↑` e `↓` e complete com `Tab` ou `Enter`.
+
+---
+
 ### 🤖 Assistente de IA Integrado & Gestão de VRAM
 
 <img width="1457" height="699" alt="Painel do Assistente de IA" src="https://github.com/user-attachments/assets/762fa599-a266-41c3-83c2-f28fe825f0f6" />
@@ -72,12 +103,23 @@ O **OnyxSH** é um terminal moderno, intuitivo e de alto desempenho construído 
 
 ---
 
-### 🔍 Command Palette (`Ctrl + Shift + P`) & Histórico SQLite (`Ctrl + R`)
+### 🔍 Command Palette (`Ctrl + Shift + P`) & Histórico SQLite (`Ctrl + H`)
 
-* **Command Palette**: Diálogo modal spotlight que indexa todas as ações da interface, abas, layouts, assistente de IA, regras de realce e sessões SSH com pesquisa fuzzy.
+* **Command Palette**: Diálogo modal spotlight que indexa todas as ações da interface, abas, layouts, assistente de IA, regras de realce, túneis e sessões SSH com pesquisa fuzzy.
 * **Histórico Enriquecido**: Gravação estruturada em SQLite de cada comando executado, diretório `$PWD`, duração, data/hora e status.
   - **Filtros por Pílulas:** *Todos*, *Diretório Atual*, *Host Remoto*, *⭐ Favoritos*.
-  - **Atalhos Rápidos:** `Enter` (executar), `Tab` (inserir no prompt para edição), `Ctrl + P` (fixar como favorito), `Delete` (excluir).
+  - **Atalhos Rápidos:** `Enter` (executar), `Tab` (inserir no prompt para edição), `Ctrl + P` (fixar como favorito), `Delete` (excluir item), `Ctrl + Shift + Delete` (abrir opções de limpeza).
+  - **Limpeza Flexível:** Limpe comandos não favoritados, comandos com falha ou todo o histórico com 1 clique.
+
+---
+
+### 📤 Exportação do Terminal em Múltiplos Formatos
+* Exporte o histórico do terminal ou apenas o texto selecionado em 5 formatos:
+  - 📄 **Texto Puro (`.txt`)**
+  - 📋 **Arquivo de Log (`.log`)** com metadados completos de sessão
+  - 📝 **Markdown (`.md`)** formatado em blocos de código
+  - 🌐 **HTML (`.html`)** com preservação de cores ANSI e estilo dark moderno
+  - 🎬 **Asciinema (`.cast`)** para reprodução e compartilhamento de gravações de terminal
 
 ---
 
@@ -153,14 +195,16 @@ sudo apt install ./dist/onyxsh_0.9.0_all.deb
 | Atalho | Ação |
 |---|---|
 | **`F2`** | Abrir Janela de Preferências |
-| **`Ctrl + R`** | Histórico Enriquecido de Comandos (SQLite) |
-| **`Ctrl + Shift + P`** | Command Palette |
+| **`Ctrl + H`** | Histórico Enriquecido de Comandos (SQLite) |
+| **`Ctrl + Shift + P`** | Command Palette (Spotlight) |
 | **`Alt + Up` / `Alt + Down`** | Navegar entre Prompts Anteriores e Posteriores |
 | **`Ctrl + Shift + T`** | Nova Aba |
 | **`Ctrl + Shift + W`** | Fechar Aba / Painel Ativo |
 | **`Ctrl + Shift + D`** | Dividir Terminal Horizontalmente |
 | **`Ctrl + Shift + E`** | Dividir Terminal Verticalmente |
-| **`Ctrl + Shift + F`** | Buscar no Terminal |
+| **`Ctrl + Shift + F`** | Buscar no Scrollback do Terminal (com suporte a Regex) |
+| **`Ctrl + Shift + I`** | Abrir Painel do Assistente de IA |
+| **`Ctrl + Shift + B`** | Transmissão de Comandos para Todas as Abas (*Broadcast*) |
 
 ---
 

@@ -57,6 +57,9 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - ⏱️ **Ajuste Fino do Debounce de Autocomplete**: Calibração do timer de debounce de 70ms para 180ms, garantindo digitação fluida sem bloqueio da UI thread enquanto o usuário digita.
   - 🚀 **Throttling no Detector de Autenticação Gateway**: Debounce de 250ms na extração de texto de 60 linhas para SSH, eliminando sobrecarga de CPU durante streams de alta taxa de dados (`top`, `tail -f`, `cat`, etc.).
   - 🎯 **Cache do Gerenciador de Configurações no PTY Proxy**: Cache estático do `SettingsManager` no `HighlightedTerminalProxy`, eliminando importações redundantes no loop de leitura de pacotes PTY.
+- **Documentação e Manuais**:
+  - 📚 **Manual Completo do Usuário (`docs/MANUAL.md` e `docs/MANUAL.en.md`)**: Criação de manual exaustivo bilíngue cobrindo 15 tópicos essenciais (arquitetura, túneis SSH, Production Guard, autocomplete, histórico, agente IA, exportador e atalhos).
+  - 📝 **Atualização do `README.md` e `README.en.md`**: Atualização do catálogo de recursos, atalhos (<kbd>Ctrl + H</kbd>) e inclusão de links diretos para o manual.
 
 ## [0.9.0] - 2026-08-18
 
