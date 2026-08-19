@@ -180,8 +180,12 @@ class ProductionConfirmDialog(Adw.Window):
         shortcut_ctrl.add_shortcut(esc_shortcut)
         self.add_controller(shortcut_ctrl)
 
-        # Focus entry by default
-        GLib.idle_add(self.confirm_entry.grab_focus)
+        # Focus entry once on dialog open
+        def _focus_entry() -> bool:
+            self.confirm_entry.grab_focus()
+            return GLib.SOURCE_REMOVE
+
+        GLib.idle_add(_focus_entry)
 
     def _on_entry_changed(self, entry: Gtk.Entry) -> None:
         typed = entry.get_text().strip()
