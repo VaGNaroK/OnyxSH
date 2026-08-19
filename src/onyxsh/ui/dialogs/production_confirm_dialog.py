@@ -126,21 +126,27 @@ class ProductionConfirmDialog(Adw.Window):
         main_box.append(card)
 
         # 3. Verification Challenge Input
-        challenge_group = Adw.PreferencesGroup(
-            title=_("To confirm and execute, type the target name: <b>{target}</b>").format(
+        challenge_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+        instruction_label = Gtk.Label(
+            label=_("To confirm and execute, type the target name: <b>{target}</b>").format(
                 target=self.target_name
             ),
+            use_markup=True,
+            xalign=0.0,
+            css_classes=["body"],
         )
+        challenge_box.append(instruction_label)
 
-        self.confirm_entry = Adw.EntryRow(
-            title=_("Type '{target}' to confirm...").format(
+        self.confirm_entry = Gtk.Entry(
+            placeholder_text=_("Type '{target}' to confirm...").format(
                 target=self.target_name
             ),
+            hexpand=True,
         )
         self.confirm_entry.connect("changed", self._on_entry_changed)
-        self.confirm_entry.connect("entry-activated", self._on_entry_activated)
-        challenge_group.add(self.confirm_entry)
-        main_box.append(challenge_group)
+        self.confirm_entry.connect("activate", self._on_entry_activated)
+        challenge_box.append(self.confirm_entry)
+        main_box.append(challenge_box)
 
         # 4. Action Buttons
         btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
@@ -177,12 +183,12 @@ class ProductionConfirmDialog(Adw.Window):
         # Focus entry by default
         GLib.idle_add(self.confirm_entry.grab_focus)
 
-    def _on_entry_changed(self, entry: Adw.EntryRow) -> None:
+    def _on_entry_changed(self, entry: Gtk.Entry) -> None:
         typed = entry.get_text().strip()
         matched = typed == self.target_name
         self.exec_btn.set_sensitive(matched)
 
-    def _on_entry_activated(self, _entry: Adw.EntryRow) -> None:
+    def _on_entry_activated(self, _entry: Gtk.Entry) -> None:
         if self.exec_btn.get_sensitive():
             self._finish(True)
 
