@@ -10,7 +10,7 @@ import threading
 import time
 import weakref
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 from urllib.parse import urlparse
 
 # Lazy import psutil - only when actually needed for process info
