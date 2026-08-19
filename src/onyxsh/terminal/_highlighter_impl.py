@@ -118,6 +118,9 @@ class HighlightedTerminalProxy:
         self._highlighter.register_proxy(self._proxy_id)
         self._shell_input_highlighter.register_proxy(self._proxy_id)
 
+        from ..settings.manager import get_settings_manager
+        self._settings_manager = get_settings_manager()
+
         self._master_fd: Optional[int] = None
         self._slave_fd: Optional[int] = None
         self._io_watch_id: Optional[int] = None
@@ -740,9 +743,7 @@ class HighlightedTerminalProxy:
                     term.feed(data)
                 else:
                     # Check if any highlighting feature is enabled
-                    from ..settings.manager import get_settings_manager
-
-                    settings = get_settings_manager()
+                    settings = self._settings_manager
 
                     # First check if output highlighting is enabled at all
                     # (Local Terminals or SSH Sessions must be enabled)

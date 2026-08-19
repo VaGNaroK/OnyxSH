@@ -43,6 +43,20 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
     - Suporte automático à remoção de prefixos escaladores (`sudo`, `doas`, `pkexec`, `nohup`, `env`, `time`).
   - 🔐 **Diálogo Modal de Confirmação Dupla (`ProductionConfirmDialog`)**: Bloqueio da execução exigindo que o usuário digite o nome exato do host ou sessão antes de desbloquear a execução em produção, com cancelamento seguro via `Esc` ou botão de abortar (`Ctrl+C` enviado ao shell).
   - 🕵️ **Proteção de Privacidade & Redação Automática no Assistente de IA**: Anonimização e ofuscação automática de segredos, senhas, tokens e chaves de API (`redact_secrets`) antes de enviar comandos ou saídas de terminais para modelos de IA externos.
+- **Identidade Visual e Melhorias na Janela Principal**:
+  - 🏷️ **Renomeação do Título Principal**: Atualização do nome da aplicação na barra superior (`Adw.WindowTitle`) e em todos os diálogos de restauração para **OnyxSH** (substituindo antigas referências a *Terminal Zash*).
+- **Aprimoramentos no Histórico Enriquecido de Comandos**:
+  - ⌨️ **Novo Atalho Padrão (`Ctrl + H`)**: Migração do atalho do Histórico de Comandos de `Ctrl + R` para `Ctrl + H` (padrão consagrado em navegadores web), liberando o `Ctrl + R` para a busca reversa interativa nativa do readline/bash no terminal.
+  - 🗑️ **Opção de Limpeza com Confirmação (`CommandHistoryDialog`)**:
+    - Botão dedicado de exclusão/limpeza com ícone `user-trash-symbolic` na barra superior do diálogo.
+    - Diálogo modal de confirmação com opções para *Limpar Não Favoritos*, *Limpar com Falha*, e *Limpar Absolutamente Tudo*.
+    - Suporte ao atalho rápido de teclado `Ctrl + Shift + Delete` para disparar a limpeza.
+    - Inclusão do atalho do Histórico de Comandos no catálogo do diálogo de Atalhos de Teclado (`ShortcutsDialog`).
+- **Otimizações de Desempenho e Eliminação de Engasgos**:
+  - ⚡ **Remoção de I/O de Log Síncrono por Tecla**: Eliminação do logging síncrono por caractere digitado no terminal manager.
+  - ⏱️ **Ajuste Fino do Debounce de Autocomplete**: Calibração do timer de debounce de 70ms para 180ms, garantindo digitação fluida sem bloqueio da UI thread enquanto o usuário digita.
+  - 🚀 **Throttling no Detector de Autenticação Gateway**: Debounce de 250ms na extração de texto de 60 linhas para SSH, eliminando sobrecarga de CPU durante streams de alta taxa de dados (`top`, `tail -f`, `cat`, etc.).
+  - 🎯 **Cache do Gerenciador de Configurações no PTY Proxy**: Cache estático do `SettingsManager` no `HighlightedTerminalProxy`, eliminando importações redundantes no loop de leitura de pacotes PTY.
 
 ## [0.9.0] - 2026-08-18
 

@@ -875,7 +875,7 @@ class WindowActions:
             self.logger.error(f"Error analyzing last error with AI: {e}")
 
     def show_command_history(self, *args) -> None:
-        """Opens the enriched Command History dialog (Ctrl + R)."""
+        """Opens the enriched Command History dialog (Ctrl + H)."""
         try:
             terminal = None
             for arg in args:

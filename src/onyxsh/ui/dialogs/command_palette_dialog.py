@@ -362,7 +362,7 @@ class CommandPaletteDialog(BaseDialog):
                 _("Terminal"),
                 "document-open-recent-symbolic",
                 action_name="show-command-history",
-                shortcut="Ctrl + R",
+                shortcut="Ctrl + H",
                 keywords=[
                     "historico",
                     "history",

@@ -44,6 +44,7 @@ SHORTCUT_DATA = [
             ("toggle-search", _("Search in Terminal")),
             ("toggle-broadcast", _("Send Command to All Tabs")),
             ("ai-assistant", _("Ask AI Assistant")),
+            ("show-command-history", _("Command History")),
         ],
     },
     {

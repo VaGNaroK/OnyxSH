@@ -1,7 +1,7 @@
 # onyxsh/ui/dialogs/command_history_dialog.py
 
 """
-Enhanced Command History Dialog (Ctrl + R).
+Enhanced Command History Dialog (Ctrl + H).
 Provides instant fuzzy search, filters by CWD/host/pinned, syntax display,
 keyboard navigation (Enter to execute, Tab to edit), and command management.
 """
@@ -101,10 +101,10 @@ class CommandHistoryDialog(Gtk.Window):
         header_bar.set_show_end_title_buttons(True)
         header_bar.set_show_start_title_buttons(False)
 
-        # Clear history menu button
+        # Clear history button in header
         clear_btn = icon_button(
-            "edit-clear-all-symbolic",
-            tooltip=_("Limpar Histórico..."),
+            "user-trash-symbolic",
+            tooltip=_("Limpar Histórico de Comandos..."),
         )
         clear_btn.add_css_class("flat")
         clear_btn.connect("clicked", self._on_clear_clicked)
@@ -205,12 +205,14 @@ class CommandHistoryDialog(Gtk.Window):
         hint_tab = Gtk.Label(label=_("Tab Inserir no Prompt"))
         hint_pin = Gtk.Label(label=_("Ctrl+P Favoritar"))
         hint_del = Gtk.Label(label=_("Del Excluir"))
+        hint_clear = Gtk.Label(label=_("Ctrl+Shift+Del Limpar"))
         hint_esc = Gtk.Label(label=_("Esc Fechar"))
 
         footer_box.append(hint_enter)
         footer_box.append(hint_tab)
         footer_box.append(hint_pin)
         footer_box.append(hint_del)
+        footer_box.append(hint_clear)
         footer_box.append(hint_esc)
 
         content_box.append(footer_box)
@@ -258,8 +260,11 @@ class CommandHistoryDialog(Gtk.Window):
                 self._apply_command(selected_row._history_item.command, execute=False)
                 return True
 
-        # 4. Delete key deletes selected item
-        if keyval == Gdk.KEY_Delete:
+        # 4. Delete key deletes selected item / Ctrl+Shift+Del triggers clear all dialog
+        if keyval in (Gdk.KEY_Delete, Gdk.KEY_KP_Delete):
+            if (state & Gdk.ModifierType.CONTROL_MASK) and (state & Gdk.ModifierType.SHIFT_MASK):
+                self._on_clear_clicked(None)
+                return True
             selected_row = self._list_box.get_selected_row()
             if selected_row and hasattr(selected_row, "_history_item"):
                 self._delete_item(selected_row._history_item)
@@ -515,26 +520,25 @@ class CommandHistoryDialog(Gtk.Window):
             else:
                 self.current_terminal.feed_child(command_text.encode("utf-8"))
 
-    def _on_clear_clicked(self, _btn: Gtk.Button) -> None:
+    def _on_clear_clicked(self, _btn: Optional[Gtk.Button] = None) -> None:
         """Prompts confirmation dialog to clear history."""
         dialog = Adw.MessageDialog(
             transient_for=self,
             heading=_("Limpar Histórico de Comandos"),
             body=_(
-                "Deseja limpar os comandos do histórico? Comandos favoritos (fixados) serão preservados."
+                "Escolha a opção de limpeza desejada para o histórico de comandos:"
             ),
         )
         dialog.add_response("cancel", _("Cancelar"))
-        dialog.add_response("failed", _("Limpar com Erro"))
+        dialog.add_response("failed", _("Limpar com Falha"))
         dialog.add_response("all", _("Limpar Não Favoritos"))
-        dialog.set_response_appearance("all", Adw.ResponseAppearance.DESTRUCTIVE)
+        dialog.add_response("everything", _("Limpar Tudo"))
+        dialog.set_response_appearance("everything", Adw.ResponseAppearance.DESTRUCTIVE)
+        dialog.set_response_appearance("all", Adw.ResponseAppearance.SUGGESTED)
 
         def _on_response(_d, response_id):
-            if response_id == "all":
-                self.history_mgr.clear_history(scope="all")
-                self._reload_items()
-            elif response_id == "failed":
-                self.history_mgr.clear_history(scope="failed")
+            if response_id in ("all", "everything", "failed"):
+                self.history_mgr.clear_history(scope=response_id)
                 self._reload_items()
 
         dialog.connect("response", _on_response)

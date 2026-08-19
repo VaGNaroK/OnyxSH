@@ -75,7 +75,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
 
         # Window setup
         self._setup_initial_window_size()
-        self.set_title(_("Terminal Zash"))
+        self.set_title("OnyxSH")
         self.set_icon_name(None)
 
         # Component Initialization
@@ -577,21 +577,21 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             self.action_handler.command_palette()
             return Gdk.EVENT_STOP
 
-        # Handle Enriched Command History (Ctrl+R)
+        # Handle Enriched Command History (Ctrl+H)
         cmd_history_shortcut = self.settings_manager.get_shortcut("show-command-history")
         if (
             (
                 accel_string
                 and (
                     accel_string == cmd_history_shortcut
-                    or accel_string == "<Control>r"
+                    or accel_string == "<Control>h"
                 )
             )
             or (
                 (state & Gdk.ModifierType.CONTROL_MASK)
                 and not (state & Gdk.ModifierType.SHIFT_MASK)
                 and not (state & Gdk.ModifierType.ALT_MASK)
-                and keyval in (Gdk.KEY_r, Gdk.KEY_R)
+                and keyval in (Gdk.KEY_h, Gdk.KEY_H)
             )
         ):
             self.action_handler.show_command_history()
@@ -1713,7 +1713,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             transient_for=self,
             heading=_("Save Current Session?"),
             body=_(
-                "Do you want to restore these tabs the next time you open Terminal Zash?"
+                "Do you want to restore these tabs the next time you open OnyxSH?"
             ),
             close_response="cancel",
         )
@@ -1907,7 +1907,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
     def _update_tab_layout(self):
         """Update tab layout and window title based on tab count."""
         tab_count = self.tab_manager.get_tab_count()
-        self.set_title(_("Terminal Zash"))
+        self.set_title("OnyxSH")
 
         if tab_count > 1:
             self.title_stack.set_visible_child_name("tabs-view")
@@ -1919,10 +1919,10 @@ class CommTerminalWindow(Adw.ApplicationWindow):
                 )
                 if page:
                     self.single_tab_title_widget.set_title(
-                        f"{_('Terminal Zash')} - {page.get_title()}"
+                        f"OnyxSH - {page.get_title()}"
                     )
             else:
-                self.single_tab_title_widget.set_title(_("Terminal Zash"))
+                self.single_tab_title_widget.set_title("OnyxSH")
 
     def _update_font_sizer_widget(self):
         if self.font_sizer_widget:

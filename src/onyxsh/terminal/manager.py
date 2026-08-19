@@ -505,6 +505,7 @@ class TerminalManager:
         self._balabit_gateway_prompt_shown: set[int] = set()
         self._balabit_gateway_prompt_submitted: set[int] = set()
         self._balabit_gateway_pending_auth: Dict[int, Dict[str, str]] = {}
+        self._gateway_check_timers: Dict[int, int] = {}
         self._selection_copy_timers: Dict[int, int] = {}
         self._completion_debounce_timers: Dict[int, int] = {}
         self._completion_engine = None
@@ -1558,6 +1559,21 @@ class TerminalManager:
         if not info or info.get("type") != "ssh":
             return
 
+        # Throttle gateway check to avoid heavy screen scraping on every single output stream chunk
+        if terminal_id in self._gateway_check_timers:
+            return
+
+        def _do_check():
+            self._gateway_check_timers.pop(terminal_id, None)
+            self._perform_gateway_auth_check(terminal, terminal_id)
+            return False
+
+        self._gateway_check_timers[terminal_id] = GLib.timeout_add(250, _do_check)
+
+    def _perform_gateway_auth_check(
+        self, terminal: Vte.Terminal, terminal_id: int
+    ) -> None:
+        """Performs screen analysis for gateway interactive authentication."""
         try:
             col_count = terminal.get_column_count()
             row_count = terminal.get_row_count()
@@ -3527,11 +3543,6 @@ class TerminalManager:
             Gdk.EVENT_PROPAGATE to allow VTE to process the key normally.
         """
         try:
-            key_name = Gdk.keyval_name(keyval) or f"unknown_{keyval}"
-            self.logger.info(
-                f"[KEY EVENT] keyval={keyval} ({key_name}), keycode={_keycode}, state={int(state)}"
-            )
-
             # 1. Check if completion popup is active and route navigation keys
             popup = getattr(terminal, "_completion_popup", None)
             if popup and popup.get_visible():
@@ -4143,5 +4154,5 @@ class TerminalManager:
                 self.logger.debug(f"Autocomplete lookup error: {exc}")
             return False
 
-        self._completion_debounce_timers[terminal_id] = GLib.timeout_add(70, _do_lookup)
+        self._completion_debounce_timers[terminal_id] = GLib.timeout_add(180, _do_lookup)
 
