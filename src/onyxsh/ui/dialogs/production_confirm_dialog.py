@@ -169,9 +169,8 @@ class ProductionConfirmDialog(Adw.Window):
             Gtk.ShortcutTrigger.parse_string("Escape"),
             Gtk.CallbackAction.new(lambda *_: self._finish(False) or True),
         )
-        shortcut_ctrl = Gtk.ShortcutController.new_for_scope(
-            Gtk.ShortcutScope.LOCAL
-        )
+        shortcut_ctrl = Gtk.ShortcutController.new()
+        shortcut_ctrl.set_scope(Gtk.ShortcutScope.LOCAL)
         shortcut_ctrl.add_shortcut(esc_shortcut)
         self.add_controller(shortcut_ctrl)
 
