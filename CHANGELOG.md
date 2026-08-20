@@ -9,6 +9,26 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.10.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Roteamento Inteligente de Provedores de IA (Smart Model Routing) & Integração com Google Gemini**: Sistema autônomo de classificação semântica de tarefas e despacho dinâmico de prompts para modelos locais e em nuvem (`src/onyxsh/agent/router.py`, `src/onyxsh/agent/providers/gemini.py`, `src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `src/onyxsh/data/ai_history_manager.py`, `tests/test_smart_router.py`):
+  - 🧠 **Motor de Roteamento Inteligente (`SmartRouter` & `TaskComplexityClassifier`)**:
+    - Classificação heurística de complexidade em tempo real (`TaskComplexity.SIMPLE`, `TaskComplexity.COMPLEX`, `TaskComplexity.SECURITY`).
+    - *⚡ Perfil Rápido*: Respostas instantâneas para sintaxe e consultas pontuais (Groq / Ollama Local).
+    - *🧠 Perfil Avançado*: Raciocínio profundo para scripts, automação de backups, netplan/redes, serviços e orquestração (Google Gemini `gemini-2.5-flash` / Claude / OpenRouter).
+    - *Seletor Visual Dinâmico no Chat (`Gtk.MenuButton`)*: Alternador no cabeçalho do overlay com opções `🔄 Auto`, `⚡ Rápido` e `🧠 Avançado`.
+  - 🌐 **Provedor Dedicado Google Gemini (`GeminiProvider`)**:
+    - Descoberta dinâmica de modelos (`GET /v1beta/models`) via Google AI Studio com cache local de 1 hora.
+    - Fallback inteligente de candidatos (`gemini-2.5-flash`, `gemini-2.0-flash`, `gemini-2.0-flash-exp`, `gemini-1.5-pro`, `gemini-1.5-flash`).
+    - Streaming SSE em tempo real com timeout estendido para 120s para acomodar gerações de scripts longos.
+  - 🔄 **Fallback Resiliente com Notificação Visual na GUI**:
+    - Transição automática e transparente para o LLM local (Ollama / LM Studio) caso o provedor em nuvem falhe (chave inválida/expirada, timeout, quota 429 ou erro 5xx).
+    - Exibição de alerta destacado em Markdown no topo da resposta e badge atualizado para `• 🔄 Fallback Local ({model})`.
+  - 🔑 **Validação de Chaves de API em Tempo Real no Diálogo de IA**:
+    - Botões "Testar" dedicados ao lado das chaves Gemini e Groq com feedback instantâneo de status e lista de modelos detectados.
+  - 📊 **Metadados de Provedor e Modelo nas Exportações**:
+    - Gravação e exportação do modelo e provedor utilizados em arquivos Markdown (`.md`) e JSON (`.json`).
+  - 🚀 **Suporte a Execução Isolada CLI**:
+    - Flags `--new-instance` e `--standalone` para execução de instâncias independentes em desenvolvimento.
+  - 🧪 **Testes Automatizados**: Nova suíte em `tests/test_smart_router.py` totalizando 170 testes unitários passando.
 - **Verificação Pós-Execução Automatizada e Auto-Correção com IA (*Post-Verification Loop & Self-Healing Agent*)**: Motor inteligente de inferência de sanidade pós-execução e ciclo de validação automatizado para o OnyxSH Agent (`src/onyxsh/agent/verifier.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/data/styles/ai_chat_panel.css`, `src/onyxsh/settings/config.py`, `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `tests/test_post_verification.py`):
   - 🔍 **Motor de Inferência de Sanidade (`PostVerifier`)**:
     - Análise sintática e semântica de comandos executados para gerar verificações direcionadas de sanidade.
