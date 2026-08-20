@@ -209,43 +209,43 @@ class ThreadSafeLogger:
             except Exception:
                 pass
 
-    def debug(self, message: str, **kwargs):
-        self._logger.debug(message, **kwargs)
+    def debug(self, message: str, *args, **kwargs):
+        self._logger.debug(message, *args, **kwargs)
         try:
             sys.stdout.flush()
         except Exception:
             pass
 
-    def info(self, message: str, **kwargs):
-        self._logger.info(message, **kwargs)
+    def info(self, message: str, *args, **kwargs):
+        self._logger.info(message, *args, **kwargs)
         try:
             sys.stdout.flush()
         except Exception:
             pass
 
-    def warning(self, message: str, **kwargs):
-        self._logger.warning(message, **kwargs)
+    def warning(self, message: str, *args, **kwargs):
+        self._logger.warning(message, *args, **kwargs)
         try:
             sys.stdout.flush()
         except Exception:
             pass
 
-    def error(self, message: str, exc_info: bool = False, **kwargs):
-        self._logger.error(message, exc_info=exc_info, **kwargs)
+    def error(self, message: str, *args, exc_info: bool = False, **kwargs):
+        self._logger.error(message, *args, exc_info=exc_info, **kwargs)
         try:
             sys.stdout.flush()
         except Exception:
             pass
 
-    def critical(self, message: str, exc_info: bool = True, **kwargs):
-        self._logger.critical(message, exc_info=exc_info, **kwargs)
+    def critical(self, message: str, *args, exc_info: bool = True, **kwargs):
+        self._logger.critical(message, *args, exc_info=exc_info, **kwargs)
         try:
             sys.stdout.flush()
         except Exception:
             pass
 
-    def exception(self, message: str, **kwargs):
-        self._logger.exception(message, **kwargs)
+    def exception(self, message: str, *args, **kwargs):
+        self._logger.exception(message, *args, **kwargs)
         try:
             sys.stdout.flush()
         except Exception:
