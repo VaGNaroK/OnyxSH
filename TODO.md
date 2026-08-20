@@ -234,10 +234,17 @@
 - [ ] **Prioridade:** 🔴 Muito Alta | **Esforço:** Médio/Alto | **Alvo:** Contínuo (`v0.9.0` -> `v1.0.0`)
 - [ ] **Módulos Afetados:** `tests/`.
 
-### 🧪 4.2. Modo Diagnóstico Seguro (`zashterminal --diagnose`)
-- [ ] **Descrição:** Comando CLI que gera um relatório técnico sanitizado do sistema (distro, Wayland/X11, versão do GTK/VTE, GPU, runtime Python, permissões Flatpak e logs recentes sem dados pessoais) para agilizar suporte e abertura de issues no GitHub.
-- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo | **Alvo:** `v0.9.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/app.py`, `src/zashterminal/utils/platform.py`.
+### 🧪 4.2. Modo Diagnóstico Seguro (`onyxsh --diagnose`)
+- [x] **Descrição:** Comando CLI que gera um relatório técnico sanitizado do sistema (distro, Wayland/X11, versão do GTK/VTE, GPU, runtime Python, permissões Flatpak, subsistema de IA e logs recentes sem dados pessoais) para agilizar suporte e abertura de issues no GitHub.
+- [x] **Recursos Implementados:**
+  - CLI com suporte a `--diagnose` / `--diagnostics`, `--json`, `--output <arquivo>` e `--lines <N>`.
+  - Sanitização em cascata de credenciais/chaves, IPs, emails e caminhos `/home/<user>`.
+  - Checagem ao vivo de conectividade do Ollama local.
+  - Diálogo modal Libadwaita na GUI (`SystemDiagnosticsDialog`) com visualizador monospace, cópia para clipboard e salvamento em arquivo.
+  - Acesso via Preferências > Avançado e Command Palette (<kbd>Ctrl + Shift + P</kbd>).
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/utils/diagnostics.py`, `src/onyxsh/ui/dialogs/diagnostics_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_diagnostics.py`).
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/utils/diagnostics.py`, `src/onyxsh/ui/dialogs/diagnostics_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_diagnostics.py`.
 
 ---
 

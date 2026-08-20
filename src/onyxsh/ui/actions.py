@@ -79,6 +79,7 @@ class WindowActions:
             "copy-last-output": self.copy_last_command_output,
             "analyze-last-error-ai": self.analyze_last_error_with_ai,
             "show-command-history": self.show_command_history,
+            "system-diagnostics": self.show_system_diagnostics,
             "export-terminal-buffer": self.export_terminal_buffer,
             "toggle-tftp-server": self.toggle_tftp_server,
             "git-ai-commit": self.git_ai_commit,
@@ -932,6 +933,15 @@ class WindowActions:
             dialog.present()
         except Exception as e:
             self.logger.error(f"Error opening command history dialog: {e}")
+
+    def show_system_diagnostics(self, *args) -> None:
+        """Opens the Secure System Diagnostics dialog."""
+        try:
+            from .dialogs.diagnostics_dialog import SystemDiagnosticsDialog
+            dialog = SystemDiagnosticsDialog(parent_window=self.window)
+            dialog.present()
+        except Exception as e:
+            self.logger.error(f"Error opening system diagnostics dialog: {e}")
 
     copy_last_output = copy_last_command_output
     analyze_last_error_ai = analyze_last_error_with_ai

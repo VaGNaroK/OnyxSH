@@ -206,11 +206,39 @@ def main() -> int:
         action="store_true",
         help=_("Launch a completely independent application instance"),
     )
+    parser.add_argument(
+        "--diagnose",
+        "--diagnostics",
+        action="store_true",
+        help=_("Generate and print a sanitized technical system diagnostic report"),
+    )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help=_("Format diagnostic output as structured JSON"),
+    )
+    parser.add_argument(
+        "--output",
+        "-o",
+        metavar="FILE",
+        help=_("Save diagnostic report to a file"),
+    )
+    parser.add_argument(
+        "--lines",
+        type=int,
+        default=30,
+        metavar="N",
+        help=_("Number of recent error log lines to include in diagnostics (default: 30)"),
+    )
 
     try:
         parsed_args, _unused = parser.parse_known_args()
     except SystemExit:
         return 0
+
+    if getattr(parsed_args, "diagnose", False) or getattr(parsed_args, "diagnostics", False):
+        from .utils.diagnostics import SystemDiagnostics
+        return SystemDiagnostics.run_cli(parsed_args)
 
     setup_signal_handlers()
 

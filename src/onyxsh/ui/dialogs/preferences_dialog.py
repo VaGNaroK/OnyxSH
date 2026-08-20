@@ -719,6 +719,23 @@ class PreferencesDialog(Adw.PreferencesWindow):
         log_level_row.connect("notify::selected", self._on_log_level_changed)
         log_group.add(log_level_row)
 
+        diagnostics_group = Adw.PreferencesGroup(
+            title=_("Diagnóstico e Suporte Técnico"),
+            description=_("Gere um relatório técnico sanitizado do sistema para envio ao suporte e abertura de issues."),
+        )
+        advanced_page.add(diagnostics_group)
+
+        diag_row = Adw.ActionRow(
+            title=_("Gerar Diagnóstico Seguro do Sistema"),
+            subtitle=_("Coleta ambiente, GPU, bibliotecas e logs mascarando dados pessoais"),
+        )
+        diag_button = Gtk.Button(label=_("Gerar..."), css_classes=["accent"])
+        diag_button.set_valign(Gtk.Align.CENTER)
+        diag_button.connect("clicked", self._on_generate_diagnostics_clicked)
+        diag_row.add_suffix(diag_button)
+        diag_row.set_activatable_widget(diag_button)
+        diagnostics_group.add(diag_row)
+
         reset_group = Adw.PreferencesGroup()
         advanced_page.add(reset_group)
         reset_row = Adw.ActionRow(
@@ -730,6 +747,14 @@ class PreferencesDialog(Adw.PreferencesWindow):
         reset_row.add_suffix(reset_button)
         reset_row.set_activatable_widget(reset_button)
         reset_group.add(reset_row)
+
+    def _on_generate_diagnostics_clicked(self, _button) -> None:
+        try:
+            from .diagnostics_dialog import SystemDiagnosticsDialog
+            dialog = SystemDiagnosticsDialog(parent_window=self)
+            dialog.present()
+        except Exception as e:
+            self.logger.error(f"Error opening diagnostics dialog: {e}")
 
     def _on_font_changed(self, font_button) -> None:
         font = font_button.get_font()

@@ -9,6 +9,24 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.10.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Modo Diagnóstico Seguro (`onyxsh --diagnose`) & Telemetria Sanitizada do Sistema**: Utilitário completo para auditoria do ambiente, compatibilidade de hardware/software e geração de relatórios técnicos prontos para GitHub Issues com proteção estrita de privacidade (`src/onyxsh/utils/diagnostics.py`, `src/onyxsh/ui/dialogs/diagnostics_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_diagnostics.py`):
+  - 🛡️ **Sanitização em Cascata de Dados Sensíveis (*Multi-Layer Privacy Guard*)**:
+    - Mascaramento rigoroso de chaves de API e tokens (`AIza...`, `gsk_...`, `sk-...`, `ghp_...`, `AKIA...`, `Bearer ...`, `password=...`, `token=...`).
+    - Mascaramento de nomes de usuário e caminhos locais (`/home/<user>/`).
+    - Mascaramento de endereços IP públicos e privados (`[REDACTED_IP]`) e e-mails (`[REDACTED_EMAIL]`).
+  - 🖥️ **Inspeção Abrangente do Ambiente**:
+    - Detecção do SO host real (mesmo em sandbox Flatpak), Kernel, Arquitetura, Wayland/X11 e Desktop Environment.
+    - Status do sandbox Flatpak (`/.flatpak-info`), disponibilidade de portais `flatpak-spawn` e `host-spawn`.
+    - Versões das dependências do sistema: GTK4, Libadwaita, VTE, Python, PyGObject, GPU e VRAM detectadas.
+  - 🤖 **Diagnóstico Ativo do Subsistema de IA**:
+    - Teste de conectividade real com o Ollama local (`GET /api/version` e `/api/tags`), reportando status online e modelos baixados.
+    - Status de configuração de chaves de nuvem e perfis de Roteamento Inteligente (Rápido / Avançado / Offline).
+  - ⚡ **CLI Poderosa e Rápida**:
+    - Flags `--diagnose` / `--diagnostics`, `--json` (formato estruturado), `--output <arquivo>` e `--lines <N>` (controle de linhas de log).
+  - 🎛️ **Interface Gráfica Integrada (`SystemDiagnosticsDialog`)**:
+    - Diálogo modal Libadwaita com visualizador monospace, botão de cópia rápida para clipboard e salvamento em arquivo `.md` ou `.json`.
+    - Acessível via *Preferências > Avançado* e na *Command Palette* (<kbd>Ctrl + Shift + P</kbd>).
+  - 🧪 **Testes Automatizados**: Suíte completa em `tests/test_diagnostics.py` totalizando 181 testes unitários passando.
 - **Roteamento Inteligente de Provedores de IA (Smart Model Routing) & Integração com Google Gemini**: Sistema autônomo de classificação semântica de tarefas e despacho dinâmico de prompts para modelos locais e em nuvem (`src/onyxsh/agent/router.py`, `src/onyxsh/agent/providers/gemini.py`, `src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `src/onyxsh/data/ai_history_manager.py`, `tests/test_smart_router.py`):
   - 🧠 **Motor de Roteamento Inteligente (`SmartRouter` & `TaskComplexityClassifier`)**:
     - Classificação heurística de complexidade em tempo real (`TaskComplexity.SIMPLE`, `TaskComplexity.COMPLEX`, `TaskComplexity.SECURITY`).

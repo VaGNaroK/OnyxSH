@@ -628,6 +628,28 @@ class CommandPaletteDialog(BaseDialog):
         )
         self._items.append(
             CommandPaletteItem(
+                "system-diagnostics",
+                _("Diagnóstico Seguro do Sistema (Telemetria & Suporte)"),
+                _("Ferramentas"),
+                "dialog-information-symbolic",
+                action_name="system-diagnostics",
+                keywords=[
+                    "diagnostico",
+                    "diagnostics",
+                    "suporte",
+                    "telemetria",
+                    "sanitizado",
+                    "github",
+                    "issue",
+                    "sistema",
+                    "relatorio",
+                    "logs",
+                    "gpu",
+                ],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
                 "highlight-settings",
                 _("Regras de Realce Sintático e Temas"),
                 _("Configurações"),
