@@ -200,9 +200,15 @@ def main() -> int:
     parser.add_argument(
         "--new-window", action="store_true", help=_("Force opening a new window")
     )
+    parser.add_argument(
+        "--new-instance",
+        "--standalone",
+        action="store_true",
+        help=_("Launch a completely independent application instance"),
+    )
 
     try:
-        parser.parse_known_args()
+        parsed_args, _unused = parser.parse_known_args()
     except SystemExit:
         return 0
 
@@ -214,7 +220,11 @@ def main() -> int:
         # Lazy import: only load the heavy GTK/Adw/VTE modules when actually running
         from .app import CommTerminalApp
 
-        app = CommTerminalApp()
+        is_standalone = getattr(parsed_args, "new_instance", False) or getattr(parsed_args, "standalone", False)
+        app = CommTerminalApp(standalone=is_standalone)
+        if is_standalone:
+            # Pass only binary name so GTK doesn't fail on python-level custom flags
+            return app.run([sys.argv[0]])
         return app.run(sys.argv)
     except KeyboardInterrupt:
         logger.info("Application interrupted by user.")

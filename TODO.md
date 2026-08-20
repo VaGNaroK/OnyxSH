@@ -170,20 +170,34 @@
 - [x] **Prioridade:** 🔴 Muito Alta | **Esforço:** Alto | **Alvo:** `v0.10.0`
 - [x] **Módulos Afetados:** `src/onyxsh/agent/models.py`, `src/onyxsh/agent/planner.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/data/styles/ai_chat_panel.css`, `tests/test_plan_execution.py`.
 
-### 🤖 3.2. Verificação Pós-Execução Automatizada (Post-Verification Loop)
-- [ ] **Descrição:** Após o agente executar um comando que altera o sistema (ex: reiniciar um serviço ou aplicar uma configuração), ele executa verificações automáticas de validação.
-- [ ] **Exemplo:** Após `sudo systemctl restart nginx`, checar automaticamente `systemctl is-active nginx` e exibir os últimos logs do `journalctl` se houver falha.
-- [ ] **Prioridade:** 🟡 Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/agent/`.
+### 🤖 3.2. Verificação Pós-Execução Automatizada (Post-Verification Loop & Auto-Fix)
+- [x] **Descrição:** Motor inteligente de inferência e testes de sanidade pós-execução. Quando o assistente ou o usuário executa comandos que alteram o estado do sistema, o agente infere e propõe/executa automaticamente verificações de validação com diagnósticos em caso de erro.
+- [x] **Regras de Inferência Curadas (`PostVerifier`):**
+  - 🔄 **Serviços Systemd/SysV:** `systemctl (start|restart|reload)` -> `systemctl is-active <svc>` (diagnóstico com `journalctl -u <svc> -n 25 --no-pager` em caso de falha); `systemctl enable` -> `systemctl is-enabled <svc>`.
+  - 🌐 **Web Servers & Proxies:** `nginx -t` para Nginx; `apache2ctl configtest` / `httpd -t` para Apache; `sshd -t` para SSH daemon.
+  - 🛡️ **Firewalls:** `ufw status verbose` para UFW; `iptables -L -n -v` para iptables.
+  - 📁 **Permissões e Arquivos:** `chmod`/`chown`/`chgrp` -> `ls -ld <path>`; `mkdir` -> `test -d <dir>`; `touch`/`cp`/`mv` -> `test -e <path>`; `rm` -> `test ! -e <path>`.
+  - 📦 **Gerenciadores de Pacotes:** `apt`/`dpkg` -> `dpkg -s <pkg>`; `dnf`/`yum` -> `rpm -q <pkg>`; `pip` -> `pip show <pkg>`.
+  - 🐳 **Contêineres:** `docker run/start` -> `docker ps -f name=<container>`; `docker compose up` -> `docker compose ps`.
+  - ⏰ **Crontab:** `crontab -l`.
+- [x] **Cartão Visual de Sanidade (`.ai-verification-card`):**
+  - Exibição integrada no chat com lista de validações recomendadas, badges de status (`⏳ Aguardando`, `🟡 Validando...`, `🟢 Sanidade Confirmada`, `🔴 Falha na Validação`) e botão de disparo `⚡ Validar Agora`.
+  - **Loop de Auto-Correção com IA (`🤖 Diagnosticar e Corrigir com IA`):** Captura automática de logs de erro do `journalctl` ou teste de sintaxe e despacho direto para a IA analisar a causa raiz e propor um plano de reparo em 1 clique.
+  - **Preferências do Usuário:** Opção para sugerir verificações e switch para execução automática (`ai_agent_auto_verify`).
+- [x] **Prioridade:** 🟡 Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/agent/verifier.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/data/styles/ai_chat_panel.css`, `src/onyxsh/settings/config.py`, `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `tests/test_post_verification.py`.
 
 ### 🤖 3.3. Roteamento Inteligente de Provedores de IA (Smart Model Routing)
-- [ ] **Descrição:** Permitir associar diferentes modelos de IA conforme a complexidade da tarefa.
-- [ ] **Perfis:**
-  - *Perguntas simples / sintaxe de comandos:* Modelo rápido / local (Groq / Ollama).
-  - *Planejamento complexo / scripts longos:* Modelo avançado (Gemini 2.5 Flash / Claude 3.5 Sonnet).
-  - *Análise de segurança / auditoria:* Modelo forte com raciocínio profundo.
-- [ ] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/terminal/ai_assistant.py`, `src/zashterminal/settings/manager.py`.
+- [x] **Descrição:** Permitir associar diferentes modelos de IA conforme a complexidade da tarefa.
+- [x] **Perfis e Roteamento:**
+  - *⚡ Perfil Rápido / Sintaxe:* Modelo rápido / local (Groq `llama-3.1-8b-instant` / Ollama `llama3.2`).
+  - *🧠 Perfil Avançado / Planejamento:* Modelo avançado com raciocínio profundo (Gemini `gemini-2.5-flash` / Claude 3.5 Sonnet / OpenRouter).
+  - *🛡️ Perfil Segurança / Diagnóstico:* Modelo forte com raciocínio focado em auditoria e auto-correção (*Self-Healing*).
+  - *Classificador Heurístico em Tempo Real (`TaskComplexityClassifier`):* Analisa o prompt em tempo real e escolhe automaticamente entre o perfil Rápido e o Avançado.
+  - *Seletor Visual Dinâmico no Chat (`Gtk.MenuButton`):* Alternador no cabeçalho do painel de chat com opções `🔄 Auto`, `⚡ Rápido` e `🧠 Avançado`.
+  - *Gerenciamento Multi-Chave:* Armazenamento independente de API keys por provedor (`ai_api_key_gemini`, `ai_api_key_groq`, `ai_api_key_openrouter`).
+- [x] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/agent/router.py`, `src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/settings/config.py`, `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `tests/test_smart_router.py`.
 
 ### 🤖 3.4. Modo Estritamente Offline / Local-Only com Indicador Visual
 - [x] **Descrição:** Chave global de privacidade que desativa qualquer saída para provedores externos de IA (Gemini, Groq, OpenRouter), forçando o uso exclusivo de modelos locais via Ollama/LocalAI e exibindo um selo visual interativo `🛡️ Offline (Local)` no cabeçalho do chat, no diálogo de configurações e na Command Palette.

@@ -147,7 +147,12 @@ class AIHistoryManager:
         return False
 
     def add_message(
-        self, role: str, content: str, commands: Optional[List[str]] = None
+        self,
+        role: str,
+        content: str,
+        commands: Optional[List[str]] = None,
+        model: Optional[str] = None,
+        provider: Optional[str] = None,
     ) -> None:
         """
         Add a message to the current conversation.
@@ -156,19 +161,25 @@ class AIHistoryManager:
             role: Either "user" or "assistant"
             content: The message content
             commands: Optional list of command strings for assistant messages
+            model: Optional model name used for generation
+            provider: Optional provider name used for generation
         """
         if not content or not content.strip():
             return
 
         conv = self._ensure_current_conversation()
 
-        entry = {
+        entry: Dict[str, Any] = {
             "timestamp": datetime.now().isoformat(),
             "role": role,
             "content": content.strip(),
         }
         if commands:
             entry["commands"] = commands
+        if model:
+            entry["model"] = model
+        if provider:
+            entry["provider"] = provider
 
         conv["messages"].append(entry)
         self._save_history()
@@ -178,10 +189,14 @@ class AIHistoryManager:
         self.add_message("user", content)
 
     def add_assistant_message(
-        self, content: str, commands: Optional[List[str]] = None
+        self,
+        content: str,
+        commands: Optional[List[str]] = None,
+        model: Optional[str] = None,
+        provider: Optional[str] = None,
     ) -> None:
         """Add an assistant message to the history."""
-        self.add_message("assistant", content, commands)
+        self.add_message("assistant", content, commands, model=model, provider=provider)
 
     def get_history(self) -> List[Dict[str, Any]]:
         """

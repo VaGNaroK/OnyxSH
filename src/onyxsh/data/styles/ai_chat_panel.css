@@ -253,4 +253,98 @@
     color: alpha(@view_fg_color, 0.4);
 }
 
+/* Post-Execution Verification Loop (Sanity Checks) */
+.ai-verification-card {
+    background-color: alpha(#3498db, 0.07);
+    border: 1px solid alpha(#3498db, 0.28);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-top: 8px;
+    margin-bottom: 6px;
+}
 
+.ai-verification-header {
+    margin-bottom: 6px;
+}
+
+.ai-verification-title {
+    font-weight: 700;
+    font-size: 0.93em;
+    color: #2980b9;
+}
+
+.ai-verification-item {
+    background-color: alpha(@view_bg_color, 0.6);
+    border: 1px solid alpha(@borders, 0.2);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.ai-verify-desc {
+    font-size: 0.86em;
+    font-weight: 600;
+}
+
+.ai-verify-cmd {
+    font-family: monospace;
+    font-size: 0.82em;
+    color: alpha(@view_fg_color, 0.8);
+    background-color: alpha(@borders, 0.15);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.ai-verify-status-badge {
+    font-size: 0.76em;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.ai-verify-status-pending {
+    background-color: alpha(@borders, 0.2);
+    color: alpha(@view_fg_color, 0.7);
+}
+
+.ai-verify-status-running {
+    background-color: alpha(#f39c12, 0.2);
+    color: #f39c12;
+}
+
+.ai-verify-status-success {
+    background-color: alpha(#2ecc71, 0.2);
+    color: #27ae60;
+}
+
+.ai-verify-status-failed {
+    background-color: alpha(#e74c3c, 0.2);
+    color: #c0392b;
+}
+
+.ai-verification-logs-box {
+    background-color: alpha(@view_bg_color, 0.9);
+    border: 1px solid alpha(#e74c3c, 0.3);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-top: 8px;
+}
+
+.ai-verification-logs-title {
+    font-size: 0.82em;
+    font-weight: 700;
+    color: #c0392b;
+}
+
+.ai-verification-logs-text {
+    font-family: monospace;
+    font-size: 0.78em;
+    color: alpha(@view_fg_color, 0.85);
+    background-color: transparent;
+}
+
+.ai-verification-fix-btn {
+    font-weight: 600;
+    border-radius: 6px;
+}

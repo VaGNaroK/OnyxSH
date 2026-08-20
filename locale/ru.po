@@ -10782,3 +10782,67 @@ msgstr "⏭️ Пропущено"
 # 
 msgid "Executar esta etapa"
 msgstr "Выполнить этот шаг"
+
+# 
+msgid "Sugerir Verificação Pós-Execução (Sanity Loop)"
+msgstr "Предлагать проверку после выполнения (Sanity Loop)"
+
+# 
+msgid "Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."
+msgstr "Определяет и предлагает автоматические проверки (статус служб, синтаксис конфигураций, права) после команд, изменяющих систему."
+
+# 
+msgid "Executar Verificações Automaticamente"
+msgstr "Выполнять проверки автоматически"
+
+# 
+msgid "Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."
+msgstr "Автоматически запускает тесты работоспособности без необходимости нажимать кнопку проверки вручную."
+
+# 
+msgid "Verificação Pós-Execução ({count} validações recomendadas)"
+msgstr "Проверка после выполнения ({count} реком. проверок)"
+
+# 
+msgid "⚡ Validar Agora"
+msgstr "⚡ Проверить сейчас"
+
+# 
+msgid "Executar todos os testes de sanidade pós-execução"
+msgstr "Выполнить все проверки работоспособности после выполнения"
+
+# 
+msgid "Executar esta validação"
+msgstr "Выполнить эту проверку"
+
+# 
+msgid "⏳ Aguardando"
+msgstr "⏳ Ожидание"
+
+# 
+msgid "🟡 Validando..."
+msgstr "🟡 Проверка..."
+
+# 
+msgid "🟢 Sanidade Confirmada"
+msgstr "🟢 Работоспособность подтверждена"
+
+# 
+msgid "🔴 Falha na Validação"
+msgstr "🔴 Ошибка проверки"
+
+# 
+msgid "Falha detectada: {desc}"
+msgstr "Обнаружен сбой: {desc}"
+
+# 
+msgid "🤖 Diagnosticar e Corrigir com IA"
+msgstr "🤖 Диагностировать и исправить с помощью ИИ"
+
+# 
+msgid "Pedir à IA para analisar os logs de erro e propor plano de correção"
+msgstr "Попросить ИИ проанализировать журналы ошибок и предложить план исправления"
+
+# 
+msgid "Sem detalhes de erro."
+msgstr "Нет подробностей об ошибке."

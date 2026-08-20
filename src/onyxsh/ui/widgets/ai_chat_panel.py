@@ -17,6 +17,7 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk, Pango
 
+from ...agent.verifier import PostVerifier, VerificationCheck, VerificationResult
 from ...utils.icons import icon_image
 from ...utils.logger import get_logger
 from ...utils.tooltip_helper import get_tooltip_helper
@@ -487,6 +488,11 @@ class MessageBubble(Gtk.Box):
         self._plan_run_diag_btn: Optional[Gtk.Button] = None
         self._plan_step_btn: Optional[Gtk.Button] = None
 
+        # Post-Execution Verification tracking
+        self._post_verifier = PostVerifier()
+        self._verification_card: Optional[Gtk.Box] = None
+        self._executed_history: list[dict] = []
+
         # Get terminal palette if using terminal theme
         if settings_manager and settings_manager.get("gtk_theme", "") == "terminal":
             scheme = settings_manager.get_color_scheme_data()
@@ -531,6 +537,12 @@ class MessageBubble(Gtk.Box):
             role_label.add_css_class("caption")
             role_label.add_css_class("accent")
             header_box.append(role_label)
+
+            self._model_tag = Gtk.Label(label="")
+            self._model_tag.add_css_class("caption")
+            self._model_tag.add_css_class("dim-label")
+            self._model_tag.set_visible(False)
+            header_box.append(self._model_tag)
 
             # Spacer and copy full response button
             spacer = Gtk.Box(hexpand=True)
@@ -1454,10 +1466,12 @@ class MessageBubble(Gtk.Box):
                 desc_label.add_css_class("dim-label")
                 expander.set_child(desc_label)
                 step_card.append(expander)
-
             commands_section.append(step_card)
 
         self.append(commands_section)
+
+        self._executed_history = []
+        self._verification_card = None
 
     def _on_step_check_toggled(self, check_btn: Gtk.CheckButton, step_data: dict) -> None:
         """Update step selection state when user toggles checkbox."""
@@ -1480,8 +1494,11 @@ class MessageBubble(Gtk.Box):
         self._update_step_status_ui(step_data, "running")
         cmd_str = step_data.get("command_str", "")
         self.emit("run-command", cmd_str)
+        self._executed_history.append(step_data)
         GLib.timeout_add(400, lambda: self._update_step_status_ui(step_data, "completed"))
         GLib.timeout_add(450, self._update_plan_progress)
+        step_copy = dict(step_data)
+        GLib.timeout_add(600, lambda: self._trigger_post_verification([step_copy]))
 
     def _on_batch_run_all_clicked(self, _button: Gtk.Button) -> None:
         """Executes all checked and unblocked steps sequentially."""
@@ -1533,6 +1550,7 @@ class MessageBubble(Gtk.Box):
         self._is_running_batch = True
         self._abort_batch = False
         self._batch_queue = list(steps)
+        self._executed_history = []
 
         if self._plan_stop_btn:
             self._plan_stop_btn.set_sensitive(True)
@@ -1550,9 +1568,13 @@ class MessageBubble(Gtk.Box):
             if self._plan_run_all_btn:
                 self._plan_run_all_btn.set_sensitive(True)
             self._update_plan_progress()
+            if not self._abort_batch and self._executed_history:
+                history_copy = list(self._executed_history)
+                GLib.timeout_add(500, lambda: self._trigger_post_verification(history_copy))
             return False
 
         step = self._batch_queue.pop(0)
+        self._executed_history.append(step)
         self._update_step_status_ui(step, "running")
 
         cmd_str = step.get("command_str", "")
@@ -1561,8 +1583,8 @@ class MessageBubble(Gtk.Box):
         GLib.timeout_add(350, lambda: self._update_step_status_ui(step, "completed"))
         GLib.timeout_add(400, self._update_plan_progress)
 
-        if self._batch_queue and not self._abort_batch:
-            GLib.timeout_add(600, self._process_batch_queue)
+        # Always schedule next check to either run the next item or trigger completion
+        GLib.timeout_add(600, self._process_batch_queue)
 
         return False
 
@@ -1620,6 +1642,260 @@ class MessageBubble(Gtk.Box):
         self._plan_progress_bar.set_fraction(fraction)
         self._plan_progress_label.set_label(f"{completed}/{total} " + _("concluídos"))
 
+    def _trigger_post_verification(self, executed_steps: list[dict]) -> bool:
+        """Infere e exibe/executa testes de sanidade pós-execução se habilitado."""
+        if self._settings_manager and not self._settings_manager.get("ai_agent_post_verification", True):
+            return False
+
+        checks = self._post_verifier.infer_verifications(executed_steps)
+        if not checks:
+            return False
+
+        # Se o cartão de verificação já existe, remove o antigo
+        if self._verification_card and self._verification_card.get_parent():
+            self.remove(self._verification_card)
+            self._verification_card = None
+
+        card = self._create_verification_card(checks)
+        self._verification_card = card
+        self.append(card)
+
+        # Scroll parent to reveal verification card
+        parent = self.get_parent()
+        while parent:
+            if isinstance(parent, Gtk.ScrolledWindow):
+                adj = parent.get_vadjustment()
+                if adj:
+                    GLib.timeout_add(50, lambda: adj.set_value(adj.get_upper() - adj.get_page_size()) or False)
+                    GLib.timeout_add(150, lambda: adj.set_value(adj.get_upper() - adj.get_page_size()) or False)
+                break
+            parent = parent.get_parent()
+
+        # Se auto_verify estiver ativado, dispara a validação automaticamente após breve delay
+        if self._settings_manager and self._settings_manager.get("ai_agent_auto_verify", False):
+            GLib.timeout_add(300, lambda: self._run_all_verifications(checks))
+
+        return False
+
+    def _create_verification_card(self, checks: list[VerificationCheck]) -> Gtk.Box:
+        card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+        card.add_css_class("ai-verification-card")
+
+        # Header Box
+        header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        header.add_css_class("ai-verification-header")
+
+        title_label = Gtk.Label(
+            label=f"🔍 " + _("Verificação Pós-Execução ({count} validações recomendadas)").format(count=len(checks))
+        )
+        title_label.add_css_class("ai-verification-title")
+        title_label.set_xalign(0)
+        title_label.set_hexpand(True)
+        header.append(title_label)
+
+        validate_all_btn = Gtk.Button(label=_("⚡ Validar Agora"))
+        validate_all_btn.add_css_class("suggested-action")
+        validate_all_btn.add_css_class("ai-verify-all-btn")
+        validate_all_btn.connect("clicked", lambda b: self._run_all_verifications(checks))
+        self._add_tooltip(validate_all_btn, _("Executar todos os testes de sanidade pós-execução"))
+        header.append(validate_all_btn)
+
+        card.append(header)
+
+        # Items List
+        items_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        card._items_map = {}
+
+        for chk in checks:
+            item_card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+            item_card.add_css_class("ai-verification-item")
+
+            # Top Row: Description + Status Badge + Spinner
+            top_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+            desc_label = Gtk.Label(label=chk.description)
+            desc_label.set_xalign(0)
+            desc_label.set_hexpand(True)
+            desc_label.add_css_class("ai-verify-desc")
+            top_row.append(desc_label)
+
+            spinner = Gtk.Spinner()
+            spinner.set_spinning(False)
+            spinner.set_visible(False)
+            top_row.append(spinner)
+
+            badge = Gtk.Label(label=_("⏳ Aguardando"))
+            badge.add_css_class("ai-verify-status-badge")
+            badge.add_css_class("ai-verify-status-pending")
+            top_row.append(badge)
+
+            item_card.append(top_row)
+
+            # Command Row: Mono Check Command + Individual Run Button
+            cmd_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+            cmd_lbl = Gtk.Label(label=chk.check_command)
+            cmd_lbl.set_xalign(0)
+            cmd_lbl.set_hexpand(True)
+            cmd_lbl.add_css_class("ai-verify-cmd")
+            cmd_lbl.set_selectable(True)
+            cmd_row.append(cmd_lbl)
+
+            single_run_btn = Gtk.Button()
+            single_run_btn.set_icon_name("media-playback-start-symbolic")
+            single_run_btn.add_css_class("flat")
+            single_run_btn.add_css_class("circular")
+            single_run_btn.add_css_class("ai-cmd-btn-run")
+            self._add_tooltip(single_run_btn, _("Executar esta validação"))
+            cmd_row.append(single_run_btn)
+
+            item_card.append(cmd_row)
+
+            widgets = {
+                "badge": badge,
+                "spinner": spinner,
+                "run_btn": single_run_btn,
+                "card": item_card,
+            }
+            single_run_btn.connect("clicked", lambda b, c=chk, w=widgets: self._run_single_verification(c, w))
+            card._items_map[chk.check_command] = widgets
+            items_box.append(item_card)
+
+        card.append(items_box)
+
+        # Diagnostic Box placeholder for errors
+        logs_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        logs_box.add_css_class("ai-verification-logs-box")
+        logs_box.set_visible(False)
+        card._logs_box = logs_box
+        card._validate_all_btn = validate_all_btn
+
+        card.append(logs_box)
+        return card
+
+    def _run_all_verifications(self, checks: list[VerificationCheck]) -> None:
+        """Executa assincronamente todos os checks de verificação em lote."""
+        if not self._verification_card or not hasattr(self._verification_card, "_items_map"):
+            return
+
+        if hasattr(self._verification_card, "_validate_all_btn"):
+            self._verification_card._validate_all_btn.set_sensitive(False)
+
+        import threading
+
+        def _worker():
+            results = []
+            for chk in checks:
+                widgets = self._verification_card._items_map.get(chk.check_command)
+                if widgets:
+                    GLib.idle_add(self._update_verify_ui_status, widgets, "running")
+
+                res = self._post_verifier.run_verification(chk)
+                results.append(res)
+
+                if widgets:
+                    status = "success" if res.success else "failed"
+                    GLib.idle_add(self._update_verify_ui_status, widgets, status)
+
+            GLib.idle_add(self._on_verifications_completed, results)
+
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def _run_single_verification(self, check: VerificationCheck, widgets: dict) -> None:
+        """Executa um único check de verificação."""
+        self._update_verify_ui_status(widgets, "running")
+
+        import threading
+
+        def _worker():
+            res = self._post_verifier.run_verification(check)
+            status = "success" if res.success else "failed"
+            GLib.idle_add(self._update_verify_ui_status, widgets, status)
+            if not res.success:
+                GLib.idle_add(self._on_verifications_completed, [res])
+
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def _update_verify_ui_status(self, widgets: dict, status: str) -> bool:
+        badge = widgets.get("badge")
+        spinner = widgets.get("spinner")
+        if not badge:
+            return False
+
+        for cls in ("ai-verify-status-pending", "ai-verify-status-running", "ai-verify-status-success", "ai-verify-status-failed"):
+            badge.remove_css_class(cls)
+
+        if status == "running":
+            badge.set_label(_("🟡 Validando..."))
+            badge.add_css_class("ai-verify-status-running")
+            if spinner:
+                spinner.set_visible(True)
+                spinner.set_spinning(True)
+        elif status == "success":
+            badge.set_label(_("🟢 Sanidade Confirmada"))
+            badge.add_css_class("ai-verify-status-success")
+            if spinner:
+                spinner.set_spinning(False)
+                spinner.set_visible(False)
+        elif status == "failed":
+            badge.set_label(_("🔴 Falha na Validação"))
+            badge.add_css_class("ai-verify-status-failed")
+            if spinner:
+                spinner.set_spinning(False)
+                spinner.set_visible(False)
+        else:
+            badge.set_label(_("⏳ Aguardando"))
+            badge.add_css_class("ai-verify-status-pending")
+            if spinner:
+                spinner.set_spinning(False)
+                spinner.set_visible(False)
+        return False
+
+    def _on_verifications_completed(self, results: list[VerificationResult]) -> bool:
+        """Exibe logs de diagnóstico e botão de correção com IA se algum check falhou."""
+        if not self._verification_card or not hasattr(self._verification_card, "_logs_box"):
+            return False
+
+        if hasattr(self._verification_card, "_validate_all_btn"):
+            self._verification_card._validate_all_btn.set_sensitive(True)
+
+        failed = [r for r in results if not r.success]
+        logs_box = self._verification_card._logs_box
+
+        # Clear existing logs widgets
+        children = list(logs_box)
+        for child in children:
+            logs_box.remove(child)
+
+        if failed:
+            logs_box.set_visible(True)
+            for fail in failed:
+                fail_title = Gtk.Label(label=f"⚠️ " + _("Falha detectada: {desc}").format(desc=fail.check.description))
+                fail_title.set_xalign(0)
+                fail_title.add_css_class("ai-verification-logs-title")
+                logs_box.append(fail_title)
+
+                log_content = fail.diagnostic_output or fail.output or fail.error_message or _("Sem detalhes de erro.")
+                log_lbl = Gtk.Label(label=log_content)
+                log_lbl.set_xalign(0)
+                log_lbl.set_wrap(True)
+                log_lbl.add_css_class("ai-verification-logs-text")
+                log_lbl.set_selectable(True)
+                logs_box.append(log_lbl)
+
+                fix_btn = Gtk.Button(label=_("🤖 Diagnosticar e Corrigir com IA"))
+                fix_btn.add_css_class("suggested-action")
+                fix_btn.add_css_class("ai-verification-fix-btn")
+                fix_btn.connect("clicked", lambda b, f=fail, l=log_content: self._on_request_ai_fix_clicked(f.check.target_command, l))
+                self._add_tooltip(fix_btn, _("Pedir à IA para analisar os logs de erro e propor plano de correção"))
+                logs_box.append(fix_btn)
+        else:
+            logs_box.set_visible(False)
+
+        return False
+
+    def _on_request_ai_fix_clicked(self, target_cmd: str, log_content: str) -> None:
+        """Dispara o sinal request-ai-fix para o AIChatPanel."""
+        self.emit("request-ai-fix", target_cmd, log_content)
+
     def _on_diff_clicked(self, _button: Gtk.Button, step_data: dict) -> None:
         """Open diff review dialog for proposed edit."""
         from ..dialogs.diff_review_dialog import DiffReviewDialog
@@ -1661,11 +1937,10 @@ class MessageBubble(Gtk.Box):
             card.append(btn_spacer)
 
             copy_code_btn = Gtk.Button()
-            copy_code_btn.set_label(_("📋 Copiar Código"))
+            copy_code_btn.set_icon_name("edit-copy-symbolic")
             copy_code_btn.add_css_class("flat")
-            copy_code_btn.add_css_class("suggested-action")
             copy_code_btn.connect("clicked", self._on_copy_clicked, code_clean)
-            self._add_tooltip(copy_code_btn, _("Copiar bloco de código/script para a área de transferência"))
+            self._add_tooltip(copy_code_btn, _("Copiar bloco de código"))
             card.append(copy_code_btn)
 
             if lang_display in {"bash", "sh", "zsh", "shell"} and len(code_clean.splitlines()) == 1:
@@ -1681,6 +1956,8 @@ class MessageBubble(Gtk.Box):
     def _on_run_clicked(self, button: Gtk.Button, command: str):
         """Emit signal to run command directly."""
         self.emit("run-command", command)
+        self._executed_history.append({"command_str": command})
+        GLib.timeout_add(700, lambda: self._trigger_post_verification([{"command_str": command}]))
 
     def _on_execute_clicked(self, button: Gtk.Button, command: str):
         """Emit signal to execute command."""
@@ -1724,6 +2001,31 @@ class MessageBubble(Gtk.Box):
                 self.remove(child)
             self._add_command_buttons()
 
+    def set_route_info(self, provider: str, model: str, is_fallback: bool = False) -> None:
+        """Sets the visual badge indicating which AI provider and model answered."""
+        if not hasattr(self, "_model_tag") or not self._model_tag:
+            return
+        if not provider:
+            return
+
+        if is_fallback:
+            tag = f"• 🔄 Fallback Local ({model})"
+        else:
+            p = provider.lower()
+            if p == "gemini":
+                tag = f"• 🧠 Gemini ({model})"
+            elif p == "groq":
+                tag = f"• ⚡ Groq ({model})"
+            elif p in ("local", "ollama"):
+                tag = f"• 🛡️ Ollama ({model})"
+            elif p == "openrouter":
+                tag = f"• 🌐 OpenRouter ({model})"
+            else:
+                tag = f"• {provider.capitalize()} ({model})"
+
+        self._model_tag.set_label(tag)
+        self._model_tag.set_visible(True)
+
 
 # Register signals for MessageBubble
 GObject.signal_new(
@@ -1742,6 +2044,14 @@ GObject.signal_new(
     (GObject.TYPE_STRING,)
 )
 
+GObject.signal_new(
+    "request-ai-fix",
+    MessageBubble,
+    GObject.SignalFlags.RUN_LAST,
+    GObject.TYPE_NONE,
+    (GObject.TYPE_STRING, GObject.TYPE_STRING)
+)
+
 
 class AIChatPanel(Gtk.Box):
     """Persistent AI chat panel overlay."""
@@ -1756,6 +2066,7 @@ class AIChatPanel(Gtk.Box):
         self, ai_assistant: AIAssistant, tooltip_helper=None, settings_manager=None
     ):
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
+        self.logger = get_logger("onyxsh.ui.chat")
         self._ai_assistant = ai_assistant
         self._history_manager = ai_assistant._history_manager
         self._settings_manager = settings_manager
@@ -1907,6 +2218,13 @@ class AIChatPanel(Gtk.Box):
         self._offline_btn.connect("clicked", self._on_toggle_offline_mode)
         self._update_offline_badge_ui()
         header.pack_end(self._offline_btn)
+
+        # Smart Routing Profile Selector MenuButton
+        self._routing_btn = Gtk.MenuButton()
+        self._routing_btn.add_css_class("flat")
+        self._setup_routing_menu()
+        self._update_routing_badge_ui()
+        header.pack_end(self._routing_btn)
 
         self.append(header)
 
@@ -2091,8 +2409,102 @@ class AIChatPanel(Gtk.Box):
 
     def _on_setting_changed(self, key: str, _old_value: Any, _new_value: Any) -> None:
         """Handle settings changes dynamically."""
-        if key == "ai_assistant_offline_mode":
+        if key in ("ai_assistant_offline_mode", "ai_routing_profile", "ai_smart_routing_enabled"):
             GLib.idle_add(self._update_offline_badge_ui)
+            GLib.idle_add(self._update_routing_badge_ui)
+
+    def _setup_routing_menu(self) -> None:
+        """Constructs the popup menu for selecting routing profiles."""
+        popover = Gtk.Popover()
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+        box.set_margin_top(6)
+        box.set_margin_bottom(6)
+        box.set_margin_start(6)
+        box.set_margin_end(6)
+
+        title = Gtk.Label(label=_("Perfil de Roteamento"))
+        title.add_css_class("heading")
+        title.add_css_class("caption")
+        title.set_xalign(0)
+        box.append(title)
+
+        box.append(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
+
+        # 1. Auto
+        btn_auto = Gtk.Button()
+        b_auto = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        b_auto.append(Gtk.Image.new_from_icon_name("view-refresh-symbolic"))
+        b_auto.append(Gtk.Label(label=_("🔄 Automático (Inteligente)")))
+        btn_auto.set_child(b_auto)
+        btn_auto.add_css_class("flat")
+        btn_auto.connect("clicked", lambda _: self._select_routing_profile("auto", popover))
+        box.append(btn_auto)
+
+        # 2. Fast
+        btn_fast = Gtk.Button()
+        b_fast = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        b_fast.append(Gtk.Image.new_from_icon_name("starred-symbolic"))
+        b_fast.append(Gtk.Label(label=_("⚡ Sempre Rápido (Baixa Latência)")))
+        btn_fast.set_child(b_fast)
+        btn_fast.add_css_class("flat")
+        btn_fast.connect("clicked", lambda _: self._select_routing_profile("fast", popover))
+        box.append(btn_fast)
+
+        # 3. Advanced
+        btn_adv = Gtk.Button()
+        b_adv = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        b_adv.append(Gtk.Image.new_from_icon_name("emblem-system-symbolic"))
+        b_adv.append(Gtk.Label(label=_("🧠 Sempre Avançado (Raciocínio)")))
+        btn_adv.set_child(b_adv)
+        btn_adv.add_css_class("flat")
+        btn_adv.connect("clicked", lambda _: self._select_routing_profile("advanced", popover))
+        box.append(btn_adv)
+
+        popover.set_child(box)
+        self._routing_btn.set_popover(popover)
+
+    def _select_routing_profile(self, profile: str, popover: Gtk.Popover) -> None:
+        popover.popdown()
+        if hasattr(self._ai_assistant, "set_routing_profile"):
+            self._ai_assistant.set_routing_profile(profile)
+        self._update_routing_badge_ui()
+
+    def _update_routing_badge_ui(self) -> None:
+        """Updates the visual appearance of the smart routing button."""
+        if not hasattr(self, "_routing_btn") or not self._routing_btn:
+            return
+
+        profile = "auto"
+        if hasattr(self._ai_assistant, "get_routing_profile"):
+            profile = self._ai_assistant.get_routing_profile().lower()
+
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        if profile == "fast":
+            icon = Gtk.Image.new_from_icon_name("starred-symbolic")
+            label = Gtk.Label(label=_("⚡ Rápido"))
+            self._add_tooltip(
+                self._routing_btn,
+                _("Perfil Rápido Ativo: prioriza baixa latência e respostas imediatas (Groq / Local)."),
+            )
+        elif profile == "advanced":
+            icon = Gtk.Image.new_from_icon_name("emblem-system-symbolic")
+            label = Gtk.Label(label=_("🧠 Avançado"))
+            self._add_tooltip(
+                self._routing_btn,
+                _("Perfil Avançado Ativo: prioriza raciocínio profundo e planos multi-passo (Gemini / Claude)."),
+            )
+        else:
+            icon = Gtk.Image.new_from_icon_name("view-refresh-symbolic")
+            label = Gtk.Label(label=_("🔄 Auto"))
+            self._add_tooltip(
+                self._routing_btn,
+                _("Roteamento Inteligente Ativo: a IA escolhe o modelo ideal automaticamente conforme a pergunta."),
+            )
+
+        label.add_css_class("caption")
+        box.append(icon)
+        box.append(label)
+        self._routing_btn.set_child(box)
 
     def _update_offline_badge_ui(self) -> None:
         """Updates the visual state of the Offline Mode badge in the header bar."""
@@ -2151,6 +2563,7 @@ class AIChatPanel(Gtk.Box):
             new_state = not current
             self._ai_assistant.set_offline_mode(new_state)
             self._update_offline_badge_ui()
+            self._update_routing_badge_ui()
 
     def _on_theme_changed(self, style_manager, param):
         """Handle theme change (light/dark) to update styles."""
@@ -2428,12 +2841,24 @@ class AIChatPanel(Gtk.Box):
         )
         bubble.connect("execute-command", self._on_bubble_execute)
         bubble.connect("run-command", self._on_bubble_run)
+        bubble.connect("request-ai-fix", self._on_bubble_request_ai_fix)
         self._messages_box.append(bubble)
 
         # Scroll to bottom
         GLib.idle_add(self._scroll_to_bottom)
 
         return bubble
+
+    def _on_bubble_request_ai_fix(self, bubble, target_cmd: str, diag_logs: str) -> None:
+        """Handle request from post-verification card to diagnose and fix with AI."""
+        prompt = (
+            f"A verificação pós-execução do comando '{target_cmd}' falhou. "
+            f"Aqui estão os logs diagnósticos capturados:\n\n"
+            f"```\n{diag_logs}\n```\n\n"
+            f"Por favor, analise a causa raiz e proponha um plano seguro para corrigir este problema."
+        )
+        self._set_input_text(prompt)
+        self._on_send(None)
 
     def _scroll_to_bottom(self):
         """Scroll the chat to the bottom."""
@@ -2490,6 +2915,7 @@ class AIChatPanel(Gtk.Box):
 
         # Add user message
         self._add_message_bubble("user", text)
+        self.logger.info(f"[AIChatPanel] User submitted prompt: '{text[:60]}'...")
 
         # Start loading indicator
         self._loading.start()
@@ -2520,6 +2946,17 @@ class AIChatPanel(Gtk.Box):
         """Safely update UI with streaming chunk on the GTK main thread."""
         try:
             if not is_done and self._current_assistant_bubble:
+                route = (
+                    self._ai_assistant.get_last_route_decision()
+                    if hasattr(self._ai_assistant, "get_last_route_decision")
+                    else None
+                )
+                if route:
+                    self._current_assistant_bubble.set_route_info(
+                        route.provider,
+                        route.model,
+                        getattr(route, "is_fallback", False),
+                    )
                 self._raw_streaming_content += chunk
                 display_content = _extract_reply_from_json(self._raw_streaming_content)
                 self._current_assistant_bubble.update_content(display_content)
@@ -2545,7 +2982,19 @@ class AIChatPanel(Gtk.Box):
         # Normalize commands to list of strings
         commands_list = _normalize_commands(list(commands) if commands else [])
 
+        route = (
+            self._ai_assistant.get_last_route_decision()
+            if hasattr(self._ai_assistant, "get_last_route_decision")
+            else None
+        )
+
         if self._current_assistant_bubble:
+            if route:
+                self._current_assistant_bubble.set_route_info(
+                    route.provider,
+                    route.model,
+                    getattr(route, "is_fallback", False),
+                )
             self._current_assistant_bubble.update_content(clean_response, commands_list)
             self._current_assistant_bubble = None
 
@@ -2935,12 +3384,26 @@ class AIChatPanel(Gtk.Box):
         )
         conv_id = conv.get("id", "current") if conv else "current"
 
+        # Collect distinct models used
+        models_used = set()
+        for msg in messages:
+            if msg.get("role") == "assistant":
+                m = msg.get("model")
+                p = msg.get("provider")
+                if m and p:
+                    models_used.add(f"{p} ({m})")
+                elif m:
+                    models_used.add(m)
+
+        models_str = ", ".join(sorted(models_used)) if models_used else _("Não especificado")
+
         lines = [
             f"# OnyxSH AI Chat Export",
             f"",
             f"- **Date / Timestamp:** {created_at}",
             f"- **Conversation ID:** `{conv_id}`",
             f"- **Total Messages:** {len(messages)}",
+            f"- **Models Used:** {models_str}",
             f"",
             f"---",
             f"",
@@ -2951,6 +3414,8 @@ class AIChatPanel(Gtk.Box):
             timestamp = msg.get("timestamp", "")
             content = msg.get("content", "").strip()
             commands = msg.get("commands", [])
+            model = msg.get("model", "")
+            provider = msg.get("provider", "")
 
             if role == "user":
                 lines.append(f"## 👤 User ({timestamp})")
@@ -2958,7 +3423,29 @@ class AIChatPanel(Gtk.Box):
                 lines.append(content)
                 lines.append("")
             else:
-                lines.append(f"## 🤖 Assistant ({timestamp})")
+                model_tag = ""
+                if provider and model:
+                    p = provider.lower()
+                    if p == "gemini":
+                        icon = "🧠"
+                        p_name = "Gemini"
+                    elif p == "groq":
+                        icon = "⚡"
+                        p_name = "Groq"
+                    elif p in ("local", "ollama"):
+                        icon = "🛡️"
+                        p_name = "Ollama"
+                    elif p == "openrouter":
+                        icon = "🌐"
+                        p_name = "OpenRouter"
+                    else:
+                        icon = "🤖"
+                        p_name = provider.capitalize()
+                    model_tag = f" • {icon} {p_name} ({model})"
+                elif model:
+                    model_tag = f" • ({model})"
+
+                lines.append(f"## 🤖 Assistant{model_tag} ({timestamp})")
                 lines.append("")
                 lines.append(content)
                 lines.append("")
@@ -3035,7 +3522,7 @@ class AIChatPanel(Gtk.Box):
             return
 
         timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-        default_filename = f"zash_ai_chat_{timestamp_str}{ext}"
+        default_filename = f"onyxsh_ai_chat_{timestamp_str}{ext}"
 
         file_dialog = Gtk.FileDialog(
             title=_("Export AI Conversation"),

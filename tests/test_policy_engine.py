@@ -39,6 +39,14 @@ class TestPolicyEngine(unittest.TestCase):
         self.assertEqual(self.engine.classify(["sh", "-c", "echo hacked"]), RiskLevel.BLOCKED)
         self.assertEqual(self.engine.classify(["bash", "-c", "echo hacked"]), RiskLevel.BLOCKED)
 
+    def test_classify_sudo_admin_commands(self):
+        self.assertEqual(self.engine.classify(["sudo", "apt", "update"]), RiskLevel.ADMIN)
+        self.assertEqual(self.engine.classify(["sudo", "apt", "upgrade", "--exclude=linux-*"]), RiskLevel.ADMIN)
+        self.assertEqual(self.engine.classify(["sudo", "apt", "autoremove"]), RiskLevel.ADMIN)
+        self.assertEqual(self.engine.classify(["sudo", "systemctl", "restart", "nginx"]), RiskLevel.ADMIN)
+        self.assertEqual(self.engine.classify(["sudo", "rm", "-rf", "/"]), RiskLevel.BLOCKED)
+        self.assertEqual(self.engine.classify(["sudo", "reboot"]), RiskLevel.BLOCKED)
+
     def test_evaluate_step_overrides_model_hallucinated_risk(self):
         hallucinated_step = ActionStep(
             step_id="s1",

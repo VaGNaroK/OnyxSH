@@ -344,6 +344,18 @@ class DefaultSettings:
             ],
             "ai_agent_audit_retention_days": 30,
             "ai_agent_max_read_bytes": 20000,
+            "ai_agent_post_verification": True,
+            "ai_agent_auto_verify": False,
+            # Smart Model Routing
+            "ai_smart_routing_enabled": True,
+            "ai_routing_profile": "auto",  # "auto", "fast", "advanced"
+            "ai_fast_provider": "groq",
+            "ai_fast_model": "llama-3.1-8b-instant",
+            "ai_advanced_provider": "gemini",
+            "ai_advanced_model": "gemini-2.5-flash",
+            "ai_api_key_gemini": "",
+            "ai_api_key_groq": "",
+            "ai_api_key_openrouter": "",
             # Search Settings
             "search_case_sensitive": False,
             "search_use_regex": False,

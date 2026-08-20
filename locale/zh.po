@@ -10741,3 +10741,67 @@ msgstr "⏭️ 已跳过"
 # 
 msgid "Executar esta etapa"
 msgstr "执行此步骤"
+
+# 
+msgid "Sugerir Verificação Pós-Execução (Sanity Loop)"
+msgstr "建议执行后验证（健全性检查）"
+
+# 
+msgid "Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."
+msgstr "在执行修改系统的命令后推断并建议自动验证（服务状态、配置语法、权限）。"
+
+# 
+msgid "Executar Verificações Automaticamente"
+msgstr "自动执行验证"
+
+# 
+msgid "Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."
+msgstr "自动触发健全性测试，无需手动点击验证按钮。"
+
+# 
+msgid "Verificação Pós-Execução ({count} validações recomendadas)"
+msgstr "执行后验证（推荐 {count} 项验证）"
+
+# 
+msgid "⚡ Validar Agora"
+msgstr "⚡ 立即验证"
+
+# 
+msgid "Executar todos os testes de sanidade pós-execução"
+msgstr "运行所有执行后健全性检查"
+
+# 
+msgid "Executar esta validação"
+msgstr "运行此验证"
+
+# 
+msgid "⏳ Aguardando"
+msgstr "⏳ 等待中"
+
+# 
+msgid "🟡 Validando..."
+msgstr "🟡 正在验证..."
+
+# 
+msgid "🟢 Sanidade Confirmada"
+msgstr "🟢 健全性已确认"
+
+# 
+msgid "🔴 Falha na Validação"
+msgstr "🔴 验证失败"
+
+# 
+msgid "Falha detectada: {desc}"
+msgstr "检测到失败：{desc}"
+
+# 
+msgid "🤖 Diagnosticar e Corrigir com IA"
+msgstr "🤖 使用 AI 进行诊断并修复"
+
+# 
+msgid "Pedir à IA para analisar os logs de erro e propor plano de correção"
+msgstr "请求 AI 分析错误日志并提出修复计划"
+
+# 
+msgid "Sem detalhes de erro."
+msgstr "无错误详情。"

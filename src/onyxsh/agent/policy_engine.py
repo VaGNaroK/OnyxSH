@@ -171,10 +171,14 @@ class PolicyEngine:
         if is_denied:
             return RiskLevel.BLOCKED
 
-        # 2. Block direct sudo/su invocations via normal shell tool
+        # 2. Sudo/su/pkexec/doas invocations in shell
         if argv and argv[0] in {"sudo", "su", "pkexec", "doas"}:
-            if not requires_admin and tool != "admin.run_action":
-                return RiskLevel.BLOCKED
+            sub_argv = argv[1:]
+            if sub_argv:
+                sub_denied, _ = self.check_deny_patterns(sub_argv)
+                if sub_denied:
+                    return RiskLevel.BLOCKED
+            return RiskLevel.ADMIN
 
         # 3. Tool specific defaults
         if tool.startswith("fs."):

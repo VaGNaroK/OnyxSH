@@ -80,6 +80,7 @@ class TerminalAiAssistant(GObject.Object):
         "4. **TERMINAL AWARENESS:** The user is ALREADY working inside the OnyxSH terminal emulator. Never instruct the user to 'Open the terminal (Ctrl+Alt+T)' or open graphical desktop text editors unless explicitly asked. Always provide direct CLI solutions.\n"
         "5. **DYNAMIC PATHS & MODERN STANDARDS:** Always use `$HOME`, `~`, or relative paths. NEVER invent fake hardcoded user paths like `/home/usuario/` or `/home/user/`. Use modern system standards for {os_context} (e.g. `systemd`, `systemctl`, `journalctl`, `apt`, `flatpak`, `ip`, `ss`), avoiding deprecated legacy tools (`/etc/init.d/`, `update-rc.d`, `ifconfig`, `netstat`).\n"
         "6. **SCRIPT CREATION VIA CLI:** When providing commands to create files/scripts in the terminal, use atomic heredoc blocks (e.g. `cat << 'EOF' > ~/myscript.sh\\n#!/usr/bin/env bash\\n...\\nEOF\\nchmod +x ~/myscript.sh`) instead of splitting lines across multiple `echo >>` commands.\n"
+        "7. **PACKAGE MANAGEMENT & UPDATES:** When upgrading system packages while excluding or holding specific packages (like the Linux kernel), use official native package manager holding mechanisms (e.g. `sudo apt-mark hold linux-image-generic linux-headers-generic && sudo apt upgrade -y` on Debian/Ubuntu/Mint, or `sudo dnf upgrade -x 'kernel*'` on Fedora) instead of fragile parsing hacks like `apt list --upgradable | grep ... > file`.\n"
         "\n"
         "**FIELD DETAILS & BEST PRACTICES:**\n"
         "- 'reply': Didactic, well-structured explanation in Markdown. When creating scripts, configurations, or programs, ALWAYS display the full, production-ready, well-commented script inside a Markdown code block with syntax highlighting so the user can easily read, verify, and understand it.\n"
@@ -159,6 +160,7 @@ class TerminalAiAssistant(GObject.Object):
         self._inflight: Dict[int, bool] = {}
         self._lock = threading.RLock()
         self._history_manager_instance = None  # Lazy loaded via property
+        self._router_instance = None  # Lazy loaded via property
         # Callbacks for streaming updates
         self._streaming_callback: Optional[Callable[[str, bool], None]] = None
 
@@ -168,6 +170,14 @@ class TerminalAiAssistant(GObject.Object):
         if self._history_manager_instance is None:
             self._history_manager_instance = get_ai_history_manager()
         return self._history_manager_instance
+
+    @property
+    def router(self):
+        """Lazy load the SmartRouter instance."""
+        if self._router_instance is None:
+            from ..agent.router import SmartRouter
+            self._router_instance = SmartRouter(self.settings_manager)
+        return self._router_instance
 
     # ------------------------------------------------------------------
     # Public API
@@ -183,26 +193,39 @@ class TerminalAiAssistant(GObject.Object):
         """Enables or disables strictly offline local-only mode."""
         self.settings_manager.set("ai_assistant_offline_mode", bool(enabled))
 
-    def missing_configuration(self) -> List[str]:
+    def get_routing_profile(self) -> str:
+        """Returns the current routing profile string (e.g. 'auto', 'fast', 'advanced')."""
+        return self.settings_manager.get("ai_routing_profile", "auto")
+
+    def set_routing_profile(self, profile: str) -> None:
+        """Sets the active routing profile."""
+        self.settings_manager.set("ai_routing_profile", str(profile).lower())
+
+    def missing_configuration(self, prompt: str = "") -> List[str]:
         missing = []
-        provider = self.settings_manager.get("ai_assistant_provider", "").strip()
         if self.is_offline_mode():
-            provider = "local"
-        api_key = self.settings_manager.get("ai_assistant_api_key", "").strip()
-        if not provider:
-            missing.append("provider")
-            return missing
-        if provider in {"groq", "gemini", "openrouter"}:
-            if not api_key:
-                missing.append("api_key")
-        elif provider == "local":
-            # Local providers may not need API key
             base_url = self.settings_manager.get("ai_local_base_url", "").strip()
             if not base_url:
                 missing.append("base_url")
-        else:
+            return missing
+
+        route = self.router.resolve_route(prompt=prompt, is_offline_mode=False)
+        if not route.provider:
             missing.append("provider")
+            return missing
+
+        if route.provider in {"groq", "gemini", "openrouter"}:
+            if not route.api_key:
+                missing.append("api_key")
+        elif route.provider == "local":
+            base_url = self.settings_manager.get("ai_local_base_url", "").strip()
+            if not base_url:
+                missing.append("base_url")
         return missing
+
+    def get_last_route_decision(self):
+        """Returns the most recent RouteDecision calculated by the smart router."""
+        return getattr(self, "_last_route_decision", None)
 
     def request_assistance(
         self,
@@ -273,6 +296,7 @@ class TerminalAiAssistant(GObject.Object):
 
         # Save user message to history
         self._history_manager.add_user_message(prompt)
+        self.logger.info(f"[AIAssistant] request_assistance_simple: Starting worker thread for prompt='{prompt[:60]}...'")
 
         worker = threading.Thread(
             target=self._process_request_thread, args=(terminal_id, prompt), daemon=True
@@ -313,10 +337,19 @@ class TerminalAiAssistant(GObject.Object):
     def _preload_model_worker(self) -> None:
         """Worker executed in background IO thread pool to preload model."""
         try:
-            config = self._load_configuration()
-            from ..agent.providers import get_provider
-            provider = get_provider(config.get("provider", "ollama"), config)
-            provider.preload()
+            provider_name = self.settings_manager.get("ai_assistant_provider", "").strip().lower()
+            if provider_name in ("local", "ollama") or self.is_offline_mode():
+                config = {
+                    "provider": "local",
+                    "model": self.settings_manager.get("ai_assistant_model", "").strip() or self.DEFAULT_LOCAL_MODEL,
+                    "local_base_url": self.settings_manager.get("ai_local_base_url", "http://localhost:11434/v1").strip(),
+                }
+            else:
+                config = self._load_configuration()
+            if config.get("provider") in ("local", "ollama"):
+                from ..agent.providers import get_provider
+                provider = get_provider(config.get("provider", "ollama"), config)
+                provider.preload()
         except Exception as e:
             self.logger.debug("Async model preload failed: %s", e)
 
@@ -325,10 +358,14 @@ class TerminalAiAssistant(GObject.Object):
         if not self.settings_manager.get("ai_unload_on_exit", True):
             return True
         provider_name = self.settings_manager.get("ai_assistant_provider", "").strip().lower()
-        if provider_name not in ("local", "ollama"):
+        if provider_name not in ("local", "ollama") and not self.is_offline_mode():
             return True
         try:
-            config = self._load_configuration()
+            config = {
+                "provider": "local",
+                "model": self.settings_manager.get("ai_assistant_model", "").strip() or self.DEFAULT_LOCAL_MODEL,
+                "local_base_url": self.settings_manager.get("ai_local_base_url", "http://localhost:11434/v1").strip(),
+            }
             from ..agent.providers import get_provider
             provider = get_provider(config.get("provider", "ollama"), config)
             return provider.unload()
@@ -385,24 +422,101 @@ class TerminalAiAssistant(GObject.Object):
     def _process_request_thread(self, terminal_id: int, prompt: str) -> None:
         try:
             messages = self._build_messages(terminal_id, prompt)
-            config = self._load_configuration()
+            config = self._load_configuration(prompt)
+            primary_provider = config.get("provider", "local")
+            self.logger.info(
+                f"[AIAssistant] Dispatching to provider='{primary_provider}', model='{config.get('model')}', "
+                f"streaming={bool(self._streaming_callback)}, key_set={bool(config.get('api_key'))}"
+            )
 
-            # Check if we should use streaming
-            if self._streaming_callback:
-                content = self._perform_streaming_request(config, messages)
-            else:
-                content = self._perform_request(config, messages)
+            content = None
+            fallback_notice = None
+
+            try:
+                # Check if we should use streaming
+                if self._streaming_callback:
+                    content = self._perform_streaming_request(config, messages)
+                else:
+                    content = self._perform_request(config, messages)
+            except Exception as primary_error:
+                # If remote provider failed, attempt graceful fallback to local Ollama / LM Studio
+                if primary_provider != "local":
+                    self.logger.warning(
+                        f"[AIAssistant] Primary provider '{primary_provider}' failed: {primary_error}. Attempting automatic fallback to local LLM..."
+                    )
+                    local_config = config.copy()
+                    local_config["provider"] = "local"
+                    local_config["model"] = self.settings_manager.get("ai_fast_model", self.DEFAULT_LOCAL_MODEL)
+                    local_config["local_base_url"] = self.settings_manager.get(
+                        "ai_local_base_url", "http://localhost:11434/v1"
+                    )
+
+                    try:
+                        if self._streaming_callback:
+                            content = self._perform_local_streaming_request(local_config, messages)
+                        else:
+                            content = self._perform_local_request(local_config, messages)
+
+                        # Update route decision state
+                        if hasattr(self, "_last_route_decision") and self._last_route_decision:
+                            self._last_route_decision.is_fallback = True
+                            self._last_route_decision.fallback_reason = str(primary_error)
+                            self._last_route_decision.provider = "local"
+                            self._last_route_decision.model = local_config["model"]
+
+                        err_summary = str(primary_error)
+                        if "API key not valid" in err_summary or "API_KEY_INVALID" in err_summary or "400" in err_summary:
+                            reason_msg = _("Chave de API do provedor em nuvem inválida ou expirada")
+                        elif "Read timed out" in err_summary or "timeout" in err_summary.lower():
+                            reason_msg = _("Tempo limite de conexão esgotado (timeout)")
+                        elif "404" in err_summary:
+                            reason_msg = _("Modelo em nuvem não disponível")
+                        elif "429" in err_summary:
+                            reason_msg = _("Limite de cota de requisições excedido")
+                        else:
+                            reason_msg = err_summary[:100]
+
+                        prov_title = primary_provider.capitalize()
+                        if primary_provider == "gemini":
+                            prov_title = "Google Gemini"
+                        elif primary_provider == "groq":
+                            prov_title = "Groq"
+
+                        fallback_notice = (
+                            f"> ⚠️ **" + _("Modo de Contingência (Fallback Automático Ativado)") + "**\n"
+                            f"> " + _("Não foi possível conectar ao **{provider}** ({reason}). A resposta foi gerada localmente através do **{model}**.").format(
+                                provider=prov_title,
+                                reason=reason_msg,
+                                model=local_config["model"],
+                            ) + "\n\n---\n\n"
+                        )
+                    except Exception as local_err:
+                        self.logger.error(f"[AIAssistant] Local fallback also failed: {local_err}")
+                        raise primary_error from local_err
+                else:
+                    raise primary_error
 
             reply, commands, code_snippets = self._parse_assistant_payload(content)
             self._record_assistant_message(terminal_id, reply)
+
             # Save to history with commands (convert dicts to strings for storage)
             command_strings_for_history = [
-                cmd.get("command", "")
-                for cmd in commands
-                if isinstance(cmd, dict) and cmd.get("command")
+                cmd.get("command", "") if isinstance(cmd, dict) else str(cmd)
+                for cmd in (commands or [])
+                if (isinstance(cmd, dict) and cmd.get("command")) or isinstance(cmd, str)
             ]
+
+            used_provider = config.get("provider", "")
+            used_model = config.get("model", "")
+            if hasattr(self, "_last_route_decision") and self._last_route_decision:
+                used_provider = self._last_route_decision.provider
+                used_model = self._last_route_decision.model
+
             self._history_manager.add_assistant_message(
-                reply, command_strings_for_history
+                reply,
+                command_strings_for_history,
+                model=used_model,
+                provider=used_provider,
             )
 
             GLib.idle_add(
@@ -413,7 +527,7 @@ class TerminalAiAssistant(GObject.Object):
                 code_snippets,
             )
         except Exception as exc:  # pylint: disable=broad-except
-            self.logger.error("AI assistant request failed: %s", exc)
+            self.logger.error(f"[AIAssistant] Request failed: {exc}", exc_info=True)
             error_message = "Sorry, I couldn't complete the request: {}".format(exc)
             self._record_assistant_message(terminal_id, error_message)
             GLib.idle_add(
@@ -459,37 +573,35 @@ class TerminalAiAssistant(GObject.Object):
             messages.extend(selected_history)
             return messages
 
-    def _load_configuration(self) -> Dict[str, Any]:
-        config: Dict[str, Any] = {
-            "provider": self.settings_manager.get("ai_assistant_provider", "").strip(),
-            "model": self.settings_manager.get("ai_assistant_model", "").strip(),
-            "api_key": self.settings_manager.get("ai_assistant_api_key", "").strip(),
-            "context_size": int(self.settings_manager.get("ai_context_size", 8192)),
-        }
-        config["openrouter_site_url"] = self.settings_manager.get(
-            "ai_openrouter_site_url", ""
-        ).strip()
-        config["openrouter_site_name"] = self.settings_manager.get(
-            "ai_openrouter_site_name", ""
-        ).strip()
-        config["local_base_url"] = self.settings_manager.get(
-            "ai_local_base_url", "http://localhost:11434/v1"
-        ).strip()
+    def _load_configuration(self, prompt: str = "") -> Dict[str, Any]:
+        route = self.router.resolve_route(
+            prompt=prompt,
+            is_offline_mode=self.is_offline_mode(),
+        )
+        self._last_route_decision = route
 
-        if self.is_offline_mode():
-            # Strictly enforce local offline mode
-            config["provider"] = "local"
-            if not config["model"] or config["model"] in {
-                self.DEFAULT_GROQ_MODEL,
-                self.DEFAULT_GEMINI_MODEL,
-                self.DEFAULT_OPENROUTER_MODEL,
-            }:
-                config["model"] = self.DEFAULT_LOCAL_MODEL
+        config: Dict[str, Any] = {
+            "provider": route.provider,
+            "model": route.model,
+            "api_key": route.api_key,
+            "context_size": int(self.settings_manager.get("ai_context_size", 8192)),
+            "openrouter_site_url": route.openrouter_site_url or self.settings_manager.get(
+                "ai_openrouter_site_url", ""
+            ).strip(),
+            "openrouter_site_name": route.openrouter_site_name or self.settings_manager.get(
+                "ai_openrouter_site_name", ""
+            ).strip(),
+            "local_base_url": route.base_url or self.settings_manager.get(
+                "ai_local_base_url", "http://localhost:11434/v1"
+            ).strip(),
+            "route_decision": route,
+        }
 
         if not config["provider"]:
             raise RuntimeError(
                 _("Select a provider in Preferences > Terminal > AI Assistant.")
             )
+
         if config["provider"] == "groq" and not config["model"]:
             config["model"] = self.DEFAULT_GROQ_MODEL
         elif config["provider"] == "gemini" and not config["model"]:
@@ -498,6 +610,7 @@ class TerminalAiAssistant(GObject.Object):
             config["model"] = self.DEFAULT_OPENROUTER_MODEL
         elif config["provider"] == "local" and not config["model"]:
             config["model"] = self.DEFAULT_LOCAL_MODEL
+
         return config
 
     def _perform_request(
@@ -540,13 +653,15 @@ class TerminalAiAssistant(GObject.Object):
                 return provider.complete_stream(messages, self._streaming_callback)
             return provider.complete(messages)
         except Exception as e:
-            self.logger.warning("Agent provider streaming failed, using fallback: %s", e)
+            self.logger.error(f"[AIAssistant] Agent provider '{provider_name}' streaming failed: {e}", exc_info=True)
             if provider_name == "local":
                 return self._perform_local_streaming_request(config, messages)
             if provider_name == "openrouter":
                 return self._perform_openrouter_streaming_request(config, messages)
             if provider_name == "groq":
                 return self._perform_groq_streaming_request(config, messages)
+            if provider_name == "gemini":
+                return self._perform_gemini_request(config, messages)
             return self._perform_request(config, messages)
 
     def _perform_local_request(
@@ -808,7 +923,6 @@ class TerminalAiAssistant(GObject.Object):
         model = config.get("model", "").strip() or self.DEFAULT_GEMINI_MODEL
 
         system_instruction, contents = self._build_gemini_conversation(messages)
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         payload: Dict[str, Any] = {"contents": contents}
         if system_instruction:
             payload["system_instruction"] = {"parts": [{"text": system_instruction}]}
@@ -818,37 +932,48 @@ class TerminalAiAssistant(GObject.Object):
             "x-goog-api-key": api_key,
         }
 
-        try:
-            response = requests.post(url, headers=headers, json=payload, timeout=60)
-        except requests.RequestException as exc:
-            raise RuntimeError(f"Failed to query the Gemini service: {exc}") from exc
+        candidate_models = [model]
+        for m in ("gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-flash-exp", "gemini-1.5-pro", "gemini-1.5-flash-8b"):
+            if m not in candidate_models:
+                candidate_models.append(m)
 
-        if response.status_code >= 400:
-            raise RuntimeError(self._format_openrouter_error(response))
+        last_error = ""
+        for m_name in candidate_models:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{m_name}:generateContent"
+            try:
+                response = requests.post(url, headers=headers, json=payload, timeout=120)
+            except requests.RequestException as exc:
+                raise RuntimeError(f"Failed to query the Gemini service: {exc}") from exc
 
-        try:
-            response_data = response.json()
-        except ValueError as exc:
-            raise RuntimeError("Gemini returned an invalid JSON response.") from exc
+            if response.status_code == 200:
+                try:
+                    response_data = response.json()
+                except ValueError as exc:
+                    raise RuntimeError("Gemini returned an invalid JSON response.") from exc
 
-        candidates = response_data.get("candidates") or []
-        if not candidates:
-            raise RuntimeError("The server response did not contain any suggestions.")
+                candidates = response_data.get("candidates") or []
+                if not candidates:
+                    raise RuntimeError("The server response did not contain any suggestions.")
 
-        collected: List[str] = []
-        for candidate in candidates:
-            content = candidate.get("content") if isinstance(candidate, dict) else None
-            parts = content.get("parts") if isinstance(content, dict) else None
-            if not parts:
+                collected: List[str] = []
+                for candidate in candidates:
+                    content = candidate.get("content") if isinstance(candidate, dict) else None
+                    parts = content.get("parts") if isinstance(content, dict) else None
+                    if not parts:
+                        continue
+                    for part in parts:
+                        if isinstance(part, dict) and part.get("text"):
+                            collected.append(part["text"])
+
+                if collected:
+                    return "\n".join(collected)
+            elif response.status_code == 404:
+                last_error = response.text
                 continue
-            for part in parts:
-                if isinstance(part, dict) and part.get("text"):
-                    collected.append(part["text"])
+            else:
+                raise RuntimeError(self._format_openrouter_error(response))
 
-        if collected:
-            return "\n".join(collected)
-
-        raise RuntimeError("Gemini did not return any usable content.")
+        raise RuntimeError(f"Gemini API error (404 on all models): {last_error}")
 
     def _perform_groq_request(
         self, config: Dict[str, str], messages: List[Dict[str, str]]

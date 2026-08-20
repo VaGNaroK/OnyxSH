@@ -10805,3 +10805,67 @@ msgstr "⏭️ Saltato"
 # 
 msgid "Executar esta etapa"
 msgstr "Esegui questo passaggio"
+
+# 
+msgid "Sugerir Verificação Pós-Execução (Sanity Loop)"
+msgstr "Suggerisci verifica post-esecuzione (Sanity Loop)"
+
+# 
+msgid "Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."
+msgstr "Deduce e propone convalide automatiche (stato dei servizi, sintassi di configurazione, permessi) dopo comandi che modificano il sistema."
+
+# 
+msgid "Executar Verificações Automaticamente"
+msgstr "Esegui le verifiche automaticamente"
+
+# 
+msgid "Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."
+msgstr "Avvia automaticamente i test di integrità senza richiedere clic manuale sul pulsante di convalida."
+
+# 
+msgid "Verificação Pós-Execução ({count} validações recomendadas)"
+msgstr "Verifica post-esecuzione ({count} convalide consigliate)"
+
+# 
+msgid "⚡ Validar Agora"
+msgstr "⚡ Convalida ora"
+
+# 
+msgid "Executar todos os testes de sanidade pós-execução"
+msgstr "Esegui tutti i test di integrità post-esecuzione"
+
+# 
+msgid "Executar esta validação"
+msgstr "Esegui questa convalida"
+
+# 
+msgid "⏳ Aguardando"
+msgstr "⏳ In attesa"
+
+# 
+msgid "🟡 Validando..."
+msgstr "🟡 Convalida in corso..."
+
+# 
+msgid "🟢 Sanidade Confirmada"
+msgstr "🟢 Integrità confermata"
+
+# 
+msgid "🔴 Falha na Validação"
+msgstr "🔴 Convalida fallita"
+
+# 
+msgid "Falha detectada: {desc}"
+msgstr "Errore rilevato: {desc}"
+
+# 
+msgid "🤖 Diagnosticar e Corrigir com IA"
+msgstr "🤖 Diagnostica e correggi con IA"
+
+# 
+msgid "Pedir à IA para analisar os logs de erro e propor plano de correção"
+msgstr "Chiedi all'IA di analizzare i registri degli errori e proporre un piano di ripristino"
+
+# 
+msgid "Sem detalhes de erro."
+msgstr "Nessun dettaglio sull'errore."

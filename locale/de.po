@@ -10826,3 +10826,67 @@ msgstr "⏭️ Übersprungen"
 # 
 msgid "Executar esta etapa"
 msgstr "Diesen Schritt ausführen"
+
+# 
+msgid "Sugerir Verificação Pós-Execução (Sanity Loop)"
+msgstr "Überprüfung nach der Ausführung vorschlagen (Sanity Loop)"
+
+# 
+msgid "Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."
+msgstr "Schlägt automatische Validierungen vor (Dienststatus, Konfigurationssyntax, Berechtigungen) nach zustandsändernden Befehlen."
+
+# 
+msgid "Executar Verificações Automaticamente"
+msgstr "Überprüfungen automatisch ausführen"
+
+# 
+msgid "Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."
+msgstr "Führt Plausibilitätstests automatisch aus, ohne manuelles Klicken auf die Validierungs-Schaltfläche."
+
+# 
+msgid "Verificação Pós-Execução ({count} validações recomendadas)"
+msgstr "Überprüfung nach der Ausführung ({count} empfohlene Validierungen)"
+
+# 
+msgid "⚡ Validar Agora"
+msgstr "⚡ Jetzt validieren"
+
+# 
+msgid "Executar todos os testes de sanidade pós-execução"
+msgstr "Alle Plausibilitätsprüfungen nach der Ausführung ausführen"
+
+# 
+msgid "Executar esta validação"
+msgstr "Diese Validierung ausführen"
+
+# 
+msgid "⏳ Aguardando"
+msgstr "⏳ Warten"
+
+# 
+msgid "🟡 Validando..."
+msgstr "🟡 Validierung läuft..."
+
+# 
+msgid "🟢 Sanidade Confirmada"
+msgstr "🟢 Plausibilität bestätigt"
+
+# 
+msgid "🔴 Falha na Validação"
+msgstr "🔴 Validierung fehlgeschlagen"
+
+# 
+msgid "Falha detectada: {desc}"
+msgstr "Fehler erkannt: {desc}"
+
+# 
+msgid "🤖 Diagnosticar e Corrigir com IA"
+msgstr "🤖 Mit KI diagnostizieren und beheben"
+
+# 
+msgid "Pedir à IA para analisar os logs de erro e propor plano de correção"
+msgstr "Die KI bitten, Fehlerprotokolle zu analysieren und einen Wiederherstellungsplan vorzuschlagen"
+
+# 
+msgid "Sem detalhes de erro."
+msgstr "Keine Fehlerdetails."

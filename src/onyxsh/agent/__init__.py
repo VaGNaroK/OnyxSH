@@ -20,6 +20,15 @@ from .redactor import redact_secrets
 from .shell_tools import run_argv
 from .tool_registry import ExecContext, ToolRegistry
 
+from .verifier import PostVerifier, VerificationCheck, VerificationResult
+from .router import (
+    SmartRouter,
+    RoutingProfile,
+    TaskComplexity,
+    RouteDecision,
+    TaskComplexityClassifier,
+)
+
 __all__ = [
     "RiskLevel",
     "ActionStep",
@@ -40,4 +49,12 @@ __all__ = [
     "get_provider",
     "redact_secrets",
     "run_argv",
+    "PostVerifier",
+    "VerificationCheck",
+    "VerificationResult",
+    "SmartRouter",
+    "RoutingProfile",
+    "TaskComplexity",
+    "RouteDecision",
+    "TaskComplexityClassifier",
 ]

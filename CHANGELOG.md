@@ -9,6 +9,23 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.10.0] - Em Desenvolvimento
 
 ### Adicionado
+- **Verificação Pós-Execução Automatizada e Auto-Correção com IA (*Post-Verification Loop & Self-Healing Agent*)**: Motor inteligente de inferência de sanidade pós-execução e ciclo de validação automatizado para o OnyxSH Agent (`src/onyxsh/agent/verifier.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/data/styles/ai_chat_panel.css`, `src/onyxsh/settings/config.py`, `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `tests/test_post_verification.py`):
+  - 🔍 **Motor de Inferência de Sanidade (`PostVerifier`)**:
+    - Análise sintática e semântica de comandos executados para gerar verificações direcionadas de sanidade.
+    - **Serviços Systemd & SysV**: Verificação de status ativo (`systemctl is-active`, `service status`) ou inicialização no boot (`systemctl is-enabled`).
+    - **Servidores e Proxies**: Validação estrita de sintaxe (`nginx -t`, `apache2ctl configtest`, `sshd -t`).
+    - **Firewall & Redes**: Checagem de regras ativas (`ufw status verbose`, `iptables -L -n -v`).
+    - **Sistema de Arquivos**: Validação de permissões e dono (`ls -ld <path>`), existência de pastas/arquivos criados (`test -d`, `test -e`) e confirmação de remoção (`test ! -e`).
+    - **Pacotes e Contêineres**: Confirmação de pacotes instalados (`dpkg -s`, `rpm -q`, `pip show`) e status de containers (`docker ps -f name=...`, `docker compose ps`).
+  - 🎛️ **Cartão Visual de Sanidade no Chat (`.ai-verification-card`)**:
+    - Exibição de cada validação com descrição em linguagem natural, comando monospace e badges em tempo real (`⏳ Aguardando`, `🟡 Validando...`, `🟢 Sanidade Confirmada`, `🔴 Falha na Validação`).
+    - Botão primário **`⚡ Validar Agora`** para disparo em lote e botões individuais de validação por item.
+  - 🤖 **Loop de Diagnóstico e Auto-Correção com IA (*Self-Healing Loop*)**:
+    - Em caso de falha na validação, captura automática de diagnósticos contextuais (ex: `journalctl -u <svc> -n 25 --no-pager` ou saída de erro do teste de sintaxe).
+    - Botão **`🤖 Diagnosticar e Corrigir com IA`** que alimenta automaticamente o chat com o comando e os logs capturados, solicitando que a IA gere um plano seguro de correção.
+  - ⚙️ **Preferências e Automação Configurável**:
+    - Configurações no `ai_config_dialog.py` para ativar/desativar sugestões (`ai_agent_post_verification`) e opção para execução automática sem clique manual (`ai_agent_auto_verify`).
+  - 🧪 **Testes & Internacionalização**: Nova suíte de testes unitários com 100% de cobertura de inferência em `tests/test_post_verification.py` (total de 157 testes passando) e 448 novas traduções nos 28 idiomas.
 - **Modo Interativo "Plan before Execute" com Aprovação Granular (Secure Agent Batch Runner)**: Transformação completa do fluxo de execução de planos de múltiplos passos do agente de IA em um painel interativo, visual e auditável antes de qualquer alteração no sistema (`src/onyxsh/agent/models.py`, `src/onyxsh/agent/planner.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/data/styles/ai_chat_panel.css`, `tests/test_plan_execution.py`):
   - 🎛️ **Painel de Controle de Lote (`.ai-plan-control-bar`)**:
     - Cabeçalho consolidado com contador de etapas, badge de risco máximo do plano (`🟢 Apenas Leitura`, `🔵 Modificações no Usuário`, `🟠 Requer Polkit/Admin`, `🔴 Ações Críticas`, `⛔ Contém Bloqueados`) e indicador `X/Y concluídos`.

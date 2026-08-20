@@ -10746,3 +10746,67 @@ msgstr "⏭️ スキップ"
 # 
 msgid "Executar esta etapa"
 msgstr "このステップを実行"
+
+# 
+msgid "Sugerir Verificação Pós-Execução (Sanity Loop)"
+msgstr "実行後の検証を提案（サニティループ）"
+
+# 
+msgid "Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."
+msgstr "状態変更コマンドの実行後、自動検証（サービス状態、設定構文、パーミッション）を推論して提案します。"
+
+# 
+msgid "Executar Verificações Automaticamente"
+msgstr "検証を自動実行"
+
+# 
+msgid "Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."
+msgstr "検証ボタンを手動でクリックすることなく、サニティテストを自動的にトリガーします。"
+
+# 
+msgid "Verificação Pós-Execução ({count} validações recomendadas)"
+msgstr "実行後の検証（{count} 個の推奨検証）"
+
+# 
+msgid "⚡ Validar Agora"
+msgstr "⚡ 今すぐ検証"
+
+# 
+msgid "Executar todos os testes de sanidade pós-execução"
+msgstr "実行後のすべてのサニティチェックを実行"
+
+# 
+msgid "Executar esta validação"
+msgstr "この検証を実行"
+
+# 
+msgid "⏳ Aguardando"
+msgstr "⏳ 待機中"
+
+# 
+msgid "🟡 Validando..."
+msgstr "🟡 検証中..."
+
+# 
+msgid "🟢 Sanidade Confirmada"
+msgstr "🟢 正常動作を確認"
+
+# 
+msgid "🔴 Falha na Validação"
+msgstr "🔴 検証に失敗しました"
+
+# 
+msgid "Falha detectada: {desc}"
+msgstr "障害を検出: {desc}"
+
+# 
+msgid "🤖 Diagnosticar e Corrigir com IA"
+msgstr "🤖 AI で診断して修復"
+
+# 
+msgid "Pedir à IA para analisar os logs de erro e propor plano de correção"
+msgstr "エラーログを分析して修復プランを提案するよう AI に依頼"
+
+# 
+msgid "Sem detalhes de erro."
+msgstr "エラーの詳細はありません。"

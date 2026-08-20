@@ -59,9 +59,17 @@ _DESKTOP_WORKING_DIRECTORY_PLACEHOLDERS = {
 class CommTerminalApp(Adw.Application):
     """Main application class for OnyxSH."""
 
-    def __init__(self):
+    def __init__(self, standalone: bool = False):
+        is_standalone = standalone or "--new-instance" in sys.argv or "--standalone" in sys.argv
+        if is_standalone:
+            app_id = None
+            flags = Gio.ApplicationFlags.FLAGS_NONE
+        else:
+            app_id = APP_ID
+            flags = Gio.ApplicationFlags.HANDLES_COMMAND_LINE
+
         super().__init__(
-            application_id=APP_ID, flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE
+            application_id=app_id, flags=flags
         )
         GLib.set_prgname(APP_ID)
         self.logger = get_logger("onyxsh.app")

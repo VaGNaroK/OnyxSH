@@ -18,7 +18,7 @@ import gi
 
 gi.require_version("Vte", "3.91")
 gi.require_version("Gtk", "4.0")
-from gi.repository import GLib, Gtk, Vte
+from gi.repository import Gio, GLib, Gtk, Vte
 
 from ..utils.logger import get_logger
 from ..utils.translation_utils import _
@@ -40,17 +40,34 @@ class TerminalExporter:
             terminal: The Vte.Terminal instance.
             selection_only: If True, extracts only currently selected text.
         """
-        if selection_only and terminal.get_has_selection():
-            # In VTE GTK4, if there is selection, get_text_format returns full or range
-            # We can extract text via clipboard copy or range if selection is active
-            text = terminal.get_text_format(Vte.Format.TEXT)
-            return text or ""
-        else:
+        if selection_only and hasattr(terminal, "get_has_selection") and terminal.get_has_selection():
             try:
-                return terminal.get_text_format(Vte.Format.TEXT) or ""
-            except Exception as e:
-                self.logger.error(f"Failed to extract terminal text: {e}")
-                return ""
+                text = terminal.get_text_format(Vte.Format.TEXT)
+                if text:
+                    return text
+            except Exception:
+                pass
+
+        # Full scrollback history extraction via write_contents_sync
+        try:
+            stream = Gio.MemoryOutputStream.new_resizable()
+            flags = getattr(Vte, "WriteFlags", None)
+            default_flag = getattr(flags, "DEFAULT", 0) if flags else 0
+            if hasattr(terminal, "write_contents_sync") and terminal.write_contents_sync(stream, default_flag, None):
+                stream.close()
+                bytes_data = stream.steal_as_bytes()
+                if bytes_data and len(bytes_data.get_data()) > 0:
+                    text = bytes_data.get_data().decode("utf-8", errors="replace")
+                    if text.strip():
+                        return text
+        except Exception as e:
+            self.logger.warning(f"write_contents_sync failed, falling back to get_text_format: {e}")
+
+        try:
+            return terminal.get_text_format(Vte.Format.TEXT) or ""
+        except Exception as e:
+            self.logger.error(f"Failed to extract terminal text: {e}")
+            return ""
 
     def get_terminal_html(
         self, terminal: Vte.Terminal, selection_only: bool = False
@@ -58,11 +75,14 @@ class TerminalExporter:
         """
         Extracts HTML formatted content with ANSI styling from the terminal.
         """
-        try:
-            return terminal.get_text_format(Vte.Format.HTML) or ""
-        except Exception as e:
-            self.logger.error(f"Failed to extract terminal HTML: {e}")
-            return f"<pre>{GLib.markup_escape_text(self.get_terminal_text(terminal, selection_only))}</pre>"
+        if selection_only and hasattr(terminal, "get_has_selection") and terminal.get_has_selection():
+            try:
+                return terminal.get_text_format(Vte.Format.HTML) or ""
+            except Exception:
+                pass
+
+        plain_text = self.get_terminal_text(terminal, selection_only)
+        return f"<pre>{GLib.markup_escape_text(plain_text)}</pre>"
 
     def extract_metadata(self, terminal: Vte.Terminal) -> Dict[str, Any]:
         """Gathers runtime metadata for the export header."""

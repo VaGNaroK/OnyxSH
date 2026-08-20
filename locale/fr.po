@@ -10815,3 +10815,67 @@ msgstr "⏭️ Ignoré"
 # 
 msgid "Executar esta etapa"
 msgstr "Exécuter cette étape"
+
+# 
+msgid "Sugerir Verificação Pós-Execução (Sanity Loop)"
+msgstr "Suggérer une vérification post-exécution (Sanity Loop)"
+
+# 
+msgid "Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."
+msgstr "Déduit et propose des validations automatiques (état des services, syntaxe de configuration, permissions) après des commandes modifiant le système."
+
+# 
+msgid "Executar Verificações Automaticamente"
+msgstr "Exécuter les vérifications automatiquement"
+
+# 
+msgid "Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."
+msgstr "Déclenche automatiquement les tests de cohérence sans nécessiter de clic manuel sur le bouton valider."
+
+# 
+msgid "Verificação Pós-Execução ({count} validações recomendadas)"
+msgstr "Vérification post-exécution ({count} validations recommandées)"
+
+# 
+msgid "⚡ Validar Agora"
+msgstr "⚡ Valider maintenant"
+
+# 
+msgid "Executar todos os testes de sanidade pós-execução"
+msgstr "Exécuter tous les tests de cohérence post-exécution"
+
+# 
+msgid "Executar esta validação"
+msgstr "Exécuter cette validation"
+
+# 
+msgid "⏳ Aguardando"
+msgstr "⏳ En attente"
+
+# 
+msgid "🟡 Validando..."
+msgstr "🟡 Validation en cours..."
+
+# 
+msgid "🟢 Sanidade Confirmada"
+msgstr "🟢 Intégrité confirmée"
+
+# 
+msgid "🔴 Falha na Validação"
+msgstr "🔴 Échec de la validation"
+
+# 
+msgid "Falha detectada: {desc}"
+msgstr "Échec détecté : {desc}"
+
+# 
+msgid "🤖 Diagnosticar e Corrigir com IA"
+msgstr "🤖 Diagnostiquer et corriger avec l'IA"
+
+# 
+msgid "Pedir à IA para analisar os logs de erro e propor plano de correção"
+msgstr "Demander à l'IA d'analyser les journaux d'erreurs et de proposer un plan de correction"
+
+# 
+msgid "Sem detalhes de erro."
+msgstr "Aucun détail sur l'erreur."

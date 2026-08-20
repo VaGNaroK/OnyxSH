@@ -72,8 +72,16 @@ class LoggerConfig:
         self._log_dir = None  # Lazy initialization
         self.max_file_size = 10 * 1024 * 1024  # 10MB
         self.backup_count = 5
-        self.log_to_file = False
-        self.console_level = LogLevel.ERROR
+        self.log_to_file = True  # Enable persistent file logging
+
+        # Check for debug environment variable or CLI flag
+        is_debug = (
+            os.environ.get("ONYXSH_DEBUG", "").lower() in ("1", "true", "yes", "on")
+            or os.environ.get("DEBUG", "").lower() in ("1", "true", "yes", "on")
+            or "--debug" in sys.argv
+        )
+
+        self.console_level = LogLevel.DEBUG if is_debug else LogLevel.INFO
         self.file_level = LogLevel.DEBUG
         self.error_file_level = LogLevel.ERROR
 
@@ -203,21 +211,45 @@ class ThreadSafeLogger:
 
     def debug(self, message: str, **kwargs):
         self._logger.debug(message, **kwargs)
+        try:
+            sys.stdout.flush()
+        except Exception:
+            pass
 
     def info(self, message: str, **kwargs):
         self._logger.info(message, **kwargs)
+        try:
+            sys.stdout.flush()
+        except Exception:
+            pass
 
     def warning(self, message: str, **kwargs):
         self._logger.warning(message, **kwargs)
+        try:
+            sys.stdout.flush()
+        except Exception:
+            pass
 
     def error(self, message: str, exc_info: bool = False, **kwargs):
         self._logger.error(message, exc_info=exc_info, **kwargs)
+        try:
+            sys.stdout.flush()
+        except Exception:
+            pass
 
     def critical(self, message: str, exc_info: bool = True, **kwargs):
         self._logger.critical(message, exc_info=exc_info, **kwargs)
+        try:
+            sys.stdout.flush()
+        except Exception:
+            pass
 
     def exception(self, message: str, **kwargs):
         self._logger.exception(message, **kwargs)
+        try:
+            sys.stdout.flush()
+        except Exception:
+            pass
 
 
 class LoggerManager:

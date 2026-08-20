@@ -218,6 +218,147 @@ class AIConfigDialog(Adw.PreferencesWindow):
         self.site_name_row.connect("changed", self._on_site_name_changed)
         self.openrouter_group.add(self.site_name_row)
 
+        # Smart Model Routing Group
+        routing_group = Adw.PreferencesGroup(
+            title=_("Roteamento Inteligente de Modelos (Smart Routing)"),
+            description=_(
+                "Aloca automaticamente entre modelos rápidos e modelos avançados com base na complexidade da tarefa."
+            ),
+        )
+        page.add(routing_group)
+
+        self.smart_routing_switch = Adw.SwitchRow(
+            title=_("Ativar Roteamento Inteligente"),
+            subtitle=_(
+                "Direciona consultas simples para o perfil rápido e planos/scripts complexos para o perfil avançado."
+            ),
+        )
+        self.smart_routing_switch.set_active(
+            self.settings_manager.get("ai_smart_routing_enabled", True)
+        )
+        self.smart_routing_switch.connect(
+            "notify::active",
+            lambda r, _: self._on_agent_setting_changed("ai_smart_routing_enabled", r.get_active()),
+        )
+        routing_group.add(self.smart_routing_switch)
+
+        # Profile selection
+        self.routing_profile_row = Adw.ComboRow(
+            title=_("Modo de Roteamento Padrão"),
+            subtitle=_("Escolha se a IA deve alternar automaticamente ou fixar um perfil."),
+        )
+        profile_options = [
+            _("Automático (Classifica complexidade do prompt)"),
+            _("Sempre Rápido (Baixa latência / Groq / Local)"),
+            _("Sempre Avançado (Raciocínio profundo / Gemini / Claude)"),
+        ]
+        self.routing_profile_row.set_model(Gtk.StringList.new(profile_options))
+        curr_profile = self.settings_manager.get("ai_routing_profile", "auto").lower()
+        profile_map = {"auto": 0, "fast": 1, "advanced": 2}
+        self.routing_profile_row.set_selected(profile_map.get(curr_profile, 0))
+        self.routing_profile_row.connect(
+            "notify::selected",
+            self._on_routing_profile_changed,
+        )
+        routing_group.add(self.routing_profile_row)
+
+        # Fast Profile Expander
+        fast_expander = Adw.ExpanderRow(
+            title=_("⚡ Perfil Rápido (Consultas Pontuais / Sintaxe)"),
+            subtitle=_("Modelo e provedor de baixa latência para dúvidas do dia a dia."),
+        )
+        self.fast_provider_row = Adw.ComboRow(
+            title=_("Provedor Rápido"),
+        )
+        self.fast_provider_row.set_model(Gtk.StringList.new([label for _, label, _ in self.PROVIDERS]))
+        curr_fast_p = self.settings_manager.get("ai_fast_provider", "groq")
+        self.fast_provider_row.set_selected(self._get_provider_index(curr_fast_p))
+        self.fast_provider_row.connect(
+            "notify::selected",
+            lambda r, _: self._on_fast_provider_changed(r),
+        )
+        fast_expander.add_row(self.fast_provider_row)
+
+        self.fast_model_row = Adw.EntryRow(
+            title=_("Modelo Rápido"),
+        )
+        self.fast_model_row.set_text(self.settings_manager.get("ai_fast_model", "llama-3.1-8b-instant"))
+        self.fast_model_row.connect(
+            "changed",
+            lambda r: self._on_agent_setting_changed("ai_fast_model", r.get_text().strip()),
+        )
+        fast_expander.add_row(self.fast_model_row)
+        routing_group.add(fast_expander)
+
+        # Advanced Profile Expander
+        adv_expander = Adw.ExpanderRow(
+            title=_("🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"),
+            subtitle=_("Modelo e provedor de alto raciocínio para orquestração de múltiplos passos."),
+        )
+        self.adv_provider_row = Adw.ComboRow(
+            title=_("Provedor Avançado"),
+        )
+        self.adv_provider_row.set_model(Gtk.StringList.new([label for _, label, _ in self.PROVIDERS]))
+        curr_adv_p = self.settings_manager.get("ai_advanced_provider", "gemini")
+        self.adv_provider_row.set_selected(self._get_provider_index(curr_adv_p))
+        self.adv_provider_row.connect(
+            "notify::selected",
+            lambda r, _: self._on_adv_provider_changed(r),
+        )
+        adv_expander.add_row(self.adv_provider_row)
+
+        self.adv_model_row = Adw.EntryRow(
+            title=_("Modelo Avançado"),
+        )
+        self.adv_model_row.set_text(self.settings_manager.get("ai_advanced_model", "gemini-2.5-flash"))
+        self.adv_model_row.connect(
+            "changed",
+            lambda r: self._on_agent_setting_changed("ai_advanced_model", r.get_text().strip()),
+        )
+        adv_expander.add_row(self.adv_model_row)
+        routing_group.add(adv_expander)
+
+        # Provider API Keys Expander
+        keys_expander = Adw.ExpanderRow(
+            title=_("🔑 Chaves de API por Provedor"),
+            subtitle=_("Configure as chaves individuais para alternar entre provedores sem reconfigurar."),
+        )
+
+        self.key_gemini_row = Adw.PasswordEntryRow(title=_("Google Gemini API Key"))
+        self.key_gemini_row.set_text(self.settings_manager.get("ai_api_key_gemini", ""))
+        self.key_gemini_row.connect(
+            "changed",
+            lambda r: self._on_agent_setting_changed("ai_api_key_gemini", r.get_text().strip()),
+        )
+        self.btn_test_gemini = Gtk.Button(label=_("Testar"))
+        self.btn_test_gemini.add_css_class("flat")
+        self.btn_test_gemini.set_valign(Gtk.Align.CENTER)
+        self.btn_test_gemini.connect("clicked", self._on_test_gemini_key)
+        self.key_gemini_row.add_suffix(self.btn_test_gemini)
+        keys_expander.add_row(self.key_gemini_row)
+
+        self.key_groq_row = Adw.PasswordEntryRow(title=_("Groq API Key"))
+        self.key_groq_row.set_text(self.settings_manager.get("ai_api_key_groq", ""))
+        self.key_groq_row.connect(
+            "changed",
+            lambda r: self._on_agent_setting_changed("ai_api_key_groq", r.get_text().strip()),
+        )
+        self.btn_test_groq = Gtk.Button(label=_("Testar"))
+        self.btn_test_groq.add_css_class("flat")
+        self.btn_test_groq.set_valign(Gtk.Align.CENTER)
+        self.btn_test_groq.connect("clicked", self._on_test_groq_key)
+        self.key_groq_row.add_suffix(self.btn_test_groq)
+        keys_expander.add_row(self.key_groq_row)
+
+        self.key_openrouter_row = Adw.PasswordEntryRow(title=_("OpenRouter API Key"))
+        self.key_openrouter_row.set_text(self.settings_manager.get("ai_api_key_openrouter", ""))
+        self.key_openrouter_row.connect(
+            "changed",
+            lambda r: self._on_agent_setting_changed("ai_api_key_openrouter", r.get_text().strip()),
+        )
+        keys_expander.add_row(self.key_openrouter_row)
+        routing_group.add(keys_expander)
+
         # Secure Agent & Context Group
         agent_group = Adw.PreferencesGroup(
             title=_("Modo Agente Seguro e Contexto"),
@@ -257,6 +398,33 @@ class AIConfigDialog(Adw.PreferencesWindow):
             lambda r, _: self._on_agent_setting_changed("ai_agent_auto_run_level0", r.get_active())
         )
         agent_group.add(self.auto_run_l0_row)
+
+        # Post-Verification Switches
+        self.post_verify_row = Adw.SwitchRow(
+            title=_("Sugerir Verificação Pós-Execução (Sanity Loop)"),
+            subtitle=_("Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."),
+        )
+        self.post_verify_row.set_active(
+            self.settings_manager.get("ai_agent_post_verification", True)
+        )
+        self.post_verify_row.connect(
+            "notify::active",
+            lambda r, _: self._on_agent_setting_changed("ai_agent_post_verification", r.get_active())
+        )
+        agent_group.add(self.post_verify_row)
+
+        self.auto_verify_row = Adw.SwitchRow(
+            title=_("Executar Verificações Automaticamente"),
+            subtitle=_("Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."),
+        )
+        self.auto_verify_row.set_active(
+            self.settings_manager.get("ai_agent_auto_verify", False)
+        )
+        self.auto_verify_row.connect(
+            "notify::active",
+            lambda r, _: self._on_agent_setting_changed("ai_agent_auto_verify", r.get_active())
+        )
+        agent_group.add(self.auto_verify_row)
 
         # Context Switches
         self.sys_context_row = Adw.SwitchRow(
@@ -489,6 +657,39 @@ class AIConfigDialog(Adw.PreferencesWindow):
         """Handle Agent mode setting changes."""
         self.settings_manager.set(key, value)
         self.emit("setting-changed", key, value)
+        if "api_key" in key:
+            val_preview = f"{value[:4]}... (len={len(value)})" if value else "EMPTY"
+            self.logger.info(f"[AIConfigDialog] Setting updated: {key} = {val_preview}")
+        else:
+            self.logger.info(f"[AIConfigDialog] Setting updated: {key} = {value}")
+
+    def _on_routing_profile_changed(self, combo_row, _param) -> None:
+        """Handle routing profile change."""
+        idx = combo_row.get_selected()
+        profiles = ["auto", "fast", "advanced"]
+        if 0 <= idx < len(profiles):
+            val = profiles[idx]
+            self.settings_manager.set("ai_routing_profile", val)
+            self.emit("setting-changed", "ai_routing_profile", val)
+            self.logger.info(f"[AIConfigDialog] Routing profile changed to: {val}")
+
+    def _on_fast_provider_changed(self, combo_row) -> None:
+        """Handle fast provider selection change."""
+        idx = combo_row.get_selected()
+        if 0 <= idx < len(self.PROVIDERS):
+            provider_id = self.PROVIDERS[idx][0]
+            self.settings_manager.set("ai_fast_provider", provider_id)
+            self.emit("setting-changed", "ai_fast_provider", provider_id)
+            self.logger.info(f"[AIConfigDialog] Fast provider changed to: {provider_id}")
+
+    def _on_adv_provider_changed(self, combo_row) -> None:
+        """Handle advanced provider selection change."""
+        idx = combo_row.get_selected()
+        if 0 <= idx < len(self.PROVIDERS):
+            provider_id = self.PROVIDERS[idx][0]
+            self.settings_manager.set("ai_advanced_provider", provider_id)
+            self.emit("setting-changed", "ai_advanced_provider", provider_id)
+            self.logger.info(f"[AIConfigDialog] Advanced provider changed to: {provider_id}")
 
     def _on_scope_clicked(self, _button) -> None:
         """Open the agent scope configuration dialog."""
@@ -535,6 +736,63 @@ class AIConfigDialog(Adw.PreferencesWindow):
         """Show a toast notification."""
         toast = Adw.Toast(title=message)
         self.add_toast(toast)
+
+    def _on_test_gemini_key(self, button: Gtk.Button) -> None:
+        key = self.key_gemini_row.get_text().strip()
+        if not key:
+            self._show_toast(_("Digite a chave do Gemini antes de testar."))
+            return
+
+        button.set_sensitive(False)
+        button.set_label(_("Testando..."))
+
+        def test_worker():
+            from ...agent.providers.gemini import GeminiProvider
+            models = GeminiProvider.discover_available_models(key, force_refresh=True)
+            success = len(models) > 0
+
+            def update_ui():
+                button.set_sensitive(True)
+                button.set_label(_("Testar"))
+                if success:
+                    model_list_str = ", ".join(models[:3])
+                    self._show_toast(_("✅ Gemini conectado! Modelos: {models}").format(models=model_list_str))
+                else:
+                    self._show_toast(_("❌ Falha na autenticação do Google Gemini (Chave inválida)."))
+
+            GLib.idle_add(update_ui)
+
+        threading.Thread(target=test_worker, daemon=True).start()
+
+    def _on_test_groq_key(self, button: Gtk.Button) -> None:
+        key = self.key_groq_row.get_text().strip()
+        if not key:
+            self._show_toast(_("Digite a chave da Groq antes de testar."))
+            return
+
+        button.set_sensitive(False)
+        button.set_label(_("Testando..."))
+
+        def test_worker():
+            from ...agent.providers.groq import GroqProvider
+            prov = GroqProvider({"provider": "groq", "api_key": key})
+            try:
+                prov.complete([{"role": "user", "content": "Ping"}])
+                success = True
+            except Exception:
+                success = False
+
+            def update_ui():
+                button.set_sensitive(True)
+                button.set_label(_("Testar"))
+                if success:
+                    self._show_toast(_("✅ Conexão com a Groq estabelecida com sucesso!"))
+                else:
+                    self._show_toast(_("❌ Falha na autenticação com a Groq."))
+
+            GLib.idle_add(update_ui)
+
+        threading.Thread(target=test_worker, daemon=True).start()
 
 
 class OpenRouterModelBrowserDialog(Adw.Window):

@@ -10793,3 +10793,67 @@ msgstr "⏭️ Skipped"
 # 
 msgid "Executar esta etapa"
 msgstr "Execute this step"
+
+# 
+msgid "Sugerir Verificação Pós-Execução (Sanity Loop)"
+msgstr "Suggest Post-Execution Verification (Sanity Loop)"
+
+# 
+msgid "Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."
+msgstr "Infers and proposes automatic validations (service status, config syntax, permissions) after mutating commands."
+
+# 
+msgid "Executar Verificações Automaticamente"
+msgstr "Run Verifications Automatically"
+
+# 
+msgid "Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."
+msgstr "Automatically triggers sanity tests without requiring manual clicks on the validate button."
+
+# 
+msgid "Verificação Pós-Execução ({count} validações recomendadas)"
+msgstr "Post-Execution Verification ({count} recommended validations)"
+
+# 
+msgid "⚡ Validar Agora"
+msgstr "⚡ Validate Now"
+
+# 
+msgid "Executar todos os testes de sanidade pós-execução"
+msgstr "Run all post-execution sanity checks"
+
+# 
+msgid "Executar esta validação"
+msgstr "Run this validation"
+
+# 
+msgid "⏳ Aguardando"
+msgstr "⏳ Waiting"
+
+# 
+msgid "🟡 Validando..."
+msgstr "🟡 Validating..."
+
+# 
+msgid "🟢 Sanidade Confirmada"
+msgstr "🟢 Sanity Confirmed"
+
+# 
+msgid "🔴 Falha na Validação"
+msgstr "🔴 Validation Failed"
+
+# 
+msgid "Falha detectada: {desc}"
+msgstr "Failure detected: {desc}"
+
+# 
+msgid "🤖 Diagnosticar e Corrigir com IA"
+msgstr "🤖 Diagnose and Fix with AI"
+
+# 
+msgid "Pedir à IA para analisar os logs de erro e propor plano de correção"
+msgstr "Ask AI to analyze error logs and propose a recovery plan"
+
+# 
+msgid "Sem detalhes de erro."
+msgstr "No error details."

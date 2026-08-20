@@ -11104,3 +11104,67 @@ msgstr "⏭️ Ignorado"
 # 
 msgid "Executar esta etapa"
 msgstr "Executar esta etapa"
+
+# 
+msgid "Sugerir Verificação Pós-Execução (Sanity Loop)"
+msgstr "Sugerir Verificação Pós-Execução (Sanity Loop)"
+
+# 
+msgid "Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."
+msgstr "Infere e propõe validações automáticas (status de serviços, sintaxe de configs, permissões) após comandos mutantes."
+
+# 
+msgid "Executar Verificações Automaticamente"
+msgstr "Executar Verificações Automaticamente"
+
+# 
+msgid "Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."
+msgstr "Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."
+
+# 
+msgid "Verificação Pós-Execução ({count} validações recomendadas)"
+msgstr "Verificação Pós-Execução ({count} validações recomendadas)"
+
+# 
+msgid "⚡ Validar Agora"
+msgstr "⚡ Validar Agora"
+
+# 
+msgid "Executar todos os testes de sanidade pós-execução"
+msgstr "Executar todos os testes de sanidade pós-execução"
+
+# 
+msgid "Executar esta validação"
+msgstr "Executar esta validação"
+
+# 
+msgid "⏳ Aguardando"
+msgstr "⏳ Aguardando"
+
+# 
+msgid "🟡 Validando..."
+msgstr "🟡 Validando..."
+
+# 
+msgid "🟢 Sanidade Confirmada"
+msgstr "🟢 Sanidade Confirmada"
+
+# 
+msgid "🔴 Falha na Validação"
+msgstr "🔴 Falha na Validação"
+
+# 
+msgid "Falha detectada: {desc}"
+msgstr "Falha detectada: {desc}"
+
+# 
+msgid "🤖 Diagnosticar e Corrigir com IA"
+msgstr "🤖 Diagnosticar e Corrigir com IA"
+
+# 
+msgid "Pedir à IA para analisar os logs de erro e propor plano de correção"
+msgstr "Pedir à IA para analisar os logs de erro e propor plano de correção"
+
+# 
+msgid "Sem detalhes de erro."
+msgstr "Sem detalhes de erro."
