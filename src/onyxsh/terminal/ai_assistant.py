@@ -430,12 +430,13 @@ class TerminalAiAssistant(GObject.Object):
             )
 
             content = None
-            fallback_notice = None
-
+            fallback_notice = ""
             try:
-                # Check if we should use streaming
-                if self._streaming_callback:
-                    content = self._perform_streaming_request(config, messages)
+                # 1. Primary remote request
+                if primary_provider == "local" and self._streaming_callback:
+                    content = self._perform_local_streaming_request(config, messages)
+                elif primary_provider == "groq" and self._streaming_callback:
+                    content = self._perform_groq_streaming_request(config, messages)
                 else:
                     content = self._perform_request(config, messages)
             except Exception as primary_error:
@@ -451,45 +452,49 @@ class TerminalAiAssistant(GObject.Object):
                         "ai_local_base_url", "http://localhost:11434/v1"
                     )
 
+                    # Update route decision state
+                    if hasattr(self, "_last_route_decision") and self._last_route_decision:
+                        self._last_route_decision.is_fallback = True
+                        self._last_route_decision.fallback_reason = str(primary_error)
+                        self._last_route_decision.provider = "local"
+                        self._last_route_decision.model = local_config["model"]
+
+                    err_summary = str(primary_error)
+                    if "API key not valid" in err_summary or "API_KEY_INVALID" in err_summary or "400" in err_summary:
+                        reason_msg = _("Chave de API do provedor em nuvem inválida ou expirada")
+                    elif "Read timed out" in err_summary or "timeout" in err_summary.lower():
+                        reason_msg = _("Tempo limite de conexão esgotado (timeout)")
+                    elif "404" in err_summary:
+                        reason_msg = _("Modelo em nuvem não disponível")
+                    elif "429" in err_summary:
+                        reason_msg = _("Limite de cota de requisições excedido")
+                    else:
+                        reason_msg = err_summary[:100]
+
+                    prov_title = primary_provider.capitalize()
+                    if primary_provider == "gemini":
+                        prov_title = "Google Gemini"
+                    elif primary_provider == "groq":
+                        prov_title = "Groq"
+
+                    fallback_notice = (
+                        f"> ⚠️ **" + _("Modo de Contingência (Fallback Automático Ativado)") + "**\n"
+                        f"> " + _("Não foi possível conectar ao **{provider}** ({reason}). A resposta foi gerada localmente através do **{model}**.").format(
+                            provider=prov_title,
+                            reason=reason_msg,
+                            model=local_config["model"],
+                        ) + "\n\n---\n\n"
+                    )
+
+                    # Stream notice immediately to UI if streaming
+                    if self._streaming_callback:
+                        GLib.idle_add(self._streaming_callback, fallback_notice, False)
+
                     try:
                         if self._streaming_callback:
                             content = self._perform_local_streaming_request(local_config, messages)
                         else:
                             content = self._perform_local_request(local_config, messages)
-
-                        # Update route decision state
-                        if hasattr(self, "_last_route_decision") and self._last_route_decision:
-                            self._last_route_decision.is_fallback = True
-                            self._last_route_decision.fallback_reason = str(primary_error)
-                            self._last_route_decision.provider = "local"
-                            self._last_route_decision.model = local_config["model"]
-
-                        err_summary = str(primary_error)
-                        if "API key not valid" in err_summary or "API_KEY_INVALID" in err_summary or "400" in err_summary:
-                            reason_msg = _("Chave de API do provedor em nuvem inválida ou expirada")
-                        elif "Read timed out" in err_summary or "timeout" in err_summary.lower():
-                            reason_msg = _("Tempo limite de conexão esgotado (timeout)")
-                        elif "404" in err_summary:
-                            reason_msg = _("Modelo em nuvem não disponível")
-                        elif "429" in err_summary:
-                            reason_msg = _("Limite de cota de requisições excedido")
-                        else:
-                            reason_msg = err_summary[:100]
-
-                        prov_title = primary_provider.capitalize()
-                        if primary_provider == "gemini":
-                            prov_title = "Google Gemini"
-                        elif primary_provider == "groq":
-                            prov_title = "Groq"
-
-                        fallback_notice = (
-                            f"> ⚠️ **" + _("Modo de Contingência (Fallback Automático Ativado)") + "**\n"
-                            f"> " + _("Não foi possível conectar ao **{provider}** ({reason}). A resposta foi gerada localmente através do **{model}**.").format(
-                                provider=prov_title,
-                                reason=reason_msg,
-                                model=local_config["model"],
-                            ) + "\n\n---\n\n"
-                        )
                     except Exception as local_err:
                         self.logger.error(f"[AIAssistant] Local fallback also failed: {local_err}")
                         raise primary_error from local_err
@@ -497,6 +502,11 @@ class TerminalAiAssistant(GObject.Object):
                     raise primary_error
 
             reply, commands, code_snippets = self._parse_assistant_payload(content)
+
+            # Ensure fallback notice is prepended to reply
+            if fallback_notice and not reply.startswith(fallback_notice.strip()[:30]):
+                reply = fallback_notice + reply
+
             self._record_assistant_message(terminal_id, reply)
 
             # Save to history with commands (convert dicts to strings for storage)
@@ -1157,58 +1167,109 @@ class TerminalAiAssistant(GObject.Object):
     def _parse_assistant_payload(
         self, content: str
     ) -> Tuple[str, List[Dict[str, Any]], List[Dict[str, str]]]:
-        # Tenta limpar marcadores de markdown que as IAs adoram colocar
-        clean_content = self._clean_response(content)
+        if not content:
+            return "", [], []
+
+        clean_content = content.strip()
+        if clean_content.startswith("```"):
+            first_nl = clean_content.find("\n")
+            if first_nl != -1:
+                clean_content = clean_content[first_nl + 1 :]
+            if clean_content.endswith("```"):
+                clean_content = clean_content[:-3].strip()
 
         reply_text = ""
         commands: List[Dict[str, Any]] = []
         code_snippets: List[Dict[str, str]] = []
-        payload = None
 
-        # Tentativa 1: Parse direto do JSON limpo
+        # Strategy 1: Standard JSON parsing (strict=False permits control characters)
         try:
-            payload = json.loads(clean_content)
-        except json.JSONDecodeError:
-            # Tentativa 2: Tentar encontrar o primeiro objeto JSON válido na string
-            payload = self._extract_json_object(clean_content)
+            payload = json.loads(clean_content, strict=False)
+            if isinstance(payload, dict):
+                reply_text = (
+                    payload.get("summary")
+                    or payload.get("reply")
+                    or payload.get("content")
+                    or payload.get("message")
+                    or ""
+                )
+                commands_field = (
+                    payload.get("steps")
+                    if "steps" in payload
+                    else payload.get("commands", [])
+                )
+                commands = self._normalize_commands(commands_field)
+                return reply_text, commands, code_snippets
+        except Exception:
+            pass
 
-        if isinstance(payload, dict):
-            # Sucesso no JSON: Suporta ActionPlan (summary/steps) e formato legado (reply/commands)
-            reply_text = (
-                payload.get("summary")
-                or payload.get("reply")
-                or payload.get("content")
-                or payload.get("message")
-                or ""
+        # Strategy 2: Structural Key-to-Key extraction for malformed JSON from local models
+        match_reply = re.search(
+            r'["\'](?:summary|reply|content|message)["\']\s*:\s*["\']', clean_content
+        )
+        if match_reply:
+            val_start = match_reply.end()
+            # Look for the beginning of the commands/steps field
+            match_cmds = re.search(
+                r'["\']\s*,\s*["\'](?:commands|steps|tools|cmd|plan_id)["\']\s*:\s*(\[[\s\S]*?\])',
+                clean_content[val_start:],
+                re.DOTALL,
             )
-            commands_field = (
-                payload.get("steps")
-                if "steps" in payload
-                else payload.get("commands", [])
-            )
-            commands = self._normalize_commands(commands_field)
-        else:
-            # FALHA NO JSON (Fallback):
-            # A IA respondeu texto puro. Vamos usar o texto como resposta
-            # e extrair comandos via Regex dos blocos de código markdown.
-            reply_text = content  # Usa o conteúdo original para manter formatação
+            if match_cmds:
+                raw_reply = clean_content[val_start : val_start + match_cmds.start()]
+                raw_cmds = match_cmds.group(1)
+                raw_reply = raw_reply.rstrip('"\n\r\t ')
+                reply_text = self._unescape_json_string(raw_reply)
+                try:
+                    parsed_cmds = json.loads(raw_cmds, strict=False)
+                    commands = self._normalize_commands(parsed_cmds)
+                except Exception:
+                    cmd_matches = re.findall(r'"((?:[^"\\]|\\.)*)"', raw_cmds)
+                    commands = [
+                        {"command": self._unescape_json_string(c), "description": ""}
+                        for c in cmd_matches
+                        if c
+                    ]
+                return reply_text, commands, code_snippets
+            else:
+                raw_reply = clean_content[val_start:].rstrip('"} \n\r\t')
+                reply_text = self._unescape_json_string(raw_reply)
+                return reply_text, commands, code_snippets
 
-            # Extrai comandos de blocos de código bash/sh/zsh/shell automaticamente
-            code_block_pattern = r"```(?:bash|sh|zsh|shell)?\n(.*?)```"
-            matches = re.findall(code_block_pattern, content, re.DOTALL)
-
-            for match in matches:
-                body = match.strip()
-                if body:
-                    for line in body.splitlines():
-                        cmd_str = line.strip()
-                        if cmd_str and not cmd_str.startswith("#") and not cmd_str.startswith("//"):
-                            commands.append({
-                                "command": cmd_str,
-                                "description": "",
-                            })
+        # Strategy 3: Pure Markdown Fallback
+        reply_text = content
+        code_block_pattern = r"```(?:bash|sh|zsh|shell)?\n(.*?)```"
+        matches = re.findall(code_block_pattern, content, re.DOTALL)
+        for match in matches:
+            body = match.strip()
+            if body:
+                for line in body.splitlines():
+                    cmd_str = line.strip()
+                    if (
+                        cmd_str
+                        and not cmd_str.startswith("#")
+                        and not cmd_str.startswith("//")
+                    ):
+                        commands.append({
+                            "command": cmd_str,
+                            "description": "",
+                        })
 
         return reply_text, commands, code_snippets
+
+    @staticmethod
+    def _unescape_json_string(val: str) -> str:
+        """Properly unescape JSON string characters without causing UTF-8 mojibake."""
+        if not val:
+            return ""
+        val = re.sub(r'\\u([0-9a-fA-F]{4})', lambda m: chr(int(m.group(1), 16)), val)
+        return (
+            val.replace('\\"', '"')
+            .replace("\\n", "\n")
+            .replace("\\t", "\t")
+            .replace("\\r", "\r")
+            .replace("\\\\", "\\")
+        )
 
     def _clean_response(self, raw_content: str) -> str:
         """Remove markdown code fences, comments, and trailing commas from JSON."""

@@ -105,19 +105,39 @@ def _strip_json_comments_and_commas(text: str) -> str:
     return cleaned.strip()
 
 
+def _unescape_json_string(val: str) -> str:
+    """Properly unescape JSON string characters without causing UTF-8 mojibake."""
+    if not val:
+        return ""
+    val = re.sub(r'\\u([0-9a-fA-F]{4})', lambda m: chr(int(m.group(1), 16)), val)
+    return (
+        val.replace('\\"', '"')
+        .replace("\\n", "\n")
+        .replace("\\t", "\t")
+        .replace("\\r", "\r")
+        .replace("\\\\", "\\")
+    )
+
+
 def _extract_reply_from_json(text: str) -> str:
     """Extract 'reply' or 'summary' field from JSON response or return text safely.
 
     Handles complete and partial responses without truncating code/quotes.
     """
     if not text:
-        return text
+        return ""
 
-    stripped = _strip_json_comments_and_commas(text.strip())
+    clean_content = text.strip()
+    if clean_content.startswith("```"):
+        first_nl = clean_content.find("\n")
+        if first_nl != -1:
+            clean_content = clean_content[first_nl + 1 :]
+        if clean_content.endswith("```"):
+            clean_content = clean_content[:-3].strip()
 
-    # 1. If it's valid JSON
+    # 1. If it's valid JSON with strict=False
     try:
-        data = json.loads(stripped)
+        data = json.loads(clean_content, strict=False)
         if isinstance(data, dict):
             for k in ("summary", "reply", "content", "message"):
                 if k in data and isinstance(data[k], str):
@@ -125,58 +145,24 @@ def _extract_reply_from_json(text: str) -> str:
     except Exception:
         pass
 
-    # 2. Check if wrapped in markdown code fence like ```json { ... } ```
-    if stripped.startswith("```"):
-        first_newline = stripped.find("\n")
-        if first_newline != -1:
-            inner = stripped[first_newline + 1 :]
-            if inner.endswith("```"):
-                inner = inner[:-3].strip()
-            try:
-                data = json.loads(_strip_json_comments_and_commas(inner))
-                if isinstance(data, dict):
-                    for k in ("summary", "reply", "content", "message"):
-                        if k in data and isinstance(data[k], str):
-                            return data[k]
-            except Exception:
-                pass
-
-    # 3. Robust regex extraction for JSON reply / summary
-    reply_match = re.search(
-        r'"(?:summary|reply|content|message)"\s*:\s*"(.*?)(?:"\s*,\s*"(?:commands|cmd|tools|steps|plan_id)"\s*:|"\s*\}\s*$)',
-        stripped,
-        re.DOTALL,
+    # 2. Structural key-to-key extraction
+    match_reply = re.search(
+        r'["\'](?:summary|reply|content|message)["\']\s*:\s*["\']', clean_content
     )
-    if reply_match:
-        val = reply_match.group(1)
-        val = (
-            val.replace('\\"', '"')
-            .replace("\\n", "\n")
-            .replace("\\t", "\t")
-            .replace("\\\\", "\\")
+    if match_reply:
+        val_start = match_reply.end()
+        match_cmds = re.search(
+            r'["\']\s*,\s*["\'](?:commands|steps|tools|cmd|plan_id)["\']\s*:\s*(\[[\s\S]*?\])',
+            clean_content[val_start:],
+            re.DOTALL,
         )
-        return val
-
-    # 4. Partial streaming case:
-    if stripped.startswith("{"):
-        match_start = re.search(r'["\'](?:summary|reply|content|message)["\']\s*:\s*["\']', stripped)
-        if match_start:
-            content_start = match_start.end()
-            partial = stripped[content_start:]
-            trailing_commands = re.search(
-                r'["\']\s*,\s*["\'](?:commands|steps|tools)["\'].*$', partial, re.DOTALL
-            )
-            if trailing_commands:
-                partial = partial[: trailing_commands.start()]
-            elif partial.endswith('"}') or partial.endswith('"]'):
-                partial = partial.rstrip('"} ]')
-            partial = (
-                partial.replace('\\"', '"')
-                .replace("\\n", "\n")
-                .replace("\\t", "\t")
-                .replace("\\\\", "\\")
-            )
-            return partial
+        if match_cmds:
+            raw_reply = clean_content[val_start : val_start + match_cmds.start()]
+            raw_reply = raw_reply.rstrip('"\n\r\t ')
+            return _unescape_json_string(raw_reply)
+        else:
+            raw_reply = clean_content[val_start:].rstrip('"} \n\r\t')
+            return _unescape_json_string(raw_reply)
 
     return text
 
