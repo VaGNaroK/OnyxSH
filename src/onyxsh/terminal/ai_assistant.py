@@ -76,7 +76,7 @@ class TerminalAiAssistant(GObject.Object):
         "**CRITICAL RULES:**\n"
         "1. **OUTPUT FORMAT:** Respond with RAW JSON only. Do NOT wrap root response in markdown code blocks like ```json ... ```.\n"
         '2. **JSON STRUCTURE:** {{ "reply": "<comprehensive explanation with formatted markdown>", "commands": ["<cmd1>", "<cmd2>"] }}\n'
-        "3. **LANGUAGE:** Respond strictly in {language}.\n"
+        "3. **LANGUAGE & FULL LOCALIZATION:** You MUST respond entirely and strictly in {language}. Every part of the response — including explanatory texts, markdown headings, transitional phrases, code comments (# ...), log messages, and user-facing CLI output strings (`echo \"...\"`, `log_message ...`) — MUST be written in {language}. Do NOT slip into English for introductory text, error strings, code comments, or warnings unless the user explicitly asks in English.\n"
         "4. **TERMINAL AWARENESS:** The user is ALREADY working inside the OnyxSH terminal emulator. Never instruct the user to 'Open the terminal (Ctrl+Alt+T)' or open graphical desktop text editors unless explicitly asked. Always provide direct CLI solutions.\n"
         "5. **DYNAMIC PATHS & MODERN STANDARDS:** Always use `$HOME`, `~`, or relative paths. NEVER invent fake hardcoded user paths like `/home/usuario/` or `/home/user/`. Use modern system standards for {os_context} (e.g. `systemd`, `systemctl`, `journalctl`, `apt`, `flatpak`, `ip`, `ss`), avoiding deprecated legacy tools (`/etc/init.d/`, `update-rc.d`, `ifconfig`, `netstat`).\n"
         "6. **SCRIPT CREATION VIA CLI:** When providing commands to create files/scripts in the terminal, use atomic heredoc blocks (e.g. `cat << 'EOF' > ~/myscript.sh\\n#!/usr/bin/env bash\\n...\\nEOF\\nchmod +x ~/myscript.sh`) instead of splitting lines across multiple `echo >>` commands.\n"
@@ -108,12 +108,12 @@ class TerminalAiAssistant(GObject.Object):
             lang_code = locale.getdefaultlocale()[0] or "en_US"
             # Map common locale codes to language names
             lang_map = {
-                "pt": "Portuguese",
+                "pt": "Portuguese (Português do Brasil)",
                 "en": "English",
-                "es": "Spanish",
-                "fr": "French",
-                "de": "German",
-                "it": "Italian",
+                "es": "Spanish (Español)",
+                "fr": "French (Français)",
+                "de": "German (Deutsch)",
+                "it": "Italian (Italiano)",
                 "zh": "Chinese",
                 "ja": "Japanese",
                 "ko": "Korean",
