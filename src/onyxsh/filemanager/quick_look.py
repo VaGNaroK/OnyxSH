@@ -229,7 +229,13 @@ class QuickLookDialog(BaseDialog):
         )
         self.stack.add_named(self.error_status, "error")
 
-        self.set_content(self.stack)
+        if self._cancel_button:
+            self._cancel_button.set_visible(False)
+
+        if self._toolbar_view:
+            self._toolbar_view.set_content(self.stack)
+        else:
+            self.set_content(self.stack)
 
     def _setup_keyboard_shortcuts(self) -> None:
         """Handle keyboard navigation: Space/Escape to close, Up/Down for next/prev file."""
@@ -244,7 +250,7 @@ class QuickLookDialog(BaseDialog):
         keycode: int,
         state: Gdk.ModifierType,
     ) -> bool:
-        if keyval in (Gdk.KEY_Escape, Gdk.KEY_space):
+        if keyval in (Gdk.KEY_Escape, Gdk.KEY_space, Gdk.KEY_q, Gdk.KEY_Q):
             self.close()
             return Gdk.EVENT_STOP
 
@@ -352,7 +358,7 @@ class QuickLookDialog(BaseDialog):
                     ext = Path(item.name).suffix.lower()
                     with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as tmp:
                         temp_path = tmp.name
-                    success, _ = operations.download_file_sync(full_path, temp_path)
+                    success, _err = operations.download_file_sync(full_path, temp_path)
                     if success:
                         local_path = temp_path
                         is_temp = True
@@ -494,7 +500,7 @@ class QuickLookDialog(BaseDialog):
         self._apply_syntax_highlighting(item.name, text)
 
         num_lines = len(lines)
-        mime, _ = mimetypes.guess_type(item.name)
+        mime, _encoding = mimetypes.guess_type(item.name)
         mime_str = mime or "text/plain"
         self.text_info_label.set_text(
             f"{num_lines} {_('lines')} • {item.formatted_size} • {mime_str} • UTF-8"
@@ -573,7 +579,7 @@ class QuickLookDialog(BaseDialog):
 
     def _render_binary_preview(self, item: FileItem, raw_bytes: bytes) -> None:
         """Render binary info card with formatted hex dump."""
-        mime, _ = mimetypes.guess_type(item.name)
+        mime, _encoding = mimetypes.guess_type(item.name)
         mime_str = mime or "application/octet-stream"
 
         self.binary_status.set_title(item.name)
