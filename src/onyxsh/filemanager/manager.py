@@ -277,12 +277,6 @@ class FileManager(GObject.Object):
         entry.set_margin_start(16)
         entry.set_margin_end(16)
 
-        dot_idx = default_name.rfind(".")
-        if dot_idx > 0:
-            entry.select_region(0, dot_idx)
-        else:
-            entry.select_region(0, -1)
-
         dialog.set_extra_child(entry)
 
         dialog.add_response("cancel", _("Cancel"))
@@ -309,7 +303,17 @@ class FileManager(GObject.Object):
 
         dialog.connect("response", on_response)
         dialog.present(self.parent_window)
-        GLib.idle_add(entry.grab_focus)
+
+        def _focus_entry() -> bool:
+            entry.grab_focus()
+            dot_idx = default_name.rfind(".")
+            if dot_idx > 0:
+                entry.select_region(0, dot_idx)
+            else:
+                entry.select_region(0, -1)
+            return GLib.SOURCE_REMOVE
+
+        GLib.idle_add(_focus_entry)
 
     def _show_rsync_missing_notification(self):
         """Inform the user that rsync is required for optimized transfers."""
@@ -3446,12 +3450,6 @@ class FileManager(GObject.Object):
         entry.set_margin_start(16)
         entry.set_margin_end(16)
 
-        dot_idx = default_copy_name.rfind(".")
-        if dot_idx > 0:
-            entry.select_region(0, dot_idx)
-        else:
-            entry.select_region(0, -1)
-
         dialog.set_extra_child(entry)
         dialog.add_response("cancel", _("Cancel"))
         dialog.add_response("save", _("Save"))
@@ -3475,7 +3473,17 @@ class FileManager(GObject.Object):
 
         dialog.connect("response", on_response)
         dialog.present(self.parent_window)
-        GLib.idle_add(entry.grab_focus)
+
+        def _focus_entry() -> bool:
+            entry.grab_focus()
+            dot_idx = default_copy_name.rfind(".")
+            if dot_idx > 0:
+                entry.select_region(0, dot_idx)
+            else:
+                entry.select_region(0, -1)
+            return GLib.SOURCE_REMOVE
+
+        GLib.idle_add(_focus_entry)
 
     def _on_save_upload_complete(self, transfer_id, success, message):
         """Callback to finalize transfer and show system notification."""
@@ -3569,12 +3577,6 @@ class FileManager(GObject.Object):
         entry.set_margin_start(16)
         entry.set_margin_end(16)
 
-        dot_idx = clean_current_name.rfind(".")
-        if dot_idx > 0 and not file_item.is_directory:
-            entry.select_region(0, dot_idx)
-        else:
-            entry.select_region(0, -1)
-
         dialog.set_extra_child(entry)
         dialog.add_response("cancel", _("Cancel"))
         dialog.add_response("rename", _("Rename"))
@@ -3590,7 +3592,17 @@ class FileManager(GObject.Object):
         entry.connect("changed", _on_rename_entry_changed)
         dialog.connect("response", self._on_rename_dialog_response, file_item, entry)
         dialog.present(self.parent_window)
-        GLib.idle_add(entry.grab_focus)
+
+        def _focus_entry() -> bool:
+            entry.grab_focus()
+            dot_idx = clean_current_name.rfind(".")
+            if dot_idx > 0 and not file_item.is_directory:
+                entry.select_region(0, dot_idx)
+            else:
+                entry.select_region(0, -1)
+            return GLib.SOURCE_REMOVE
+
+        GLib.idle_add(_focus_entry)
 
     def _on_rename_dialog_response(self, dialog, response, file_item, entry):
         if response == "rename":
