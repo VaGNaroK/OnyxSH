@@ -29,9 +29,9 @@
 ### 📌 1.1. Command Palette (`Ctrl + Shift + P`)
 - [x] **Descrição:** Interface de busca fuzzy centralizada (estilo VS Code / Sublime Text) para invocar qualquer ação do terminal sem navegar por menus.
 - [x] **Ações Disponíveis:** Nova aba, divisão horizontal/vertical, alternar temas, abrir configurações, conectar em sessões SSH, abrir SFTP, exportar conversas, limpar histórico, abrir log de auditoria.
-- [x] **Status:** ✅ Implementado na versão `0.8.20` (`src/zashterminal/ui/dialogs/command_palette_dialog.py`).
+- [x] **Status:** ✅ Implementado na versão `0.8.20` (`src/onyxsh/ui/dialogs/command_palette_dialog.py`).
 - [x] **Prioridade:** 🔴 Alta | **Esforço:** Médio | **Alvo:** `v0.9.0`
-- [x] **Módulos Afetados:** `src/zashterminal/ui/dialogs/command_palette_dialog.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/app.py`, `src/zashterminal/settings/config.py`.
+- [x] **Módulos Afetados:** `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/app.py`, `src/onyxsh/settings/config.py`.
 
 
 ### 📌 1.2. Restauração Automática e Inteligente de Sessões (Session Restore)
@@ -42,9 +42,9 @@
   - `Perguntar ao iniciar` (toast não-intrusivo de restauração com 1 clique).
   - `Nunca restaurar` (inicia limpo no `$HOME`).
   - Switches de configuração: Auto-reconexão SSH e restauração de painéis da UI.
-- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/zashterminal/state/window_state.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/window.py`, `src/zashterminal/ui/dialogs/preferences_dialog.py`).
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/onyxsh/state/window_state.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/window.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`).
 - [x] **Prioridade:** 🔴 Alta | **Esforço:** Alto | **Alvo:** `v0.9.0`
-- [x] **Módulos Afetados:** `src/zashterminal/state/window_state.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/window.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/ui/dialogs/preferences_dialog.py`.
+- [x] **Módulos Afetados:** `src/onyxsh/state/window_state.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/window.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`.
 
 ### 📌 1.3. Integração Semântica com Shell (OSC 133 / Semantic Prompts)
 - [x] **Descrição:** Suporte a sequências de controle OSC 133 (FinalTerm / iTerm2 semantics) para marcação inteligente de prompts, comandos e saídas do shell.
@@ -54,17 +54,17 @@
   - Indicador visual de status de saída (ícone de sucesso `0` ou erro `>0` na barra do painel).
   - Medição de tempo de execução por comando (ex: `⏱ 1.4s`).
   - Botão de envio rápido da saída de um comando específico para análise no chat de IA.
-- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/zashterminal/terminal/semantic_tracker.py`, `src/zashterminal/terminal/spawner.py`, `src/zashterminal/terminal/manager.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/ui/dialogs/command_palette_dialog.py`).
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/onyxsh/terminal/semantic_tracker.py`, `src/onyxsh/terminal/spawner.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`).
 - [x] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio/Alto | **Alvo:** `v0.9.0`
-- [x] **Módulos Afetados:** `src/zashterminal/terminal/semantic_tracker.py`, `src/zashterminal/terminal/spawner.py`, `src/zashterminal/terminal/manager.py`, `src/zashterminal/terminal/tabs.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/ui/dialogs/command_palette_dialog.py`.
+- [x] **Módulos Afetados:** `src/onyxsh/terminal/semantic_tracker.py`, `src/onyxsh/terminal/spawner.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`.
 
 ### 📌 1.4. Histórico Enriquecido de Comandos com Busca Fuzzy
 - [x] **Descrição:** Persistência estruturada em banco SQLite com metadados detalhados de cada comando executado.
 - [x] **Campos:** `command`, `cwd`, `host`, `session_name`, `exit_code`, `duration_ms`, `timestamp`, `is_pinned`, `execution_count`, `last_executed`.
 - [x] **Recursos:** Busca fuzzy com ranqueamento, filtros em tempo real (Todos, Diretório Atual `$PWD`, Este Host/Sessão SSH, Favoritos ⭐), inserção no prompt (`Tab`), execução imediata (`Enter`), atalho global `Ctrl + R` e Command Palette.
-- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/zashterminal/data/command_history_manager.py`, `src/zashterminal/ui/dialogs/command_history_dialog.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/window.py`, `src/zashterminal/terminal/manager.py`).
+- [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/onyxsh/data/command_history_manager.py`, `src/onyxsh/ui/dialogs/command_history_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/window.py`, `src/onyxsh/terminal/manager.py`).
 - [x] **Prioridade:** 🟡 Média | **Esforço:** Médio | **Alvo:** `v0.9.0`
-- [x] **Módulos Afetados:** `src/zashterminal/data/command_history_manager.py`, `src/zashterminal/ui/dialogs/command_history_dialog.py`, `src/zashterminal/ui/actions.py`, `src/zashterminal/window.py`, `src/zashterminal/terminal/manager.py`.
+- [x] **Módulos Afetados:** `src/onyxsh/data/command_history_manager.py`, `src/onyxsh/ui/dialogs/command_history_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/window.py`, `src/onyxsh/terminal/manager.py`.
 
 ### 📌 1.5. Gerenciador de Snippets de Comandos Reutilizáveis
 - [x] **Descrição:** Criação e execução de templates de comandos parametrizáveis com substituição de variáveis.
@@ -104,7 +104,7 @@
 
 ---
 
-## 2. Segurança, DevOps & Infraestrutura ("Zash Guard & Ops")
+## 2. Segurança, DevOps & Infraestrutura ("Onyx Guard & Ops")
 
 ### 🛡️ 2.1. Modo Proteção de Produção (Production Guard)
 - [x] **Descrição:** Modo de segurança reforçada ativado automaticamente ao conectar em hosts/sessões marcadas como `Produção`.
@@ -132,28 +132,28 @@
 - [ ] **Descrição:** Monitoramento proativo da saúde das conexões remotas.
 - [ ] **Recursos:** Detecção imediata de quebra de socket SSH com exibição de banner de aviso e tentativa automática de reconexão (`KeepAlive` inteligente); medição de latência (ping/RTT em ms) exibida na árvore de sessões.
 - [ ] **Prioridade:** 🟡 Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/sessions/`, `src/zashterminal/ui/sidebar_manager.py`.
+- [ ] **Módulos Afetados:** `src/onyxsh/sessions/`, `src/onyxsh/ui/sidebar_manager.py`.
 
 ### 🛡️ 2.4. Execução em Múltiplos Hosts (Multi-Host Exec / Cluster Commands)
 - [ ] **Descrição:** Capacidade de selecionar múltiplos servidores na árvore de sessões e disparar um comando em paralelo.
 - [ ] **Recursos:** Saída agrupada por host, visualização de status de sucesso/falha individual, auditoria completa da operação.
 - [ ] **Prioridade:** 🟢 Média/Alta | **Esforço:** Alto | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/sessions/`, `src/zashterminal/ui/dialogs/`.
+- [ ] **Módulos Afetados:** `src/onyxsh/sessions/`, `src/onyxsh/ui/dialogs/`.
 
 ### 🛡️ 2.5. SFTP com Comparação de Diffs Remotos
-- [ ] **Descrição:** Integrar o visualizador de diffs do Zashterminal com o cliente SFTP.
+- [ ] **Descrição:** Integrar o visualizador de diffs do OnyxSH com o cliente SFTP.
 - [ ] **Recursos:** Comparar arquivo local com versão remota antes de enviar (`Upload Diff`); comparar versões remotas antes de sobrescrever; backup automático remoto antes da sobrescrita.
 - [ ] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/filemanager/`, `src/zashterminal/ui/dialogs/diff_review_dialog.py`.
+- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/`, `src/onyxsh/ui/dialogs/diff_review_dialog.py`.
 
 ### 🛡️ 2.6. Encadeamento Criptográfico nos Logs de Auditoria (Hash Chain)
 - [ ] **Descrição:** Tornar os logs de auditoria à prova de adulteração adicionando SHA-256 encadeado (`previous_hash` + `current_event_hash`) em cada registro de `audit_log.json`.
 - [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/agent/audit_logger.py`.
+- [ ] **Módulos Afetados:** `src/onyxsh/agent/audit_logger.py`.
 
 ---
 
-## 3. IA Avançada, Agente Autônomo & Extensibilidade ("Zash Agent & Bridge")
+## 3. IA Avançada, Agente Autônomo & Extensibilidade ("Onyx Agent & Bridge")
 
 ### 🤖 3.1. Modo Interativo "Plan before Execute"
 - [x] **Descrição:** Quando o agente de IA sugerir uma tarefa de múltiplos passos, gera uma árvore de plano visual interativa no painel de chat com controle total antes e durante a execução.
@@ -250,15 +250,16 @@
 
 ## 5. Gerenciador de Arquivos Integrado & SFTP/SSH Explorer (File Manager 2.0)
 
-### 📌 5.1. Pré-visualização Rápida de Arquivos (*Quick Look* / Tecla `Espaço`)
-- [ ] **Descrição:** Permitir pré-visualizar rapidamente o conteúdo de arquivos selecionados sem abrir editores externos. Pressionar a barra de `Espaço` (ou clicar em um ícone de visualização) abre um popover ou modal com renderização rica.
-- [ ] **Formatos Suportados:**
+### 📌 5.1. Pré-visualização Rápida de Arquivos (*Quick Look* / Ação no Menu & Diálogo de Inspeção)
+- [x] **Descrição:** Permitir pré-visualizar rapidamente o conteúdo de arquivos selecionados sem abrir editores externos. Ação de "Quick Look" no menu de contexto abre um diálogo Libadwaita moderno com renderização rica.
+- [x] **Formatos Suportados:**
   - 📝 **Código e Scripts:** Realce de sintaxe (*syntax highlighting*) para `.sh`, `.py`, `.json`, `.yaml`, `.yml`, `.conf`, `.toml`, `.md`, `.c`, `.rs`.
   - 📜 **Logs de Sistema:** Visualização de `.log` com destaque de linhas de erro (`ERROR`, `FATAL`, `FAIL`) e avisos (`WARN`).
-  - 🖼️ **Imagens e Mídias:** Pré-visualização de `.png`, `.jpg`, `.svg`, `.ico` com dimensões e tamanho.
+  - 🖼️ **Imagens e Mídias:** Pré-visualização de `.png`, `.jpg`, `.svg`, `.ico`, `.webp` com dimensões e tamanho.
   - 🔐 **Certificados e Chaves:** Exibição estruturada de metadados de `.crt`, `.pem`, `.pub`.
-- [ ] **Prioridade:** 🔴 Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py` (novo), `src/onyxsh/utils/syntax_utils.py`.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/filemanager/manager.py`, `src/onyxsh/utils/syntax_utils.py`).
+- [x] **Prioridade:** 🔴 Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/utils/syntax_utils.py`.
 
 ### 📌 5.2. Ações Rápidas de Terminal no Menu de Contexto
 - [ ] **Descrição:** Enriquecer o menu de contexto (botão direito) dos arquivos e pastas com atalhos diretos e inteligentes para o terminal ativo.
