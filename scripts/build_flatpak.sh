@@ -33,11 +33,13 @@ Opções:
   -c, --clean-cache      Remove as pastas de cache temporárias (.flatpak-builder, .flatpak-build, .flatpak-repo) após a compilação.
   -o, --output-dir DIR   Define o diretório de saída do .flatpak (padrão: dist/).
   --install-sdk          Instala automaticamente o GNOME SDK/Platform (46) via Flathub caso não estejam presentes.
-  --install              Instala o bundle localmente após a compilação (flatpak install).
+  -i, --install, --reinstall
+                         Instala/reinstala o bundle localmente após a compilação (flatpak install).
   -h, --help             Exibe esta mensagem de ajuda.
 
 Exemplos:
   $0 --clean-cache
+  $0 --clean-cache --reinstall
   $0 --install-sdk --clean-cache
 EOF
 }
@@ -57,7 +59,7 @@ while [[ $# -gt 0 ]]; do
       INSTALL_SDK=true
       shift
       ;;
-    --install)
+    -i|--install|--reinstall)
       INSTALL_BUNDLE=true
       shift
       ;;
