@@ -774,7 +774,7 @@ class CommTerminalApp(Adw.Application):
                 transient_for=active_window,
                 modal=True,
                 application_name=APP_TITLE,
-                application_icon="onyxsh",
+                application_icon="io.github.vagnarok.OnyxSH",
                 developer_name=DEVELOPER_NAME,
                 version=APP_VERSION,
                 developers=DEVELOPER_TEAM,
