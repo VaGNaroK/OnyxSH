@@ -255,7 +255,7 @@ class FileManager(GObject.Object):
             return False
         return self._clipboard_session_key == self._get_current_session_key()
 
-    def _prompt_for_new_item(
+    def _show_create_named_item_dialog(
         self,
         heading: str,
         body: str,
@@ -270,13 +270,33 @@ class FileManager(GObject.Object):
         )
 
         entry = Gtk.Entry(text=default_name, hexpand=True, activates_default=True)
-        entry.select_region(0, -1)
+        entry.set_alignment(0.0)
+        entry.set_direction(Gtk.TextDirection.LTR)
+        entry.set_margin_top(12)
+        entry.set_margin_bottom(6)
+        entry.set_margin_start(16)
+        entry.set_margin_end(16)
+
+        dot_idx = default_name.rfind(".")
+        if dot_idx > 0:
+            entry.select_region(0, dot_idx)
+        else:
+            entry.select_region(0, -1)
+
         dialog.set_extra_child(entry)
 
         dialog.add_response("cancel", _("Cancel"))
         dialog.add_response("confirm", confirm_label)
         dialog.set_response_appearance("confirm", Adw.ResponseAppearance.SUGGESTED)
         dialog.set_default_response("confirm")
+
+        def _on_entry_changed(e):
+            val = e.get_text().strip()
+            is_valid = bool(val) and "/" not in val and "\0" not in val
+            dialog.set_response_enabled("confirm", is_valid)
+
+        entry.connect("changed", _on_entry_changed)
+        _on_entry_changed(entry)
 
         def on_response(dlg, response, *_args):
             if response != "confirm":
@@ -289,6 +309,7 @@ class FileManager(GObject.Object):
 
         dialog.connect("response", on_response)
         dialog.present(self.parent_window)
+        GLib.idle_add(entry.grab_focus)
 
     def _show_rsync_missing_notification(self):
         """Inform the user that rsync is required for optimized transfers."""
@@ -3411,28 +3432,50 @@ class FileManager(GObject.Object):
 
     def _prompt_for_new_filename_and_upload(self, local_path: Path, remote_path: str):
         """Prompts for a new filename and uploads the file."""
-        dialog = Adw.MessageDialog(
-            transient_for=self.parent_window,
+        dialog = Adw.AlertDialog(
             heading=_("Save As"),
             body=_("Enter a new name for the file on the server:"),
             close_response="cancel",
         )
-        entry = Gtk.Entry(text=f"{local_path.stem}-copy{local_path.suffix}")
+        default_copy_name = f"{local_path.stem}-copy{local_path.suffix}"
+        entry = Gtk.Entry(text=default_copy_name, hexpand=True, activates_default=True)
+        entry.set_alignment(0.0)
+        entry.set_direction(Gtk.TextDirection.LTR)
+        entry.set_margin_top(12)
+        entry.set_margin_bottom(6)
+        entry.set_margin_start(16)
+        entry.set_margin_end(16)
+
+        dot_idx = default_copy_name.rfind(".")
+        if dot_idx > 0:
+            entry.select_region(0, dot_idx)
+        else:
+            entry.select_region(0, -1)
+
         dialog.set_extra_child(entry)
         dialog.add_response("cancel", _("Cancel"))
         dialog.add_response("save", _("Save"))
+        dialog.set_response_appearance("save", Adw.ResponseAppearance.SUGGESTED)
         dialog.set_default_response("save")
+
+        def _on_save_as_entry_changed(e):
+            val = e.get_text().strip()
+            is_valid = bool(val) and "/" not in val and "\0" not in val
+            dialog.set_response_enabled("save", is_valid)
+
+        entry.connect("changed", _on_save_as_entry_changed)
+        _on_save_as_entry_changed(entry)
 
         def on_response(d, response_id):
             if response_id == "save":
-                new_name = entry.get_text().strip()
+                new_name = InputSanitizer.sanitize_filename(entry.get_text().strip())
                 if new_name:
                     new_remote_path = str(Path(remote_path).parent / new_name)
                     self._upload_on_save_thread(local_path, new_remote_path)
-            d.close()
 
         dialog.connect("response", on_response)
-        dialog.present()
+        dialog.present(self.parent_window)
+        GLib.idle_add(entry.grab_focus)
 
     def _on_save_upload_complete(self, transfer_id, success, message):
         """Callback to finalize transfer and show system notification."""
@@ -3512,24 +3555,46 @@ class FileManager(GObject.Object):
         if not items or len(items) > 1:
             return
         file_item = items[0]
+        clean_current_name = file_item.name.strip()
         dialog = Adw.AlertDialog(
             heading=_("Rename"),
-            body=_("Enter a new name for '{name}'").format(name=file_item.name),
+            body=_("Enter a new name for '{name}'").format(name=clean_current_name),
             close_response="cancel",
         )
-        entry = Gtk.Entry(text=file_item.name, hexpand=True, activates_default=True)
-        entry.select_region(0, -1)
+        entry = Gtk.Entry(text=clean_current_name, hexpand=True, activates_default=True)
+        entry.set_alignment(0.0)
+        entry.set_direction(Gtk.TextDirection.LTR)
+        entry.set_margin_top(12)
+        entry.set_margin_bottom(6)
+        entry.set_margin_start(16)
+        entry.set_margin_end(16)
+
+        dot_idx = clean_current_name.rfind(".")
+        if dot_idx > 0 and not file_item.is_directory:
+            entry.select_region(0, dot_idx)
+        else:
+            entry.select_region(0, -1)
+
         dialog.set_extra_child(entry)
         dialog.add_response("cancel", _("Cancel"))
         dialog.add_response("rename", _("Rename"))
         dialog.set_response_appearance("rename", Adw.ResponseAppearance.SUGGESTED)
         dialog.set_default_response("rename")
+        dialog.set_response_enabled("rename", False)
+
+        def _on_rename_entry_changed(e):
+            val = e.get_text().strip()
+            is_valid = bool(val) and val != clean_current_name and "/" not in val and "\0" not in val
+            dialog.set_response_enabled("rename", is_valid)
+
+        entry.connect("changed", _on_rename_entry_changed)
         dialog.connect("response", self._on_rename_dialog_response, file_item, entry)
         dialog.present(self.parent_window)
+        GLib.idle_add(entry.grab_focus)
 
     def _on_rename_dialog_response(self, dialog, response, file_item, entry):
         if response == "rename":
-            new_name = entry.get_text().strip()
+            new_name = InputSanitizer.sanitize_filename(entry.get_text().strip())
             if new_name and new_name != file_item.name:
                 old_path = f"{self.current_path.rstrip('/')}/{file_item.name}"
                 new_path = f"{self.current_path.rstrip('/')}/{new_name}"

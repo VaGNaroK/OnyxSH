@@ -284,6 +284,11 @@ class FileItem(GObject.GObject):
             # Some eza versions quote names with spaces unless --no-quotes is set.
             if len(name) >= 2 and name[0] == name[-1] and name[0] in ("'", '"'):
                 name = name[1:-1]
+            # Strip unprintable control characters and BiDi override marks
+            name = "".join(
+                ch for ch in name
+                if ord(ch) >= 32 and ch not in "\u200e\u200f\u202a\u202b\u202c\u202d\u202e\u2066\u2067\u2068\u2069\ufeff"
+            ).strip()
 
             return cls(
                 name=name,
@@ -317,6 +322,10 @@ class FileItem(GObject.GObject):
         name = name.rstrip("/@=*|>")
         if len(name) >= 2 and name[0] == name[-1] and name[0] in ("'", '"'):
             name = name[1:-1]
+        name = "".join(
+            ch for ch in name
+            if ord(ch) >= 32 and ch not in "\u200e\u200f\u202a\u202b\u202c\u202d\u202e\u2066\u2067\u2068\u2069\ufeff"
+        ).strip()
         perms = data["perms"]
         if perms.startswith("."):
             perms = f"-{perms[1:]}"
