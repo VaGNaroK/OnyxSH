@@ -10830,3 +10830,47 @@ msgstr "常に非表示"
 # 
 msgid "Never hide"
 msgstr "非表示にしない"
+
+# 
+msgid "Quick Look"
+msgstr "クイックルック"
+
+# 
+msgid "Quick Look (Space)"
+msgstr "クイックルック (スペース)"
+
+# 
+msgid "Copy Content"
+msgstr "コンテンツをコピー"
+
+# 
+msgid "Open in Editor"
+msgstr "エディターで開く"
+
+# 
+msgid "Content truncated for preview. Open in editor to view full file."
+msgstr "プレビュー用にコンテンツが切り詰められました。完全なファイルを表示するにはエディターで開いてください。"
+
+# 
+msgid "Unable to preview file"
+msgstr "ファイルをプレビューできません"
+
+# 
+msgid "Unable to preview image"
+msgstr "画像をプレビューできません"
+
+# 
+msgid "Binary File"
+msgstr "バイナリファイル"
+
+# 
+msgid "Preview content copied to clipboard"
+msgstr "プレビュー内容をクリップボードにコピーしました"
+
+# 
+msgid "Loading preview..."
+msgstr "プレビューを読み込み中..."
+
+# 
+msgid "lines"
+msgstr "行"

@@ -10899,3 +10899,47 @@ msgstr "Toujours masquer"
 # 
 msgid "Never hide"
 msgstr "Ne jamais masquer"
+
+# 
+msgid "Quick Look"
+msgstr "Aperçu rapide"
+
+# 
+msgid "Quick Look (Space)"
+msgstr "Aperçu rapide (Espace)"
+
+# 
+msgid "Copy Content"
+msgstr "Copier le contenu"
+
+# 
+msgid "Open in Editor"
+msgstr "Ouvrir dans l'éditeur"
+
+# 
+msgid "Content truncated for preview. Open in editor to view full file."
+msgstr "Contenu tronqué pour l'aperçu. Ouvrez dans l'éditeur pour voir le fichier complet."
+
+# 
+msgid "Unable to preview file"
+msgstr "Impossible de prévisualiser le fichier"
+
+# 
+msgid "Unable to preview image"
+msgstr "Impossible de prévisualiser l'image"
+
+# 
+msgid "Binary File"
+msgstr "Fichier binaire"
+
+# 
+msgid "Preview content copied to clipboard"
+msgstr "Contenu de l'aperçu copié dans le presse-papiers"
+
+# 
+msgid "Loading preview..."
+msgstr "Chargement de l'aperçu..."
+
+# 
+msgid "lines"
+msgstr "lignes"

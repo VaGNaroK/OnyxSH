@@ -10825,3 +10825,47 @@ msgstr "始终隐藏"
 # 
 msgid "Never hide"
 msgstr "从不隐藏"
+
+# 
+msgid "Quick Look"
+msgstr "快速预览"
+
+# 
+msgid "Quick Look (Space)"
+msgstr "快速预览 (空格)"
+
+# 
+msgid "Copy Content"
+msgstr "复制内容"
+
+# 
+msgid "Open in Editor"
+msgstr "在编辑器中打开"
+
+# 
+msgid "Content truncated for preview. Open in editor to view full file."
+msgstr "内容已截断以供预览。在编辑器中打开以查看完整文件。"
+
+# 
+msgid "Unable to preview file"
+msgstr "无法预览文件"
+
+# 
+msgid "Unable to preview image"
+msgstr "无法预览图片"
+
+# 
+msgid "Binary File"
+msgstr "二进制文件"
+
+# 
+msgid "Preview content copied to clipboard"
+msgstr "预览内容已复制到剪贴板"
+
+# 
+msgid "Loading preview..."
+msgstr "正在加载预览..."
+
+# 
+msgid "lines"
+msgstr "行"

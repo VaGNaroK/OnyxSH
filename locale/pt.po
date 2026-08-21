@@ -11188,3 +11188,47 @@ msgstr "Ocultar sempre"
 # 
 msgid "Never hide"
 msgstr "Nunca ocultar"
+
+# 
+msgid "Quick Look"
+msgstr "Visualização Rápida"
+
+# 
+msgid "Quick Look (Space)"
+msgstr "Visualização Rápida (Espaço)"
+
+# 
+msgid "Copy Content"
+msgstr "Copiar Conteúdo"
+
+# 
+msgid "Open in Editor"
+msgstr "Abrir no Editor"
+
+# 
+msgid "Content truncated for preview. Open in editor to view full file."
+msgstr "Conteúdo truncado para visualização rápida. Abra no editor para ver o arquivo completo."
+
+# 
+msgid "Unable to preview file"
+msgstr "Não foi possível pré-visualizar o arquivo"
+
+# 
+msgid "Unable to preview image"
+msgstr "Não foi possível pré-visualizar a imagem"
+
+# 
+msgid "Binary File"
+msgstr "Arquivo Binário"
+
+# 
+msgid "Preview content copied to clipboard"
+msgstr "Conteúdo da pré-visualização copiado para a área de transferência"
+
+# 
+msgid "Loading preview..."
+msgstr "Carregando pré-visualização..."
+
+# 
+msgid "lines"
+msgstr "linhas"

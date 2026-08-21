@@ -12,7 +12,7 @@ import threading
 import weakref
 from functools import partial
 from pathlib import Path, PurePosixPath
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 from urllib.parse import unquote, urlparse
 
 from gi.repository import Adw, Gdk, Gio, GLib, GObject, Graphene, Gtk, Vte
@@ -2137,7 +2137,13 @@ class FileManager(GObject.Object):
         return Gdk.EVENT_PROPAGATE
 
     def _on_column_view_key_pressed(self, controller, keyval, _keycode, state):
-        """Handle key presses on the column view for instant filtering."""
+        """Handle key presses on the column view for instant filtering and shortcuts."""
+        if keyval == Gdk.KEY_space:
+            selected_items = self.get_selected_items()
+            if selected_items and selected_items[0].name != "..":
+                self._toggle_quick_look(selected_items[0])
+                return Gdk.EVENT_STOP
+
         unicode_val = Gdk.keyval_to_unicode(keyval)
         if unicode_val != 0:
             char = chr(unicode_val)
@@ -2173,6 +2179,63 @@ class FileManager(GObject.Object):
 
         return Gdk.EVENT_PROPAGATE
 
+    def _toggle_quick_look(self, item: Optional[FileItem] = None) -> None:
+        """Open or toggle the Quick Look preview dialog for a file."""
+        if (
+            hasattr(self, "quick_look_dialog")
+            and self.quick_look_dialog
+            and self.quick_look_dialog.is_visible()
+        ):
+            self.quick_look_dialog.close()
+            return
+
+        if not item:
+            selected_items = self.get_selected_items()
+            if selected_items and selected_items[0].name != "..":
+                item = selected_items[0]
+
+        if not item:
+            return
+
+        if not hasattr(self, "quick_look_dialog") or not self.quick_look_dialog:
+            from .quick_look import QuickLookDialog
+
+            self.quick_look_dialog = QuickLookDialog(
+                parent_window=self.parent_window,
+                on_open_editor=lambda itm, folder: self._on_open_edit_action(
+                    None, None, [itm]
+                ),
+                on_navigate=self._navigate_quick_look,
+            )
+
+        self.quick_look_dialog.preview_item(
+            item, self.current_path or "/", self.operations
+        )
+
+    def _navigate_quick_look(self, delta: int) -> Optional[Tuple[FileItem, str]]:
+        """Move the selection up/down in the file manager and return the newly selected item."""
+        if not hasattr(self, "selection_model") or not self.selection_model:
+            return None
+
+        selection = self.selection_model.get_selection()
+        if selection.get_size() == 0:
+            return None
+
+        curr_pos = selection.get_nth(0)
+        new_pos = curr_pos + delta
+
+        if 0 <= new_pos < self.sorted_store.get_n_items():
+            self.selection_model.select_item(new_pos, True)
+            self.column_view.scroll_to(new_pos, None, Gtk.ListScrollFlags.NONE, None)
+            item = self.sorted_store.get_item(new_pos)
+            if item and item.name != "..":
+                return item, self.current_path or "/"
+        return None
+
+    def _on_quick_look_action(self, _action, _param, items: List[FileItem]):
+        if items and items[0].name != "..":
+            self._toggle_quick_look(items[0])
+
     def _on_column_view_key_released(self, controller, keyval, _keycode, state):
         """Handle key releases on the column view for context menu."""
         if keyval in (Gdk.KEY_Alt_L, Gdk.KEY_Alt_R):
@@ -2185,6 +2248,12 @@ class FileManager(GObject.Object):
     def _create_context_menu_model(self, items: List[FileItem]):
         menu = Gio.Menu()
         num_items = len(items)
+
+        # Quick Look section for single files
+        if num_items == 1 and not items[0].is_directory:
+            preview_section = Gio.Menu()
+            preview_section.append(_("Quick Look (Space)"), "context.quick_look")
+            menu.append_section(None, preview_section)
 
         # Open/Edit section for single files
         if num_items == 1 and not items[0].is_directory:
@@ -2232,6 +2301,7 @@ class FileManager(GObject.Object):
     def _setup_context_actions(self, popover, items: List[FileItem]):
         action_group = Gio.SimpleActionGroup()
         actions = {
+            "quick_look": self._on_quick_look_action,
             "open_edit": self._on_open_edit_action,
             "open_with": self._on_open_with_action,
             "rename": self._on_rename_action,

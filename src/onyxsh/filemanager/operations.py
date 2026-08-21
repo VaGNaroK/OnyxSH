@@ -268,6 +268,43 @@ class FileOperations:
         )
         return None
 
+    def download_file_sync(
+        self, remote_path: str, local_path: str, timeout: int = 30
+    ) -> Tuple[bool, str]:
+        """Synchronously download a single file via SCP/SFTP for previewing."""
+        if not self.session_item or not self.session_item.is_ssh():
+            return False, _("Not a remote SSH session.")
+
+        try:
+            from ..terminal.spawner import get_spawner
+
+            spawner = get_spawner()
+            normalized_remote = self._normalize_remote_path(
+                remote_path, self.session_item
+            )
+            scp_cmd = spawner.command_builder.build_remote_command(
+                "scp", self.session_item
+            )
+            # scp host:remote local
+            user_host = (
+                f"{self.session_item.user}@{self.session_item.host}"
+                if self.session_item.user
+                else self.session_item.host
+            )
+            cmd = ["scp", f"{user_host}:{normalized_remote}", local_path]
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+            )
+            if result.returncode == 0:
+                return True, "Success"
+            return False, result.stderr or result.stdout
+        except Exception as e:
+            self.logger.warning(f"download_file_sync failed for {remote_path}: {e}")
+            return False, str(e)
+
     def get_directory_size(
         self,
         path: str,

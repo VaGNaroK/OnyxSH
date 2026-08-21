@@ -10889,3 +10889,47 @@ msgstr "Nascondi sempre"
 # 
 msgid "Never hide"
 msgstr "Non nascondere mai"
+
+# 
+msgid "Quick Look"
+msgstr "Anteprima rapida"
+
+# 
+msgid "Quick Look (Space)"
+msgstr "Anteprima rapida (Spazio)"
+
+# 
+msgid "Copy Content"
+msgstr "Copia contenuto"
+
+# 
+msgid "Open in Editor"
+msgstr "Apri nell'editor"
+
+# 
+msgid "Content truncated for preview. Open in editor to view full file."
+msgstr "Contenuto troncato per l'anteprima. Apri nell'editor per vedere il file completo."
+
+# 
+msgid "Unable to preview file"
+msgstr "Impossibile visualizzare l'anteprima del file"
+
+# 
+msgid "Unable to preview image"
+msgstr "Impossibile visualizzare l'anteprima dell'immagine"
+
+# 
+msgid "Binary File"
+msgstr "File binario"
+
+# 
+msgid "Preview content copied to clipboard"
+msgstr "Contenuto dell'anteprima copiato negli appunti"
+
+# 
+msgid "Loading preview..."
+msgstr "Caricamento anteprima..."
+
+# 
+msgid "lines"
+msgstr "righe"

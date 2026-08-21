@@ -10866,3 +10866,47 @@ msgstr "Всегда скрывать"
 # 
 msgid "Never hide"
 msgstr "Никогда не скрывать"
+
+# 
+msgid "Quick Look"
+msgstr "Быстрый просмотр"
+
+# 
+msgid "Quick Look (Space)"
+msgstr "Быстрый просмотр (Пробел)"
+
+# 
+msgid "Copy Content"
+msgstr "Копировать содержимое"
+
+# 
+msgid "Open in Editor"
+msgstr "Открыть в редакторе"
+
+# 
+msgid "Content truncated for preview. Open in editor to view full file."
+msgstr "Содержимое обрезано для предпросмотра. Откройте в редакторе для полного файла."
+
+# 
+msgid "Unable to preview file"
+msgstr "Не удалось просмотреть файл"
+
+# 
+msgid "Unable to preview image"
+msgstr "Не удалось просмотреть изображение"
+
+# 
+msgid "Binary File"
+msgstr "Двоичный файл"
+
+# 
+msgid "Preview content copied to clipboard"
+msgstr "Содержимое предпросмотра скопировано в буфер обмена"
+
+# 
+msgid "Loading preview..."
+msgstr "Загрузка предпросмотра..."
+
+# 
+msgid "lines"
+msgstr "строк"

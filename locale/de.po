@@ -10910,3 +10910,47 @@ msgstr "Immer ausblenden"
 # 
 msgid "Never hide"
 msgstr "Nie ausblenden"
+
+# 
+msgid "Quick Look"
+msgstr "Schnellansicht"
+
+# 
+msgid "Quick Look (Space)"
+msgstr "Schnellansicht (Leertaste)"
+
+# 
+msgid "Copy Content"
+msgstr "Inhalt kopieren"
+
+# 
+msgid "Open in Editor"
+msgstr "Im Editor öffnen"
+
+# 
+msgid "Content truncated for preview. Open in editor to view full file."
+msgstr "Inhalt für Vorschau gekürzt. Im Editor öffnen, um vollständige Datei anzuzeigen."
+
+# 
+msgid "Unable to preview file"
+msgstr "Datei kann nicht in der Vorschau angezeigt werden"
+
+# 
+msgid "Unable to preview image"
+msgstr "Bild kann nicht in der Vorschau angezeigt werden"
+
+# 
+msgid "Binary File"
+msgstr "Binärdatei"
+
+# 
+msgid "Preview content copied to clipboard"
+msgstr "Vorschauinhalt in Zwischenablage kopiert"
+
+# 
+msgid "Loading preview..."
+msgstr "Vorschau wird geladen..."
+
+# 
+msgid "lines"
+msgstr "Zeilen"

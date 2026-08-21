@@ -10883,3 +10883,47 @@ msgstr "Always hide"
 # 
 msgid "Never hide"
 msgstr "Never hide"
+
+# 
+msgid "Quick Look"
+msgstr "Quick Look"
+
+# 
+msgid "Quick Look (Space)"
+msgstr "Quick Look (Space)"
+
+# 
+msgid "Copy Content"
+msgstr "Copy Content"
+
+# 
+msgid "Open in Editor"
+msgstr "Open in Editor"
+
+# 
+msgid "Content truncated for preview. Open in editor to view full file."
+msgstr "Content truncated for preview. Open in editor to view full file."
+
+# 
+msgid "Unable to preview file"
+msgstr "Unable to preview file"
+
+# 
+msgid "Unable to preview image"
+msgstr "Unable to preview image"
+
+# 
+msgid "Binary File"
+msgstr "Binary File"
+
+# 
+msgid "Preview content copied to clipboard"
+msgstr "Preview content copied to clipboard"
+
+# 
+msgid "Loading preview..."
+msgstr "Loading preview..."
+
+# 
+msgid "lines"
+msgstr "lines"
