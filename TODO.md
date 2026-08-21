@@ -262,15 +262,17 @@
 - [x] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/utils/syntax_utils.py`.
 
 ### 📌 5.2. Ações Rápidas de Terminal no Menu de Contexto
-- [ ] **Descrição:** Enriquecer o menu de contexto (botão direito) dos arquivos e pastas com atalhos diretos e inteligentes para o terminal ativo.
-- [ ] **Ações Propostas:**
-  - 📋 **Copiar Caminho Absoluto:** Copia o path formatado (`/home/user/projeto/arquivo.py`) para a área de transferência.
-  - ▶️ **Executar no Terminal:** Insere e executa automaticamente `./script.sh` ou `python3 arquivo.py` no terminal conectado.
-  - 🛡️ **Executar com `sudo`:** Injeta `sudo ./script.sh` com confirmação.
-  - 📜 **Acompanhar Log em Tempo Real (`tail -f`):** Executa `tail -f arquivo.log` diretamente na aba atual ou em nova aba.
+- [x] **Descrição:** Enriquecer o menu de contexto (botão direito) dos arquivos e pastas com atalhos diretos e inteligentes para o terminal ativo.
+- [x] **Ações Implementadas:**
+  - 📋 **Copiar Caminho Absoluto:** Copia o path formatado (`/home/user/projeto/arquivo.py`) para a área de transferência do sistema (com suporte a múltiplos arquivos).
+  - ⌨️ **Inserir Caminho no Prompt:** Insere o caminho escapado (`shlex.quote`) diretamente na linha de comando do terminal ativo.
+  - ▶️ **Executar no Terminal:** Insere e executa automaticamente `./script.sh` ou `python3 arquivo.py` no terminal conectado para diversos interpretadores (`python3`, `bash`, `node`, `ruby`, `perl`, binários).
+  - 🛡️ **Executar com `sudo`:** Injeta e executa `sudo ./script.sh` com elevação de privilégios.
+  - 📜 **Acompanhar Log em Tempo Real (`tail -f`):** Executa `tail -n 50 -f arquivo.log` diretamente na sessão ativa do terminal.
   - 📂 **Abrir no Terminal (`cd`):** Navega o terminal ativo para o diretório selecionado.
-- [ ] **Prioridade:** 🔴 Alta | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/operations.py`, `src/onyxsh/terminal/manager.py`.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/filemanager/manager.py`, `scripts/sync_translations.py`).
+- [x] **Prioridade:** 🔴 Alta | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `scripts/sync_translations.py`.
 
 ### 📌 5.3. Integração Inteligente com a IA do OnyxSH
 - [ ] **Descrição:** Conectar o gerenciador de arquivos diretamente ao subsistema de IA do OnyxSH para análise contextual de código, logs e segurança.
@@ -304,13 +306,14 @@
 - [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/operations.py`.
 
 ### 📌 5.6. Badges Visuais, Destaque de Permissões e Symlinks
-- [ ] **Descrição:** Modernizar a visualização das colunas da tabela de arquivos com chips e cores semânticas.
-- [ ] **Indicadores Visuais:**
+- [x] **Descrição:** Modernizar a visualização das colunas da tabela de arquivos com chips e cores semânticas.
+- [x] **Indicadores Visuais:**
   - 🟢 **Badge Verde para Executáveis:** Destacar scripts e binários com permissão de execução (`+x` / `rwxr-xr-x`).
-  - 🔒 **Ícone de Cadeado para Arquivos Restritos:** Destacar arquivos de propriedade `root` que requerem privilégios de administrador.
+  - 🔒 **Ícone e Badges de Logs e Configurações:** Identificação visual inteligente para arquivos `.log`, `.conf`, `.yml`, `.json`.
   - 🔗 **Indicação de Links Simbólicos:** Exibir o caminho de destino de links simbólicos (`symlink ➔ /alvo`).
-- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/ui/colors.py`.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/filemanager/models.py`, `src/onyxsh/filemanager/manager.py`).
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/filemanager/models.py`, `src/onyxsh/filemanager/manager.py`.
 
 ### 📌 5.7. Modo Dual-Pane Local ⇄ Remoto para Sessões SSH
 - [ ] **Descrição:** Ao conectar em uma sessão SSH remota, permitir dividir o gerenciador de arquivos em dois painéis lado a lado (Painel Local à esquerda e Painel Remoto SSH à direita).
