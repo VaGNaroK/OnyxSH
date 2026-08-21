@@ -204,10 +204,10 @@ class QuickLookDialog(BaseDialog):
         # Hex Preview Box inside binary page
         self.hex_label = Gtk.Label(
             label="",
-            monospace=True,
             xalign=0.5,
             wrap=True,
         )
+        self.hex_label.add_css_class("monospace")
         self.hex_label.add_css_class("dim-label")
         self.hex_label.add_css_class("caption")
 
