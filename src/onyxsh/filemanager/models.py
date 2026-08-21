@@ -116,8 +116,34 @@ class FileItem(GObject.GObject):
         return self._size
 
     @property
+    def size_bytes(self) -> int:
+        return self._size
+
+    @property
+    def formatted_size(self) -> str:
+        size = self._size
+        if size < 1024:
+            return f"{size} B"
+        elif size < 1024**2:
+            return f"{size / 1024:.1f} KB"
+        elif size < 1024**3:
+            return f"{size / 1024**2:.1f} MB"
+        else:
+            return f"{size / 1024**3:.1f} GB"
+
+    @property
     def date(self) -> datetime:
         return self._date
+
+    @property
+    def formatted_date(self) -> str:
+        if isinstance(self._date, datetime):
+            return self._date.strftime("%Y-%m-%d %H:%M")
+        return str(self._date)
+
+    @property
+    def date_modified(self) -> str:
+        return self.formatted_date
 
     @property
     def owner(self) -> str:

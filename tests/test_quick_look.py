@@ -23,6 +23,23 @@ class TestQuickLook(unittest.TestCase):
             # If in headless CI without display, ignore
             pass
 
+    def test_file_item_properties(self):
+        from datetime import datetime
+        from onyxsh.filemanager.models import FileItem
+
+        item = FileItem(
+            name="test.py",
+            perms="-rwxr-xr-x",
+            size=2048,
+            date=datetime(2026, 8, 20, 12, 0, 0),
+            owner="user",
+            group="user"
+        )
+        self.assertEqual(item.formatted_size, "2.0 KB")
+        self.assertEqual(item.size_bytes, 2048)
+        self.assertEqual(item.formatted_date, "2026-08-20 12:00")
+        self.assertEqual(item.date_modified, "2026-08-20 12:00")
+
 
 if __name__ == "__main__":
     unittest.main()
