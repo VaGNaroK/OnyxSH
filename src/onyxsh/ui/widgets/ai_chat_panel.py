@@ -106,17 +106,24 @@ def _strip_json_comments_and_commas(text: str) -> str:
 
 
 def _unescape_json_string(val: str) -> str:
-    """Properly unescape JSON string characters without causing UTF-8 mojibake."""
+    """Properly unescape JSON string characters and repair code fence formatting."""
     if not val:
         return ""
     val = re.sub(r'\\u([0-9a-fA-F]{4})', lambda m: chr(int(m.group(1), 16)), val)
-    return (
+    val = (
         val.replace('\\"', '"')
         .replace("\\n", "\n")
         .replace("\\t", "\t")
         .replace("\\r", "\r")
         .replace("\\\\", "\\")
     )
+    # Fix code fences missing newlines (e.g. ```bash\echo or ```sh\cat)
+    val = re.sub(r'```([a-zA-Z0-9_-]+)\\(?=[^\n\r])', r'```\1\n', val)
+    # Fix inline code fence blocks without newlines (e.g. ```bash echo ... ```)
+    val = re.sub(r'```([a-zA-Z0-9_-]+)[ \t]+([^\n\r]+)```', r'```\1\n\2\n```', val)
+    # Fix trailing code fence directly attached to code
+    val = re.sub(r'([^\n])```$', r'\1\n```', val)
+    return val
 
 
 def _extract_reply_from_json(text: str) -> str:

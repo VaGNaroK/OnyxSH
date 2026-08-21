@@ -10805,3 +10805,23 @@ msgstr "请求 AI 分析错误日志并提出修复计划"
 # 
 msgid "Sem detalhes de erro."
 msgstr "无错误详情。"
+
+# 
+msgid "Window Buttons When Maximized"
+msgstr "最大化时的窗口按钮"
+
+# 
+msgid "For KDE Plasma panel integration"
+msgstr "用于与 KDE Plasma 面板集成"
+
+# 
+msgid "Auto-detect"
+msgstr "自动检测"
+
+# 
+msgid "Always hide"
+msgstr "始终隐藏"
+
+# 
+msgid "Never hide"
+msgstr "从不隐藏"

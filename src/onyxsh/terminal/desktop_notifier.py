@@ -101,7 +101,7 @@ class DesktopNotifier:
 
     def send_test_notification(self, window: Optional[Any] = None) -> bool:
         """Sends an immediate test notification."""
-        print("[NOTIF-DEBUG] Manual test notification triggered!", flush=True)
+        self.logger.info("Manual test notification triggered")
         app = Gio.Application.get_default()
         if not app and window and hasattr(window, "get_application"):
             app = window.get_application()
@@ -109,7 +109,9 @@ class DesktopNotifier:
         title = f"✅ {_('Command Completed')} (0)"
         body = f"sleep 11\n⏱ 11.2s • test"
 
-        # 1. Gio.Notification
+        dispatched = False
+
+        # 1. Primary: Gio.Notification
         if app:
             notif = Gio.Notification.new(title)
             notif.set_body(body)
@@ -122,53 +124,55 @@ class DesktopNotifier:
             try:
                 app.send_notification(notif_id, notif)
                 self.logger.info(f"Gio.Notification test sent: {notif_id}")
+                dispatched = True
             except Exception as e:
                 self.logger.warning(f"Gio.Notification test error: {e}")
 
-        # 2. notify-send
-        try:
-            import shutil
-            import subprocess
-            from ..utils.platform import is_flatpak_sandbox
+        # 2. Fallback: Only invoke notify-send if Gio.Notification was NOT dispatched
+        if not dispatched:
+            try:
+                import shutil
+                import subprocess
+                from ..utils.platform import is_flatpak_sandbox
 
-            if is_flatpak_sandbox() and shutil.which("flatpak-spawn"):
-                subprocess.Popen(
-                    [
-                        "flatpak-spawn",
-                        "--host",
-                        "notify-send",
-                        "-a",
-                        "OnyxSH",
-                        "-i",
-                        "utilities-terminal",
-                        "-u",
-                        "normal",
-                        title,
-                        body,
-                    ],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
-                self.logger.info("flatpak-spawn notify-send test dispatched to host")
-            elif shutil.which("notify-send"):
-                subprocess.Popen(
-                    [
-                        "notify-send",
-                        "-a",
-                        "OnyxSH",
-                        "-i",
-                        "utilities-terminal",
-                        "-u",
-                        "normal",
-                        title,
-                        body,
-                    ],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
-                self.logger.info("direct notify-send test dispatched")
-        except Exception as e:
-            self.logger.warning(f"notify-send test error: {e}")
+                if is_flatpak_sandbox() and shutil.which("flatpak-spawn"):
+                    subprocess.Popen(
+                        [
+                            "flatpak-spawn",
+                            "--host",
+                            "notify-send",
+                            "-a",
+                            "OnyxSH",
+                            "-i",
+                            "utilities-terminal",
+                            "-u",
+                            "normal",
+                            title,
+                            body,
+                        ],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+                    self.logger.info("flatpak-spawn notify-send fallback test dispatched to host")
+                elif shutil.which("notify-send"):
+                    subprocess.Popen(
+                        [
+                            "notify-send",
+                            "-a",
+                            "OnyxSH",
+                            "-i",
+                            "utilities-terminal",
+                            "-u",
+                            "normal",
+                            title,
+                            body,
+                        ],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+                    self.logger.info("direct notify-send fallback test dispatched")
+            except Exception as e:
+                self.logger.warning(f"notify-send test error: {e}")
         return True
 
     def notify_command_finished(
@@ -249,58 +253,61 @@ class DesktopNotifier:
 
             # 4. Dispatch via Application Portal / D-Bus with timestamp to force visual banner
             notif_id = f"onyxsh-cmd-{terminal_id}-{int(GLib.get_monotonic_time() / 1000)}"
+            dispatched = False
             if app:
                 try:
                     app.send_notification(notif_id, notification)
                     self.logger.info(
                         f"Dispatched long command desktop notification: {title} ({duration_str})"
                     )
+                    dispatched = True
                 except Exception as e:
                     self.logger.warning(f"Gio.Notification error: {e}")
 
-            # Also dispatch via notify-send for guaranteed visible desktop popup banner
-            try:
-                import shutil
-                import subprocess
-                from ..utils.platform import is_flatpak_sandbox
+            # Fallback only if Gio.Notification was not dispatched
+            if not dispatched:
+                try:
+                    import shutil
+                    import subprocess
+                    from ..utils.platform import is_flatpak_sandbox
 
-                urgency = "normal" if cmd.is_success else "critical"
-                if is_flatpak_sandbox() and shutil.which("flatpak-spawn"):
-                    subprocess.Popen(
-                        [
-                            "flatpak-spawn",
-                            "--host",
-                            "notify-send",
-                            "-a",
-                            "OnyxSH",
-                            "-i",
-                            "utilities-terminal",
-                            "-u",
-                            urgency,
-                            title,
-                            body,
-                        ],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
-                elif shutil.which("notify-send"):
-                    subprocess.Popen(
-                        [
-                            "notify-send",
-                            "-a",
-                            "OnyxSH",
-                            "-i",
-                            "utilities-terminal",
-                            "-u",
-                            urgency,
-                            title,
-                            body,
-                        ],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
-            except Exception as e:
-                self.logger.debug(f"notify-send dispatch error: {e}")
+                    urgency = "normal" if cmd.is_success else "critical"
+                    if is_flatpak_sandbox() and shutil.which("flatpak-spawn"):
+                        subprocess.Popen(
+                            [
+                                "flatpak-spawn",
+                                "--host",
+                                "notify-send",
+                                "-a",
+                                "OnyxSH",
+                                "-i",
+                                "utilities-terminal",
+                                "-u",
+                                urgency,
+                                title,
+                                body,
+                            ],
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL,
+                        )
+                    elif shutil.which("notify-send"):
+                        subprocess.Popen(
+                            [
+                                "notify-send",
+                                "-a",
+                                "OnyxSH",
+                                "-i",
+                                "utilities-terminal",
+                                "-u",
+                                urgency,
+                                title,
+                                body,
+                            ],
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL,
+                        )
+                except Exception as e:
+                    self.logger.warning(f"notify-send fallback error: {e}")
 
             # 5. Sound alert if configured
             if self.settings_manager.get("notify_long_commands_sound", True):

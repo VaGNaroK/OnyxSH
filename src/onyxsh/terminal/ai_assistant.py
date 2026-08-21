@@ -76,7 +76,7 @@ class TerminalAiAssistant(GObject.Object):
         "**CRITICAL RULES:**\n"
         "1. **OUTPUT FORMAT:** Respond with RAW JSON only. Do NOT wrap root response in markdown code blocks like ```json ... ```.\n"
         '2. **JSON STRUCTURE:** {{ "reply": "<comprehensive explanation with formatted markdown>", "commands": ["<cmd1>", "<cmd2>"] }}\n'
-        "3. **LANGUAGE & FULL LOCALIZATION:** You MUST respond entirely and strictly in {language}. Every part of the response — including explanatory texts, markdown headings, transitional phrases, code comments (# ...), log messages, and user-facing CLI output strings (`echo \"...\"`, `log_message ...`) — MUST be written in {language}. Do NOT slip into English for introductory text, error strings, code comments, or warnings unless the user explicitly asks in English.\n"
+        "3. **LANGUAGE & FULL LOCALIZATION:** You MUST respond entirely and strictly in {language}. Every part of the response — including explanatory texts, markdown headings, transitional phrases, step lists (1, 2, 3...), code comments (# ...), log messages, and user-facing CLI output strings (`echo \"...\"`, `log_message ...`) — MUST be written in {language}. Never leave numbered steps, bullet points, or instructions in English.\n"
         "4. **TERMINAL AWARENESS:** The user is ALREADY working inside the OnyxSH terminal emulator. Never instruct the user to 'Open the terminal (Ctrl+Alt+T)' or open graphical desktop text editors unless explicitly asked. Always provide direct CLI solutions.\n"
         "5. **DYNAMIC PATHS & MODERN STANDARDS:** Always use `$HOME`, `~`, or relative paths. NEVER invent fake hardcoded user paths like `/home/usuario/` or `/home/user/`. Use modern system standards for {os_context} (e.g. `systemd`, `systemctl`, `journalctl`, `apt`, `flatpak`, `ip`, `ss`), avoiding deprecated legacy tools (`/etc/init.d/`, `update-rc.d`, `ifconfig`, `netstat`).\n"
         "6. **SCRIPT CREATION VIA CLI:** When providing commands to create files/scripts in the terminal, use atomic heredoc blocks (e.g. `cat << 'EOF' > ~/myscript.sh\\n#!/usr/bin/env bash\\n...\\nEOF\\nchmod +x ~/myscript.sh`) instead of splitting lines across multiple `echo >>` commands.\n"
@@ -84,7 +84,7 @@ class TerminalAiAssistant(GObject.Object):
         "\n"
         "**FIELD DETAILS & BEST PRACTICES:**\n"
         "- 'reply': Didactic, well-structured explanation in Markdown. When creating scripts, configurations, or programs, ALWAYS display the full, production-ready, well-commented script inside a Markdown code block with syntax highlighting so the user can easily read, verify, and understand it.\n"
-        "- 'commands': A curated list of executable, standalone shell commands representing the single best recommended path in strictly chronological execution order (e.g., create script -> chmod +x -> execute). Do NOT mix mutually exclusive alternative methods into the same command list.\n"
+        "- 'commands': A curated list of executable, standalone shell commands representing the single best recommended path in strictly chronological execution order (e.g., create script -> chmod +x -> execute). Do NOT wrap commands in `echo '...'` unless creating a file. If the user is asking an informational, theoretical, or comparative question without a specific task to perform (e.g. 'what are the differences between X and Y?', 'what are the ways to do Z?'), leave 'commands' as an empty array [].\n"
     )
 
 
@@ -1259,17 +1259,24 @@ class TerminalAiAssistant(GObject.Object):
 
     @staticmethod
     def _unescape_json_string(val: str) -> str:
-        """Properly unescape JSON string characters without causing UTF-8 mojibake."""
+        """Properly unescape JSON string characters and repair code fence formatting."""
         if not val:
             return ""
         val = re.sub(r'\\u([0-9a-fA-F]{4})', lambda m: chr(int(m.group(1), 16)), val)
-        return (
+        val = (
             val.replace('\\"', '"')
             .replace("\\n", "\n")
             .replace("\\t", "\t")
             .replace("\\r", "\r")
             .replace("\\\\", "\\")
         )
+        # Fix code fences missing newlines (e.g. ```bash\echo or ```sh\cat)
+        val = re.sub(r'```([a-zA-Z0-9_-]+)\\(?=[^\n\r])', r'```\1\n', val)
+        # Fix inline code fence blocks without newlines (e.g. ```bash echo ... ```)
+        val = re.sub(r'```([a-zA-Z0-9_-]+)[ \t]+([^\n\r]+)```', r'```\1\n\2\n```', val)
+        # Fix trailing code fence directly attached to code
+        val = re.sub(r'([^\n])```$', r'\1\n```', val)
+        return val
 
     def _clean_response(self, raw_content: str) -> str:
         """Remove markdown code fences, comments, and trailing commas from JSON."""

@@ -10810,3 +10810,23 @@ msgstr "エラーログを分析して修復プランを提案するよう AI �
 # 
 msgid "Sem detalhes de erro."
 msgstr "エラーの詳細はありません。"
+
+# 
+msgid "Window Buttons When Maximized"
+msgstr "最大化時のウィンドウボタン"
+
+# 
+msgid "For KDE Plasma panel integration"
+msgstr "KDE Plasmaパネル統合用"
+
+# 
+msgid "Auto-detect"
+msgstr "自動検出"
+
+# 
+msgid "Always hide"
+msgstr "常に非表示"
+
+# 
+msgid "Never hide"
+msgstr "非表示にしない"

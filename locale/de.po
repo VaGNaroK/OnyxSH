@@ -10890,3 +10890,23 @@ msgstr "Die KI bitten, Fehlerprotokolle zu analysieren und einen Wiederherstellu
 # 
 msgid "Sem detalhes de erro."
 msgstr "Keine Fehlerdetails."
+
+# 
+msgid "Window Buttons When Maximized"
+msgstr "Fenster-Schaltflächen im maximierten Zustand"
+
+# 
+msgid "For KDE Plasma panel integration"
+msgstr "Für die Integration mit KDE Plasma-Leisten"
+
+# 
+msgid "Auto-detect"
+msgstr "Automatisch erkennen"
+
+# 
+msgid "Always hide"
+msgstr "Immer ausblenden"
+
+# 
+msgid "Never hide"
+msgstr "Nie ausblenden"

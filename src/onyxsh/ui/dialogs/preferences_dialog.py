@@ -418,6 +418,26 @@ class PreferencesDialog(Adw.PreferencesWindow):
         )
         notifications_group.add(condition_row)
 
+        notify_sound_row = self._create_switch_row(
+            _("Alerta Sonoro"),
+            _("Tocar sino ou alerta sonoro ao concluir comando longo"),
+            "notify_long_commands_sound",
+            default_value=True,
+        )
+        notifications_group.add(notify_sound_row)
+
+        test_notif_row = Adw.ActionRow(
+            title=_("Testar Notificação"),
+            subtitle=_("Emitir uma notificação de teste agora para verificar o sistema"),
+        )
+        test_btn = Gtk.Button(label=_("Testar Notificação Agora"))
+        test_btn.set_valign(Gtk.Align.CENTER)
+        test_btn.add_css_class("suggested-action")
+        test_btn.connect("clicked", self._on_test_notification_clicked)
+        test_notif_row.add_suffix(test_btn)
+        test_notif_row.set_activatable_widget(test_btn)
+        notifications_group.add(test_notif_row)
+
         # Autocomplete and Suggestions Group
         autocomplete_group = Adw.PreferencesGroup(
             title=_("Autocomplete e Sugestões Inteligentes"),
@@ -456,26 +476,6 @@ class PreferencesDialog(Adw.PreferencesWindow):
             default_value=True,
         )
         autocomplete_group.add(autocomplete_snippets_row)
-
-        notify_sound_row = self._create_switch_row(
-            _("Alerta Sonoro"),
-            _("Tocar sino ou alerta sonoro ao concluir comando longo"),
-            "notify_long_commands_sound",
-            default_value=True,
-        )
-        notifications_group.add(notify_sound_row)
-
-        test_notif_row = Adw.ActionRow(
-            title=_("Testar Notificação"),
-            subtitle=_("Emitir uma notificação de teste agora para verificar o sistema"),
-        )
-        test_btn = Gtk.Button(label=_("Testar Notificação Agora"))
-        test_btn.set_valign(Gtk.Align.CENTER)
-        test_btn.add_css_class("suggested-action")
-        test_btn.connect("clicked", self._on_test_notification_clicked)
-        test_notif_row.add_suffix(test_btn)
-        test_notif_row.set_activatable_widget(test_btn)
-        notifications_group.add(test_notif_row)
 
     def _setup_profiles_page(self) -> None:
         page = Adw.PreferencesPage(

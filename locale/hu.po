@@ -10868,3 +10868,23 @@ msgstr "Ask AI to analyze error logs and propose a recovery plan"
 # 
 msgid "Sem detalhes de erro."
 msgstr "No error details."
+
+# 
+msgid "Window Buttons When Maximized"
+msgstr "Window Buttons When Maximized"
+
+# 
+msgid "For KDE Plasma panel integration"
+msgstr "For KDE Plasma panel integration"
+
+# 
+msgid "Auto-detect"
+msgstr "Auto-detect"
+
+# 
+msgid "Always hide"
+msgstr "Always hide"
+
+# 
+msgid "Never hide"
+msgstr "Never hide"

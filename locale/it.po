@@ -10869,3 +10869,23 @@ msgstr "Chiedi all'IA di analizzare i registri degli errori e proporre un piano 
 # 
 msgid "Sem detalhes de erro."
 msgstr "Nessun dettaglio sull'errore."
+
+# 
+msgid "Window Buttons When Maximized"
+msgstr "Pulsanti della finestra quando massimizzata"
+
+# 
+msgid "For KDE Plasma panel integration"
+msgstr "Per l'integrazione con i pannelli di KDE Plasma"
+
+# 
+msgid "Auto-detect"
+msgstr "Rileva automaticamente"
+
+# 
+msgid "Always hide"
+msgstr "Nascondi sempre"
+
+# 
+msgid "Never hide"
+msgstr "Non nascondere mai"

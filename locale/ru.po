@@ -10846,3 +10846,23 @@ msgstr "Попросить ИИ проанализировать журналы 
 # 
 msgid "Sem detalhes de erro."
 msgstr "Нет подробностей об ошибке."
+
+# 
+msgid "Window Buttons When Maximized"
+msgstr "Кнопки окна при развертывании"
+
+# 
+msgid "For KDE Plasma panel integration"
+msgstr "Для интеграции с панелями KDE Plasma"
+
+# 
+msgid "Auto-detect"
+msgstr "Автоопределение"
+
+# 
+msgid "Always hide"
+msgstr "Всегда скрывать"
+
+# 
+msgid "Never hide"
+msgstr "Никогда не скрывать"
