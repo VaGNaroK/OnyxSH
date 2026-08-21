@@ -10873,3 +10873,83 @@ msgstr "行"
 # 
 msgid "Numeric mode: {mode}"
 msgstr "数字模式：{mode}"
+
+# 
+msgid "Open in Terminal (cd)"
+msgstr "在终端中打开 (cd)"
+
+# 
+msgid "Run in Terminal"
+msgstr "在终端中运行"
+
+# 
+msgid "Run with sudo"
+msgstr "使用 sudo 运行"
+
+# 
+msgid "Follow Log (tail -f)"
+msgstr "跟踪日志 (tail -f)"
+
+# 
+msgid "Copy Absolute Path"
+msgstr "复制绝对路径"
+
+# 
+msgid "Copy Absolute Paths"
+msgstr "复制绝对路径"
+
+# 
+msgid "Copy Directory Path"
+msgstr "复制目录路径"
+
+# 
+msgid "Insert Path into Prompt"
+msgstr "在提示符中插入路径"
+
+# 
+msgid "Insert Paths into Prompt"
+msgstr "在提示符中插入路径"
+
+# 
+msgid "Insert Directory Path"
+msgstr "插入目录路径"
+
+# 
+msgid "Path copied to clipboard."
+msgstr "路径已复制到剪贴板。"
+
+# 
+msgid "{count} paths copied to clipboard."
+msgstr "已将 {count} 个路径复制到剪贴板。"
+
+# 
+msgid "Directory path copied to clipboard."
+msgstr "目录路径已复制到剪贴板。"
+
+# 
+msgid "Path inserted into terminal prompt."
+msgstr "路径已插入到终端提示符中。"
+
+# 
+msgid "{count} paths inserted into terminal prompt."
+msgstr "已将 {count} 个路径插入到终端提示符中。"
+
+# 
+msgid "Directory path inserted into terminal prompt."
+msgstr "目录路径已插入到终端提示符中。"
+
+# 
+msgid "Navigating terminal to {path}"
+msgstr "正在导航终端至 {path}"
+
+# 
+msgid "Running {name} in terminal..."
+msgstr "正在终端中运行 {name}..."
+
+# 
+msgid "Running {name} with sudo in terminal..."
+msgstr "正在终端中使用 sudo 运行 {name}..."
+
+# 
+msgid "Following {name} (tail -f) in terminal..."
+msgstr "正在终端中跟踪 {name} (tail -f)..."

@@ -2058,6 +2058,12 @@ class FileManager(GObject.Object):
     def _show_general_context_menu(self, x, y):
         menu = Gio.Menu()
 
+        terminal_section = Gio.Menu()
+        terminal_section.append(_("Open in Terminal (cd)"), "context.open_terminal_cd")
+        terminal_section.append(_("Copy Directory Path"), "context.copy_path")
+        terminal_section.append(_("Insert Directory Path"), "context.insert_path")
+        menu.append_section(None, terminal_section)
+
         creation_section = Gio.Menu()
         creation_section.append(_("Create Folder"), "context.create_folder")
         creation_section.append(_("Create File"), "context.create_file")
@@ -2274,6 +2280,26 @@ class FileManager(GObject.Object):
             preview_section.append(_("Quick Look"), "context.quick_look")
             menu.append_section(None, preview_section)
 
+        # Terminal Quick Actions section
+        terminal_section = Gio.Menu()
+        if num_items == 1:
+            item = items[0]
+            if item.is_directory_like:
+                terminal_section.append(_("Open in Terminal (cd)"), "context.open_terminal_cd")
+            else:
+                if item.is_script_or_executable:
+                    terminal_section.append(_("Run in Terminal"), "context.run_terminal")
+                    terminal_section.append(_("Run with sudo"), "context.run_sudo")
+                if item.is_log_file:
+                    terminal_section.append(_("Follow Log (tail -f)"), "context.follow_log")
+
+            terminal_section.append(_("Copy Absolute Path"), "context.copy_path")
+            terminal_section.append(_("Insert Path into Prompt"), "context.insert_path")
+        elif num_items > 1:
+            terminal_section.append(_("Copy Absolute Paths"), "context.copy_path")
+            terminal_section.append(_("Insert Paths into Prompt"), "context.insert_path")
+        menu.append_section(None, terminal_section)
+
         # Open/Edit section for single files
         if num_items == 1 and not items[0].is_directory:
             open_section = Gio.Menu()
@@ -2321,6 +2347,12 @@ class FileManager(GObject.Object):
         action_group = Gio.SimpleActionGroup()
         actions = {
             "quick_look": self._on_quick_look_action,
+            "open_terminal_cd": self._on_open_terminal_cd_action,
+            "run_terminal": self._on_run_terminal_action,
+            "run_sudo": self._on_run_sudo_action,
+            "follow_log": self._on_follow_log_action,
+            "copy_path": self._on_copy_path_action,
+            "insert_path": self._on_insert_path_action,
             "open_edit": self._on_open_edit_action,
             "open_with": self._on_open_with_action,
             "rename": self._on_rename_action,
@@ -2446,6 +2478,9 @@ class FileManager(GObject.Object):
     def _setup_general_context_actions(self, popover):
         action_group = Gio.SimpleActionGroup()
         actions = {
+            "open_terminal_cd": lambda a, _: self._on_open_terminal_cd_action(a, _, None),
+            "copy_path": lambda a, _: self._on_copy_path_action(a, _, None),
+            "insert_path": lambda a, _: self._on_insert_path_action(a, _, None),
             "create_folder": self._on_create_folder_action,
             "create_file": self._on_create_file_action,
             "paste": self._on_paste_action,
@@ -2456,9 +2491,178 @@ class FileManager(GObject.Object):
                 action.set_enabled(self._can_paste())
                 action.connect("activate", lambda a, _, cb=callback: cb())
             else:
-                action.connect("activate", lambda a, _, cb=callback: cb())
+                action.connect("activate", callback)
             action_group.add_action(action)
         popover.insert_action_group("context", action_group)
+
+    def _get_absolute_paths_for_items(self, items: List[FileItem]) -> List[str]:
+        """Resolves absolute POSIX paths for selected items."""
+        base_path = PurePosixPath(self.current_path or "/")
+        paths = []
+        for item in items:
+            if item.name == "..":
+                paths.append(str(base_path.parent))
+            else:
+                paths.append(str(base_path / item.name))
+        return paths
+
+    def _on_copy_path_action(
+        self, _action, _param, items: Optional[List[FileItem]] = None
+    ):
+        """Copies absolute path(s) to system clipboard."""
+        if not items:
+            path_str = self.current_path or "/"
+            clipboard = Gdk.Display.get_default().get_clipboard()
+            clipboard.set(path_str)
+            self._show_toast(_("Directory path copied to clipboard."))
+            return
+
+        selectable_items = [item for item in items if item.name != ".."] or items
+        paths = self._get_absolute_paths_for_items(selectable_items)
+        if not paths:
+            return
+
+        clipboard = Gdk.Display.get_default().get_clipboard()
+        if len(paths) == 1:
+            clipboard.set(paths[0])
+            self._show_toast(_("Path copied to clipboard."))
+        else:
+            clipboard.set("\n".join(paths))
+            self._show_toast(
+                _("{count} paths copied to clipboard.").format(count=len(paths))
+            )
+
+    def _on_insert_path_action(
+        self, _action, _param, items: Optional[List[FileItem]] = None
+    ):
+        """Inserts escaped absolute path(s) at current terminal prompt."""
+        if not self.bound_terminal:
+            return
+
+        if not items:
+            path_str = shlex.quote(self.current_path or "/")
+            self.bound_terminal.feed_child(f"{path_str} ".encode("utf-8"))
+            self.bound_terminal.grab_focus()
+            self._show_toast(_("Directory path inserted into terminal prompt."))
+            return
+
+        selectable_items = [item for item in items if item.name != ".."] or items
+        paths = self._get_absolute_paths_for_items(selectable_items)
+        if not paths:
+            return
+
+        escaped_paths = " ".join(shlex.quote(p) for p in paths) + " "
+        self.bound_terminal.feed_child(escaped_paths.encode("utf-8"))
+        self.bound_terminal.grab_focus()
+        if len(paths) == 1:
+            self._show_toast(_("Path inserted into terminal prompt."))
+        else:
+            self._show_toast(
+                _("{count} paths inserted into terminal prompt.").format(
+                    count=len(paths)
+                )
+            )
+
+    def _on_open_terminal_cd_action(
+        self, _action, _param, items: Optional[List[FileItem]] = None
+    ):
+        """Navigates terminal to the selected directory or parent directory."""
+        if not self.bound_terminal:
+            return
+
+        if not items:
+            target_path = self.current_path or "/"
+        else:
+            item = items[0]
+            if item.name == "..":
+                target_path = str(PurePosixPath(self.current_path or "/").parent)
+            elif item.is_directory_like:
+                target_path = str(PurePosixPath(self.current_path or "/") / item.name)
+            else:
+                target_path = self.current_path or "/"
+
+        self._execute_verified_command(
+            ["cd", target_path], command_type="cd", expected_path=target_path
+        )
+        self.bound_terminal.grab_focus()
+        self._show_toast(_("Navigating terminal to {path}").format(path=target_path))
+
+    def _on_run_terminal_action(
+        self,
+        _action,
+        _param,
+        items: List[FileItem],
+        with_sudo: bool = False,
+    ):
+        """Executes selected script or binary in terminal, optionally with sudo."""
+        if not self.bound_terminal or not items:
+            return
+
+        item = items[0]
+        if item.is_directory_like:
+            return
+
+        file_name = item.name
+        escaped_name = shlex.quote(file_name)
+        ext = item.extension
+
+        # Determine runner command
+        if ext in {".py", ".pyw"}:
+            cmd = f"python3 ./{escaped_name}"
+        elif ext in {".sh", ".bash", ".zsh"}:
+            cmd = f"./{escaped_name}"
+        elif ext == ".pl":
+            cmd = f"perl ./{escaped_name}"
+        elif ext == ".rb":
+            cmd = f"ruby ./{escaped_name}"
+        elif ext in {".js", ".mjs"}:
+            cmd = f"node ./{escaped_name}"
+        elif ext == ".ts":
+            cmd = f"npx ts-node ./{escaped_name}"
+        elif ext == ".lua":
+            cmd = f"lua ./{escaped_name}"
+        elif ext == ".php":
+            cmd = f"php ./{escaped_name}"
+        else:
+            cmd = f"./{escaped_name}"
+
+        if with_sudo:
+            cmd = f"sudo {cmd}"
+
+        # Preserve any input currently typed at the prompt
+        self.bound_terminal.feed_child(b"\x01")  # CTRL+A: Beginning of line
+        self.bound_terminal.feed_child(b"\x0b")  # CTRL+K: Kill to end of line
+        self.bound_terminal.feed_child(f"{cmd}\n".encode("utf-8"))
+        self.bound_terminal.grab_focus()
+
+        toast_msg = (
+            _("Running {name} with sudo in terminal...").format(name=file_name)
+            if with_sudo
+            else _("Running {name} in terminal...").format(name=file_name)
+        )
+        self._show_toast(toast_msg)
+
+    def _on_run_sudo_action(self, action, param, items: List[FileItem]):
+        """Executes selected script or binary with sudo."""
+        self._on_run_terminal_action(action, param, items, with_sudo=True)
+
+    def _on_follow_log_action(self, _action, _param, items: List[FileItem]):
+        """Follows log output with tail -f in terminal."""
+        if not self.bound_terminal or not items:
+            return
+
+        item = items[0]
+        escaped_name = shlex.quote(item.name)
+        cmd = f"tail -n 50 -f ./{escaped_name}"
+
+        self.bound_terminal.feed_child(b"\x01")  # CTRL+A
+        self.bound_terminal.feed_child(b"\x0b")  # CTRL+K
+        self.bound_terminal.feed_child(f"{cmd}\n".encode("utf-8"))
+        self.bound_terminal.grab_focus()
+
+        self._show_toast(
+            _("Following {name} (tail -f) in terminal...").format(name=item.name)
+        )
 
     def _on_delete_action(self, _action, _param, items: List[FileItem]):
         count = len(items)

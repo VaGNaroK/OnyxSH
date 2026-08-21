@@ -10914,3 +10914,83 @@ msgstr "строк"
 # 
 msgid "Numeric mode: {mode}"
 msgstr "Числовой режим: {mode}"
+
+# 
+msgid "Open in Terminal (cd)"
+msgstr "Открыть в терминале (cd)"
+
+# 
+msgid "Run in Terminal"
+msgstr "Запустить в терминале"
+
+# 
+msgid "Run with sudo"
+msgstr "Запустить с sudo"
+
+# 
+msgid "Follow Log (tail -f)"
+msgstr "Отслеживать журнал (tail -f)"
+
+# 
+msgid "Copy Absolute Path"
+msgstr "Копировать абсолютный путь"
+
+# 
+msgid "Copy Absolute Paths"
+msgstr "Копировать абсолютные пути"
+
+# 
+msgid "Copy Directory Path"
+msgstr "Копировать путь к каталогу"
+
+# 
+msgid "Insert Path into Prompt"
+msgstr "Вставить путь в командную строку"
+
+# 
+msgid "Insert Paths into Prompt"
+msgstr "Вставить пути в командную строку"
+
+# 
+msgid "Insert Directory Path"
+msgstr "Вставить путь к каталогу"
+
+# 
+msgid "Path copied to clipboard."
+msgstr "Путь скопирован в буфер обмена."
+
+# 
+msgid "{count} paths copied to clipboard."
+msgstr "{count} путей скопировано в буфер обмена."
+
+# 
+msgid "Directory path copied to clipboard."
+msgstr "Путь к каталогу скопирован в буфер обмена."
+
+# 
+msgid "Path inserted into terminal prompt."
+msgstr "Путь вставлен в строку терминала."
+
+# 
+msgid "{count} paths inserted into terminal prompt."
+msgstr "{count} путей вставлено в строку терминала."
+
+# 
+msgid "Directory path inserted into terminal prompt."
+msgstr "Путь к каталогу вставлен в строку терминала."
+
+# 
+msgid "Navigating terminal to {path}"
+msgstr "Переход в терминале к {path}"
+
+# 
+msgid "Running {name} in terminal..."
+msgstr "Запуск {name} в терминале..."
+
+# 
+msgid "Running {name} with sudo in terminal..."
+msgstr "Запуск {name} с sudo в терминале..."
+
+# 
+msgid "Following {name} (tail -f) in terminal..."
+msgstr "Отслеживание {name} (tail -f) в терминале..."

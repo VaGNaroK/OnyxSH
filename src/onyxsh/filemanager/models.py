@@ -168,6 +168,58 @@ class FileItem(GObject.GObject):
             self.is_link and self._link_target and self._link_target.endswith("/")
         )
 
+    @property
+    def extension(self) -> str:
+        """Returns lowercase file extension including dot (e.g. '.sh', '.py') or empty string."""
+        if "." in self._name and not self.is_directory:
+            return "." + self._name.rsplit(".", 1)[-1].lower()
+        return ""
+
+    @property
+    def is_executable(self) -> bool:
+        """Returns True if the item has execute permissions (user, group, or others)."""
+        if self._permissions and len(self._permissions) >= 10:
+            perms = self._permissions[1:10]
+            return any(c in "xstXST" for c in (perms[2], perms[5], perms[8]))
+        return False
+
+    @property
+    def is_script_or_executable(self) -> bool:
+        """Returns True if the file is an executable binary or an interpreted script."""
+        if self.is_directory:
+            return False
+        if self.is_executable:
+            return True
+        script_exts = {
+            ".sh",
+            ".bash",
+            ".zsh",
+            ".py",
+            ".pl",
+            ".rb",
+            ".js",
+            ".ts",
+            ".lua",
+            ".php",
+            ".bin",
+            ".appimage",
+            ".run",
+            ".command",
+            ".ps1",
+        }
+        return self.extension in script_exts
+
+    @property
+    def is_log_file(self) -> bool:
+        """Returns True if the file appears to be a log or output text stream."""
+        if self.is_directory:
+            return False
+        ext = self.extension
+        if ext in {".log", ".out", ".err", ".journal"}:
+            return True
+        name_lower = self._name.lower()
+        return "log" in name_lower or name_lower.endswith(".log.1")
+
     def _resolve_icon_name(self) -> str:
         """Resolve icon name from MIME type (expensive - only for files)."""
         mime_type, _ = Gio.content_type_guess(self._name, None)

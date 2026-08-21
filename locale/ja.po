@@ -10878,3 +10878,83 @@ msgstr "行"
 # 
 msgid "Numeric mode: {mode}"
 msgstr "数値モード: {mode}"
+
+# 
+msgid "Open in Terminal (cd)"
+msgstr "ターミナルで開く (cd)"
+
+# 
+msgid "Run in Terminal"
+msgstr "ターミナルで実行"
+
+# 
+msgid "Run with sudo"
+msgstr "sudo で実行"
+
+# 
+msgid "Follow Log (tail -f)"
+msgstr "ログを追跡 (tail -f)"
+
+# 
+msgid "Copy Absolute Path"
+msgstr "絶対パスをコピー"
+
+# 
+msgid "Copy Absolute Paths"
+msgstr "絶対パスをコピー"
+
+# 
+msgid "Copy Directory Path"
+msgstr "ディレクトリパスをコピー"
+
+# 
+msgid "Insert Path into Prompt"
+msgstr "プロンプトにパスを挿入"
+
+# 
+msgid "Insert Paths into Prompt"
+msgstr "プロンプトにパスを挿入"
+
+# 
+msgid "Insert Directory Path"
+msgstr "ディレクトリパスを挿入"
+
+# 
+msgid "Path copied to clipboard."
+msgstr "パスがクリップボードにコピーされました。"
+
+# 
+msgid "{count} paths copied to clipboard."
+msgstr "{count} 件のパスをクリップボードにコピーしました。"
+
+# 
+msgid "Directory path copied to clipboard."
+msgstr "ディレクトリパスがクリップボードにコピーされました。"
+
+# 
+msgid "Path inserted into terminal prompt."
+msgstr "ターミナルプロンプトにパスが挿入されました。"
+
+# 
+msgid "{count} paths inserted into terminal prompt."
+msgstr "{count} 件のパスがターミナルプロンプトに挿入されました。"
+
+# 
+msgid "Directory path inserted into terminal prompt."
+msgstr "ディレクトリパスがターミナルプロンプトに挿入されました。"
+
+# 
+msgid "Navigating terminal to {path}"
+msgstr "ターミナルを {path} に移動中"
+
+# 
+msgid "Running {name} in terminal..."
+msgstr "ターミナルで {name} を実行中..."
+
+# 
+msgid "Running {name} with sudo in terminal..."
+msgstr "ターミナルで {name} を sudo で実行中..."
+
+# 
+msgid "Following {name} (tail -f) in terminal..."
+msgstr "ターミナルで {name} (tail -f) を追跡中..."

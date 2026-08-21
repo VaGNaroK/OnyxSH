@@ -10958,3 +10958,83 @@ msgstr "Zeilen"
 # 
 msgid "Numeric mode: {mode}"
 msgstr "Numerischer Modus: {mode}"
+
+# 
+msgid "Open in Terminal (cd)"
+msgstr "Im Terminal öffnen (cd)"
+
+# 
+msgid "Run in Terminal"
+msgstr "Im Terminal ausführen"
+
+# 
+msgid "Run with sudo"
+msgstr "Mit sudo ausführen"
+
+# 
+msgid "Follow Log (tail -f)"
+msgstr "Protokoll verfolgen (tail -f)"
+
+# 
+msgid "Copy Absolute Path"
+msgstr "Absoluten Pfad kopieren"
+
+# 
+msgid "Copy Absolute Paths"
+msgstr "Absolute Pfade kopieren"
+
+# 
+msgid "Copy Directory Path"
+msgstr "Verzeichnispfad kopieren"
+
+# 
+msgid "Insert Path into Prompt"
+msgstr "Pfad in Eingabeaufforderung einfügen"
+
+# 
+msgid "Insert Paths into Prompt"
+msgstr "Pfade in Eingabeaufforderung einfügen"
+
+# 
+msgid "Insert Directory Path"
+msgstr "Verzeichnispfad einfügen"
+
+# 
+msgid "Path copied to clipboard."
+msgstr "Pfad in die Zwischenablage kopiert."
+
+# 
+msgid "{count} paths copied to clipboard."
+msgstr "{count} Pfade in die Zwischenablage kopiert."
+
+# 
+msgid "Directory path copied to clipboard."
+msgstr "Verzeichnispfad in die Zwischenablage kopiert."
+
+# 
+msgid "Path inserted into terminal prompt."
+msgstr "Pfad in die Terminal-Eingabeaufforderung eingefügt."
+
+# 
+msgid "{count} paths inserted into terminal prompt."
+msgstr "{count} Pfade in die Terminal-Eingabeaufforderung eingefügt."
+
+# 
+msgid "Directory path inserted into terminal prompt."
+msgstr "Verzeichnispfad in die Terminal-Eingabeaufforderung eingefügt."
+
+# 
+msgid "Navigating terminal to {path}"
+msgstr "Navigiere Terminal zu {path}"
+
+# 
+msgid "Running {name} in terminal..."
+msgstr "Führe {name} im Terminal aus..."
+
+# 
+msgid "Running {name} with sudo in terminal..."
+msgstr "Führe {name} mit sudo im Terminal aus..."
+
+# 
+msgid "Following {name} (tail -f) in terminal..."
+msgstr "Verfolge {name} (tail -f) im Terminal..."
