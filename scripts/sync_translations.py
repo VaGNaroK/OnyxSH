@@ -140,6 +140,17 @@ NEW_TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "ja": "行",
         "ru": "строк",
     },
+    "Numeric mode: {mode}": {
+        "pt": "Modo numérico: {mode}",
+        "en": "Numeric mode: {mode}",
+        "es": "Modo numérico: {mode}",
+        "fr": "Mode numérique : {mode}",
+        "de": "Numerischer Modus: {mode}",
+        "it": "Modalità numerica: {mode}",
+        "zh": "数字模式：{mode}",
+        "ja": "数値モード: {mode}",
+        "ru": "Числовой режим: {mode}",
+    },
     "Window Buttons When Maximized": {
         "pt": "Botões da Janela Quando Maximizada",
         "en": "Window Buttons When Maximized",

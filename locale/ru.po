@@ -10910,3 +10910,7 @@ msgstr "Загрузка предпросмотра..."
 # 
 msgid "lines"
 msgstr "строк"
+
+# 
+msgid "Numeric mode: {mode}"
+msgstr "Числовой режим: {mode}"

@@ -10913,3 +10913,7 @@ msgstr "Loading preview..."
 # 
 msgid "lines"
 msgstr "lines"
+
+# 
+msgid "Numeric mode: {mode}"
+msgstr "Numeric mode: {mode}"

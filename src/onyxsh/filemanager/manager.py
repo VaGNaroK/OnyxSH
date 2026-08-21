@@ -2138,16 +2138,10 @@ class FileManager(GObject.Object):
 
     def _on_column_view_key_pressed(self, controller, keyval, _keycode, state):
         """Handle key presses on the column view for instant filtering and shortcuts."""
-        if keyval == Gdk.KEY_space:
-            selected_items = self.get_selected_items()
-            if selected_items and selected_items[0].name != "..":
-                self._toggle_quick_look(selected_items[0])
-                return Gdk.EVENT_STOP
-
         unicode_val = Gdk.keyval_to_unicode(keyval)
         if unicode_val != 0:
             char = chr(unicode_val)
-            if char.isprintable():
+            if char.isprintable() and char != " ":
                 self.search_entry.set_text(char)
                 self.search_entry.set_position(-1)
                 self.search_entry.grab_focus()
@@ -2252,7 +2246,7 @@ class FileManager(GObject.Object):
         # Quick Look section for single files
         if num_items == 1 and not items[0].is_directory:
             preview_section = Gio.Menu()
-            preview_section.append(_("Quick Look (Space)"), "context.quick_look")
+            preview_section.append(_("Quick Look"), "context.quick_look")
             menu.append_section(None, preview_section)
 
         # Open/Edit section for single files
@@ -2609,7 +2603,7 @@ class FileManager(GObject.Object):
 
     def _update_mode_display(self):
         mode = self._calculate_mode()
-        self.mode_label.set_text(f"Numeric mode: {mode}")
+        self.mode_label.set_text(_("Numeric mode: {mode}").format(mode=mode))
 
     def _on_download_action(self, _action, _param, items: List[FileItem]):
         dialog = Gtk.FileDialog(

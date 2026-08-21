@@ -10943,3 +10943,7 @@ msgstr "Chargement de l'aperçu..."
 # 
 msgid "lines"
 msgstr "lignes"
+
+# 
+msgid "Numeric mode: {mode}"
+msgstr "Mode numérique : {mode}"

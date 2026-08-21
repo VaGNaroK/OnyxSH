@@ -10933,3 +10933,7 @@ msgstr "Caricamento anteprima..."
 # 
 msgid "lines"
 msgstr "righe"
+
+# 
+msgid "Numeric mode: {mode}"
+msgstr "Modalità numerica: {mode}"

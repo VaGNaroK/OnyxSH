@@ -10954,3 +10954,7 @@ msgstr "Vorschau wird geladen..."
 # 
 msgid "lines"
 msgstr "Zeilen"
+
+# 
+msgid "Numeric mode: {mode}"
+msgstr "Numerischer Modus: {mode}"

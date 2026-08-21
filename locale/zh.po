@@ -10869,3 +10869,7 @@ msgstr "正在加载预览..."
 # 
 msgid "lines"
 msgstr "行"
+
+# 
+msgid "Numeric mode: {mode}"
+msgstr "数字模式：{mode}"
