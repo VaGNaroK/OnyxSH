@@ -45,8 +45,14 @@ onyxsh = ["**/*"]
 
 [tool.setuptools.data-files]
 "share/applications" = ["usr/share/applications/io.github.vagnarok.OnyxSH.desktop"]
-"share/icons/hicolor/scalable/apps" = ["usr/share/icons/hicolor/scalable/apps/onyxsh.svg"]
-"share/pixmaps" = ["usr/share/icons/hicolor/scalable/apps/onyxsh.svg"]
+"share/icons/hicolor/scalable/apps" = [
+    "usr/share/icons/hicolor/scalable/apps/io.github.vagnarok.OnyxSH.svg",
+    "usr/share/icons/hicolor/scalable/apps/onyxsh.svg",
+]
+"share/pixmaps" = [
+    "usr/share/icons/hicolor/scalable/apps/io.github.vagnarok.OnyxSH.svg",
+    "usr/share/icons/hicolor/scalable/apps/onyxsh.svg",
+]
 "share/kio/servicemenus" = ["usr/share/kio/servicemenus/onyxsh.desktop", "usr/share/kio/servicemenus/onyxsh-remote.desktop"]
 "share/nautilus-python/extensions" = ["usr/share/nautilus-python/extensions/onyxsh.py"]
 "share/nemo/actions" = ["usr/share/nemo/actions/onyxsh.nemo_action", "usr/share/nemo/actions/onyxsh-remote.nemo_action"]
