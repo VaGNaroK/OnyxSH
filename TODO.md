@@ -10,16 +10,16 @@
 ## 🎯 Resumo dos Pilares de Evolução
 
 ```
-                    ┌──────────────────────────────────────┐
-                    │          ONYXSH ROADMAP              │
-                    └──────────────────┬───────────────────┘
-                                       │
-      ┌─────────────────┬──────────────┴───────┬─────────────────┐
-      │                 │                      │                 │
-┌─────▼──────────┐ ┌────▼──────────┐ ┌─────────▼────────┐ ┌──────▼──────────┐
-│  1. Core UX &  │ │  2. Onyx      │ │ 3. IA Avançada   │ │  4. Qualidade & │
-│  Produtividade │ │  Guard (Sec)  │ │ & Onyx Bridge    │ │  Confiabilidade │
-└────────────────┘ └───────────────┘ └──────────────────┘ └─────────────────┘
+                          ┌──────────────────────────────────────┐
+                          │          ONYXSH ROADMAP              │
+                          └──────────────────┬───────────────────┘
+                                             │
+      ┌─────────────────┬────────────────────┼───────────────────┬─────────────────┐
+      │                 │                    │                   │                 │
+┌─────▼──────────┐ ┌────▼──────────┐ ┌───────▼────────┐ ┌────────▼───────┐ ┌──────▼──────────┐
+│  1. Core UX &  │ │  2. Onyx      │ │ 3. IA Avançada │ │ 4. File Manager│ │  5. Qualidade &  │
+│  Produtividade │ │  Guard (Sec)  │ │ & Onyx Bridge  │ │    2.0 & SFTP  │ │  Confiabilidade  │
+└────────────────┘ └───────────────┘ └────────────────┘ └────────────────┘ └──────────────────┘
 ```
 
 ---
@@ -210,7 +210,7 @@
 - [x] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v0.10.0`
 - [x] **Módulos Afetados:** `src/onyxsh/utils/git_utils.py`, `src/onyxsh/terminal/git_assistant.py`, `src/onyxsh/ui/dialogs/git_commit_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_git_assistant.py`.
 
-### 🔌 3.6. API de Extensibilidade e Plugins ("Zash Bridge")
+### 🔌 3.6. API de Extensibilidade e Plugins ("Onyx Bridge")
 - [ ] **Descrição:** Framework de extensões em Python que permite à comunidade criar plugins modulares.
 - [ ] **Capacidades dos Plugins:**
   - Registrar novas ferramentas seguras para o agente de IA (`AgentTool`).
@@ -218,7 +218,7 @@
   - Criar novos painéis laterais e conectores de nuvem (AWS, Docker, Kubernetes).
   - Adicionar temas e regras de sintaxe personalizadas.
 - [ ] **Prioridade:** 🟡 Média/Alta | **Esforço:** Alto | **Alvo:** `v1.0.0`
-- [ ] **Módulos Afetados:** `src/zashterminal/plugins/` (novo pacote).
+- [ ] **Módulos Afetados:** `src/onyxsh/plugins/` (novo pacote).
 
 ---
 
@@ -248,15 +248,90 @@
 
 ---
 
+## 5. Gerenciador de Arquivos Integrado & SFTP/SSH Explorer (File Manager 2.0)
+
+### 📌 5.1. Pré-visualização Rápida de Arquivos (*Quick Look* / Tecla `Espaço`)
+- [ ] **Descrição:** Permitir pré-visualizar rapidamente o conteúdo de arquivos selecionados sem abrir editores externos. Pressionar a barra de `Espaço` (ou clicar em um ícone de visualização) abre um popover ou modal com renderização rica.
+- [ ] **Formatos Suportados:**
+  - 📝 **Código e Scripts:** Realce de sintaxe (*syntax highlighting*) para `.sh`, `.py`, `.json`, `.yaml`, `.yml`, `.conf`, `.toml`, `.md`, `.c`, `.rs`.
+  - 📜 **Logs de Sistema:** Visualização de `.log` com destaque de linhas de erro (`ERROR`, `FATAL`, `FAIL`) e avisos (`WARN`).
+  - 🖼️ **Imagens e Mídias:** Pré-visualização de `.png`, `.jpg`, `.svg`, `.ico` com dimensões e tamanho.
+  - 🔐 **Certificados e Chaves:** Exibição estruturada de metadados de `.crt`, `.pem`, `.pub`.
+- [ ] **Prioridade:** 🔴 Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py` (novo), `src/onyxsh/utils/syntax_utils.py`.
+
+### 📌 5.2. Ações Rápidas de Terminal no Menu de Contexto
+- [ ] **Descrição:** Enriquecer o menu de contexto (botão direito) dos arquivos e pastas com atalhos diretos e inteligentes para o terminal ativo.
+- [ ] **Ações Propostas:**
+  - 📋 **Copiar Caminho Absoluto:** Copia o path formatado (`/home/user/projeto/arquivo.py`) para a área de transferência.
+  - ▶️ **Executar no Terminal:** Insere e executa automaticamente `./script.sh` ou `python3 arquivo.py` no terminal conectado.
+  - 🛡️ **Executar com `sudo`:** Injeta `sudo ./script.sh` com confirmação.
+  - 📜 **Acompanhar Log em Tempo Real (`tail -f`):** Executa `tail -f arquivo.log` diretamente na aba atual ou em nova aba.
+  - 📂 **Abrir no Terminal (`cd`):** Navega o terminal ativo para o diretório selecionado.
+- [ ] **Prioridade:** 🔴 Alta | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/operations.py`, `src/onyxsh/terminal/manager.py`.
+
+### 📌 5.3. Integração Inteligente com a IA do OnyxSH
+- [ ] **Descrição:** Conectar o gerenciador de arquivos diretamente ao subsistema de IA do OnyxSH para análise contextual de código, logs e segurança.
+- [ ] **Recursos:**
+  - 💡 **"Explicar este arquivo com IA":** Envia o conteúdo do script/arquivo selecionado para o painel de chat de IA com uma explicação detalhada e didática de seu funcionamento.
+  - 🔍 **"Diagnosticar Erros com IA":** Lê as últimas linhas de falha de um `.log` e gera sugestões automatizadas de correção.
+  - 🛡️ **"Auditar Permissões & Segurança com IA":** Avalia riscos de segurança em arquivos de configuração (`sshd_config`, `sudoers`, `.env`, permissões abertas `777`).
+- [ ] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/terminal/ai_assistant.py`.
+
+### 📌 5.4. Atalhos Rápidos & Bookmarks de Diretórios (*Quick Jump*)
+- [ ] **Descrição:** Menu de salto rápido e favoritos integrado ao lado da barra de navegação (*breadcrumb*) para navegação instantânea em pastas frequentes.
+- [ ] **Atalhos Nativos:**
+  - 🏠 **Home** (`~` / `$HOME`)
+  - 📁 **Raiz do Sistema** (`/`)
+  - 📜 **Logs do Sistema** (`/var/log`)
+  - ⚙️ **Configurações** (`/etc` ou `~/.config`)
+  - 🚀 **Raiz do Projeto Git** (detecta o repositório git atual dinamicamente)
+  - 💾 **Diretório Temporário** (`/tmp`)
+  - ⭐ **Favoritos Personalizados:** Permitir fixar (*pin*) diretórios remotos SSH ou locais frequentes.
+- [ ] **Prioridade:** 🟡 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/settings/config.py`.
+
+### 📌 5.5. Barra de Status, Contadores e Espaço Livre em Disco
+- [ ] **Descrição:** Exibir informações e métricas em tempo real na barra inferior do gerenciador de arquivos.
+- [ ] **Métricas Exibidas:**
+  - Contagem total de itens no diretório (ex: `48 itens`).
+  - Contagem e peso dos itens selecionados (ex: `3 selecionados (1.4 MB)`).
+  - Espaço livre em disco no ponto de montagem atual (local ou remoto via SSH `df -h`).
+- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo | **Alvo:** `v0.10.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/operations.py`.
+
+### 📌 5.6. Badges Visuais, Destaque de Permissões e Symlinks
+- [ ] **Descrição:** Modernizar a visualização das colunas da tabela de arquivos com chips e cores semânticas.
+- [ ] **Indicadores Visuais:**
+  - 🟢 **Badge Verde para Executáveis:** Destacar scripts e binários com permissão de execução (`+x` / `rwxr-xr-x`).
+  - 🔒 **Ícone de Cadeado para Arquivos Restritos:** Destacar arquivos de propriedade `root` que requerem privilégios de administrador.
+  - 🔗 **Indicação de Links Simbólicos:** Exibir o caminho de destino de links simbólicos (`symlink ➔ /alvo`).
+- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/ui/colors.py`.
+
+### 📌 5.7. Modo Dual-Pane Local ⇄ Remoto para Sessões SSH
+- [ ] **Descrição:** Ao conectar em uma sessão SSH remota, permitir dividir o gerenciador de arquivos em dois painéis lado a lado (Painel Local à esquerda e Painel Remoto SSH à direita).
+- [ ] **Recursos:**
+  - Transferência bidirecional com arrastar e soltar (*drag-and-drop*) entre painéis.
+  - Botões dedicados de upload (`->`) e download (`<-`).
+  - Sincronização e visualização de diffs de arquivos entre local e servidor.
+- [ ] **Prioridade:** 🟡 Média | **Esforço:** Alto | **Alvo:** `v0.11.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/transfer_manager.py`, `src/onyxsh/terminal/tabs.py`.
+
+---
+
 ## 📅 Matriz de Versões e Entregas Sugerida
 
 | Versão | Foco Principal | Principais Funcionalidades Previstas |
 | :--- | :--- | :--- |
-| **`v0.9.0`** | **Produtividade & Core UX** | • Command Palette (`Ctrl+Shift+P`)<br>• Restauração Automática de Sessões<br>• Integração Semântica OSC 133<br>• Histórico Inteligente e Snippets de Comandos<br>• Modo Diagnóstico (`--diagnose`) |
-| **`v0.10.0`** | **Segurança & Agente Avançado** | • Production Guard (Modo Produção)<br>• Modo "Plan before Execute" com aprovação granular<br>• Verificação Pós-Execução Automatizada<br>• Roteamento Inteligente de Modelos<br>• Modo Estritamente Offline<br>• Encadeamento Criptográfico de Auditoria |
-| **`v0.11.0`** | **DevOps & Operações Remotas** | • Gerenciador Visual de Túneis SSH<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs<br>• Integração Básica com Docker/Podman |
-| **`v1.0.0`** | **Maturidade & Extensibilidade** | • API de Plugins (Zash Bridge)<br>• Ferramentas Customizadas para o Agente<br>• Estabilização Completa de Pacotes Flatpak, Debian e AUR<br>• Documentação e Threat Model Final |
+| **`v0.9.0`** | **Produtividade & Core UX** | • Command Palette (`Ctrl+Shift+P`)<br>• Restauração Automática de Sessões<br>• Integração Semântica OSC 133<br>• Histórico Inteligente e Snippets de Comandos<br>• Autocomplete e Notificações Desktop<br>• Novo Logo Vetorial Oficial OnyxSH |
+| **`v0.10.0`** | **File Manager 2.0 & IA Avançada** | • **Quick Look (Preview com Tecla `Espaço`)**<br>• **Ações Rápidas de Terminal & IA no File Manager**<br>• **Atalhos Rápidos (Bookmarks) e Barra de Status com Espaço Livre**<br>• **Badges Visuais de Permissões (+x)**<br>• Production Guard & Roteamento Inteligente de IA<br>• Modo Estritamente Offline & Diagnóstico (`--diagnose`) |
+| **`v0.11.0`** | **DevOps & Operações Remotas** | • Modo Dual-Pane Local ⇄ Remoto no File Manager<br>• Gerenciador Visual de Túneis SSH<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs |
+| **`v1.0.0`** | **Maturidade & Extensibilidade** | • API de Plugins (Onyx Bridge)<br>• Ferramentas Customizadas para o Agente<br>• Estabilização Completa de Pacotes Flatpak, Debian e AUR<br>• Documentação e Threat Model Final |
 
 ---
 
-*Documento mantido e versionado no repositório Zashterminal como guia oficial de desenvolvimento.*
+*Documento mantido e versionado no repositório OnyxSH como guia oficial de desenvolvimento.*
+
