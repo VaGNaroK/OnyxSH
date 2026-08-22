@@ -7180,17 +7180,6 @@ NEW_TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "ja": "ホーム",
         "ru": "Домашняя папка",
     },
-    "Root": {
-        "pt": "Raiz do Sistema",
-        "en": "Root",
-        "es": "Raíz del sistema",
-        "fr": "Racine du système",
-        "de": "System-Wurzel",
-        "it": "Radice di sistema",
-        "zh": "系统根目录",
-        "ja": "ルート",
-        "ru": "Корень системы",
-    },
     "Logs": {
         "pt": "Logs do Sistema",
         "en": "Logs",

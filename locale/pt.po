@@ -4559,7 +4559,7 @@ msgstr "Selecione uma pasta para organizar esta sessão"
 # File: usr/share/zashterminal/ui/dialogs.py, line: 1165
 #: NEEDS WORK
 msgid "Root"
-msgstr "Raiz"
+msgstr "Raiz do Sistema"
 # 
 # File: usr/share/zashterminal/ui/dialogs.py, line: 1182
 # File: usr/share/zashterminal/ui/dialogs.py, line: 1197
@@ -11336,10 +11336,6 @@ msgstr "Atalhos do Sistema"
 # 
 msgid "Home"
 msgstr "Início"
-
-# 
-msgid "Root"
-msgstr "Raiz do Sistema"
 
 # 
 msgid "Logs"
