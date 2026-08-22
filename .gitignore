@@ -10,7 +10,10 @@ __pycache__/
 .Python
 build/
 build-dir/
+.deb-build/
+.flatpak-build/
 .flatpak-builder/
+.flatpak-repo/
 develop-eggs/
 dist/
 downloads/

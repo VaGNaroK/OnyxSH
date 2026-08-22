@@ -176,6 +176,34 @@ class FileItem(GObject.GObject):
         return ""
 
     @property
+    def is_root_owned(self) -> bool:
+        """Returns True if the file owner is 'root' or UID 0."""
+        return self._owner in ("root", "0")
+
+    @property
+    def file_type_badge(self):
+        """Returns tuple (badge_text, css_class) for common file extensions, or None."""
+        if self.is_directory or self._name == "..":
+            return None
+            
+        lower_name = self._name.lower()
+        ext = self.extension.lower()
+
+        if ext == ".py":
+            return ("PY", "badge-py")
+        elif ext in (".sh", ".bash", ".zsh"):
+            return ("SH", "badge-sh")
+        elif ext == ".log":
+            return ("LOG", "badge-log")
+        elif lower_name in ("dockerfile", "docker-compose.yml", "docker-compose.yaml") or lower_name.startswith("dockerfile."):
+            return ("DOCKER", "badge-docker")
+        elif ext == ".json":
+            return ("JSON", "badge-json")
+        elif ext in (".yaml", ".yml"):
+            return ("YAML", "badge-yaml")
+        return None
+
+    @property
     def is_executable(self) -> bool:
         """Returns True if the item has execute permissions (user, group, or others)."""
         if self._permissions and len(self._permissions) >= 10:

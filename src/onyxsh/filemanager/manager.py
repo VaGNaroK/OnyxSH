@@ -6,6 +6,7 @@ gi.require_version("Adw", "1")
 gi.require_version("Vte", "3.91")
 import os
 import shlex
+import shutil
 import subprocess
 import tempfile
 import threading
@@ -103,6 +104,8 @@ class FileManager(GObject.Object):
         self._rsync_status: Dict[str, bool] = {}
         self._rsync_notified_sessions: Set[str] = set()
         self._rsync_checks_in_progress: Set[str] = set()
+        self._dir_size_cache: Dict[str, int] = {}
+        self._dir_size_calculating: Set[str] = set()
 
         # State for verified command execution
         self._pending_command = None
@@ -116,6 +119,11 @@ class FileManager(GObject.Object):
         self._showing_recursive_results = False
         self._recursive_search_generation = 0
         self._recursive_search_in_progress = False
+
+        # Context menu state and permanent action group
+        self._context_popover: Optional[Gtk.PopoverMenu] = None
+        self._context_target_items: List[FileItem] = []
+        self._init_context_action_group()
 
         self._build_ui()
 
@@ -448,6 +456,12 @@ class FileManager(GObject.Object):
         if hasattr(self, "edited_file_metadata"):
             self.edited_file_metadata.clear()
 
+        # Clean up context popover
+        if hasattr(self, "_context_popover") and self._context_popover:
+            if self._context_popover.get_parent():
+                self._context_popover.unparent()
+            self._context_popover = None
+
         # Task 2: CRITICAL - Detach model from View BEFORE clearing to release GTK references
         if hasattr(self, "column_view") and self.column_view:
             self.column_view.set_model(None)
@@ -587,6 +601,7 @@ class FileManager(GObject.Object):
         self.main_box.add_css_class("file-manager-main-box")
         # Add background class to ensure solid background while loading
         self.main_box.add_css_class("background")
+        self.main_box.insert_action_group("context", self.context_action_group)
 
         self.scrolled_window = Gtk.ScrolledWindow(vexpand=True)
         # Also add background to scrolled window to prevent transparency during load
@@ -605,13 +620,6 @@ class FileManager(GObject.Object):
         drop_target.connect("leave", self._on_drop_leave, self.scrolled_window)
         drop_target.connect("drop", self._on_files_dropped, self.scrolled_window)
         self.scrolled_window.add_controller(drop_target)
-
-        scrolled_bg_click = Gtk.GestureClick.new()
-        scrolled_bg_click.set_button(Gdk.BUTTON_SECONDARY)
-        scrolled_bg_click.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
-        scrolled_bg_click.set_exclusive(True)
-        scrolled_bg_click.connect("pressed", self._on_scrolled_window_background_click)
-        self.scrolled_window.add_controller(scrolled_bg_click)
 
         self.action_bar = Gtk.ActionBar()
 
@@ -720,6 +728,16 @@ class FileManager(GObject.Object):
 
         self.main_box.append(self.scrolled_window)
         self.main_box.append(self.action_bar)
+
+        # Status bar at footer
+        self.status_bar = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        self.status_bar.add_css_class("file-manager-status-bar")
+        self.status_label = Gtk.Label(label="", xalign=0.0)
+        self.status_label.add_css_class("file-manager-status-label")
+        self.status_label.set_hexpand(True)
+        self.status_bar.append(self.status_label)
+        self.main_box.append(self.status_bar)
+
         self.revealer.set_child(self.main_box)
 
         self._setup_filtering_and_sorting()
@@ -979,6 +997,7 @@ class FileManager(GObject.Object):
         if hasattr(self, "column_view") and self.column_view:
             if self.selection_model and self.selection_model.get_n_items() > 0:
                 self.selection_model.unselect_all()
+        self._update_status_bar()
 
     def _start_recursive_search(self, search_term: str) -> None:
         if not self.operations:
@@ -1449,6 +1468,7 @@ class FileManager(GObject.Object):
             model=self.filtered_store, sorter=view_sorter
         )
         self.selection_model = Gtk.MultiSelection(model=self.sorted_store)
+        self.selection_model.connect("selection-changed", self._on_selection_changed_update_status)
         col_view.set_model(self.selection_model)
         col_view.sort_by_column(
             col_view.get_columns().get_item(0), Gtk.SortType.ASCENDING
@@ -1463,8 +1483,6 @@ class FileManager(GObject.Object):
 
         background_click = Gtk.GestureClick.new()
         background_click.set_button(Gdk.BUTTON_SECONDARY)
-        background_click.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
-        background_click.set_exclusive(True)
         background_click.connect("pressed", self._on_column_view_background_click)
         col_view.add_controller(background_click)
 
@@ -1478,6 +1496,10 @@ class FileManager(GObject.Object):
         link_icon = Gtk.Image()
         link_icon.set_visible(False)
         box.append(link_icon)
+
+        badges_box = Gtk.Box(spacing=4, orientation=Gtk.Orientation.HORIZONTAL)
+        box.append(badges_box)
+
         list_item.set_child(box)
 
     def _bind_cell_common(self, list_item):
@@ -1486,7 +1508,7 @@ class FileManager(GObject.Object):
         if row and not hasattr(row, "right_click_gesture"):
             right_click_gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
             right_click_gesture.connect(
-                "released", self._on_item_right_click, list_item
+                "pressed", self._on_item_right_click, list_item
             )
             row.add_controller(right_click_gesture)
             row.right_click_gesture = right_click_gesture
@@ -1504,17 +1526,54 @@ class FileManager(GObject.Object):
         icon = box.get_first_child()
         label = icon.get_next_sibling()
         link_icon = label.get_next_sibling()
+        badges_box = link_icon.get_next_sibling()
+
         file_item: FileItem = list_item.get_item()
+        if not file_item:
+            return
+
         icon.set_from_icon_name(file_item.icon_name)
         display_name = file_item.name
         if file_item.is_directory and display_name.endswith("/"):
             display_name = display_name[:-1]
         label.set_text(display_name)
+
         if file_item.is_link:
             link_icon.set_from_icon_name("emblem-symbolic-link-symbolic")
             link_icon.set_visible(True)
         else:
             link_icon.set_visible(False)
+
+        # Clear existing badges
+        while child := badges_box.get_first_child():
+            badges_box.remove(child)
+
+        # Render chips/badges
+        if file_item.name != "..":
+            # 1. Executable badge (+x)
+            if file_item.is_executable and not file_item.is_directory:
+                badge = Gtk.Label(label="+x")
+                badge.add_css_class("badge-pill")
+                badge.add_css_class("badge-exec")
+                badge.set_tooltip_text(_("Executable file"))
+                badges_box.append(badge)
+
+            # 2. Root owner badge (root)
+            if file_item.is_root_owned:
+                badge = Gtk.Label(label="root")
+                badge.add_css_class("badge-pill")
+                badge.add_css_class("badge-root")
+                badge.set_tooltip_text(_("Owned by root"))
+                badges_box.append(badge)
+
+            # 3. File type / extension badge
+            type_badge = file_item.file_type_badge
+            if type_badge:
+                badge_text, css_class = type_badge
+                badge = Gtk.Label(label=badge_text)
+                badge.add_css_class("badge-pill")
+                badge.add_css_class(css_class)
+                badges_box.append(badge)
 
     def _setup_text_cell(self, factory, list_item):
         label = Gtk.Label(xalign=0.0)
@@ -1874,6 +1933,7 @@ class FileManager(GObject.Object):
         self._showing_recursive_results = False
         self._recursive_search_in_progress = False
         self._restore_search_entry(source)
+        self._update_status_bar()
         return False
 
     def _update_store_with_files(
@@ -1909,7 +1969,179 @@ class FileManager(GObject.Object):
             self._confirm_pending_command()
 
         self._restore_search_entry(source)
+        self._update_status_bar()
         return False
+
+    def _on_selection_changed_update_status(self, _model, _position, _n_items):
+        self._update_status_bar()
+
+    def _update_status_bar(self):
+        """Update bottom status bar with total items, selected items & size, and free space."""
+        try:
+            if not hasattr(self, "status_label") or not self.status_label:
+                return
+
+            total_items = (
+                self.filtered_store.get_n_items()
+                if hasattr(self, "filtered_store") and self.filtered_store
+                else 0
+            )
+
+            selected_items = (
+                self.get_selected_items()
+                if hasattr(self, "selection_model") and self.selection_model
+                else []
+            )
+            valid_selected = [item for item in selected_items if item.name != ".."]
+            sel_count = len(valid_selected)
+
+            if sel_count > 0:
+                selected_files = [
+                    item for item in valid_selected if not item.is_directory
+                ]
+                selected_dirs = [
+                    item for item in valid_selected if item.is_directory
+                ]
+                n_files = len(selected_files)
+                n_dirs = len(selected_dirs)
+
+                files_bytes = sum(f.size_bytes for f in selected_files)
+
+                dirs_bytes = 0
+                dir_paths_to_calc = []
+                for d_item in selected_dirs:
+                    d_path = os.path.join(self.current_path or "", d_item.name)
+                    if hasattr(self, "_dir_size_cache") and d_path in self._dir_size_cache:
+                        dirs_bytes += self._dir_size_cache[d_path]
+                    else:
+                        dir_paths_to_calc.append(d_path)
+
+                if dir_paths_to_calc:
+                    self._calculate_directory_sizes_async(dir_paths_to_calc)
+
+                total_bytes = files_bytes + dirs_bytes
+                formatted_size = self._format_bytes(total_bytes)
+
+                if n_files > 0 and n_dirs == 0:
+                    sel_text = (
+                        f"{n_files} "
+                        + (_("files selected") if n_files > 1 else _("file selected"))
+                        + f" ({formatted_size})"
+                    )
+                elif n_files == 0 and n_dirs > 0:
+                    sel_text = (
+                        f"{n_dirs} "
+                        + (_("folders selected") if n_dirs > 1 else _("folder selected"))
+                        + f" ({formatted_size})"
+                    )
+                else:
+                    files_str = f"{n_files} " + (_("files") if n_files > 1 else _("file"))
+                    dirs_str = f"{n_dirs} " + (_("folders") if n_dirs > 1 else _("folder"))
+                    sel_text = (
+                        f"{files_str}, {dirs_str} "
+                        + _("selected")
+                        + f" ({formatted_size})"
+                    )
+            else:
+                sel_text = _("0 selected")
+
+            free_space_text = self._get_free_disk_space_text()
+
+            status_str = (
+                f"{total_items} "
+                + (_("items") if total_items != 1 else _("item"))
+                + f" • {sel_text}"
+            )
+            if free_space_text:
+                status_str += f" • " + _("Free Space") + f": {free_space_text}"
+
+            self.status_label.set_text(status_str)
+        except Exception as e:
+            self.logger.debug(f"Error updating status bar: {e}")
+
+    def _calculate_directory_sizes_async(self, dir_paths: List[str]):
+        """Calculate total recursive size of directories asynchronously."""
+        paths_to_run = [p for p in dir_paths if p not in self._dir_size_calculating]
+        if not paths_to_run:
+            return
+
+        for p in paths_to_run:
+            self._dir_size_calculating.add(p)
+
+        def worker():
+            updated = False
+            for dpath in paths_to_run:
+                try:
+                    if not self.session_item or self.session_item.is_local():
+                        sz = self._calculate_dir_size(dpath)
+                        self._dir_size_cache[dpath] = sz
+                        updated = True
+                    elif self.operations:
+                        success, output = self.operations.execute_command_on_session([
+                            "du",
+                            "-sb",
+                            dpath,
+                        ])
+                        if success and output.strip():
+                            parts = output.strip().split()
+                            if parts and parts[0].isdigit():
+                                self._dir_size_cache[dpath] = int(parts[0])
+                                updated = True
+                except Exception as e:
+                    self.logger.debug(f"Error calculating dir size for {dpath}: {e}")
+                finally:
+                    self._dir_size_calculating.discard(dpath)
+
+            if updated and not self._is_destroyed:
+                GLib.idle_add(self._update_status_bar)
+
+        AsyncTaskManager.get().submit_io(worker)
+
+    def _calculate_dir_size(self, dir_path: str) -> int:
+        """Fast recursive directory size calculation for local filesystem."""
+        total = 0
+        try:
+            with os.scandir(dir_path) as it:
+                for entry in it:
+                    try:
+                        if entry.is_file(follow_symlinks=False):
+                            total += entry.stat(follow_symlinks=False).st_size
+                        elif entry.is_dir(follow_symlinks=False):
+                            total += self._calculate_dir_size(entry.path)
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+        return total
+
+    def _format_bytes(self, size_bytes: int) -> str:
+        if size_bytes < 1024:
+            return f"{size_bytes} B"
+        elif size_bytes < 1024**2:
+            return f"{size_bytes / 1024:.1f} KB"
+        elif size_bytes < 1024**3:
+            return f"{size_bytes / 1024**2:.1f} MB"
+        else:
+            return f"{size_bytes / 1024**3:.1f} GB"
+
+    def _get_free_disk_space_text(self) -> str:
+        """Returns formatted free disk space for current path."""
+        try:
+            if not self.session_item or self.session_item.is_local():
+                path_to_check = self.current_path or os.path.expanduser("~")
+                if not os.path.exists(path_to_check):
+                    path_to_check = "/"
+                usage = shutil.disk_usage(path_to_check)
+                return self._format_bytes(usage.free)
+            else:
+                if (
+                    hasattr(self, "_remote_free_space_cache")
+                    and self.current_path in self._remote_free_space_cache
+                ):
+                    return self._remote_free_space_cache[self.current_path]
+                return ""
+        except Exception:
+            return ""
 
     def _fallback_to_accessible_path(self, fallback_path: str, source: str):
         """Navigate to an accessible fallback path when permission denied on current path."""
@@ -1956,8 +2188,19 @@ class FileManager(GObject.Object):
     def _is_remote_session(self) -> bool:
         return self.session_item and not self.session_item.is_local()
 
+    def _get_or_create_context_popover(self) -> Gtk.PopoverMenu:
+        """Returns the reusable context PopoverMenu, recreating it if unparented."""
+        if self._context_popover is None or self._context_popover.get_parent() is None:
+            self._context_popover = Gtk.PopoverMenu()
+            self._context_popover.add_css_class("onyxsh-popover")
+            self._context_popover.set_autohide(True)
+            self._context_popover.set_has_arrow(False)
+            self._context_popover.set_parent(self.main_box)
+        return self._context_popover
+
     def _on_item_right_click(self, gesture, n_press, x, y, list_item):
         try:
+            gesture.set_state(Gtk.EventSequenceState.CLAIMED)
             row = gesture.get_widget()
             if not row:
                 self._show_general_context_menu(x, y)
@@ -2000,6 +2243,8 @@ class FileManager(GObject.Object):
                     self._show_context_menu(
                         actionable_items, translated_x, translated_y
                     )
+                else:
+                    self._show_general_context_menu(translated_x, translated_y)
             else:
                 self._show_general_context_menu(translated_x, translated_y)
         except Exception as e:
@@ -2008,22 +2253,16 @@ class FileManager(GObject.Object):
     def _on_column_view_background_click(self, gesture, n_press, x, y):
         try:
             target = self.column_view.pick(int(x), int(y), Gtk.PickFlags.DEFAULT)
-            css_name = target.get_css_name() if isinstance(target, Gtk.Widget) else None
-            self.logger.info(
-                f"ColumnView background click at ({x}, {y}) target={type(target).__name__ if target else None} css={css_name}"
-            )
-
             is_row_target = False
             widget = target if isinstance(target, Gtk.Widget) else None
-            while widget:
+            while widget and widget != self.column_view:
                 css = widget.get_css_name()
-                if css in {"columnviewrow", "listitem", "row"}:
+                if css in {"columnviewrow", "listitem", "row", "cell"}:
                     is_row_target = True
                     break
                 widget = widget.get_parent()
 
             if is_row_target:
-                gesture.set_state(Gtk.EventSequenceState.DENIED)
                 return
 
             if self.selection_model:
@@ -2034,28 +2273,7 @@ class FileManager(GObject.Object):
         except Exception as e:
             self.logger.error(f"Error in background right-click handler: {e}")
 
-    def _on_scrolled_window_background_click(self, gesture, n_press, x, y):
-        try:
-            widget = gesture.get_widget()
-            tx, ty = x, y
-            if widget:
-                try:
-                    translated = widget.translate_coordinates(
-                        self.column_view, x, y
-                    )
-                    if translated:
-                        tx, ty = translated
-                except Exception:
-                    pass
-
-            gesture.set_state(Gtk.EventSequenceState.CLAIMED)
-            self._on_column_view_background_click(gesture, n_press, tx, ty)
-        except Exception as e:
-            self.logger.error(
-                f"Error in scrolled window background right-click handler: {e}"
-            )
-
-    def _show_general_context_menu(self, x, y):
+    def _create_general_context_menu_model(self) -> Gio.Menu:
         menu = Gio.Menu()
 
         terminal_section = Gio.Menu()
@@ -2074,9 +2292,17 @@ class FileManager(GObject.Object):
             clipboard_section.append(_("Paste"), "context.paste")
             menu.append_section(None, clipboard_section)
 
-        popover = create_themed_popover_menu(menu, self.main_box)
+        return menu
 
-        self._setup_general_context_actions(popover)
+    def _show_general_context_menu(self, x, y):
+        self._context_target_items = []
+        paste_action = self.context_action_group.lookup_action("paste")
+        if paste_action:
+            paste_action.set_enabled(self._can_paste())
+
+        menu_model = self._create_general_context_menu_model()
+        popover = self._get_or_create_context_popover()
+        popover.set_menu_model(menu_model)
 
         # Translate coordinates from column_view to main_box
         point = Graphene.Point()
@@ -2098,10 +2324,14 @@ class FileManager(GObject.Object):
         popover.popup()
 
     def _show_context_menu(self, items: List[FileItem], x, y):
-        menu_model = self._create_context_menu_model(items)
-        popover = create_themed_popover_menu(menu_model, self.main_box)
+        self._context_target_items = list(items)
+        paste_action = self.context_action_group.lookup_action("paste")
+        if paste_action:
+            paste_action.set_enabled(self._can_paste())
 
-        self._setup_context_actions(popover, items)
+        menu_model = self._create_context_menu_model(items)
+        popover = self._get_or_create_context_popover()
+        popover.set_menu_model(menu_model)
 
         # Translate coordinates from column_view to main_box
         point = Graphene.Point()
@@ -2176,8 +2406,6 @@ class FileManager(GObject.Object):
                 self.search_entry.set_text(char)
                 self.search_entry.set_position(-1)
                 self.search_entry.grab_focus()
-                return Gdk.EVENT_STOP
-
         if keyval in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
             if (
                 self.selection_model
@@ -2343,38 +2571,40 @@ class FileManager(GObject.Object):
 
         return menu
 
-    def _setup_context_actions(self, popover, items: List[FileItem]):
-        action_group = Gio.SimpleActionGroup()
+    def _init_context_action_group(self):
+        """Initializes permanent action group for File Manager context menu."""
+        self.context_action_group = Gio.SimpleActionGroup()
         actions = {
-            "quick_look": self._on_quick_look_action,
-            "open_terminal_cd": self._on_open_terminal_cd_action,
-            "run_terminal": self._on_run_terminal_action,
-            "run_sudo": self._on_run_sudo_action,
-            "follow_log": self._on_follow_log_action,
-            "copy_path": self._on_copy_path_action,
-            "insert_path": self._on_insert_path_action,
-            "open_edit": self._on_open_edit_action,
-            "open_with": self._on_open_with_action,
-            "rename": self._on_rename_action,
-            "copy": self._on_copy_action,
-            "cut": self._on_cut_action,
-            "paste": self._on_paste_action,
-            "chmod": self._on_chmod_action,
-            "download": self._on_download_action,
-            "delete": self._on_delete_action,
+            "quick_look": lambda a, p: self._on_quick_look_action(a, p, self._get_actionable_context_items()),
+            "open_terminal_cd": lambda a, p: self._on_open_terminal_cd_action(a, p, self._get_actionable_context_items()),
+            "run_terminal": lambda a, p: self._on_run_terminal_action(a, p, self._get_actionable_context_items()),
+            "run_sudo": lambda a, p: self._on_run_sudo_action(a, p, self._get_actionable_context_items()),
+            "follow_log": lambda a, p: self._on_follow_log_action(a, p, self._get_actionable_context_items()),
+            "copy_path": lambda a, p: self._on_copy_path_action(a, p, self._get_actionable_context_items()),
+            "insert_path": lambda a, p: self._on_insert_path_action(a, p, self._get_actionable_context_items()),
+            "open_edit": lambda a, p: self._on_open_edit_action(a, p, self._get_actionable_context_items()),
+            "open_with": lambda a, p: self._on_open_with_action(a, p, self._get_actionable_context_items()),
+            "rename": lambda a, p: self._on_rename_action(a, p, self._get_actionable_context_items()),
+            "copy": lambda a, p: self._on_copy_action(a, p, self._get_actionable_context_items()),
+            "cut": lambda a, p: self._on_cut_action(a, p, self._get_actionable_context_items()),
+            "paste": lambda a, p: self._on_paste_action(),
+            "chmod": lambda a, p: self._on_chmod_action(a, p, self._get_actionable_context_items()),
+            "download": lambda a, p: self._on_download_action(a, p, self._get_actionable_context_items()),
+            "delete": lambda a, p: self._on_delete_action(a, p, self._get_actionable_context_items()),
+            "create_folder": lambda a, p: self._on_create_folder_action(),
+            "create_file": lambda a, p: self._on_create_file_action(),
         }
         for name, callback in actions.items():
             action = Gio.SimpleAction.new(name, None)
-            if name == "paste":
-                action.set_enabled(self._can_paste())
-                action.connect("activate", lambda a, _, cb=callback: cb())
-            else:
-                action.connect(
-                    "activate",
-                    lambda a, _, cb=callback, itms=list(items): cb(a, _, itms),
-                )
-            action_group.add_action(action)
-        popover.insert_action_group("context", action_group)
+            action.connect("activate", callback)
+            self.context_action_group.add_action(action)
+
+    def _get_actionable_context_items(self) -> List[FileItem]:
+        """Returns the targeted items for context action, falling back to selected items."""
+        if hasattr(self, "_context_target_items") and self._context_target_items:
+            return self._context_target_items
+        selected = self.get_selected_items()
+        return [item for item in selected if item.name != ".."] or selected
 
     def _on_create_folder_action(self, *_args):
         base_path = PurePosixPath(self.current_path or "/")
@@ -2475,25 +2705,7 @@ class FileManager(GObject.Object):
         self._execute_verified_command(command, command_type=command_type)
         self._show_toast(toast_message)
 
-    def _setup_general_context_actions(self, popover):
-        action_group = Gio.SimpleActionGroup()
-        actions = {
-            "open_terminal_cd": lambda a, _: self._on_open_terminal_cd_action(a, _, None),
-            "copy_path": lambda a, _: self._on_copy_path_action(a, _, None),
-            "insert_path": lambda a, _: self._on_insert_path_action(a, _, None),
-            "create_folder": self._on_create_folder_action,
-            "create_file": self._on_create_file_action,
-            "paste": self._on_paste_action,
-        }
-        for name, callback in actions.items():
-            action = Gio.SimpleAction.new(name, None)
-            if name == "paste":
-                action.set_enabled(self._can_paste())
-                action.connect("activate", lambda a, _, cb=callback: cb())
-            else:
-                action.connect("activate", callback)
-            action_group.add_action(action)
-        popover.insert_action_group("context", action_group)
+
 
     def _get_absolute_paths_for_items(self, items: List[FileItem]) -> List[str]:
         """Resolves absolute POSIX paths for selected items."""

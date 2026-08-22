@@ -306,3 +306,77 @@
     padding: 2px;
 }
 
+/* ==========================================================================
+   File Manager Badges & Status Bar
+   ========================================================================== */
+
+.file-manager-status-bar {
+    background-color: alpha(@theme_bg_color, 0.4);
+    border-top: 1px solid alpha(@borders, 0.2);
+    padding: 4px 12px;
+    font-size: 0.82em;
+}
+
+.file-manager-status-label {
+    color: @theme_fg_color;
+    opacity: 0.75;
+}
+
+.badge-pill {
+    border-radius: 6px;
+    padding: 1px 5px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-left: 4px;
+}
+
+.badge-exec {
+    background-color: rgba(46, 194, 126, 0.18);
+    color: #2ec4b6;
+    border: 1px solid rgba(46, 194, 126, 0.35);
+}
+
+.badge-root {
+    background-color: rgba(246, 211, 45, 0.18);
+    color: #f6d32d;
+    border: 1px solid rgba(246, 211, 45, 0.35);
+}
+
+.badge-py {
+    background-color: rgba(53, 132, 228, 0.2);
+    color: #3584e4;
+    border: 1px solid rgba(53, 132, 228, 0.35);
+}
+
+.badge-sh {
+    background-color: rgba(51, 209, 122, 0.2);
+    color: #33d17a;
+    border: 1px solid rgba(51, 209, 122, 0.35);
+}
+
+.badge-log {
+    background-color: rgba(255, 120, 0, 0.2);
+    color: #ff7800;
+    border: 1px solid rgba(255, 120, 0, 0.35);
+}
+
+.badge-docker {
+    background-color: rgba(28, 113, 216, 0.2);
+    color: #1c71d8;
+    border: 1px solid rgba(28, 113, 216, 0.35);
+}
+
+.badge-json {
+    background-color: rgba(153, 68, 228, 0.2);
+    color: #9944e4;
+    border: 1px solid rgba(153, 68, 228, 0.35);
+}
+
+.badge-yaml {
+    background-color: rgba(225, 78, 202, 0.2);
+    color: #e14eca;
+    border: 1px solid rgba(225, 78, 202, 0.35);
+}
+
+

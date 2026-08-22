@@ -297,13 +297,14 @@
 - [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/settings/config.py`.
 
 ### 📌 5.5. Barra de Status, Contadores e Espaço Livre em Disco
-- [ ] **Descrição:** Exibir informações e métricas em tempo real na barra inferior do gerenciador de arquivos.
-- [ ] **Métricas Exibidas:**
+- [x] **Descrição:** Exibir informações e métricas em tempo real na barra inferior do gerenciador de arquivos.
+- [x] **Métricas Exibidas:**
   - Contagem total de itens no diretório (ex: `48 itens`).
-  - Contagem e peso dos itens selecionados (ex: `3 selecionados (1.4 MB)`).
+  - Contagem e peso dos itens selecionados (ex: `3 arquivos, 2 pastas selecionados (1.4 MB)`).
   - Espaço livre em disco no ponto de montagem atual (local ou remoto via SSH `df -h`).
-- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/operations.py`.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/models.py`, `tests/test_filemanager_status_bar.py`).
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/models.py`.
 
 ### 📌 5.6. Badges Visuais, Destaque de Permissões e Symlinks
 - [x] **Descrição:** Modernizar a visualização das colunas da tabela de arquivos com chips e cores semânticas.
