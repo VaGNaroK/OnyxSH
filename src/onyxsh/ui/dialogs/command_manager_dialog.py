@@ -868,6 +868,16 @@ class CommandEditorDialog(Adw.Window):
         self.save_button.set_visible(False)
         header.pack_end(self.save_button)
 
+        # Delete button for existing commands
+        if not self.is_new:
+            self.delete_button = Gtk.Button(
+                icon_name="user-trash-symbolic",
+                css_classes=["destructive-action"],
+            )
+            get_tooltip_helper().add_tooltip(self.delete_button, _("Delete Command"))
+            self.delete_button.connect("clicked", self._on_delete_clicked)
+            header.pack_end(self.delete_button)
+
         # Continue button (for form wizard)
         self.continue_button = Gtk.Button(label=_("Continue"))
         self.continue_button.connect("clicked", self._on_continue_clicked)
@@ -2424,6 +2434,34 @@ class CommandEditorDialog(Adw.Window):
         self.emit("save-requested", new_command)
         self.close()
 
+    def _on_delete_clicked(self, _button):
+        """Show delete confirmation dialog."""
+        if not self.command:
+            return
+        dialog = Adw.MessageDialog(
+            transient_for=self,
+            heading=_("Delete Command?"),
+            body=_("Are you sure you want to delete '{name}'?").format(name=self.command.name),
+            default_response="cancel",
+            close_response="cancel",
+        )
+        dialog.add_response("cancel", _("Cancel"))
+        dialog.add_response("delete", _("Delete"))
+        dialog.set_response_appearance("delete", Adw.ResponseAppearance.DESTRUCTIVE)
+        dialog.connect("response", self._on_delete_confirmed)
+        dialog.present()
+
+    def _on_delete_confirmed(self, dialog, response):
+        if response == "delete" and self.command:
+            command_manager = get_command_button_manager()
+            command_manager.remove_command(self.command.id)
+            parent = self.get_transient_for()
+            if hasattr(parent, "_populate_commands"):
+                parent._populate_commands()
+            elif hasattr(self, "parent_window") and hasattr(self.parent_window, "_populate_commands"):
+                self.parent_window._populate_commands()
+            self.close()
+
 
 class CommandManagerDialog(Adw.Window):
     """
@@ -2462,7 +2500,6 @@ class CommandManagerDialog(Adw.Window):
         self._populate_commands()
 
         # Connect signals
-        self.connect("notify::is-active", self._on_active_changed)
         self.connect("close-request", self._on_close_request)
 
         if parent_window:
@@ -2946,13 +2983,13 @@ class CommandManagerDialog(Adw.Window):
 
     def _on_add_clicked(self, button):
         """Open editor dialog for new command."""
-        dialog = CommandEditorDialog(self.parent_window, settings_manager=self._settings_manager)
+        dialog = CommandEditorDialog(self, settings_manager=self._settings_manager)
         dialog.connect("save-requested", self._on_save_new_command)
         dialog.present()
 
     def _on_edit_requested(self, widget, command: CommandButton):
         """Open editor dialog for existing command (builtin or custom)."""
-        dialog = CommandEditorDialog(self.parent_window, command, settings_manager=self._settings_manager)
+        dialog = CommandEditorDialog(self, command, settings_manager=self._settings_manager)
         dialog.connect("save-requested", self._on_save_edited_command)
         dialog.present()
 
@@ -3183,15 +3220,6 @@ class CommandManagerDialog(Adw.Window):
             self.close()
             return Gdk.EVENT_STOP
         return Gdk.EVENT_PROPAGATE
-
-    def _on_active_changed(self, widget, _pspec):
-        if not self._presenting and not self.is_active() and self.get_visible():
-            GLib.timeout_add(200, self._delayed_close)
-
-    def _delayed_close(self):
-        if not self.is_active() and self.get_visible():
-            self.close()
-        return False
 
     def _on_close_request(self, widget):
         self.hide()
