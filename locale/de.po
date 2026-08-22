@@ -11038,3 +11038,59 @@ msgstr "Führe {name} mit sudo im Terminal aus..."
 # 
 msgid "Following {name} (tail -f) in terminal..."
 msgstr "Verfolge {name} (tail -f) im Terminal..."
+
+# 
+msgid "Bookmark current directory"
+msgstr "Aktuelles Verzeichnis als Lesezeichen hinzufügen"
+
+# 
+msgid "Remove bookmark for current directory"
+msgstr "Lesezeichen für aktuelles Verzeichnis entfernen"
+
+# 
+msgid "Quick Jump & Bookmarks"
+msgstr "Schnellzugriff & Lesezeichen"
+
+# 
+msgid "System Shortcuts"
+msgstr "System-Tastenkombinationen"
+
+# 
+msgid "Home"
+msgstr "Persönlicher Ordner"
+
+# 
+msgid "Logs"
+msgstr "Systemprotokolle"
+
+# 
+msgid "Config"
+msgstr "Konfiguration"
+
+# 
+msgid "Temp"
+msgstr "Temporär"
+
+# 
+msgid "Git Repository Root"
+msgstr "Git-Repository-Wurzel"
+
+# 
+msgid "Bookmarks"
+msgstr "Lesezeichen"
+
+# 
+msgid "No bookmarked folders yet"
+msgstr "Noch keine Lesezeichen-Ordner vorhanden"
+
+# 
+msgid "Remove bookmark"
+msgstr "Lesezeichen entfernen"
+
+# 
+msgid "Bookmark added"
+msgstr "Lesezeichen hinzugefügt"
+
+# 
+msgid "Bookmark removed"
+msgstr "Lesezeichen entfernt"

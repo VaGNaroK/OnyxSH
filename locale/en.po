@@ -11765,3 +11765,63 @@ msgstr "Running {name} with sudo in terminal..."
 # 
 msgid "Following {name} (tail -f) in terminal..."
 msgstr "Following {name} (tail -f) in terminal..."
+
+# 
+msgid "Bookmark current directory"
+msgstr "Bookmark current directory"
+
+# 
+msgid "Remove bookmark for current directory"
+msgstr "Remove bookmark for current directory"
+
+# 
+msgid "Quick Jump & Bookmarks"
+msgstr "Quick Jump & Bookmarks"
+
+# 
+msgid "System Shortcuts"
+msgstr "System Shortcuts"
+
+# 
+msgid "Home"
+msgstr "Home"
+
+# 
+msgid "Root"
+msgstr "Root"
+
+# 
+msgid "Logs"
+msgstr "Logs"
+
+# 
+msgid "Config"
+msgstr "Config"
+
+# 
+msgid "Temp"
+msgstr "Temp"
+
+# 
+msgid "Git Repository Root"
+msgstr "Git Repository Root"
+
+# 
+msgid "Bookmarks"
+msgstr "Bookmarks"
+
+# 
+msgid "No bookmarked folders yet"
+msgstr "No bookmarked folders yet"
+
+# 
+msgid "Remove bookmark"
+msgstr "Remove bookmark"
+
+# 
+msgid "Bookmark added"
+msgstr "Bookmark added"
+
+# 
+msgid "Bookmark removed"
+msgstr "Bookmark removed"

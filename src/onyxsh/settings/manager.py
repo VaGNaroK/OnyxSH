@@ -1,5 +1,6 @@
 # onyxsh/settings/manager.py
 import json
+import os
 import re
 import threading
 import time
@@ -2199,12 +2200,7 @@ class SettingsManager:
     def apply_headerbar_transparency(self, headerbar) -> None:
         # Kept for compatibility with existing onyxsh callers.
         self._update_app_theme_css()
-        if headerbar:
-            headerbar.queue_draw()
-
     def apply_gtk_terminal_theme(self, window) -> None:
-        # Keep public API, but restore the full terminal-theme CSS path for
-        # sidebar/file-manager/session views while preserving the newer app CSS provider.
         if self.get("gtk_theme") == "terminal":
             self._apply_gtk_terminal_theme_full(window)
             return
@@ -2220,6 +2216,46 @@ class SettingsManager:
             GLib.idle_add(self._update_app_theme_css, window)
         except Exception as e:
             self.logger.warning(f"Failed to remove GTK terminal theme: {e}")
+
+    def get_bookmarks(self) -> List[Dict[str, str]]:
+        """Returns the list of bookmarked directories."""
+        bm = self.get("file_manager_bookmarks", [])
+        if isinstance(bm, list):
+            return list(bm)
+        return []
+
+    def add_bookmark(self, path: str, name: Optional[str] = None) -> bool:
+        """Adds a path to file manager bookmarks if not already present."""
+        if not path:
+            return False
+        bookmarks = self.get_bookmarks()
+        norm_path = os.path.normpath(path)
+        if any(b.get("path") == norm_path for b in bookmarks):
+            return False
+
+        display_name = name or os.path.basename(norm_path) or norm_path
+        bookmarks.append({"name": display_name, "path": norm_path})
+        self.set("file_manager_bookmarks", bookmarks)
+        return True
+
+    def remove_bookmark(self, path: str) -> bool:
+        """Removes a path from file manager bookmarks."""
+        if not path:
+            return False
+        bookmarks = self.get_bookmarks()
+        norm_path = os.path.normpath(path)
+        new_bookmarks = [b for b in bookmarks if b.get("path") != norm_path]
+        if len(new_bookmarks) != len(bookmarks):
+            self.set("file_manager_bookmarks", new_bookmarks)
+            return True
+        return False
+
+    def is_bookmarked(self, path: str) -> bool:
+        """Checks if a path is in file manager bookmarks."""
+        if not path:
+            return False
+        norm_path = os.path.normpath(path)
+        return any(b.get("path") == norm_path for b in self.get_bookmarks())
 
 
 _settings_manager: Optional[SettingsManager] = None

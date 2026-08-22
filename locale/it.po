@@ -11017,3 +11017,59 @@ msgstr "Esecuzione di {name} con sudo nel terminale..."
 # 
 msgid "Following {name} (tail -f) in terminal..."
 msgstr "Seguendo {name} (tail -f) nel terminale..."
+
+# 
+msgid "Bookmark current directory"
+msgstr "Aggiungi cartella corrente ai preferiti"
+
+# 
+msgid "Remove bookmark for current directory"
+msgstr "Rimuovi cartella corrente dai preferiti"
+
+# 
+msgid "Quick Jump & Bookmarks"
+msgstr "Accesso rapido e preferiti"
+
+# 
+msgid "System Shortcuts"
+msgstr "Scorciatoie di sistema"
+
+# 
+msgid "Home"
+msgstr "Home"
+
+# 
+msgid "Logs"
+msgstr "Log di sistema"
+
+# 
+msgid "Config"
+msgstr "Configurazione"
+
+# 
+msgid "Temp"
+msgstr "Temporaneo"
+
+# 
+msgid "Git Repository Root"
+msgstr "Radice del repository Git"
+
+# 
+msgid "Bookmarks"
+msgstr "Preferiti"
+
+# 
+msgid "No bookmarked folders yet"
+msgstr "Nessuna cartella nei preferiti"
+
+# 
+msgid "Remove bookmark"
+msgstr "Rimuovi dai preferiti"
+
+# 
+msgid "Bookmark added"
+msgstr "Aggiunto ai preferiti"
+
+# 
+msgid "Bookmark removed"
+msgstr "Rimosso dai preferiti"

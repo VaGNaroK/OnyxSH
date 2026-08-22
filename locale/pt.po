@@ -11316,3 +11316,63 @@ msgstr "Executando {name} com sudo no terminal..."
 # 
 msgid "Following {name} (tail -f) in terminal..."
 msgstr "Acompanhando {name} (tail -f) no terminal..."
+
+# 
+msgid "Bookmark current directory"
+msgstr "Fixar pasta atual nos favoritos"
+
+# 
+msgid "Remove bookmark for current directory"
+msgstr "Remover pasta atual dos favoritos"
+
+# 
+msgid "Quick Jump & Bookmarks"
+msgstr "Atalhos Rápidos e Favoritos"
+
+# 
+msgid "System Shortcuts"
+msgstr "Atalhos do Sistema"
+
+# 
+msgid "Home"
+msgstr "Início"
+
+# 
+msgid "Root"
+msgstr "Raiz do Sistema"
+
+# 
+msgid "Logs"
+msgstr "Logs do Sistema"
+
+# 
+msgid "Config"
+msgstr "Configurações"
+
+# 
+msgid "Temp"
+msgstr "Temporário"
+
+# 
+msgid "Git Repository Root"
+msgstr "Raiz do Repositório Git"
+
+# 
+msgid "Bookmarks"
+msgstr "Favoritos"
+
+# 
+msgid "No bookmarked folders yet"
+msgstr "Nenhuma pasta favoritada ainda"
+
+# 
+msgid "Remove bookmark"
+msgstr "Remover dos favoritos"
+
+# 
+msgid "Bookmark added"
+msgstr "Favorito adicionado"
+
+# 
+msgid "Bookmark removed"
+msgstr "Favorito removido"

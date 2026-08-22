@@ -10953,3 +10953,59 @@ msgstr "正在终端中使用 sudo 运行 {name}..."
 # 
 msgid "Following {name} (tail -f) in terminal..."
 msgstr "正在终端中跟踪 {name} (tail -f)..."
+
+# 
+msgid "Bookmark current directory"
+msgstr "将当前目录加入书签"
+
+# 
+msgid "Remove bookmark for current directory"
+msgstr "移除当前目录书签"
+
+# 
+msgid "Quick Jump & Bookmarks"
+msgstr "快速跳转与书签"
+
+# 
+msgid "System Shortcuts"
+msgstr "系统快捷方式"
+
+# 
+msgid "Home"
+msgstr "主目录"
+
+# 
+msgid "Logs"
+msgstr "系统日志"
+
+# 
+msgid "Config"
+msgstr "配置"
+
+# 
+msgid "Temp"
+msgstr "临时目录"
+
+# 
+msgid "Git Repository Root"
+msgstr "Git 仓库根目录"
+
+# 
+msgid "Bookmarks"
+msgstr "书签"
+
+# 
+msgid "No bookmarked folders yet"
+msgstr "尚无书签文件夹"
+
+# 
+msgid "Remove bookmark"
+msgstr "删除书签"
+
+# 
+msgid "Bookmark added"
+msgstr "已添加书签"
+
+# 
+msgid "Bookmark removed"
+msgstr "已删除书签"

@@ -10994,3 +10994,59 @@ msgstr "Запуск {name} с sudo в терминале..."
 # 
 msgid "Following {name} (tail -f) in terminal..."
 msgstr "Отслеживание {name} (tail -f) в терминале..."
+
+# 
+msgid "Bookmark current directory"
+msgstr "Добавить текущий каталог в закладки"
+
+# 
+msgid "Remove bookmark for current directory"
+msgstr "Удалить текущий каталог из закладок"
+
+# 
+msgid "Quick Jump & Bookmarks"
+msgstr "Быстрый переход и закладки"
+
+# 
+msgid "System Shortcuts"
+msgstr "Системные сочетания"
+
+# 
+msgid "Home"
+msgstr "Домашняя папка"
+
+# 
+msgid "Logs"
+msgstr "Системные журналы"
+
+# 
+msgid "Config"
+msgstr "Конфигурация"
+
+# 
+msgid "Temp"
+msgstr "Временный каталог"
+
+# 
+msgid "Git Repository Root"
+msgstr "Корень Git-репозитория"
+
+# 
+msgid "Bookmarks"
+msgstr "Закладки"
+
+# 
+msgid "No bookmarked folders yet"
+msgstr "Папок в закладках пока нет"
+
+# 
+msgid "Remove bookmark"
+msgstr "Удалить закладку"
+
+# 
+msgid "Bookmark added"
+msgstr "Закладка добавлена"
+
+# 
+msgid "Bookmark removed"
+msgstr "Закладка удалена"

@@ -10958,3 +10958,59 @@ msgstr "ターミナルで {name} を sudo で実行中..."
 # 
 msgid "Following {name} (tail -f) in terminal..."
 msgstr "ターミナルで {name} (tail -f) を追跡中..."
+
+# 
+msgid "Bookmark current directory"
+msgstr "現在のディレクトリをブックマーク"
+
+# 
+msgid "Remove bookmark for current directory"
+msgstr "現在のディレクトリのブックマークを削除"
+
+# 
+msgid "Quick Jump & Bookmarks"
+msgstr "クイックジャンプとブックマーク"
+
+# 
+msgid "System Shortcuts"
+msgstr "システムショートカット"
+
+# 
+msgid "Home"
+msgstr "ホーム"
+
+# 
+msgid "Logs"
+msgstr "システムログ"
+
+# 
+msgid "Config"
+msgstr "設定"
+
+# 
+msgid "Temp"
+msgstr "一時フォルダ"
+
+# 
+msgid "Git Repository Root"
+msgstr "Gitリポジトリルート"
+
+# 
+msgid "Bookmarks"
+msgstr "ブックマーク"
+
+# 
+msgid "No bookmarked folders yet"
+msgstr "ブックマークされたフォルダはまだありません"
+
+# 
+msgid "Remove bookmark"
+msgstr "ブックマークを削除"
+
+# 
+msgid "Bookmark added"
+msgstr "ブックマークを追加しました"
+
+# 
+msgid "Bookmark removed"
+msgstr "ブックマークを削除しました"

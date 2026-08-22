@@ -22,6 +22,7 @@ from ..core.tasks import AsyncTaskManager
 from ..helpers import create_themed_popover_menu
 from ..sessions.models import SessionItem
 from ..terminal.manager import TerminalManager as TerminalManagerType
+from ..utils.git_utils import is_git_repository, run_git_command
 from ..utils.icons import icon_button, icon_image
 from ..utils.logger import get_logger
 from ..utils.security import InputSanitizer, ensure_secure_directory_permissions
@@ -636,6 +637,29 @@ class FileManager(GObject.Object):
         )
         self.action_bar.pack_start(self.hidden_files_toggle)
 
+        # Bookmark Current Directory Toggle Button (Pin)
+        self.bookmark_toggle_button = Gtk.Button()
+        self.bookmark_toggle_button.set_child(icon_image("pin-symbolic"))
+        self.bookmark_toggle_button.add_css_class("flat")
+        self.bookmark_toggle_button.connect("clicked", self._on_toggle_current_bookmark)
+        self.tooltip_helper.add_tooltip(
+            self.bookmark_toggle_button, _("Bookmark current directory")
+        )
+        self.action_bar.pack_start(self.bookmark_toggle_button)
+
+        # Quick Jump Popover Menu Button
+        self.quick_jump_button = Gtk.MenuButton()
+        self.quick_jump_button.set_child(icon_image("folder-saved-search-symbolic"))
+        self.quick_jump_button.add_css_class("flat")
+        self.tooltip_helper.add_tooltip(
+            self.quick_jump_button, _("Quick Jump & Bookmarks")
+        )
+
+        self.quick_jump_popover = Gtk.Popover()
+        self.quick_jump_popover.add_css_class("quick-jump-popover")
+        self.quick_jump_button.set_popover(self.quick_jump_popover)
+        self.action_bar.pack_start(self.quick_jump_button)
+
         self.breadcrumb_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         self.breadcrumb_box.add_css_class("breadcrumb-trail")
         self.breadcrumb_box.set_hexpand(True)
@@ -810,6 +834,9 @@ class FileManager(GObject.Object):
             )
             self.breadcrumb_box.append(btn)
 
+        self._update_bookmark_star_ui()
+        self._update_quick_jump_popover()
+
     def _on_breadcrumb_button_clicked(self, button, path_to_navigate):
         if path_to_navigate != self.current_path:
             if self.bound_terminal:
@@ -818,6 +845,169 @@ class FileManager(GObject.Object):
                 self.bound_terminal.feed_child(command.encode("utf-8"))
             else:
                 self.refresh(path_to_navigate, source="filemanager")
+
+    def _update_quick_jump_popover(self):
+        """Constructs the content box inside the Quick Jump popover."""
+        if not hasattr(self, "quick_jump_popover") or not self.quick_jump_popover:
+            return
+
+        popover_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+        popover_box.set_margin_top(6)
+        popover_box.set_margin_bottom(6)
+        popover_box.set_margin_start(6)
+        popover_box.set_margin_end(6)
+
+        # Section 1: System Shortcuts
+        header_shortcuts = Gtk.Label(label=_("System Shortcuts"), xalign=0.0)
+        header_shortcuts.add_css_class("quick-jump-header")
+        popover_box.append(header_shortcuts)
+
+        shortcuts = [
+            (_("Home"), os.path.expanduser("~"), "folder-open-symbolic"),
+            (_("Root"), "/", "computer-symbolic"),
+            (_("Logs"), "/var/log", "text-x-generic-symbolic"),
+            (_("Config"), os.path.expanduser("~/.config"), "preferences-other-symbolic"),
+            (_("Temp"), tempfile.gettempdir(), "user-trash-symbolic"),
+        ]
+
+        # Check if current path is inside a git repository
+        git_root = self._get_active_git_root()
+        if git_root:
+            shortcuts.insert(2, (_("Git Repository Root"), git_root, "utilities-terminal-symbolic"))
+
+        for label, path, icon_name in shortcuts:
+            btn = Gtk.Button()
+            btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+            btn_box.append(icon_image(icon_name))
+            lbl = Gtk.Label(label=label, xalign=0.0)
+            lbl.set_hexpand(True)
+            btn_box.append(lbl)
+
+            sub_lbl = Gtk.Label(label=path, xalign=1.0)
+            sub_lbl.add_css_class("caption")
+            sub_lbl.add_css_class("dim-label")
+            btn_box.append(sub_lbl)
+
+            btn.set_child(btn_box)
+            btn.add_css_class("flat")
+            btn.add_css_class("quick-jump-item-btn")
+            btn.connect("clicked", self._on_quick_jump_shortcut_clicked, path)
+            popover_box.append(btn)
+
+        # Section 2: User Bookmarks
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator.set_margin_top(6)
+        separator.set_margin_bottom(6)
+        popover_box.append(separator)
+
+        header_bm = Gtk.Label(label=_("Bookmarks"), xalign=0.0)
+        header_bm.add_css_class("quick-jump-header")
+        popover_box.append(header_bm)
+
+        bookmarks = self.settings_manager.get_bookmarks()
+        if not bookmarks:
+            empty_lbl = Gtk.Label(label=_("No bookmarked folders yet"), xalign=0.0)
+            empty_lbl.add_css_class("caption")
+            empty_lbl.add_css_class("dim-label")
+            empty_lbl.set_margin_start(8)
+            empty_lbl.set_margin_bottom(6)
+            popover_box.append(empty_lbl)
+        else:
+            for bm in bookmarks:
+                bm_name = bm.get("name", "")
+                bm_path = bm.get("path", "")
+
+                row_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+                btn = Gtk.Button()
+                btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+                btn_box.append(icon_image("folder-symbolic"))
+                lbl = Gtk.Label(label=bm_name, xalign=0.0)
+                lbl.set_hexpand(True)
+                btn_box.append(lbl)
+
+                path_lbl = Gtk.Label(label=bm_path, xalign=1.0)
+                path_lbl.add_css_class("caption")
+                path_lbl.add_css_class("dim-label")
+                btn_box.append(path_lbl)
+
+                btn.set_child(btn_box)
+                btn.add_css_class("flat")
+                btn.add_css_class("quick-jump-item-btn")
+                btn.set_hexpand(True)
+                btn.connect("clicked", self._on_quick_jump_shortcut_clicked, bm_path)
+                row_box.append(btn)
+
+                del_btn = icon_button("user-trash-symbolic")
+                del_btn.add_css_class("flat")
+                del_btn.set_tooltip_text(_("Remove bookmark"))
+                del_btn.connect("clicked", self._on_remove_bookmark_clicked, bm_path)
+                row_box.append(del_btn)
+
+                popover_box.append(row_box)
+
+        self.quick_jump_popover.set_child(popover_box)
+
+    def _get_active_git_root(self) -> Optional[str]:
+        """Resolves active Git repository root for current path."""
+        try:
+            curr = self.current_path or os.path.expanduser("~")
+            if is_git_repository(curr):
+                res = run_git_command(["rev-parse", "--show-toplevel"], cwd=curr)
+                if res and res.returncode == 0 and res.stdout.strip():
+                    return res.stdout.strip()
+        except Exception:
+            pass
+        return None
+
+    def _on_toggle_current_bookmark(self, _button):
+        """Toggles the bookmark status of the current path."""
+        curr = self.current_path
+        if not curr:
+            return
+        if self.settings_manager.is_bookmarked(curr):
+            self.settings_manager.remove_bookmark(curr)
+            self._show_toast(_("Bookmark removed"))
+        else:
+            self.settings_manager.add_bookmark(curr)
+            self._show_toast(_("Bookmark added"))
+        self._update_bookmark_star_ui()
+        self._update_quick_jump_popover()
+
+    def _update_bookmark_star_ui(self):
+        """Updates the star button appearance based on whether current path is bookmarked."""
+        if not hasattr(self, "bookmark_toggle_button") or not self.bookmark_toggle_button:
+            return
+        curr = self.current_path
+        if curr and self.settings_manager.is_bookmarked(curr):
+            self.bookmark_toggle_button.set_child(icon_image("pin-symbolic"))
+            self.bookmark_toggle_button.add_css_class("bookmark-active-star")
+            self.tooltip_helper.add_tooltip(
+                self.bookmark_toggle_button, _("Remove bookmark for current directory")
+            )
+        else:
+            self.bookmark_toggle_button.set_child(icon_image("pin-symbolic"))
+            self.bookmark_toggle_button.remove_css_class("bookmark-active-star")
+            self.tooltip_helper.add_tooltip(
+                self.bookmark_toggle_button, _("Bookmark current directory")
+            )
+
+    def _on_quick_jump_shortcut_clicked(self, _button, path: str):
+        """Navigates to the selected shortcut or bookmark path."""
+        self.quick_jump_popover.popdown()
+        if path and path != self.current_path:
+            if self.bound_terminal:
+                self._fm_initiated_cd = True
+                command = f'cd "{path}"\n'
+                self.bound_terminal.feed_child(command.encode("utf-8"))
+            else:
+                self.refresh(path, source="filemanager")
+
+    def _on_remove_bookmark_clicked(self, _button, path: str):
+        """Removes a bookmark and refreshes the popover UI."""
+        self.settings_manager.remove_bookmark(path)
+        self._show_toast(_("Bookmark removed"))
+        self._update_bookmark_star_ui()
+        self._update_quick_jump_popover()
 
     def _setup_filtering_and_sorting(self):
         self.combined_filter = Gtk.CustomFilter()

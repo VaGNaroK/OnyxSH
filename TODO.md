@@ -284,8 +284,8 @@
 - [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/terminal/ai_assistant.py`.
 
 ### 📌 5.4. Atalhos Rápidos & Bookmarks de Diretórios (*Quick Jump*)
-- [ ] **Descrição:** Menu de salto rápido e favoritos integrado ao lado da barra de navegação (*breadcrumb*) para navegação instantânea em pastas frequentes.
-- [ ] **Atalhos Nativos:**
+- [x] **Descrição:** Menu de salto rápido e favoritos integrado ao lado da barra de navegação (*breadcrumb*) para navegação instantânea em pastas frequentes.
+- [x] **Atalhos Nativos:**
   - 🏠 **Home** (`~` / `$HOME`)
   - 📁 **Raiz do Sistema** (`/`)
   - 📜 **Logs do Sistema** (`/var/log`)
@@ -293,8 +293,9 @@
   - 🚀 **Raiz do Projeto Git** (detecta o repositório git atual dinamicamente)
   - 💾 **Diretório Temporário** (`/tmp`)
   - ⭐ **Favoritos Personalizados:** Permitir fixar (*pin*) diretórios remotos SSH ou locais frequentes.
-- [ ] **Prioridade:** 🟡 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/settings/config.py`.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/filemanager/manager.py`, `src/onyxsh/settings/config.py`, `src/onyxsh/settings/manager.py`, `tests/test_filemanager_bookmarks.py`).
+- [x] **Prioridade:** 🟡 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/settings/config.py`, `src/onyxsh/settings/manager.py`.
 
 ### 📌 5.5. Barra de Status, Contadores e Espaço Livre em Disco
 - [x] **Descrição:** Exibir informações e métricas em tempo real na barra inferior do gerenciador de arquivos.

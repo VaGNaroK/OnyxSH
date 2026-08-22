@@ -379,4 +379,30 @@
     border: 1px solid rgba(225, 78, 202, 0.35);
 }
 
+/* Quick Jump & Bookmarks Popover */
+.quick-jump-popover {
+    min-width: 280px;
+    padding: 6px;
+}
+
+.quick-jump-header {
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    opacity: 0.6;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    margin-left: 8px;
+    text-transform: uppercase;
+}
+
+.quick-jump-item-btn {
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+
+.bookmark-active-star {
+    color: #f6d32d;
+}
+
 

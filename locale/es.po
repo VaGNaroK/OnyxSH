@@ -11024,3 +11024,59 @@ msgstr "Ejecutando {name} con sudo en el terminal..."
 # 
 msgid "Following {name} (tail -f) in terminal..."
 msgstr "Siguiendo {name} (tail -f) en el terminal..."
+
+# 
+msgid "Bookmark current directory"
+msgstr "Marcar directorio actual"
+
+# 
+msgid "Remove bookmark for current directory"
+msgstr "Eliminar marcador de directorio actual"
+
+# 
+msgid "Quick Jump & Bookmarks"
+msgstr "Acceso rápido y marcadores"
+
+# 
+msgid "System Shortcuts"
+msgstr "Atajos del sistema"
+
+# 
+msgid "Home"
+msgstr "Inicio"
+
+# 
+msgid "Logs"
+msgstr "Registros del sistema"
+
+# 
+msgid "Config"
+msgstr "Configuración"
+
+# 
+msgid "Temp"
+msgstr "Temporal"
+
+# 
+msgid "Git Repository Root"
+msgstr "Raíz del repositorio Git"
+
+# 
+msgid "Bookmarks"
+msgstr "Marcadores"
+
+# 
+msgid "No bookmarked folders yet"
+msgstr "Aún no hay carpetas en marcadores"
+
+# 
+msgid "Remove bookmark"
+msgstr "Eliminar marcador"
+
+# 
+msgid "Bookmark added"
+msgstr "Marcador añadido"
+
+# 
+msgid "Bookmark removed"
+msgstr "Marcador eliminado"
