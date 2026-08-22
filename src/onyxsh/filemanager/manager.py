@@ -630,16 +630,16 @@ class FileManager(GObject.Object):
         self.action_bar.pack_start(refresh_button)
 
         self.hidden_files_toggle = Gtk.ToggleButton()
-        self.hidden_files_toggle.set_child(icon_image("view-visible-symbolic"))
+        self.hidden_files_toggle.set_child(icon_image("view-reveal-symbolic"))
         self.hidden_files_toggle.connect("toggled", self._on_hidden_toggle)
         self.tooltip_helper.add_tooltip(
             self.hidden_files_toggle, _("Show hidden files")
         )
         self.action_bar.pack_start(self.hidden_files_toggle)
 
-        # Bookmark Current Directory Toggle Button (Pin)
+        # Bookmark Current Directory Toggle Button (Star)
         self.bookmark_toggle_button = Gtk.Button()
-        self.bookmark_toggle_button.set_child(icon_image("pin-symbolic"))
+        self.bookmark_toggle_button.set_child(icon_image("starred-symbolic"))
         self.bookmark_toggle_button.add_css_class("flat")
         self.bookmark_toggle_button.connect("clicked", self._on_toggle_current_bookmark)
         self.tooltip_helper.add_tooltip(
@@ -737,7 +737,7 @@ class FileManager(GObject.Object):
         search_key_controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
         self.search_entry.add_controller(search_key_controller)
 
-        history_button = icon_button("view-history-symbolic")
+        history_button = icon_button("document-open-recent-symbolic")
         self.tooltip_helper.add_tooltip(history_button, _("Transfer History"))
         history_button.connect("clicked", self._on_show_transfer_history)
         self.action_bar.pack_end(history_button)
@@ -979,13 +979,13 @@ class FileManager(GObject.Object):
             return
         curr = self.current_path
         if curr and self.settings_manager.is_bookmarked(curr):
-            self.bookmark_toggle_button.set_child(icon_image("pin-symbolic"))
+            self.bookmark_toggle_button.set_child(icon_image("starred-symbolic"))
             self.bookmark_toggle_button.add_css_class("bookmark-active-star")
             self.tooltip_helper.add_tooltip(
                 self.bookmark_toggle_button, _("Remove bookmark for current directory")
             )
         else:
-            self.bookmark_toggle_button.set_child(icon_image("pin-symbolic"))
+            self.bookmark_toggle_button.set_child(icon_image("starred-symbolic"))
             self.bookmark_toggle_button.remove_css_class("bookmark-active-star")
             self.tooltip_helper.add_tooltip(
                 self.bookmark_toggle_button, _("Bookmark current directory")

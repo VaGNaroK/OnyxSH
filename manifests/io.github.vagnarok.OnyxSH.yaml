@@ -57,8 +57,9 @@ modules:
     buildsystem: simple
 
     build-commands:
-      - mkdir -p /app/lib/onyxsh /app/bin /app/share/applications /app/share/icons/hicolor/scalable/apps /app/share/pixmaps /app/share/locale
+      - mkdir -p /app/lib/onyxsh /app/bin /app/share/applications /app/share/icons/hicolor/scalable/apps /app/share/icons/hicolor/scalable/actions /app/share/pixmaps /app/share/locale
       - cp -r src/onyxsh/* /app/lib/onyxsh/
+      - cp src/onyxsh/icons/*.svg /app/share/icons/hicolor/scalable/actions/
       - cp usr/bin/onyxsh /app/bin/onyxsh
       - chmod +x /app/bin/onyxsh
       - cp usr/share/applications/io.github.vagnarok.OnyxSH.desktop /app/share/applications/

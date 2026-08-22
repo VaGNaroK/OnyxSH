@@ -85,6 +85,22 @@ def has_bundled_icon(icon_name: str) -> bool:
     return get_icon_path(icon_name) is not None
 
 
+def ensure_icon_theme_registered(display=None) -> None:
+    """Ensure bundled icon directories are registered in GTK's IconTheme."""
+    try:
+        from gi.repository import Gdk
+        if display is None:
+            display = Gdk.Display.get_default()
+        if display:
+            theme = Gtk.IconTheme.get_for_display(display)
+            search_path = theme.get_search_path()
+            for p in _ICON_PATHS:
+                if os.path.isdir(p) and p not in search_path:
+                    theme.add_search_path(p)
+    except Exception:
+        pass
+
+
 def _create_image_from_file(icon_path: str, size: int) -> Gtk.Image:
     """Create a Gtk.Image from a file path using GIcon.
 
@@ -118,28 +134,29 @@ def create_icon_image(
     Returns:
         Gtk.Image widget with the icon loaded
     """
+    ensure_icon_theme_registered()
+    clean_name = icon_name[:-4] if icon_name.endswith(".svg") else icon_name
+
     # Use global setting if not explicitly specified
     if use_bundled is None:
         use_bundled = _use_bundled_icons
 
-    # Try bundled icon first
+    # Try icon name first from registered theme
+    image = Gtk.Image.new_from_icon_name(clean_name)
+    image.set_pixel_size(size)
+    if clean_name.endswith("-symbolic"):
+        image.add_css_class("icon-symbolic")
+
+    # If icon is bundled and not resolved, try explicit file icon
     if use_bundled:
-        icon_path = get_icon_path(icon_name)
+        icon_path = get_icon_path(clean_name)
         if icon_path:
-            image = _create_image_from_file(icon_path, size)
-            # Add symbolic CSS class for theme color adaptation
-            if icon_name.endswith("-symbolic"):
-                image.add_css_class("icon-symbolic")
-            return image
+            file_img = _create_image_from_file(icon_path, size)
+            if clean_name.endswith("-symbolic"):
+                file_img.add_css_class("icon-symbolic")
+            return file_img
 
-    # Fall back to system icons via icon name
-    if fallback_to_system:
-        image = Gtk.Image.new_from_icon_name(icon_name)
-        image.set_pixel_size(size)
-        return image
-
-    # Return empty image if nothing works
-    return Gtk.Image()
+    return image
 
 
 def create_icon_button(
