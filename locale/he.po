@@ -11030,3 +11030,7 @@ msgstr "Bookmark added"
 # 
 msgid "Bookmark removed"
 msgstr "Bookmark removed"
+
+# 
+msgid "Delete Command"
+msgstr "Delete Command"

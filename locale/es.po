@@ -11080,3 +11080,7 @@ msgstr "Marcador añadido"
 # 
 msgid "Bookmark removed"
 msgstr "Marcador eliminado"
+
+# 
+msgid "Delete Command"
+msgstr "Eliminar comando"

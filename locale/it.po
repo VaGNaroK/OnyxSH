@@ -11073,3 +11073,7 @@ msgstr "Aggiunto ai preferiti"
 # 
 msgid "Bookmark removed"
 msgstr "Rimosso dai preferiti"
+
+# 
+msgid "Delete Command"
+msgstr "Elimina comando"

@@ -11014,3 +11014,7 @@ msgstr "ブックマークを追加しました"
 # 
 msgid "Bookmark removed"
 msgstr "ブックマークを削除しました"
+
+# 
+msgid "Delete Command"
+msgstr "コマンドを削除"

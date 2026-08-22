@@ -7279,6 +7279,17 @@ NEW_TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "ja": "ブックマークを削除しました",
         "ru": "Закладка удалена",
     },
+    "Delete Command": {
+        "pt": "Excluir Comando",
+        "en": "Delete Command",
+        "es": "Eliminar comando",
+        "fr": "Supprimer la commande",
+        "de": "Befehl löschen",
+        "it": "Elimina comando",
+        "zh": "删除命令",
+        "ja": "コマンドを削除",
+        "ru": "Удалить команду",
+    },
 }
 
 

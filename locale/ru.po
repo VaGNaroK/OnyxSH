@@ -11050,3 +11050,7 @@ msgstr "Закладка добавлена"
 # 
 msgid "Bookmark removed"
 msgstr "Закладка удалена"
+
+# 
+msgid "Delete Command"
+msgstr "Удалить команду"

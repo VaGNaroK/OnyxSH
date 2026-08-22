@@ -11083,3 +11083,7 @@ msgstr "Marque-page ajouté"
 # 
 msgid "Bookmark removed"
 msgstr "Marque-page supprimé"
+
+# 
+msgid "Delete Command"
+msgstr "Supprimer la commande"

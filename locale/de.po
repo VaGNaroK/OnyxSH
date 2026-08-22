@@ -11094,3 +11094,7 @@ msgstr "Lesezeichen hinzugefügt"
 # 
 msgid "Bookmark removed"
 msgstr "Lesezeichen entfernt"
+
+# 
+msgid "Delete Command"
+msgstr "Befehl löschen"

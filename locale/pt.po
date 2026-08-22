@@ -11372,3 +11372,7 @@ msgstr "Favorito adicionado"
 # 
 msgid "Bookmark removed"
 msgstr "Favorito removido"
+
+# 
+msgid "Delete Command"
+msgstr "Excluir Comando"
