@@ -604,6 +604,10 @@ class FileManager(GObject.Object):
         self.main_box.add_css_class("background")
         self.main_box.insert_action_group("context", self.context_action_group)
 
+        main_key_controller = Gtk.EventControllerKey.new()
+        main_key_controller.connect("key-pressed", self._on_main_box_key_pressed)
+        self.main_box.add_controller(main_key_controller)
+
         self.scrolled_window = Gtk.ScrolledWindow(vexpand=True)
         # Also add background to scrolled window to prevent transparency during load
         self.scrolled_window.add_css_class("background")
@@ -2543,8 +2547,28 @@ class FileManager(GObject.Object):
         popover.popup()
 
     def _on_search_key_pressed(self, controller, keyval, _keycode, state):
-        """Handle key presses on the search entry for list navigation."""
-        if not self.selection_model:
+        """Handle key presses on the search entry for list navigation and escape/clear."""
+        if keyval == Gdk.KEY_Escape:
+            current_text = (
+                self.search_entry.get_text()
+                if hasattr(self, "search_entry") and self.search_entry
+                else ""
+            )
+            if current_text:
+                self.search_entry.set_text("")
+                return Gdk.EVENT_STOP
+            else:
+                self._close_or_hide_filemanager()
+                return Gdk.EVENT_STOP
+
+        elif keyval == Gdk.KEY_BackSpace:
+            if hasattr(self, "search_entry") and self.search_entry and not self.search_entry.get_text().strip():
+                if controller:
+                    controller.stop_emission("key-pressed")
+                self._navigate_up_directory()
+                return Gdk.EVENT_STOP
+
+        if not getattr(self, "selection_model", None):
             return Gdk.EVENT_PROPAGATE
 
         current_pos = (
@@ -2579,13 +2603,41 @@ class FileManager(GObject.Object):
                 self._on_row_activated(self.column_view, current_pos)
             return Gdk.EVENT_STOP
 
-        elif keyval == Gdk.KEY_BackSpace:
-            if not self.search_entry.get_text().strip():
-                controller.stop_emission("key-pressed")
-                self._navigate_up_directory()
-                return Gdk.EVENT_STOP
-
         return Gdk.EVENT_PROPAGATE
+
+    def _on_main_box_key_pressed(self, controller, keyval, _keycode, state):
+        """Handle global shortcuts within file manager like Escape to clear search or close panel."""
+        if keyval == Gdk.KEY_Escape:
+            current_text = (
+                self.search_entry.get_text()
+                if hasattr(self, "search_entry") and self.search_entry
+                else ""
+            )
+            if current_text:
+                self.search_entry.set_text("")
+                return Gdk.EVENT_STOP
+            else:
+                self._close_or_hide_filemanager()
+                return Gdk.EVENT_STOP
+        return Gdk.EVENT_PROPAGATE
+
+    def _close_or_hide_filemanager(self) -> None:
+        """Closes or hides the file manager panel and returns focus to active terminal."""
+        parent = self.parent_window
+        if parent:
+            if hasattr(parent, "file_manager_button") and parent.file_manager_button:
+                if parent.file_manager_button.get_active():
+                    parent.file_manager_button.set_active(False)
+                    return
+            if hasattr(parent, "actions") and hasattr(parent.actions, "toggle_file_manager"):
+                parent.actions.toggle_file_manager()
+                return
+
+        term_mgr = self.terminal_manager
+        if term_mgr and hasattr(term_mgr, "get_selected_terminal"):
+            terminal = term_mgr.get_selected_terminal()
+            if terminal:
+                terminal.grab_focus()
 
     def _on_column_view_key_pressed(self, controller, keyval, _keycode, state):
         """Handle key presses on the column view for instant filtering and shortcuts."""
@@ -2603,6 +2655,19 @@ class FileManager(GObject.Object):
             ):
                 pos = self.selection_model.get_selection().get_nth(0)
                 self._on_row_activated(self.column_view, pos)
+                return Gdk.EVENT_STOP
+
+        elif keyval == Gdk.KEY_Escape:
+            current_text = (
+                self.search_entry.get_text()
+                if hasattr(self, "search_entry") and self.search_entry
+                else ""
+            )
+            if current_text:
+                self.search_entry.set_text("")
+                return Gdk.EVENT_STOP
+            else:
+                self._close_or_hide_filemanager()
                 return Gdk.EVENT_STOP
 
         elif keyval == Gdk.KEY_BackSpace:

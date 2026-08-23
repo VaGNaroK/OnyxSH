@@ -41,6 +41,33 @@ class TestFileManagerBookmarks(unittest.TestCase):
         self.assertIsNotNone(git_root)
         self.assertTrue(os.path.exists(git_root))
 
+    def test_escape_key_clears_search_and_closes_panel(self):
+        import gi
+        gi.require_version("Gtk", "4.0")
+        gi.require_version("Gdk", "4.0")
+        from gi.repository import Gdk, Gtk
+
+        fm = FileManager.__new__(FileManager)
+        fm.search_entry = Gtk.SearchEntry()
+        fm.search_entry.set_text("query")
+        fm.selection_model = None
+
+        mock_parent = MagicMock()
+        mock_parent.file_manager_button.get_active.return_value = True
+        fm._parent_window_ref = lambda: mock_parent
+        fm._terminal_manager_ref = lambda: None
+
+        # 1. When text is present, Escape clears the text
+        res = fm._on_search_key_pressed(None, Gdk.KEY_Escape, 0, 0)
+        self.assertEqual(res, Gdk.EVENT_STOP)
+        self.assertEqual(fm.search_entry.get_text(), "")
+        mock_parent.file_manager_button.set_active.assert_not_called()
+
+        # 2. When text is empty, Escape closes the file manager
+        res = fm._on_search_key_pressed(None, Gdk.KEY_Escape, 0, 0)
+        self.assertEqual(res, Gdk.EVENT_STOP)
+        mock_parent.file_manager_button.set_active.assert_called_once_with(False)
+
 
 if __name__ == "__main__":
     unittest.main()
