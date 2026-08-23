@@ -92,6 +92,11 @@ class LoggerConfig:
             Path = _get_pathlib().Path
             self._log_dir = Path.home() / ".config" / "onyxsh" / "logs"
             self._log_dir.mkdir(parents=True, exist_ok=True)
+            try:
+                flatpak_log_dir = Path.home() / ".var" / "app" / "io.github.vagnarok.OnyxSH" / "config" / "onyxsh" / "logs"
+                flatpak_log_dir.mkdir(parents=True, exist_ok=True)
+            except Exception:
+                pass
         return self._log_dir
 
     @property
