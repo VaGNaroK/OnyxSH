@@ -781,67 +781,97 @@ class WindowActions:
         dialog.connect("response", on_response)
         dialog.present()
 
-    def jump_previous_prompt(self, *args):
+    def _get_active_terminal(self, terminal=None) -> Optional[Vte.Terminal]:
+        """Resolves the active VTE terminal instance safely."""
+        if terminal is not None and hasattr(terminal, "get_cursor_position"):
+            return terminal
+        if hasattr(self.window, "tab_manager") and self.window.tab_manager:
+            term = self.window.tab_manager.get_selected_terminal()
+            if term:
+                return term
+        if hasattr(self.window, "terminal_manager") and self.window.terminal_manager:
+            if hasattr(self.window.terminal_manager, "get_active_terminal"):
+                term = self.window.terminal_manager.get_active_terminal()
+                if term:
+                    return term
+        return None
+
+    def jump_previous_prompt(self, terminal=None, *args):
         """Scrolls the active terminal to the previous prompt position."""
         try:
-            terminal = (
-                self.window.terminal_manager.get_active_terminal()
-                if hasattr(self.window, "terminal_manager")
-                else None
-            )
+            terminal = self._get_active_terminal(terminal)
             if not terminal:
                 return
-            scrolled = terminal.get_parent()
-            adj = scrolled.get_vadjustment() if (scrolled and hasattr(scrolled, "get_vadjustment")) else None
+
+            adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
+            if not adj:
+                scrolled = terminal.get_parent()
+                if scrolled and hasattr(scrolled, "get_vadjustment"):
+                    adj = scrolled.get_vadjustment()
             if not adj:
                 return
 
+            current_scroll_val = adj.get_value()
+            max_scroll = max(0.0, adj.get_upper() - adj.get_page_size())
             col, row = terminal.get_cursor_position()
-            current_scroll_row = int(round(adj.get_value()))
-            current_abs_row = current_scroll_row + row
 
-            tracker = self.window.terminal_manager.semantic_tracker
-            target_row = tracker.get_previous_prompt_row(terminal, current_abs_row)
+            # If user is at bottom, search from cursor position; if already scrolled up, search from current top view
+            if current_scroll_val >= max_scroll - 1.0:
+                current_ref_row = int(round(current_scroll_val)) + row
+            else:
+                current_ref_row = int(round(current_scroll_val))
+
+            tracker = (
+                self.window.terminal_manager.semantic_tracker
+                if hasattr(self.window, "terminal_manager")
+                else None
+            )
+            target_row = tracker.get_previous_prompt_row(terminal, current_ref_row) if tracker else None
 
             # Fallback: scan terminal buffer backward if semantic tracker has no rows before current
-            if target_row is None or target_row >= current_abs_row:
-                target_row = self._scan_previous_prompt_in_buffer(terminal, current_abs_row)
+            if target_row is None or target_row >= current_ref_row:
+                target_row = self._scan_previous_prompt_in_buffer(terminal, current_ref_row)
 
             if target_row is not None:
-                max_scroll = max(0.0, adj.get_upper() - adj.get_page_size())
                 adj.set_value(max(0.0, min(float(target_row), max_scroll)))
         except Exception as e:
             self.logger.debug(f"Error jumping to previous prompt: {e}")
 
-    def jump_next_prompt(self, *args):
+    def jump_next_prompt(self, terminal=None, *args):
         """Scrolls the active terminal to the next prompt position."""
         try:
-            terminal = (
-                self.window.terminal_manager.get_active_terminal()
-                if hasattr(self.window, "terminal_manager")
-                else None
-            )
+            terminal = self._get_active_terminal(terminal)
             if not terminal:
                 return
-            scrolled = terminal.get_parent()
-            adj = scrolled.get_vadjustment() if (scrolled and hasattr(scrolled, "get_vadjustment")) else None
+
+            adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
+            if not adj:
+                scrolled = terminal.get_parent()
+                if scrolled and hasattr(scrolled, "get_vadjustment"):
+                    adj = scrolled.get_vadjustment()
             if not adj:
                 return
 
-            col, row = terminal.get_cursor_position()
-            current_scroll_row = int(round(adj.get_value()))
-            current_abs_row = current_scroll_row + row
+            current_scroll_val = adj.get_value()
+            max_scroll = max(0.0, adj.get_upper() - adj.get_page_size())
+            current_ref_row = int(round(current_scroll_val))
 
-            tracker = self.window.terminal_manager.semantic_tracker
-            target_row = tracker.get_next_prompt_row(terminal, current_abs_row)
+            tracker = (
+                self.window.terminal_manager.semantic_tracker
+                if hasattr(self.window, "terminal_manager")
+                else None
+            )
+            target_row = tracker.get_next_prompt_row(terminal, current_ref_row) if tracker else None
 
             # Fallback: scan terminal buffer forward if semantic tracker has no rows after current
-            if target_row is None or target_row <= current_abs_row:
-                target_row = self._scan_next_prompt_in_buffer(terminal, current_abs_row)
+            if target_row is None or target_row <= current_ref_row:
+                target_row = self._scan_next_prompt_in_buffer(terminal, current_ref_row)
 
             if target_row is not None:
-                max_scroll = max(0.0, adj.get_upper() - adj.get_page_size())
                 adj.set_value(max(0.0, min(float(target_row), max_scroll)))
+            else:
+                # If no next prompt, scroll back down to the bottom
+                adj.set_value(max_scroll)
         except Exception as e:
             self.logger.debug(f"Error jumping to next prompt: {e}")
 
@@ -850,7 +880,8 @@ class WindowActions:
         import re
         patterns = [
             re.compile(r'^\s*(?:\([\w\.\-]+\)\s*)?[\w\.\-]+@[\w\.\-]+:[^\$#\n]*[\$#]\s*'),
-            re.compile(r'^\s*(?:[\$#%❯➜]|\(.*\)\s*[\$#%❯➜])\s+'),
+            re.compile(r'^\s*(?:[\$#%❯➜→]|\(.*\)\s*[\$#%❯➜→])\s+'),
+            re.compile(r'[\$#%❯➜]\s*$'),
         ]
         col_count = terminal.get_column_count() if hasattr(terminal, "get_column_count") else 200
         start_row = max(0, current_abs_row - 1)
@@ -878,12 +909,23 @@ class WindowActions:
         import re
         patterns = [
             re.compile(r'^\s*(?:\([\w\.\-]+\)\s*)?[\w\.\-]+@[\w\.\-]+:[^\$#\n]*[\$#]\s*'),
-            re.compile(r'^\s*(?:[\$#%❯➜]|\(.*\)\s*[\$#%❯➜])\s+'),
+            re.compile(r'^\s*(?:[\$#%❯➜→]|\(.*\)\s*[\$#%❯➜→])\s+'),
+            re.compile(r'[\$#%❯➜]\s*$'),
         ]
         col_count = terminal.get_column_count() if hasattr(terminal, "get_column_count") else 200
-        scrolled = terminal.get_parent()
-        adj = scrolled.get_vadjustment() if (scrolled and hasattr(scrolled, "get_vadjustment")) else None
-        upper_limit = int(adj.get_upper()) if adj else current_abs_row + 200
+        adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
+        if not adj:
+            scrolled = terminal.get_parent()
+            adj = scrolled.get_vadjustment() if (scrolled and hasattr(scrolled, "get_vadjustment")) else None
+
+        upper_limit = current_abs_row + 200
+        if adj and hasattr(adj, "get_upper"):
+            try:
+                val = adj.get_upper()
+                if isinstance(val, (int, float)):
+                    upper_limit = int(val)
+            except Exception:
+                pass
 
         for check_row in range(current_abs_row + 1, upper_limit + 1):
             try:

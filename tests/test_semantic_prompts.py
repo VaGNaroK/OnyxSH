@@ -24,6 +24,7 @@ class TestSemanticPrompts(unittest.TestCase):
         self.tracker = SemanticTracker()
         self.mock_terminal = MagicMock()
         self.mock_terminal.get_parent.return_value = None
+        self.mock_terminal.get_vadjustment.return_value = None
         self.mock_terminal.get_cursor_position.return_value = (0, 10)
         self.mock_terminal.get_text_range.return_value = (
             "total 8\n-rw-r--r-- 1 user user 100 Aug 17 00:00 file.txt\n",
@@ -218,6 +219,51 @@ class TestSemanticPrompts(unittest.TestCase):
         # Scanning forwards from row 8 should find row 12
         found_next_2 = actions._scan_next_prompt_in_buffer(self.mock_terminal, 8)
         self.assertEqual(found_next_2, 12)
+
+    def test_jump_previous_and_next_prompt_actions(self):
+        """Test WindowActions jump_previous_prompt and jump_next_prompt execution."""
+        from onyxsh.ui.actions import WindowActions
+
+        mock_window = MagicMock()
+        mock_window.tab_manager.get_selected_terminal.return_value = self.mock_terminal
+        mock_window.terminal_manager.semantic_tracker = self.tracker
+
+        mock_adj = MagicMock()
+        mock_adj.get_value.return_value = 100.0
+        mock_adj.get_upper.return_value = 150.0
+        mock_adj.get_page_size.return_value = 25.0
+        self.mock_terminal.get_vadjustment.return_value = mock_adj
+        self.mock_terminal.get_cursor_position.return_value = (0, 25)
+
+        # Populate tracker prompts
+        state = self.tracker.get_or_create_state(self.mock_terminal)
+        state.start_prompt(30)
+        state.start_prompt(60)
+        state.start_prompt(90)
+
+        actions = WindowActions(mock_window)
+
+        # 1. At bottom (value 100, page_size 25, cursor row 25 => abs row 125)
+        # jump_previous_prompt should jump to prompt at row 90
+        actions.jump_previous_prompt(self.mock_terminal)
+        mock_adj.set_value.assert_called_with(90.0)
+
+        # 2. Scrolled up at row 90, next jump_previous_prompt should jump to prompt at row 60
+        mock_adj.get_value.return_value = 90.0
+        actions.jump_previous_prompt(self.mock_terminal)
+        mock_adj.set_value.assert_called_with(60.0)
+
+        # 3. Scrolled up at row 60, jump_next_prompt should jump forward to prompt at row 90
+        mock_adj.get_value.return_value = 60.0
+        actions.jump_next_prompt(self.mock_terminal)
+        mock_adj.set_value.assert_called_with(90.0)
+
+        # 4. Scrolled up at row 90, jump_next_prompt beyond known prompts should scroll to bottom (125.0 max_scroll)
+        mock_adj.get_value.return_value = 90.0
+        # Mock buffer scan to return None
+        self.mock_terminal.get_text_range_format.return_value = ("", 0)
+        actions.jump_next_prompt(self.mock_terminal)
+        mock_adj.set_value.assert_called_with(125.0)
 
 
 if __name__ == "__main__":

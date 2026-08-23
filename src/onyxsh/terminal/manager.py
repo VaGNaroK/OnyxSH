@@ -524,6 +524,15 @@ class TerminalManager:
             self._completion_engine = get_completion_engine(self.settings_manager)
         return self._completion_engine
 
+    def get_active_terminal(self) -> Optional[Vte.Terminal]:
+        """Returns the currently active terminal from the tab manager."""
+        if hasattr(self, "parent_window") and self.parent_window:
+            if hasattr(self.parent_window, "tab_manager") and self.parent_window.tab_manager:
+                return self.parent_window.tab_manager.get_selected_terminal()
+        if hasattr(self, "tab_manager") and self.tab_manager:
+            return self.tab_manager.get_selected_terminal()
+        return None
+
     def _is_highlighting_preload_needed(self) -> bool:
         """
         Check if highlighting resources should be preloaded at startup.
@@ -3568,11 +3577,11 @@ class TerminalManager:
             if (state & Gdk.ModifierType.ALT_MASK) and not (state & Gdk.ModifierType.CONTROL_MASK):
                 if keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up):
                     if hasattr(self.parent_window, "action_handler"):
-                        self.parent_window.action_handler.jump_previous_prompt()
+                        self.parent_window.action_handler.jump_previous_prompt(terminal)
                         return Gdk.EVENT_STOP
                 elif keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down):
                     if hasattr(self.parent_window, "action_handler"):
-                        self.parent_window.action_handler.jump_next_prompt()
+                        self.parent_window.action_handler.jump_next_prompt(terminal)
                         return Gdk.EVENT_STOP
 
             # If Ctrl or Alt is held (e.g. Ctrl+L, Ctrl+C, Ctrl+U, Ctrl+D, Alt+...): dismiss popup immediately and do not autocomplete
