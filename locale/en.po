@@ -11865,3 +11865,91 @@ msgstr "Error reading log: {error}"
 # 
 msgid "Failed to inspect remote directory"
 msgstr "Failed to inspect remote directory"
+
+# 
+msgid "Calculate / Verify Hash..."
+msgstr "Calculate / Verify Hash..."
+
+# 
+msgid "Checksums & Integrity Verification"
+msgstr "Checksums & Integrity Verification"
+
+# 
+msgid "Calculating hashes..."
+msgstr "Calculating hashes..."
+
+# 
+msgid "Cryptographic Hashes"
+msgstr "Cryptographic Hashes"
+
+# 
+msgid "Standard digests calculated across the file content:"
+msgstr "Standard digests calculated across the file content:"
+
+# 
+msgid "Modern standard for integrity and downloads"
+msgstr "Modern standard for integrity and downloads"
+
+# 
+msgid "High security 512-bit cryptographic digest"
+msgstr "High security 512-bit cryptographic digest"
+
+# 
+msgid "Legacy checksum for fast verification"
+msgstr "Legacy checksum for fast verification"
+
+# 
+msgid "Git and legacy repository compatibility"
+msgstr "Git and legacy repository compatibility"
+
+# 
+msgid "Copy hash to clipboard"
+msgstr "Copy hash to clipboard"
+
+# 
+msgid "Integrity Matcher & Comparison"
+msgstr "Integrity Matcher & Comparison"
+
+# 
+msgid "Paste the expected hash provided by the author to verify authenticity:"
+msgstr "Paste the expected hash provided by the author to verify authenticity:"
+
+# 
+msgid "Expected Hash"
+msgstr "Expected Hash"
+
+# 
+msgid "Paste an MD5, SHA-256 or SHA-512 hash above to verify authenticity."
+msgstr "Paste an MD5, SHA-256 or SHA-512 hash above to verify authenticity."
+
+# 
+msgid "Copy Full Report"
+msgstr "Copy Full Report"
+
+# 
+msgid "Insert sha256sum into Terminal"
+msgstr "Insert sha256sum into Terminal"
+
+# 
+msgid "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "❌ HASH DOES NOT MATCH! The pasted value{hint} differs from the computed file checksums. File may be corrupted or modified."
+msgstr "❌ HASH DOES NOT MATCH! The pasted value{hint} differs from the computed file checksums. File may be corrupted or modified."
+
+# 
+msgid "{algo} hash copied to clipboard"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "Full checksum report copied to clipboard"
+msgstr "Full checksum report copied to clipboard"
+
+# 
+msgid "sha256sum command sent to terminal"
+msgstr "sha256sum command sent to terminal"
+
+# 
+msgid "Checksum calculation is available for local files"
+msgstr "Checksum calculation is available for local files"

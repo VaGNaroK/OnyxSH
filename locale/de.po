@@ -11134,3 +11134,91 @@ msgstr "Fehler beim Lesen des Protokolls: {error}"
 # 
 msgid "Failed to inspect remote directory"
 msgstr "Fehler beim Überprüfen des Remote-Verzeichnisses"
+
+# 
+msgid "Calculate / Verify Hash..."
+msgstr "Hash berechnen / überprüfen..."
+
+# 
+msgid "Checksums & Integrity Verification"
+msgstr "Prüfsummen & Integritätsprüfung"
+
+# 
+msgid "Calculating hashes..."
+msgstr "Hashes werden berechnet..."
+
+# 
+msgid "Cryptographic Hashes"
+msgstr "Kryptografische Hashes"
+
+# 
+msgid "Standard digests calculated across the file content:"
+msgstr "Standard-Digests berechnet über den Dateiinhalt:"
+
+# 
+msgid "Modern standard for integrity and downloads"
+msgstr "Moderner Standard für Integrität und Downloads"
+
+# 
+msgid "High security 512-bit cryptographic digest"
+msgstr "Hochsicherer kryptografischer 512-Bit-Digest"
+
+# 
+msgid "Legacy checksum for fast verification"
+msgstr "Legacy-Prüfsumme für schnelle Verifizierung"
+
+# 
+msgid "Git and legacy repository compatibility"
+msgstr "Kompatibilität mit Git und Legacy-Repositories"
+
+# 
+msgid "Copy hash to clipboard"
+msgstr "Hash in die Zwischenablage kopieren"
+
+# 
+msgid "Integrity Matcher & Comparison"
+msgstr "Integritätsabgleich & Vergleich"
+
+# 
+msgid "Paste the expected hash provided by the author to verify authenticity:"
+msgstr "Fügen Sie den vom Autor bereitgestellten Hash ein, um die Authentizität zu überprüfen:"
+
+# 
+msgid "Expected Hash"
+msgstr "Erwarteter Hash"
+
+# 
+msgid "Paste an MD5, SHA-256 or SHA-512 hash above to verify authenticity."
+msgstr "Fügen Sie oben einen MD5-, SHA-256- oder SHA-512-Hash ein, um die Authentizität zu prüfen."
+
+# 
+msgid "Copy Full Report"
+msgstr "Vollständigen Bericht kopieren"
+
+# 
+msgid "Insert sha256sum into Terminal"
+msgstr "sha256sum in Terminal einfügen"
+
+# 
+msgid "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+msgstr "✅ HASH STIMMT ÜBEREIN ({algo})! Die Datei ist authentisch und intakt."
+
+# 
+msgid "❌ HASH DOES NOT MATCH! The pasted value{hint} differs from the computed file checksums. File may be corrupted or modified."
+msgstr "❌ HASH STIMMT NICHT ÜBEREIN! Der eingefügte Wert{hint} weicht von den Prüfsummen ab. Datei möglicherweise beschädigt."
+
+# 
+msgid "{algo} hash copied to clipboard"
+msgstr "{algo}-Hash in die Zwischenablage kopiert"
+
+# 
+msgid "Full checksum report copied to clipboard"
+msgstr "Vollständiger Prüfsummenbericht in die Zwischenablage kopiert"
+
+# 
+msgid "sha256sum command sent to terminal"
+msgstr "sha256sum-Befehl an das Terminal gesendet"
+
+# 
+msgid "Checksum calculation is available for local files"
+msgstr "Prüfsummenberechnung ist für lokale Dateien verfügbar"

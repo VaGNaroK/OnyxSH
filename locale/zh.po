@@ -11049,3 +11049,91 @@ msgstr "读取日志时出错: {error}"
 # 
 msgid "Failed to inspect remote directory"
 msgstr "检查远程目录失败"
+
+# 
+msgid "Calculate / Verify Hash..."
+msgstr "计算 / 验证哈希..."
+
+# 
+msgid "Checksums & Integrity Verification"
+msgstr "校验和与完整性验证"
+
+# 
+msgid "Calculating hashes..."
+msgstr "正在计算哈希..."
+
+# 
+msgid "Cryptographic Hashes"
+msgstr "加密哈希"
+
+# 
+msgid "Standard digests calculated across the file content:"
+msgstr "根据文件内容计算的标准摘要："
+
+# 
+msgid "Modern standard for integrity and downloads"
+msgstr "用于完整性和下载的现代标准"
+
+# 
+msgid "High security 512-bit cryptographic digest"
+msgstr "高安全性 512 位加密摘要"
+
+# 
+msgid "Legacy checksum for fast verification"
+msgstr "用于快速验证的旧版校验和"
+
+# 
+msgid "Git and legacy repository compatibility"
+msgstr "Git 和旧版存储库兼容性"
+
+# 
+msgid "Copy hash to clipboard"
+msgstr "复制哈希到剪贴板"
+
+# 
+msgid "Integrity Matcher & Comparison"
+msgstr "完整性匹配与比对"
+
+# 
+msgid "Paste the expected hash provided by the author to verify authenticity:"
+msgstr "粘贴作者提供的预期哈希以验证真实性："
+
+# 
+msgid "Expected Hash"
+msgstr "预期哈希"
+
+# 
+msgid "Paste an MD5, SHA-256 or SHA-512 hash above to verify authenticity."
+msgstr "在上方粘贴 MD5、SHA-256 或 SHA-512 哈希以验证真实性。"
+
+# 
+msgid "Copy Full Report"
+msgstr "复制完整报告"
+
+# 
+msgid "Insert sha256sum into Terminal"
+msgstr "在终端中插入 sha256sum"
+
+# 
+msgid "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+msgstr "✅ 哈希匹配 ({algo})！文件真实且完整。"
+
+# 
+msgid "❌ HASH DOES NOT MATCH! The pasted value{hint} differs from the computed file checksums. File may be corrupted or modified."
+msgstr "❌ 哈希不匹配！粘贴的值{hint}与计算的文件校验和不同。文件可能已损坏或被修改。"
+
+# 
+msgid "{algo} hash copied to clipboard"
+msgstr "{algo} 哈希已复制到剪贴板"
+
+# 
+msgid "Full checksum report copied to clipboard"
+msgstr "完整校验和报告已复制到剪贴板"
+
+# 
+msgid "sha256sum command sent to terminal"
+msgstr "sha256sum 命令已发送至终端"
+
+# 
+msgid "Checksum calculation is available for local files"
+msgstr "校验和计算适用于本地文件"

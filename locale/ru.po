@@ -11090,3 +11090,91 @@ msgstr "Ошибка чтения журнала: {error}"
 # 
 msgid "Failed to inspect remote directory"
 msgstr "Не удалось проверить удаленный каталог"
+
+# 
+msgid "Calculate / Verify Hash..."
+msgstr "Вычислить / проверить хеш..."
+
+# 
+msgid "Checksums & Integrity Verification"
+msgstr "Контрольные суммы и проверка целостности"
+
+# 
+msgid "Calculating hashes..."
+msgstr "Вычисление хешей..."
+
+# 
+msgid "Cryptographic Hashes"
+msgstr "Криптографические хеши"
+
+# 
+msgid "Standard digests calculated across the file content:"
+msgstr "Стандартные дайджесты, рассчитанные по содержимому файла:"
+
+# 
+msgid "Modern standard for integrity and downloads"
+msgstr "Современный стандарт целостности и загрузок"
+
+# 
+msgid "High security 512-bit cryptographic digest"
+msgstr "Высокозащищенный 512-битный криптографический дайджест"
+
+# 
+msgid "Legacy checksum for fast verification"
+msgstr "Устаревшая контрольная сумма для быстрой проверки"
+
+# 
+msgid "Git and legacy repository compatibility"
+msgstr "Совместимость с Git и устаревшими репозиториями"
+
+# 
+msgid "Copy hash to clipboard"
+msgstr "Копировать хеш в буфер обмена"
+
+# 
+msgid "Integrity Matcher & Comparison"
+msgstr "Сравнение и проверка целостности"
+
+# 
+msgid "Paste the expected hash provided by the author to verify authenticity:"
+msgstr "Вставьте ожидаемый хеш от автора для проверки подлинности:"
+
+# 
+msgid "Expected Hash"
+msgstr "Ожидаемый хеш"
+
+# 
+msgid "Paste an MD5, SHA-256 or SHA-512 hash above to verify authenticity."
+msgstr "Вставьте хеш MD5, SHA-256 или SHA-512 выше для проверки подлинности."
+
+# 
+msgid "Copy Full Report"
+msgstr "Копировать полный отчет"
+
+# 
+msgid "Insert sha256sum into Terminal"
+msgstr "Вставить sha256sum в терминал"
+
+# 
+msgid "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+msgstr "✅ ХЕШ СОВПАДАЕТ ({algo})! Файл подлинный и не поврежден."
+
+# 
+msgid "❌ HASH DOES NOT MATCH! The pasted value{hint} differs from the computed file checksums. File may be corrupted or modified."
+msgstr "❌ ХЕШ НЕ СОВПАДАЕТ! Вставленное значение{hint} отличается от вычисленных сумм. Файл может быть поврежден или изменен."
+
+# 
+msgid "{algo} hash copied to clipboard"
+msgstr "Хеш {algo} скопирован в буфер обмена"
+
+# 
+msgid "Full checksum report copied to clipboard"
+msgstr "Полный отчет о контрольных суммах скопирован в буфер обмена"
+
+# 
+msgid "sha256sum command sent to terminal"
+msgstr "Команда sha256sum отправлена в терминал"
+
+# 
+msgid "Checksum calculation is available for local files"
+msgstr "Вычисление контрольной суммы доступно для локальных файлов"

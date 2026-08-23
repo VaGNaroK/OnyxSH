@@ -138,6 +138,8 @@ class TestFileManagerAI(unittest.TestCase):
         self.assertIsNotNone(menu_model)
 
         self.fm._init_context_action_group()
+        self.assertTrue(self.fm.context_action_group.has_action("quick_look"))
+        self.assertTrue(self.fm.context_action_group.has_action("calculate_checksum"))
         self.assertTrue(self.fm.context_action_group.has_action("ai_explain"))
         self.assertTrue(self.fm.context_action_group.has_action("ai_diagnose"))
         self.assertTrue(self.fm.context_action_group.has_action("ai_audit_security"))

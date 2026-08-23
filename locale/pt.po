@@ -11412,3 +11412,91 @@ msgstr "Erro ao ler log: {error}"
 # 
 msgid "Failed to inspect remote directory"
 msgstr "Falha ao inspecionar diretório remoto"
+
+# 
+msgid "Calculate / Verify Hash..."
+msgstr "Calcular / Verificar Hash..."
+
+# 
+msgid "Checksums & Integrity Verification"
+msgstr "Checksums e Verificação de Integridade"
+
+# 
+msgid "Calculating hashes..."
+msgstr "Calculando hashes..."
+
+# 
+msgid "Cryptographic Hashes"
+msgstr "Hashes Criptográficos"
+
+# 
+msgid "Standard digests calculated across the file content:"
+msgstr "Resumos padrão calculados a partir do conteúdo do arquivo:"
+
+# 
+msgid "Modern standard for integrity and downloads"
+msgstr "Padrão moderno para integridade e downloads"
+
+# 
+msgid "High security 512-bit cryptographic digest"
+msgstr "Resumo criptográfico de alta segurança de 512 bits"
+
+# 
+msgid "Legacy checksum for fast verification"
+msgstr "Checksum legado para verificação rápida"
+
+# 
+msgid "Git and legacy repository compatibility"
+msgstr "Compatibilidade com Git e repositórios legados"
+
+# 
+msgid "Copy hash to clipboard"
+msgstr "Copiar hash para a área de transferência"
+
+# 
+msgid "Integrity Matcher & Comparison"
+msgstr "Comparador e Verificação de Integridade"
+
+# 
+msgid "Paste the expected hash provided by the author to verify authenticity:"
+msgstr "Cole o hash esperado fornecido pelo autor para verificar autenticidade:"
+
+# 
+msgid "Expected Hash"
+msgstr "Hash Esperado"
+
+# 
+msgid "Paste an MD5, SHA-256 or SHA-512 hash above to verify authenticity."
+msgstr "Cole um hash MD5, SHA-256 ou SHA-512 acima para verificar a autenticidade."
+
+# 
+msgid "Copy Full Report"
+msgstr "Copiar Relatório Completo"
+
+# 
+msgid "Insert sha256sum into Terminal"
+msgstr "Inserir sha256sum no Terminal"
+
+# 
+msgid "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+msgstr "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+
+# 
+msgid "❌ HASH DOES NOT MATCH! The pasted value{hint} differs from the computed file checksums. File may be corrupted or modified."
+msgstr "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos checksums calculados. O arquivo pode estar corrompido ou modificado."
+
+# 
+msgid "{algo} hash copied to clipboard"
+msgstr "Hash {algo} copiado para a área de transferência"
+
+# 
+msgid "Full checksum report copied to clipboard"
+msgstr "Relatório completo de checksums copiado para a área de transferência"
+
+# 
+msgid "sha256sum command sent to terminal"
+msgstr "Comando sha256sum enviado para o terminal"
+
+# 
+msgid "Checksum calculation is available for local files"
+msgstr "O cálculo de checksum está disponível para arquivos locais"

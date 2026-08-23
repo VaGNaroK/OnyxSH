@@ -57,6 +57,7 @@ class QuickLookDialog(BaseDialog):
         on_open_editor: Optional[Callable[[FileItem, str], None]] = None,
         on_navigate: Optional[Callable[[int], Optional[Tuple[FileItem, str]]]] = None,
         on_ai_explain: Optional[Callable[[FileItem, str], None]] = None,
+        on_calculate_checksum: Optional[Callable[[FileItem, str], None]] = None,
     ) -> None:
         super().__init__(
             parent_window=parent_window,
@@ -69,6 +70,7 @@ class QuickLookDialog(BaseDialog):
         self.on_open_editor = on_open_editor
         self.on_navigate = on_navigate
         self.on_ai_explain = on_ai_explain
+        self.on_calculate_checksum = on_calculate_checksum
 
         self.current_item: Optional[FileItem] = None
         self.current_folder: str = ""
@@ -98,6 +100,13 @@ class QuickLookDialog(BaseDialog):
 
         if self._header_bar:
             self._header_bar.set_title_widget(title_box)
+
+            # Checksum / Hash Button
+            self.checksum_btn = Gtk.Button(icon_name="document-properties-symbolic")
+            self.checksum_btn.set_tooltip_text(_("Calculate / Verify Hash..."))
+            self.checksum_btn.add_css_class("flat")
+            self.checksum_btn.connect("clicked", self._on_checksum_clicked)
+            self._header_bar.pack_end(self.checksum_btn)
 
             # AI Explain Button
             self.ai_explain_btn = Gtk.Button(icon_name="system-run-symbolic")
@@ -620,6 +629,25 @@ class QuickLookDialog(BaseDialog):
 
         self.copy_btn.set_visible(False)
         self.stack.set_visible_child_name("binary")
+
+    def _on_checksum_clicked(self, _btn) -> None:
+        """Trigger checksum verification dialog for current previewed file."""
+        if not self.current_item or not self.current_folder:
+            return
+        if self.on_calculate_checksum:
+            self.on_calculate_checksum(self.current_item, self.current_folder)
+        else:
+            base_path = Path(self.current_folder)
+            full_path = str(base_path / self.current_item.name)
+            from ..ui.dialogs.checksum_dialog import ChecksumDialog
+
+            dialog = ChecksumDialog(
+                parent_window=self.parent_window,
+                file_path=full_path,
+                file_name=self.current_item.name,
+                file_size_str=self.current_item.formatted_size,
+            )
+            dialog.present()
 
     def _on_ai_explain_clicked(self, _btn) -> None:
         """Trigger AI explanation for current previewed file and close dialog."""

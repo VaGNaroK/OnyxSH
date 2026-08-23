@@ -327,6 +327,18 @@
 - [ ] **Prioridade:** 🟡 Média | **Esforço:** Alto | **Alvo:** `v0.11.0`
 - [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/transfer_manager.py`, `src/onyxsh/terminal/tabs.py`.
 
+### 📌 5.8. Verificador Visual e Comparador de Checksums / Hash
+- [x] **Descrição:** Interface visual moderna e utilitário no terminal para cálculo assíncrono e verificação de integridade de arquivos locais e remotos.
+- [x] **Recursos:**
+  - 🔐 **Cálculo Multialgoritmo Assíncrono:** Cálculo sem travamento de UI com barra de progresso para `SHA-256`, `SHA-512`, `MD5` e `SHA-1`.
+  - 🎯 **Comparador Inteligente (Hash Matcher):** Campo de validação em tempo real que compara o hash esperado colado pelo usuário (ignorando case/espaços e auto-detectando o algoritmo) e exibe selo de autenticidade (Verde: Match / Vermelho: Divergência).
+  - 📋 **Copiar Hashes:** Cópia individual com 1 clique de cada hash ou relatório completo formatado.
+  - ⌨️ **Integração com Terminal:** Injeta `sha256sum arquivo` diretamente no prompt do terminal conectado.
+  - 🌟 **Integração com File Manager & Quick Look:** Ação dedicada no menu de contexto e botão de hash no Quick Look.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/utils/checksum_utils.py`, `src/onyxsh/ui/dialogs/checksum_dialog.py`, `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `tests/test_checksum.py`).
+- [x] **Prioridade:** 🟡 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/ui/dialogs/checksum_dialog.py`, `src/onyxsh/utils/checksum_utils.py`, `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `scripts/sync_translations.py`, `tests/test_checksum.py`.
+
 ---
 
 ## 📅 Matriz de Versões e Entregas Sugerida

@@ -2652,6 +2652,9 @@ class FileManager(GObject.Object):
                 on_ai_explain=lambda itm, folder: self._on_ai_explain_action(
                     None, None, [itm]
                 ),
+                on_calculate_checksum=lambda itm, folder: self._on_calculate_checksum_action(
+                    None, None, [itm]
+                ),
             )
 
         self.quick_look_dialog.preview_item(
@@ -2699,6 +2702,7 @@ class FileManager(GObject.Object):
         if num_items == 1 and not items[0].is_directory:
             preview_section = Gio.Menu()
             preview_section.append(_("Quick Look"), "context.quick_look")
+            preview_section.append(_("Calculate / Verify Hash..."), "context.calculate_checksum")
             menu.append_section(None, preview_section)
 
         # AI OnyxSH Intelligence section
@@ -2783,6 +2787,7 @@ class FileManager(GObject.Object):
         self.context_action_group = Gio.SimpleActionGroup()
         actions = {
             "quick_look": lambda a, p: self._on_quick_look_action(a, p, self._get_actionable_context_items()),
+            "calculate_checksum": lambda a, p: self._on_calculate_checksum_action(a, p, self._get_actionable_context_items()),
             "ai_explain": lambda a, p: self._on_ai_explain_action(a, p, self._get_actionable_context_items()),
             "ai_diagnose": lambda a, p: self._on_ai_diagnose_action(a, p, self._get_actionable_context_items()),
             "ai_audit_security": lambda a, p: self._on_ai_audit_security_action(a, p, self._get_actionable_context_items()),
@@ -3183,6 +3188,30 @@ class FileManager(GObject.Object):
 
         except Exception as e:
             return None, False, str(e)
+
+    def _on_calculate_checksum_action(self, _action, _param, items: List[FileItem]):
+        """Opens the ChecksumDialog for the selected file."""
+        if not items or items[0].name == ".." or items[0].is_directory:
+            return
+
+        item = items[0]
+        base_path = Path(self.current_path or "/")
+        full_path = str(base_path / item.name)
+
+        if not os.path.isfile(full_path):
+            self._show_toast(_("Checksum calculation is available for local files"))
+            return
+
+        from ..ui.dialogs.checksum_dialog import ChecksumDialog
+
+        dialog = ChecksumDialog(
+            parent_window=self.parent_window,
+            file_path=full_path,
+            file_name=item.name,
+            file_size_str=item.formatted_size,
+            bound_terminal=self.bound_terminal,
+        )
+        dialog.present()
 
     def _on_ai_explain_action(self, _action, _param, items: List[FileItem]):
         """Builds an AI prompt to explain the selected script or code file."""
