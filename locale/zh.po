@@ -11013,3 +11013,39 @@ msgstr "已删除书签"
 # 
 msgid "Delete Command"
 msgstr "删除命令"
+
+# 
+msgid "Explain with AI"
+msgstr "使用 AI 解释"
+
+# 
+msgid "Diagnose Errors with AI"
+msgstr "使用 AI 诊断错误"
+
+# 
+msgid "Audit Security & Permissions with AI"
+msgstr "使用 AI 审核安全与权限"
+
+# 
+msgid "Consulting AI to explain {name}..."
+msgstr "正在请求 AI 解释 {name}..."
+
+# 
+msgid "Diagnosing errors in {name} with AI..."
+msgstr "正在使用 AI 诊断 {name} 中的错误..."
+
+# 
+msgid "Auditing security and permissions with AI..."
+msgstr "正在使用 AI 审核安全与权限..."
+
+# 
+msgid "Error reading file: {error}"
+msgstr "读取文件时出错: {error}"
+
+# 
+msgid "Error reading log: {error}"
+msgstr "读取日志时出错: {error}"
+
+# 
+msgid "Failed to inspect remote directory"
+msgstr "检查远程目录失败"

@@ -11376,3 +11376,39 @@ msgstr "Favorito removido"
 # 
 msgid "Delete Command"
 msgstr "Excluir Comando"
+
+# 
+msgid "Explain with AI"
+msgstr "Explicar com IA"
+
+# 
+msgid "Diagnose Errors with AI"
+msgstr "Diagnosticar Erros com IA"
+
+# 
+msgid "Audit Security & Permissions with AI"
+msgstr "Auditar Segurança e Permissões com IA"
+
+# 
+msgid "Consulting AI to explain {name}..."
+msgstr "Consultando a IA para explicar {name}..."
+
+# 
+msgid "Diagnosing errors in {name} with AI..."
+msgstr "Diagnosticando erros em {name} com a IA..."
+
+# 
+msgid "Auditing security and permissions with AI..."
+msgstr "Auditando segurança e permissões com a IA..."
+
+# 
+msgid "Error reading file: {error}"
+msgstr "Erro ao ler arquivo: {error}"
+
+# 
+msgid "Error reading log: {error}"
+msgstr "Erro ao ler log: {error}"
+
+# 
+msgid "Failed to inspect remote directory"
+msgstr "Falha ao inspecionar diretório remoto"

@@ -11055,3 +11055,39 @@ msgstr "Bookmark removed"
 # 
 msgid "Delete Command"
 msgstr "Delete Command"
+
+# 
+msgid "Explain with AI"
+msgstr "Explain with AI"
+
+# 
+msgid "Diagnose Errors with AI"
+msgstr "Diagnose Errors with AI"
+
+# 
+msgid "Audit Security & Permissions with AI"
+msgstr "Audit Security & Permissions with AI"
+
+# 
+msgid "Consulting AI to explain {name}..."
+msgstr "Consulting AI to explain {name}..."
+
+# 
+msgid "Diagnosing errors in {name} with AI..."
+msgstr "Diagnosing errors in {name} with AI..."
+
+# 
+msgid "Auditing security and permissions with AI..."
+msgstr "Auditing security and permissions with AI..."
+
+# 
+msgid "Error reading file: {error}"
+msgstr "Error reading file: {error}"
+
+# 
+msgid "Error reading log: {error}"
+msgstr "Error reading log: {error}"
+
+# 
+msgid "Failed to inspect remote directory"
+msgstr "Failed to inspect remote directory"

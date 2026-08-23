@@ -11087,3 +11087,39 @@ msgstr "Marque-page supprimé"
 # 
 msgid "Delete Command"
 msgstr "Supprimer la commande"
+
+# 
+msgid "Explain with AI"
+msgstr "Expliquer avec l'IA"
+
+# 
+msgid "Diagnose Errors with AI"
+msgstr "Diagnostiquer les erreurs avec l'IA"
+
+# 
+msgid "Audit Security & Permissions with AI"
+msgstr "Auditer la sécurité et les permissions avec l'IA"
+
+# 
+msgid "Consulting AI to explain {name}..."
+msgstr "Consultation de l'IA pour expliquer {name}..."
+
+# 
+msgid "Diagnosing errors in {name} with AI..."
+msgstr "Diagnostic des erreurs dans {name} avec l'IA..."
+
+# 
+msgid "Auditing security and permissions with AI..."
+msgstr "Audit de la sécurité et des permissions avec l'IA..."
+
+# 
+msgid "Error reading file: {error}"
+msgstr "Erreur lors de la lecture du fichier : {error}"
+
+# 
+msgid "Error reading log: {error}"
+msgstr "Erreur lors de la lecture du journal : {error}"
+
+# 
+msgid "Failed to inspect remote directory"
+msgstr "Échec de l'inspection du répertoire distant"

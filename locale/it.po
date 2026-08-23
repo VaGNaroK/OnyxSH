@@ -11077,3 +11077,39 @@ msgstr "Rimosso dai preferiti"
 # 
 msgid "Delete Command"
 msgstr "Elimina comando"
+
+# 
+msgid "Explain with AI"
+msgstr "Spiega con l'IA"
+
+# 
+msgid "Diagnose Errors with AI"
+msgstr "Diagnostica errori con l'IA"
+
+# 
+msgid "Audit Security & Permissions with AI"
+msgstr "Verifica sicurezza e permessi con l'IA"
+
+# 
+msgid "Consulting AI to explain {name}..."
+msgstr "Consultazione dell'IA per spiegare {name}..."
+
+# 
+msgid "Diagnosing errors in {name} with AI..."
+msgstr "Diagnosi degli errori in {name} con l'IA..."
+
+# 
+msgid "Auditing security and permissions with AI..."
+msgstr "Verifica di sicurezza e permessi con l'IA..."
+
+# 
+msgid "Error reading file: {error}"
+msgstr "Errore durante la lettura del file: {error}"
+
+# 
+msgid "Error reading log: {error}"
+msgstr "Errore durante la lettura del log: {error}"
+
+# 
+msgid "Failed to inspect remote directory"
+msgstr "Impossibile esaminare la directory remota"

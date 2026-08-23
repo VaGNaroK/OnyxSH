@@ -11084,3 +11084,39 @@ msgstr "Marcador eliminado"
 # 
 msgid "Delete Command"
 msgstr "Eliminar comando"
+
+# 
+msgid "Explain with AI"
+msgstr "Explicar con IA"
+
+# 
+msgid "Diagnose Errors with AI"
+msgstr "Diagnosticar errores con IA"
+
+# 
+msgid "Audit Security & Permissions with AI"
+msgstr "Auditar seguridad y permisos con IA"
+
+# 
+msgid "Consulting AI to explain {name}..."
+msgstr "Consultando a la IA para explicar {name}..."
+
+# 
+msgid "Diagnosing errors in {name} with AI..."
+msgstr "Diagnosticando errores en {name} con IA..."
+
+# 
+msgid "Auditing security and permissions with AI..."
+msgstr "Auditando seguridad y permissions con IA..."
+
+# 
+msgid "Error reading file: {error}"
+msgstr "Error al leer el archivo: {error}"
+
+# 
+msgid "Error reading log: {error}"
+msgstr "Error al leer el registro: {error}"
+
+# 
+msgid "Failed to inspect remote directory"
+msgstr "Error al inspeccionar directorio remoto"

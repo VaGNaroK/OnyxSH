@@ -56,6 +56,7 @@ class QuickLookDialog(BaseDialog):
         parent_window: Gtk.Window,
         on_open_editor: Optional[Callable[[FileItem, str], None]] = None,
         on_navigate: Optional[Callable[[int], Optional[Tuple[FileItem, str]]]] = None,
+        on_ai_explain: Optional[Callable[[FileItem, str], None]] = None,
     ) -> None:
         super().__init__(
             parent_window=parent_window,
@@ -67,6 +68,7 @@ class QuickLookDialog(BaseDialog):
         self.logger = get_logger("onyxsh.filemanager.quick_look")
         self.on_open_editor = on_open_editor
         self.on_navigate = on_navigate
+        self.on_ai_explain = on_ai_explain
 
         self.current_item: Optional[FileItem] = None
         self.current_folder: str = ""
@@ -96,6 +98,13 @@ class QuickLookDialog(BaseDialog):
 
         if self._header_bar:
             self._header_bar.set_title_widget(title_box)
+
+            # AI Explain Button
+            self.ai_explain_btn = Gtk.Button(icon_name="system-run-symbolic")
+            self.ai_explain_btn.set_tooltip_text(_("Explain with AI"))
+            self.ai_explain_btn.add_css_class("flat")
+            self.ai_explain_btn.connect("clicked", self._on_ai_explain_clicked)
+            self._header_bar.pack_end(self.ai_explain_btn)
 
             # Copy Content Button
             self.copy_btn = Gtk.Button(icon_name="edit-copy-symbolic")
@@ -324,12 +333,14 @@ class QuickLookDialog(BaseDialog):
             self.hex_label.set_text("")
             self.copy_btn.set_visible(False)
             self.open_editor_btn.set_visible(False)
+            self.ai_explain_btn.set_visible(False)
             self.stack.set_visible_child_name("binary")
             self.present()
             return
 
         self.copy_btn.set_visible(True)
         self.open_editor_btn.set_visible(True)
+        self.ai_explain_btn.set_visible(True)
 
         # 1. Image Preview
         if ext in IMAGE_EXTENSIONS:
@@ -609,6 +620,12 @@ class QuickLookDialog(BaseDialog):
 
         self.copy_btn.set_visible(False)
         self.stack.set_visible_child_name("binary")
+
+    def _on_ai_explain_clicked(self, _btn) -> None:
+        """Trigger AI explanation for current previewed file and close dialog."""
+        if self.current_item and self.on_ai_explain:
+            self.on_ai_explain(self.current_item, self.current_folder)
+            self.close()
 
     def _on_copy_clicked(self, _btn) -> None:
         """Copy current preview text to clipboard."""

@@ -2649,6 +2649,9 @@ class FileManager(GObject.Object):
                     None, None, [itm]
                 ),
                 on_navigate=self._navigate_quick_look,
+                on_ai_explain=lambda itm, folder: self._on_ai_explain_action(
+                    None, None, [itm]
+                ),
             )
 
         self.quick_look_dialog.preview_item(
@@ -2697,6 +2700,20 @@ class FileManager(GObject.Object):
             preview_section = Gio.Menu()
             preview_section.append(_("Quick Look"), "context.quick_look")
             menu.append_section(None, preview_section)
+
+        # AI OnyxSH Intelligence section
+        ai_section = Gio.Menu()
+        if num_items == 1:
+            item = items[0]
+            if not item.is_directory:
+                ai_section.append(_("Explain with AI"), "context.ai_explain")
+                if item.is_log_file:
+                    ai_section.append(_("Diagnose Errors with AI"), "context.ai_diagnose")
+            ai_section.append(_("Audit Security & Permissions with AI"), "context.ai_audit_security")
+            menu.append_section(None, ai_section)
+        elif num_items > 1:
+            ai_section.append(_("Audit Security & Permissions with AI"), "context.ai_audit_security")
+            menu.append_section(None, ai_section)
 
         # Terminal Quick Actions section
         terminal_section = Gio.Menu()
@@ -2766,6 +2783,9 @@ class FileManager(GObject.Object):
         self.context_action_group = Gio.SimpleActionGroup()
         actions = {
             "quick_look": lambda a, p: self._on_quick_look_action(a, p, self._get_actionable_context_items()),
+            "ai_explain": lambda a, p: self._on_ai_explain_action(a, p, self._get_actionable_context_items()),
+            "ai_diagnose": lambda a, p: self._on_ai_diagnose_action(a, p, self._get_actionable_context_items()),
+            "ai_audit_security": lambda a, p: self._on_ai_audit_security_action(a, p, self._get_actionable_context_items()),
             "open_terminal_cd": lambda a, p: self._on_open_terminal_cd_action(a, p, self._get_actionable_context_items()),
             "run_terminal": lambda a, p: self._on_run_terminal_action(a, p, self._get_actionable_context_items()),
             "run_sudo": lambda a, p: self._on_run_sudo_action(a, p, self._get_actionable_context_items()),
@@ -3065,6 +3085,256 @@ class FileManager(GObject.Object):
         self._show_toast(
             _("Following {name} (tail -f) in terminal...").format(name=item.name)
         )
+
+    def _send_to_ai_chat(self, prompt: str) -> None:
+        """Opens the AI chat panel and submits the prompt directly."""
+        if not hasattr(self, "parent_window") or not self.parent_window:
+            return
+        if hasattr(self.parent_window, "ui_builder") and self.parent_window.ui_builder:
+            self.parent_window.ui_builder.show_ai_panel(initial_text=prompt, auto_send=True)
+        elif hasattr(self.parent_window, "show_ai_panel"):
+            self.parent_window.show_ai_panel(initial_text=prompt, auto_send=True)
+
+    def _read_file_sample_for_ai(
+        self,
+        item: FileItem,
+        max_bytes: int = 65536,
+        tail_mode: bool = False,
+        tail_lines: int = 150,
+    ) -> Tuple[Optional[str], bool, Optional[str]]:
+        """Reads a file sample for AI prompt construction (handles local and remote SSH).
+
+        Returns:
+            (content_str, is_binary, error_message)
+        """
+        full_path = f"{self.current_path.rstrip('/')}/{item.name}"
+        is_remote = (
+            self.operations is not None
+            and self.operations.session_item is not None
+            and self.operations.session_item.is_ssh()
+        )
+
+        try:
+            if not is_remote:
+                p = Path(full_path)
+                if not p.exists():
+                    return None, False, f"File not found: {full_path}"
+                if item.is_directory:
+                    try:
+                        entries = os.listdir(p)[:50]
+                        listing_lines = []
+                        for entry in entries:
+                            ep = p / entry
+                            try:
+                                st = ep.stat()
+                                mode_str = oct(st.st_mode)[-3:]
+                                is_dir = ep.is_dir()
+                                listing_lines.append(
+                                    f"{'d' if is_dir else '-'} {mode_str} {st.st_size:>8} B  {entry}"
+                                )
+                            except Exception:
+                                listing_lines.append(entry)
+                        return "\n".join(listing_lines), False, None
+                    except Exception as e:
+                        return None, False, str(e)
+
+                if tail_mode:
+                    with open(p, "rb") as f:
+                        f.seek(0, os.SEEK_END)
+                        size = f.tell()
+                        seek_pos = max(0, size - max_bytes)
+                        f.seek(seek_pos)
+                        raw_bytes = f.read()
+                        lines = raw_bytes.decode("utf-8", errors="replace").splitlines()
+                        sample = "\n".join(lines[-tail_lines:])
+                        return sample, False, None
+                else:
+                    with open(p, "rb") as f:
+                        raw_bytes = f.read(max_bytes)
+                    is_binary = b"\x00" in raw_bytes[:2048]
+                    if is_binary:
+                        return None, True, None
+                    return raw_bytes.decode("utf-8", errors="replace"), False, None
+            else:
+                if item.is_directory:
+                    cmd = ["ls", "-la", full_path]
+                    success, output = self.operations.execute_command_on_session(
+                        cmd, timeout=10
+                    )
+                    if not success:
+                        return None, False, output or _("Failed to inspect remote directory")
+                    return output[:4096], False, None
+
+                if tail_mode:
+                    cmd = ["tail", "-n", str(tail_lines), full_path]
+                else:
+                    cmd = ["head", "-c", str(max_bytes), full_path]
+
+                success, output = self.operations.execute_command_on_session(
+                    cmd, timeout=10
+                )
+                if not success:
+                    return None, False, output or _("Failed to read remote file")
+
+                is_binary = "\x00" in output[:2048]
+                if is_binary and not tail_mode:
+                    return None, True, None
+                return output, is_binary, None
+
+        except Exception as e:
+            return None, False, str(e)
+
+    def _on_ai_explain_action(self, _action, _param, items: List[FileItem]):
+        """Builds an AI prompt to explain the selected script or code file."""
+        if not items:
+            return
+        item = items[0]
+        full_path = f"{self.current_path.rstrip('/')}/{item.name}"
+
+        self._show_toast(_("Consulting AI to explain {name}...").format(name=item.name))
+
+        def worker():
+            content, is_binary, err = self._read_file_sample_for_ai(
+                item, max_bytes=65536
+            )
+            if err:
+                GLib.idle_add(
+                    lambda: self._show_toast(
+                        _("Error reading file: {error}").format(error=err)
+                    )
+                )
+                return
+            if is_binary:
+                prompt = (
+                    f"Por favor, analise as características e informações do arquivo binário `{item.name}`:\n"
+                    f"- **Caminho:** `{full_path}`\n"
+                    f"- **Tamanho:** `{item.formatted_size}`\n"
+                    f"- **Permissões:** `{item.permissions}`\n"
+                    f"- **Tipo:** Binário / Executável compilado\n\n"
+                    f"Explique qual a finalidade comum deste tipo de binário no Linux, como inspecioná-lo com ferramentas de terminal (ex: `file`, `ldd`, `nm`, `readelf`, `strings`) e quais cuidados de execução tomar."
+                )
+            else:
+                ext = item.extension.lstrip(".") if item.extension else ""
+                syntax_tag = ext if ext else "text"
+                prompt = (
+                    f"Por favor, explique detalhadamente o arquivo `{item.name}`:\n"
+                    f"- **Caminho:** `{full_path}`\n"
+                    f"- **Tamanho:** `{item.formatted_size}`\n"
+                    f"- **Permissões:** `{item.permissions}`\n"
+                    f"- **Modificado em:** `{item.date_modified}`\n\n"
+                    f"### Conteúdo do Arquivo:\n"
+                    f"```{syntax_tag}\n"
+                    f"{content}\n"
+                    f"```\n\n"
+                    f"Por favor, forneça:\n"
+                    f"1. **Resumo do Propósito:** O que este código/script faz.\n"
+                    f"2. **Estrutura & Funções Principais:** Como a lógica está organizada e componentes chave.\n"
+                    f"3. **Fluxo de Execução & Dependências:** Entradas, saídas, bibliotecas ou comandos chamados.\n"
+                    f"4. **Dicas e Boas Práticas:** Recomendações de melhorias ou pontos de atenção."
+                )
+
+            GLib.idle_add(lambda: self._send_to_ai_chat(prompt))
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def _on_ai_diagnose_action(self, _action, _param, items: List[FileItem]):
+        """Builds an AI diagnostic prompt for log files."""
+        if not items:
+            return
+        item = items[0]
+        full_path = f"{self.current_path.rstrip('/')}/{item.name}"
+
+        self._show_toast(
+            _("Diagnosing errors in {name} with AI...").format(name=item.name)
+        )
+
+        def worker():
+            content, _is_binary, err = self._read_file_sample_for_ai(
+                item, tail_mode=True, tail_lines=150
+            )
+            if err:
+                GLib.idle_add(
+                    lambda: self._show_toast(
+                        _("Error reading log: {error}").format(error=err)
+                    )
+                )
+                return
+
+            prompt = (
+                f"Por favor, realize um diagnóstico do arquivo de log `{item.name}`:\n"
+                f"- **Caminho:** `{full_path}`\n"
+                f"- **Tamanho:** `{item.formatted_size}`\n\n"
+                f"### Trecho Recente do Log:\n"
+                f"```log\n"
+                f"{content}\n"
+                f"```\n\n"
+                f"Por favor, forneça:\n"
+                f"1. **Análise de Erros / Falhas:** Identifique mensagens de erro, alertas críticos, exceções ou stack traces.\n"
+                f"2. **Causa Raiz Provável:** Explicação clara do motivo das falhas apontadas.\n"
+                f"3. **Solução & Comandos Recomendados:** Passos concretos e comandos de terminal para resolver o problema."
+            )
+
+            GLib.idle_add(lambda: self._send_to_ai_chat(prompt))
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def _on_ai_audit_security_action(self, _action, _param, items: List[FileItem]):
+        """Builds an AI security and permissions audit prompt."""
+        if not items:
+            return
+
+        self._show_toast(_("Auditing security and permissions with AI..."))
+
+        def worker():
+            if len(items) == 1:
+                item = items[0]
+                full_path = f"{self.current_path.rstrip('/')}/{item.name}"
+                content, is_binary, _err = self._read_file_sample_for_ai(
+                    item, max_bytes=32768
+                )
+                item_type = _("Directory") if item.is_directory else _("File")
+                sample_block = ""
+                if content and not is_binary:
+                    sample_block = (
+                        f"\n### Conteúdo / Estrutura Amostrada:\n```\n{content}\n```\n"
+                    )
+
+                prompt = (
+                    f"Realize uma auditoria de segurança e permissões do seguinte {item_type.lower()} `{item.name}`:\n"
+                    f"- **Caminho:** `{full_path}`\n"
+                    f"- **Tipo:** `{item_type}`\n"
+                    f"- **Permissões:** `{item.permissions}`\n"
+                    f"- **Proprietário:** `{item.owner}:{item.group}`\n"
+                    f"- **Tamanho:** `{item.formatted_size}`\n"
+                    f"{sample_block}\n"
+                    f"Por favor, avalie:\n"
+                    f"1. **Riscos de Permissão & Acesso:** Verifique se as permissões são excessivas (ex: 777, world-writable) ou inadequadas.\n"
+                    f"2. **Segurança de Configuração / Credenciais:** Identifique se há riscos de segurança, credenciais expostas ou configurações inseguras.\n"
+                    f"3. **Recomendações de Hardening:** Forneça os comandos de terminal exatos (`chmod`, `chown` ou ajustes no arquivo) para aplicar as melhores práticas de segurança de menor privilégio."
+                )
+            else:
+                table_lines = [
+                    "| Nome | Tipo | Permissões | Proprietário | Tamanho |",
+                    "| --- | --- | --- | --- | --- |",
+                ]
+                for itm in items:
+                    t = _("Pasta") if itm.is_directory else _("Arquivo")
+                    table_lines.append(
+                        f"| `{itm.name}` | {t} | `{itm.permissions}` | `{itm.owner}:{itm.group}` | {itm.formatted_size} |"
+                    )
+
+                table_str = "\n".join(table_lines)
+                prompt = (
+                    f"Realize uma auditoria de segurança e permissões dos seguintes {len(items)} itens no diretório `{self.current_path}`:\n\n"
+                    f"{table_str}\n\n"
+                    f"Por favor, avalie:\n"
+                    f"1. **Riscos de Permissão:** Identifique itens com permissões perigosas (ex: escrita para outros, executáveis sem restrição).\n"
+                    f"2. **Recomendações de Hardening:** Forneça os comandos de terminal recomendados para proteger estes itens adequadamente."
+                )
+
+            GLib.idle_add(lambda: self._send_to_ai_chat(prompt))
+
+        threading.Thread(target=worker, daemon=True).start()
 
     def _on_delete_action(self, _action, _param, items: List[FileItem]):
         count = len(items)

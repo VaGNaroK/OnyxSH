@@ -11018,3 +11018,39 @@ msgstr "ブックマークを削除しました"
 # 
 msgid "Delete Command"
 msgstr "コマンドを削除"
+
+# 
+msgid "Explain with AI"
+msgstr "AI で説明"
+
+# 
+msgid "Diagnose Errors with AI"
+msgstr "AI でエラーを診断"
+
+# 
+msgid "Audit Security & Permissions with AI"
+msgstr "AI でセキュリティと権限を監査"
+
+# 
+msgid "Consulting AI to explain {name}..."
+msgstr "{name} の説明を AI に問い合わせ中..."
+
+# 
+msgid "Diagnosing errors in {name} with AI..."
+msgstr "AI で {name} のエラーを診断中..."
+
+# 
+msgid "Auditing security and permissions with AI..."
+msgstr "AI でセキュリティと権限を監査中..."
+
+# 
+msgid "Error reading file: {error}"
+msgstr "ファイルの読み取りエラー: {error}"
+
+# 
+msgid "Error reading log: {error}"
+msgstr "ログの読み取りエラー: {error}"
+
+# 
+msgid "Failed to inspect remote directory"
+msgstr "リモートディレクトリの検査に失敗しました"

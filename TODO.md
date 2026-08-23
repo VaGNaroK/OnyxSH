@@ -275,13 +275,14 @@
 - [x] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `scripts/sync_translations.py`.
 
 ### 📌 5.3. Integração Inteligente com a IA do OnyxSH
-- [ ] **Descrição:** Conectar o gerenciador de arquivos diretamente ao subsistema de IA do OnyxSH para análise contextual de código, logs e segurança.
-- [ ] **Recursos:**
+- [x] **Descrição:** Conectar o gerenciador de arquivos diretamente ao subsistema de IA do OnyxSH para análise contextual de código, logs e segurança.
+- [x] **Recursos:**
   - 💡 **"Explicar este arquivo com IA":** Envia o conteúdo do script/arquivo selecionado para o painel de chat de IA com uma explicação detalhada e didática de seu funcionamento.
   - 🔍 **"Diagnosticar Erros com IA":** Lê as últimas linhas de falha de um `.log` e gera sugestões automatizadas de correção.
   - 🛡️ **"Auditar Permissões & Segurança com IA":** Avalia riscos de segurança em arquivos de configuração (`sshd_config`, `sudoers`, `.env`, permissões abertas `777`).
-- [ ] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/terminal/ai_assistant.py`.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/ui/window_ui.py`, `tests/test_filemanager_ai.py`).
+- [x] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/ui/window_ui.py`, `scripts/sync_translations.py`, `tests/test_filemanager_ai.py`.
 
 ### 📌 5.4. Atalhos Rápidos & Bookmarks de Diretórios (*Quick Jump*)
 - [x] **Descrição:** Menu de salto rápido e favoritos integrado ao lado da barra de navegação (*breadcrumb*) para navegação instantânea em pastas frequentes.

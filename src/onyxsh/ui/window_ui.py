@@ -862,13 +862,10 @@ class WindowUIBuilder:
             else:
                 terminal.feed_child(command.encode("utf-8") + b"\n")
 
-    def show_ai_panel(self, initial_text: Optional[str] = None) -> None:
+    def show_ai_panel(self, initial_text: Optional[str] = None, auto_send: bool = False) -> None:
         """Show the AI chat panel."""
         # Lazy create the panel
         self._create_ai_chat_panel()
-
-        if initial_text:
-            self.ai_chat_panel.set_initial_text(initial_text)
 
         if not self._ai_panel_visible:
             # Add AI panel directly to paned
@@ -885,6 +882,12 @@ class WindowUIBuilder:
             self.ai_paned.set_position(target_pos)
 
             self._ai_panel_visible = True
+
+        if initial_text:
+            if auto_send:
+                self.ai_chat_panel.send_prompt(initial_text)
+            else:
+                self.ai_chat_panel.set_initial_text(initial_text)
 
     def hide_ai_panel(self) -> None:
         """Hide the AI chat panel."""

@@ -3341,6 +3341,11 @@ class AIChatPanel(Gtk.Box):
         self._set_input_text(text)
         self._text_view.grab_focus()
 
+    def send_prompt(self, text: str) -> None:
+        """Set text in the input field and automatically submit it to the AI."""
+        self._set_input_text(text)
+        self._on_send(self._send_btn)
+
     def _on_show_scope(self, _button):
         """Open the agent scope and policies dialog."""
         from ..dialogs.agent_scope_dialog import AgentScopeDialog

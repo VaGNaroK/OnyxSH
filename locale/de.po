@@ -11098,3 +11098,39 @@ msgstr "Lesezeichen entfernt"
 # 
 msgid "Delete Command"
 msgstr "Befehl löschen"
+
+# 
+msgid "Explain with AI"
+msgstr "Mit KI erklären"
+
+# 
+msgid "Diagnose Errors with AI"
+msgstr "Fehler mit KI diagnostizieren"
+
+# 
+msgid "Audit Security & Permissions with AI"
+msgstr "Sicherheit & Berechtigungen mit KI prüfen"
+
+# 
+msgid "Consulting AI to explain {name}..."
+msgstr "KI konsultieren, um {name} zu erklären..."
+
+# 
+msgid "Diagnosing errors in {name} with AI..."
+msgstr "Fehler in {name} mit KI diagnostizieren..."
+
+# 
+msgid "Auditing security and permissions with AI..."
+msgstr "Sicherheit und Berechtigungen mit KI prüfen..."
+
+# 
+msgid "Error reading file: {error}"
+msgstr "Fehler beim Lesen der Datei: {error}"
+
+# 
+msgid "Error reading log: {error}"
+msgstr "Fehler beim Lesen des Protokolls: {error}"
+
+# 
+msgid "Failed to inspect remote directory"
+msgstr "Fehler beim Überprüfen des Remote-Verzeichnisses"

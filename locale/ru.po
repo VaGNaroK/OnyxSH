@@ -11054,3 +11054,39 @@ msgstr "Закладка удалена"
 # 
 msgid "Delete Command"
 msgstr "Удалить команду"
+
+# 
+msgid "Explain with AI"
+msgstr "Объяснить с помощью ИИ"
+
+# 
+msgid "Diagnose Errors with AI"
+msgstr "Диагностировать ошибки с помощью ИИ"
+
+# 
+msgid "Audit Security & Permissions with AI"
+msgstr "Аудит безопасности и прав доступа с помощью ИИ"
+
+# 
+msgid "Consulting AI to explain {name}..."
+msgstr "Запрос к ИИ для объяснения {name}..."
+
+# 
+msgid "Diagnosing errors in {name} with AI..."
+msgstr "Диагностика ошибок в {name} с помощью ИИ..."
+
+# 
+msgid "Auditing security and permissions with AI..."
+msgstr "Аудит безопасности и прав с помощью ИИ..."
+
+# 
+msgid "Error reading file: {error}"
+msgstr "Ошибка чтения файла: {error}"
+
+# 
+msgid "Error reading log: {error}"
+msgstr "Ошибка чтения журнала: {error}"
+
+# 
+msgid "Failed to inspect remote directory"
+msgstr "Не удалось проверить удаленный каталог"
