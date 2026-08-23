@@ -5,7 +5,7 @@
 # OnyxSH
 
 <p align="center">
-  <img src="https://github.com/VaGNaroK/OnyxSH/blob/main/usr/share/icons/hicolor/scalable/apps/onyxsh.svg" alt="OnyxSH Logo" width="128" height="128">
+  <img src="usr/share/icons/hicolor/scalable/apps/io.github.vagnarok.OnyxSH.svg" alt="OnyxSH Logo" width="128" height="128">
 </p>
 
 <p align="center">
