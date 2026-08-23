@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, List, Optional, Union
 from urllib.parse import unquote, urlparse
 
-from gi.repository import Adw, Gdk, Gio, GLib, Gtk
+from gi.repository import Adw, Gdk, Gio, GLib, Gtk, Vte
 
 from ..sessions.models import LayoutItem, SessionFolder, SessionItem
 from ..utils.logger import get_logger, log_session_event
@@ -782,50 +782,127 @@ class WindowActions:
         dialog.present()
 
     def jump_previous_prompt(self, *args):
-        """Scrolls active terminal to previous command prompt."""
+        """Scrolls the active terminal to the previous prompt position."""
         try:
             terminal = (
-                self.window.tab_manager.get_active_terminal()
-                if self.window.tab_manager
+                self.window.terminal_manager.get_active_terminal()
+                if hasattr(self.window, "terminal_manager")
                 else None
             )
             if not terminal:
                 return
+            scrolled = terminal.get_parent()
+            adj = scrolled.get_vadjustment() if (scrolled and hasattr(scrolled, "get_vadjustment")) else None
+            if not adj:
+                return
+
             col, row = terminal.get_cursor_position()
+            current_scroll_row = int(round(adj.get_value()))
+            current_abs_row = current_scroll_row + row
+
             tracker = self.window.terminal_manager.semantic_tracker
-            target_row = tracker.get_previous_prompt_row(terminal, row)
+            target_row = tracker.get_previous_prompt_row(terminal, current_abs_row)
+
+            # Fallback: scan terminal buffer backward if semantic tracker has no rows before current
+            if target_row is None or target_row >= current_abs_row:
+                target_row = self._scan_previous_prompt_in_buffer(terminal, current_abs_row)
+
             if target_row is not None:
-                scrolled = terminal.get_parent()
-                if isinstance(scrolled, Gtk.ScrolledWindow):
-                    adj = scrolled.get_vadjustment()
-                    if adj:
-                        char_height = terminal.get_char_height() or 18
-                        adj.set_value(target_row * char_height)
+                max_scroll = max(0.0, adj.get_upper() - adj.get_page_size())
+                adj.set_value(max(0.0, min(float(target_row), max_scroll)))
         except Exception as e:
             self.logger.debug(f"Error jumping to previous prompt: {e}")
 
     def jump_next_prompt(self, *args):
-        """Scrolls active terminal to next command prompt."""
+        """Scrolls the active terminal to the next prompt position."""
         try:
             terminal = (
-                self.window.tab_manager.get_active_terminal()
-                if self.window.tab_manager
+                self.window.terminal_manager.get_active_terminal()
+                if hasattr(self.window, "terminal_manager")
                 else None
             )
             if not terminal:
                 return
+            scrolled = terminal.get_parent()
+            adj = scrolled.get_vadjustment() if (scrolled and hasattr(scrolled, "get_vadjustment")) else None
+            if not adj:
+                return
+
             col, row = terminal.get_cursor_position()
+            current_scroll_row = int(round(adj.get_value()))
+            current_abs_row = current_scroll_row + row
+
             tracker = self.window.terminal_manager.semantic_tracker
-            target_row = tracker.get_next_prompt_row(terminal, row)
+            target_row = tracker.get_next_prompt_row(terminal, current_abs_row)
+
+            # Fallback: scan terminal buffer forward if semantic tracker has no rows after current
+            if target_row is None or target_row <= current_abs_row:
+                target_row = self._scan_next_prompt_in_buffer(terminal, current_abs_row)
+
             if target_row is not None:
-                scrolled = terminal.get_parent()
-                if isinstance(scrolled, Gtk.ScrolledWindow):
-                    adj = scrolled.get_vadjustment()
-                    if adj:
-                        char_height = terminal.get_char_height() or 18
-                        adj.set_value(target_row * char_height)
+                max_scroll = max(0.0, adj.get_upper() - adj.get_page_size())
+                adj.set_value(max(0.0, min(float(target_row), max_scroll)))
         except Exception as e:
             self.logger.debug(f"Error jumping to next prompt: {e}")
+
+    def _scan_previous_prompt_in_buffer(self, terminal, current_abs_row: int) -> Optional[int]:
+        """Scans buffer lines backward from current_abs_row for shell prompt patterns."""
+        import re
+        patterns = [
+            re.compile(r'^\s*(?:\([\w\.\-]+\)\s*)?[\w\.\-]+@[\w\.\-]+:[^\$#\n]*[\$#]\s*'),
+            re.compile(r'^\s*(?:[\$#%❯➜]|\(.*\)\s*[\$#%❯➜])\s+'),
+        ]
+        col_count = terminal.get_column_count() if hasattr(terminal, "get_column_count") else 200
+        start_row = max(0, current_abs_row - 1)
+        for check_row in range(start_row, -1, -1):
+            try:
+                if hasattr(terminal, "get_text_range_format") and hasattr(Vte, "Format"):
+                    res = terminal.get_text_range_format(
+                        Vte.Format.TEXT, check_row, 0, check_row + 1, col_count
+                    )
+                    line_text = res[0] if isinstance(res, tuple) else (res or "")
+                elif hasattr(terminal, "get_text_range"):
+                    res = terminal.get_text_range(check_row, 0, check_row + 1, col_count)
+                    line_text = res[0] if isinstance(res, tuple) else (res or "")
+                else:
+                    line_text = ""
+                for p in patterns:
+                    if p.search(line_text):
+                        return check_row
+            except Exception:
+                pass
+        return None
+
+    def _scan_next_prompt_in_buffer(self, terminal, current_abs_row: int) -> Optional[int]:
+        """Scans buffer lines forward from current_abs_row for shell prompt patterns."""
+        import re
+        patterns = [
+            re.compile(r'^\s*(?:\([\w\.\-]+\)\s*)?[\w\.\-]+@[\w\.\-]+:[^\$#\n]*[\$#]\s*'),
+            re.compile(r'^\s*(?:[\$#%❯➜]|\(.*\)\s*[\$#%❯➜])\s+'),
+        ]
+        col_count = terminal.get_column_count() if hasattr(terminal, "get_column_count") else 200
+        scrolled = terminal.get_parent()
+        adj = scrolled.get_vadjustment() if (scrolled and hasattr(scrolled, "get_vadjustment")) else None
+        upper_limit = int(adj.get_upper()) if adj else current_abs_row + 200
+
+        for check_row in range(current_abs_row + 1, upper_limit + 1):
+            try:
+                if hasattr(terminal, "get_text_range_format") and hasattr(Vte, "Format"):
+                    res = terminal.get_text_range_format(
+                        Vte.Format.TEXT, check_row, 0, check_row + 1, col_count
+                    )
+                    line_text = res[0] if isinstance(res, tuple) else (res or "")
+                elif hasattr(terminal, "get_text_range"):
+                    res = terminal.get_text_range(check_row, 0, check_row + 1, col_count)
+                    line_text = res[0] if isinstance(res, tuple) else (res or "")
+                else:
+                    line_text = ""
+                for p in patterns:
+                    if p.search(line_text):
+                        return check_row
+            except Exception:
+                pass
+        return None
 
     def copy_last_command_output(self, terminal=None, *args):
         """Copies output of the last executed command to clipboard."""

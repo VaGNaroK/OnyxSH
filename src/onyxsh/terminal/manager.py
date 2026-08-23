@@ -3564,6 +3564,17 @@ class TerminalManager:
                     popup.popdown()
                     return Gdk.EVENT_STOP
 
+            # Handle Semantic Prompt Jump (Alt+Up / Alt+Down)
+            if (state & Gdk.ModifierType.ALT_MASK) and not (state & Gdk.ModifierType.CONTROL_MASK):
+                if keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up):
+                    if hasattr(self.parent_window, "action_handler"):
+                        self.parent_window.action_handler.jump_previous_prompt()
+                        return Gdk.EVENT_STOP
+                elif keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down):
+                    if hasattr(self.parent_window, "action_handler"):
+                        self.parent_window.action_handler.jump_next_prompt()
+                        return Gdk.EVENT_STOP
+
             # If Ctrl or Alt is held (e.g. Ctrl+L, Ctrl+C, Ctrl+U, Ctrl+D, Alt+...): dismiss popup immediately and do not autocomplete
             if state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.ALT_MASK):
                 if popup and popup.get_visible():

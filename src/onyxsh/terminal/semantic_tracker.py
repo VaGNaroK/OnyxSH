@@ -8,8 +8,9 @@ from weakref import WeakKeyDictionary
 
 import gi
 
+gi.require_version("Gtk", "4.0")
 gi.require_version("Vte", "3.91")
-from gi.repository import GLib, Vte
+from gi.repository import GLib, Gtk, Vte
 
 from ..utils.logger import get_logger
 
@@ -149,16 +150,31 @@ class SemanticTracker:
         if callback not in self.on_command_finished_callbacks:
             self.on_command_finished_callbacks.append(callback)
 
+    def _get_absolute_row(self, terminal: Vte.Terminal) -> int:
+        """Returns the true absolute row index in the terminal scrollback buffer."""
+        col, grid_row = terminal.get_cursor_position()
+        try:
+            scrolled = terminal.get_parent()
+            if scrolled is not None and isinstance(scrolled, Gtk.ScrolledWindow):
+                adj = scrolled.get_vadjustment()
+                if adj is not None:
+                    val = adj.get_value()
+                    if isinstance(val, (int, float)):
+                        return int(round(val)) + grid_row
+        except Exception:
+            pass
+        return grid_row
+
     def handle_osc133(
         self, terminal: Vte.Terminal, action: str, param: str = ""
     ) -> Optional[SemanticCommand]:
         """Processes an OSC 133 semantic sequence received from a terminal."""
         try:
             state = self.get_or_create_state(terminal)
-            col, row = terminal.get_cursor_position()
+            row = self._get_absolute_row(terminal)
 
             self.logger.debug(
-                f"handle_osc133 called: action={action}, param='{param}'"
+                f"handle_osc133 called: action={action}, param='{param}', abs_row={row}"
             )
             if action == "A":
                 # Prompt start
@@ -323,7 +339,7 @@ class SemanticTracker:
     def get_previous_prompt_row(
         self, terminal: Vte.Terminal, current_row: int
     ) -> Optional[int]:
-        """Finds the nearest prompt row before the current row."""
+        """Finds the nearest prompt row strictly before current_row."""
         with self._lock:
             state = self._terminals.get(terminal)
             if not state or not state.prompt_rows:
@@ -332,12 +348,12 @@ class SemanticTracker:
             for row in reversed(state.prompt_rows):
                 if row < current_row:
                     return row
-            return state.prompt_rows[0] if state.prompt_rows else None
+            return None
 
     def get_next_prompt_row(
         self, terminal: Vte.Terminal, current_row: int
     ) -> Optional[int]:
-        """Finds the nearest prompt row after the current row."""
+        """Finds the nearest prompt row strictly after current_row."""
         with self._lock:
             state = self._terminals.get(terminal)
             if not state or not state.prompt_rows:
@@ -346,7 +362,7 @@ class SemanticTracker:
             for row in state.prompt_rows:
                 if row > current_row:
                     return row
-            return state.prompt_rows[-1] if state.prompt_rows else None
+            return None
 
 
 # Global semantic tracker singleton

@@ -23,6 +23,7 @@ class TestSemanticPrompts(unittest.TestCase):
     def setUp(self):
         self.tracker = SemanticTracker()
         self.mock_terminal = MagicMock()
+        self.mock_terminal.get_parent.return_value = None
         self.mock_terminal.get_cursor_position.return_value = (0, 10)
         self.mock_terminal.get_text_range.return_value = (
             "total 8\n-rw-r--r-- 1 user user 100 Aug 17 00:00 file.txt\n",
@@ -144,6 +145,79 @@ class TestSemanticPrompts(unittest.TestCase):
         output = self.tracker.extract_command_output(self.mock_terminal, cmd)
         self.assertIn("file.txt", output)
         self.assertEqual(cmd.output_cache, output)
+
+    def test_absolute_row_calculation_with_scrolled_window(self):
+        """Test calculation of absolute row index considering VTE scroll offset."""
+        mock_adj = MagicMock()
+        mock_adj.get_value.return_value = 42.0
+        mock_scrolled = MagicMock()
+        mock_scrolled.__class__ = gi.repository.Gtk.ScrolledWindow
+        mock_scrolled.get_vadjustment.return_value = mock_adj
+        self.mock_terminal.get_parent.return_value = mock_scrolled
+        self.mock_terminal.get_cursor_position.return_value = (5, 8)
+
+        abs_row = self.tracker._get_absolute_row(self.mock_terminal)
+        self.assertEqual(abs_row, 50)  # 42 + 8
+
+    def test_prompt_navigation_boundary_none(self):
+        """Test that get_previous_prompt_row and get_next_prompt_row return None when out of bounds."""
+        state = self.tracker.get_or_create_state(self.mock_terminal)
+        state.start_prompt(10)
+        state.start_prompt(20)
+
+        # Before lowest row (10), should return None
+        self.assertIsNone(self.tracker.get_previous_prompt_row(self.mock_terminal, 10))
+        self.assertIsNone(self.tracker.get_previous_prompt_row(self.mock_terminal, 5))
+
+        # After highest row (20), should return None
+        self.assertIsNone(self.tracker.get_next_prompt_row(self.mock_terminal, 20))
+        self.assertIsNone(self.tracker.get_next_prompt_row(self.mock_terminal, 25))
+
+    def test_buffer_scan_prompts_fallback(self):
+        """Test WindowActions prompt buffer scanning fallback mechanism."""
+        from onyxsh.ui.actions import WindowActions
+
+        mock_window = MagicMock()
+        actions = WindowActions(mock_window)
+
+        # Mock terminal line queries
+        def mock_get_text_range_format(fmt, start_row, start_col, end_row, end_col):
+            if start_row == 3:
+                return ("user@laptop:~/projects$ ls\n", 30)
+            elif start_row == 7:
+                return ("❯ git status\n", 15)
+            elif start_row == 12:
+                return ("➜ (main) cd /tmp\n", 20)
+            return ("normal command output\n", 25)
+
+        self.mock_terminal.get_text_range_format.side_effect = mock_get_text_range_format
+        self.mock_terminal.get_column_count.return_value = 80
+
+        # Scanning backwards from row 10 should find row 7
+        found_prev = actions._scan_previous_prompt_in_buffer(self.mock_terminal, 10)
+        self.assertEqual(found_prev, 7)
+
+        # Scanning backwards from row 6 should find row 3
+        found_prev_2 = actions._scan_previous_prompt_in_buffer(self.mock_terminal, 6)
+        self.assertEqual(found_prev_2, 3)
+
+        # Scanning backwards from row 2 should return None
+        found_none = actions._scan_previous_prompt_in_buffer(self.mock_terminal, 2)
+        self.assertIsNone(found_none)
+
+        # Scanning forwards from row 5 should find row 7
+        mock_adj = MagicMock()
+        mock_adj.get_upper.return_value = 20.0
+        mock_scrolled = MagicMock(spec=gi.repository.Gtk.ScrolledWindow)
+        mock_scrolled.get_vadjustment.return_value = mock_adj
+        self.mock_terminal.get_parent.return_value = mock_scrolled
+
+        found_next = actions._scan_next_prompt_in_buffer(self.mock_terminal, 5)
+        self.assertEqual(found_next, 7)
+
+        # Scanning forwards from row 8 should find row 12
+        found_next_2 = actions._scan_next_prompt_in_buffer(self.mock_terminal, 8)
+        self.assertEqual(found_next_2, 12)
 
 
 if __name__ == "__main__":
