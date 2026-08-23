@@ -178,6 +178,39 @@ class TestPlanExecution(unittest.TestCase):
         self.assertEqual(commands[1]["command"], "du -sh /var/log/* | sort -rh | head -n 10")
         self.assertEqual(commands[2]["command"], "free -h")
 
+    def test_build_chained_batch_command_single_line_chain(self):
+        """AIChatPanel._build_chained_batch_command should chain single-line steps with ' && '."""
+        from onyxsh.ui.widgets.ai_chat_panel import AIChatPanel
+
+        steps = [
+            {"command_str": "sudo apt update"},
+            {"command_str": "sudo apt-mark hold microsoft-edge-stable"},
+            {"command_str": "sudo apt upgrade -y"},
+            {"command_str": "sudo apt-mark unhold microsoft-edge-stable"},
+        ]
+        chained = AIChatPanel._build_chained_batch_command(steps)
+        expected = "sudo apt update && sudo apt-mark hold microsoft-edge-stable && sudo apt upgrade -y && sudo apt-mark unhold microsoft-edge-stable"
+        self.assertEqual(chained, expected)
+
+    def test_build_chained_batch_command_single_step(self):
+        """Single step should be returned without ' && '."""
+        from onyxsh.ui.widgets.ai_chat_panel import AIChatPanel
+
+        steps = [{"command_str": "uptime"}]
+        self.assertEqual(AIChatPanel._build_chained_batch_command(steps), "uptime")
+
+    def test_build_chained_batch_command_multiline(self):
+        """Steps containing multi-line blocks should be combined with newlines."""
+        from onyxsh.ui.widgets.ai_chat_panel import AIChatPanel
+
+        steps = [
+            {"command_str": "cat << 'EOF' > test.sh\necho 123\nEOF"},
+            {"command_str": "chmod +x test.sh"},
+            {"command_str": "./test.sh"},
+        ]
+        chained = AIChatPanel._build_chained_batch_command(steps)
+        self.assertIn("cat << 'EOF' > test.sh\necho 123\nEOF\nchmod +x test.sh\n./test.sh", chained)
+
 
 if __name__ == "__main__":
     unittest.main()

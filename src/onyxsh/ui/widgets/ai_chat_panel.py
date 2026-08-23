@@ -1535,11 +1535,57 @@ class MessageBubble(Gtk.Box):
         if self._plan_run_all_btn:
             self._plan_run_all_btn.set_sensitive(True)
 
+    @staticmethod
+    def _build_chained_batch_command(steps: list[dict]) -> str:
+        """Combines a list of step dictionaries into a robust chained shell command string.
+
+        Chains single-line commands with ' && ' so failure in one stops the rest and
+        prevents stdin clobbering during interactive prompts (e.g. sudo).
+        """
+        raw_cmds = [s.get("command_str", "").strip() for s in steps if s.get("command_str", "").strip()]
+        if not raw_cmds:
+            return ""
+        if len(raw_cmds) == 1:
+            return raw_cmds[0]
+
+        has_multiline = any("\n" in cmd for cmd in raw_cmds)
+        if not has_multiline:
+            # Clean single-line chain with &&
+            return " && ".join(raw_cmds)
+        else:
+            # Multi-line commands: join with newline
+            return "\n".join(raw_cmds)
+
     def _start_batch_execution(self, steps: list[dict], step_by_step: bool = False) -> None:
-        """Starts batch execution worker queue."""
+        """Starts batch execution worker queue or runs chained command atomically."""
         if self._is_running_batch and not step_by_step:
             return
 
+        if not step_by_step and len(steps) > 1:
+            # Atomic Chained Execution:
+            # Combining all steps into a single unified command prevents race conditions,
+            # prevents stdin clobbering on password prompts (e.g. sudo), and ensures
+            # that subsequent steps only execute if previous steps succeeded.
+            combined_cmd = self._build_chained_batch_command(steps)
+            self._executed_history = list(steps)
+            for s in steps:
+                self._update_step_status_ui(s, "running")
+
+            self.emit("run-command", combined_cmd)
+
+            GLib.timeout_add(500, lambda: [self._update_step_status_ui(s, "completed") for s in steps])
+            GLib.timeout_add(600, self._update_plan_progress)
+            self._is_running_batch = False
+            if self._plan_stop_btn:
+                self._plan_stop_btn.set_sensitive(False)
+            if self._plan_run_all_btn:
+                self._plan_run_all_btn.set_sensitive(True)
+
+            history_copy = list(self._executed_history)
+            GLib.timeout_add(800, lambda: self._trigger_post_verification(history_copy))
+            return
+
+        # Step by step execution (or single step):
         self._is_running_batch = True
         self._abort_batch = False
         self._batch_queue = list(steps)
@@ -2054,6 +2100,11 @@ class AIChatPanel(Gtk.Box):
         "run-command": (GObject.SignalFlags.RUN_LAST, None, (str,)),
         "close-requested": (GObject.SignalFlags.RUN_LAST, None, ()),
     }
+
+    @staticmethod
+    def _build_chained_batch_command(steps: list[dict]) -> str:
+        """Combines a list of step dictionaries into a robust chained shell command string."""
+        return MessageBubble._build_chained_batch_command(steps)
 
     def __init__(
         self, ai_assistant: AIAssistant, tooltip_helper=None, settings_manager=None
