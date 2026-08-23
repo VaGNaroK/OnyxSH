@@ -2402,6 +2402,36 @@ class AIChatPanel(Gtk.Box):
             if not (state & Gdk.ModifierType.SHIFT_MASK):
                 self._on_send(self._text_view)
                 return True  # Event handled
+
+        # Handle forward delete (Delete / KP_Delete) directly to prevent dead-key/IM anomalies
+        if keyval in (Gdk.KEY_Delete, Gdk.KEY_KP_Delete):
+            if state & Gdk.ModifierType.CONTROL_MASK:
+                # Delete forward word (Ctrl + Delete)
+                if self._text_buffer.get_has_selection():
+                    self._text_buffer.delete_selection(True, True)
+                    return True
+                else:
+                    insert_mark = self._text_buffer.get_insert()
+                    cursor_iter = self._text_buffer.get_iter_at_mark(insert_mark)
+                    if not cursor_iter.is_end():
+                        end_iter = cursor_iter.copy()
+                        end_iter.forward_word_end()
+                        self._text_buffer.delete(cursor_iter, end_iter)
+                        return True
+            elif not (state & Gdk.ModifierType.ALT_MASK):
+                # Delete forward single char (Delete)
+                if self._text_buffer.get_has_selection():
+                    self._text_buffer.delete_selection(True, True)
+                    return True
+                else:
+                    insert_mark = self._text_buffer.get_insert()
+                    cursor_iter = self._text_buffer.get_iter_at_mark(insert_mark)
+                    if not cursor_iter.is_end():
+                        next_iter = cursor_iter.copy()
+                        next_iter.forward_char()
+                        self._text_buffer.delete(cursor_iter, next_iter)
+                        return True
+
         return False  # Let the event propagate
 
     def _populate_quick_prompts(self):

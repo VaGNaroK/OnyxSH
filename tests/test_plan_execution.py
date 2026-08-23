@@ -211,6 +211,35 @@ class TestPlanExecution(unittest.TestCase):
         chained = AIChatPanel._build_chained_batch_command(steps)
         self.assertIn("cat << 'EOF' > test.sh\necho 123\nEOF\nchmod +x test.sh\n./test.sh", chained)
 
+    def test_chat_input_forward_delete(self):
+        """AIChatPanel._on_key_pressed should cleanly perform forward character and word deletion on Delete / KP_Delete."""
+        import gi
+        gi.require_version("Gtk", "4.0")
+        gi.require_version("Gdk", "4.0")
+        from gi.repository import Gtk, Gdk
+        from onyxsh.ui.widgets.ai_chat_panel import AIChatPanel
+
+        panel = AIChatPanel.__new__(AIChatPanel)
+        panel._text_view = Gtk.TextView()
+        panel._text_buffer = panel._text_view.get_buffer()
+        panel._text_buffer.set_text("crie uma pasta")
+
+        # Place cursor at start (index 0)
+        start = panel._text_buffer.get_start_iter()
+        panel._text_buffer.place_cursor(start)
+
+        # 1. Single character delete at start
+        res = panel._on_key_pressed(None, Gdk.KEY_Delete, 0, 0)
+        self.assertTrue(res)
+        text = panel._text_buffer.get_text(panel._text_buffer.get_start_iter(), panel._text_buffer.get_end_iter(), False)
+        self.assertEqual(text, "rie uma pasta")
+
+        # 2. Forward word delete (Ctrl + Delete)
+        res = panel._on_key_pressed(None, Gdk.KEY_Delete, 0, Gdk.ModifierType.CONTROL_MASK)
+        self.assertTrue(res)
+        text = panel._text_buffer.get_text(panel._text_buffer.get_start_iter(), panel._text_buffer.get_end_iter(), False)
+        self.assertEqual(text, " uma pasta")
+
 
 if __name__ == "__main__":
     unittest.main()
