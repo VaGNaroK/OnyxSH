@@ -3574,15 +3574,36 @@ class TerminalManager:
                     return Gdk.EVENT_STOP
 
             # Handle Semantic Prompt Jump (Alt+Up / Alt+Down)
-            if (state & Gdk.ModifierType.ALT_MASK) and not (state & Gdk.ModifierType.CONTROL_MASK):
-                if keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up):
-                    if hasattr(self.parent_window, "action_handler"):
-                        self.parent_window.action_handler.jump_previous_prompt(terminal)
-                        return Gdk.EVENT_STOP
-                elif keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down):
-                    if hasattr(self.parent_window, "action_handler"):
-                        self.parent_window.action_handler.jump_next_prompt(terminal)
-                        return Gdk.EVENT_STOP
+            effective_state = state & Gtk.accelerator_get_default_mod_mask()
+            accel_name = Gtk.accelerator_name(keyval, effective_state)
+            if (
+                accel_name in ("<Alt>Up", "<Alt>KP_Up", "<Alt>uparrow")
+                or (
+                    (effective_state & Gdk.ModifierType.ALT_MASK)
+                    and not (effective_state & Gdk.ModifierType.CONTROL_MASK)
+                    and keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up)
+                )
+            ):
+                self.logger.info(
+                    f"[KEY EVENT] Terminal {terminal_id}: Alt+Up detected (keyval={keyval}, state={int(state)}), invoking jump_previous_prompt"
+                )
+                if hasattr(self.parent_window, "action_handler"):
+                    self.parent_window.action_handler.jump_previous_prompt(terminal)
+                    return Gdk.EVENT_STOP
+            elif (
+                accel_name in ("<Alt>Down", "<Alt>KP_Down", "<Alt>downarrow")
+                or (
+                    (effective_state & Gdk.ModifierType.ALT_MASK)
+                    and not (effective_state & Gdk.ModifierType.CONTROL_MASK)
+                    and keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down)
+                )
+            ):
+                self.logger.info(
+                    f"[KEY EVENT] Terminal {terminal_id}: Alt+Down detected (keyval={keyval}, state={int(state)}), invoking jump_next_prompt"
+                )
+                if hasattr(self.parent_window, "action_handler"):
+                    self.parent_window.action_handler.jump_next_prompt(terminal)
+                    return Gdk.EVENT_STOP
 
             # If Ctrl or Alt is held (e.g. Ctrl+L, Ctrl+C, Ctrl+U, Ctrl+D, Alt+...): dismiss popup immediately and do not autocomplete
             if state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.ALT_MASK):

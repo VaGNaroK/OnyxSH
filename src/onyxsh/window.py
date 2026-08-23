@@ -598,16 +598,32 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             return Gdk.EVENT_STOP
 
         # Handle Semantic Prompt Jump (Alt+Up / Alt+Down)
+        effective_state = state & Gtk.accelerator_get_default_mod_mask()
         if (
-            state & Gdk.ModifierType.ALT_MASK
-            and not (state & Gdk.ModifierType.CONTROL_MASK)
+            (accel_string and accel_string in ("<Alt>Up", "<Alt>KP_Up", "<Alt>uparrow"))
+            or (
+                (effective_state & Gdk.ModifierType.ALT_MASK)
+                and not (effective_state & Gdk.ModifierType.CONTROL_MASK)
+                and keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up)
+            )
         ):
-            if keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up):
-                self.action_handler.jump_previous_prompt()
-                return Gdk.EVENT_STOP
-            elif keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down):
-                self.action_handler.jump_next_prompt()
-                return Gdk.EVENT_STOP
+            self.logger.info("[KEY EVENT] Window: Alt+Up detected, invoking jump_previous_prompt")
+            active_term = self.tab_manager.get_selected_terminal() if self.tab_manager else None
+            self.action_handler.jump_previous_prompt(active_term)
+            return Gdk.EVENT_STOP
+
+        if (
+            (accel_string and accel_string in ("<Alt>Down", "<Alt>KP_Down", "<Alt>downarrow"))
+            or (
+                (effective_state & Gdk.ModifierType.ALT_MASK)
+                and not (effective_state & Gdk.ModifierType.CONTROL_MASK)
+                and keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down)
+            )
+        ):
+            self.logger.info("[KEY EVENT] Window: Alt+Down detected, invoking jump_next_prompt")
+            active_term = self.tab_manager.get_selected_terminal() if self.tab_manager else None
+            self.action_handler.jump_next_prompt(active_term)
+            return Gdk.EVENT_STOP
 
         # Get the currently configured shortcuts from the settings manager.
         next_tab_shortcut = self.settings_manager.get_shortcut("next-tab")

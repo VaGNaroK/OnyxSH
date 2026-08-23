@@ -801,6 +801,7 @@ class WindowActions:
         try:
             terminal = self._get_active_terminal(terminal)
             if not terminal:
+                self.logger.warning("[SEMANTIC NAV] jump_previous_prompt: No active terminal found")
                 return
 
             adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
@@ -809,6 +810,7 @@ class WindowActions:
                 if scrolled and hasattr(scrolled, "get_vadjustment"):
                     adj = scrolled.get_vadjustment()
             if not adj:
+                self.logger.warning("[SEMANTIC NAV] jump_previous_prompt: No vertical adjustment (vadjustment) found on terminal")
                 return
 
             current_scroll_val = adj.get_value()
@@ -832,16 +834,33 @@ class WindowActions:
             if target_row is None or target_row >= current_ref_row:
                 target_row = self._scan_previous_prompt_in_buffer(terminal, current_ref_row)
 
+            state = tracker.get_or_create_state(terminal) if tracker else None
+            prompts_list = list(state.prompt_rows) if state else []
+            self.logger.info(
+                f"[SEMANTIC NAV] jump_previous_prompt: ref_row={current_ref_row}, current_scroll={current_scroll_val:.1f}, "
+                f"max_scroll={max_scroll:.1f}, tracker_prompts={prompts_list}, target_row={target_row}"
+            )
+
+            if max_scroll == 0.0:
+                self.logger.info(
+                    "[SEMANTIC NAV] Terminal content fits entirely in visible viewport (max_scroll=0.0). No scrollbar movement required."
+                )
+
             if target_row is not None:
-                adj.set_value(max(0.0, min(float(target_row), max_scroll)))
+                new_scroll = max(0.0, min(float(target_row), max_scroll))
+                adj.set_value(new_scroll)
+                self.logger.info(f"[SEMANTIC NAV] Adjusted scroll value to {new_scroll:.1f}")
+            else:
+                self.logger.info("[SEMANTIC NAV] No earlier prompt found above current position")
         except Exception as e:
-            self.logger.debug(f"Error jumping to previous prompt: {e}")
+            self.logger.error(f"[SEMANTIC NAV] Error jumping to previous prompt: {e}")
 
     def jump_next_prompt(self, terminal=None, *args):
         """Scrolls the active terminal to the next prompt position."""
         try:
             terminal = self._get_active_terminal(terminal)
             if not terminal:
+                self.logger.warning("[SEMANTIC NAV] jump_next_prompt: No active terminal found")
                 return
 
             adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
@@ -850,6 +869,7 @@ class WindowActions:
                 if scrolled and hasattr(scrolled, "get_vadjustment"):
                     adj = scrolled.get_vadjustment()
             if not adj:
+                self.logger.warning("[SEMANTIC NAV] jump_next_prompt: No vertical adjustment (vadjustment) found on terminal")
                 return
 
             current_scroll_val = adj.get_value()
@@ -867,13 +887,23 @@ class WindowActions:
             if target_row is None or target_row <= current_ref_row:
                 target_row = self._scan_next_prompt_in_buffer(terminal, current_ref_row)
 
+            state = tracker.get_or_create_state(terminal) if tracker else None
+            prompts_list = list(state.prompt_rows) if state else []
+            self.logger.info(
+                f"[SEMANTIC NAV] jump_next_prompt: ref_row={current_ref_row}, current_scroll={current_scroll_val:.1f}, "
+                f"max_scroll={max_scroll:.1f}, tracker_prompts={prompts_list}, target_row={target_row}"
+            )
+
             if target_row is not None:
-                adj.set_value(max(0.0, min(float(target_row), max_scroll)))
+                new_scroll = max(0.0, min(float(target_row), max_scroll))
+                adj.set_value(new_scroll)
+                self.logger.info(f"[SEMANTIC NAV] Adjusted scroll value to {new_scroll:.1f}")
             else:
                 # If no next prompt, scroll back down to the bottom
                 adj.set_value(max_scroll)
+                self.logger.info(f"[SEMANTIC NAV] Reached bottom prompt, scrolled to max_scroll ({max_scroll:.1f})")
         except Exception as e:
-            self.logger.debug(f"Error jumping to next prompt: {e}")
+            self.logger.error(f"[SEMANTIC NAV] Error jumping to next prompt: {e}")
 
     def _scan_previous_prompt_in_buffer(self, terminal, current_abs_row: int) -> Optional[int]:
         """Scans buffer lines backward from current_abs_row for shell prompt patterns."""
