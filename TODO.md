@@ -102,6 +102,26 @@
 - [x] **Prioridade:** 🟢 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.9.0`
 - [x] **Módulos Afetados:** `src/onyxsh/terminal/completion/`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/settings/config.py`.
 
+### 📌 1.9. Exportação de Sessão com Anotações e Narrativa ("Caderno de Bordo" / Runbook)
+- [ ] **Descrição:** Permitir adicionar comentários e anotações explicativas em Markdown intercaladas entre comandos e saídas ao exportar o terminal, gerando documentação técnica automática, runbooks e relatórios post-mortem.
+- [ ] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v0.11.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/terminal/exporter.py`, `src/onyxsh/ui/dialogs/export_dialog.py`.
+
+### 📌 1.10. Suporte a Gráficos e Imagens no Buffer do Terminal (Protocolo Sixel / iTerm2 Graphics)
+- [ ] **Descrição:** Renderizar imagens (PNG, JPEG, SVG) e plotagens gráficas diretamente dentro do buffer do terminal usando protocolo Sixel ou extensões gráficas VTE.
+- [ ] **Prioridade:** 🟡 Média | **Esforço:** Médio/Alto | **Alvo:** `v0.11.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`.
+
+### 📌 1.11. Compartilhamento Instantâneo de Snippets e Saídas via Link Seguro
+- [ ] **Descrição:** Gerar links e tokens de compartilhamento de snippets e saídas de comandos; ao abrir o link no OnyxSH, o usuário pode importar diretamente para o gerenciador de snippets ou executá-lo de forma assistida.
+- [ ] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v1.0.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/data/snippet_resolver.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`.
+
+### 📌 1.12. Sessões Compartilhadas & Terminal Multiplayer (Pair Programming / Remote Assist)
+- [ ] **Descrição:** Permitir que dois ou mais usuários compartilhem e interajam com a mesma sessão de terminal remoto em tempo real (estilo tmate/Teletype), com indicação visual colorida de quem está digitando.
+- [ ] **Prioridade:** 🟡 Média | **Esforço:** Alto | **Alvo:** `v1.1.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/terminal/spawner.py`, `src/onyxsh/terminal/manager.py`.
+
 ---
 
 ## 2. Segurança, DevOps & Infraestrutura ("Onyx Guard & Ops")
@@ -150,6 +170,26 @@
 - [ ] **Descrição:** Tornar os logs de auditoria à prova de adulteração adicionando SHA-256 encadeado (`previous_hash` + `current_event_hash`) em cada registro de `audit_log.json`.
 - [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
 - [ ] **Módulos Afetados:** `src/onyxsh/agent/audit_logger.py`.
+
+### 🛡️ 2.7. Dashboard de Métricas de Recursos em Tempo Real (CPU, RAM, Disco, Rede - Local & SSH)
+- [ ] **Descrição:** Painel lateral dedicado ou flutuante exibindo gráficos de utilização em tempo real de CPU, memória, disco e rede para a máquina local e sessões SSH remotas conectadas (via `/proc` e `sysstat`).
+- [ ] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/ui/widgets/`, `src/onyxsh/sessions/`, `src/onyxsh/ui/sidebar_manager.py`.
+
+### 🛡️ 2.8. Modo "Leitura Obrigatória" com Justificativa de Auditoria para Produção
+- [ ] **Descrição:** Em hosts de produção protegidos pelo Production Guard, exigir que qualquer comando de escrita/modificação passe por uma justificativa textual obrigatória gravada diretamente no log de auditoria antes da execução.
+- [ ] **Prioridade:** 🟡 Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/terminal/production_guard.py`, `src/onyxsh/agent/audit_logger.py`.
+
+### 🛡️ 2.9. Detecção Proativa de Comportamento Anômalo no Terminal (Anomaly Detection)
+- [ ] **Descrição:** Motor estatístico e comportamental que monitora comandos em tempo real, gerando alertas visuais preventivos contra anomalias (horários incomuns de operação, padrões destrutivos em massa, repetidas falhas de autenticação).
+- [ ] **Prioridade:** 🟡 Média | **Esforço:** Alto | **Alvo:** `v1.1.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/terminal/production_guard.py`, `src/onyxsh/agent/audit_logger.py`.
+
+### 🛡️ 2.10. Integração com Gerenciadores de Segredos e Cofres (1Password, Bitwarden, pass)
+- [ ] **Descrição:** Integração nativa com cofres de senhas e gerenciadores de segredos para busca e preenchimento seguro de senhas, chaves privadas SSH e tokens de API com consentimento explícito do usuário.
+- [ ] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v1.0.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/sessions/`, `src/onyxsh/settings/config.py`, `src/onyxsh/terminal/spawner.py`.
 
 ---
 
@@ -220,6 +260,21 @@
 - [ ] **Prioridade:** 🟡 Média/Alta | **Esforço:** Alto | **Alvo:** `v1.0.0`
 - [ ] **Módulos Afetados:** `src/onyxsh/plugins/` (novo pacote).
 
+### 🤖 3.7. Sugestão de Correção Proativa e Ações Rápidas para Erros Comuns de Terminal
+- [ ] **Descrição:** Ao detectar saídas de erro conhecidas no terminal (ex: `command not found`, `permission denied`, `port already in use`, `address already bound`, `no space left on device`), o assistente exibe uma notificação sutil ou botão com 1 clique para auto-correção sugerida pela IA.
+- [ ] **Prioridade:** 🟡 Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/agent/verifier.py`, `src/onyxsh/terminal/semantic_tracker.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`.
+
+### 🤖 3.8. Catálogo de "Receitas" Guiadas do Agente com Validação de Pré-requisitos & Rollback
+- [ ] **Descrição:** Catálogo curado de receitas de automação em YAML/JSON (ex: "Instalar Docker Engine", "Configurar Nginx com SSL Let's Encrypt", "Hardening de SSH") com validação de pré-requisitos (SO, pacotes, portas livres), execução assistida passo a passo e capacidade de rollback em falhas.
+- [ ] **Prioridade:** 🟡 Média | **Esforço:** Médio/Alto | **Alvo:** `v1.0.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/agent/planner.py`, `src/onyxsh/agent/models.py`, `src/onyxsh/ui/dialogs/`.
+
+### 🤖 3.9. Modo "Aprendizado por Demonstração" (Workflow Learning & Snippet Synthesis)
+- [ ] **Descrição:** Gravar uma sessão manual de trabalho do usuário e utilizar o agente para sintetizar e rotular automaticamente novos templates de snippets parametrizados ou receitas reutilizáveis para a equipe.
+- [ ] **Prioridade:** 🟢 Média | **Esforço:** Alto | **Alvo:** `v1.1.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/agent/planner.py`, `src/onyxsh/data/snippet_resolver.py`.
+
 ---
 
 ## 4. Qualidade, Testes & Diagnóstico do Sistema
@@ -245,6 +300,16 @@
 - [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/utils/diagnostics.py`, `src/onyxsh/ui/dialogs/diagnostics_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_diagnostics.py`).
 - [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
 - [x] **Módulos Afetados:** `src/onyxsh/utils/diagnostics.py`, `src/onyxsh/ui/dialogs/diagnostics_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_diagnostics.py`.
+
+### 🧪 4.3. Relatório Interativo de Saúde do Sistema em HTML (System Health Report)
+- [ ] **Descrição:** Ampliar a suíte do `--diagnose` para gerar relatórios HTML autônomos e interativos com gráficos de recursos, inventário de pacotes atualizáveis, checagem de vulnerabilidades conhecidas e recomendações de otimização do sistema.
+- [ ] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v0.11.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/utils/diagnostics.py`, `src/onyxsh/ui/dialogs/diagnostics_dialog.py`.
+
+### 🧪 4.4. Modo "Sombra" e Execução em Simulação (Shadow Mode / Dry-Run Sandbox)
+- [ ] **Descrição:** Ambiente seguro de simulação e dry-run que intercepta chamadas de modificação para calcular e exibir um diff prévio das alterações de disco antes de aplicá-las em ambiente real.
+- [ ] **Prioridade:** 🟡 Média | **Esforço:** Alto | **Alvo:** `v1.1.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/terminal/production_guard.py`, `src/onyxsh/agent/planner.py`.
 
 ---
 
@@ -339,6 +404,11 @@
 - [x] **Prioridade:** 🟡 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.10.0`
 - [x] **Módulos Afetados:** `src/onyxsh/ui/dialogs/checksum_dialog.py`, `src/onyxsh/utils/checksum_utils.py`, `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `scripts/sync_translations.py`, `tests/test_checksum.py`.
 
+### 📌 5.9. Visualização em Árvore Hierárquica (Tree View) com Métricas Recursivas de Disco
+- [ ] **Descrição:** Modo alternativo de navegação em árvore hierárquica expansível no File Manager com cálculo e exibição recursiva de tamanho de pastas e contagem de arquivos para identificação rápida de diretórios pesados.
+- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.11.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/models.py`.
+
 ---
 
 ## 📅 Matriz de Versões e Entregas Sugerida
@@ -346,9 +416,10 @@
 | Versão | Foco Principal | Principais Funcionalidades Previstas |
 | :--- | :--- | :--- |
 | **`v0.9.0`** | **Produtividade & Core UX** | • Command Palette (`Ctrl+Shift+P`)<br>• Restauração Automática de Sessões<br>• Integração Semântica OSC 133<br>• Histórico Inteligente e Snippets de Comandos<br>• Autocomplete e Notificações Desktop<br>• Novo Logo Vetorial Oficial OnyxSH |
-| **`v0.10.0`** | **File Manager 2.0 & IA Avançada** | • **Quick Look (Preview com Tecla `Espaço`)**<br>• **Ações Rápidas de Terminal & IA no File Manager**<br>• **Atalhos Rápidos (Bookmarks) e Barra de Status com Espaço Livre**<br>• **Badges Visuais de Permissões (+x)**<br>• Production Guard & Roteamento Inteligente de IA<br>• Modo Estritamente Offline & Diagnóstico (`--diagnose`) |
-| **`v0.11.0`** | **DevOps & Operações Remotas** | • Modo Dual-Pane Local ⇄ Remoto no File Manager<br>• Gerenciador Visual de Túneis SSH<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs |
-| **`v1.0.0`** | **Maturidade & Extensibilidade** | • API de Plugins (Onyx Bridge)<br>• Ferramentas Customizadas para o Agente<br>• Estabilização Completa de Pacotes Flatpak, Debian e AUR<br>• Documentação e Threat Model Final |
+| **`v0.10.0`** | **File Manager 2.0 & IA Avançada** | • **Quick Look (Preview com Tecla `Espaço`)**<br>• **Ações Rápidas de Terminal & IA no File Manager**<br>• **Atalhos Rápidos (Bookmarks) e Barra de Status com Espaço Livre**<br>• **Badges Visuais de Permissões (+x)**<br>• **Verificador & Comparador de Checksums / Hash**<br>• Production Guard & Roteamento Inteligente de IA<br>• Modo Estritamente Offline & Diagnóstico (`--diagnose`) |
+| **`v0.11.0`** | **DevOps, Observabilidade & Remoto** | • Modo Dual-Pane Local ⇄ Remoto no File Manager<br>• Tree View Hierárquica com Métricas de Disco<br>• Dashboard de Recursos em Tempo Real (CPU/RAM/Rede)<br>• Gráficos & Imagens no Terminal (Protocolo Sixel)<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs<br>• Auto-Correção Proativa de Erros de Terminal<br>• Exportação com Anotações & Relatório HTML de Saúde |
+| **`v1.0.0`** | **Maturidade, Extensibilidade & Cofres** | • API de Plugins (Onyx Bridge)<br>• Ferramentas Customizadas para o Agente & Catálogo de Receitas<br>• Integração com Gerenciadores de Segredos (Bitwarden, 1Password)<br>• Compartilhamento Instantâneo de Snippets via Link<br>• Estabilização Completa de Pacotes Flatpak, Debian e AUR |
+| **`v1.1.0`** | **Colaboração & Proteção Avançada** | • Sessões Compartilhadas & Terminal Multiplayer (Pair Programming)<br>• Modo "Sombra" (Dry-Run Sandbox com visualização de diff)<br>• Detecção Proativa de Comportamento Anômalo<br>• Aprendizado por Demonstração (Demonstration Learning) |
 
 ---
 
