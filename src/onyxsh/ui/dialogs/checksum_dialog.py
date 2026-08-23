@@ -198,18 +198,24 @@ class ChecksumDialog(BaseDialog):
         actions_box.set_halign(Gtk.Align.END)
         actions_box.set_margin_top(12)
 
-        self.copy_report_btn = Gtk.Button(
-            label=_("Copy Full Report"),
+        self.copy_report_btn = Gtk.Button()
+        copy_content = Adw.ButtonContent(
             icon_name="edit-copy-symbolic",
+            label=_("Copy Full Report"),
         )
+        self.copy_report_btn.set_child(copy_content)
+        self.copy_report_btn.set_tooltip_text(_("Copy Full Report"))
         self.copy_report_btn.connect("clicked", self._on_copy_report_clicked)
         actions_box.append(self.copy_report_btn)
 
         if self.bound_terminal:
-            self.terminal_btn = Gtk.Button(
-                label=_("Insert sha256sum into Terminal"),
+            self.terminal_btn = Gtk.Button()
+            terminal_content = Adw.ButtonContent(
                 icon_name="utilities-terminal-symbolic",
+                label=_("Insert sha256sum into Terminal"),
             )
+            self.terminal_btn.set_child(terminal_content)
+            self.terminal_btn.set_tooltip_text(_("Insert sha256sum into Terminal"))
             self.terminal_btn.connect("clicked", self._on_insert_terminal_clicked)
             actions_box.append(self.terminal_btn)
 
