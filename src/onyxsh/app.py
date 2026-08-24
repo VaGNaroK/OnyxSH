@@ -291,12 +291,19 @@ class CommTerminalApp(Adw.Application):
                 "toggle-broadcast",
                 "ai-assistant",
                 "command-palette",
+                "show-command-history",
+                "jump-previous-prompt",
+                "jump-next-prompt",
             ]
             for action_name in shortcut_actions:
                 shortcut = self.settings_manager.get_shortcut(action_name)
                 accels = [shortcut] if shortcut else []
                 if action_name == "zoom-in":
                     accels.append("<Control>equal")
+                elif action_name == "jump-previous-prompt":
+                    accels.append("<Alt>KP_Up")
+                elif action_name == "jump-next-prompt":
+                    accels.append("<Alt>KP_Down")
                 self.set_accels_for_action(f"win.{action_name}", accels)
         except Exception as e:
             self.logger.error(f"Failed to update window shortcuts: {e}")

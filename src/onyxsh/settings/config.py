@@ -448,6 +448,8 @@ class DefaultSettings:
                 "ai-assistant": "<Control><Shift>i",
                 "command-palette": "<Control><Shift>p",
                 "show-command-history": "<Control>h",
+                "jump-previous-prompt": "<Alt>Up",
+                "jump-next-prompt": "<Alt>Down",
             },
         }
 

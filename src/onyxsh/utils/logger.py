@@ -90,11 +90,15 @@ class LoggerConfig:
         """Get log directory, creating it if necessary."""
         if self._log_dir is None:
             Path = _get_pathlib().Path
-            self._log_dir = Path.home() / ".config" / "onyxsh" / "logs"
+            if xdg_config := os.environ.get("XDG_CONFIG_HOME"):
+                self._log_dir = Path(xdg_config) / "onyxsh" / "logs"
+            else:
+                self._log_dir = Path.home() / ".config" / "onyxsh" / "logs"
             self._log_dir.mkdir(parents=True, exist_ok=True)
+            # Ensure host ~/.config/onyxsh/logs also exists if accessible
             try:
-                flatpak_log_dir = Path.home() / ".var" / "app" / "io.github.vagnarok.OnyxSH" / "config" / "onyxsh" / "logs"
-                flatpak_log_dir.mkdir(parents=True, exist_ok=True)
+                host_config_log = Path.home() / ".config" / "onyxsh" / "logs"
+                host_config_log.mkdir(parents=True, exist_ok=True)
             except Exception:
                 pass
         return self._log_dir

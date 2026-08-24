@@ -3576,6 +3576,11 @@ class TerminalManager:
             # Handle Semantic Prompt Jump (Alt+Up / Alt+Down)
             effective_state = state & Gtk.accelerator_get_default_mod_mask()
             accel_name = Gtk.accelerator_name(keyval, effective_state)
+            if effective_state & (Gdk.ModifierType.ALT_MASK | Gdk.ModifierType.CONTROL_MASK):
+                self.logger.info(
+                    f"[KEY EVENT] Terminal {terminal_id}: keyval={keyval} ({Gdk.keyval_name(keyval) or 'unknown'}), "
+                    f"accel={accel_name}, state={int(state)}"
+                )
             if (
                 accel_name in ("<Alt>Up", "<Alt>KP_Up", "<Alt>uparrow")
                 or (
@@ -3585,7 +3590,7 @@ class TerminalManager:
                 )
             ):
                 self.logger.info(
-                    f"[KEY EVENT] Terminal {terminal_id}: Alt+Up detected (keyval={keyval}, state={int(state)}), invoking jump_previous_prompt"
+                    f"[KEY EVENT] Terminal {terminal_id}: Alt+Up matched, invoking jump_previous_prompt"
                 )
                 if hasattr(self.parent_window, "action_handler"):
                     self.parent_window.action_handler.jump_previous_prompt(terminal)
