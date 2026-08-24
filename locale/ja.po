@@ -11142,3 +11142,11 @@ msgstr "sha256sum コマンドをターミナルに送信しました"
 # 
 msgid "Checksum calculation is available for local files"
 msgstr "チェックサムの計算はローカルファイルで利用できます"
+
+# 
+msgid "Jump to Previous Prompt"
+msgstr "前のプロンプトにジャンプ"
+
+# 
+msgid "Jump to Next Prompt"
+msgstr "次のプロンプトにジャンプ"

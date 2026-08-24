@@ -11178,3 +11178,11 @@ msgstr "Команда sha256sum отправлена в терминал"
 # 
 msgid "Checksum calculation is available for local files"
 msgstr "Вычисление контрольной суммы доступно для локальных файлов"
+
+# 
+msgid "Jump to Previous Prompt"
+msgstr "Перейти к предыдущей командной строке"
+
+# 
+msgid "Jump to Next Prompt"
+msgstr "Перейти к следующей командной строке"

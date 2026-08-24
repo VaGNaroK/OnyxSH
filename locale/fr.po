@@ -11211,3 +11211,11 @@ msgstr "Commande sha256sum envoyée au terminal"
 # 
 msgid "Checksum calculation is available for local files"
 msgstr "Le calcul de la somme de contrôle est disponible pour les fichiers locaux"
+
+# 
+msgid "Jump to Previous Prompt"
+msgstr "Sauter au prompt précédent"
+
+# 
+msgid "Jump to Next Prompt"
+msgstr "Sauter au prompt suivant"

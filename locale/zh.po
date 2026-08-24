@@ -11137,3 +11137,11 @@ msgstr "sha256sum 命令已发送至终端"
 # 
 msgid "Checksum calculation is available for local files"
 msgstr "校验和计算适用于本地文件"
+
+# 
+msgid "Jump to Previous Prompt"
+msgstr "跳转到上一个提示符"
+
+# 
+msgid "Jump to Next Prompt"
+msgstr "跳转到下一个提示符"

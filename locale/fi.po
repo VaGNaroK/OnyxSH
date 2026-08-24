@@ -11189,3 +11189,11 @@ msgstr "sha256sum command sent to terminal"
 # 
 msgid "Checksum calculation is available for local files"
 msgstr "Checksum calculation is available for local files"
+
+# 
+msgid "Jump to Previous Prompt"
+msgstr "Hyppää edelliseen kehotteeseen"
+
+# 
+msgid "Jump to Next Prompt"
+msgstr "Hyppää seuraavaan kehotteeseen"
