@@ -202,12 +202,31 @@ chmod +x ~/backup.sh
 ./backup.sh
 ```
 """
-        reply, commands, code_snippets = self.assistant._parse_assistant_payload(response_content)
+    def test_collapse_fragmented_echo_and_unclosed_heredoc(self):
+        """When local LLM returns fragmented echo >> lines or unclosed heredoc in JSON, collapse it."""
+        raw_json_response = """{
+  "reply": "Aqui está o script:\\n\\n```bash\\n#!/usr/bin/env bash\\nadiciona_ip() {\\n    echo 'Adicionando IP'\\n}\\nadiciona_ip\\n```",
+  "commands": [
+    "cat << 'EOF' > ~/bloqueador_hosts.sh",
+    "echo '#!/usr/bin/env bash' >> ~/bloqueador_hosts.sh",
+    "echo '' >> ~/bloqueador_hosts.sh",
+    "echo 'adiciona_ip() {' >> ~/bloqueador_hosts.sh",
+    "echo '    echo \\'Adicionando IP\\'' >> ~/bloqueador_hosts.sh",
+    "echo '}' >> ~/bloqueador_hosts.sh",
+    "chmod +x ~/bloqueador_hosts.sh",
+    "~/bloqueador_hosts.sh"
+  ]
+}"""
+        reply, commands, code_snippets = self.assistant._parse_assistant_payload(raw_json_response)
         command_texts = [c["command"] for c in commands]
 
-        # The first synthesized command should be the file creation heredoc
-        self.assertTrue(any("cat << 'EOF' > ~/backup.sh" in c for c in command_texts))
-        self.assertTrue(any("chmod +x ~/backup.sh" in c for c in command_texts))
+        # Should have collapsed the unclosed heredoc + 5 echo lines into 1 clean heredoc
+        self.assertEqual(len(command_texts), 3)
+        self.assertTrue(command_texts[0].startswith("cat << 'EOF' > ~/bloqueador_hosts.sh"))
+        self.assertIn("adiciona_ip() {", command_texts[0])
+        self.assertTrue(command_texts[0].endswith("EOF"))
+        self.assertEqual(command_texts[1], "chmod +x ~/bloqueador_hosts.sh")
+        self.assertEqual(command_texts[2], "~/bloqueador_hosts.sh")
 
 
 if __name__ == "__main__":

@@ -1181,6 +1181,7 @@ class TerminalAiAssistant(GObject.Object):
         reply_text = ""
         commands: List[Dict[str, Any]] = []
         code_snippets: List[Dict[str, str]] = []
+        parsed = False
 
         # Strategy 1: Standard JSON parsing (strict=False permits control characters)
         try:
@@ -1199,49 +1200,52 @@ class TerminalAiAssistant(GObject.Object):
                     else payload.get("commands", [])
                 )
                 commands = self._normalize_commands(commands_field)
-                return reply_text, commands, code_snippets
+                parsed = True
         except Exception:
             pass
 
         # Strategy 2: Structural Key-to-Key extraction for malformed JSON from local models
-        match_reply = re.search(
-            r'["\'](?:summary|reply|content|message)["\']\s*:\s*["\']', clean_content
-        )
-        if match_reply:
-            val_start = match_reply.end()
-            # Look for the beginning of the commands/steps field
-            match_cmds = re.search(
-                r'["\']\s*,\s*["\'](?:commands|steps|tools|cmd|plan_id)["\']\s*:\s*(\[[\s\S]*?\])',
-                clean_content[val_start:],
-                re.DOTALL,
+        if not parsed:
+            match_reply = re.search(
+                r'["\'](?:summary|reply|content|message)["\']\s*:\s*["\']', clean_content
             )
-            if match_cmds:
-                raw_reply = clean_content[val_start : val_start + match_cmds.start()]
-                raw_cmds = match_cmds.group(1)
-                raw_reply = raw_reply.rstrip('"\n\r\t ')
-                reply_text = self._unescape_json_string(raw_reply)
-                try:
-                    parsed_cmds = json.loads(raw_cmds, strict=False)
-                    commands = self._normalize_commands(parsed_cmds)
-                except Exception:
-                    cmd_matches = re.findall(r'"((?:[^"\\]|\\.)*)"', raw_cmds)
-                    commands = [
-                        {"command": self._unescape_json_string(c), "description": ""}
-                        for c in cmd_matches
-                        if c
-                    ]
-                return reply_text, commands, code_snippets
-            else:
-                raw_reply = clean_content[val_start:].rstrip('"} \n\r\t')
-                reply_text = self._unescape_json_string(raw_reply)
-                return reply_text, commands, code_snippets
+            if match_reply:
+                val_start = match_reply.end()
+                # Look for the beginning of the commands/steps field
+                match_cmds = re.search(
+                    r'["\']\s*,\s*["\'](?:commands|steps|tools|cmd|plan_id)["\']\s*:\s*(\[[\s\S]*?\])',
+                    clean_content[val_start:],
+                    re.DOTALL,
+                )
+                if match_cmds:
+                    raw_reply = clean_content[val_start : val_start + match_cmds.start()]
+                    raw_cmds = match_cmds.group(1)
+                    raw_reply = raw_reply.rstrip('"\n\r\t ')
+                    reply_text = self._unescape_json_string(raw_reply)
+                    try:
+                        parsed_cmds = json.loads(raw_cmds, strict=False)
+                        commands = self._normalize_commands(parsed_cmds)
+                    except Exception:
+                        cmd_matches = re.findall(r'"((?:[^"\\]|\\.)*)"', raw_cmds)
+                        commands = [
+                            {"command": self._unescape_json_string(c), "description": ""}
+                            for c in cmd_matches
+                            if c
+                        ]
+                    parsed = True
+                else:
+                    raw_reply = clean_content[val_start:].rstrip('"} \n\r\t')
+                    reply_text = self._unescape_json_string(raw_reply)
+                    parsed = True
 
         # Strategy 3: Pure Markdown Fallback
-        reply_text = content
-        code_block_pattern = r"```([a-zA-Z0-9_-]*)\n(.*?)```"
-        matches = re.findall(code_block_pattern, content, re.DOTALL)
+        if not parsed:
+            reply_text = content
 
-        # First collect all full multi-line scripts found in the response
+        # Extract all code blocks and full scripts from reply_text / content
+        code_block_pattern = r"```([a-zA-Z0-9_-]*)\n(.*?)```"
+        matches = re.findall(code_block_pattern, reply_text or content, re.DOTALL)
+
         full_scripts: List[str] = []
         for lang, body in matches:
             lang_clean = lang.lower().strip()
@@ -1249,27 +1253,30 @@ class TerminalAiAssistant(GObject.Object):
             if not body_clean:
                 continue
             if lang_clean in ("", "bash", "sh", "zsh", "shell", "console"):
-                if self._is_multi_line_script(body_clean) and not re.match(r'^(?:sudo\s+)?(?:cat|tee)\s+<<', body_clean):
+                if self._is_multi_line_script(body_clean) and not re.search(r'(?:cat|tee)\s+<<', body_clean):
                     full_scripts.append(body_clean)
-
-        for lang, body in matches:
-            lang_clean = lang.lower().strip()
-            body_clean = body.strip()
-            if not body_clean:
-                continue
-
-            if lang_clean not in ("", "bash", "sh", "zsh", "shell", "console"):
+                    code_snippets.append({"language": lang_clean or "bash", "code": body_clean})
+            else:
                 code_snippets.append({"language": lang_clean, "code": body_clean})
-                continue
 
-            if self._is_multi_line_script(body_clean):
-                code_snippets.append({"language": lang_clean or "bash", "code": body_clean})
-                if not re.search(r'(?:cat|tee)\s+<<', body_clean):
+        # If Strategy 3 was used, extract commands from markdown code blocks
+        if not parsed:
+            for lang, body in matches:
+                lang_clean = lang.lower().strip()
+                body_clean = body.strip()
+                if not body_clean:
+                    continue
+                if lang_clean not in ("", "bash", "sh", "zsh", "shell", "console"):
+                    continue
+                if self._is_multi_line_script(body_clean) and not re.search(r'(?:cat|tee)\s+<<', body_clean):
                     continue
 
-            cmds = self._extract_commands_from_body(body_clean, full_scripts)
-            for cmd_str in cmds:
-                commands.append({"command": cmd_str, "description": ""})
+                cmds = self._extract_commands_from_body(body_clean, full_scripts)
+                for cmd_str in cmds:
+                    commands.append({"command": cmd_str, "description": ""})
+
+        # Post-processing: collapse fragmented echo sequences and repair unclosed heredocs
+        commands = self._collapse_file_creation_commands(commands, full_scripts)
 
         # If a full script was provided and commands reference chmod/execution without a creation step, synthesize creation
         if full_scripts:
@@ -1286,7 +1293,76 @@ class TerminalAiAssistant(GObject.Object):
                     synth_cmd = f"cat << 'EOF' > {target_script_name}\n{full_scripts[0]}\nEOF"
                     commands.insert(0, {"command": synth_cmd, "description": f"Criar {target_script_name}"})
 
+        # Normalize any distorted paths (e.g. './~/script.sh' -> '~/script.sh')
+        for c in commands:
+            cmd_val = c.get("command", "")
+            if isinstance(cmd_val, str) and "./~/" in cmd_val:
+                c["command"] = cmd_val.replace("./~/", "~/")
+
         return reply_text, commands, code_snippets
+
+    @classmethod
+    def _collapse_file_creation_commands(
+        cls, commands: List[Dict[str, Any]], full_scripts: List[str]
+    ) -> List[Dict[str, Any]]:
+        """
+        Collapses fragmented 'echo ... >> file' sequences and unclosed heredoc commands
+        into a single, clean atomic heredoc with the complete script.
+        """
+        if not commands:
+            return commands
+
+        collapsed: List[Dict[str, Any]] = []
+        i = 0
+        while i < len(commands):
+            cmd_item = commands[i]
+            cmd_str = cmd_item.get("command", "") if isinstance(cmd_item, dict) else str(cmd_item)
+
+            # Check if this is an unclosed heredoc or start of echo >> file sequence
+            unclosed_match = re.search(r'^(?:sudo\s+)?(?:cat|tee)\s+<<\s*[\'"]?(\w+)[\'"]?\s*(?:>|>>)\s*([~/\w\.\-]+)', cmd_str)
+            echo_match = re.search(r'^echo\s+.*(?:>>|>)\s*([~/\w\.\-]+)', cmd_str)
+
+            if unclosed_match:
+                delim = unclosed_match.group(1)
+                target_file = unclosed_match.group(2)
+                lines = cmd_str.splitlines()
+                has_closing = any(l.strip() == delim for l in lines[1:])
+                if not has_closing:
+                    # Skip subsequent fragmented lines targeting this file
+                    i += 1
+                    while i < len(commands):
+                        next_cmd = commands[i].get("command", "") if isinstance(commands[i], dict) else str(commands[i])
+                        if target_file in next_cmd and (next_cmd.startswith("echo") or next_cmd.strip() == delim):
+                            i += 1
+                        else:
+                            break
+                    script_content = full_scripts[0] if full_scripts else "#!/usr/bin/env bash"
+                    collapsed_cmd = f"cat << 'EOF' > {target_file}\n{script_content}\nEOF"
+                    collapsed.append({"command": collapsed_cmd, "description": f"Criar {target_file}"})
+                    continue
+
+            if echo_match:
+                target_file = echo_match.group(1)
+                echo_seq = [cmd_str]
+                j = i + 1
+                while j < len(commands):
+                    next_cmd = commands[j].get("command", "") if isinstance(commands[j], dict) else str(commands[j])
+                    if target_file in next_cmd and next_cmd.startswith("echo"):
+                        echo_seq.append(next_cmd)
+                        j += 1
+                    else:
+                        break
+                if len(echo_seq) >= 2:
+                    i = j
+                    script_content = full_scripts[0] if full_scripts else "#!/usr/bin/env bash"
+                    collapsed_cmd = f"cat << 'EOF' > {target_file}\n{script_content}\nEOF"
+                    collapsed.append({"command": collapsed_cmd, "description": f"Criar {target_file}"})
+                    continue
+
+            collapsed.append(cmd_item)
+            i += 1
+
+        return collapsed
 
     @classmethod
     def _extract_commands_from_body(cls, code_body: str, full_scripts: List[str]) -> List[str]:
