@@ -316,8 +316,8 @@ class SettingsManager:
         """Applies log settings to the logger system."""
         from ..utils import logger
 
-        log_to_file = self.get("log_to_file", False)
-        log_level = self.get("console_log_level", "ERROR")
+        log_to_file = self.get("log_to_file", True)
+        log_level = self.get("console_log_level", "INFO")
         logger.set_log_to_file_enabled(log_to_file)
         logger.set_console_log_level(log_level)
 

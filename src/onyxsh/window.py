@@ -545,9 +545,14 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             return True  # Use True instead of Gdk.EVENT_STOP for better compatibility
 
         # Convert the key press event into a GTK accelerator string.
-        accel_string = Gtk.accelerator_name(
-            keyval, state & Gtk.accelerator_get_default_mod_mask()
-        )
+        effective_state = state & Gtk.accelerator_get_default_mod_mask()
+        accel_string = Gtk.accelerator_name(keyval, effective_state)
+
+        if effective_state & (Gdk.ModifierType.ALT_MASK | Gdk.ModifierType.CONTROL_MASK):
+            self.logger.info(
+                f"[KEY EVENT] Window: keyval={keyval} ({Gdk.keyval_name(keyval) or 'unknown'}), "
+                f"accel={accel_string}, state={int(state)}"
+            )
 
         # Handle Preferences (F2)
         pref_shortcut = self.settings_manager.get_shortcut("preferences")

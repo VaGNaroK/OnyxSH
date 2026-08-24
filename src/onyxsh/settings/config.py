@@ -309,8 +309,8 @@ class DefaultSettings:
             "word_char_exceptions": "-_.:/~",  # For word selection on double-click
             "ssh_control_persist_duration": 60,  # Duration in seconds for SSH connection multiplexing
             # Logging Settings
-            "log_to_file": False,
-            "console_log_level": "ERROR",
+            "log_to_file": True,
+            "console_log_level": "INFO",
             # Remote Editing
             "use_system_tmp_for_edit": False,
             "clear_remote_edit_files_on_exit": True,
