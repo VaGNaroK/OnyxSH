@@ -843,8 +843,11 @@ class WindowActions:
             col, cursor_line = resolved_terminal.get_cursor_position()
             current_top_line = int(round(current_scroll_px / char_height))
 
-            # If user is at bottom, search backward from absolute cursor position; if scrolled up, search from current_top_line
-            if current_scroll_px >= max_scroll_px - 1.0:
+            # Determine starting reference line for backward search
+            last_target = getattr(self, "_last_nav_target", {}).get(resolved_terminal)
+            if last_target is not None:
+                current_ref_line = last_target
+            elif current_scroll_px >= max_scroll_px - 1.0:
                 current_ref_line = cursor_line if cursor_line >= current_top_line else (current_top_line + cursor_line)
             else:
                 current_ref_line = current_top_line
@@ -856,12 +859,12 @@ class WindowActions:
             )
             target_line = tracker.get_previous_prompt_row(resolved_terminal, current_ref_line) if tracker else None
 
-            state = tracker.get_or_create_state(resolved_terminal) if tracker else None
-            prompts_list = list(state.prompt_rows) if state else []
-
             # Fallback: scan terminal buffer backward if semantic tracker has no rows before current
             if target_line is None or target_line >= current_ref_line:
                 target_line = self._scan_previous_prompt_in_buffer(resolved_terminal, current_ref_line)
+
+            state = tracker.get_or_create_state(resolved_terminal) if tracker else None
+            prompts_list = list(state.prompt_rows) if state else []
 
             self.logger.critical(
                 f"[SEMANTIC NAV] jump_previous_prompt: ref_line={current_ref_line}, top_line={current_top_line}, "
@@ -869,7 +872,11 @@ class WindowActions:
                 f"current_scroll_px={current_scroll_px:.1f}, max_scroll_px={max_scroll_px:.1f}, char_height={char_height}"
             )
 
+            if not hasattr(self, "_last_nav_target"):
+                self._last_nav_target = {}
+
             if target_line is not None:
+                self._last_nav_target[resolved_terminal] = target_line
                 target_scroll_px = float(target_line) * char_height
                 new_scroll = max(0.0, min(target_scroll_px, max_scroll_px))
                 adj.set_value(new_scroll)
@@ -884,7 +891,6 @@ class WindowActions:
         self.logger.critical(f"[ACTION] jump_next_prompt chamado. terminal={terminal}, args={args}")
         try:
             resolved_terminal = self._get_active_terminal(terminal)
-            self.logger.critical(f"[ACTION] após _get_active_terminal: resolved_terminal={resolved_terminal}")
             if not resolved_terminal:
                 self.logger.critical("[ACTION] Nenhum terminal ativo encontrado!")
                 return
@@ -920,30 +926,42 @@ class WindowActions:
             max_scroll_px = max(0.0, adj.get_upper() - adj.get_page_size())
             current_top_line = int(round(current_scroll_px / char_height))
 
+            # Determine starting reference line for forward search
+            last_target = getattr(self, "_last_nav_target", {}).get(resolved_terminal)
+            if last_target is not None:
+                current_ref_line = last_target
+            else:
+                current_ref_line = current_top_line
+
             tracker = (
                 self.window.terminal_manager.semantic_tracker
                 if hasattr(self.window, "terminal_manager")
                 else None
             )
-            target_line = tracker.get_next_prompt_row(resolved_terminal, current_top_line) if tracker else None
+            target_line = tracker.get_next_prompt_row(resolved_terminal, current_ref_line) if tracker else None
 
             # Fallback: scan terminal buffer forward if semantic tracker has no rows after current
-            if target_line is None or target_line <= current_top_line:
-                target_line = self._scan_next_prompt_in_buffer(resolved_terminal, current_top_line)
+            if target_line is None or target_line <= current_ref_line:
+                target_line = self._scan_next_prompt_in_buffer(resolved_terminal, current_ref_line)
 
             state = tracker.get_or_create_state(resolved_terminal) if tracker else None
             prompts_list = list(state.prompt_rows) if state else []
             self.logger.critical(
-                f"[SEMANTIC NAV] jump_next_prompt: ref_line={current_top_line}, target_line={target_line}, prompts={prompts_list}, "
+                f"[SEMANTIC NAV] jump_next_prompt: ref_line={current_ref_line}, target_line={target_line}, prompts={prompts_list}, "
                 f"current_scroll_px={current_scroll_px:.1f}, max_scroll_px={max_scroll_px:.1f}, char_height={char_height}"
             )
 
+            if not hasattr(self, "_last_nav_target"):
+                self._last_nav_target = {}
+
             if target_line is not None:
+                self._last_nav_target[resolved_terminal] = target_line
                 target_scroll_px = float(target_line) * char_height
                 new_scroll = max(0.0, min(target_scroll_px, max_scroll_px))
                 adj.set_value(new_scroll)
                 self.logger.critical(f"[SEMANTIC NAV] SUCESSO: Scrolled terminal to line {target_line} (pixel {new_scroll:.1f})")
             else:
+                self._last_nav_target[resolved_terminal] = None
                 adj.set_value(max_scroll_px)
                 self.logger.critical(f"[SEMANTIC NAV] Reached bottom prompt, scrolled to bottom ({max_scroll_px:.1f})")
         except Exception as e:
