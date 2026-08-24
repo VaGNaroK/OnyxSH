@@ -151,8 +151,16 @@ class SemanticTracker:
             self.on_command_finished_callbacks.append(callback)
 
     def _get_absolute_row(self, terminal: Vte.Terminal) -> int:
-        """Returns the true absolute row index in the terminal scrollback buffer."""
-        col, grid_row = terminal.get_cursor_position()
+        """Returns the true absolute line index in the terminal scrollback buffer."""
+        col, row = terminal.get_cursor_position()
+        char_height = 1.0
+        if hasattr(terminal, "get_char_height"):
+            try:
+                ch = terminal.get_char_height()
+                if isinstance(ch, (int, float)) and ch > 1.0:
+                    char_height = float(ch)
+            except Exception:
+                pass
         try:
             scrolled = terminal.get_parent()
             if scrolled is not None and isinstance(scrolled, Gtk.ScrolledWindow):
@@ -160,10 +168,12 @@ class SemanticTracker:
                 if adj is not None:
                     val = adj.get_value()
                     if isinstance(val, (int, float)):
-                        return int(round(val)) + grid_row
+                        scroll_lines = int(round(val / char_height))
+                        if row < scroll_lines:
+                            return scroll_lines + int(row)
         except Exception:
             pass
-        return grid_row
+        return int(row)
 
     def handle_osc133(
         self, terminal: Vte.Terminal, action: str, param: str = ""
