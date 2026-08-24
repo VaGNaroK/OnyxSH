@@ -75,16 +75,13 @@ class TerminalAiAssistant(GObject.Object):
         "\n\n"
         "**CRITICAL RULES:**\n"
         "1. **OUTPUT FORMAT:** Respond with RAW JSON only. Do NOT wrap root response in markdown code blocks like ```json ... ```.\n"
-        '2. **JSON STRUCTURE:** {{ "reply": "<comprehensive explanation with formatted markdown>", "commands": ["<cmd1>", "<cmd2>"] }}\n'
-        "3. **LANGUAGE & FULL LOCALIZATION:** You MUST respond entirely and strictly in {language}. Every part of the response — including explanatory texts, markdown headings, transitional phrases, step lists (1, 2, 3...), code comments (# ...), log messages, and user-facing CLI output strings (`echo \"...\"`, `log_message ...`) — MUST be written in {language}. Never leave numbered steps, bullet points, or instructions in English.\n"
-        "4. **TERMINAL AWARENESS:** The user is ALREADY working inside the OnyxSH terminal emulator. Never instruct the user to 'Open the terminal (Ctrl+Alt+T)' or open graphical desktop text editors unless explicitly asked. Always provide direct CLI solutions.\n"
-        "5. **DYNAMIC PATHS & MODERN STANDARDS:** Always use `$HOME`, `~`, or relative paths. NEVER invent fake hardcoded user paths like `/home/usuario/` or `/home/user/`. Use modern system command equivalents for {os_context} (e.g. `ip` instead of `ifconfig`, `ss` instead of `netstat`, `systemctl` instead of `/etc/init.d/`). Do NOT install or update random system packages like Flatpak unless explicitly requested by the user.\n"
-        "6. **SCRIPT CREATION VIA CLI:** When providing commands to create files/scripts in the terminal, use atomic heredoc blocks with the COMPLETE, ACTUAL script code inside (e.g. `cat << 'EOF' > ~/myscript.sh\\n#!/usr/bin/env bash\\necho 'Hello'\\nEOF\\nchmod +x ~/myscript.sh`). NEVER write literal placeholder dots like `...` or `... (insert code here)` inside the heredoc command.\n"
-        "7. **PACKAGE MANAGEMENT & UPDATES:** When upgrading system packages while excluding or holding specific packages (like Microsoft Edge or Linux kernel), use official native package manager holding mechanisms in a single concise chained command (e.g. `sudo apt-mark hold microsoft-edge-stable && sudo apt update && sudo apt upgrade -y && sudo apt-mark unhold microsoft-edge-stable` on Debian/Ubuntu/Mint, or `sudo dnf upgrade -x 'kernel*'` on Fedora) instead of generating complex temporary bash scripts or fragile parsing hacks (`cat << 'EOF' > ...` or `apt list --upgradable | grep ...`).\n"
-        "\n"
-        "**FIELD DETAILS & BEST PRACTICES:**\n"
-        "- 'reply': Didactic, well-structured explanation in Markdown. When creating scripts, configurations, or programs, ALWAYS display the full, production-ready, well-commented script inside a Markdown code block with syntax highlighting so the user can easily read, verify, and understand it.\n"
-        "- 'commands': A curated list of executable, standalone shell commands representing the single best recommended path in strictly chronological execution order (e.g., create script -> chmod +x -> execute). Do NOT wrap commands in `echo '...'` unless creating a file. If the user is asking an informational, theoretical, or comparative question without a specific task to perform (e.g. 'what are the differences between X and Y?', 'what are the ways to do Z?'), leave 'commands' as an empty array [].\n"
+        '2. **JSON STRUCTURE:** {{ "reply": "<comprehensive explanation AND full script inside ```bash ... ``` code block>", "commands": ["<cmd1>", "<cmd2>"] }}\n'
+        "3. **MANDATORY FULL SCRIPT IN 'reply':** When the user requests a script, program, or automation, you MUST ALWAYS write the COMPLETE, FULL-LENGTH script with all functions and logic inside a Markdown code block (```bash ... ```) in the 'reply' field. Never provide only steps, summaries, or descriptions without the actual code. The user expects the code to be visible in the chat.\n"
+        "4. **LANGUAGE & FULL LOCALIZATION:** You MUST respond entirely and strictly in {language}. Every part of the response — including explanatory texts, markdown headings, transitional phrases, step lists (1, 2, 3...), code comments (# ...), log messages, and user-facing CLI output strings (`echo \"...\"`, `log_message ...`) — MUST be written in {language}. Never leave numbered steps, bullet points, or instructions in English.\n"
+        "5. **TERMINAL AWARENESS:** The user is ALREADY working inside the OnyxSH terminal emulator. Never instruct the user to 'Open the terminal (Ctrl+Alt+T)' or open graphical desktop text editors unless explicitly asked. Always provide direct CLI solutions.\n"
+        "6. **DYNAMIC PATHS & MODERN STANDARDS:** Always use `$HOME`, `~`, or relative paths. NEVER invent fake hardcoded user paths like `/home/usuario/` or `/home/user/`. Use modern system command equivalents for {os_context} (e.g. `ip` instead of `ifconfig`, `ss` instead of `netstat`, `systemctl` instead of `/etc/init.d/`). Do NOT install or update random system packages like Flatpak unless explicitly requested by the user.\n"
+        "7. **COMMANDS & SCRIPT EXECUTION:** In the 'commands' array, provide the exact commands to create the file and run it: `cat << 'EOF' > ~/myscript.sh\\n<FULL_SCRIPT_CODE_HERE>\\nEOF`, `chmod +x ~/myscript.sh`, `~/myscript.sh`. NEVER generate an empty heredoc or a template containing only `#!/usr/bin/env bash` or `...`.\n"
+        "8. **PACKAGE MANAGEMENT & UPDATES:** When upgrading system packages while excluding or holding specific packages (like Microsoft Edge or Linux kernel), use official native package manager holding mechanisms in a single concise chained command (e.g. `sudo apt-mark hold microsoft-edge-stable && sudo apt update && sudo apt upgrade -y && sudo apt-mark unhold microsoft-edge-stable` on Debian/Ubuntu/Mint, or `sudo dnf upgrade -x 'kernel*'` on Fedora) instead of generating complex temporary bash scripts or fragile parsing hacks.\n"
     )
 
 
@@ -1327,7 +1324,10 @@ class TerminalAiAssistant(GObject.Object):
                 target_file = unclosed_match.group(2)
                 lines = cmd_str.splitlines()
                 has_closing = any(l.strip() == delim for l in lines[1:])
-                if not has_closing:
+                body_lines = [l.strip() for l in lines[1:] if l.strip() and l.strip() != delim]
+                is_stub = not body_lines or (len(body_lines) == 1 and body_lines[0].startswith("#!"))
+
+                if not has_closing or is_stub:
                     # Skip subsequent fragmented lines targeting this file
                     i += 1
                     while i < len(commands):
@@ -1336,9 +1336,9 @@ class TerminalAiAssistant(GObject.Object):
                             i += 1
                         else:
                             break
-                    script_content = full_scripts[0] if full_scripts else "#!/usr/bin/env bash"
-                    collapsed_cmd = f"cat << 'EOF' > {target_file}\n{script_content}\nEOF"
-                    collapsed.append({"command": collapsed_cmd, "description": f"Criar {target_file}"})
+                    if full_scripts:
+                        collapsed_cmd = f"cat << 'EOF' > {target_file}\n{full_scripts[0]}\nEOF"
+                        collapsed.append({"command": collapsed_cmd, "description": f"Criar {target_file}"})
                     continue
 
             if echo_match:
