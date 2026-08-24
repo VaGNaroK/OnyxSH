@@ -1239,6 +1239,9 @@ class TerminalAiAssistant(GObject.Object):
         if not parsed:
             reply_text = content
 
+        # Auto-wrap raw unwrapped scripts in markdown code fences and repair escaped variables
+        reply_text = self._auto_wrap_raw_scripts_in_markdown(reply_text)
+
         # Extract all code blocks and full scripts from reply_text / content
         code_block_pattern = r"```([a-zA-Z0-9_-]*)\n(.*?)```"
         matches = re.findall(code_block_pattern, reply_text or content, re.DOTALL)
@@ -1450,6 +1453,71 @@ class TerminalAiAssistant(GObject.Object):
 
         return heredoc_text
 
+    @classmethod
+    def _auto_wrap_raw_scripts_in_markdown(cls, text: str) -> str:
+        """
+        If the reply contains a raw multi-line script that wasn't wrapped in a code fence (```bash),
+        automatically wraps the script section in a syntax-highlighted code block.
+        """
+        if not text:
+            return ""
+
+        # Unescape any escaped dollars (e.g. \$(whoami) -> $(whoami), \$VAR -> $VAR)
+        clean_text = re.sub(r'\\\$([a-zA-Z_0-9]+|\{|\()', r'$\1', text)
+
+        # If it already contains code fences, return with cleaned dollar signs
+        if "```" in clean_text:
+            return clean_text
+
+        lines = clean_text.splitlines()
+        script_start = -1
+        script_end = -1
+
+        for idx, line in enumerate(lines):
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith("#!") or cls._is_script_line(stripped):
+                if script_start == -1:
+                    script_start = idx
+                script_end = idx
+
+        # If a block of script lines was detected (at least 3 lines)
+        if script_start != -1 and script_end != -1 and (script_end - script_start >= 2):
+            script_candidate = "\n".join(lines[script_start : script_end + 1])
+            if cls._is_multi_line_script(script_candidate):
+                # Fix unclosed quotes in echo statements (e.g. echo "text without closing quote)
+                repaired_lines = []
+                for sline in script_candidate.splitlines():
+                    if sline.strip().startswith('echo "') and sline.count('"') % 2 != 0:
+                        sline = sline + '"'
+                    elif sline.strip().startswith("echo '") and sline.count("'") % 2 != 0:
+                        sline = sline + "'"
+                    repaired_lines.append(sline)
+                clean_script = "\n".join(repaired_lines)
+
+                before = lines[:script_start]
+                after = lines[script_end + 1 :]
+
+                parts = []
+                if before:
+                    parts.append("\n".join(before).strip())
+                parts.append(f"```bash\n{clean_script}\n```")
+                if after:
+                    parts.append("\n".join(after).strip())
+
+                return "\n\n".join(p for p in parts if p)
+
+        return clean_text
+
+    @staticmethod
+    def _is_script_line(line: str) -> bool:
+        """Helper to identify if a line is part of a shell script structure."""
+        return bool(re.search(
+            r'^\s*(?:if\s+\[|if\s+\[\[|then|else|elif|fi|while\b|for\b|do|done|case\b|esac|;|(?:\d+|\*)\)\s*$|\w+\(\)\s*\{|read\s+-p|sudo\s+tee|echo\s+-e|\bwhoami\b)',
+            line
+        ))
+
     @staticmethod
     def _is_multi_line_script(code_body: str) -> bool:
         """Detects if a code block is a multi-line script rather than a list of CLI commands."""
@@ -1535,6 +1603,7 @@ class TerminalAiAssistant(GObject.Object):
             .replace("\\t", "\t")
             .replace("\\r", "\r")
             .replace("\\\\", "\\")
+            .replace("\\$", "$")
         )
         # Fix code fences missing newlines (e.g. ```bash\echo or ```sh\cat)
         val = re.sub(r'```([a-zA-Z0-9_-]+)\\(?=[^\n\r])', r'```\1\n', val)

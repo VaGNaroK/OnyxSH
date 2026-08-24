@@ -202,6 +202,11 @@ chmod +x ~/backup.sh
 ./backup.sh
 ```
 """
+        reply, commands, code_snippets = self.assistant._parse_assistant_payload(response_content)
+        command_texts = [c["command"] for c in commands]
+        self.assertTrue(any("<<" in c for c in command_texts))
+        self.assertIn("chmod +x ~/backup.sh", command_texts)
+
     def test_collapse_fragmented_echo_and_unclosed_heredoc(self):
         """When local LLM returns fragmented echo >> lines or unclosed heredoc in JSON, collapse it."""
         raw_json_response = """{
@@ -227,6 +232,36 @@ chmod +x ~/backup.sh
         self.assertTrue(command_texts[0].endswith("EOF"))
         self.assertEqual(command_texts[1], "chmod +x ~/bloqueador_hosts.sh")
         self.assertEqual(command_texts[2], "~/bloqueador_hosts.sh")
+
+    def test_auto_wrap_raw_unwrapped_script(self):
+        """When local LLM emits raw bash code without ```bash code fence, OnyxSH should wrap and fix it."""
+        raw_reply = """# Script de Bloqueio de IP/Hostname no Arquivo /etc/hosts
+
+if [ "\\$(whoami)" != "root" ]; then
+  echo "Este script precisa ser executado como root. Use sudo.
+  exit 1
+fi
+
+adicionar_ao_hosts() {
+  IP="\\$1"
+  HOSTNAME="\\$2"
+  echo -e "\\n\\$IP \\$HOSTNAME" | sudo tee --append /etc/hosts > /dev/null
+}
+
+while true; do
+  read -p "Opcao: " OPCAO
+  case \\$OPCAO in
+    1)
+      adicionar_ao_hosts
+      ;;
+  esac
+done"""
+        wrapped = TerminalAiAssistant._auto_wrap_raw_scripts_in_markdown(raw_reply)
+        self.assertIn("```bash", wrapped)
+        self.assertIn("$(whoami)", wrapped)
+        self.assertNotIn(r"\$(whoami)", wrapped)
+        # Should fix unclosed quote on echo statement
+        self.assertIn('echo "Este script precisa ser executado como root. Use sudo."', wrapped)
 
 
 if __name__ == "__main__":
