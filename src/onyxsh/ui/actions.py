@@ -783,32 +783,25 @@ class WindowActions:
 
     def _get_active_terminal(self, terminal=None) -> Optional[Vte.Terminal]:
         """Resolves the active VTE terminal instance safely."""
-        self.logger.critical(f"[ACTION] _get_active_terminal recebeu: terminal={terminal} (type={type(terminal).__name__})")
         if terminal is not None and hasattr(terminal, "get_cursor_position"):
-            self.logger.critical("[ACTION] _get_active_terminal: terminal recebido é um Vte.Terminal válido")
             return terminal
         if hasattr(self.window, "tab_manager") and self.window.tab_manager:
             term = self.window.tab_manager.get_selected_terminal()
-            self.logger.critical(f"[ACTION] _get_active_terminal: tab_manager.get_selected_terminal() retornou: {term}")
             if term:
                 return term
         if hasattr(self.window, "terminal_manager") and self.window.terminal_manager:
             if hasattr(self.window.terminal_manager, "get_active_terminal"):
                 term = self.window.terminal_manager.get_active_terminal()
-                self.logger.critical(f"[ACTION] _get_active_terminal: terminal_manager.get_active_terminal() retornou: {term}")
                 if term:
                     return term
-        self.logger.critical("[ACTION] _get_active_terminal: NENHUM terminal ativo pôde ser resolvido!")
         return None
 
     def jump_previous_prompt(self, terminal=None, *args):
         """Scrolls the active terminal to the previous prompt position."""
-        self.logger.critical(f"[ACTION] jump_previous_prompt chamado. terminal={terminal}, args={args}")
         try:
             resolved_terminal = self._get_active_terminal(terminal)
-            self.logger.critical(f"[ACTION] após _get_active_terminal: resolved_terminal={resolved_terminal}")
             if not resolved_terminal:
-                self.logger.critical("[ACTION] Nenhum terminal ativo encontrado!")
+                self.logger.warning("[SEMANTIC NAV] jump_previous_prompt: No active terminal found")
                 return
 
             adj = resolved_terminal.get_vadjustment() if hasattr(resolved_terminal, "get_vadjustment") else None
@@ -817,7 +810,7 @@ class WindowActions:
                 if scrolled and hasattr(scrolled, "get_vadjustment"):
                     adj = scrolled.get_vadjustment()
             if not adj:
-                self.logger.critical("[ACTION] Nenhum Gtk.Adjustment encontrado!")
+                self.logger.warning("[SEMANTIC NAV] jump_previous_prompt: No vertical adjustment found on terminal")
                 return
 
             char_height = 1.0
@@ -866,7 +859,7 @@ class WindowActions:
             state = tracker.get_or_create_state(resolved_terminal) if tracker else None
             prompts_list = list(state.prompt_rows) if state else []
 
-            self.logger.critical(
+            self.logger.debug(
                 f"[SEMANTIC NAV] jump_previous_prompt: ref_line={current_ref_line}, top_line={current_top_line}, "
                 f"cursor_line={cursor_line}, target_line={target_line}, prompts={prompts_list}, "
                 f"current_scroll_px={current_scroll_px:.1f}, max_scroll_px={max_scroll_px:.1f}, char_height={char_height}"
@@ -880,12 +873,12 @@ class WindowActions:
                 target_scroll_px = float(target_line) * char_height
                 new_scroll = max(0.0, min(target_scroll_px, max_scroll_px))
                 adj.set_value(new_scroll)
-                self.logger.critical(f"[SEMANTIC NAV] SUCESSO: Scrolled terminal to line {target_line} (pixel {new_scroll:.1f})")
+                self.logger.info(f"[SEMANTIC NAV] Scrolled terminal to line {target_line} (pixel {new_scroll:.1f})")
             else:
                 self._last_nav_target[resolved_terminal] = None
-                self.logger.critical("[SEMANTIC NAV] Nenhum prompt anterior encontrado acima da linha atual")
+                self.logger.debug("[SEMANTIC NAV] No earlier prompt found above current position")
         except Exception as e:
-            self.logger.critical(f"[ACTION] Exception in jump_previous_prompt: {e}", exc_info=True)
+            self.logger.error(f"[SEMANTIC NAV] Error jumping to previous prompt: {e}", exc_info=True)
 
     def reset_nav_target(self, terminal: Optional[Vte.Terminal] = None) -> None:
         """Resets the sequential navigation tracker for a terminal or all terminals."""
@@ -897,11 +890,10 @@ class WindowActions:
 
     def jump_next_prompt(self, terminal=None, *args):
         """Scrolls the active terminal to the next prompt position."""
-        self.logger.critical(f"[ACTION] jump_next_prompt chamado. terminal={terminal}, args={args}")
         try:
             resolved_terminal = self._get_active_terminal(terminal)
             if not resolved_terminal:
-                self.logger.critical("[ACTION] Nenhum terminal ativo encontrado!")
+                self.logger.warning("[SEMANTIC NAV] jump_next_prompt: No active terminal found")
                 return
 
             adj = resolved_terminal.get_vadjustment() if hasattr(resolved_terminal, "get_vadjustment") else None
@@ -910,7 +902,7 @@ class WindowActions:
                 if scrolled and hasattr(scrolled, "get_vadjustment"):
                     adj = scrolled.get_vadjustment()
             if not adj:
-                self.logger.critical("[ACTION] Nenhum Gtk.Adjustment encontrado!")
+                self.logger.warning("[SEMANTIC NAV] jump_next_prompt: No vertical adjustment found on terminal")
                 return
 
             char_height = 1.0
@@ -955,7 +947,7 @@ class WindowActions:
 
             state = tracker.get_or_create_state(resolved_terminal) if tracker else None
             prompts_list = list(state.prompt_rows) if state else []
-            self.logger.critical(
+            self.logger.debug(
                 f"[SEMANTIC NAV] jump_next_prompt: ref_line={current_ref_line}, target_line={target_line}, prompts={prompts_list}, "
                 f"current_scroll_px={current_scroll_px:.1f}, max_scroll_px={max_scroll_px:.1f}, char_height={char_height}"
             )
@@ -968,13 +960,13 @@ class WindowActions:
                 target_scroll_px = float(target_line) * char_height
                 new_scroll = max(0.0, min(target_scroll_px, max_scroll_px))
                 adj.set_value(new_scroll)
-                self.logger.critical(f"[SEMANTIC NAV] SUCESSO: Scrolled terminal to line {target_line} (pixel {new_scroll:.1f})")
+                self.logger.info(f"[SEMANTIC NAV] Scrolled terminal to line {target_line} (pixel {new_scroll:.1f})")
             else:
                 self._last_nav_target[resolved_terminal] = None
                 adj.set_value(max_scroll_px)
-                self.logger.critical(f"[SEMANTIC NAV] Reached bottom prompt, scrolled to bottom ({max_scroll_px:.1f})")
+                self.logger.debug(f"[SEMANTIC NAV] Reached bottom prompt, scrolled to bottom ({max_scroll_px:.1f})")
         except Exception as e:
-            self.logger.critical(f"[ACTION] Exception in jump_next_prompt: {e}", exc_info=True)
+            self.logger.error(f"[SEMANTIC NAV] Error jumping to next prompt: {e}", exc_info=True)
 
     def _scan_previous_prompt_in_buffer(self, terminal, current_abs_row: int) -> Optional[int]:
         """Scans buffer lines backward from current_abs_row for shell prompt patterns."""

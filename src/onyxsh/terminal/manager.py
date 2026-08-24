@@ -1632,13 +1632,6 @@ class TerminalManager:
             terminal.add_controller(term_shortcut_ctrl)
             terminal.onyxsh_controllers.append(term_shortcut_ctrl)
 
-            # Key probe controller with PropagationPhase.TARGET
-            probe_ctrl = Gtk.EventControllerKey.new()
-            probe_ctrl.set_propagation_phase(Gtk.PropagationPhase.TARGET)
-            probe_ctrl.connect("key-pressed", self._probe_all_keys, terminal_id)
-            terminal.add_controller(probe_ctrl)
-            terminal.onyxsh_controllers.append(probe_ctrl)
-
             terminal.terminal_id = terminal_id
         except Exception as e:
             self.logger.error(
@@ -3604,21 +3597,6 @@ class TerminalManager:
             self.logger.error(
                 f"Terminal right-click handling failed for terminal {terminal_id}: {e}"
             )
-    def _probe_all_keys(
-        self,
-        controller: Gtk.EventControllerKey,
-        keyval: int,
-        keycode: int,
-        state: Gdk.ModifierType,
-        terminal_id: int,
-    ) -> bool:
-        effective_state = state & Gtk.accelerator_get_default_mod_mask()
-        if effective_state & (Gdk.ModifierType.ALT_MASK | Gdk.ModifierType.CONTROL_MASK):
-            self.logger.info(
-                f"[KEY PROBE] Terminal {terminal_id}: keyval={keyval} ({Gdk.keyval_name(keyval) or 'unknown'}), "
-                f"state={int(state)} (effective={int(effective_state)}), accel={Gtk.accelerator_name(keyval, effective_state)}"
-            )
-        return Gdk.EVENT_PROPAGATE
 
     def _on_terminal_key_pressed_for_detection(
         self,
