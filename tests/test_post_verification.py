@@ -138,6 +138,16 @@ class TestPostVerification(unittest.TestCase):
         self.assertIsNotNone(res.diagnostic_output)
         self.assertIn("Address already in use", res.diagnostic_output)
 
+    def test_infer_file_permissions_tilde_expansion(self):
+        """Should safely expand tilde and $HOME in check command instead of literal quoted tilde."""
+        checks = self.verifier.infer_verifications(["chmod +x ~/bloqueio_hosts.sh"])
+        self.assertEqual(len(checks), 1)
+        chk = checks[0]
+        self.assertEqual(chk.check_type, "path_permissions")
+        # Check command should use $HOME instead of literal '~' in single quotes
+        self.assertIn('"$HOME/bloqueio_hosts.sh"', chk.check_command)
+        self.assertNotIn("'~/bloqueio_hosts.sh'", chk.check_command)
+
 
 if __name__ == "__main__":
     unittest.main()

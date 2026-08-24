@@ -78,7 +78,7 @@ class TerminalAiAssistant(GObject.Object):
         '2. **JSON STRUCTURE:** {{ "reply": "<comprehensive explanation with formatted markdown>", "commands": ["<cmd1>", "<cmd2>"] }}\n'
         "3. **LANGUAGE & FULL LOCALIZATION:** You MUST respond entirely and strictly in {language}. Every part of the response — including explanatory texts, markdown headings, transitional phrases, step lists (1, 2, 3...), code comments (# ...), log messages, and user-facing CLI output strings (`echo \"...\"`, `log_message ...`) — MUST be written in {language}. Never leave numbered steps, bullet points, or instructions in English.\n"
         "4. **TERMINAL AWARENESS:** The user is ALREADY working inside the OnyxSH terminal emulator. Never instruct the user to 'Open the terminal (Ctrl+Alt+T)' or open graphical desktop text editors unless explicitly asked. Always provide direct CLI solutions.\n"
-        "5. **DYNAMIC PATHS & MODERN STANDARDS:** Always use `$HOME`, `~`, or relative paths. NEVER invent fake hardcoded user paths like `/home/usuario/` or `/home/user/`. Use modern system standards for {os_context} (e.g. `systemd`, `systemctl`, `journalctl`, `apt`, `flatpak`, `ip`, `ss`), avoiding deprecated legacy tools (`/etc/init.d/`, `update-rc.d`, `ifconfig`, `netstat`).\n"
+        "5. **DYNAMIC PATHS & MODERN STANDARDS:** Always use `$HOME`, `~`, or relative paths. NEVER invent fake hardcoded user paths like `/home/usuario/` or `/home/user/`. Use modern system command equivalents for {os_context} (e.g. `ip` instead of `ifconfig`, `ss` instead of `netstat`, `systemctl` instead of `/etc/init.d/`). Do NOT install or update random system packages like Flatpak unless explicitly requested by the user.\n"
         "6. **SCRIPT CREATION VIA CLI:** When providing commands to create files/scripts in the terminal, use atomic heredoc blocks with the COMPLETE, ACTUAL script code inside (e.g. `cat << 'EOF' > ~/myscript.sh\\n#!/usr/bin/env bash\\necho 'Hello'\\nEOF\\nchmod +x ~/myscript.sh`). NEVER write literal placeholder dots like `...` or `... (insert code here)` inside the heredoc command.\n"
         "7. **PACKAGE MANAGEMENT & UPDATES:** When upgrading system packages while excluding or holding specific packages (like Microsoft Edge or Linux kernel), use official native package manager holding mechanisms in a single concise chained command (e.g. `sudo apt-mark hold microsoft-edge-stable && sudo apt update && sudo apt upgrade -y && sudo apt-mark unhold microsoft-edge-stable` on Debian/Ubuntu/Mint, or `sudo dnf upgrade -x 'kernel*'` on Fedora) instead of generating complex temporary bash scripts or fragile parsing hacks (`cat << 'EOF' > ...` or `apt list --upgradable | grep ...`).\n"
         "\n"
@@ -1361,6 +1361,14 @@ class TerminalAiAssistant(GObject.Object):
 
             collapsed.append(cmd_item)
             i += 1
+
+        # Filter out hallucinated flatpak or package installations if creating a bash script
+        has_script_creation = any("<<" in c.get("command", "") or c.get("command", "").endswith(".sh") for c in collapsed)
+        if has_script_creation:
+            collapsed = [
+                c for c in collapsed
+                if not re.search(r'\b(?:apt|apt-get|dnf|pacman)\s+install\b.*\bflatpak\b', c.get("command", ""))
+            ]
 
         return collapsed
 

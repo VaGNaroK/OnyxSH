@@ -63,6 +63,23 @@ class VerificationResult:
         }
 
 
+def safe_quote_path(path: str) -> str:
+    """Quotes a path safely for shell execution while preserving ~ or $HOME expansion."""
+    p = path.strip("\"'")
+    if p.startswith("~/"):
+        subpath = p[2:]
+        return f'"$HOME/{subpath}"' if '"' not in subpath else f'"$HOME"/{shlex.quote(subpath)}'
+    elif p == "~":
+        return '"$HOME"'
+    elif p.startswith("$HOME/"):
+        subpath = p[6:]
+        return f'"$HOME/{subpath}"' if '"' not in subpath else f'"$HOME"/{shlex.quote(subpath)}'
+    elif p == "$HOME":
+        return '"$HOME"'
+    else:
+        return shlex.quote(p)
+
+
 class PostVerifier:
     """Infers and executes sanity verification checks for mutating commands."""
 
@@ -158,7 +175,7 @@ class PostVerifier:
                         target_command=raw_cmd,
                         check_command=f"systemctl is-active {full_service}",
                         check_type="service_stopped",
-                        description=f"Verificar se o serviço '{full_service}' foi parado",
+                        description=f"Verificar se o serviço '{full_service}' foi desativado/parado",
                         expected_exit_code=3,  # Inactive status exit code in systemd
                         failure_diagnostic_command=f"systemctl status {full_service} --no-pager",
                     )
@@ -265,11 +282,11 @@ class PostVerifier:
             checks.append(
                 VerificationCheck(
                     target_command=raw_cmd,
-                    check_command=f"ls -ld {shlex.quote(target_path)}",
+                    check_command=f"ls -ld {safe_quote_path(target_path)}",
                     check_type="path_permissions",
                     description=f"Verificar novas permissões/proprietário de '{target_path}'",
                     expected_exit_code=0,
-                    failure_diagnostic_command=f"ls -ld {shlex.quote(target_path)}",
+                    failure_diagnostic_command=f"ls -ld {safe_quote_path(target_path)}",
                 )
             )
             return checks
@@ -283,11 +300,11 @@ class PostVerifier:
                 checks.append(
                     VerificationCheck(
                         target_command=raw_cmd,
-                        check_command=f"test -d {shlex.quote(d_clean)}",
+                        check_command=f"test -d {safe_quote_path(d_clean)}",
                         check_type="path_exists",
                         description=f"Verificar criação do diretório '{d_clean}'",
                         expected_exit_code=0,
-                        failure_diagnostic_command=f"ls -ld {shlex.quote(d_clean)}",
+                        failure_diagnostic_command=f"ls -ld {safe_quote_path(d_clean)}",
                     )
                 )
             return checks
@@ -300,11 +317,11 @@ class PostVerifier:
                 checks.append(
                     VerificationCheck(
                         target_command=raw_cmd,
-                        check_command=f"test -e {shlex.quote(f_clean)}",
+                        check_command=f"test -e {safe_quote_path(f_clean)}",
                         check_type="path_exists",
                         description=f"Verificar existência do arquivo '{f_clean}'",
                         expected_exit_code=0,
-                        failure_diagnostic_command=f"ls -la {shlex.quote(f_clean)}",
+                        failure_diagnostic_command=f"ls -la {safe_quote_path(f_clean)}",
                     )
                 )
             return checks
@@ -318,11 +335,11 @@ class PostVerifier:
                     checks.append(
                         VerificationCheck(
                             target_command=raw_cmd,
-                            check_command=f"test ! -e {shlex.quote(t_clean)}",
+                            check_command=f"test ! -e {safe_quote_path(t_clean)}",
                             check_type="path_absent",
                             description=f"Verificar remoção completa de '{t_clean}'",
                             expected_exit_code=0,
-                            failure_diagnostic_command=f"ls -la {shlex.quote(t_clean)}",
+                            failure_diagnostic_command=f"ls -la {safe_quote_path(t_clean)}",
                         )
                     )
             return checks
