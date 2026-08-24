@@ -882,9 +882,18 @@ class WindowActions:
                 adj.set_value(new_scroll)
                 self.logger.critical(f"[SEMANTIC NAV] SUCESSO: Scrolled terminal to line {target_line} (pixel {new_scroll:.1f})")
             else:
+                self._last_nav_target[resolved_terminal] = None
                 self.logger.critical("[SEMANTIC NAV] Nenhum prompt anterior encontrado acima da linha atual")
         except Exception as e:
             self.logger.critical(f"[ACTION] Exception in jump_previous_prompt: {e}", exc_info=True)
+
+    def reset_nav_target(self, terminal: Optional[Vte.Terminal] = None) -> None:
+        """Resets the sequential navigation tracker for a terminal or all terminals."""
+        if hasattr(self, "_last_nav_target"):
+            if terminal:
+                self._last_nav_target.pop(terminal, None)
+            else:
+                self._last_nav_target.clear()
 
     def jump_next_prompt(self, terminal=None, *args):
         """Scrolls the active terminal to the next prompt position."""
