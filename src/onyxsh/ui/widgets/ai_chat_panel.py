@@ -569,7 +569,7 @@ class MessageBubble(Gtk.Box):
         self._label.set_wrap(True)
         self._label.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
         if hasattr(Gtk, "NaturalWrapMode") and hasattr(self._label, "set_natural_wrap_mode"):
-            self._label.set_natural_wrap_mode(Gtk.NaturalWrapMode.WORD)
+            self._label.set_natural_wrap_mode(Gtk.NaturalWrapMode.NONE)
         self._label.set_xalign(0)
         self._label.set_selectable(True)
         self._label.set_max_width_chars(60)
@@ -1374,7 +1374,7 @@ class MessageBubble(Gtk.Box):
             cmd_label.set_wrap(True)
             cmd_label.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
             if hasattr(Gtk, "NaturalWrapMode") and hasattr(cmd_label, "set_natural_wrap_mode"):
-                cmd_label.set_natural_wrap_mode(Gtk.NaturalWrapMode.WORD)
+                cmd_label.set_natural_wrap_mode(Gtk.NaturalWrapMode.NONE)
             cmd_label.add_css_class("ai-command-text")
             cmd_label.set_selectable(True)
             cmd_label.set_markup(self._highlight_code_for_label(cmd_str, "bash"))
@@ -1453,6 +1453,9 @@ class MessageBubble(Gtk.Box):
                 expander = Gtk.Expander(label=_("O que esta etapa faz?"))
                 desc_label = Gtk.Label(label=description)
                 desc_label.set_wrap(True)
+                desc_label.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
+                if hasattr(Gtk, "NaturalWrapMode") and hasattr(desc_label, "set_natural_wrap_mode"):
+                    desc_label.set_natural_wrap_mode(Gtk.NaturalWrapMode.NONE)
                 desc_label.set_xalign(0)
                 desc_label.set_margin_top(4)
                 desc_label.set_margin_bottom(4)
@@ -1916,6 +1919,9 @@ class MessageBubble(Gtk.Box):
                 log_lbl = Gtk.Label(label=log_content)
                 log_lbl.set_xalign(0)
                 log_lbl.set_wrap(True)
+                log_lbl.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
+                if hasattr(Gtk, "NaturalWrapMode") and hasattr(log_lbl, "set_natural_wrap_mode"):
+                    log_lbl.set_natural_wrap_mode(Gtk.NaturalWrapMode.NONE)
                 log_lbl.add_css_class("ai-verification-logs-text")
                 log_lbl.set_selectable(True)
                 logs_box.append(log_lbl)
@@ -3116,6 +3122,9 @@ class AIChatPanel(Gtk.Box):
 
         error_label = Gtk.Label(label=error_msg)
         error_label.set_wrap(True)
+        error_label.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
+        if hasattr(Gtk, "NaturalWrapMode") and hasattr(error_label, "set_natural_wrap_mode"):
+            error_label.set_natural_wrap_mode(Gtk.NaturalWrapMode.NONE)
         error_label.set_xalign(0)
         error_label.set_hexpand(True)
         error_content.append(error_label)
