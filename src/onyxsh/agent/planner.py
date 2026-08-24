@@ -85,6 +85,71 @@ def extract_json_object(raw_text: str) -> Optional[dict]:
     return None
 
 
+def is_multi_line_script(code_body: str) -> bool:
+    """Detects if a code block is a multi-line script rather than a list of CLI commands."""
+    lines = [line.strip() for line in code_body.splitlines() if line.strip()]
+    if not lines:
+        return False
+
+    if lines[0].startswith("#!"):
+        return True
+
+    script_keywords = (
+        r'^\s*(?:if\s+\[|if\s+\[\[|if\s+test|\b(?:then|else|elif|fi|do|done|esac)\b|case\s+.*in\b)',
+        r'^\s*(?:function\s+\w+|\w+\s*\(\))\s*\{?',
+        r'^\s*(?:\d+|\*|[a-zA-Z])\)\s*$',
+        r'^\s*;;(?:\&)?\s*$',
+        r'^\s*(?:local|declare|typeset)\s+\w+=?',
+    )
+    structural_count = 0
+    for line in lines:
+        for pat in script_keywords:
+            if re.search(pat, line):
+                structural_count += 1
+                break
+
+    return structural_count >= 2
+
+
+def is_valid_cli_command(line: str) -> bool:
+    """Validates whether a line is a genuine standalone executable command."""
+    cleaned = line.strip()
+    if not cleaned:
+        return False
+
+    if cleaned.startswith("#") or cleaned.startswith("//") or cleaned.startswith(";"):
+        return False
+
+    if cleaned in (
+        "{", "}", "(", ")", "[", "]", ";;", ";;&", ";&", "fi", "then",
+        "else", "elif", "do", "done", "esac"
+    ):
+        return False
+
+    if re.match(r'^(?:\d+|\*|[a-zA-Z])\)\s*$', cleaned):
+        return False
+
+    if re.match(r'^(?:function\s+\w+|\w+\s*\(\))\s*\{?\s*$', cleaned):
+        return False
+
+    if re.match(r'^(?:if\b|while\b|for\b|until\b|case\b|select\b)', cleaned):
+        return False
+
+    if re.match(r'^(?:local|declare|typeset)\s+\w+', cleaned):
+        return False
+
+    if re.search(r'(?<!<)<[a-zA-Z0-9_\.\-\s\u00C0-\u00FF]+>(?!>)', cleaned):
+        return False
+
+    if re.match(r'^[=\-_*#]{3,}.*[=\-_*#]{3,}$', cleaned):
+        return False
+
+    if re.match(r'^\d+\.\s+.*$', cleaned) and not re.match(r'^\d+\.\s+(?:sudo|apt|chmod|cd|ls|curl|git|docker)\b', cleaned):
+        return False
+
+    return True
+
+
 class PlanParser:
     """Parses and validates LLM output into structured ActionPlan objects."""
 
@@ -112,10 +177,34 @@ class PlanParser:
                 lang = m.group(1).lower() if m.group(1) else ""
                 code_body = m.group(2).strip()
                 if lang in ("bash", "sh", "shell", "zsh", "") and code_body:
+                    if is_multi_line_script(code_body):
+                        if re.match(r'^(?:sudo\s+)?(?:cat|tee)\s+<<\s*[\'"]?(\w+)[\'"]?', code_body):
+                            detected_commands.append(code_body)
+                        continue
+
+                    current_cmd_lines: list[str] = []
                     for line in code_body.splitlines():
                         cleaned_line = line.strip()
-                        if cleaned_line and not cleaned_line.startswith("#") and not cleaned_line.startswith("//"):
-                            detected_commands.append(cleaned_line)
+                        if not cleaned_line:
+                            continue
+
+                        if current_cmd_lines:
+                            current_cmd_lines.append(cleaned_line)
+                            if not cleaned_line.endswith("\\"):
+                                full_cmd = " ".join(l.rstrip("\\").strip() for l in current_cmd_lines)
+                                if is_valid_cli_command(full_cmd):
+                                    detected_commands.append(full_cmd)
+                                current_cmd_lines = []
+                        elif cleaned_line.endswith("\\"):
+                            current_cmd_lines.append(cleaned_line)
+                        else:
+                            if is_valid_cli_command(cleaned_line):
+                                detected_commands.append(cleaned_line)
+
+                    if current_cmd_lines:
+                        full_cmd = " ".join(l.rstrip("\\").strip() for l in current_cmd_lines)
+                        if is_valid_cli_command(full_cmd):
+                            detected_commands.append(full_cmd)
 
             if len(detected_commands) >= 1:
                 steps = []

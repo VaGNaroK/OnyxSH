@@ -1238,24 +1238,124 @@ class TerminalAiAssistant(GObject.Object):
 
         # Strategy 3: Pure Markdown Fallback
         reply_text = content
-        code_block_pattern = r"```(?:bash|sh|zsh|shell)?\n(.*?)```"
+        code_block_pattern = r"```([a-zA-Z0-9_-]*)\n(.*?)```"
         matches = re.findall(code_block_pattern, content, re.DOTALL)
-        for match in matches:
-            body = match.strip()
-            if body:
-                for line in body.splitlines():
-                    cmd_str = line.strip()
-                    if (
-                        cmd_str
-                        and not cmd_str.startswith("#")
-                        and not cmd_str.startswith("//")
-                    ):
-                        commands.append({
-                            "command": cmd_str,
-                            "description": "",
-                        })
+        for lang, body in matches:
+            lang_clean = lang.lower().strip()
+            body_clean = body.strip()
+            if not body_clean:
+                continue
+
+            if lang_clean not in ("", "bash", "sh", "zsh", "shell", "console"):
+                code_snippets.append({"language": lang_clean, "code": body_clean})
+                continue
+
+            if self._is_multi_line_script(body_clean):
+                code_snippets.append({"language": lang_clean or "bash", "code": body_clean})
+                # If the entire code block is an atomic heredoc script creation (e.g. cat << 'EOF' > ...), keep it
+                if re.match(r'^(?:sudo\s+)?(?:cat|tee)\s+<<\s*[\'"]?(\w+)[\'"]?', body_clean):
+                    commands.append({"command": body_clean, "description": ""})
+                continue
+
+            # Process individual lines with continuation support
+            current_cmd_lines: List[str] = []
+            for line in body_clean.splitlines():
+                stripped = line.strip()
+                if not stripped:
+                    continue
+
+                if current_cmd_lines:
+                    current_cmd_lines.append(stripped)
+                    if not stripped.endswith("\\"):
+                        full_cmd = " ".join(l.rstrip("\\").strip() for l in current_cmd_lines)
+                        if self._is_valid_cli_command(full_cmd):
+                            commands.append({"command": full_cmd, "description": ""})
+                        current_cmd_lines = []
+                elif stripped.endswith("\\"):
+                    current_cmd_lines.append(stripped)
+                else:
+                    if self._is_valid_cli_command(stripped):
+                        commands.append({"command": stripped, "description": ""})
+
+            if current_cmd_lines:
+                full_cmd = " ".join(l.rstrip("\\").strip() for l in current_cmd_lines)
+                if self._is_valid_cli_command(full_cmd):
+                    commands.append({"command": full_cmd, "description": ""})
 
         return reply_text, commands, code_snippets
+
+    @staticmethod
+    def _is_multi_line_script(code_body: str) -> bool:
+        """Detects if a code block is a multi-line script rather than a list of CLI commands."""
+        lines = [line.strip() for line in code_body.splitlines() if line.strip()]
+        if not lines:
+            return False
+
+        # Shebang always indicates a script file
+        if lines[0].startswith("#!"):
+            return True
+
+        script_keywords = (
+            r'^\s*(?:if\s+\[|if\s+\[\[|if\s+test|\b(?:then|else|elif|fi|do|done|esac)\b|case\s+.*in\b)',
+            r'^\s*(?:function\s+\w+|\w+\s*\(\))\s*\{?',
+            r'^\s*(?:\d+|\*|[a-zA-Z])\)\s*$',
+            r'^\s*;;(?:\&)?\s*$',
+            r'^\s*(?:local|declare|typeset)\s+\w+=?',
+        )
+        structural_count = 0
+        for line in lines:
+            for pat in script_keywords:
+                if re.search(pat, line):
+                    structural_count += 1
+                    break
+
+        return structural_count >= 2
+
+    @staticmethod
+    def _is_valid_cli_command(line: str) -> bool:
+        """Validates whether a line is a genuine standalone executable command."""
+        cleaned = line.strip()
+        if not cleaned:
+            return False
+
+        # Reject comments
+        if cleaned.startswith("#") or cleaned.startswith("//") or cleaned.startswith(";"):
+            return False
+
+        # Reject standalone braces, brackets, structural tokens
+        if cleaned in (
+            "{", "}", "(", ")", "[", "]", ";;", ";;&", ";&", "fi", "then",
+            "else", "elif", "do", "done", "esac"
+        ):
+            return False
+
+        # Reject case statement arms (e.g. '1)', '*)', 'a)')
+        if re.match(r'^(?:\d+|\*|[a-zA-Z])\)\s*$', cleaned):
+            return False
+
+        # Reject function definitions (e.g. 'foo() {', 'function bar()')
+        if re.match(r'^(?:function\s+\w+|\w+\s*\(\))\s*\{?\s*$', cleaned):
+            return False
+
+        # Reject control statements (if ..., while ..., for ..., case ...)
+        if re.match(r'^(?:if\b|while\b|for\b|until\b|case\b|select\b)', cleaned):
+            return False
+
+        # Reject local variable declarations
+        if re.match(r'^(?:local|declare|typeset)\s+\w+', cleaned):
+            return False
+
+        # Reject documentation placeholders like <endereço-ip> <nome-do-domínio> or <path>
+        if re.search(r'(?<!<)<[a-zA-Z0-9_\.\-\s\u00C0-\u00FF]+>(?!>)', cleaned):
+            return False
+
+        # Reject menu headers / decorative lines
+        if re.match(r'^[=\-_*#]{3,}.*[=\-_*#]{3,}$', cleaned):
+            return False
+        if re.match(r'^\d+\.\s+.*$', cleaned) and not re.match(r'^\d+\.\s+(?:sudo|apt|chmod|cd|ls|curl|git|docker)\b', cleaned):
+            return False
+
+        return True
 
     @staticmethod
     def _unescape_json_string(val: str) -> str:
@@ -1288,7 +1388,7 @@ class TerminalAiAssistant(GObject.Object):
             if first_newline != -1:
                 clean = clean[first_newline + 1 :]
             if clean.endswith("```"):
-                clean = clean[:-3]
+                clean = clean[:-3].strip()
 
         return self._strip_json_comments_and_commas(clean)
 
@@ -1349,7 +1449,9 @@ class TerminalAiAssistant(GObject.Object):
         if isinstance(value, list):
             for item in value:
                 if isinstance(item, str) and item.strip():
-                    commands.append({"command": item.strip(), "description": ""})
+                    cmd_clean = item.strip()
+                    if self._is_valid_cli_command(cmd_clean):
+                        commands.append({"command": cmd_clean, "description": ""})
                 elif isinstance(item, dict):
                     candidate = item.get("command") or item.get("cmd")
                     if not candidate and "argv" in item:
@@ -1362,17 +1464,22 @@ class TerminalAiAssistant(GObject.Object):
                         candidate = item["tool"]
                     description = item.get("description") or ""
                     if isinstance(candidate, str) and candidate.strip():
-                        item_dict = dict(item)
-                        item_dict["command"] = candidate.strip()
-                        item_dict["description"] = description.strip() if isinstance(description, str) else ""
-                        commands.append(item_dict)
+                        cand_clean = candidate.strip()
+                        if self._is_valid_cli_command(cand_clean) or "step_id" in item:
+                            item_dict = dict(item)
+                            item_dict["command"] = cand_clean
+                            item_dict["description"] = description.strip() if isinstance(description, str) else ""
+                            commands.append(item_dict)
                 elif hasattr(item, "to_dict"):
                     d = item.to_dict()
                     cmd_str = " ".join(item.argv) if getattr(item, "argv", None) else getattr(item, "tool", "")
-                    d["command"] = cmd_str
-                    commands.append(d)
+                    if self._is_valid_cli_command(cmd_str):
+                        d["command"] = cmd_str
+                        commands.append(d)
         elif isinstance(value, str) and value.strip():
-            commands.append({"command": value.strip(), "description": ""})
+            cmd_clean = value.strip()
+            if self._is_valid_cli_command(cmd_clean):
+                commands.append({"command": cmd_clean, "description": ""})
         return commands
 
     def _record_assistant_message(self, terminal_id: int, message: str) -> None:
