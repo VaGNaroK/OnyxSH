@@ -301,9 +301,13 @@ class CommTerminalApp(Adw.Application):
                 if action_name == "zoom-in":
                     accels.append("<Control>equal")
                 elif action_name == "jump-previous-prompt":
-                    accels.append("<Alt>KP_Up")
+                    for extra in ("<Alt>KP_Up", "<Control><Shift>Up", "<Control><Shift>KP_Up", "<Alt>Page_Up"):
+                        if extra not in accels:
+                            accels.append(extra)
                 elif action_name == "jump-next-prompt":
-                    accels.append("<Alt>KP_Down")
+                    for extra in ("<Alt>KP_Down", "<Control><Shift>Down", "<Control><Shift>KP_Down", "<Alt>Page_Down"):
+                        if extra not in accels:
+                            accels.append(extra)
                 self.set_accels_for_action(f"win.{action_name}", accels)
         except Exception as e:
             self.logger.error(f"Failed to update window shortcuts: {e}")

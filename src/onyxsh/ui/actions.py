@@ -799,6 +799,7 @@ class WindowActions:
     def jump_previous_prompt(self, terminal=None, *args):
         """Scrolls the active terminal to the previous prompt position."""
         try:
+            self.logger.info("[ACTION] jump-previous-prompt activated via action/shortcut")
             terminal = self._get_active_terminal(terminal)
             if not terminal:
                 self.logger.warning("[SEMANTIC NAV] jump_previous_prompt: No active terminal found")
@@ -830,12 +831,18 @@ class WindowActions:
             )
             target_row = tracker.get_previous_prompt_row(terminal, current_ref_row) if tracker else None
 
+            state = tracker.get_or_create_state(terminal) if tracker else None
+            prompts_list = list(state.prompt_rows) if state else []
+
+            if tracker and not prompts_list:
+                self.logger.warning(
+                    "[SEMANTIC NAV] tracker_prompts is empty (OSC 133 not emitted). Falling back to buffer regex scan."
+                )
+
             # Fallback: scan terminal buffer backward if semantic tracker has no rows before current
             if target_row is None or target_row >= current_ref_row:
                 target_row = self._scan_previous_prompt_in_buffer(terminal, current_ref_row)
 
-            state = tracker.get_or_create_state(terminal) if tracker else None
-            prompts_list = list(state.prompt_rows) if state else []
             self.logger.info(
                 f"[SEMANTIC NAV] jump_previous_prompt: ref_row={current_ref_row}, current_scroll={current_scroll_val:.1f}, "
                 f"max_scroll={max_scroll:.1f}, tracker_prompts={prompts_list}, target_row={target_row}"
@@ -858,6 +865,7 @@ class WindowActions:
     def jump_next_prompt(self, terminal=None, *args):
         """Scrolls the active terminal to the next prompt position."""
         try:
+            self.logger.info("[ACTION] jump-next-prompt activated via action/shortcut")
             terminal = self._get_active_terminal(terminal)
             if not terminal:
                 self.logger.warning("[SEMANTIC NAV] jump_next_prompt: No active terminal found")

@@ -293,6 +293,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         Connects signals and callbacks between the window and its managers.
         """
         self._setup_actions()
+        self._setup_shortcut_controller()
         self._setup_keyboard_shortcuts()
         self._setup_search()
         self._setup_broadcast()
@@ -320,6 +321,94 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         except Exception as e:
             self.logger.error(f"Failed to setup actions: {e}")
             raise UIError("window", f"action setup failed: {e}")
+
+    def _setup_shortcut_controller(self) -> None:
+        """Sets up window-level shortcuts using Gtk.ShortcutController to bypass VTE IMContext interception."""
+        shortcut_ctrl = Gtk.ShortcutController.new()
+        shortcut_ctrl.set_scope(Gtk.ShortcutScope.MANAGED)
+
+        # Alt+Up / Alt+KP_Up -> jump-previous-prompt
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(Gdk.KEY_Up, Gdk.ModifierType.ALT_MASK),
+                Gtk.NamedAction.new("win.jump-previous-prompt"),
+            )
+        )
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(Gdk.KEY_KP_Up, Gdk.ModifierType.ALT_MASK),
+                Gtk.NamedAction.new("win.jump-previous-prompt"),
+            )
+        )
+
+        # Alt+Down / Alt+KP_Down -> jump-next-prompt
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(Gdk.KEY_Down, Gdk.ModifierType.ALT_MASK),
+                Gtk.NamedAction.new("win.jump-next-prompt"),
+            )
+        )
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(Gdk.KEY_KP_Down, Gdk.ModifierType.ALT_MASK),
+                Gtk.NamedAction.new("win.jump-next-prompt"),
+            )
+        )
+
+        # Non-conflicting alternatives: Ctrl+Shift+Up / Ctrl+Shift+Down
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(
+                    Gdk.KEY_Up,
+                    Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK,
+                ),
+                Gtk.NamedAction.new("win.jump-previous-prompt"),
+            )
+        )
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(
+                    Gdk.KEY_KP_Up,
+                    Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK,
+                ),
+                Gtk.NamedAction.new("win.jump-previous-prompt"),
+            )
+        )
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(
+                    Gdk.KEY_Down,
+                    Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK,
+                ),
+                Gtk.NamedAction.new("win.jump-next-prompt"),
+            )
+        )
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(
+                    Gdk.KEY_KP_Down,
+                    Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK,
+                ),
+                Gtk.NamedAction.new("win.jump-next-prompt"),
+            )
+        )
+
+        # Alt+Page_Up / Alt+Page_Down
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(Gdk.KEY_Page_Up, Gdk.ModifierType.ALT_MASK),
+                Gtk.NamedAction.new("win.jump-previous-prompt"),
+            )
+        )
+        shortcut_ctrl.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.KeyvalTrigger.new(Gdk.KEY_Page_Down, Gdk.ModifierType.ALT_MASK),
+                Gtk.NamedAction.new("win.jump-next-prompt"),
+            )
+        )
+
+        self.add_controller(shortcut_ctrl)
+        self.logger.info("[SHORTCUT] ShortcutController installed on window with MANAGED scope")
 
     def _setup_keyboard_shortcuts(self) -> None:
         """Sets up window-level keyboard shortcuts for tab navigation."""

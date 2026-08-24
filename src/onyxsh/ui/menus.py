@@ -343,6 +343,20 @@ def create_terminal_menu(
     standard_section.append(_("Clear Session"), "win.clear-session")
     menu.append_section(None, standard_section)
 
+    # Prompt navigation section (visual fallback and accessibility)
+    nav_section = Gio.Menu()
+    prev_prompt_item = Gio.MenuItem.new(
+        _("Jump to Previous Prompt"), "win.jump-previous-prompt"
+    )
+    prev_prompt_item.set_icon(Gio.ThemedIcon.new("go-up-symbolic"))
+    nav_section.append_item(prev_prompt_item)
+    next_prompt_item = Gio.MenuItem.new(
+        _("Jump to Next Prompt"), "win.jump-next-prompt"
+    )
+    next_prompt_item.set_icon(Gio.ThemedIcon.new("go-down-symbolic"))
+    nav_section.append_item(next_prompt_item)
+    menu.append_section(None, nav_section)
+
     # AI Assistant section - only show if enabled and text is selected
     if settings_manager and settings_manager.get("ai_assistant_enabled", False):
         # Check if there's selected text
