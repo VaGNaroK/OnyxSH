@@ -293,6 +293,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         Connects signals and callbacks between the window and its managers.
         """
         self._setup_actions()
+        self._debug_list_actions()
         self._setup_shortcut_controller()
         self._setup_keyboard_shortcuts()
         self._setup_search()
@@ -313,6 +314,14 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         )
         self.settings_manager.add_change_listener(self._on_setting_changed)
         self.file_manager_button.connect("toggled", self._on_toggle_file_manager)
+
+    def _debug_list_actions(self) -> None:
+        actions = self.list_actions()
+        has_prev = "jump-previous-prompt" in actions
+        has_next = "jump-next-prompt" in actions
+        self.logger.critical(f"[DEBUG] Actions registradas na janela ({len(actions)}): {actions}")
+        self.logger.critical(f"[DEBUG] jump-previous-prompt registrada? {has_prev}")
+        self.logger.critical(f"[DEBUG] jump-next-prompt registrada? {has_next}")
 
     def _setup_actions(self) -> None:
         """Set up window-level actions by delegating to the action handler."""
