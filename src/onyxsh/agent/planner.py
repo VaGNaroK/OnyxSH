@@ -150,6 +150,84 @@ def is_valid_cli_command(line: str) -> bool:
     return True
 
 
+def repair_heredoc_script(heredoc_text: str, full_scripts: list[str]) -> Optional[str]:
+    """
+    If a heredoc command contains placeholder lines (e.g. '...', '... (inserir...)'),
+    replaces the placeholder with the actual full script found in the response.
+    """
+    match = re.match(
+        r'^(.*?(?:cat|tee)\s+<<\s*[\'"]?(\w+)[\'"]?\s*(?:>|>>)\s*[^\n]+\n)([\s\S]*?)(?:\n\s*\2\s*)$',
+        heredoc_text.strip(),
+        re.DOTALL
+    )
+    if not match:
+        return heredoc_text
+
+    header, delimiter, body = match.groups()
+    has_placeholder = any(
+        re.match(r'^\s*(?:\.\.\.|\.\.\.\s*\(|\<inserir|\<insert|\/\/ code here|\# insert|\# \.\.\.).*$', line, re.IGNORECASE)
+        for line in body.splitlines()
+    )
+
+    if has_placeholder:
+        if full_scripts:
+            return f"{header}{full_scripts[0]}\n{delimiter}"
+        return None
+
+    return heredoc_text
+
+
+def extract_commands_from_code_body(code_body: str, full_scripts: list[str]) -> list[str]:
+    """Extracts CLI commands and properly handles heredoc blocks without splitting them line-by-line."""
+    extracted: list[str] = []
+    lines = code_body.splitlines()
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip()
+        if not stripped:
+            i += 1
+            continue
+
+        heredoc_start = re.match(r'^(?:sudo\s+)?(?:cat|tee)\s+<<\s*[\'"]?(\w+)[\'"]?', stripped)
+        if heredoc_start:
+            delim = heredoc_start.group(1)
+            heredoc_lines = [line]
+            i += 1
+            while i < len(lines):
+                curr = lines[i]
+                heredoc_lines.append(curr)
+                if curr.strip() == delim:
+                    i += 1
+                    break
+                i += 1
+            full_heredoc = "\n".join(heredoc_lines)
+            repaired = repair_heredoc_script(full_heredoc, full_scripts)
+            if repaired:
+                extracted.append(repaired)
+            continue
+
+        if stripped.endswith("\\"):
+            cont_lines = [stripped]
+            i += 1
+            while i < len(lines):
+                next_line = lines[i].strip()
+                cont_lines.append(next_line)
+                i += 1
+                if not next_line.endswith("\\"):
+                    break
+            joined = " ".join(l.rstrip("\\").strip() for l in cont_lines)
+            if is_valid_cli_command(joined):
+                extracted.append(joined)
+            continue
+
+        if is_valid_cli_command(stripped):
+            extracted.append(stripped)
+        i += 1
+
+    return extracted
+
+
 class PlanParser:
     """Parses and validates LLM output into structured ActionPlan objects."""
 
@@ -172,39 +250,40 @@ class PlanParser:
         if json_data is None:
             # Fallback for models outputting markdown code blocks with bash commands
             code_block_matches = list(_CODE_BLOCK_PATTERN.finditer(raw_text))
+
+            # First collect full multi-line scripts
+            full_scripts: list[str] = []
+            for m in code_block_matches:
+                lang = m.group(1).lower() if m.group(1) else ""
+                code_body = m.group(2).strip()
+                if lang in ("bash", "sh", "shell", "zsh", "") and code_body:
+                    if is_multi_line_script(code_body) and not re.match(r'^(?:sudo\s+)?(?:cat|tee)\s+<<', code_body):
+                        full_scripts.append(code_body)
+
             detected_commands: list[str] = []
             for m in code_block_matches:
                 lang = m.group(1).lower() if m.group(1) else ""
                 code_body = m.group(2).strip()
                 if lang in ("bash", "sh", "shell", "zsh", "") and code_body:
-                    if is_multi_line_script(code_body):
-                        if re.match(r'^(?:sudo\s+)?(?:cat|tee)\s+<<\s*[\'"]?(\w+)[\'"]?', code_body):
-                            detected_commands.append(code_body)
+                    if is_multi_line_script(code_body) and not re.search(r'(?:cat|tee)\s+<<', code_body):
                         continue
 
-                    current_cmd_lines: list[str] = []
-                    for line in code_body.splitlines():
-                        cleaned_line = line.strip()
-                        if not cleaned_line:
-                            continue
+                    cmds = extract_commands_from_code_body(code_body, full_scripts)
+                    detected_commands.extend(cmds)
 
-                        if current_cmd_lines:
-                            current_cmd_lines.append(cleaned_line)
-                            if not cleaned_line.endswith("\\"):
-                                full_cmd = " ".join(l.rstrip("\\").strip() for l in current_cmd_lines)
-                                if is_valid_cli_command(full_cmd):
-                                    detected_commands.append(full_cmd)
-                                current_cmd_lines = []
-                        elif cleaned_line.endswith("\\"):
-                            current_cmd_lines.append(cleaned_line)
-                        else:
-                            if is_valid_cli_command(cleaned_line):
-                                detected_commands.append(cleaned_line)
-
-                    if current_cmd_lines:
-                        full_cmd = " ".join(l.rstrip("\\").strip() for l in current_cmd_lines)
-                        if is_valid_cli_command(full_cmd):
-                            detected_commands.append(full_cmd)
+            # If full script was provided and commands reference chmod/execution without a creation step, synthesize creation
+            if full_scripts:
+                has_creation_cmd = any("<<" in c or ">" in c for c in detected_commands)
+                if not has_creation_cmd:
+                    target_script_name = None
+                    for cmd_str in detected_commands:
+                        match_script = re.search(r'(?:chmod\s+\+x\s+|(?:\./|\. |bash\s+))([~/\w\.\-]+\.sh)', cmd_str)
+                        if match_script:
+                            target_script_name = match_script.group(1)
+                            break
+                    if target_script_name:
+                        synth_cmd = f"cat << 'EOF' > {target_script_name}\n{full_scripts[0]}\nEOF"
+                        detected_commands.insert(0, synth_cmd)
 
             if len(detected_commands) >= 1:
                 steps = []

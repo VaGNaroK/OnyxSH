@@ -79,7 +79,7 @@ class TerminalAiAssistant(GObject.Object):
         "3. **LANGUAGE & FULL LOCALIZATION:** You MUST respond entirely and strictly in {language}. Every part of the response — including explanatory texts, markdown headings, transitional phrases, step lists (1, 2, 3...), code comments (# ...), log messages, and user-facing CLI output strings (`echo \"...\"`, `log_message ...`) — MUST be written in {language}. Never leave numbered steps, bullet points, or instructions in English.\n"
         "4. **TERMINAL AWARENESS:** The user is ALREADY working inside the OnyxSH terminal emulator. Never instruct the user to 'Open the terminal (Ctrl+Alt+T)' or open graphical desktop text editors unless explicitly asked. Always provide direct CLI solutions.\n"
         "5. **DYNAMIC PATHS & MODERN STANDARDS:** Always use `$HOME`, `~`, or relative paths. NEVER invent fake hardcoded user paths like `/home/usuario/` or `/home/user/`. Use modern system standards for {os_context} (e.g. `systemd`, `systemctl`, `journalctl`, `apt`, `flatpak`, `ip`, `ss`), avoiding deprecated legacy tools (`/etc/init.d/`, `update-rc.d`, `ifconfig`, `netstat`).\n"
-        "6. **SCRIPT CREATION VIA CLI:** When providing commands to create files/scripts in the terminal, use atomic heredoc blocks (e.g. `cat << 'EOF' > ~/myscript.sh\\n#!/usr/bin/env bash\\n...\\nEOF\\nchmod +x ~/myscript.sh`) instead of splitting lines across multiple `echo >>` commands.\n"
+        "6. **SCRIPT CREATION VIA CLI:** When providing commands to create files/scripts in the terminal, use atomic heredoc blocks with the COMPLETE, ACTUAL script code inside (e.g. `cat << 'EOF' > ~/myscript.sh\\n#!/usr/bin/env bash\\necho 'Hello'\\nEOF\\nchmod +x ~/myscript.sh`). NEVER write literal placeholder dots like `...` or `... (insert code here)` inside the heredoc command.\n"
         "7. **PACKAGE MANAGEMENT & UPDATES:** When upgrading system packages while excluding or holding specific packages (like Microsoft Edge or Linux kernel), use official native package manager holding mechanisms in a single concise chained command (e.g. `sudo apt-mark hold microsoft-edge-stable && sudo apt update && sudo apt upgrade -y && sudo apt-mark unhold microsoft-edge-stable` on Debian/Ubuntu/Mint, or `sudo dnf upgrade -x 'kernel*'` on Fedora) instead of generating complex temporary bash scripts or fragile parsing hacks (`cat << 'EOF' > ...` or `apt list --upgradable | grep ...`).\n"
         "\n"
         "**FIELD DETAILS & BEST PRACTICES:**\n"
@@ -1240,6 +1240,18 @@ class TerminalAiAssistant(GObject.Object):
         reply_text = content
         code_block_pattern = r"```([a-zA-Z0-9_-]*)\n(.*?)```"
         matches = re.findall(code_block_pattern, content, re.DOTALL)
+
+        # First collect all full multi-line scripts found in the response
+        full_scripts: List[str] = []
+        for lang, body in matches:
+            lang_clean = lang.lower().strip()
+            body_clean = body.strip()
+            if not body_clean:
+                continue
+            if lang_clean in ("", "bash", "sh", "zsh", "shell", "console"):
+                if self._is_multi_line_script(body_clean) and not re.match(r'^(?:sudo\s+)?(?:cat|tee)\s+<<', body_clean):
+                    full_scripts.append(body_clean)
+
         for lang, body in matches:
             lang_clean = lang.lower().strip()
             body_clean = body.strip()
@@ -1252,37 +1264,107 @@ class TerminalAiAssistant(GObject.Object):
 
             if self._is_multi_line_script(body_clean):
                 code_snippets.append({"language": lang_clean or "bash", "code": body_clean})
-                # If the entire code block is an atomic heredoc script creation (e.g. cat << 'EOF' > ...), keep it
-                if re.match(r'^(?:sudo\s+)?(?:cat|tee)\s+<<\s*[\'"]?(\w+)[\'"]?', body_clean):
-                    commands.append({"command": body_clean, "description": ""})
-                continue
-
-            # Process individual lines with continuation support
-            current_cmd_lines: List[str] = []
-            for line in body_clean.splitlines():
-                stripped = line.strip()
-                if not stripped:
+                if not re.search(r'(?:cat|tee)\s+<<', body_clean):
                     continue
 
-                if current_cmd_lines:
-                    current_cmd_lines.append(stripped)
-                    if not stripped.endswith("\\"):
-                        full_cmd = " ".join(l.rstrip("\\").strip() for l in current_cmd_lines)
-                        if self._is_valid_cli_command(full_cmd):
-                            commands.append({"command": full_cmd, "description": ""})
-                        current_cmd_lines = []
-                elif stripped.endswith("\\"):
-                    current_cmd_lines.append(stripped)
-                else:
-                    if self._is_valid_cli_command(stripped):
-                        commands.append({"command": stripped, "description": ""})
+            cmds = self._extract_commands_from_body(body_clean, full_scripts)
+            for cmd_str in cmds:
+                commands.append({"command": cmd_str, "description": ""})
 
-            if current_cmd_lines:
-                full_cmd = " ".join(l.rstrip("\\").strip() for l in current_cmd_lines)
-                if self._is_valid_cli_command(full_cmd):
-                    commands.append({"command": full_cmd, "description": ""})
+        # If a full script was provided and commands reference chmod/execution without a creation step, synthesize creation
+        if full_scripts:
+            has_creation_cmd = any("<<" in c.get("command", "") or ">" in c.get("command", "") for c in commands)
+            if not has_creation_cmd:
+                target_script_name = None
+                for c in commands:
+                    cmd_str = c.get("command", "")
+                    match_script = re.search(r'(?:chmod\s+\+x\s+|(?:\./|\. |bash\s+))([~/\w\.\-]+\.sh)', cmd_str)
+                    if match_script:
+                        target_script_name = match_script.group(1)
+                        break
+                if target_script_name:
+                    synth_cmd = f"cat << 'EOF' > {target_script_name}\n{full_scripts[0]}\nEOF"
+                    commands.insert(0, {"command": synth_cmd, "description": f"Criar {target_script_name}"})
 
         return reply_text, commands, code_snippets
+
+    @classmethod
+    def _extract_commands_from_body(cls, code_body: str, full_scripts: List[str]) -> List[str]:
+        """Extracts CLI commands and properly handles heredoc blocks without splitting them line-by-line."""
+        extracted: List[str] = []
+        lines = code_body.splitlines()
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            stripped = line.strip()
+            if not stripped:
+                i += 1
+                continue
+
+            heredoc_start = re.match(r'^(?:sudo\s+)?(?:cat|tee)\s+<<\s*[\'"]?(\w+)[\'"]?', stripped)
+            if heredoc_start:
+                delim = heredoc_start.group(1)
+                heredoc_lines = [line]
+                i += 1
+                while i < len(lines):
+                    curr = lines[i]
+                    heredoc_lines.append(curr)
+                    if curr.strip() == delim:
+                        i += 1
+                        break
+                    i += 1
+                full_heredoc = "\n".join(heredoc_lines)
+                repaired = cls._repair_heredoc_script(full_heredoc, full_scripts)
+                if repaired:
+                    extracted.append(repaired)
+                continue
+
+            if stripped.endswith("\\"):
+                cont_lines = [stripped]
+                i += 1
+                while i < len(lines):
+                    next_line = lines[i].strip()
+                    cont_lines.append(next_line)
+                    i += 1
+                    if not next_line.endswith("\\"):
+                        break
+                joined = " ".join(l.rstrip("\\").strip() for l in cont_lines)
+                if cls._is_valid_cli_command(joined):
+                    extracted.append(joined)
+                continue
+
+            if cls._is_valid_cli_command(stripped):
+                extracted.append(stripped)
+            i += 1
+
+        return extracted
+
+    @classmethod
+    def _repair_heredoc_script(cls, heredoc_text: str, full_scripts: List[str]) -> Optional[str]:
+        """
+        If a heredoc command contains placeholder lines (e.g. '...', '... (inserir...)'),
+        replaces the placeholder with the actual full script found in the response.
+        """
+        match = re.match(
+            r'^(.*?(?:cat|tee)\s+<<\s*[\'"]?(\w+)[\'"]?\s*(?:>|>>)\s*[^\n]+\n)([\s\S]*?)(?:\n\s*\2\s*)$',
+            heredoc_text.strip(),
+            re.DOTALL
+        )
+        if not match:
+            return heredoc_text
+
+        header, delimiter, body = match.groups()
+        has_placeholder = any(
+            re.match(r'^\s*(?:\.\.\.|\.\.\.\s*\(|\<inserir|\<insert|\/\/ code here|\# insert|\# \.\.\.).*$', line, re.IGNORECASE)
+            for line in body.splitlines()
+        )
+
+        if has_placeholder:
+            if full_scripts:
+                return f"{header}{full_scripts[0]}\n{delimiter}"
+            return None
+
+        return heredoc_text
 
     @staticmethod
     def _is_multi_line_script(code_body: str) -> bool:

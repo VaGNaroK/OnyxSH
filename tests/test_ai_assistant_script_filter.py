@@ -157,6 +157,58 @@ chmod +x bloqueio_hosts.sh
             self.assertNotIn("fi", steps_cmd)
             self.assertNotIn("setup() {", steps_cmd)
 
+    def test_heredoc_placeholder_repair(self):
+        """When AI provides a heredoc template with '...', it should inject the full script."""
+        response_content = """Aqui está o script completo:
+
+```bash
+#!/bin/bash
+echo "Script Completo e Funcional"
+exit 0
+```
+
+Como usar:
+```bash
+cat << 'EOF' > ~/meuscript.sh
+#!/bin/bash
+... (inserir conteúdo do script aqui)
+EOF
+chmod +x ~/meuscript.sh
+```
+"""
+        reply, commands, code_snippets = self.assistant._parse_assistant_payload(response_content)
+        command_texts = [c["command"] for c in commands]
+        
+        # Verify the heredoc was repaired with the real script and not literal dots
+        heredoc_cmd = next((c for c in command_texts if "<<" in c), None)
+        self.assertIsNotNone(heredoc_cmd)
+        self.assertIn('echo "Script Completo e Funcional"', heredoc_cmd)
+        self.assertNotIn("...", heredoc_cmd)
+        self.assertNotIn("(inserir conteúdo", heredoc_cmd)
+
+    def test_script_creation_synthesis(self):
+        """When AI provides a script and only chmod/run commands, synthesis should create the heredoc."""
+        response_content = """Aqui está o script:
+
+```bash
+#!/bin/bash
+echo "Iniciando backup"
+tar -czf /tmp/backup.tar.gz ~/docs
+```
+
+Para rodar:
+```bash
+chmod +x ~/backup.sh
+./backup.sh
+```
+"""
+        reply, commands, code_snippets = self.assistant._parse_assistant_payload(response_content)
+        command_texts = [c["command"] for c in commands]
+
+        # The first synthesized command should be the file creation heredoc
+        self.assertTrue(any("cat << 'EOF' > ~/backup.sh" in c for c in command_texts))
+        self.assertTrue(any("chmod +x ~/backup.sh" in c for c in command_texts))
+
 
 if __name__ == "__main__":
     unittest.main()
