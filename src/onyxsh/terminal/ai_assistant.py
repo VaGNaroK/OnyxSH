@@ -1328,7 +1328,11 @@ class TerminalAiAssistant(GObject.Object):
                 lines = cmd_str.splitlines()
                 has_closing = any(l.strip() == delim for l in lines[1:])
                 body_lines = [l.strip() for l in lines[1:] if l.strip() and l.strip() != delim]
-                is_stub = not body_lines or (len(body_lines) == 1 and body_lines[0].startswith("#!"))
+                has_placeholder = any(
+                    re.match(r'^\s*(?:\.{2,}|\.{2,}\s*\(|\<inserir|\<insert|\/\/ code here|\# insert|\# \.{2,}|\#\.\.\.|\#\s*\.{2,}).*$', l, re.IGNORECASE)
+                    for l in body_lines
+                )
+                is_stub = not body_lines or has_placeholder or (len(body_lines) <= 2 and (body_lines[0].startswith("#!") or has_placeholder))
 
                 if not has_closing or is_stub:
                     # Skip subsequent fragmented lines targeting this file
@@ -1429,7 +1433,7 @@ class TerminalAiAssistant(GObject.Object):
     @classmethod
     def _repair_heredoc_script(cls, heredoc_text: str, full_scripts: List[str]) -> Optional[str]:
         """
-        If a heredoc command contains placeholder lines (e.g. '...', '... (inserir...)'),
+        If a heredoc command contains placeholder lines (e.g. '...', '..', '... (inserir...)'),
         replaces the placeholder with the actual full script found in the response.
         """
         match = re.match(
@@ -1442,7 +1446,7 @@ class TerminalAiAssistant(GObject.Object):
 
         header, delimiter, body = match.groups()
         has_placeholder = any(
-            re.match(r'^\s*(?:\.\.\.|\.\.\.\s*\(|\<inserir|\<insert|\/\/ code here|\# insert|\# \.\.\.).*$', line, re.IGNORECASE)
+            re.match(r'^\s*(?:\.{2,}|\.{2,}\s*\(|\<inserir|\<insert|\/\/ code here|\# insert|\# \.{2,}|\#\.\.\.|\#\s*\.{2,}).*$', line, re.IGNORECASE)
             for line in body.splitlines()
         )
 

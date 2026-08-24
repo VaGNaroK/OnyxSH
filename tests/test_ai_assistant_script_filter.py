@@ -263,6 +263,22 @@ done"""
         # Should fix unclosed quote on echo statement
         self.assertIn('echo "Este script precisa ser executado como root. Use sudo."', wrapped)
 
+    def test_heredoc_two_dots_placeholder_repair(self):
+        """When AI returns heredoc with '..' two dots placeholder, it should inject full script."""
+        raw_json_response = """{
+  "reply": "Script para bloquear hosts:\\n\\n```bash\\n#!/usr/bin/env bash\\necho 'Menu'\\nselect choice in 'Bloquear' 'Sair'; do\\n  case $choice in\\n    'Bloquear')\\n      echo 'Bloqueando'\\n      ;;\\n    *) break;;\\n  esac\\ndone\\n```",
+  "commands": [
+    "cat << 'EOF' > ~/bloquear_site.sh\\n#!/usr/bin/env bash\\n..\\nEOF",
+    "chmod +x ~/bloquear_site.sh",
+    "~/bloquear_site.sh"
+  ]
+}"""
+        reply, commands, code_snippets = self.assistant._parse_assistant_payload(raw_json_response)
+        command_texts = [c["command"] for c in commands]
+        self.assertEqual(len(command_texts), 3)
+        self.assertIn("select choice in 'Bloquear'", command_texts[0])
+        self.assertNotIn("..", command_texts[0])
+
 
 if __name__ == "__main__":
     unittest.main()

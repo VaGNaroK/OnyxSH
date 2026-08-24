@@ -165,7 +165,7 @@ def repair_heredoc_script(heredoc_text: str, full_scripts: list[str]) -> Optiona
 
     header, delimiter, body = match.groups()
     has_placeholder = any(
-        re.match(r'^\s*(?:\.\.\.|\.\.\.\s*\(|\<inserir|\<insert|\/\/ code here|\# insert|\# \.\.\.).*$', line, re.IGNORECASE)
+        re.match(r'^\s*(?:\.{2,}|\.{2,}\s*\(|\<inserir|\<insert|\/\/ code here|\# insert|\# \.{2,}|\#\.\.\.|\#\s*\.{2,}).*$', line, re.IGNORECASE)
         for line in body.splitlines()
     )
 
