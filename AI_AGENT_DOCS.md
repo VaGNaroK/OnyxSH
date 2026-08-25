@@ -59,7 +59,7 @@
 
 ---
 
-### ~~BUG-003: Production Guard — Bypass via Subshell e Variáveis~~ ✅ *[RESOLVIDO - Commit pendente]*
+### ~~BUG-003: Production Guard — Bypass via Subshell e Variáveis~~ ✅ *[RESOLVIDO - Commit c463a3f]*
 
 **Severidade:** 🔴 Alta — Comandos destrutivos podiam evadir detecção quando encapsulados em construções shell.
 
