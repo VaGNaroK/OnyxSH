@@ -89,7 +89,7 @@
 
 ---
 
-### ~~BUG-006: AuditLogger — `rotate()` Não é Atomic em Cenários de I/O Lento~~ ✅ *[RESOLVIDO]*
+### ~~BUG-006: AuditLogger — `rotate()` Não é Atomic em Cenários de I/O Lento~~ ✅ *[RESOLVIDO - Commit 735500c]*
 
 **Severidade:** ⚠️ Baixa — Risco de corrupção caso houvesse falha ou interrupção durante reescrita direta.
 
