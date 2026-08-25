@@ -37,7 +37,7 @@
 
 ## 🐛 Bugs Confirmados
 
-### BUG-001: `locale.getdefaultlocale()` Deprecado (Python 3.11+)
+### ~~BUG-001: `locale.getdefaultlocale()` Deprecado (Python 3.11+)~~ ✅ *[RESOLVIDO - Commit fee81a1]*
 
 **Severidade:** ⚠️ Média — Gera `DeprecationWarning` em Python 3.11+ e será removido em versões futuras.
 
@@ -45,43 +45,17 @@
 - `src/onyxsh/terminal/ai_assistant.py:105`
 - `src/onyxsh/utils/platform.py:131`
 
-**Código problemático:**
-```python
-lang_code = locale.getdefaultlocale()[0] or "en_US"
-system_locale = locale.getdefaultlocale()[0]
-```
-
-**Correção recomendada:**
-```python
-# Substituir por:
-lang_code = locale.getlocale()[0] or os.environ.get("LANG", "en_US").split(".")[0]
-```
-
-**Testes necessários:** Verificar que a detecção de idioma continua funcional com `LANG=C`, `LANG=pt_BR.UTF-8`, e sem `LANG` definido.
+**Status:** Corrigido utilizando `locale.getlocale()` com fallback via `os.environ["LANG"]`.
 
 ---
 
-### BUG-002: Redactor Não Detecta Secrets em Hex/Base64 Genéricos
+### ~~BUG-002: Redactor Não Detecta Secrets em Hex/Base64 Genéricos~~ ✅ *[RESOLVIDO - Commit 2b0c7e2]*
 
 **Severidade:** ⚠️ Média — Tokens hexadecimais longos (e.g., tokens de deploy do GitLab, Vercel, Netlify) passam sem redação.
 
 **Arquivo:** `src/onyxsh/agent/redactor.py`
 
-**Padrões ausentes:**
-- Tokens GitLab (`glpat-*`)
-- Tokens Vercel (`vercel_*`)
-- Tokens Slack (`xoxb-*`, `xoxp-*`)
-- Strings hexadecimais longas em assignments (`TOKEN=abc123def456...` com 32+ chars)
-
-**Correção recomendada:** Adicionar padrões:
-```python
-# GitLab Personal Access Token
-(re.compile(r"\b(glpat-[a-zA-Z0-9_\-]{20,})\b"), "[REDACTED_GITLAB_TOKEN]"),
-# Slack tokens
-(re.compile(r"\b(xox[bpsa]-[a-zA-Z0-9\-]+)\b"), "[REDACTED_SLACK_TOKEN]"),
-# Generic long hex tokens in variable assignments
-(re.compile(r"(?i)\b(token|secret|key|password)\s*[:=]\s*['\"]?([0-9a-f]{32,})['\"]?"), r'\1="[REDACTED_HEX]"'),
-```
+**Status:** Corrigido adicionando detecção de GitLab PAT (`glpat-*`), Slack (`xoxb-*`, `xoxp-*`), Vercel (`vercel_*`), HashiCorp Vault (`hvs.*`), migrado para `re.subn()` para contagem precisa e proteção contra re-redação de placeholders. Coberto por novos testes em `tests/test_redactor.py`.
 
 ---
 
