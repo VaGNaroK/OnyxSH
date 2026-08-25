@@ -161,8 +161,22 @@ Arquitetura de segurança estrita para execução assistida por IA:
 
 ### 📦 Flatpak (Recomendado para Qualquer Distribuição Linux)
 
+O Flatpak é o formato recomendado para executar o OnyxSH em qualquer distribuição Linux (Ubuntu, Debian, Fedora, Arch Linux, Manjaro, openSUSE, etc.) com isolamento seguro.
+
+#### 1. Pré-requisitos (Configuração do Flathub e Runtime GNOME):
+Se você estiver em uma distribuição recém-instalada (como Manjaro/Arch) ou nunca configurou o Flathub no escopo do usuário, certifique-se de adicionar o repositório e baixar o runtime **GNOME 46**:
+
 ```bash
-# Instalar o bundle gerado:
+# Adicionar o repositório oficial Flathub:
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Instalar o runtime GNOME 46 necessário:
+flatpak install --user flathub org.gnome.Platform//46 -y
+```
+
+#### 2. Instalação e Execução do Bundle:
+```bash
+# Instalar o pacote .flatpak gerado:
 flatpak install --user -y --reinstall dist/onyxsh_0.9.0.flatpak
 
 # Executar:
