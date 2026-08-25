@@ -48,6 +48,10 @@ class ProductionGuard:
                 "Recursive directory deletion (rm -r)",
             ),
             (
+                re.compile(r"\bxargs\s+.*\brm\b", re.IGNORECASE),
+                "Batch deletion via xargs (xargs rm)",
+            ),
+            (
                 re.compile(r"\bshred\s+-[a-zA-Z]*u|\bwipefs\b", re.IGNORECASE),
                 "Permanent file or filesystem wipe (shred/wipefs)",
             ),
@@ -117,21 +121,40 @@ class ProductionGuard:
             ),
         ]
 
+        # 7. Shell evasion, piped interpreter, and obfuscated pipelines
+        self._evasion_patterns = [
+            (
+                re.compile(r"\|\s*(?:sudo\s+|doas\s+|pkexec\s+)?(?:bash|sh|zsh|dash|ksh)\b", re.IGNORECASE),
+                "Piped execution to shell interpreter",
+            ),
+            (
+                re.compile(r"\bbase64\s+(?:-[a-zA-Z]*[dD]|--decode)\s*\|", re.IGNORECASE),
+                "Obfuscated / Base64 decoded execution pipeline",
+            ),
+        ]
+
     def _strip_wrapper_commands(self, cmd_line: str) -> str:
-        """Strips sudo, doas, pkexec, env and common command prefixes."""
+        """Strips sudo, doas, pkexec, env, exec, builtin, command, xargs and common command prefixes."""
         stripped = cmd_line.strip()
-        wrappers = ["sudo", "doas", "pkexec", "nohup", "env", "time"]
+        wrappers = ["sudo", "doas", "pkexec", "nohup", "env", "time", "exec", "builtin", "command"]
 
         changed = True
         while changed:
             changed = False
             for wrapper in wrappers:
-                pattern = rf"^{wrapper}\s+(-[a-zA-Z0-9_-]+\s+)*"
+                pattern = rf"^{wrapper}\s+(-[a-zA-Z0-9_\-]+\s+)*"
                 match = re.match(pattern, stripped, re.IGNORECASE)
                 if match:
                     stripped = stripped[match.end():].strip()
                     changed = True
                     break
+
+            # xargs wrapper with common option patterns
+            xargs_pattern = r"^xargs\s+(?:-[InsdEPL]\s*\S*\s+|-[a-zA-Z0-9_]+\s+|--[a-zA-Z0-9_\-]+(?:=\S+)?\s+)*"
+            xargs_match = re.match(xargs_pattern, stripped, re.IGNORECASE)
+            if xargs_match:
+                stripped = stripped[xargs_match.end():].strip()
+                changed = True
 
         return stripped
 
@@ -140,13 +163,89 @@ class ProductionGuard:
         parts = re.split(r"[\n;]|&&|\|\||\|", cmd_line)
         return [p.strip() for p in parts if p.strip()]
 
+    def _extract_subshell_and_eval_commands(self, cmd_line: str) -> List[str]:
+        """Extracts command payloads from subshell invocations, eval, and variable assignments."""
+        extracted: List[str] = []
+
+        # Subshell execution: bash/sh/zsh/dash/ksh -c "..." or '...'
+        subshell_pattern = re.compile(
+            r"\b(?:bash|sh|zsh|dash|ksh)\s+(?:-[a-zA-Z0-9_\-]+\s+)*-c\s+(['\"])([\s\S]*?)\1",
+            re.IGNORECASE,
+        )
+        for match in subshell_pattern.finditer(cmd_line):
+            inner = match.group(2).strip()
+            if inner:
+                extracted.append(inner)
+
+        # eval "..." or eval '...'
+        eval_pattern = re.compile(
+            r"\beval\s+(['\"])([\s\S]*?)\1",
+            re.IGNORECASE,
+        )
+        for match in eval_pattern.finditer(cmd_line):
+            inner = match.group(2).strip()
+            if inner:
+                extracted.append(inner)
+
+        # Variable assignments with embedded commands e.g. CMD="rm -rf /"
+        assign_pattern = re.compile(
+            r"(?:^|\s)[a-zA-Z_][a-zA-Z0-9_]*\s*=\s*(['\"])([\s\S]*?)\1"
+        )
+        for match in assign_pattern.finditer(cmd_line):
+            inner = match.group(2).strip()
+            if inner:
+                extracted.append(inner)
+
+        return extracted
+
+    def _collect_candidates(self, raw_command: str) -> List[str]:
+        """
+        Gathers all candidate command expressions to evaluate, including
+        subcommands, subshell payloads, wrapper-stripped variants, and variable assignments.
+        """
+        clean_cmd = raw_command.strip()
+        if not clean_cmd:
+            return []
+
+        candidates: List[str] = []
+        to_process: List[str] = [clean_cmd]
+        seen: set[str] = set()
+
+        depth = 0
+        while to_process and depth < 5:
+            depth += 1
+            current_batch = to_process
+            to_process = []
+
+            for expr in current_batch:
+                expr_clean = expr.strip()
+                if not expr_clean or expr_clean in seen:
+                    continue
+                seen.add(expr_clean)
+                candidates.append(expr_clean)
+
+                stripped = self._strip_wrapper_commands(expr_clean)
+                if stripped and stripped not in seen:
+                    to_process.append(stripped)
+
+                for subcmd in self._split_subcommands(expr_clean):
+                    if subcmd and subcmd not in seen:
+                        to_process.append(subcmd)
+
+                for inner_cmd in self._extract_subshell_and_eval_commands(expr_clean):
+                    if inner_cmd and inner_cmd not in seen:
+                        to_process.append(inner_cmd)
+
+        return candidates
+
     def evaluate_command(self, raw_command: str) -> Optional[GuardViolation]:
         """
         Evaluates a shell command string to determine if it is a destructive
         action in a production environment.
 
         Handles multiline scripts, chained commands (;, &&, ||), pipelines,
-        and wrapper commands (sudo, doas, pkexec, etc.).
+        wrapper commands (sudo, doas, pkexec, exec, xargs), subshells (bash -c),
+        eval, and variable assignments.
 
         Returns a GuardViolation if any part of the command is destructive, otherwise None.
         """
@@ -154,18 +253,7 @@ class ProductionGuard:
         if not clean_cmd:
             return None
 
-        # Build list of candidate expressions to test:
-        # 1. Full raw command
-        # 2. Wrapper-stripped full command
-        # 3. Each individual subcommand (split by newline, semicolon, &&, ||, |)
-        # 4. Wrapper-stripped subcommands
-        candidates = [clean_cmd, self._strip_wrapper_commands(clean_cmd)]
-        for subcmd in self._split_subcommands(clean_cmd):
-            if subcmd not in candidates:
-                candidates.append(subcmd)
-            stripped_sub = self._strip_wrapper_commands(subcmd)
-            if stripped_sub not in candidates:
-                candidates.append(stripped_sub)
+        candidates = self._collect_candidates(clean_cmd)
 
         all_rules: List[Tuple[List[Tuple[re.Pattern, str]], str, str]] = [
             (self._file_delete_patterns, "File System", "critical"),
@@ -174,6 +262,7 @@ class ProductionGuard:
             (self._service_patterns, "Services & Daemons", "high"),
             (self._git_patterns, "Version Control", "high"),
             (self._db_patterns, "Database", "critical"),
+            (self._evasion_patterns, "Script Execution", "critical"),
         ]
 
         for pattern_list, category, severity in all_rules:

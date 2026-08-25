@@ -59,47 +59,13 @@
 
 ---
 
-### BUG-003: Production Guard — Bypass via Subshell e Variáveis
+### ~~BUG-003: Production Guard — Bypass via Subshell e Variáveis~~ ✅ *[RESOLVIDO - Commit pendente]*
 
-**Severidade:** 🔴 Alta — Comandos destrutivos podem evadir detecção quando encapsulados em construções shell.
+**Severidade:** 🔴 Alta — Comandos destrutivos podiam evadir detecção quando encapsulados em construções shell.
 
 **Arquivo:** `src/onyxsh/terminal/production_guard.py`
 
-**Vetores de evasão não cobertos:**
-```bash
-# 1. Subshell bypasses
-bash -c "rm -rf /important/data"
-sh -c 'mkfs.ext4 /dev/sda1'
-
-# 2. Variable expansion
-CMD="rm -rf /"; $CMD
-eval "shutdown now"
-
-# 3. xargs piping
-find / -name "*.log" | xargs rm -rf
-
-# 4. Encoded payloads
-echo "cm0gLXJmIC8=" | base64 -d | bash
-```
-
-**Correção recomendada:**
-```python
-# Adicionar ao _init_rules():
-self._evasion_patterns = [
-    (re.compile(r"\b(?:bash|sh|zsh|dash)\s+-c\s+['\"](.+)['\"]", re.IGNORECASE),
-     "Command execution via subshell"),
-    (re.compile(r"\beval\s+", re.IGNORECASE),
-     "Dynamic command evaluation (eval)"),
-    (re.compile(r"\|\s*(?:bash|sh|zsh)\b", re.IGNORECASE),
-     "Pipe to shell interpreter"),
-    (re.compile(r"\bbase64\s+-d\s*\|", re.IGNORECASE),
-     "Base64 decode piped to execution"),
-    (re.compile(r"\bxargs\s+.*\brm\b", re.IGNORECASE),
-     "xargs with rm (potential mass deletion)"),
-]
-```
-
-Para subshells (`bash -c "..."`, `sh -c "..."`), extrair o conteúdo entre aspas e re-analisar recursivamente.
+**Status:** Corrigido adicionando extração e desaninhamento recursivo de subshells (`bash -c`, `sh -c`, etc.), `eval`, variáveis com comandos embutidos, remoção de wrappers estendidos (`exec`, `builtin`, `command`, `xargs`), detecção de comandos perigosos com `xargs rm`, além de regras dedicadas para pipes para interpretadores (`| bash`) e pipelines de decodificação base64. Coberto por 5 novos métodos de teste em `tests/test_production_guard.py`.
 
 ---
 
