@@ -109,40 +109,13 @@
 
 ---
 
-### BUG-008: `HostnameValidator.resolve_hostname()` — SIGALRM Não Funciona em Threads
+### ~~BUG-008: `HostnameValidator.resolve_hostname()` — SIGALRM Não Funciona em Threads~~ ✅ *[RESOLVIDO]*
 
-**Severidade:** ⚠️ Média — `signal.setitimer(SIGALRM)` só funciona na main thread; se chamado de worker thread, lança `ValueError`.
+**Severidade:** ⚠️ Média — `signal.setitimer(SIGALRM)` falhava com `ValueError` caso invocado fora da thread principal.
 
-**Arquivo:** `src/onyxsh/utils/security.py:114-129`
+**Arquivo:** `src/onyxsh/utils/security.py:95-135`
 
-**Código problemático:**
-```python
-old_handler = signal.signal(signal.SIGALRM, timeout_handler)
-signal.setitimer(signal.ITIMER_REAL, timeout)
-```
-
-**Correção recomendada:**
-```python
-import threading
-
-@staticmethod
-def resolve_hostname(hostname: str, timeout: float = 5.0) -> Optional[str]:
-    result = [None]
-
-    def _resolve():
-        try:
-            result[0] = socket.gethostbyname(hostname)
-        except Exception:
-            pass
-
-    thread = threading.Thread(target=_resolve, daemon=True)
-    thread.start()
-    thread.join(timeout=timeout)
-
-    if thread.is_alive():
-        return None  # Timeout
-    return result[0]
-```
+**Status:** Corrigido substituindo o mecanismo de sinais (`SIGALRM`) por resolução assíncrona em worker thread com `thread.join(timeout=timeout)`. Coberto por nova suíte de testes em `tests/test_security.py`.
 
 ---
 

@@ -1,9 +1,8 @@
-# onyxsh/utils/security.py
-
 import ipaddress
 import os
 import re
 import socket
+import threading
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -95,42 +94,37 @@ class HostnameValidator:
 
     @staticmethod
     def resolve_hostname(hostname: str, timeout: float = 5.0) -> Optional[str]:
-        """Resolve a hostname to an IP address.
+        """Resolve a hostname to an IP address with timeout.
 
-        Uses a separate socket with timeout instead of socket.setdefaulttimeout()
-        to avoid affecting global socket behavior for other parts of the application.
+        Uses a worker thread with timeout join to remain fully thread-safe and avoid
+        interfering with global socket defaults or failing when invoked from background worker threads.
 
         Args:
             hostname: The hostname to resolve
             timeout: Resolution timeout in seconds
 
         Returns:
-            The resolved IP address or None if resolution fails
+            The resolved IP address or None if resolution fails or times out
         """
         logger = get_logger("onyxsh.security")
-        try:
-            # Use getaddrinfo with a timeout via socket options instead of
-            # setdefaulttimeout() which affects ALL sockets globally
-            import signal
+        result: list[Optional[str]] = [None]
 
-            def timeout_handler(signum, frame):
-                raise socket.timeout(f"Hostname resolution timed out for {hostname}")
-
-            # Set up signal-based timeout (works on Unix)
-            old_handler = signal.signal(signal.SIGALRM, timeout_handler)
-            signal.setitimer(signal.ITIMER_REAL, timeout)
-
+        def _resolve():
             try:
-                result = socket.gethostbyname(hostname)
-                return result
-            finally:
-                # Cancel the timer and restore old handler
-                signal.setitimer(signal.ITIMER_REAL, 0)
-                signal.signal(signal.SIGALRM, old_handler)
+                result[0] = socket.gethostbyname(hostname)
+            except Exception as e:
+                logger.debug(f"Hostname resolution failed for {hostname}: {e}")
 
-        except (socket.gaierror, socket.timeout) as e:
-            logger.debug(f"Hostname resolution failed for {hostname}: {e}")
-            return None
+        try:
+            thread = threading.Thread(target=_resolve, daemon=True)
+            thread.start()
+            thread.join(timeout=timeout)
+
+            if thread.is_alive():
+                logger.debug(f"Hostname resolution timed out for {hostname} after {timeout}s")
+                return None
+
+            return result[0]
         except Exception as e:
             logger.debug(f"Unexpected error resolving hostname {hostname}: {e}")
             return None
