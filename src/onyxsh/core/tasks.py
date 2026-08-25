@@ -48,8 +48,8 @@ class AsyncTaskManager:
         self.logger = get_logger("onyxsh.core.tasks")
         self._io_executor: Optional[ThreadPoolExecutor] = None
         self._cpu_executor: Optional[ThreadPoolExecutor] = None
-        self._active_futures: Set[Future] = set()
-        self._futures_lock = threading.Lock()
+        self._active_futures: dict[Future, str] = {}
+        self._futures_lock = threading.RLock()
         self._is_shutdown = False
 
         self._initialize_pools()
@@ -97,16 +97,16 @@ class AsyncTaskManager:
             thread_name_prefix="onyxsh-cpu"
         )
 
-    def _track_future(self, future: Future) -> None:
-        """Add a future to the tracking set."""
+    def _track_future(self, future: Future, pool_type: str = "io") -> None:
+        """Add a future to the tracking dictionary with its pool type."""
         with self._futures_lock:
-            self._active_futures.add(future)
+            self._active_futures[future] = pool_type
             future.add_done_callback(self._remove_future)
 
     def _remove_future(self, future: Future) -> None:
-        """Remove a completed future from the tracking set."""
+        """Remove a completed future from the tracking dictionary."""
         with self._futures_lock:
-            self._active_futures.discard(future)
+            self._active_futures.pop(future, None)
 
     def submit_io(self, fn: Callable, *args, **kwargs) -> Optional[Future]:
         """
@@ -129,7 +129,7 @@ class AsyncTaskManager:
 
         try:
             future = self._io_executor.submit(fn, *args, **kwargs)
-            self._track_future(future)
+            self._track_future(future, "io")
             return future
         except RuntimeError as e:
             self.logger.error(f"Failed to submit IO task: {e}")
@@ -156,7 +156,7 @@ class AsyncTaskManager:
 
         try:
             future = self._cpu_executor.submit(fn, *args, **kwargs)
-            self._track_future(future)
+            self._track_future(future, "cpu")
             return future
         except RuntimeError as e:
             self.logger.error(f"Failed to submit CPU task: {e}")
@@ -180,7 +180,7 @@ class AsyncTaskManager:
         if not wait:
             with self._futures_lock:
                 cancelled_count = 0
-                for future in list(self._active_futures):
+                for future in list(self._active_futures.keys()):
                     if future.cancel():
                         cancelled_count += 1
                 if cancelled_count > 0:
@@ -206,15 +206,15 @@ class AsyncTaskManager:
     def pending_io_tasks(self) -> int:
         """Get approximate count of pending IO tasks."""
         with self._futures_lock:
-            return sum(1 for f in self._active_futures
-                      if not f.done() and "io" in str(getattr(f, '_thread_name_prefix', '')))
+            return sum(1 for f, t in self._active_futures.items()
+                      if not f.done() and t == "io")
 
     @property
     def pending_cpu_tasks(self) -> int:
         """Get approximate count of pending CPU tasks."""
         with self._futures_lock:
-            return sum(1 for f in self._active_futures
-                      if not f.done() and "cpu" in str(getattr(f, '_thread_name_prefix', '')))
+            return sum(1 for f, t in self._active_futures.items()
+                      if not f.done() and t == "cpu")
 
 
 # Convenience functions for quick access

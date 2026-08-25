@@ -119,25 +119,13 @@
 
 ---
 
-### BUG-009: `AsyncTaskManager` — `pending_io_tasks` / `pending_cpu_tasks` Nunca Funcionam
+### ~~BUG-009: `AsyncTaskManager` — `pending_io_tasks` / `pending_cpu_tasks` Nunca Funcionam~~ ✅ *[RESOLVIDO]*
 
-**Severidade:** ⚠️ Baixa — As properties verificam `_thread_name_prefix` no Future, mas `Future` não possui esse atributo.
+**Severidade:** ⚠️ Baixa — As properties consultavam `_thread_name_prefix` no Future (inexistente), resultando sempre em contagem 0.
 
-**Arquivo:** `src/onyxsh/core/tasks.py:206-217`
+**Arquivo:** `src/onyxsh/core/tasks.py:45-220`
 
-**Código problemático:**
-```python
-return sum(1 for f in self._active_futures
-          if not f.done() and "io" in str(getattr(f, '_thread_name_prefix', '')))
-```
-
-**Problema:** `concurrent.futures.Future` não tem `_thread_name_prefix`. O atributo pertence ao `ThreadPoolExecutor`, não ao `Future`.
-
-**Correção recomendada:** Usar sets separados para rastrear futures de IO vs CPU:
-```python
-self._io_futures: Set[Future] = set()
-self._cpu_futures: Set[Future] = set()
-```
+**Status:** Corrigido mapeando futures para seu tipo de pool (`'io'` vs `'cpu'`) em `_active_futures` protegido por `RLock` com `add_done_callback` para autolimpeza e contagem precisa de tasks ativas/pendentes. Coberto por nova suíte de testes em `tests/test_tasks.py`.
 
 ---
 
