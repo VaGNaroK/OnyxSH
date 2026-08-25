@@ -119,7 +119,7 @@
 
 ---
 
-### ~~BUG-009: `AsyncTaskManager` — `pending_io_tasks` / `pending_cpu_tasks` Nunca Funcionam~~ ✅ *[RESOLVIDO]*
+### ~~BUG-009: `AsyncTaskManager` — `pending_io_tasks` / `pending_cpu_tasks` Nunca Funcionam~~ ✅ *[RESOLVIDO - Commit b6f3fd2]*
 
 **Severidade:** ⚠️ Baixa — As properties consultavam `_thread_name_prefix` no Future (inexistente), resultando sempre em contagem 0.
 
