@@ -109,7 +109,7 @@
 
 ---
 
-### ~~BUG-008: `HostnameValidator.resolve_hostname()` — SIGALRM Não Funciona em Threads~~ ✅ *[RESOLVIDO]*
+### ~~BUG-008: `HostnameValidator.resolve_hostname()` — SIGALRM Não Funciona em Threads~~ ✅ *[RESOLVIDO - Commit 0943305]*
 
 **Severidade:** ⚠️ Média — `signal.setitimer(SIGALRM)` falhava com `ValueError` caso invocado fora da thread principal.
 
