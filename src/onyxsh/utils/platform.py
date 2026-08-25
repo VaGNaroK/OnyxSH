@@ -128,7 +128,8 @@ class EnvironmentManager:
             import locale
 
             try:
-                system_locale = locale.getdefaultlocale()[0]
+                # Avoid deprecated getdefaultlocale() — Python 3.11+
+                system_locale = locale.getlocale()[0]
                 env["LANG"] = f"{system_locale}.UTF-8" if system_locale else "C.UTF-8"
             except Exception:
                 env["LANG"] = "C.UTF-8"

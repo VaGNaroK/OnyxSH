@@ -99,10 +99,11 @@ class TerminalAiAssistant(GObject.Object):
     def _get_system_prompt(cls) -> str:
         """Get the system prompt with the system's default language and OS context."""
         import locale
+        import os
 
         try:
-            # Get the system language
-            lang_code = locale.getdefaultlocale()[0] or "en_US"
+            # Get the system language (avoid deprecated getdefaultlocale — Python 3.11+)
+            lang_code = locale.getlocale()[0] or os.environ.get("LANG", "en_US").split(".")[0]
             # Map common locale codes to language names
             lang_map = {
                 "pt": "Portuguese (Português do Brasil)",
