@@ -99,7 +99,7 @@
 
 ---
 
-### ~~BUG-007: `safe_quote_path()` — Injeção via `$HOME` em Subpath~~ ✅ *[RESOLVIDO]*
+### ~~BUG-007: `safe_quote_path()` — Injeção via `$HOME` em Subpath~~ ✅ *[RESOLVIDO - Commit 426dca9]*
 
 **Severidade:** ⚠️ Média — Subpaths de `~/` e `$HOME/` contendo metacaracteres shell podiam ser expandidos de forma insegura.
 
