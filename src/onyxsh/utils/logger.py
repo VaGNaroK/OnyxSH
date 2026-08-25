@@ -173,6 +173,12 @@ class ThreadSafeLogger:
         """Set up the logger with handlers and formatters based on current config."""
         with self._lock:
             if self._logger.hasHandlers():
+                for handler in list(self._logger.handlers):
+                    try:
+                        handler.flush()
+                        handler.close()
+                    except Exception:
+                        pass
                 self._logger.handlers.clear()
 
             self._logger.propagate = False
@@ -260,6 +266,18 @@ class ThreadSafeLogger:
         except Exception:
             pass
 
+    def close(self):
+        """Flushes, closes and removes all handlers associated with this logger."""
+        with self._lock:
+            if self._logger.hasHandlers():
+                for handler in list(self._logger.handlers):
+                    try:
+                        handler.flush()
+                        handler.close()
+                    except Exception:
+                        pass
+                self._logger.handlers.clear()
+
 
 class LoggerManager:
     """Centralized logger manager."""
@@ -299,6 +317,13 @@ class LoggerManager:
         with self._lock:
             for logger in self._loggers.values():
                 logger._setup_logger()
+
+    def close_all_loggers(self):
+        """Flushes and closes all handlers across all active loggers."""
+        with self._lock:
+            for logger in self._loggers.values():
+                logger.close()
+            self._loggers.clear()
 
     def set_console_level(self, level: LogLevel):
         with self._lock:

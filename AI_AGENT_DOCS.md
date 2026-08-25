@@ -69,34 +69,13 @@
 
 ---
 
-### BUG-004: Logger — FileHandler Leak em `reconfigure_all_loggers()`
+### ~~BUG-004: Logger — FileHandler Leak em `reconfigure_all_loggers()`~~ ✅ *[RESOLVIDO]*
 
 **Severidade:** ⚠️ Média — Resource leak ao reconfigurar loggers repetidamente.
 
 **Arquivo:** `src/onyxsh/utils/logger.py:176`
 
-**Problema:** `self._logger.handlers.clear()` remove handlers da lista mas **não chama `.close()`** nos `RotatingFileHandler`, deixando file descriptors abertos.
-
-**Código problemático:**
-```python
-def _setup_logger(self):
-    with self._lock:
-        if self._logger.hasHandlers():
-            self._logger.handlers.clear()  # ← Handlers não são fechados!
-```
-
-**Correção recomendada:**
-```python
-def _setup_logger(self):
-    with self._lock:
-        if self._logger.hasHandlers():
-            for handler in self._logger.handlers[:]:
-                try:
-                    handler.close()
-                except Exception:
-                    pass
-            self._logger.handlers.clear()
-```
+**Status:** Corrigido adicionando flush e `.close()` explícito em cada handler antes de desanexar em `_setup_logger()`. Também implementados métodos `close()` em `ThreadSafeLogger` e `close_all_loggers()` em `LoggerManager`. Coberto por nova suíte de testes em `tests/test_logger.py`.
 
 ---
 
