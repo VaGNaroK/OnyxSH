@@ -34,6 +34,59 @@ class TestAuditRollback(unittest.TestCase):
             self.assertEqual(records[0].plan_id, "plan_1")
             self.assertEqual(records[0].argv, ["df", "-h"])
 
+    def test_audit_logger_atomic_rotate_purges_old_records(self):
+        """BUG-006: AuditLogger.rotate must atomically purge old entries and preserve recent ones."""
+        from datetime import datetime, timedelta, timezone
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            log_file = Path(tmpdir) / "test_rotate_atomic.jsonl"
+            logger = AuditLogger(log_path=log_file)
+
+            # 1. Recent record (today)
+            rec_recent = AuditRecord(
+                plan_id="plan_recent",
+                step_id="step_1",
+                tool="shell.run",
+                argv=["uptime"],
+                risk=RiskLevel.READ_ONLY,
+                user_decision="approved",
+                result_status="success",
+                timestamp=datetime.now(timezone.utc).isoformat(),
+            )
+            logger.append(rec_recent)
+
+            # 2. Old record (60 days ago)
+            old_time = datetime.now(timezone.utc) - timedelta(days=60)
+            rec_old = AuditRecord(
+                plan_id="plan_old",
+                step_id="step_2",
+                tool="shell.run",
+                argv=["ls"],
+                risk=RiskLevel.READ_ONLY,
+                user_decision="approved",
+                result_status="success",
+                timestamp=old_time.isoformat(),
+            )
+            logger.append(rec_old)
+
+            self.assertEqual(len(logger.get_records()), 2)
+
+            # Rotate with 30-day retention
+            purged = logger.rotate(retention_days=30)
+            self.assertEqual(purged, 1)
+
+            # Only recent record remains and file is valid JSONL
+            remaining = logger.get_records()
+            self.assertEqual(len(remaining), 1)
+            self.assertEqual(remaining[0].plan_id, "plan_recent")
+
+    def test_audit_logger_rotate_missing_file(self):
+        """Rotating a non-existent log file should safely return 0 without error."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            log_file = Path(tmpdir) / "non_existent.jsonl"
+            logger = AuditLogger(log_path=log_file)
+            self.assertEqual(logger.rotate(retention_days=30), 0)
+
     def test_file_backup_manifest_and_rollback(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp_path = Path(tmpdir)

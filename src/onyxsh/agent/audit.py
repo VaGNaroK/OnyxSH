@@ -100,11 +100,23 @@ class AuditLogger:
                             except Exception:
                                 kept_records.append(data)
 
-                # Rewrite file with kept records
-                with open(self.log_path, "w", encoding="utf-8") as f:
+                # Rewrite file with kept records atomically using temporary file
+                tmp_path = self.log_path.with_name(f"{self.log_path.name}.tmp.{os.getpid()}")
+                with open(tmp_path, "w", encoding="utf-8") as f:
                     for item in kept_records:
                         f.write(json.dumps(item, ensure_ascii=False) + "\n")
+                    f.flush()
+                    os.fsync(f.fileno())
+
+                # Atomic replace on same filesystem
+                tmp_path.replace(self.log_path)
             except Exception:
+                try:
+                    if "tmp_path" in locals() and tmp_path.exists():
+                        tmp_path.unlink()
+                except Exception:
+                    pass
                 return 0
 
         return purged_count
+

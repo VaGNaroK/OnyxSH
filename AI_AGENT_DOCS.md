@@ -89,25 +89,13 @@
 
 ---
 
-### BUG-006: AuditLogger — `rotate()` Não é Atomic em Cenários de I/O Lento
+### ~~BUG-006: AuditLogger — `rotate()` Não é Atomic em Cenários de I/O Lento~~ ✅ *[RESOLVIDO]*
 
-**Severidade:** ⚠️ Baixa — Race condition potencial durante rotação de audit log.
+**Severidade:** ⚠️ Baixa — Risco de corrupção caso houvesse falha ou interrupção durante reescrita direta.
 
 **Arquivo:** `src/onyxsh/agent/audit.py:86`
 
-**Problema:** O método `rotate()` usa `self._write_lock` para ler e reescrever o arquivo, mas se a operação de reescrita falhar parcialmente (disco cheio, I/O error), o arquivo pode ficar corrompido sem recovery.
-
-**Correção recomendada:**
-```python
-def rotate(self, retention_days: int = 30) -> int:
-    # ... leitura ...
-    # Escrever em arquivo temporário primeiro, depois renomear atomicamente
-    tmp_path = self.log_path.with_suffix(".tmp")
-    with open(tmp_path, "w", encoding="utf-8") as f:
-        for item in kept_records:
-            f.write(json.dumps(item, ensure_ascii=False) + "\n")
-    tmp_path.replace(self.log_path)  # Atomic rename no mesmo filesystem
-```
+**Status:** Corrigido reescrevendo em arquivo temporário com `fsync` seguido de `replace()` atômico no mesmo filesystem com cleanup em caso de exceção. Coberto por testes unitários em `tests/test_audit_rollback.py`.
 
 ---
 
