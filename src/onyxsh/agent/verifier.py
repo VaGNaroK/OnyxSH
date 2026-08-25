@@ -66,16 +66,20 @@ class VerificationResult:
 def safe_quote_path(path: str) -> str:
     """Quotes a path safely for shell execution while preserving ~ or $HOME expansion."""
     p = path.strip("\"'")
+    # Shell metacharacters, control characters and quotes that must be escaped
+    dangerous = set("$`!\\\"\n\r\t|;&<>()")
     if p.startswith("~/"):
         subpath = p[2:]
-        return f'"$HOME/{subpath}"' if '"' not in subpath else f'"$HOME"/{shlex.quote(subpath)}'
-    elif p == "~":
+        if any(c in subpath for c in dangerous):
+            return f'"$HOME"/{shlex.quote(subpath)}'
+        return f'"$HOME/{subpath}"'
+    elif p == "~" or p == "$HOME":
         return '"$HOME"'
     elif p.startswith("$HOME/"):
         subpath = p[6:]
-        return f'"$HOME/{subpath}"' if '"' not in subpath else f'"$HOME"/{shlex.quote(subpath)}'
-    elif p == "$HOME":
-        return '"$HOME"'
+        if any(c in subpath for c in dangerous):
+            return f'"$HOME"/{shlex.quote(subpath)}'
+        return f'"$HOME/{subpath}"'
     else:
         return shlex.quote(p)
 

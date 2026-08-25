@@ -99,44 +99,13 @@
 
 ---
 
-### BUG-007: `safe_quote_path()` — Injeção via `$HOME` em Subpath
+### ~~BUG-007: `safe_quote_path()` — Injeção via `$HOME` em Subpath~~ ✅ *[RESOLVIDO]*
 
-**Severidade:** ⚠️ Média — Paths com caracteres especiais após `~/` não são corretamente escapados.
+**Severidade:** ⚠️ Média — Subpaths de `~/` e `$HOME/` contendo metacaracteres shell podiam ser expandidos de forma insegura.
 
-**Arquivo:** `src/onyxsh/agent/verifier.py:66-81`
+**Arquivo:** `src/onyxsh/agent/verifier.py:66-85`
 
-**Código problemático:**
-```python
-def safe_quote_path(path: str) -> str:
-    p = path.strip("\"'")
-    if p.startswith("~/"):
-        subpath = p[2:]
-        return f'"$HOME/{subpath}"' if '"' not in subpath else f'"$HOME"/{shlex.quote(subpath)}'
-```
-
-**Problema:** Verifica apenas `"` no subpath mas não protege contra `$`, `` ` ``, `$(...)`, `\n` ou outros metacaracteres shell.
-
-**Correção recomendada:**
-```python
-def safe_quote_path(path: str) -> str:
-    p = path.strip("\"'")
-    # Caracteres perigosos em expansão shell
-    dangerous = set('$`!\\"\\n\\r\\t|;&<>()')
-    if p.startswith("~/"):
-        subpath = p[2:]
-        if any(c in subpath for c in dangerous):
-            return f'"$HOME"/{shlex.quote(subpath)}'
-        return f'"$HOME/{subpath}"'
-    elif p == "~" or p == "$HOME":
-        return '"$HOME"'
-    elif p.startswith("$HOME/"):
-        subpath = p[6:]
-        if any(c in subpath for c in dangerous):
-            return f'"$HOME"/{shlex.quote(subpath)}'
-        return f'"$HOME/{subpath}"'
-    else:
-        return shlex.quote(p)
-```
+**Status:** Corrigido com verificação de metacaracteres shell perigosos (`$`, `` ` ``, `!`, `\`, `"`, `\n`, `\r`, `\t`, `|`, `;`, `&`, `<`, `>`, `(`, `)`) e aplicação de `shlex.quote()` nos subpaths afetados. Coberto por testes unitários em `tests/test_post_verification.py`.
 
 ---
 

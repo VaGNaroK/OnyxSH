@@ -2,7 +2,12 @@
 """Unit tests for Post-Execution Verification Loop and sanity check inference."""
 
 import unittest
-from onyxsh.agent.verifier import PostVerifier, VerificationCheck, VerificationResult
+from onyxsh.agent.verifier import (
+    PostVerifier,
+    VerificationCheck,
+    VerificationResult,
+    safe_quote_path,
+)
 
 
 class TestPostVerification(unittest.TestCase):
@@ -147,6 +152,31 @@ class TestPostVerification(unittest.TestCase):
         # Check command should use $HOME instead of literal '~' in single quotes
         self.assertIn('"$HOME/bloqueio_hosts.sh"', chk.check_command)
         self.assertNotIn("'~/bloqueio_hosts.sh'", chk.check_command)
+
+    def test_safe_quote_path_dangerous_metacharacters(self):
+        """BUG-007: safe_quote_path must properly quote subpaths containing shell metacharacters."""
+        # Subshell execution attempt
+        quoted = safe_quote_path("~/evil$(reboot)/file.txt")
+        self.assertEqual(quoted, '"$HOME"/\'evil$(reboot)/file.txt\'')
+
+        # Backticks attempt
+        quoted_bt = safe_quote_path("~/evil`whoami`/file.txt")
+        self.assertEqual(quoted_bt, '"$HOME"/\'evil`whoami`/file.txt\'')
+
+        # Semicolon command injection attempt
+        quoted_semi = safe_quote_path("~/dir; rm -rf /")
+        self.assertEqual(quoted_semi, '"$HOME"/\'dir; rm -rf /\'')
+
+        # Variable expansion in subpath
+        quoted_var = safe_quote_path("$HOME/evil$DANGEROUS/path")
+        self.assertEqual(quoted_var, '"$HOME"/\'evil$DANGEROUS/path\'')
+
+    def test_safe_quote_path_standard_paths(self):
+        """Standard paths and simple tilde/HOME references must expand cleanly."""
+        self.assertEqual(safe_quote_path("~"), '"$HOME"')
+        self.assertEqual(safe_quote_path("$HOME"), '"$HOME"')
+        self.assertEqual(safe_quote_path("~/simple.txt"), '"$HOME/simple.txt"')
+        self.assertEqual(safe_quote_path("/var/log/nginx.log"), "/var/log/nginx.log")
 
 
 if __name__ == "__main__":
