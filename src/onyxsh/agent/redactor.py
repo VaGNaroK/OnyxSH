@@ -39,10 +39,30 @@ SECRET_PATTERNS: list[tuple[re.Pattern, str]] = [
         re.compile(r"\b(sk-[a-zA-Z0-9]{20,}|gsk_[a-zA-Z0-9]{20,}|ghp_[a-zA-Z0-9]{30,}|github_pat_[a-zA-Z0-9_]{40,}|AIzaSy[a-zA-Z0-9_\-]{33})\b"),
         "[REDACTED_API_KEY]",
     ),
+    # GitLab Personal Access Tokens (glpat-...)
+    (
+        re.compile(r"\b(glpat-[a-zA-Z0-9_\-]{20,})\b"),
+        "[REDACTED_GITLAB_TOKEN]",
+    ),
+    # Slack tokens (xoxb-, xoxp-, xoxa-, xoxs-)
+    (
+        re.compile(r"\b(xox[bpas]-[a-zA-Z0-9\-]{10,})\b"),
+        "[REDACTED_SLACK_TOKEN]",
+    ),
+    # Vercel tokens
+    (
+        re.compile(r"\b(vercel_[a-zA-Z0-9_\-]{20,})\b"),
+        "[REDACTED_VERCEL_TOKEN]",
+    ),
+    # HashiCorp Vault tokens
+    (
+        re.compile(r"\b(hvs\.[a-zA-Z0-9_\-]{20,})\b"),
+        "[REDACTED_VAULT_TOKEN]",
+    ),
     # Generic password, secret, token, api_key in assignments
     (
         re.compile(
-            r"(?i)\b(password|passwd|secret|token|apikey|api_key|access_token|auth_token|client_secret)\s*[:=]\s*['\"]?([^\s'\";,]{6,})['\"]?"
+            r"(?i)\b(password|passwd|secret|token|apikey|api_key|access_token|auth_token|client_secret)\s*[:=]\s*['\"]?(?!\[REDACTED)([^\s'\";,\[\]]{6,})['\"]?"
         ),
         r'\1="[REDACTED]"',
     ),
@@ -70,9 +90,8 @@ def redact_secrets(text: str) -> tuple[str, int]:
     total_redactions = 0
 
     for pattern, replacement in SECRET_PATTERNS:
-        matches = pattern.findall(redacted_text)
-        if matches:
-            total_redactions += len(matches)
-            redacted_text = pattern.sub(replacement, redacted_text)
+        redacted_text, n = pattern.subn(replacement, redacted_text)
+        total_redactions += n
 
     return redacted_text, total_redactions
+
