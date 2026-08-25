@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import shlex
 import uuid
 from typing import Optional, Union
 
@@ -12,6 +13,31 @@ from .models import ActionPlan, ActionStep, RiskLevel
 
 _JSON_BLOCK_PATTERN = re.compile(r"```(?:json)?\s*(\{[\s\S]*?\})\s*```", re.IGNORECASE)
 _CODE_BLOCK_PATTERN = re.compile(r"```(\w*)\n?(.*?)```", re.DOTALL)
+
+
+def split_command_to_argv(cmd_str: str) -> list[str]:
+    """
+    Splits a command string into a clean argv list.
+    Preserves quoted paths with spaces and handles heredocs/special syntax safely.
+    """
+    cleaned = cmd_str.strip()
+    if not cleaned:
+        return []
+
+    # If the command contains a heredoc (e.g. cat << 'EOF' ...), shlex.split
+    # might fail or mangle multi-line script content.
+    # Preserve heredoc as a single command string if multiline or containing <<
+    if "<<" in cleaned:
+        return [cleaned]
+
+    try:
+        tokens = shlex.split(cleaned, posix=True)
+        if tokens:
+            return tokens
+    except ValueError:
+        pass
+
+    return [tok for tok in cleaned.split() if tok]
 
 
 def strip_json_comments_and_commas(text: str) -> str:
@@ -288,7 +314,7 @@ class PlanParser:
             if len(detected_commands) >= 1:
                 steps = []
                 for i, cmd_str in enumerate(detected_commands):
-                    argv = [tok for tok in cmd_str.split() if tok]
+                    argv = split_command_to_argv(cmd_str)
                     steps.append(
                         ActionStep(
                             step_id=f"step_{i+1}",
@@ -316,7 +342,7 @@ class PlanParser:
             for i, cmd in enumerate(raw_commands):
                 cmd_str = cmd if isinstance(cmd, str) else cmd.get("command", "")
                 if cmd_str:
-                    argv = [tok for tok in cmd_str.split() if tok]
+                    argv = split_command_to_argv(cmd_str)
                     steps.append(
                         ActionStep(
                             step_id=f"step_{i+1}",

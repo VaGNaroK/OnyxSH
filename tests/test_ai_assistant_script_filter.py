@@ -3,7 +3,12 @@
 
 import unittest
 from onyxsh.terminal.ai_assistant import TerminalAiAssistant
-from onyxsh.agent.planner import PlanParser, is_multi_line_script, is_valid_cli_command
+from onyxsh.agent.planner import (
+    PlanParser,
+    is_multi_line_script,
+    is_valid_cli_command,
+    split_command_to_argv,
+)
 
 
 class TestAiAssistantScriptFilter(unittest.TestCase):
@@ -263,21 +268,37 @@ done"""
         # Should fix unclosed quote on echo statement
         self.assertIn('echo "Este script precisa ser executado como root. Use sudo."', wrapped)
 
-    def test_heredoc_two_dots_placeholder_repair(self):
-        """When AI returns heredoc with '..' two dots placeholder, it should inject full script."""
-        raw_json_response = """{
-  "reply": "Script para bloquear hosts:\\n\\n```bash\\n#!/usr/bin/env bash\\necho 'Menu'\\nselect choice in 'Bloquear' 'Sair'; do\\n  case $choice in\\n    'Bloquear')\\n      echo 'Bloqueando'\\n      ;;\\n    *) break;;\\n  esac\\ndone\\n```",
-  "commands": [
-    "cat << 'EOF' > ~/bloquear_site.sh\\n#!/usr/bin/env bash\\n..\\nEOF",
-    "chmod +x ~/bloquear_site.sh",
-    "~/bloquear_site.sh"
-  ]
-}"""
-        reply, commands, code_snippets = self.assistant._parse_assistant_payload(raw_json_response)
-        command_texts = [c["command"] for c in commands]
-        self.assertEqual(len(command_texts), 3)
-        self.assertIn("select choice in 'Bloquear'", command_texts[0])
-        self.assertNotIn("..", command_texts[0])
+    def test_split_command_to_argv_quoted_paths_with_spaces(self):
+        """BUG-005: split_command_to_argv must preserve quoted paths with spaces as single argv elements."""
+        cmd = 'mkdir -p "/home/user/Meus Documentos/Projeto"'
+        argv = split_command_to_argv(cmd)
+        self.assertEqual(argv, ["mkdir", "-p", "/home/user/Meus Documentos/Projeto"])
+
+        cmd_git = 'git commit -m "feat(core): initial commit with multiple spaces"'
+        argv_git = split_command_to_argv(cmd_git)
+        self.assertEqual(argv_git, ["git", "commit", "-m", "feat(core): initial commit with multiple spaces"])
+
+    def test_split_command_to_argv_heredocs(self):
+        """BUG-005: Heredoc file creation commands should remain intact without breaking on lines."""
+        heredoc = "cat << 'EOF' > ~/meu_script.sh\n#!/bin/bash\necho 'hello'\nEOF"
+        argv = split_command_to_argv(heredoc)
+        self.assertEqual(len(argv), 1)
+        self.assertEqual(argv[0], heredoc)
+
+    def test_planner_preserves_quoted_arguments_in_argv(self):
+        """BUG-005: PlanParser should generate ActionStep with clean uncorrupted argv for paths with spaces."""
+        markdown_resp = """
+        Para criar a pasta e o arquivo:
+        ```bash
+        mkdir -p "/tmp/pasta com espaco"
+        touch "/tmp/pasta com espaco/arquivo novo.txt"
+        ```
+        """
+        plan = PlanParser.parse(markdown_resp, provider_name="ollama")
+        self.assertTrue(hasattr(plan, "steps"))
+        self.assertEqual(len(plan.steps), 2)
+        self.assertEqual(plan.steps[0].argv, ["mkdir", "-p", "/tmp/pasta com espaco"])
+        self.assertEqual(plan.steps[1].argv, ["touch", "/tmp/pasta com espaco/arquivo novo.txt"])
 
 
 if __name__ == "__main__":

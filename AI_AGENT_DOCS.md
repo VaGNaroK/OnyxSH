@@ -79,32 +79,13 @@
 
 ---
 
-### BUG-005: Planner — `argv` Split Ingênuo Quebra Heredocs e Caminhos com Espaços
+### ~~BUG-005: Planner — `argv` Split Ingênuo Quebra Heredocs e Caminhos com Espaços~~ ✅ *[RESOLVIDO]*
 
-**Severidade:** 🔴 Alta — Comandos com espaços em paths ou heredocs são silenciosamente corrompidos.
+**Severidade:** 🔴 Alta — Comandos com espaços em paths ou heredocs eram corrompidos pelo `.split()` simples.
 
-**Arquivo:** `src/onyxsh/agent/planner.py:291`
+**Arquivo:** `src/onyxsh/agent/planner.py`
 
-**Código problemático:**
-```python
-argv = [tok for tok in cmd_str.split() if tok]  # Simples split por whitespace
-```
-
-**Impacto:**
-- `cat << 'EOF' > "/home/user/my file.txt"` → argv fragmentado incorretamente
-- `mkdir -p "/path/com espaços/dir"` → path quebrado em tokens separados
-
-**Correção recomendada:**
-```python
-import shlex
-
-try:
-    argv = shlex.split(cmd_str)
-except ValueError:
-    argv = [tok for tok in cmd_str.split() if tok]  # Fallback seguro
-```
-
-**Nota:** `shlex.split()` deve ser usado com cuidado em heredocs. Verificar se `cmd_str` contém `<<` e, nesse caso, preservar como string única.
+**Status:** Corrigido implementando `split_command_to_argv(cmd_str)` utilizando `shlex.split(posix=True)` com preservação de heredocs (`<<`) como strings intactas e fallback para parsing seguro. Coberto por testes unitários em `tests/test_ai_assistant_script_filter.py`.
 
 ---
 
