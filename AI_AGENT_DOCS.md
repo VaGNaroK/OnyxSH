@@ -79,7 +79,7 @@
 
 ---
 
-### ~~BUG-005: Planner — `argv` Split Ingênuo Quebra Heredocs e Caminhos com Espaços~~ ✅ *[RESOLVIDO]*
+### ~~BUG-005: Planner — `argv` Split Ingênuo Quebra Heredocs e Caminhos com Espaços~~ ✅ *[RESOLVIDO - Commit c5d0171]*
 
 **Severidade:** 🔴 Alta — Comandos com espaços em paths ou heredocs eram corrompidos pelo `.split()` simples.
 
