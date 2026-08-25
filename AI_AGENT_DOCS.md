@@ -69,7 +69,7 @@
 
 ---
 
-### ~~BUG-004: Logger — FileHandler Leak em `reconfigure_all_loggers()`~~ ✅ *[RESOLVIDO]*
+### ~~BUG-004: Logger — FileHandler Leak em `reconfigure_all_loggers()`~~ ✅ *[RESOLVIDO - Commit 3d18ce0]*
 
 **Severidade:** ⚠️ Média — Resource leak ao reconfigurar loggers repetidamente.
 
