@@ -9,7 +9,7 @@ import gi
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Gtk
+from gi.repository import Gio, Gtk
 
 from onyxsh.filemanager.manager import FileManager
 from onyxsh.filemanager.models import FileItem
@@ -274,6 +274,32 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         box = popover.get_child()
         self.assertIsInstance(box, Gtk.Box)
 
+    def test_compact_header_and_sort(self):
+        self.fm.name_sorter = Gtk.CustomSorter.new(self.fm._sort_by_name, None)
+        self.fm.size_sorter = Gtk.CustomSorter.new(self.fm._sort_by_size, None)
+        self.fm.date_sorter = Gtk.CustomSorter.new(self.fm._sort_by_date, None)
+        self.fm.perms_sorter = Gtk.CustomSorter.new(self.fm._sort_by_permissions, None)
+        self.fm.owner_sorter = Gtk.CustomSorter.new(self.fm._sort_by_owner, None)
+
+        header = self.fm._create_compact_header()
+        self.assertIsInstance(header, Gtk.Box)
+        self.assertTrue(header.has_css_class("file-compact-header"))
+
+        # Verify all 5 column headers exist
+        children = []
+        child = header.get_first_child()
+        while child:
+            children.append(child)
+            child = child.get_next_sibling()
+        self.assertEqual(len(children), 5)
+
+        # Test apply sort from header
+        store = Gio.ListStore.new(FileItem)
+        self.fm.sorted_store = Gtk.SortListModel.new(store, self.fm.name_sorter)
+        self.fm._apply_sort_from_header("size")
+        self.assertEqual(self.fm.sorted_store.get_sorter(), self.fm.size_sorter)
+
 
 if __name__ == "__main__":
     unittest.main()
+

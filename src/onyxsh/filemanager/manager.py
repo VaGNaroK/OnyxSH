@@ -529,6 +529,7 @@ class FileManager(GObject.Object):
         self.column_view = None
         self.grid_view = None
         self.compact_view = None
+        self.compact_container = None
         self.view_stack = None
         self.main_box = None
         self.revealer = None
@@ -659,11 +660,11 @@ class FileManager(GObject.Object):
 
         self.column_view = self._create_detailed_column_view()
         self.grid_view = self._create_icon_grid_view()
-        self.compact_view = self._create_compact_list_view()
+        self.compact_container = self._create_compact_list_view()
 
         self.view_stack.add_named(self.column_view, "list")
         self.view_stack.add_named(self.grid_view, "grid")
-        self.view_stack.add_named(self.compact_view, "compact")
+        self.view_stack.add_named(self.compact_container, "compact")
 
         self.scrolled_window.set_child(self.view_stack)
 
@@ -2139,35 +2140,105 @@ class FileManager(GObject.Object):
     def _unbind_grid_item(self, factory, list_item):
         self._unbind_cell(factory, list_item)
 
-    def _create_compact_list_view(self) -> Gtk.ListView:
-        """Creates the compact single-line ListView."""
-        compact_view = Gtk.ListView()
-        compact_view.add_css_class("file-manager-compact-view")
-        compact_view.set_model(self.selection_model)
-        compact_view.connect("activate", self._on_row_activated)
+    def _apply_sort_from_header(self, column: str):
+        """Applies sorting when clicking a compact list header."""
+        sorter_map = {
+            "name": getattr(self, "name_sorter", None),
+            "size": getattr(self, "size_sorter", None),
+            "date": getattr(self, "date_sorter", None),
+            "permissions": getattr(self, "perms_sorter", None),
+            "owner": getattr(self, "owner_sorter", None),
+        }
+        sorter = sorter_map.get(column)
+        if sorter is not None and getattr(self, "sorted_store", None) is not None:
+            self._active_sort_column = column
+            self.sorted_store.set_sorter(sorter)
+
+    def _create_compact_header(self) -> Gtk.Box:
+        """Constructs the column title header row for compact list mode."""
+        header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        header.add_css_class("file-compact-header")
+        header.set_margin_start(4)
+        header.set_margin_end(4)
+
+        # 1. Name header
+        name_btn = Gtk.Button(label=_("Name"))
+        name_btn.add_css_class("flat")
+        name_btn.add_css_class("file-compact-header-btn")
+        name_btn.set_hexpand(True)
+        name_btn.connect("clicked", lambda b: self._apply_sort_from_header("name"))
+        header.append(name_btn)
+
+        # 2. Size header
+        size_btn = Gtk.Button(label=_("Size"))
+        size_btn.add_css_class("flat")
+        size_btn.add_css_class("file-compact-header-btn")
+        size_btn.add_css_class("file-compact-col-size")
+        size_btn.connect("clicked", lambda b: self._apply_sort_from_header("size"))
+        header.append(size_btn)
+
+        # 3. Date Modified header
+        date_btn = Gtk.Button(label=_("Date Modified"))
+        date_btn.add_css_class("flat")
+        date_btn.add_css_class("file-compact-header-btn")
+        date_btn.add_css_class("file-compact-col-date")
+        date_btn.connect("clicked", lambda b: self._apply_sort_from_header("date"))
+        header.append(date_btn)
+
+        # 4. Permissions header
+        perms_btn = Gtk.Button(label=_("Permissions"))
+        perms_btn.add_css_class("flat")
+        perms_btn.add_css_class("file-compact-header-btn")
+        perms_btn.add_css_class("file-compact-col-perms")
+        perms_btn.connect(
+            "clicked", lambda b: self._apply_sort_from_header("permissions")
+        )
+        header.append(perms_btn)
+
+        # 5. Owner/Group header
+        owner_btn = Gtk.Button(label=_("Owner"))
+        owner_btn.add_css_class("flat")
+        owner_btn.add_css_class("file-compact-header-btn")
+        owner_btn.add_css_class("file-compact-col-owner")
+        owner_btn.connect("clicked", lambda b: self._apply_sort_from_header("owner"))
+        header.append(owner_btn)
+
+        return header
+
+    def _create_compact_list_view(self) -> Gtk.Widget:
+        """Creates the compact single-line ListView wrapped in a container with a header bar."""
+        self.compact_view = Gtk.ListView()
+        self.compact_view.add_css_class("file-manager-compact-view")
+        self.compact_view.set_model(self.selection_model)
+        self.compact_view.connect("activate", self._on_row_activated)
 
         factory = Gtk.SignalListItemFactory()
         factory.connect("setup", self._setup_compact_item)
         factory.connect("bind", self._bind_compact_item)
         factory.connect("unbind", self._unbind_compact_item)
-        compact_view.set_factory(factory)
+        self.compact_view.set_factory(factory)
 
         key_controller = Gtk.EventControllerKey.new()
         key_controller.connect("key-pressed", self._on_column_view_key_pressed)
         key_controller.connect("key-released", self._on_column_view_key_released)
-        compact_view.add_controller(key_controller)
+        self.compact_view.add_controller(key_controller)
 
         background_click = Gtk.GestureClick.new()
         background_click.set_button(Gdk.BUTTON_SECONDARY)
         background_click.connect(
             "pressed",
             lambda g, n, x, y: self._on_view_background_click(
-                g, n, x, y, compact_view
+                g, n, x, y, self.compact_view
             ),
         )
-        compact_view.add_controller(background_click)
+        self.compact_view.add_controller(background_click)
 
-        return compact_view
+        container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        container.append(self._create_compact_header())
+        container.append(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
+        container.append(self.compact_view)
+
+        return container
 
     def _setup_compact_item(self, factory, list_item):
         """Constructs the single row layout for compact list mode."""
