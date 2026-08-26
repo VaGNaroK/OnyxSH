@@ -225,7 +225,6 @@
     padding: 8px 6px;
     border-radius: 10px;
     min-width: 90px;
-    max-width: 130px;
 }
 
 .file-grid-card-icon {
@@ -234,12 +233,10 @@
 
 .file-grid-card-label {
     font-size: 0.85rem;
-    text-align: center;
 }
 
 .file-grid-card-size {
     font-size: 0.75rem;
-    text-align: center;
 }
 
 /* Compact List View Styles */

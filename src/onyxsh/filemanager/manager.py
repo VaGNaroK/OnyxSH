@@ -1763,25 +1763,19 @@ class FileManager(GObject.Object):
         badges_box = Gtk.Box(spacing=4, orientation=Gtk.Orientation.HORIZONTAL)
         box.append(badges_box)
 
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        box.add_controller(gesture)
+
         list_item.set_child(box)
 
     def _bind_cell_common(self, list_item):
-        """Common logic for binding cells, including adding the right-click gesture."""
-        row = list_item.get_child().get_parent()
-        if row and not hasattr(row, "right_click_gesture"):
-            right_click_gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-            right_click_gesture.connect(
-                "pressed", self._on_item_right_click, list_item
-            )
-            row.add_controller(right_click_gesture)
-            row.right_click_gesture = right_click_gesture
+        """No-op kept for backwards compatibility."""
+        pass
 
     def _unbind_cell(self, factory, list_item):
-        """Disconnects handlers to prevent memory leaks."""
-        row = list_item.get_child().get_parent()
-        if row and hasattr(row, "right_click_gesture"):
-            row.remove_controller(row.right_click_gesture)
-            delattr(row, "right_click_gesture")
+        """No-op kept for backwards compatibility."""
+        pass
 
     def _bind_name_cell(self, factory, list_item):
         self._bind_cell_common(list_item)
@@ -1840,10 +1834,16 @@ class FileManager(GObject.Object):
 
     def _setup_text_cell(self, factory, list_item):
         label = Gtk.Label(xalign=0.0)
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        label.add_controller(gesture)
         list_item.set_child(label)
 
     def _setup_size_cell(self, factory, list_item):
         label = Gtk.Label(xalign=1.0)
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        label.add_controller(gesture)
         list_item.set_child(label)
 
     def _bind_permissions_cell(self, factory, list_item):
@@ -2035,7 +2035,8 @@ class FileManager(GObject.Object):
         label.add_css_class("file-grid-card-label")
         label.set_wrap(True)
         label.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
-        label.set_max_width_chars(14)
+        label.set_width_chars(10)
+        label.set_max_width_chars(16)
         label.set_lines(2)
         label.set_ellipsize(Pango.EllipsizeMode.MIDDLE)
         card.append(label)
@@ -2045,6 +2046,10 @@ class FileManager(GObject.Object):
         size_label.add_css_class("dim-label")
         size_label.add_css_class("caption")
         card.append(size_label)
+
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        card.add_controller(gesture)
 
         list_item.set_child(card)
 
@@ -2154,6 +2159,10 @@ class FileManager(GObject.Object):
         size_label.add_css_class("dim-label")
         size_label.add_css_class("caption")
         box.append(size_label)
+
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        box.add_controller(gesture)
 
         list_item.set_child(box)
 
