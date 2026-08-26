@@ -1693,8 +1693,8 @@ class FileManager(GObject.Object):
     def _create_detailed_column_view(self) -> Gtk.ColumnView:
         col_view = Gtk.ColumnView()
         col_view.add_css_class("file-manager-column-view")
-        col_view.set_show_column_separators(True)
-        col_view.set_show_row_separators(True)
+        col_view.set_show_column_separators(False)
+        col_view.set_show_row_separators(False)
 
         self.name_sorter = Gtk.CustomSorter.new(self._sort_by_name, None)
         self.size_sorter = Gtk.CustomSorter.new(self._sort_by_size, None)
