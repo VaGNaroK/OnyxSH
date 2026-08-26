@@ -9,14 +9,13 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.10.0] - 2026-08-26
 
 ### Adicionado
-- **Gerenciador de Arquivos Multiview 2.0 (Lista Detalhada, Grade de Ícones e Lista Compacta) & Quick Look**: Reformulação da camada de visualização com suporte a múltiplos modos de apresentação e inspeção rica de arquivos (`src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/filemanager/models.py`, `src/onyxsh/settings/config.py`, `tests/test_filemanager_*.py`, `tests/test_quick_look.py`):
+- **Gerenciador de Arquivos Multiview 2.0 (Lista Detalhada e Grade de Ícones) & Quick Look**: Reformulação da camada de visualização com suporte a múltiplos modos de apresentação e inspeção rica de arquivos (`src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/filemanager/models.py`, `src/onyxsh/settings/config.py`, `tests/test_filemanager_*.py`, `tests/test_quick_look.py`):
   - 🌁 **Múltiplos Modos de Exibição com `Gtk.Stack`**:
-    - **Lista Detalhada (`Gtk.ColumnView`)**: Tabela multi-colunas com ordenação em cabeçalhos (Nome, Tamanho, Data, Permissões, Dono, Grupo).
-    - **Grade de Ícones / Grid (`Gtk.GridView`)**: Cards verticais responsivos com ícones destacados de 48px, badges coloridos de tipo de arquivo (+x, root, PY, SH, DOCKER, LOG, JSON, YAML) e rótulo centralizado em 2 linhas com ellipsize.
-    - **Lista Compacta (`Gtk.ListView`)**: Modo condensado em linha única (18px) com ícone, nome e tamanho, ideal para painéis estreitos.
+    - **Lista Detalhada (`Gtk.ColumnView`)**: Tabela multi-colunas com cabeçalho plano contínuo, tipografia monoespaçada, colunas alinhadas (Nome, Tamanho, Data, Permissões POSIX, Dono, Grupo) e tooltip rico Pango com metadados detalhados em hover.
+    - **Grade de Ícones / Grid (`Gtk.GridView`)**: Cards verticais responsivos com ícones destacados de 48px, badges coloridos de tipo de arquivo (+x, root, PY, SH, DOCKER, LOG, JSON, YAML), subtítulo duplo `Tamanho • Data` e tooltip rico Pango com metadados completos.
   - 🎛️ **Controles na Barra de Ações & Popover de Ordenação**:
-    - Seletor de visualizações integrado com botões interligados estilo Libadwaita (`view-list-symbolic`, `view-grid-symbolic`, `view-compact-symbolic`).
-    - Menu popover de ordenação dedicado para alternar o critério de classificação em qualquer modo.
+    - Seletor de visualizações integrado com botões interligados estilo Libadwaita (`view-list-symbolic`, `view-grid-symbolic`).
+    - Menu popover de ordenação dedicado para alternar o critério de classificação na grade de ícones.
     - Persistência automática da preferência do usuário no `SettingsManager` (`file_manager_view_mode`).
   - 👁️ **Pré-visualização Rápida de Arquivos (*Quick Look* / Tecla Espaço)**:
     - Diálogo modal Libadwaita (`QuickLookDialog`) para pré-visualização instantânea sem abrir editores externos.

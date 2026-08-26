@@ -499,8 +499,6 @@ class FileManager(GObject.Object):
             self.column_view.set_model(None)
         if hasattr(self, "grid_view") and self.grid_view:
             self.grid_view.set_model(None)
-        if hasattr(self, "compact_view") and self.compact_view:
-            self.compact_view.set_model(None)
 
         # Task 2: Clear model wrappers in correct order
         if hasattr(self, "selection_model"):
@@ -528,8 +526,6 @@ class FileManager(GObject.Object):
         self.transfer_manager = None
         self.column_view = None
         self.grid_view = None
-        self.compact_view = None
-        self.compact_container = None
         self.view_stack = None
         self.main_box = None
         self.revealer = None
@@ -660,11 +656,9 @@ class FileManager(GObject.Object):
 
         self.column_view = self._create_detailed_column_view()
         self.grid_view = self._create_icon_grid_view()
-        self.compact_container = self._create_compact_list_view()
 
         self.view_stack.add_named(self.column_view, "list")
         self.view_stack.add_named(self.grid_view, "grid")
-        self.view_stack.add_named(self.compact_container, "compact")
 
         self.scrolled_window.set_child(self.view_stack)
 
@@ -714,7 +708,7 @@ class FileManager(GObject.Object):
         self.quick_jump_button.set_popover(self.quick_jump_popover)
         self.action_bar.pack_start(self.quick_jump_button)
 
-        # View Mode Switcher (Linked Toggle Buttons: List, Grid, Compact)
+        # View Mode Switcher (Linked Toggle Buttons: List, Grid)
         self.view_mode_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         self.view_mode_box.add_css_class("linked")
 
@@ -734,17 +728,9 @@ class FileManager(GObject.Object):
         )
         self.view_mode_box.append(self.view_grid_btn)
 
-        self.view_compact_btn = Gtk.ToggleButton()
-        self.view_compact_btn.set_child(icon_image("view-compact-symbolic"))
-        self.tooltip_helper.add_tooltip(self.view_compact_btn, _("Compact List View"))
-        self.view_compact_btn.connect(
-            "toggled", lambda b: self._on_view_mode_toggle(b, "compact")
-        )
-        self.view_mode_box.append(self.view_compact_btn)
-
         self.action_bar.pack_start(self.view_mode_box)
 
-        # Sort menu button with popover for grid and compact modes
+        # Sort menu button with popover for grid mode
         self.sort_menu_button = Gtk.MenuButton()
         self.sort_menu_button.set_child(icon_image("view-sort-ascending-symbolic"))
         self.sort_menu_button.add_css_class("flat")
@@ -1856,6 +1842,12 @@ class FileManager(GObject.Object):
                 badge.add_css_class(css_class)
                 badges_box.append(badge)
 
+        # Set rich tooltip on name cell
+        if file_item.name != ".." and hasattr(file_item, "tooltip_markup"):
+            box.set_tooltip_markup(file_item.tooltip_markup)
+        else:
+            box.set_tooltip_markup(None)
+
     def _setup_text_cell(self, factory, list_item):
         label = Gtk.Label(xalign=0.0)
         gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
@@ -1908,56 +1900,84 @@ class FileManager(GObject.Object):
         self._bind_cell_common(list_item)
         label = list_item.get_child()
         file_item: FileItem = list_item.get_item()
-        label.set_text(file_item.permissions)
+        if not file_item:
+            return
+        if file_item.name == "..":
+            label.set_text("")
+            label.set_tooltip_markup(None)
+        else:
+            label.set_text(file_item.permissions)
+            if hasattr(file_item, "tooltip_markup"):
+                label.set_tooltip_markup(file_item.tooltip_markup)
 
     def _bind_owner_cell(self, factory, list_item):
         self._bind_cell_common(list_item)
         label = list_item.get_child()
         file_item: FileItem = list_item.get_item()
-        label.set_text(file_item.owner)
+        if not file_item:
+            return
+        if file_item.name == "..":
+            label.set_text("")
+            label.set_tooltip_markup(None)
+        else:
+            label.set_text(file_item.owner)
+            if hasattr(file_item, "tooltip_markup"):
+                label.set_tooltip_markup(file_item.tooltip_markup)
 
     def _bind_group_cell(self, factory, list_item):
         self._bind_cell_common(list_item)
         label = list_item.get_child()
         file_item: FileItem = list_item.get_item()
-        label.set_text(file_item.group)
+        if not file_item:
+            return
+        if file_item.name == "..":
+            label.set_text("")
+            label.set_tooltip_markup(None)
+        else:
+            label.set_text(file_item.group)
+            if hasattr(file_item, "tooltip_markup"):
+                label.set_tooltip_markup(file_item.tooltip_markup)
 
     def _bind_size_cell(self, factory, list_item):
         self._bind_cell_common(list_item)
         label = list_item.get_child()
         file_item: FileItem = list_item.get_item()
-        size = file_item.size
-        if size < 1024:
-            size_str = f"{size} B"
-        elif size < 1024**2:
-            size_str = f"{size / 1024:.1f} KB"
-        elif size < 1024**3:
-            size_str = f"{size / 1024**2:.1f} MB"
+        if not file_item:
+            return
+        if file_item.name == "..":
+            label.set_text("")
+            label.set_tooltip_markup(None)
         else:
-            size_str = f"{size / 1024**3:.1f} GB"
-        label.set_text(size_str)
+            label.set_text(file_item.formatted_size)
+            if hasattr(file_item, "tooltip_markup"):
+                label.set_tooltip_markup(file_item.tooltip_markup)
 
     def _bind_date_cell(self, factory, list_item):
         self._bind_cell_common(list_item)
         label = list_item.get_child()
         file_item: FileItem = list_item.get_item()
-        date_str = file_item.date.strftime("%Y-%m-%d %H:%M")
-        label.set_text(date_str)
+        if not file_item:
+            return
+        if file_item.name == "..":
+            label.set_text("")
+            label.set_tooltip_markup(None)
+        else:
+            label.set_text(file_item.formatted_date)
+            if hasattr(file_item, "tooltip_markup"):
+                label.set_tooltip_markup(file_item.tooltip_markup)
 
     def _get_active_view(self) -> Optional[Gtk.Widget]:
-        """Returns the currently active view widget (ColumnView, GridView, or ListView)."""
+        """Returns the currently active view widget (ColumnView or GridView)."""
         if not hasattr(self, "view_stack") or not self.view_stack:
             return getattr(self, "column_view", None)
         visible = self.view_stack.get_visible_child_name()
         if visible == "grid" and hasattr(self, "grid_view") and self.grid_view:
             return self.grid_view
-        elif visible == "compact" and hasattr(self, "compact_view") and self.compact_view:
-            return self.compact_view
         return getattr(self, "column_view", None)
 
     def _set_view_mode(self, mode: str, save_preference: bool = True) -> None:
-        """Switches the active file manager view mode between 'list', 'grid', and 'compact'."""
-        if mode not in ("list", "grid", "compact"):
+        """Switches the active file manager view mode between 'list' and 'grid'."""
+        if mode not in ("list", "grid"):
             mode = "list"
         self._current_view_mode = mode
         if hasattr(self, "view_stack") and self.view_stack:
@@ -1967,8 +1987,6 @@ class FileManager(GObject.Object):
             self.view_list_btn.set_active(mode == "list")
         if hasattr(self, "view_grid_btn") and self.view_grid_btn:
             self.view_grid_btn.set_active(mode == "grid")
-        if hasattr(self, "view_compact_btn") and self.view_compact_btn:
-            self.view_compact_btn.set_active(mode == "compact")
 
         if save_preference and hasattr(self, "settings_manager") and self.settings_manager:
             try:
@@ -1985,7 +2003,7 @@ class FileManager(GObject.Object):
                 btn.set_active(True)
 
     def _create_sort_popover(self) -> Gtk.Popover:
-        """Creates the sorting options popover for grid and compact views."""
+        """Creates the sorting options popover for grid view."""
         popover = Gtk.Popover()
         box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL,
@@ -2172,243 +2190,6 @@ class FileManager(GObject.Object):
             card.set_tooltip_markup(file_item.tooltip_markup)
 
     def _unbind_grid_item(self, factory, list_item):
-        self._unbind_cell(factory, list_item)
-
-    def _apply_sort_from_header(self, column: str):
-        """Applies sorting when clicking a compact list header."""
-        sorter_map = {
-            "name": getattr(self, "name_sorter", None),
-            "size": getattr(self, "size_sorter", None),
-            "date": getattr(self, "date_sorter", None),
-            "permissions": getattr(self, "perms_sorter", None),
-            "owner": getattr(self, "owner_sorter", None),
-        }
-        sorter = sorter_map.get(column)
-        if sorter is not None and getattr(self, "sorted_store", None) is not None:
-            self._active_sort_column = column
-            self.sorted_store.set_sorter(sorter)
-
-    def _create_compact_header(self) -> Gtk.Box:
-        """Constructs the column title header row for compact list mode."""
-        header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-        header.add_css_class("file-compact-header")
-        header.set_margin_start(4)
-        header.set_margin_end(4)
-
-        # 1. Name header
-        name_btn = Gtk.Button(label=_("Name"))
-        name_btn.add_css_class("flat")
-        name_btn.add_css_class("file-compact-header-btn")
-        name_btn.set_hexpand(True)
-        name_btn.connect("clicked", lambda b: self._apply_sort_from_header("name"))
-        header.append(name_btn)
-
-        # 2. Size header
-        size_btn = Gtk.Button(label=_("Size"))
-        size_btn.add_css_class("flat")
-        size_btn.add_css_class("file-compact-header-btn")
-        size_btn.add_css_class("file-compact-col-size")
-        size_btn.connect("clicked", lambda b: self._apply_sort_from_header("size"))
-        header.append(size_btn)
-
-        # 3. Date Modified header
-        date_btn = Gtk.Button(label=_("Date Modified"))
-        date_btn.add_css_class("flat")
-        date_btn.add_css_class("file-compact-header-btn")
-        date_btn.add_css_class("file-compact-col-date")
-        date_btn.connect("clicked", lambda b: self._apply_sort_from_header("date"))
-        header.append(date_btn)
-
-        # 4. Permissions header
-        perms_btn = Gtk.Button(label=_("Permissions"))
-        perms_btn.add_css_class("flat")
-        perms_btn.add_css_class("file-compact-header-btn")
-        perms_btn.add_css_class("file-compact-col-perms")
-        perms_btn.connect(
-            "clicked", lambda b: self._apply_sort_from_header("permissions")
-        )
-        header.append(perms_btn)
-
-        # 5. Owner/Group header
-        owner_btn = Gtk.Button(label=_("Owner"))
-        owner_btn.add_css_class("flat")
-        owner_btn.add_css_class("file-compact-header-btn")
-        owner_btn.add_css_class("file-compact-col-owner")
-        owner_btn.connect("clicked", lambda b: self._apply_sort_from_header("owner"))
-        header.append(owner_btn)
-
-        return header
-
-    def _create_compact_list_view(self) -> Gtk.Widget:
-        """Creates the compact single-line ListView wrapped in a container with a header bar."""
-        self.compact_view = Gtk.ListView()
-        self.compact_view.add_css_class("file-manager-compact-view")
-        self.compact_view.set_model(self.selection_model)
-        self.compact_view.connect("activate", self._on_row_activated)
-
-        factory = Gtk.SignalListItemFactory()
-        factory.connect("setup", self._setup_compact_item)
-        factory.connect("bind", self._bind_compact_item)
-        factory.connect("unbind", self._unbind_compact_item)
-        self.compact_view.set_factory(factory)
-
-        key_controller = Gtk.EventControllerKey.new()
-        key_controller.connect("key-pressed", self._on_column_view_key_pressed)
-        key_controller.connect("key-released", self._on_column_view_key_released)
-        self.compact_view.add_controller(key_controller)
-
-        background_click = Gtk.GestureClick.new()
-        background_click.set_button(Gdk.BUTTON_SECONDARY)
-        background_click.connect(
-            "pressed",
-            lambda g, n, x, y: self._on_view_background_click(
-                g, n, x, y, self.compact_view
-            ),
-        )
-        self.compact_view.add_controller(background_click)
-
-        container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-        container.append(self._create_compact_header())
-        container.append(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
-        container.append(self.compact_view)
-
-        return container
-
-    def _setup_compact_item(self, factory, list_item):
-        """Constructs the single row layout for compact list mode."""
-        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-        box.add_css_class("file-compact-row")
-        box.set_margin_start(4)
-        box.set_margin_end(4)
-
-        # 1. Name section (Icon + Name + Badges)
-        name_box = Gtk.Box(
-            orientation=Gtk.Orientation.HORIZONTAL, spacing=6, hexpand=True
-        )
-
-        icon_img = Gtk.Image()
-        icon_img.set_pixel_size(18)
-        name_box.append(icon_img)
-
-        label = Gtk.Label(xalign=0.0, hexpand=True)
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        name_box.append(label)
-
-        badges_box = Gtk.Box(spacing=4, orientation=Gtk.Orientation.HORIZONTAL)
-        name_box.append(badges_box)
-        box.append(name_box)
-
-        # 2. Size Column
-        size_label = Gtk.Label(xalign=1.0)
-        size_label.add_css_class("file-compact-col-size")
-        size_label.add_css_class("numeric")
-        size_label.set_width_chars(9)
-        box.append(size_label)
-
-        # 3. Date Modified Column
-        date_label = Gtk.Label(xalign=0.5)
-        date_label.add_css_class("file-compact-col-date")
-        date_label.set_width_chars(17)
-        box.append(date_label)
-
-        # 4. Permissions Column
-        perms_label = Gtk.Label(xalign=0.5)
-        perms_label.add_css_class("file-compact-col-perms")
-        perms_label.set_width_chars(11)
-        box.append(perms_label)
-
-        # 5. Owner/Group Column
-        owner_label = Gtk.Label(xalign=0.0)
-        owner_label.add_css_class("file-compact-col-owner")
-        owner_label.set_width_chars(14)
-        owner_label.set_ellipsize(Pango.EllipsizeMode.END)
-        box.append(owner_label)
-
-        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-        gesture.connect("pressed", self._on_item_right_click, list_item)
-        box.add_controller(gesture)
-
-        list_item.set_child(box)
-
-    def _bind_compact_item(self, factory, list_item):
-        """Binds a FileItem to a compact list row."""
-        self._bind_cell_common(list_item)
-        box = list_item.get_child()
-        if not box:
-            return
-
-        name_box = box.get_first_child()
-        size_label = name_box.get_next_sibling() if name_box else None
-        date_label = size_label.get_next_sibling() if size_label else None
-        perms_label = date_label.get_next_sibling() if date_label else None
-        owner_label = perms_label.get_next_sibling() if perms_label else None
-
-        icon_img = name_box.get_first_child() if name_box else None
-        label = icon_img.get_next_sibling() if icon_img else None
-        badges_box = label.get_next_sibling() if label else None
-
-        file_item: FileItem = list_item.get_item()
-        if not file_item:
-            return
-
-        if icon_img:
-            icon_img.set_from_icon_name(file_item.icon_name)
-
-        if label:
-            display_name = file_item.name
-            if file_item.is_directory and display_name.endswith("/"):
-                display_name = display_name[:-1]
-            label.set_text(display_name)
-
-        if size_label:
-            if file_item.name == "..":
-                size_label.set_text("")
-            elif file_item.is_directory:
-                size_label.set_text(file_item.formatted_size)
-            else:
-                size_label.set_text(file_item.formatted_size)
-
-        if date_label:
-            if file_item.name == "..":
-                date_label.set_text("")
-            else:
-                date_label.set_text(file_item.formatted_date)
-
-        if perms_label:
-            if file_item.name == "..":
-                perms_label.set_text("")
-            else:
-                perms_label.set_text(file_item.permissions)
-
-        if owner_label:
-            if file_item.name == "..":
-                owner_label.set_text("")
-            else:
-                owner_label.set_text(f"{file_item.owner}:{file_item.group}")
-
-        if badges_box:
-            while child := badges_box.get_first_child():
-                badges_box.remove(child)
-
-            if file_item.name != "..":
-                badge_info = file_item.file_type_badge
-                if badge_info:
-                    badge_text, badge_css = badge_info
-                    b_label = Gtk.Label(label=badge_text)
-                    b_label.add_css_class("badge-pill")
-                    b_label.add_css_class(badge_css)
-                    badges_box.append(b_label)
-                elif file_item.is_executable and not file_item.is_directory:
-                    b_label = Gtk.Label(label="+x")
-                    b_label.add_css_class("badge-pill")
-                    b_label.add_css_class("badge-exec")
-                    badges_box.append(b_label)
-
-        # Set rich tooltip on row
-        if hasattr(file_item, "tooltip_markup"):
-            box.set_tooltip_markup(file_item.tooltip_markup)
-
-    def _unbind_compact_item(self, factory, list_item):
         self._unbind_cell(factory, list_item)
 
     def _confirm_pending_command(self):

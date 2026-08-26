@@ -1,14 +1,14 @@
 # Proposta de Implementação: Modos de Visualização no Gerenciador de Arquivos do OnyxSH
 
-Documento de especificação técnica e análise de viabilidade para introdução de múltiplos modos de exibição (**Lista Detalhada**, **Grade de Ícones / Grid** e **Lista Compacta**) no gerenciador de arquivos integrado do OnyxSH.
+Documento de especificação técnica e análise de viabilidade para introdução de múltiplos modos de exibição (**Lista Detalhada** e **Grade de Ícones / Grid**) no gerenciador de arquivos integrado do OnyxSH.
 
 ---
 
 ## 📌 1. Visão Geral e Veredito Técnico
 
-- **Status:** Proposta Aprovada para Implementação.
+- **Status:** Implementado e Consolidado.
 - **Viabilidade:** **100% Compatível e Altamente Viável**.
-- **Fundamento Arquitetural:** O OnyxSH adota o framework **GTK 4** e **Libadwaita**, no qual os modelos de dados (`Gio.ListStore`, `Gtk.FilterListModel`, `Gtk.SortListModel`, `Gtk.MultiSelection`) são totalmente desacoplados da camada de apresentação (`Gtk.ColumnView`, `Gtk.GridView`, `Gtk.ListView`).
+- **Fundamento Arquitetural:** O OnyxSH adota o framework **GTK 4** e **Libadwaita**, no qual os modelos de dados (`Gio.ListStore`, `Gtk.FilterListModel`, `Gtk.SortListModel`, `Gtk.MultiSelection`) são totalmente desacoplados da camada de apresentação (`Gtk.ColumnView`, `Gtk.GridView`).
 - **Impacto no Backend:** **Zero retrabalho no backend.** Todas as rotinas de `FileOperations` (local e SSH), `TransferManager`, comandos de busca recursiva, pré-visualização Quick Look e diagnósticos por IA funcionam diretamente sobre instâncias de `FileItem`, independentemente de qual widget visual está ativo no momento.
 
 ---
@@ -25,7 +25,6 @@ flowchart TD
     Selection --> Stack["Gtk.Stack (View Switcher)"]
     Stack --> ViewList["Gtk.ColumnView (Lista Detalhada)"]
     Stack --> ViewGrid["Gtk.GridView (Grade de Ícones)"]
-    Stack --> ViewCompact["Gtk.ListView (Lista Compacta)"]
     
     ActionBar["Gtk.ActionBar (Botões de Alternância)"] -.->|"Alterna página visível"| Stack
 ```
@@ -34,9 +33,8 @@ flowchart TD
 
 | Modo | Widget GTK 4 | Layout e Elementos Visuais | Casos de Uso Recomendados |
 |---|---|---|---|
-| **Lista Detalhada** *(Padrão)* | `Gtk.ColumnView` | Tabela tabular multi-colunas: Nome, Tamanho, Data de Modificação, Permissões POSIX, Dono e Grupo. Ordenação por clique no cabeçalho. | Servidores remotos, tarefas de administração de sistemas (SysAdmin), auditoria de permissões e DevOps. |
+| **Lista Detalhada** *(Padrão)* | `Gtk.ColumnView` | Tabela tabular multi-colunas: Nome, Tamanho, Data de Modificação, Permissões POSIX, Dono e Grupo. Cabeçalho plano contínuo, tipografia monoespaçada e popup rico Pango em hover. | Servidores remotos, tarefas de administração de sistemas (SysAdmin), auditoria de permissões e DevOps. |
 | **Grade de Ícones (Grid)** | `Gtk.GridView` | Cards verticais responsivos com ícones destacados (48px), badges coloridos de tipo de arquivo (PY, SH, DOCKER, LOG, JSON, YAML), nome com quebra inteligente e subtítulo duplo: `Tamanho/Pasta • Data`. Tooltip Pango rico com metadados completos. | Navegação rápida em pastas de código, assets visuais, diretórios de fotos, mídias e projetos. |
-| **Lista Compacta** | `Gtk.ListView` | Linhas de alta densidade tabular: `[Ícone 18px + Nome + Badges]` + `[Tamanho]` + `[Data Modificação]` + `[Permissões]` + `[Dono:Grupo]`. Tooltip Pango rico em hover. | Painéis laterais estreitos, modo dividido (*split-screen*) ou máxima densidade de arquivos mantendo 100% da precisão analítica. |
 
 ---
 
@@ -46,13 +44,12 @@ flowchart TD
 Inclusão de um seletor de visualização com botões interligados (*linked button group*):
 
 ```text
-[ ⟳ ] [ 👁 ] [ ★ ] [ 📁 Popover ]  /home/user/project   [ 𝌀 Lista | ⊞ Ícones | ☰ Compacto ]  [ 🔍 Filtrar... ] [ Recursive ( ) ]
+[ ⟳ ] [ 👁 ] [ ★ ] [ 📁 Popover ]  /home/user/project   [ 𝌀 Lista | ⊞ Ícones ]  [ 🔍 Filtrar... ] [ Recursive ( ) ]
 ```
 
 - **Ícones Padrão Libadwaita:**
   - Lista Detalhada: `view-list-symbolic`
   - Grade de Ícones: `view-grid-symbolic`
-  - Lista Compacta: `view-compact-symbolic`
 
 ### 3.2. Estrutura do Card no Modo Grade (`Gtk.GridView`)
 ```text
@@ -83,7 +80,6 @@ Como o `Gtk.GridView` não possui cabeçalhos tabulares para clique, adiciona-se
    - Criar `self.view_stack = Gtk.Stack()` dentro de `self.scrolled_window`.
    - Adicionar `self.column_view` como página `"list"`.
    - Adicionar `self.grid_view` como página `"grid"`.
-   - Adicionar `self.compact_view` como página `"compact"`.
 2. **Criação da Grade (`_create_icon_grid_view`):**
    - Instanciar `Gtk.GridView()`.
    - Criar `Gtk.SignalListItemFactory()` conectando aos métodos `_setup_grid_item`, `_bind_grid_item` e `_unbind_grid_item`.

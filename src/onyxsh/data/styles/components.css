@@ -239,29 +239,13 @@
     font-size: 0.75rem;
 }
 
-/* Compact List View Styles */
-.file-manager-main-box .file-manager-compact-view listitem {
-    padding: 4px 8px;
-    margin: 1px 4px;
-    border-radius: 6px;
-}
-
-.file-manager-main-box .file-manager-compact-view listitem:hover {
-    background-color: alpha(@accent_bg_color, 0.16);
-}
-
-.file-manager-main-box .file-manager-compact-view listitem:selected {
-    background-color: alpha(@accent_bg_color, 0.24);
-}
-
-.file-compact-header,
+/* Detailed ColumnView Header & Cell Styles */
 .file-manager-main-box .file-manager-column-view header {
     border-bottom: 1px solid alpha(@borders, 0.6);
     padding: 2px 4px;
     background: transparent;
 }
 
-.file-compact-header-btn,
 .file-manager-main-box .file-manager-column-view header,
 .file-manager-main-box .file-manager-column-view header button,
 .file-manager-main-box .file-manager-column-view header button:focus,
@@ -278,7 +262,6 @@
     outline: none;
 }
 
-.file-compact-header-btn:hover,
 .file-manager-main-box .file-manager-column-view header button:hover {
     background-color: alpha(@accent_bg_color, 0.12);
     color: @window_fg_color;
@@ -298,29 +281,21 @@
     padding: 2px 6px;
 }
 
-.file-compact-row {
-    padding: 2px 4px;
-}
-
-.file-compact-col-size,
 .file-detailed-col-size {
     font-family: monospace;
     min-width: 75px;
 }
 
-.file-compact-col-date,
 .file-detailed-col-date {
     font-family: monospace;
     min-width: 135px;
 }
 
-.file-compact-col-perms,
 .file-detailed-col-perms {
     font-family: monospace;
     min-width: 95px;
 }
 
-.file-compact-col-owner,
 .file-detailed-col-owner {
     min-width: 110px;
 }

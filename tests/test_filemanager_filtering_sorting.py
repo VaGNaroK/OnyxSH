@@ -176,14 +176,11 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.fm.view_stack = Gtk.Stack()
         self.fm.column_view = Gtk.ColumnView()
         self.fm.grid_view = Gtk.GridView()
-        self.fm.compact_view = Gtk.ListView()
         self.fm.view_stack.add_named(self.fm.column_view, "list")
         self.fm.view_stack.add_named(self.fm.grid_view, "grid")
-        self.fm.view_stack.add_named(self.fm.compact_view, "compact")
 
         self.fm.view_list_btn = Gtk.ToggleButton()
         self.fm.view_grid_btn = Gtk.ToggleButton()
-        self.fm.view_compact_btn = Gtk.ToggleButton()
 
         # 1. Switch to grid mode
         self.fm._set_view_mode("grid", save_preference=True)
@@ -191,27 +188,20 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.assertEqual(self.fm.view_stack.get_visible_child_name(), "grid")
         self.assertTrue(self.fm.view_grid_btn.get_active())
         self.assertFalse(self.fm.view_list_btn.get_active())
-        self.assertFalse(self.fm.view_compact_btn.get_active())
         self.assertEqual(self.fm._get_active_view(), self.fm.grid_view)
         mock_settings.set.assert_called_with("file_manager_view_mode", "grid")
 
-        # 2. Switch to compact mode
-        self.fm._set_view_mode("compact", save_preference=True)
-        self.assertEqual(self.fm._current_view_mode, "compact")
-        self.assertEqual(self.fm.view_stack.get_visible_child_name(), "compact")
-        self.assertTrue(self.fm.view_compact_btn.get_active())
-        self.assertFalse(self.fm.view_list_btn.get_active())
-        self.assertFalse(self.fm.view_grid_btn.get_active())
-        self.assertEqual(self.fm._get_active_view(), self.fm.compact_view)
-
-        # 3. Switch to list mode
+        # 2. Switch to list mode
         self.fm._set_view_mode("list", save_preference=False)
         self.assertEqual(self.fm._current_view_mode, "list")
         self.assertEqual(self.fm.view_stack.get_visible_child_name(), "list")
         self.assertTrue(self.fm.view_list_btn.get_active())
+        self.assertFalse(self.fm.view_grid_btn.get_active())
         self.assertEqual(self.fm._get_active_view(), self.fm.column_view)
 
-        # 4. Invalid mode defaults to list
+        # 3. Legacy compact mode or invalid mode defaults to list
+        self.fm._set_view_mode("compact")
+        self.assertEqual(self.fm._current_view_mode, "list")
         self.fm._set_view_mode("unknown_mode")
         self.assertEqual(self.fm._current_view_mode, "list")
 
@@ -238,28 +228,60 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         # Unbind
         self.fm._unbind_grid_item(None, list_item)
 
-    def test_compact_item_factory_lifecycle(self):
-        item = FileItem("config.yaml", "-rw-r--r--", 512, datetime.now(), "u", "g")
+    def test_detailed_column_view_tooltips(self):
+        item = FileItem("manifests", "drwxrwxr-x", 4096, datetime.now(), "vagnarok", "vagnarok")
         list_item = Gtk.ListItem()
-        self.fm._setup_compact_item(None, list_item)
-        box = list_item.get_child()
-        self.assertIsNotNone(box)
-        self.assertTrue(box.has_css_class("file-compact-row"))
 
-        # Bind with item mock
+        # 1. Name cell
+        self.fm._setup_name_cell(None, list_item)
         list_item.get_item = MagicMock(return_value=item)
-        self.fm._bind_compact_item(None, list_item)
+        self.fm._bind_name_cell(None, list_item)
+        box = list_item.get_child()
         self.assertIsNotNone(box.get_tooltip_markup())
-        self.assertIn("config.yaml", box.get_tooltip_markup())
+        self.assertIn("manifests", box.get_tooltip_markup())
+        self.assertIn("vagnarok", box.get_tooltip_markup())
 
-        # Test directory binding in Compact ListView
-        dir_item = FileItem("docs", "drwxr-xr-x", 4096, datetime.now(), "u", "g")
-        list_item.get_item = MagicMock(return_value=dir_item)
-        self.fm._bind_compact_item(None, list_item)
-        self.assertIn("docs", box.get_tooltip_markup())
+        # 2. Size cell
+        self.fm._setup_size_cell(None, list_item)
+        self.fm._bind_size_cell(None, list_item)
+        size_label = list_item.get_child()
+        self.assertIsNotNone(size_label.get_tooltip_markup())
+        self.assertIn("4.0 KB", size_label.get_text())
 
-        # Unbind
-        self.fm._unbind_compact_item(None, list_item)
+        # 3. Date cell
+        self.fm._setup_date_cell(None, list_item)
+        self.fm._bind_date_cell(None, list_item)
+        date_label = list_item.get_child()
+        self.assertIsNotNone(date_label.get_tooltip_markup())
+
+        # 4. Perms cell
+        self.fm._setup_permissions_cell(None, list_item)
+        self.fm._bind_permissions_cell(None, list_item)
+        perms_label = list_item.get_child()
+        self.assertIsNotNone(perms_label.get_tooltip_markup())
+        self.assertEqual(perms_label.get_text(), "drwxrwxr-x")
+
+        # 5. Owner cell
+        self.fm._setup_owner_cell(None, list_item)
+        self.fm._bind_owner_cell(None, list_item)
+        owner_label = list_item.get_child()
+        self.assertIsNotNone(owner_label.get_tooltip_markup())
+        self.assertEqual(owner_label.get_text(), "vagnarok")
+
+        # 6. Group cell
+        self.fm._setup_group_cell(None, list_item)
+        self.fm._bind_group_cell(None, list_item)
+        group_label = list_item.get_child()
+        self.assertIsNotNone(group_label.get_tooltip_markup())
+        self.assertEqual(group_label.get_text(), "vagnarok")
+
+        # 7. Parent directory item (..) should not have tooltip markup
+        self.fm._setup_name_cell(None, list_item)
+        parent_item = FileItem("..", "drwxr-xr-x", 0, datetime.now(), "root", "root")
+        list_item.get_item = MagicMock(return_value=parent_item)
+        self.fm._bind_name_cell(None, list_item)
+        box = list_item.get_child()
+        self.assertIsNone(box.get_tooltip_markup())
 
     def test_sort_popover_creation(self):
         self.fm.name_sorter = Gtk.CustomSorter.new(self.fm._sort_by_name, None)
@@ -273,31 +295,6 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.assertIsInstance(popover, Gtk.Popover)
         box = popover.get_child()
         self.assertIsInstance(box, Gtk.Box)
-
-    def test_compact_header_and_sort(self):
-        self.fm.name_sorter = Gtk.CustomSorter.new(self.fm._sort_by_name, None)
-        self.fm.size_sorter = Gtk.CustomSorter.new(self.fm._sort_by_size, None)
-        self.fm.date_sorter = Gtk.CustomSorter.new(self.fm._sort_by_date, None)
-        self.fm.perms_sorter = Gtk.CustomSorter.new(self.fm._sort_by_permissions, None)
-        self.fm.owner_sorter = Gtk.CustomSorter.new(self.fm._sort_by_owner, None)
-
-        header = self.fm._create_compact_header()
-        self.assertIsInstance(header, Gtk.Box)
-        self.assertTrue(header.has_css_class("file-compact-header"))
-
-        # Verify all 5 column headers exist
-        children = []
-        child = header.get_first_child()
-        while child:
-            children.append(child)
-            child = child.get_next_sibling()
-        self.assertEqual(len(children), 5)
-
-        # Test apply sort from header
-        store = Gio.ListStore.new(FileItem)
-        self.fm.sorted_store = Gtk.SortListModel.new(store, self.fm.name_sorter)
-        self.fm._apply_sort_from_header("size")
-        self.assertEqual(self.fm.sorted_store.get_sorter(), self.fm.size_sorter)
 
 
 if __name__ == "__main__":

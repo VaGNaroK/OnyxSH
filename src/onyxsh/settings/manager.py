@@ -1414,7 +1414,6 @@ class SettingsManager:
                 .file-manager-main-box viewport,
                 .file-manager-main-box .file-manager-column-view,
                 .file-manager-main-box .file-manager-grid-view,
-                .file-manager-main-box .file-manager-compact-view,
                 .file-manager-main-box gridview,
                 .file-manager-main-box listview,
                 .file-manager-main-box listview row {{
@@ -1424,8 +1423,7 @@ class SettingsManager:
                 .file-manager-main-box .file-manager-column-view row,
                 .file-manager-main-box .file-manager-column-view columnviewrow,
                 .file-manager-main-box .file-manager-column-view listitem,
-                .file-manager-main-box .file-manager-grid-view listitem,
-                .file-manager-main-box .file-manager-compact-view listitem {{
+                .file-manager-main-box .file-manager-grid-view listitem {{
                     background-color: transparent;
                     color: {fg_color};
                 }}
@@ -1448,7 +1446,6 @@ class SettingsManager:
                 .file-manager-main-box .file-manager-column-view columnviewrow:hover,
                 .file-manager-main-box .file-manager-column-view listitem:hover,
                 .file-manager-main-box .file-manager-grid-view listitem:hover,
-                .file-manager-main-box .file-manager-compact-view listitem:hover,
                 .file-manager-main-box .file-manager-column-view row:hover > *,
                 .file-manager-main-box .file-manager-column-view columnviewrow:hover > * {{
                     background-color: color-mix(in srgb, {accent_color} {file_hover_mix}, {bg_color});
@@ -1458,7 +1455,6 @@ class SettingsManager:
                 .file-manager-main-box .file-manager-column-view columnviewrow:selected,
                 .file-manager-main-box .file-manager-column-view listitem:selected,
                 .file-manager-main-box .file-manager-grid-view listitem:selected,
-                .file-manager-main-box .file-manager-compact-view listitem:selected,
                 .file-manager-main-box .file-manager-column-view row:selected > *,
                 .file-manager-main-box .file-manager-column-view columnviewrow:selected > * {{
                     background-color: color-mix(in srgb, {accent_color} {file_selected_mix}, {bg_color});
@@ -1468,7 +1464,6 @@ class SettingsManager:
                 .file-manager-main-box .file-manager-column-view columnviewrow:selected:hover,
                 .file-manager-main-box .file-manager-column-view listitem:selected:hover,
                 .file-manager-main-box .file-manager-grid-view listitem:selected:hover,
-                .file-manager-main-box .file-manager-compact-view listitem:selected:hover,
                 .file-manager-main-box .file-manager-column-view row:selected:hover > *,
                 .file-manager-main-box .file-manager-column-view columnviewrow:selected:hover > * {{
                     background-color: color-mix(in srgb, {accent_color} {file_selected_hover_mix}, {bg_color});
