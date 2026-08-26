@@ -170,6 +170,91 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.assertIsNone(self.fm._clipboard_session_key)
         self.assertFalse(self.fm._can_paste())
 
+    def test_view_mode_switching_and_persistence(self):
+        mock_settings = MagicMock()
+        self.fm.settings_manager = mock_settings
+        self.fm.view_stack = Gtk.Stack()
+        self.fm.column_view = Gtk.ColumnView()
+        self.fm.grid_view = Gtk.GridView()
+        self.fm.compact_view = Gtk.ListView()
+        self.fm.view_stack.add_named(self.fm.column_view, "list")
+        self.fm.view_stack.add_named(self.fm.grid_view, "grid")
+        self.fm.view_stack.add_named(self.fm.compact_view, "compact")
+
+        self.fm.view_list_btn = Gtk.ToggleButton()
+        self.fm.view_grid_btn = Gtk.ToggleButton()
+        self.fm.view_compact_btn = Gtk.ToggleButton()
+
+        # 1. Switch to grid mode
+        self.fm._set_view_mode("grid", save_preference=True)
+        self.assertEqual(self.fm._current_view_mode, "grid")
+        self.assertEqual(self.fm.view_stack.get_visible_child_name(), "grid")
+        self.assertTrue(self.fm.view_grid_btn.get_active())
+        self.assertFalse(self.fm.view_list_btn.get_active())
+        self.assertFalse(self.fm.view_compact_btn.get_active())
+        self.assertEqual(self.fm._get_active_view(), self.fm.grid_view)
+        mock_settings.set.assert_called_with("file_manager_view_mode", "grid")
+
+        # 2. Switch to compact mode
+        self.fm._set_view_mode("compact", save_preference=True)
+        self.assertEqual(self.fm._current_view_mode, "compact")
+        self.assertEqual(self.fm.view_stack.get_visible_child_name(), "compact")
+        self.assertTrue(self.fm.view_compact_btn.get_active())
+        self.assertFalse(self.fm.view_list_btn.get_active())
+        self.assertFalse(self.fm.view_grid_btn.get_active())
+        self.assertEqual(self.fm._get_active_view(), self.fm.compact_view)
+
+        # 3. Switch to list mode
+        self.fm._set_view_mode("list", save_preference=False)
+        self.assertEqual(self.fm._current_view_mode, "list")
+        self.assertEqual(self.fm.view_stack.get_visible_child_name(), "list")
+        self.assertTrue(self.fm.view_list_btn.get_active())
+        self.assertEqual(self.fm._get_active_view(), self.fm.column_view)
+
+        # 4. Invalid mode defaults to list
+        self.fm._set_view_mode("unknown_mode")
+        self.assertEqual(self.fm._current_view_mode, "list")
+
+    def test_grid_item_factory_lifecycle(self):
+        item = FileItem("server.py", "-rwxr-xr-x", 2048, datetime.now(), "root", "root")
+        list_item = Gtk.ListItem()
+        self.fm._setup_grid_item(None, list_item)
+        card = list_item.get_child()
+        self.assertIsNotNone(card)
+        self.assertTrue(card.has_css_class("file-grid-card"))
+
+        # Bind with item mock
+        list_item.get_item = MagicMock(return_value=item)
+        self.fm._bind_grid_item(None, list_item)
+        # Unbind
+        self.fm._unbind_grid_item(None, list_item)
+
+    def test_compact_item_factory_lifecycle(self):
+        item = FileItem("config.yaml", "-rw-r--r--", 512, datetime.now(), "u", "g")
+        list_item = Gtk.ListItem()
+        self.fm._setup_compact_item(None, list_item)
+        box = list_item.get_child()
+        self.assertIsNotNone(box)
+
+        # Bind with item mock
+        list_item.get_item = MagicMock(return_value=item)
+        self.fm._bind_compact_item(None, list_item)
+        # Unbind
+        self.fm._unbind_compact_item(None, list_item)
+
+    def test_sort_popover_creation(self):
+        self.fm.name_sorter = Gtk.CustomSorter.new(self.fm._sort_by_name, None)
+        self.fm.size_sorter = Gtk.CustomSorter.new(self.fm._sort_by_size, None)
+        self.fm.date_sorter = Gtk.CustomSorter.new(self.fm._sort_by_date, None)
+        self.fm.perms_sorter = Gtk.CustomSorter.new(self.fm._sort_by_permissions, None)
+        self.fm.owner_sorter = Gtk.CustomSorter.new(self.fm._sort_by_owner, None)
+        self.fm.group_sorter = Gtk.CustomSorter.new(self.fm._sort_by_group, None)
+
+        popover = self.fm._create_sort_popover()
+        self.assertIsInstance(popover, Gtk.Popover)
+        box = popover.get_child()
+        self.assertIsInstance(box, Gtk.Box)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -16,7 +16,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 from urllib.parse import unquote, urlparse
 
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Graphene, Gtk, Vte
+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Graphene, Gtk, Pango, Vte
 
 from ..core.tasks import AsyncTaskManager
 from ..helpers import create_themed_popover_menu
@@ -127,6 +127,14 @@ class FileManager(GObject.Object):
         self._init_context_action_group()
 
         self._build_ui()
+
+        # Initialize view mode from user settings
+        saved_mode = (
+            self.settings_manager.get("file_manager_view_mode", "list")
+            if hasattr(self, "settings_manager") and self.settings_manager
+            else "list"
+        )
+        self._set_view_mode(saved_mode, save_preference=False)
 
         self.bound_terminal = None
         self.directory_change_handler_id = 0
@@ -463,9 +471,13 @@ class FileManager(GObject.Object):
                 self._context_popover.unparent()
             self._context_popover = None
 
-        # Task 2: CRITICAL - Detach model from View BEFORE clearing to release GTK references
+        # Task 2: CRITICAL - Detach model from Views BEFORE clearing to release GTK references
         if hasattr(self, "column_view") and self.column_view:
             self.column_view.set_model(None)
+        if hasattr(self, "grid_view") and self.grid_view:
+            self.grid_view.set_model(None)
+        if hasattr(self, "compact_view") and self.compact_view:
+            self.compact_view.set_model(None)
 
         # Task 2: Clear model wrappers in correct order
         if hasattr(self, "selection_model"):
@@ -492,6 +504,9 @@ class FileManager(GObject.Object):
         self.operations = None
         self.transfer_manager = None
         self.column_view = None
+        self.grid_view = None
+        self.compact_view = None
+        self.view_stack = None
         self.main_box = None
         self.revealer = None
         self.bound_terminal = None
@@ -615,8 +630,19 @@ class FileManager(GObject.Object):
         self.store = Gio.ListStore.new(FileItem)
         self.filtered_store = Gtk.FilterListModel(model=self.store)
 
+        self.view_stack = Gtk.Stack()
+        self.view_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+        self.view_stack.set_transition_duration(150)
+
         self.column_view = self._create_detailed_column_view()
-        self.scrolled_window.set_child(self.column_view)
+        self.grid_view = self._create_icon_grid_view()
+        self.compact_view = self._create_compact_list_view()
+
+        self.view_stack.add_named(self.column_view, "list")
+        self.view_stack.add_named(self.grid_view, "grid")
+        self.view_stack.add_named(self.compact_view, "compact")
+
+        self.scrolled_window.set_child(self.view_stack)
 
         # Drop target for external files, attached to the stable ScrolledWindow
         drop_target = Gtk.DropTarget.new(Gdk.FileList, Gdk.DragAction.COPY)
@@ -663,6 +689,44 @@ class FileManager(GObject.Object):
         self.quick_jump_popover.add_css_class("quick-jump-popover")
         self.quick_jump_button.set_popover(self.quick_jump_popover)
         self.action_bar.pack_start(self.quick_jump_button)
+
+        # View Mode Switcher (Linked Toggle Buttons: List, Grid, Compact)
+        self.view_mode_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        self.view_mode_box.add_css_class("linked")
+
+        self.view_list_btn = Gtk.ToggleButton()
+        self.view_list_btn.set_child(icon_image("view-list-symbolic"))
+        self.tooltip_helper.add_tooltip(self.view_list_btn, _("Detailed List View"))
+        self.view_list_btn.connect(
+            "toggled", lambda b: self._on_view_mode_toggle(b, "list")
+        )
+        self.view_mode_box.append(self.view_list_btn)
+
+        self.view_grid_btn = Gtk.ToggleButton()
+        self.view_grid_btn.set_child(icon_image("view-grid-symbolic"))
+        self.tooltip_helper.add_tooltip(self.view_grid_btn, _("Icon Grid View"))
+        self.view_grid_btn.connect(
+            "toggled", lambda b: self._on_view_mode_toggle(b, "grid")
+        )
+        self.view_mode_box.append(self.view_grid_btn)
+
+        self.view_compact_btn = Gtk.ToggleButton()
+        self.view_compact_btn.set_child(icon_image("view-compact-symbolic"))
+        self.tooltip_helper.add_tooltip(self.view_compact_btn, _("Compact List View"))
+        self.view_compact_btn.connect(
+            "toggled", lambda b: self._on_view_mode_toggle(b, "compact")
+        )
+        self.view_mode_box.append(self.view_compact_btn)
+
+        self.action_bar.pack_start(self.view_mode_box)
+
+        # Sort menu button with popover for grid and compact modes
+        self.sort_menu_button = Gtk.MenuButton()
+        self.sort_menu_button.set_child(icon_image("view-sort-ascending-symbolic"))
+        self.sort_menu_button.add_css_class("flat")
+        self.tooltip_helper.add_tooltip(self.sort_menu_button, _("Sort Files..."))
+        self.sort_menu_button.set_popover(self._create_sort_popover())
+        self.action_bar.pack_start(self.sort_menu_button)
 
         self.breadcrumb_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         self.breadcrumb_box.add_css_class("breadcrumb-trail")
@@ -1215,8 +1279,9 @@ class FileManager(GObject.Object):
 
         if hasattr(self, "search_entry"):
             if getattr(self.search_entry, "has_focus", False):
-                if hasattr(self, "column_view") and self.column_view:
-                    self.column_view.grab_focus()
+                active_view = self._get_active_view()
+                if active_view:
+                    active_view.grab_focus()
             self.search_entry.set_sensitive(False)
             self._update_search_placeholder(_("Searching..."))
 
@@ -1528,7 +1593,9 @@ class FileManager(GObject.Object):
                 and self.selection_model.get_selection().get_size() > 0
             ):
                 position = self.selection_model.get_selection().get_nth(0)
-                GLib.idle_add(self._deferred_activate_row, self.column_view, position)
+                GLib.idle_add(
+                    self._deferred_activate_row, self._get_active_view(), position
+                )
                 return
 
             # Otherwise, start the search if there's a search term
@@ -1539,7 +1606,9 @@ class FileManager(GObject.Object):
         # In normal mode, Enter opens the selected item
         if self.selection_model and self.selection_model.get_selection().get_size() > 0:
             position = self.selection_model.get_selection().get_nth(0)
-            GLib.idle_add(self._deferred_activate_row, self.column_view, position)
+            GLib.idle_add(
+                self._deferred_activate_row, self._get_active_view(), position
+            )
 
     def _on_search_delete_text(self, search_entry, start_pos, end_pos):
         """Handle text deletion in search entry for backspace navigation."""
@@ -1817,6 +1886,331 @@ class FileManager(GObject.Object):
         date_str = file_item.date.strftime("%Y-%m-%d %H:%M")
         label.set_text(date_str)
 
+    def _get_active_view(self) -> Optional[Gtk.Widget]:
+        """Returns the currently active view widget (ColumnView, GridView, or ListView)."""
+        if not hasattr(self, "view_stack") or not self.view_stack:
+            return getattr(self, "column_view", None)
+        visible = self.view_stack.get_visible_child_name()
+        if visible == "grid" and hasattr(self, "grid_view") and self.grid_view:
+            return self.grid_view
+        elif visible == "compact" and hasattr(self, "compact_view") and self.compact_view:
+            return self.compact_view
+        return getattr(self, "column_view", None)
+
+    def _set_view_mode(self, mode: str, save_preference: bool = True) -> None:
+        """Switches the active file manager view mode between 'list', 'grid', and 'compact'."""
+        if mode not in ("list", "grid", "compact"):
+            mode = "list"
+        self._current_view_mode = mode
+        if hasattr(self, "view_stack") and self.view_stack:
+            self.view_stack.set_visible_child_name(mode)
+
+        if hasattr(self, "view_list_btn") and self.view_list_btn:
+            self.view_list_btn.set_active(mode == "list")
+        if hasattr(self, "view_grid_btn") and self.view_grid_btn:
+            self.view_grid_btn.set_active(mode == "grid")
+        if hasattr(self, "view_compact_btn") and self.view_compact_btn:
+            self.view_compact_btn.set_active(mode == "compact")
+
+        if save_preference and hasattr(self, "settings_manager") and self.settings_manager:
+            try:
+                self.settings_manager.set("file_manager_view_mode", mode)
+            except Exception as e:
+                self.logger.warning(f"Failed to persist view mode setting: {e}")
+
+    def _on_view_mode_toggle(self, btn, target_mode: str) -> None:
+        """Callback for view mode toggle buttons."""
+        if btn.get_active():
+            self._set_view_mode(target_mode, save_preference=True)
+        else:
+            if getattr(self, "_current_view_mode", "list") == target_mode:
+                btn.set_active(True)
+
+    def _create_sort_popover(self) -> Gtk.Popover:
+        """Creates the sorting options popover for grid and compact views."""
+        popover = Gtk.Popover()
+        box = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=4,
+            margin_top=6,
+            margin_bottom=6,
+            margin_start=6,
+            margin_end=6,
+        )
+
+        sort_options = [
+            (_("Name"), self.name_sorter, 0),
+            (_("Size"), self.size_sorter, 1),
+            (_("Date Modified"), self.date_sorter, 2),
+            (_("Permissions"), self.perms_sorter, 3),
+            (_("Owner"), self.owner_sorter, 4),
+            (_("Group"), self.group_sorter, 5),
+        ]
+
+        for label_text, sorter, col_idx in sort_options:
+            btn = Gtk.Button(label=label_text)
+            btn.add_css_class("flat")
+            btn.set_halign(Gtk.Align.FILL)
+
+            def _make_click_handler(s, idx):
+                def _handler(_b):
+                    if hasattr(self, "sorted_store") and self.sorted_store:
+                        self.sorted_store.set_sorter(s)
+                    if hasattr(self, "column_view") and self.column_view:
+                        try:
+                            cols = self.column_view.get_columns()
+                            if cols and idx < cols.get_n_items():
+                                col = cols.get_item(idx)
+                                if col:
+                                    self.column_view.sort_by_column(
+                                        col, Gtk.SortType.ASCENDING
+                                    )
+                        except Exception:
+                            pass
+                    popover.popdown()
+
+                return _handler
+
+            btn.connect("clicked", _make_click_handler(sorter, col_idx))
+            box.append(btn)
+
+        popover.set_child(box)
+        return popover
+
+    def _create_icon_grid_view(self) -> Gtk.GridView:
+        """Creates the responsive Grid/Icon view with item cards."""
+        grid_view = Gtk.GridView()
+        grid_view.add_css_class("file-manager-grid-view")
+        grid_view.set_max_columns(24)
+        grid_view.set_min_columns(2)
+        grid_view.set_enable_rubberband(True)
+        grid_view.set_model(self.selection_model)
+        grid_view.connect("activate", self._on_row_activated)
+
+        factory = Gtk.SignalListItemFactory()
+        factory.connect("setup", self._setup_grid_item)
+        factory.connect("bind", self._bind_grid_item)
+        factory.connect("unbind", self._unbind_grid_item)
+        grid_view.set_factory(factory)
+
+        key_controller = Gtk.EventControllerKey.new()
+        key_controller.connect("key-pressed", self._on_column_view_key_pressed)
+        key_controller.connect("key-released", self._on_column_view_key_released)
+        grid_view.add_controller(key_controller)
+
+        background_click = Gtk.GestureClick.new()
+        background_click.set_button(Gdk.BUTTON_SECONDARY)
+        background_click.connect(
+            "pressed",
+            lambda g, n, x, y: self._on_view_background_click(
+                g, n, x, y, grid_view
+            ),
+        )
+        grid_view.add_controller(background_click)
+
+        return grid_view
+
+    def _setup_grid_item(self, factory, list_item):
+        """Constructs the visual card structure for an icon grid item."""
+        card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+        card.add_css_class("file-grid-card")
+        card.set_valign(Gtk.Align.CENTER)
+        card.set_halign(Gtk.Align.CENTER)
+
+        icon_box = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL, halign=Gtk.Align.CENTER
+        )
+        icon_img = Gtk.Image()
+        icon_img.set_pixel_size(48)
+        icon_img.add_css_class("file-grid-card-icon")
+        icon_box.append(icon_img)
+        card.append(icon_box)
+
+        badges_box = Gtk.Box(
+            spacing=2, orientation=Gtk.Orientation.HORIZONTAL, halign=Gtk.Align.CENTER
+        )
+        card.append(badges_box)
+
+        label = Gtk.Label(xalign=0.5, justify=Gtk.Justification.CENTER)
+        label.add_css_class("file-grid-card-label")
+        label.set_wrap(True)
+        label.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
+        label.set_max_width_chars(14)
+        label.set_lines(2)
+        label.set_ellipsize(Pango.EllipsizeMode.MIDDLE)
+        card.append(label)
+
+        size_label = Gtk.Label(xalign=0.5)
+        size_label.add_css_class("file-grid-card-size")
+        size_label.add_css_class("dim-label")
+        size_label.add_css_class("caption")
+        card.append(size_label)
+
+        list_item.set_child(card)
+
+    def _bind_grid_item(self, factory, list_item):
+        """Binds a FileItem to a GridView card."""
+        self._bind_cell_common(list_item)
+        card = list_item.get_child()
+        if not card:
+            return
+
+        icon_box = card.get_first_child()
+        icon_img = icon_box.get_first_child() if icon_box else None
+        badges_box = icon_box.get_next_sibling() if icon_box else None
+        label = badges_box.get_next_sibling() if badges_box else None
+        size_label = label.get_next_sibling() if label else None
+
+        file_item: FileItem = list_item.get_item()
+        if not file_item:
+            return
+
+        if icon_img:
+            icon_img.set_from_icon_name(file_item.icon_name)
+
+        if label:
+            display_name = file_item.name
+            if file_item.is_directory and display_name.endswith("/"):
+                display_name = display_name[:-1]
+            label.set_text(display_name)
+
+        if size_label:
+            if file_item.name == "..":
+                size_label.set_text("")
+            elif file_item.is_directory:
+                size_label.set_text(_("Folder"))
+            else:
+                size_label.set_text(file_item.formatted_size)
+
+        if badges_box:
+            while child := badges_box.get_first_child():
+                badges_box.remove(child)
+
+            if file_item.name != "..":
+                badge_info = file_item.file_type_badge
+                if badge_info:
+                    badge_text, badge_css = badge_info
+                    b_label = Gtk.Label(label=badge_text)
+                    b_label.add_css_class("badge-pill")
+                    b_label.add_css_class(badge_css)
+                    badges_box.append(b_label)
+                elif file_item.is_executable and not file_item.is_directory:
+                    b_label = Gtk.Label(label="+x")
+                    b_label.add_css_class("badge-pill")
+                    b_label.add_css_class("badge-exec")
+                    badges_box.append(b_label)
+
+    def _unbind_grid_item(self, factory, list_item):
+        self._unbind_cell(factory, list_item)
+
+    def _create_compact_list_view(self) -> Gtk.ListView:
+        """Creates the compact single-line ListView."""
+        compact_view = Gtk.ListView()
+        compact_view.add_css_class("file-manager-compact-view")
+        compact_view.set_model(self.selection_model)
+        compact_view.connect("activate", self._on_row_activated)
+
+        factory = Gtk.SignalListItemFactory()
+        factory.connect("setup", self._setup_compact_item)
+        factory.connect("bind", self._bind_compact_item)
+        factory.connect("unbind", self._unbind_compact_item)
+        compact_view.set_factory(factory)
+
+        key_controller = Gtk.EventControllerKey.new()
+        key_controller.connect("key-pressed", self._on_column_view_key_pressed)
+        key_controller.connect("key-released", self._on_column_view_key_released)
+        compact_view.add_controller(key_controller)
+
+        background_click = Gtk.GestureClick.new()
+        background_click.set_button(Gdk.BUTTON_SECONDARY)
+        background_click.connect(
+            "pressed",
+            lambda g, n, x, y: self._on_view_background_click(
+                g, n, x, y, compact_view
+            ),
+        )
+        compact_view.add_controller(background_click)
+
+        return compact_view
+
+    def _setup_compact_item(self, factory, list_item):
+        """Constructs the single row layout for compact list mode."""
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        box.set_margin_start(4)
+        box.set_margin_end(4)
+
+        icon_img = Gtk.Image()
+        icon_img.set_pixel_size(18)
+        box.append(icon_img)
+
+        label = Gtk.Label(xalign=0.0, hexpand=True)
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        box.append(label)
+
+        badges_box = Gtk.Box(spacing=4, orientation=Gtk.Orientation.HORIZONTAL)
+        box.append(badges_box)
+
+        size_label = Gtk.Label(xalign=1.0)
+        size_label.add_css_class("dim-label")
+        size_label.add_css_class("caption")
+        box.append(size_label)
+
+        list_item.set_child(box)
+
+    def _bind_compact_item(self, factory, list_item):
+        """Binds a FileItem to a compact list row."""
+        self._bind_cell_common(list_item)
+        box = list_item.get_child()
+        if not box:
+            return
+
+        icon_img = box.get_first_child()
+        label = icon_img.get_next_sibling() if icon_img else None
+        badges_box = label.get_next_sibling() if label else None
+        size_label = badges_box.get_next_sibling() if badges_box else None
+
+        file_item: FileItem = list_item.get_item()
+        if not file_item:
+            return
+
+        if icon_img:
+            icon_img.set_from_icon_name(file_item.icon_name)
+
+        if label:
+            display_name = file_item.name
+            if file_item.is_directory and display_name.endswith("/"):
+                display_name = display_name[:-1]
+            label.set_text(display_name)
+
+        if size_label:
+            if file_item.name == "..":
+                size_label.set_text("")
+            elif file_item.is_directory:
+                size_label.set_text("")
+            else:
+                size_label.set_text(file_item.formatted_size)
+
+        if badges_box:
+            while child := badges_box.get_first_child():
+                badges_box.remove(child)
+
+            if file_item.name != "..":
+                badge_info = file_item.file_type_badge
+                if badge_info:
+                    badge_text, badge_css = badge_info
+                    b_label = Gtk.Label(label=badge_text)
+                    b_label.add_css_class("badge-pill")
+                    b_label.add_css_class(badge_css)
+                    badges_box.append(b_label)
+                elif file_item.is_executable and not file_item.is_directory:
+                    b_label = Gtk.Label(label="+x")
+                    b_label.add_css_class("badge-pill")
+                    b_label.add_css_class("badge-exec")
+                    badges_box.append(b_label)
+
+    def _unbind_compact_item(self, factory, list_item):
+        self._unbind_cell(factory, list_item)
+
     def _confirm_pending_command(self):
         """
         Confirms a pending command was successful and restores user input, as per the new rule.
@@ -1908,7 +2302,9 @@ class FileManager(GObject.Object):
             self.refresh(source=source)
             self._apply_background_transparency()
             if source == "filemanager":
-                self.column_view.grab_focus()
+                active_view = self._get_active_view()
+                if active_view:
+                    active_view.grab_focus()
         else:
             if self.bound_terminal:
                 self.bound_terminal.grab_focus()
@@ -2372,11 +2768,12 @@ class FileManager(GObject.Object):
             sorter = self.sorted_store.get_sorter()
             if sorter:
                 sorter.changed(Gtk.SorterChange.DIFFERENT)
-        if hasattr(self, "column_view") and self.column_view:
-            if self.selection_model and self.selection_model.get_n_items() > 0:
-                self.selection_model.unselect_all()
-                if source == "filemanager":
-                    self.column_view.grab_focus()
+        if self.selection_model and self.selection_model.get_n_items() > 0:
+            self.selection_model.unselect_all()
+            if source == "filemanager":
+                active_view = self._get_active_view()
+                if active_view:
+                    active_view.grab_focus()
         return False
 
     def _is_remote_session(self) -> bool:
@@ -2400,11 +2797,12 @@ class FileManager(GObject.Object):
                 self._show_general_context_menu(x, y)
                 return
 
+            active_view = self._get_active_view()
             try:
                 translated_x, translated_y = row.translate_coordinates(
-                    self.column_view, x, y
+                    active_view, x, y
                 )
-            except TypeError:
+            except (TypeError, AttributeError):
                 translated_x, translated_y = x, y
 
             if not isinstance(list_item, Gtk.ListItem):
@@ -2444,14 +2842,15 @@ class FileManager(GObject.Object):
         except Exception as e:
             self.logger.error(f"Error in right-click handler: {e}")
 
-    def _on_column_view_background_click(self, gesture, n_press, x, y):
+    def _on_view_background_click(self, gesture, n_press, x, y, view):
         try:
-            target = self.column_view.pick(int(x), int(y), Gtk.PickFlags.DEFAULT)
+            target = view.pick(int(x), int(y), Gtk.PickFlags.DEFAULT) if view else None
             is_row_target = False
             widget = target if isinstance(target, Gtk.Widget) else None
-            while widget and widget != self.column_view:
+            while widget and widget != view:
                 css = widget.get_css_name()
-                if css in {"columnviewrow", "listitem", "row", "cell"}:
+                classes = widget.get_css_classes() if hasattr(widget, "get_css_classes") else []
+                if css in {"columnviewrow", "listitem", "row", "cell"} or "file-grid-card" in classes:
                     is_row_target = True
                     break
                 widget = widget.get_parent()
@@ -2466,6 +2865,11 @@ class FileManager(GObject.Object):
             self._show_general_context_menu(x, y)
         except Exception as e:
             self.logger.error(f"Error in background right-click handler: {e}")
+
+    def _on_column_view_background_click(self, gesture, n_press, x, y):
+        self._on_view_background_click(
+            gesture, n_press, x, y, getattr(self, "column_view", None)
+        )
 
     def _create_general_context_menu_model(self) -> Gio.Menu:
         menu = Gio.Menu()
@@ -2498,10 +2902,14 @@ class FileManager(GObject.Object):
         popover = self._get_or_create_context_popover()
         popover.set_menu_model(menu_model)
 
-        # Translate coordinates from column_view to main_box
+        active_view = self._get_active_view()
         point = Graphene.Point()
         point.x, point.y = x, y
-        success, translated = self.column_view.compute_point(self.main_box, point)
+        success, translated = (
+            active_view.compute_point(self.main_box, point)
+            if active_view
+            else (False, None)
+        )
         if success:
             rect = Gdk.Rectangle()
             rect.x, rect.y, rect.width, rect.height = (
@@ -2527,10 +2935,14 @@ class FileManager(GObject.Object):
         popover = self._get_or_create_context_popover()
         popover.set_menu_model(menu_model)
 
-        # Translate coordinates from column_view to main_box
+        active_view = self._get_active_view()
         point = Graphene.Point()
         point.x, point.y = x, y
-        success, translated = self.column_view.compute_point(self.main_box, point)
+        success, translated = (
+            active_view.compute_point(self.main_box, point)
+            if active_view
+            else (False, None)
+        )
         if success:
             rect = Gdk.Rectangle()
             rect.x, rect.y, rect.width, rect.height = (
@@ -2586,9 +2998,11 @@ class FileManager(GObject.Object):
 
             if 0 <= new_pos < self.sorted_store.get_n_items():
                 self.selection_model.select_item(new_pos, True)
-                self.column_view.scroll_to(
-                    new_pos, None, Gtk.ListScrollFlags.NONE, None
-                )
+                active_view = self._get_active_view()
+                if active_view and hasattr(active_view, "scroll_to"):
+                    active_view.scroll_to(
+                        new_pos, None, Gtk.ListScrollFlags.NONE, None
+                    )
 
             return Gdk.EVENT_STOP
 
@@ -2600,7 +3014,7 @@ class FileManager(GObject.Object):
 
             # In normal mode or when showing recursive results: activate the selected item
             if current_pos != Gtk.INVALID_LIST_POSITION:
-                self._on_row_activated(self.column_view, current_pos)
+                self._on_row_activated(self._get_active_view(), current_pos)
             return Gdk.EVENT_STOP
 
         return Gdk.EVENT_PROPAGATE
@@ -2654,7 +3068,7 @@ class FileManager(GObject.Object):
                 and self.selection_model.get_selection().get_size() > 0
             ):
                 pos = self.selection_model.get_selection().get_nth(0)
-                self._on_row_activated(self.column_view, pos)
+                self._on_row_activated(self._get_active_view(), pos)
                 return Gdk.EVENT_STOP
 
         elif keyval == Gdk.KEY_Escape:
@@ -2740,7 +3154,11 @@ class FileManager(GObject.Object):
 
         if 0 <= new_pos < self.sorted_store.get_n_items():
             self.selection_model.select_item(new_pos, True)
-            self.column_view.scroll_to(new_pos, None, Gtk.ListScrollFlags.NONE, None)
+            active_view = self._get_active_view()
+            if active_view and hasattr(active_view, "scroll_to"):
+                active_view.scroll_to(
+                    new_pos, None, Gtk.ListScrollFlags.NONE, None
+                )
             item = self.sorted_store.get_item(new_pos)
             if item and item.name != "..":
                 return item, self.current_path or "/"

@@ -3,7 +3,7 @@
 pkgname=onyxsh
 # NOTE: CI updates this value automatically based on
 # src/onyxsh/settings/config.py (APP_VERSION).
-pkgver=0.9.0
+pkgver=0.10.0
 pkgrel=1
 pkgdesc="A modern GTK4/Adwaita terminal emulator with advanced session management, SSH integration, and security features."
 arch=('any')

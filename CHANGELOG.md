@@ -6,9 +6,26 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ---
 
-## [0.10.0] - Em Desenvolvimento
+## [0.10.0] - 2026-08-26
 
 ### Adicionado
+- **Gerenciador de Arquivos Multiview 2.0 (Lista Detalhada, Grade de Ícones e Lista Compacta) & Quick Look**: Reformulação da camada de visualização com suporte a múltiplos modos de apresentação e inspeção rica de arquivos (`src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/filemanager/models.py`, `src/onyxsh/settings/config.py`, `tests/test_filemanager_*.py`, `tests/test_quick_look.py`):
+  - 🌁 **Múltiplos Modos de Exibição com `Gtk.Stack`**:
+    - **Lista Detalhada (`Gtk.ColumnView`)**: Tabela multi-colunas com ordenação em cabeçalhos (Nome, Tamanho, Data, Permissões, Dono, Grupo).
+    - **Grade de Ícones / Grid (`Gtk.GridView`)**: Cards verticais responsivos com ícones destacados de 48px, badges coloridos de tipo de arquivo (+x, root, PY, SH, DOCKER, LOG, JSON, YAML) e rótulo centralizado em 2 linhas com ellipsize.
+    - **Lista Compacta (`Gtk.ListView`)**: Modo condensado em linha única (18px) com ícone, nome e tamanho, ideal para painéis estreitos.
+  - 🎛️ **Controles na Barra de Ações & Popover de Ordenação**:
+    - Seletor de visualizações integrado com botões interligados estilo Libadwaita (`view-list-symbolic`, `view-grid-symbolic`, `view-compact-symbolic`).
+    - Menu popover de ordenação dedicado para alternar o critério de classificação em qualquer modo.
+    - Persistência automática da preferência do usuário no `SettingsManager` (`file_manager_view_mode`).
+  - 👁️ **Pré-visualização Rápida de Arquivos (*Quick Look* / Tecla Espaço)**:
+    - Diálogo modal Libadwaita (`QuickLookDialog`) para pré-visualização instantânea sem abrir editores externos.
+    - Realce de sintaxe com Pygments para `.py`, `.sh`, `.json`, `.yaml`, `.yml`, `.c`, `.rs`, `.md`, `.toml`, `.conf`.
+    - Destaque em tempo real de logs (`ERROR`, `WARN`, `INFO`), visualização de imagens (`.png`, `.jpg`, `.svg`, `.webp`), metadados de certificados (`.crt`, `.pem`) e modo Hex Dump para arquivos binários.
+    - Ações rápidas no rodapé do diálogo: *Abrir no Editor*, *Explicar com IA*, *Copiar Conteúdo*, *Calcular Hash SHA-256*.
+  - ⌨️ **Ações Rápidas de Terminal no Menu de Contexto**:
+    - *Copiar Caminho Absoluto*, *Inserir Caminho no Prompt* (com escaping seguro `shlex.quote`) e *Executar no Terminal*.
+  - 🧪 **Suíte Completa de Testes Unitários**: Novos testes automatizados cobrindo `FileItem`, `FileOperations`, `TransferManager`, `TftpServer`, ordenação/filtros e ciclo de vida das fábricas de itens (totalizando 329 testes no projeto).
 - **Modo Diagnóstico Seguro (`onyxsh --diagnose`) & Telemetria Sanitizada do Sistema**: Utilitário completo para auditoria do ambiente, compatibilidade de hardware/software e geração de relatórios técnicos prontos para GitHub Issues com proteção estrita de privacidade (`src/onyxsh/utils/diagnostics.py`, `src/onyxsh/ui/dialogs/diagnostics_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_diagnostics.py`):
   - 🛡️ **Sanitização em Cascata de Dados Sensíveis (*Multi-Layer Privacy Guard*)**:
     - Mascaramento rigoroso de chaves de API e tokens (`AIza...`, `gsk_...`, `sk-...`, `ghp_...`, `AKIA...`, `Bearer ...`, `password=...`, `token=...`).

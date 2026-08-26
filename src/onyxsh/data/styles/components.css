@@ -192,6 +192,71 @@
     margin: 1px 4px;
 }
 
+/* Grid / Icon View Styles */
+.file-manager-main-box .file-manager-grid-view {
+    padding: 12px;
+}
+
+.file-manager-main-box .file-manager-grid-view gridview {
+    background-color: transparent;
+}
+
+.file-manager-main-box .file-manager-grid-view listitem {
+    padding: 4px;
+    margin: 4px;
+    border-radius: 12px;
+    background-color: transparent;
+    transition: background-color 150ms ease-out, transform 150ms ease-out;
+}
+
+.file-manager-main-box .file-manager-grid-view listitem:hover {
+    background-color: alpha(@accent_bg_color, 0.16);
+}
+
+.file-manager-main-box .file-manager-grid-view listitem:selected {
+    background-color: alpha(@accent_bg_color, 0.24);
+}
+
+.file-manager-main-box .file-manager-grid-view listitem:selected:hover {
+    background-color: alpha(@accent_bg_color, 0.32);
+}
+
+.file-grid-card {
+    padding: 8px 6px;
+    border-radius: 10px;
+    min-width: 90px;
+    max-width: 130px;
+}
+
+.file-grid-card-icon {
+    margin-bottom: 4px;
+}
+
+.file-grid-card-label {
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.file-grid-card-size {
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+/* Compact List View Styles */
+.file-manager-main-box .file-manager-compact-view listitem {
+    padding: 4px 8px;
+    margin: 1px 4px;
+    border-radius: 6px;
+}
+
+.file-manager-main-box .file-manager-compact-view listitem:hover {
+    background-color: alpha(@accent_bg_color, 0.16);
+}
+
+.file-manager-main-box .file-manager-compact-view listitem:selected {
+    background-color: alpha(@accent_bg_color, 0.24);
+}
+
 /* ==========================================================================
    Tooltip Design - GTK4 compatible
    ========================================================================== */

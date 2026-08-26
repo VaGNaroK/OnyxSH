@@ -1,7 +1,7 @@
 # 📋 Roadmap & Backlog de Novas Funcionalidades (TODO) — OnyxSH
 
 > **Documento de Planejamento e Backlog Técnico**  
-> **Versão:** `0.9.0` | **Data:** 17 de Agosto de 2026  
+> **Versão:** `0.10.0` | **Data:** 26 de Agosto de 2026  
 > **Origem:** Análise de gaps e propostas arquiteturais em `newfeatures.txt`  
 > **Critério de Filtragem:** *Todas as funcionalidades já implementadas no OnyxSH foram descartadas. Este documento contém exclusivamente propostas futuras organizadas por prioridade, complexidade técnica e marcos de versão.*
 
