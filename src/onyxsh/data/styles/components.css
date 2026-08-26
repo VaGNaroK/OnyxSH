@@ -254,6 +254,29 @@
     background-color: alpha(@accent_bg_color, 0.24);
 }
 
+.file-compact-row {
+    padding: 2px 4px;
+}
+
+.file-compact-col-size {
+    font-family: monospace;
+    min-width: 75px;
+}
+
+.file-compact-col-date {
+    font-family: monospace;
+    min-width: 135px;
+}
+
+.file-compact-col-perms {
+    font-family: monospace;
+    min-width: 95px;
+}
+
+.file-compact-col-owner {
+    min-width: 110px;
+}
+
 /* ==========================================================================
    Tooltip Design - GTK4 compatible
    ========================================================================== */

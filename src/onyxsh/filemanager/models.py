@@ -5,7 +5,9 @@ gi.require_version("Gtk", "4.0")
 import re
 from datetime import datetime
 
-from gi.repository import Gio, GObject
+from gi.repository import Gio, GLib, GObject
+
+from ..utils.translation_utils import _
 
 
 class FileItem(GObject.GObject):
@@ -142,8 +144,127 @@ class FileItem(GObject.GObject):
         return str(self._date)
 
     @property
+    def formatted_date_short(self) -> str:
+        """Returns a compact date string (e.g. '26/08 10:20' or '2026-08-26')."""
+        if isinstance(self._date, datetime):
+            now = datetime.now()
+            if self._date.year == now.year:
+                return self._date.strftime("%d/%m %H:%M")
+            return self._date.strftime("%d/%m/%y")
+        return str(self._date)[:10]
+
+    @property
     def date_modified(self) -> str:
         return self.formatted_date
+
+    @property
+    def permissions_octal(self) -> str:
+        """Converts symbolic permissions (e.g. '-rwxr-xr-x') to octal notation (e.g. '0755')."""
+        if not self._permissions or len(self._permissions) < 10:
+            return "0644"
+        perms = self._permissions[1:10]
+        val = 0
+        for i, c in enumerate(perms):
+            if c in "rwxst":
+                val += 1 << (8 - i)
+        return f"{val:04o}"
+
+    @property
+    def type_description(self) -> str:
+        """Returns a localized, user-friendly description of the file/item type."""
+        if self._name == "..":
+            return _("Parent Directory")
+        if self.is_directory:
+            return _("Directory / Folder")
+        if self.is_link:
+            return _("Symbolic Link")
+
+        ext = self.extension.lower()
+        ext_map = {
+            ".py": _("Python Script"),
+            ".sh": _("Shell Script"),
+            ".bash": _("Bash Script"),
+            ".zsh": _("Zsh Script"),
+            ".json": _("JSON Document"),
+            ".yaml": _("YAML Document"),
+            ".yml": _("YAML Document"),
+            ".toml": _("TOML Document"),
+            ".xml": _("XML Document"),
+            ".html": _("HTML Document"),
+            ".css": _("CSS Stylesheet"),
+            ".js": _("JavaScript File"),
+            ".ts": _("TypeScript File"),
+            ".md": _("Markdown Document"),
+            ".txt": _("Plain Text Document"),
+            ".log": _("Log File"),
+            ".pdf": _("PDF Document"),
+            ".png": _("PNG Image"),
+            ".jpg": _("JPEG Image"),
+            ".jpeg": _("JPEG Image"),
+            ".svg": _("SVG Vector Graphic"),
+            ".webp": _("WebP Image"),
+            ".gif": _("GIF Image"),
+            ".zip": _("ZIP Archive"),
+            ".tar": _("TAR Archive"),
+            ".gz": _("GZip Archive"),
+            ".xz": _("XZ Archive"),
+            ".7z": _("7-Zip Archive"),
+            ".deb": _("Debian Package"),
+            ".rpm": _("RPM Package"),
+            ".c": _("C Source Code"),
+            ".cpp": _("C++ Source Code"),
+            ".h": _("C/C++ Header"),
+            ".rs": _("Rust Source Code"),
+            ".go": _("Go Source Code"),
+            ".java": _("Java Source Code"),
+            ".conf": _("Configuration File"),
+            ".ini": _("Configuration File"),
+            ".crt": _("Security Certificate"),
+            ".pem": _("PEM Certificate/Key"),
+            ".pub": _("Public Key"),
+            ".key": _("Private Key"),
+        }
+        if ext in ext_map:
+            return ext_map[ext]
+        if self.is_executable:
+            return _("Executable Program")
+        return _("File")
+
+    @property
+    def tooltip_markup(self) -> str:
+        """Generates a rich, formatted Pango Markup tooltip for the item."""
+        if self._name == "..":
+            return f"<b>{_('Go to parent directory')}</b>"
+
+        icon_emoji = "📁" if self.is_directory else ("🔗" if self.is_link else "📄")
+        safe_name = GLib.markup_escape_text(self._name)
+        type_desc = GLib.markup_escape_text(self.type_description)
+
+        lines = [
+            f"{icon_emoji} <b>{safe_name}</b> <span alpha='70%'>({type_desc})</span>",
+            "<span alpha='30%'>──────────────────────────────────────────</span>",
+        ]
+
+        if self.is_directory:
+            lines.append(
+                f"📦 <b>{_('Size')}:</b> {self.formatted_size} <span alpha='70%'>({_('Directory')})</span>"
+            )
+        else:
+            lines.append(
+                f"📦 <b>{_('Size')}:</b> {self.formatted_size} <span alpha='70%'>({self._size:,} bytes)</span>"
+            )
+
+        lines.append(f"📅 <b>{_('Modified')}:</b> {self.formatted_date}")
+        lines.append(
+            f"🔒 <b>{_('Permissions')}:</b> <tt>{self._permissions}</tt> <span alpha='70%'>({self.permissions_octal})</span>"
+        )
+        lines.append(f"👤 <b>{_('Owner')}:</b> {self._owner} : {self._group}")
+
+        if self.is_link and self._link_target:
+            safe_target = GLib.markup_escape_text(self._link_target)
+            lines.append(f"🔗 <b>{_('Target')}:</b> <tt>{safe_target}</tt>")
+
+        return "\n".join(lines)
 
     @property
     def owner(self) -> str:

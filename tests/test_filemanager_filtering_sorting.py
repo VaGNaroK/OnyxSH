@@ -226,6 +226,15 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         # Bind with item mock
         list_item.get_item = MagicMock(return_value=item)
         self.fm._bind_grid_item(None, list_item)
+        self.assertIsNotNone(card.get_tooltip_markup())
+        self.assertIn("server.py", card.get_tooltip_markup())
+
+        # Test directory binding in GridView
+        dir_item = FileItem("backup", "drwxr-xr-x", 4096, datetime.now(), "root", "root")
+        list_item.get_item = MagicMock(return_value=dir_item)
+        self.fm._bind_grid_item(None, list_item)
+        self.assertIn("backup", card.get_tooltip_markup())
+
         # Unbind
         self.fm._unbind_grid_item(None, list_item)
 
@@ -235,10 +244,20 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.fm._setup_compact_item(None, list_item)
         box = list_item.get_child()
         self.assertIsNotNone(box)
+        self.assertTrue(box.has_css_class("file-compact-row"))
 
         # Bind with item mock
         list_item.get_item = MagicMock(return_value=item)
         self.fm._bind_compact_item(None, list_item)
+        self.assertIsNotNone(box.get_tooltip_markup())
+        self.assertIn("config.yaml", box.get_tooltip_markup())
+
+        # Test directory binding in Compact ListView
+        dir_item = FileItem("docs", "drwxr-xr-x", 4096, datetime.now(), "u", "g")
+        list_item.get_item = MagicMock(return_value=dir_item)
+        self.fm._bind_compact_item(None, list_item)
+        self.assertIn("docs", box.get_tooltip_markup())
+
         # Unbind
         self.fm._unbind_compact_item(None, list_item)
 

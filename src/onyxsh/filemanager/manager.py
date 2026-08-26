@@ -4,13 +4,17 @@ import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 gi.require_version("Vte", "3.91")
+import grp
 import os
+import pwd
 import shlex
 import shutil
+import stat
 import subprocess
 import tempfile
 import threading
 import weakref
+from datetime import datetime
 from functools import partial
 from pathlib import Path, PurePosixPath
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
@@ -33,9 +37,28 @@ from .operations import FileOperations
 from .transfer_dialog import TransferManagerDialog
 from .transfer_manager import TransferManager, TransferType
 
-# CSS for file manager styles is now loaded from:
-# data/styles/components.css (loaded by window_ui.py at startup)
-# Classes: .transfer-progress-bar, .search-entry-no-icon
+# Cache for fast local UID/GID resolution
+_LOCAL_UID_CACHE: Dict[int, str] = {}
+_LOCAL_GID_CACHE: Dict[int, str] = {}
+
+
+def _resolve_user_name(uid: int) -> str:
+    if uid not in _LOCAL_UID_CACHE:
+        try:
+            _LOCAL_UID_CACHE[uid] = pwd.getpwuid(uid).pw_name
+        except Exception:
+            _LOCAL_UID_CACHE[uid] = str(uid)
+    return _LOCAL_UID_CACHE[uid]
+
+
+def _resolve_group_name(gid: int) -> str:
+    if gid not in _LOCAL_GID_CACHE:
+        try:
+            _LOCAL_GID_CACHE[gid] = grp.getgrgid(gid).gr_name
+        except Exception:
+            _LOCAL_GID_CACHE[gid] = str(gid)
+    return _LOCAL_GID_CACHE[gid]
+
 
 MAX_RECURSIVE_RESULTS = 1000
 
@@ -2083,9 +2106,13 @@ class FileManager(GObject.Object):
             if file_item.name == "..":
                 size_label.set_text("")
             elif file_item.is_directory:
-                size_label.set_text(_("Folder"))
+                size_label.set_text(
+                    f"{_('Folder')} • {file_item.formatted_date_short}"
+                )
             else:
-                size_label.set_text(file_item.formatted_size)
+                size_label.set_text(
+                    f"{file_item.formatted_size} • {file_item.formatted_date_short}"
+                )
 
         if badges_box:
             while child := badges_box.get_first_child():
@@ -2104,6 +2131,10 @@ class FileManager(GObject.Object):
                     b_label.add_css_class("badge-pill")
                     b_label.add_css_class("badge-exec")
                     badges_box.append(b_label)
+
+        # Set rich tooltip on card
+        if hasattr(file_item, "tooltip_markup"):
+            card.set_tooltip_markup(file_item.tooltip_markup)
 
     def _unbind_grid_item(self, factory, list_item):
         self._unbind_cell(factory, list_item)
@@ -2141,24 +2172,52 @@ class FileManager(GObject.Object):
     def _setup_compact_item(self, factory, list_item):
         """Constructs the single row layout for compact list mode."""
         box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        box.add_css_class("file-compact-row")
         box.set_margin_start(4)
         box.set_margin_end(4)
 
+        # 1. Name section (Icon + Name + Badges)
+        name_box = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL, spacing=6, hexpand=True
+        )
+
         icon_img = Gtk.Image()
         icon_img.set_pixel_size(18)
-        box.append(icon_img)
+        name_box.append(icon_img)
 
         label = Gtk.Label(xalign=0.0, hexpand=True)
         label.set_ellipsize(Pango.EllipsizeMode.END)
-        box.append(label)
+        name_box.append(label)
 
         badges_box = Gtk.Box(spacing=4, orientation=Gtk.Orientation.HORIZONTAL)
-        box.append(badges_box)
+        name_box.append(badges_box)
+        box.append(name_box)
 
+        # 2. Size Column
         size_label = Gtk.Label(xalign=1.0)
-        size_label.add_css_class("dim-label")
-        size_label.add_css_class("caption")
+        size_label.add_css_class("file-compact-col-size")
+        size_label.add_css_class("numeric")
+        size_label.set_width_chars(9)
         box.append(size_label)
+
+        # 3. Date Modified Column
+        date_label = Gtk.Label(xalign=0.5)
+        date_label.add_css_class("file-compact-col-date")
+        date_label.set_width_chars(17)
+        box.append(date_label)
+
+        # 4. Permissions Column
+        perms_label = Gtk.Label(xalign=0.5)
+        perms_label.add_css_class("file-compact-col-perms")
+        perms_label.set_width_chars(11)
+        box.append(perms_label)
+
+        # 5. Owner/Group Column
+        owner_label = Gtk.Label(xalign=0.0)
+        owner_label.add_css_class("file-compact-col-owner")
+        owner_label.set_width_chars(14)
+        owner_label.set_ellipsize(Pango.EllipsizeMode.END)
+        box.append(owner_label)
 
         gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
         gesture.connect("pressed", self._on_item_right_click, list_item)
@@ -2173,10 +2232,15 @@ class FileManager(GObject.Object):
         if not box:
             return
 
-        icon_img = box.get_first_child()
+        name_box = box.get_first_child()
+        size_label = name_box.get_next_sibling() if name_box else None
+        date_label = size_label.get_next_sibling() if size_label else None
+        perms_label = date_label.get_next_sibling() if date_label else None
+        owner_label = perms_label.get_next_sibling() if perms_label else None
+
+        icon_img = name_box.get_first_child() if name_box else None
         label = icon_img.get_next_sibling() if icon_img else None
         badges_box = label.get_next_sibling() if label else None
-        size_label = badges_box.get_next_sibling() if badges_box else None
 
         file_item: FileItem = list_item.get_item()
         if not file_item:
@@ -2195,9 +2259,27 @@ class FileManager(GObject.Object):
             if file_item.name == "..":
                 size_label.set_text("")
             elif file_item.is_directory:
-                size_label.set_text("")
+                size_label.set_text(file_item.formatted_size)
             else:
                 size_label.set_text(file_item.formatted_size)
+
+        if date_label:
+            if file_item.name == "..":
+                date_label.set_text("")
+            else:
+                date_label.set_text(file_item.formatted_date)
+
+        if perms_label:
+            if file_item.name == "..":
+                perms_label.set_text("")
+            else:
+                perms_label.set_text(file_item.permissions)
+
+        if owner_label:
+            if file_item.name == "..":
+                owner_label.set_text("")
+            else:
+                owner_label.set_text(f"{file_item.owner}:{file_item.group}")
 
         if badges_box:
             while child := badges_box.get_first_child():
@@ -2216,6 +2298,10 @@ class FileManager(GObject.Object):
                     b_label.add_css_class("badge-pill")
                     b_label.add_css_class("badge-exec")
                     badges_box.append(b_label)
+
+        # Set rich tooltip on row
+        if hasattr(file_item, "tooltip_markup"):
+            box.set_tooltip_markup(file_item.tooltip_markup)
 
     def _unbind_compact_item(self, factory, list_item):
         self._unbind_cell(factory, list_item)
@@ -2326,7 +2412,6 @@ class FileManager(GObject.Object):
         if path:
             self.current_path = path
         self._update_breadcrumb()
-        self.store.remove_all()
 
         if hasattr(self, "search_entry"):
             self.search_entry.set_sensitive(False)
@@ -2337,14 +2422,108 @@ class FileManager(GObject.Object):
             self._list_files_thread, self.current_path, source
         )
 
+    def _list_local_files(self, requested_path: str, source: str = "filemanager"):
+        """Ultra-fast native directory listing using os.scandir and POSIX stat."""
+        try:
+            if self._is_destroyed or requested_path != self.current_path:
+                return
+
+            if not os.path.exists(requested_path) or not os.path.isdir(requested_path):
+                GLib.idle_add(
+                    self._update_store_with_files,
+                    requested_path,
+                    [],
+                    _("Directory does not exist"),
+                    source,
+                )
+                return
+
+            parent_item = None
+            if requested_path != "/":
+                parent_dir = os.path.dirname(requested_path.rstrip("/")) or "/"
+                try:
+                    st_p = os.stat(parent_dir)
+                    dt_p = datetime.fromtimestamp(st_p.st_mtime)
+                    parent_item = FileItem(
+                        "..",
+                        stat.filemode(st_p.st_mode),
+                        st_p.st_size,
+                        dt_p,
+                        _resolve_user_name(st_p.st_uid),
+                        _resolve_group_name(st_p.st_gid),
+                    )
+                except Exception:
+                    parent_item = FileItem(
+                        "..", "drwxr-xr-x", 4096, datetime.now(), "root", "root"
+                    )
+
+            directories = []
+            files = []
+
+            with os.scandir(requested_path) as entries:
+                for entry in entries:
+                    if self._is_destroyed or requested_path != self.current_path:
+                        return
+                    try:
+                        st = entry.stat(follow_symlinks=False)
+                        perms = stat.filemode(st.st_mode)
+                        is_link = entry.is_symlink()
+                        link_target = ""
+                        if is_link:
+                            try:
+                                link_target = os.readlink(entry.path)
+                            except Exception:
+                                pass
+
+                        dt = datetime.fromtimestamp(st.st_mtime)
+                        is_dir = entry.is_dir(follow_symlinks=False)
+                        display_name = entry.name + ("/" if is_dir else "")
+
+                        item = FileItem(
+                            display_name,
+                            perms,
+                            st.st_size,
+                            dt,
+                            _resolve_user_name(st.st_uid),
+                            _resolve_group_name(st.st_gid),
+                            is_link=is_link,
+                            link_target=link_target,
+                        )
+                        if item.is_directory_like:
+                            directories.append(item)
+                        else:
+                            files.append(item)
+                    except Exception:
+                        pass
+
+            directories.sort(key=lambda x: x.name.lower())
+            files.sort(key=lambda x: x.name.lower())
+
+            all_items = []
+            if requested_path != "/" and parent_item:
+                all_items.append(parent_item)
+            all_items.extend(directories)
+            all_items.extend(files)
+
+            GLib.idle_add(self._set_store_items, all_items, requested_path, source)
+        except Exception as e:
+            self.logger.error(f"Error in local file listing for {requested_path}: {e}")
+            GLib.idle_add(
+                self._update_store_with_files, requested_path, [], str(e), source
+            )
+
     def _list_files_thread(self, requested_path: str, source: str = "filemanager"):
         """Task 1: UI Batching - Process files in batches to avoid UI freezing.
 
-        Uses a short timeout to prevent UI freeze when SSH connection is lost.
+        Uses ultra-fast os.scandir for local sessions and short timeout for SSH.
         """
         try:
             # Check for destruction/invalid state before any operations
             if self._is_destroyed:
+                return
+
+            if not self._is_remote_session():
+                self._list_local_files(requested_path, source)
                 return
 
             # Capture operations reference locally to prevent race with destroy()
@@ -2621,7 +2800,21 @@ class FileManager(GObject.Object):
                 total_bytes = files_bytes + dirs_bytes
                 formatted_size = self._format_bytes(total_bytes)
 
-                if n_files > 0 and n_dirs == 0:
+                if sel_count == 1:
+                    single_item = valid_selected[0]
+                    item_type = _("folder") if single_item.is_directory else _("file")
+                    octal = (
+                        f" ({single_item.permissions_octal})"
+                        if hasattr(single_item, "permissions_octal")
+                        else ""
+                    )
+                    sel_text = (
+                        f"1 {item_type} ({formatted_size}) • "
+                        f"{single_item.permissions}{octal} • "
+                        f"{single_item.owner}:{single_item.group} • "
+                        f"{single_item.formatted_date}"
+                    )
+                elif n_files > 0 and n_dirs == 0:
                     sel_text = (
                         f"{n_files} "
                         + (_("files selected") if n_files > 1 else _("file selected"))

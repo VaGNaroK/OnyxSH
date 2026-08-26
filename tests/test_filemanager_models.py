@@ -249,6 +249,44 @@ class TestFileItemModels(unittest.TestCase):
         self.assertIsNotNone(icon)
         self.assertIsNotNone(item._cached_icon_name)
 
+    def test_permissions_octal(self):
+        item_755 = FileItem("script.sh", "-rwxr-xr-x", 100, datetime.now(), "u", "g")
+        self.assertEqual(item_755.permissions_octal, "0755")
+
+        item_644 = FileItem("file.txt", "-rw-r--r--", 100, datetime.now(), "u", "g")
+        self.assertEqual(item_644.permissions_octal, "0644")
+
+        item_777 = FileItem("public", "drwxrwxrwx", 4096, datetime.now(), "u", "g")
+        self.assertEqual(item_777.permissions_octal, "0777")
+
+    def test_type_description(self):
+        item_py = FileItem("app.py", "-rw-r--r--", 100, datetime.now(), "u", "g")
+        self.assertEqual(item_py.type_description, "Python Script")
+
+        item_dir = FileItem("src", "drwxr-xr-x", 4096, datetime.now(), "u", "g")
+        self.assertEqual(item_dir.type_description, "Directory / Folder")
+
+        item_link = FileItem("lnk", "lrwxrwxrwx", 10, datetime.now(), "u", "g", is_link=True)
+        self.assertEqual(item_link.type_description, "Symbolic Link")
+
+        item_parent = FileItem("..", "drwxr-xr-x", 0, datetime.now(), "u", "g")
+        self.assertEqual(item_parent.type_description, "Parent Directory")
+
+    def test_tooltip_markup(self):
+        dt = datetime(2026, 8, 26, 10, 30, 0)
+        item = FileItem("script.py", "-rwxr-xr-x", 2048, dt, "vagnarok", "staff")
+        tooltip = item.tooltip_markup
+        self.assertIn("script.py", tooltip)
+        self.assertIn("2.0 KB", tooltip)
+        self.assertIn("2026-08-26 10:30", tooltip)
+        self.assertIn("-rwxr-xr-x", tooltip)
+        self.assertIn("0755", tooltip)
+        self.assertIn("vagnarok : staff", tooltip)
+
+        item_parent = FileItem("..", "drwxr-xr-x", 0, dt, "u", "g")
+        self.assertIn("parent directory", item_parent.tooltip_markup.lower())
+
 
 if __name__ == "__main__":
     unittest.main()
+
