@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, develop ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, develop ]
 
 jobs:
   test:
@@ -22,11 +22,13 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y \
           libgirepository1.0-dev \
+          libglib2.0-dev \
           libcairo2-dev \
           pkg-config \
           python3-dev \
           gir1.2-gtk-4.0 \
           gir1.2-adw-1 \
+          gir1.2-vte-3.91 \
           xvfb
 
     - name: Set up Python ${{ matrix.python-version }}
@@ -37,7 +39,7 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install PyGObject pycairo requests pyyaml setproctitle psutil pycryptodomex pytest pytest-asyncio
+        pip install "PyGObject>=3.44.0,<3.52.0" pycairo requests pyyaml setproctitle psutil pycryptodomex pytest pytest-asyncio
 
     - name: Run Test Suite
       run: |
