@@ -1721,7 +1721,7 @@ class FileManager(GObject.Object):
             self._create_column(
                 _("Date Modified"),
                 self.date_sorter,
-                self._setup_text_cell,
+                self._setup_date_cell,
                 self._bind_date_cell,
             )
         )
@@ -1729,7 +1729,7 @@ class FileManager(GObject.Object):
             self._create_column(
                 _("Permissions"),
                 self.perms_sorter,
-                self._setup_text_cell,
+                self._setup_permissions_cell,
                 self._bind_permissions_cell,
             )
         )
@@ -1737,7 +1737,7 @@ class FileManager(GObject.Object):
             self._create_column(
                 _("Owner"),
                 self.owner_sorter,
-                self._setup_text_cell,
+                self._setup_owner_cell,
                 self._bind_owner_cell,
             )
         )
@@ -1745,7 +1745,7 @@ class FileManager(GObject.Object):
             self._create_column(
                 _("Group"),
                 self.group_sorter,
-                self._setup_text_cell,
+                self._setup_group_cell,
                 self._bind_group_cell,
             )
         )
@@ -1865,6 +1865,40 @@ class FileManager(GObject.Object):
 
     def _setup_size_cell(self, factory, list_item):
         label = Gtk.Label(xalign=1.0)
+        label.add_css_class("file-detailed-col-size")
+        label.add_css_class("numeric")
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        label.add_controller(gesture)
+        list_item.set_child(label)
+
+    def _setup_date_cell(self, factory, list_item):
+        label = Gtk.Label(xalign=0.5)
+        label.add_css_class("file-detailed-col-date")
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        label.add_controller(gesture)
+        list_item.set_child(label)
+
+    def _setup_permissions_cell(self, factory, list_item):
+        label = Gtk.Label(xalign=0.5)
+        label.add_css_class("file-detailed-col-perms")
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        label.add_controller(gesture)
+        list_item.set_child(label)
+
+    def _setup_owner_cell(self, factory, list_item):
+        label = Gtk.Label(xalign=0.0)
+        label.add_css_class("file-detailed-col-owner")
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        label.add_controller(gesture)
+        list_item.set_child(label)
+
+    def _setup_group_cell(self, factory, list_item):
+        label = Gtk.Label(xalign=0.0)
+        label.add_css_class("file-detailed-col-group")
         gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
         gesture.connect("pressed", self._on_item_right_click, list_item)
         label.add_controller(gesture)
