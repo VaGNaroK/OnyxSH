@@ -752,7 +752,9 @@ class FileOperations:
 
         if not is_remote:
             # --- LOCAL SAVE ---
-            target_path = Path(file_path).resolve()
+            norm_path = os.path.abspath(str(file_path))
+            target_path = Path(norm_path)
+
             if not as_sudo:
                 try:
                     parent_dir = target_path.parent
@@ -785,7 +787,18 @@ class FileOperations:
                     return False, str(e)
             else:
                 # Local save with sudo / pkexec
-                is_flatpak = Path("/.flatpak-info").exists()
+                from ..utils.platform import is_flatpak_sandbox
+
+                is_flatpak = is_flatpak_sandbox()
+
+                # Clean host path: resolve Flatpak /run/host/ and /var/run/host/ mounts to host root
+                host_target = norm_path
+                if is_flatpak:
+                    if host_target.startswith("/run/host/"):
+                        host_target = host_target[len("/run/host"):]
+                    elif host_target.startswith("/var/run/host/"):
+                        host_target = host_target[len("/var/run/host"):]
+
                 try:
                     if is_flatpak:
                         if sudo_password:
@@ -795,7 +808,7 @@ class FileOperations:
                                 "sudo",
                                 "-S",
                                 "tee",
-                                str(target_path),
+                                host_target,
                             ]
                             proc = subprocess.run(
                                 cmd,
@@ -809,7 +822,7 @@ class FileOperations:
                                 "--host",
                                 "pkexec",
                                 "tee",
-                                str(target_path),
+                                host_target,
                             ]
                             proc = subprocess.run(
                                 cmd,
@@ -820,7 +833,7 @@ class FileOperations:
                     else:
                         import shutil
                         if sudo_password:
-                            cmd = ["sudo", "-S", "tee", str(target_path)]
+                            cmd = ["sudo", "-S", "tee", host_target]
                             proc = subprocess.run(
                                 cmd,
                                 input=f"{sudo_password}\n".encode("utf-8") + content_bytes,
@@ -828,7 +841,7 @@ class FileOperations:
                                 timeout=timeout,
                             )
                         elif shutil.which("pkexec"):
-                            cmd = ["pkexec", "tee", str(target_path)]
+                            cmd = ["pkexec", "tee", host_target]
                             proc = subprocess.run(
                                 cmd,
                                 input=content_bytes,
@@ -836,7 +849,7 @@ class FileOperations:
                                 timeout=timeout,
                             )
                         else:
-                            cmd = ["sudo", "tee", str(target_path)]
+                            cmd = ["sudo", "tee", host_target]
                             proc = subprocess.run(
                                 cmd,
                                 input=content_bytes,
@@ -847,10 +860,23 @@ class FileOperations:
                     if proc.returncode == 0:
                         return True, "OK"
                     else:
-                        err_text = proc.stderr.decode("utf-8", errors="replace")
-                        if "incorrect password" in err_text.lower() or "password" in err_text.lower():
+                        err_text = proc.stderr.decode("utf-8", errors="replace").strip()
+                        if not err_text:
+                            err_text = proc.stdout.decode("utf-8", errors="replace").strip()
+                        err_lower = err_text.lower()
+                        if (
+                            "incorrect password" in err_lower
+                            or "password" in err_lower
+                            or "a password is required" in err_lower
+                            or "not authorized" in err_lower
+                            or "dismissed" in err_lower
+                            or "authentication failed" in err_lower
+                            or "authentication failure" in err_lower
+                            or "no authentication agent" in err_lower
+                            or (proc.returncode in (126, 127) and not sudo_password)
+                        ):
                             return False, "PASSWORD_REQUIRED"
-                        if "permission denied" in err_text.lower():
+                        if "permission denied" in err_lower:
                             return False, "PERMISSION_DENIED"
                         return False, err_text or _("Failed to save as superuser.")
                 except Exception as e:

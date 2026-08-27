@@ -213,7 +213,72 @@ class TestQuickLook(unittest.TestCase):
         self.assertEqual(msg, "OK")
         self.assertEqual(test_file.read_text(encoding="utf-8"), "updated content")
 
+    @patch("subprocess.run")
+    @patch("onyxsh.utils.platform.is_flatpak_sandbox")
+    def test_save_file_content_sudo_flatpak_path_resolution(self, mock_is_flatpak, mock_run):
+        from onyxsh.filemanager.operations import FileOperations
+        from onyxsh.sessions.models import SessionItem
+
+        mock_is_flatpak.return_value = True
+        mock_proc = MagicMock()
+        mock_proc.returncode = 0
+        mock_run.return_value = mock_proc
+
+        session = SessionItem(name="local", host="localhost", session_type="local")
+        ops = FileOperations(session)
+
+        # 1. Standard /etc/hosts path
+        success, msg = ops.save_file_content("/etc/hosts", "127.0.0.1 localhost", as_sudo=True)
+        self.assertTrue(success)
+        self.assertEqual(msg, "OK")
+        mock_run.assert_called_with(
+            ["flatpak-spawn", "--host", "pkexec", "tee", "/etc/hosts"],
+            input=b"127.0.0.1 localhost",
+            capture_output=True,
+            timeout=15,
+        )
+
+        # 2. Path prefixed with /run/host/
+        success, msg = ops.save_file_content("/run/host/etc/hosts", "127.0.0.1 localhost", as_sudo=True)
+        self.assertTrue(success)
+        mock_run.assert_called_with(
+            ["flatpak-spawn", "--host", "pkexec", "tee", "/etc/hosts"],
+            input=b"127.0.0.1 localhost",
+            capture_output=True,
+            timeout=15,
+        )
+
+        # 3. With password via sudo -S
+        success, msg = ops.save_file_content("/etc/hosts", "new content", as_sudo=True, sudo_password="secretpassword")
+        self.assertTrue(success)
+        mock_run.assert_called_with(
+            ["flatpak-spawn", "--host", "sudo", "-S", "tee", "/etc/hosts"],
+            input=b"secretpassword\nnew content",
+            capture_output=True,
+            timeout=15,
+        )
+
+    @patch("subprocess.run")
+    @patch("onyxsh.utils.platform.is_flatpak_sandbox")
+    def test_save_file_content_sudo_password_required_fallback(self, mock_is_flatpak, mock_run):
+        from onyxsh.filemanager.operations import FileOperations
+        from onyxsh.sessions.models import SessionItem
+
+        mock_is_flatpak.return_value = True
+        mock_proc = MagicMock()
+        mock_proc.returncode = 127
+        mock_proc.stderr = b"pkexec: not authorized"
+        mock_run.return_value = mock_proc
+
+        session = SessionItem(name="local", host="localhost", session_type="local")
+        ops = FileOperations(session)
+
+        success, msg = ops.save_file_content("/etc/hosts", "content", as_sudo=True, sudo_password=None)
+        self.assertFalse(success)
+        self.assertEqual(msg, "PASSWORD_REQUIRED")
+
 
 if __name__ == "__main__":
     unittest.main()
+
 
