@@ -9,6 +9,18 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.10.0] - 2026-08-26
 
 ### Adicionado
+- **Editor de Arquivos Embutido no Quick Look com Suporte a Superusuário (Sudo/Root/Pkexec) & SSH**: Edição direta de arquivos de texto e código sem necessidade de ferramentas externas (`src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/filemanager/operations.py`, `tests/test_quick_look.py`):
+  - ✏️ **Modo de Edição Direta no Visualizador**:
+    - Alternância instantânea entre modo de visualização e edição (*In-place Editor*) com buffer de texto `Gtk.TextView` integrado.
+    - Detecção de modificações (*dirty state*) com indicador visual e botão de salvar habilitado apenas após edições.
+  - 🛡️ **Salvamento com Privilégios de Superusuário (Root / Sudo / Pkexec)**:
+    - Botão dedicado de escudo na barra superior para salvar arquivos de sistema (ex.: `/etc/hosts`, `/etc/fstab`, `/etc/nginx/nginx.conf`).
+    - Banner informativo de cabeçalho para arquivos com permissão somente leitura (*"Este arquivo é somente leitura. As alterações podem ser salvas com privilégios de Superusuário (Root)"*).
+    - Integração nativa com `pkexec` (Polkit com diálogo gráfico no host) e fallback para `sudo -S` com diálogo modal de solicitação de senha do OnyxSH.
+    - Suporte a salvamento remoto com elevação `sudo -S` em conexões SSH.
+  - ⌨️ **Atalhos de Teclado no Editor**:
+    - <kbd>Ctrl + S</kbd> para salvar normalmente.
+    - <kbd>Ctrl + Shift + S</kbd> para salvar diretamente com privilégios de Superusuário (Root).
 - **Gerenciador de Arquivos Multiview 2.0 (Lista Detalhada e Grade de Ícones) & Quick Look**: Reformulação da camada de visualização com suporte a múltiplos modos de apresentação e inspeção rica de arquivos (`src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/filemanager/models.py`, `src/onyxsh/settings/config.py`, `tests/test_filemanager_*.py`, `tests/test_quick_look.py`):
   - 🌁 **Múltiplos Modos de Exibição com `Gtk.Stack`**:
     - **Lista Detalhada (`Gtk.ColumnView`)**: Tabela multi-colunas com cabeçalho plano contínuo, tipografia monoespaçada, colunas alinhadas (Nome, Tamanho, Data, Permissões POSIX, Dono, Grupo) e tooltip rico Pango com metadados detalhados em hover.
@@ -24,7 +36,24 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
     - Ações rápidas no rodapé do diálogo: *Abrir no Editor*, *Explicar com IA*, *Copiar Conteúdo*, *Calcular Hash SHA-256*.
   - ⌨️ **Ações Rápidas de Terminal no Menu de Contexto**:
     - *Copiar Caminho Absoluto*, *Inserir Caminho no Prompt* (com escaping seguro `shlex.quote`) e *Executar no Terminal*.
-  - 🧪 **Suíte Completa de Testes Unitários**: Novos testes automatizados cobrindo `FileItem`, `FileOperations`, `TransferManager`, `TftpServer`, ordenação/filtros e ciclo de vida das fábricas de itens (totalizando 329 testes no projeto).
+  - 🧪 **Suíte Completa de Testes Unitários**: Novos testes automatizados cobrindo `FileItem`, `FileOperations`, `TransferManager`, `TftpServer`, ordenação/filtros e ciclo de vida das fábricas de itens (totalizando 342 testes no projeto).
+- **Registro Central de Bugs para Agentes de IA (`AI_BUG_FIX_REGISTRY.md`)**: Base de conhecimento estruturada na raiz do projeto catalogando histórico de bugs, causas raízes, commits, testes de regressão e regras de ouro anti-regressão para agentes de IA e desenvolvedores.
+- **Sincronização Multilíngue Completa (28 Idiomas)**: 728 novas chaves de tradução adicionadas e sincronizadas em todos os 28 arquivos `.po` e catálogos `.mo` para o novo editor e ações de superusuário.
+
+### Otimizado
+- **Desempenho e Fluidez no Gerenciador de Arquivos**:
+  - ⚡ **Construção *Lazy* do Popover de Atalhos e Favoritos (`Quick Jump`)**: Construção sob demanda no evento `notify::visible`, eliminando a recriação síncrona de dezenas de widgets GTK na UI thread a cada navegação de diretório.
+  - 🔄 **Remoção de Dupla Invalidação de Filtros e Ordenação**: Supressão de chamadas manuais redundantes a `sorter.changed()` e `combined_filter.changed()` após operações de `splice()` no `Gio.ListStore`.
+  - 🎛️ **Reciclagem Inteligente de Badges sem Alocação no ListView e GridView**: Pré-alocação dos slots de badges no template de setup das linhas, alternando apenas propriedades de visibilidade (`set_visible`) e classes CSS durante o scroll.
+  - 💾 **Cache com TTL (10s) para Consulta de Espaço Livre em Disco**: Eliminação de chamadas bloqueantes `statvfs` / `shutil.disk_usage` na thread principal da interface gráfica.
+  - 🧠 **Pré-computação e Memoização em `FileItem`**: Pré-cálculo de strings em minúsculas e flags de tipo de arquivo no `__init__`, além de memoização sob demanda de metadados pesados.
+  - 🏎️ **Tempo de Execução dos Testes Reduzido**: Redução de ~23% no tempo de execução da suíte automatizada de testes (de 6.6s para 5.1s).
+
+### Corrigido
+- **Resolução de Caminhos do Host no Sandbox Flatpak ao Salvar com Sudo/Pkexec (`BUG-FP-001`)**: Correção do erro `/usr/bin/tee: /run/host/monitor/hosts: Arquivo ou diretório inexistente` ao salvar arquivos como root dentro do Flatpak, substituindo `.resolve()` por `os.path.abspath()` e limpando prefixos de montagem interna (`/run/host/`, `/var/run/host/`).
+- **Formatação e Alinhamento da Lista Detalhada**: Unificação das colunas da visualização em lista detalhada com alinhamento rigoroso de cabeçalhos, tipografia monoespaçada e dados de dono:grupo.
+- **Prevenção de Segfaults e Vazamento de Gestos no File Manager (`BUG-FM-005`)**: Associação de `Gtk.GestureClick` movida exclusivamente para o estágio de *setup* da fábrica de células.
+- **Eliminação de Loop Infinito de CPU em Diálogos (`BUG-FM-007`)**: Retorno explícito de `GLib.SOURCE_REMOVE` em rotinas de foco `idle_add`.
 - **Modo Diagnóstico Seguro (`onyxsh --diagnose`) & Telemetria Sanitizada do Sistema**: Utilitário completo para auditoria do ambiente, compatibilidade de hardware/software e geração de relatórios técnicos prontos para GitHub Issues com proteção estrita de privacidade (`src/onyxsh/utils/diagnostics.py`, `src/onyxsh/ui/dialogs/diagnostics_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_diagnostics.py`):
   - 🛡️ **Sanitização em Cascata de Dados Sensíveis (*Multi-Layer Privacy Guard*)**:
     - Mascaramento rigoroso de chaves de API e tokens (`AIza...`, `gsk_...`, `sk-...`, `ghp_...`, `AKIA...`, `Bearer ...`, `password=...`, `token=...`).
