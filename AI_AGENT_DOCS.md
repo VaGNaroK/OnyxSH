@@ -1,6 +1,6 @@
 # 🧠 OnyxSH — Guia de Referência para Agentes de IA
 
-> **Versão auditada:** v0.10.0 → HEAD (Agosto 2026)  
+> **Versão auditada:** v0.10.1 → HEAD (Agosto 2026)  
 > **Última atualização:** 2026-08-27  
 > **Registro Completo de Bugs Corrigidos:** Consulte [`AI_BUG_FIX_REGISTRY.md`](file:///home/vagnarok/zashterminal-Fork-main/AI_BUG_FIX_REGISTRY.md)  
 > **Objetivo:** Documento de referência para agentes de IA que trabalham neste projeto, contendo bugs conhecidos, melhorias sugeridas, padrões arquiteturais e armadilhas a evitar.

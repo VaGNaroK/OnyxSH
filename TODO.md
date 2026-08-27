@@ -1,7 +1,7 @@
 # 📋 Roadmap & Backlog de Novas Funcionalidades (TODO) — OnyxSH
 
 > **Documento de Planejamento e Backlog Técnico**  
-> **Versão:** `0.10.0` | **Data:** 26 de Agosto de 2026  
+> **Versão:** `0.10.1` | **Data:** 26 de Agosto de 2026  
 > **Origem:** Análise de gaps e propostas arquiteturais em `newfeatures.txt`  
 > **Critério de Filtragem:** *Todas as funcionalidades já implementadas no OnyxSH foram descartadas. Este documento contém exclusivamente propostas futuras organizadas por prioridade, complexidade técnica e marcos de versão.*
 
@@ -416,7 +416,7 @@
 | Versão | Foco Principal | Principais Funcionalidades Previstas |
 | :--- | :--- | :--- |
 | **`v0.9.0`** | **Produtividade & Core UX** | • Command Palette (`Ctrl+Shift+P`)<br>• Restauração Automática de Sessões<br>• Integração Semântica OSC 133<br>• Histórico Inteligente e Snippets de Comandos<br>• Autocomplete e Notificações Desktop<br>• Novo Logo Vetorial Oficial OnyxSH |
-| **`v0.10.0`** | **File Manager 2.0 & IA Avançada** | • **Quick Look (Preview com Tecla `Espaço`)**<br>• **Ações Rápidas de Terminal & IA no File Manager**<br>• **Atalhos Rápidos (Bookmarks) e Barra de Status com Espaço Livre**<br>• **Badges Visuais de Permissões (+x)**<br>• **Verificador & Comparador de Checksums / Hash**<br>• Production Guard & Roteamento Inteligente de IA<br>• Modo Estritamente Offline & Diagnóstico (`--diagnose`) |
+| **`v0.10.1`** | **File Manager 2.0 & In-Place Editor** | • **Editor Embutido no Quick Look (com Sudo / Root / SSH)**<br>• **Quick Look (Preview com Tecla `Espaço`)**<br>• **Ações Rápidas de Terminal & IA no File Manager**<br>• **Atalhos Rápidos (Bookmarks) e Barra de Status com Espaço Livre**<br>• **Badges Visuais de Permissões (+x)**<br>• **Verificador & Comparador de Checksums / Hash**<br>• Production Guard & Roteamento Inteligente de IA<br>• Modo Estritamente Offline & Diagnóstico (`--diagnose`) |
 | **`v0.11.0`** | **DevOps, Observabilidade & Remoto** | • Modo Dual-Pane Local ⇄ Remoto no File Manager<br>• Tree View Hierárquica com Métricas de Disco<br>• Dashboard de Recursos em Tempo Real (CPU/RAM/Rede)<br>• Gráficos & Imagens no Terminal (Protocolo Sixel)<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs<br>• Auto-Correção Proativa de Erros de Terminal<br>• Exportação com Anotações & Relatório HTML de Saúde |
 | **`v1.0.0`** | **Maturidade, Extensibilidade & Cofres** | • API de Plugins (Onyx Bridge)<br>• Ferramentas Customizadas para o Agente & Catálogo de Receitas<br>• Integração com Gerenciadores de Segredos (Bitwarden, 1Password)<br>• Compartilhamento Instantâneo de Snippets via Link<br>• Estabilização Completa de Pacotes Flatpak, Debian e AUR |
 | **`v1.1.0`** | **Colaboração & Proteção Avançada** | • Sessões Compartilhadas & Terminal Multiplayer (Pair Programming)<br>• Modo "Sombra" (Dry-Run Sandbox com visualização de diff)<br>• Detecção Proativa de Comportamento Anômalo<br>• Aprendizado por Demonstração (Demonstration Learning) |

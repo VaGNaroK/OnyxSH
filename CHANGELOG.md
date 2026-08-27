@@ -6,7 +6,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ---
 
-## [0.10.0] - 2026-08-26
+## [0.10.1] - 2026-08-26
 
 ### Adicionado
 - **Editor de Arquivos Embutido no Quick Look com Suporte a Superusuário (Sudo/Root/Pkexec) & SSH**: Edição direta de arquivos de texto e código sem necessidade de ferramentas externas (`src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/filemanager/operations.py`, `tests/test_quick_look.py`):
@@ -36,7 +36,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
     - Ações rápidas no rodapé do diálogo: *Abrir no Editor*, *Explicar com IA*, *Copiar Conteúdo*, *Calcular Hash SHA-256*.
   - ⌨️ **Ações Rápidas de Terminal no Menu de Contexto**:
     - *Copiar Caminho Absoluto*, *Inserir Caminho no Prompt* (com escaping seguro `shlex.quote`) e *Executar no Terminal*.
-  - 🧪 **Suíte Completa de Testes Unitários**: Novos testes automatizados cobrindo `FileItem`, `FileOperations`, `TransferManager`, `TftpServer`, ordenação/filtros e ciclo de vida das fábricas de itens (totalizando 342 testes no projeto).
+  - 🧪 **Suíte Completa de Testes Unitários**: Novos testes automatizados cobrindo `FileItem`, `FileOperations`, `TransferManager`, `TftpServer`, ordenação/filtros, proteção de escrita e ciclo de vida das fábricas de itens (totalizando 344 testes no projeto).
 - **Registro Central de Bugs para Agentes de IA (`AI_BUG_FIX_REGISTRY.md`)**: Base de conhecimento estruturada na raiz do projeto catalogando histórico de bugs, causas raízes, commits, testes de regressão e regras de ouro anti-regressão para agentes de IA e desenvolvedores.
 - **Sincronização Multilíngue Completa (28 Idiomas)**: 728 novas chaves de tradução adicionadas e sincronizadas em todos os 28 arquivos `.po` e catálogos `.mo` para o novo editor e ações de superusuário.
 
@@ -50,6 +50,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - 🏎️ **Tempo de Execução dos Testes Reduzido**: Redução de ~23% no tempo de execução da suíte automatizada de testes (de 6.6s para 5.1s).
 
 ### Corrigido
+- **Bloqueio de Gravações Não-Privilegiadas em Arquivos de Sistema no Flatpak (`BUG-FP-006`)**: Bloqueio de gravações acidentais na camada de overlay privado do sandbox para caminhos de sistema (`/etc/`, `/usr/`, `/var/`, etc.), disparando diálogo para salvar como Superusuário (Root).
 - **Resolução de Caminhos do Host no Sandbox Flatpak ao Salvar com Sudo/Pkexec (`BUG-FP-001`)**: Correção do erro `/usr/bin/tee: /run/host/monitor/hosts: Arquivo ou diretório inexistente` ao salvar arquivos como root dentro do Flatpak, substituindo `.resolve()` por `os.path.abspath()` e limpando prefixos de montagem interna (`/run/host/`, `/var/run/host/`).
 - **Formatação e Alinhamento da Lista Detalhada**: Unificação das colunas da visualização em lista detalhada com alinhamento rigoroso de cabeçalhos, tipografia monoespaçada e dados de dono:grupo.
 - **Prevenção de Segfaults e Vazamento de Gestos no File Manager (`BUG-FM-005`)**: Associação de `Gtk.GestureClick` movida exclusivamente para o estágio de *setup* da fábrica de células.
