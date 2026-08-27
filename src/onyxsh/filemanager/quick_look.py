@@ -845,6 +845,11 @@ class QuickLookDialog(BaseDialog):
         if not self.current_item or self._is_saving:
             return
 
+        # If saving without sudo on a read-only / root-owned file, prompt for root elevation directly
+        if not as_sudo and hasattr(self, "readonly_banner") and self.readonly_banner.get_revealed():
+            self._show_permission_denied_dialog()
+            return
+
         start_iter = self.text_buffer.get_start_iter()
         end_iter = self.text_buffer.get_end_iter()
         content = self.text_buffer.get_text(start_iter, end_iter, True)

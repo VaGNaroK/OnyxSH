@@ -277,8 +277,29 @@ class TestQuickLook(unittest.TestCase):
         self.assertFalse(success)
         self.assertEqual(msg, "PASSWORD_REQUIRED")
 
+    def test_save_file_content_normal_denied_for_system_files(self):
+        from onyxsh.filemanager.operations import FileOperations
+        from onyxsh.sessions.models import SessionItem
+
+        session = SessionItem(name="local", host="localhost", session_type="local")
+        ops = FileOperations(session)
+
+        # Normal save without sudo on /etc/hosts must be denied
+        success, msg = ops.save_file_content("/etc/hosts", "content", as_sudo=False)
+        self.assertFalse(success)
+        self.assertEqual(msg, "PERMISSION_DENIED")
+
+    def test_quick_look_readonly_save_triggers_permission_dialog(self):
+        self.dialog.current_item = FileItem("hosts", "-rw-r--r--", 100, datetime.now(), "root", "root")
+        self.dialog.current_folder = "/etc"
+        with patch.object(self.dialog, "_show_permission_denied_dialog") as mock_dialog:
+            self.dialog.readonly_banner.set_revealed(True)
+            self.dialog._on_save_clicked(as_sudo=False)
+            mock_dialog.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()
+
 
 

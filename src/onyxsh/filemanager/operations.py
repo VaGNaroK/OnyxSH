@@ -755,16 +755,52 @@ class FileOperations:
             norm_path = os.path.abspath(str(file_path))
             target_path = Path(norm_path)
 
-            if not as_sudo:
-                try:
-                    parent_dir = target_path.parent
-                    if not parent_dir.exists():
-                        parent_dir.mkdir(parents=True, exist_ok=True)
+            from ..utils.platform import is_flatpak_sandbox
 
+            is_flatpak = is_flatpak_sandbox()
+
+            if not as_sudo:
+                # System directories should never be written without superuser privileges
+                is_system_path = any(
+                    norm_path == prefix.rstrip("/") or norm_path.startswith(prefix)
+                    for prefix in (
+                        "/etc/",
+                        "/usr/",
+                        "/var/",
+                        "/opt/",
+                        "/boot/",
+                        "/sys/",
+                        "/root/",
+                        "/bin/",
+                        "/sbin/",
+                        "/lib/",
+                        "/lib64/",
+                        "/run/host/",
+                        "/var/run/host/",
+                    )
+                )
+
+                if is_system_path:
+                    return False, "PERMISSION_DENIED"
+
+                if target_path.exists() and not os.access(str(target_path), os.W_OK):
+                    return False, "PERMISSION_DENIED"
+
+                parent_dir = target_path.parent
+                if not parent_dir.exists():
+                    try:
+                        parent_dir.mkdir(parents=True, exist_ok=True)
+                    except Exception:
+                        return False, "PERMISSION_DENIED"
+
+                if not os.access(str(parent_dir), os.W_OK):
+                    return False, "PERMISSION_DENIED"
+
+                try:
                     with tempfile.NamedTemporaryFile(
                         mode="w",
                         encoding="utf-8",
-                        dir=str(parent_dir) if os.access(parent_dir, os.W_OK) else None,
+                        dir=str(parent_dir) if os.access(str(parent_dir), os.W_OK) else None,
                         delete=False,
                     ) as tmp:
                         tmp.write(content)
@@ -787,7 +823,6 @@ class FileOperations:
                     return False, str(e)
             else:
                 # Local save with sudo / pkexec
-                from ..utils.platform import is_flatpak_sandbox
 
                 is_flatpak = is_flatpak_sandbox()
 
