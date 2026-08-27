@@ -1877,14 +1877,6 @@ class FileManager(GObject.Object):
     def _setup_owner_cell(self, factory, list_item):
         label = Gtk.Label(xalign=0.0)
         label.add_css_class("file-detailed-col-owner")
-        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-        gesture.connect("pressed", self._on_item_right_click, list_item)
-        label.add_controller(gesture)
-        list_item.set_child(label)
-
-    def _setup_owner_cell(self, factory, list_item):
-        label = Gtk.Label(xalign=0.0)
-        label.add_css_class("file-detailed-col-owner")
         label.add_css_class("numeric")
         gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
         gesture.connect("pressed", self._on_item_right_click, list_item)
