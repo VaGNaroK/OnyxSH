@@ -11190,3 +11190,107 @@ msgstr "Önceki komut istemine atla"
 # 
 msgid "Jump to Next Prompt"
 msgstr "Sonraki komut istemine atla"
+
+# 
+msgid "Save as Root"
+msgstr "Root olarak kaydet"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "Yükseltilmiş Süper Kullanıcı / Root yetkileriyle kaydet (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "Değişiklikleri kaydet (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "Düzenleme Modunu Aç/Kapat (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "Önizleme için içerik kısaltıldı. Düzenleme Moduna geçmek dosyanın tamamını yükleyecektir."
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "Bu dosya salt okunurdur. Düzenlemeler Süper Kullanıcı (Root) yetkileriyle kaydedilebilir."
+
+# 
+msgid "Edit Mode"
+msgstr "Düzenleme Modu"
+
+# 
+msgid "Preview Mode"
+msgstr "Önizleme Modu"
+
+# 
+msgid "More Options"
+msgstr "Daha Fazla Seçenek"
+
+# 
+msgid "Open with External App..."
+msgstr "Harici Uygulama ile Aç..."
+
+# 
+msgid "Reload from Disk"
+msgstr "Diskten Yeniden Yükle"
+
+# 
+msgid "File saved successfully."
+msgstr "Dosya başarıyla kaydedildi."
+
+# 
+msgid "Save Failed"
+msgstr "Kaydetme Başarısız"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "Süper kullanıcı olarak kaydedilemedi."
+
+# 
+msgid "Failed to save remote file."
+msgstr "Uzak dosya kaydedilemedi."
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "Uzak dosya root olarak kaydedilemedi."
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "'{filename}' dosyasını değiştirme izniniz yok. Süper Kullanıcı (Root) yetkileriyle kaydetmek ister misiniz?"
+
+# 
+msgid "Superuser Authentication"
+msgstr "Süper Kullanıcı Kimlik Doğrulaması"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "Değişiklikleri yönetici yetkileriyle kaydetmek için bir parola gereklidir."
+
+# 
+msgid "Authenticate & Save"
+msgstr "Kimlik Doğrula ve Kaydet"
+
+# 
+msgid "Discard Changes?"
+msgstr "Değişiklikler Atılsın mı?"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "Kaydedilmemiş değişiklikleriniz var ve bunlar kaybolacak. Bunları atmak istediğinizden emin misiniz?"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "'{filename}' dosyasında kaydedilmemiş değişiklikler var. Kapatmadan önce kaydetmek istiyor musunuz?"
+
+# 
+msgid "Save & Close"
+msgstr "Kaydet ve Kapat"
+
+# 
+msgid "Discard Changes"
+msgstr "Değişiklikleri At"
+
+# 
+msgid "Discard"
+msgstr "At"

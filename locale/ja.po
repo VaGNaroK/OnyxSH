@@ -11150,3 +11150,107 @@ msgstr "前のプロンプトにジャンプ"
 # 
 msgid "Jump to Next Prompt"
 msgstr "次のプロンプトにジャンプ"
+
+# 
+msgid "Save as Root"
+msgstr "Root として保存"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "昇格されたスーパーユーザー / Root 権限で保存 (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "変更を保存 (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "編集モードの切り替え (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "プレビュー用にコンテンツが切り詰められています。編集モードに切り替えるとファイル全体が読み込まれます。"
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "このファイルは読み取り専用です。変更はスーパーユーザー (Root) 権限で保存できます。"
+
+# 
+msgid "Edit Mode"
+msgstr "編集モード"
+
+# 
+msgid "Preview Mode"
+msgstr "プレビューモード"
+
+# 
+msgid "More Options"
+msgstr "その他のオプション"
+
+# 
+msgid "Open with External App..."
+msgstr "外部アプリで開く..."
+
+# 
+msgid "Reload from Disk"
+msgstr "ディスクから再読み込み"
+
+# 
+msgid "File saved successfully."
+msgstr "ファイルが正常に保存されました。"
+
+# 
+msgid "Save Failed"
+msgstr "保存に失敗しました"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "スーパーユーザーとしての保存に失敗しました。"
+
+# 
+msgid "Failed to save remote file."
+msgstr "リモートファイルの保存に失敗しました。"
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "リモートファイルを Root として保存できませんでした。"
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "'{filename}' を変更する権限がありません。スーパーユーザー (Root) 権限で保存しますか？"
+
+# 
+msgid "Superuser Authentication"
+msgstr "スーパーユーザー認証"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "管理者権限で変更を保存するにはパスワードが必要です。"
+
+# 
+msgid "Authenticate & Save"
+msgstr "認証して保存"
+
+# 
+msgid "Discard Changes?"
+msgstr "変更を破棄しますか？"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "保存されていない変更は失われます。破棄してもよろしいですか？"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "'{filename}' に保存されていない変更があります。閉じる前に保存しますか？"
+
+# 
+msgid "Save & Close"
+msgstr "保存して閉じる"
+
+# 
+msgid "Discard Changes"
+msgstr "変更を破棄"
+
+# 
+msgid "Discard"
+msgstr "破棄"

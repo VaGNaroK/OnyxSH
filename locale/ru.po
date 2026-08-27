@@ -11186,3 +11186,107 @@ msgstr "Перейти к предыдущей командной строке"
 # 
 msgid "Jump to Next Prompt"
 msgstr "Перейти к следующей командной строке"
+
+# 
+msgid "Save as Root"
+msgstr "Сохранить как root"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "Сохранить с повышенными привилегиями суперпользователя / root (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "Сохранить изменения (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "Переключить режим редактирования (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "Содержимое обрезано для предварительного просмотра. Переключение в режим редактирования загрузит файл полностью."
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "Этот файл доступен только для чтения. Изменения можно сохранить с правами суперпользователя (root)."
+
+# 
+msgid "Edit Mode"
+msgstr "Режим редактирования"
+
+# 
+msgid "Preview Mode"
+msgstr "Режим просмотра"
+
+# 
+msgid "More Options"
+msgstr "Другие параметры"
+
+# 
+msgid "Open with External App..."
+msgstr "Открыть во внешнем приложении..."
+
+# 
+msgid "Reload from Disk"
+msgstr "Перезагрузить с диска"
+
+# 
+msgid "File saved successfully."
+msgstr "Файл успешно сохранен."
+
+# 
+msgid "Save Failed"
+msgstr "Ошибка сохранения"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "Не удалось сохранить от имени суперпользователя."
+
+# 
+msgid "Failed to save remote file."
+msgstr "Не удалось сохранить удаленный файл."
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "Не удалось сохранить удаленный файл от имени root."
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "У вас нет прав на изменение '{filename}'. Хотите сохранить с правами суперпользователя (root)?"
+
+# 
+msgid "Superuser Authentication"
+msgstr "Аутентификация суперпользователя"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "Для сохранения изменений с правами администратора требуется пароль."
+
+# 
+msgid "Authenticate & Save"
+msgstr "Аутентифицировать и сохранить"
+
+# 
+msgid "Discard Changes?"
+msgstr "Отменить изменения?"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "У вас есть несохраненные изменения, которые будут потеряны. Вы уверены, что хотите отменить их?"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "У вас есть несохраненные изменения в '{filename}'. Хотите сохранить их перед закрытием?"
+
+# 
+msgid "Save & Close"
+msgstr "Сохранить и закрыть"
+
+# 
+msgid "Discard Changes"
+msgstr "Отменить изменения"
+
+# 
+msgid "Discard"
+msgstr "Отменить"

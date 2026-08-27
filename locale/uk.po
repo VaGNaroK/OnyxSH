@@ -11190,3 +11190,107 @@ msgstr "Перейти до попереднього запиту"
 # 
 msgid "Jump to Next Prompt"
 msgstr "Перейти до наступного запиту"
+
+# 
+msgid "Save as Root"
+msgstr "Зберегти як root"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "Зберегти з підвищеними привілеями суперкористувача / root (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "Зберегти зміни (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "Перемкнути режим редагування (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "Вміст обрізано для попереднього перегляду. Перехід у режим редагування завантажить повний файл."
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "Цей файл доступний лише для читання. Зміни можна зберегти з привілеями суперкористувача (root)."
+
+# 
+msgid "Edit Mode"
+msgstr "Режим редагування"
+
+# 
+msgid "Preview Mode"
+msgstr "Режим перегляду"
+
+# 
+msgid "More Options"
+msgstr "Більше параметрів"
+
+# 
+msgid "Open with External App..."
+msgstr "Відкрити у зовнішній програмі..."
+
+# 
+msgid "Reload from Disk"
+msgstr "Перезавантажити з диска"
+
+# 
+msgid "File saved successfully."
+msgstr "Файл успішно збережено."
+
+# 
+msgid "Save Failed"
+msgstr "Не вдалося зберегти"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "Не вдалося зберегти як суперкористувач."
+
+# 
+msgid "Failed to save remote file."
+msgstr "Не вдалося зберегти віддалений файл."
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "Не вдалося зберегти віддалений файл як root."
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "У вас немає дозволу на зміну '{filename}'. Бажаєте зберегти з привілеями суперкористувача (root)?"
+
+# 
+msgid "Superuser Authentication"
+msgstr "Автентифікація суперкористувача"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "Для збереження змін з правами адміністратора потрібен пароль."
+
+# 
+msgid "Authenticate & Save"
+msgstr "Автентифікувати та зберегти"
+
+# 
+msgid "Discard Changes?"
+msgstr "Скасувати зміни?"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "У вас є незбережені зміни, які будуть втрачені. Ви впевнені, що хочете їх скасувати?"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "У вас є незбережені зміни в '{filename}'. Бажаєте зберегти їх перед закриттям?"
+
+# 
+msgid "Save & Close"
+msgstr "Зберегти та закрити"
+
+# 
+msgid "Discard Changes"
+msgstr "Скасувати зміни"
+
+# 
+msgid "Discard"
+msgstr "Скасувати"

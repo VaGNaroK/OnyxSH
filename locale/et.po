@@ -11229,3 +11229,107 @@ msgstr "Hüppa eelmisele viibale"
 # 
 msgid "Jump to Next Prompt"
 msgstr "Hüppa järgmisele viibale"
+
+# 
+msgid "Save as Root"
+msgstr "Save as Root"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "Save changes (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "Toggle Edit Mode (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "Content truncated for preview. Switching to Edit Mode will load the full file."
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+
+# 
+msgid "Edit Mode"
+msgstr "Edit Mode"
+
+# 
+msgid "Preview Mode"
+msgstr "Preview Mode"
+
+# 
+msgid "More Options"
+msgstr "More Options"
+
+# 
+msgid "Open with External App..."
+msgstr "Open with External App..."
+
+# 
+msgid "Reload from Disk"
+msgstr "Reload from Disk"
+
+# 
+msgid "File saved successfully."
+msgstr "File saved successfully."
+
+# 
+msgid "Save Failed"
+msgstr "Save Failed"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "Failed to save as superuser."
+
+# 
+msgid "Failed to save remote file."
+msgstr "Failed to save remote file."
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "Failed to save remote file as root."
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+
+# 
+msgid "Superuser Authentication"
+msgstr "Superuser Authentication"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "A password is required to save changes with administrative privileges."
+
+# 
+msgid "Authenticate & Save"
+msgstr "Authenticate & Save"
+
+# 
+msgid "Discard Changes?"
+msgstr "Discard Changes?"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+
+# 
+msgid "Save & Close"
+msgstr "Save & Close"
+
+# 
+msgid "Discard Changes"
+msgstr "Discard Changes"
+
+# 
+msgid "Discard"
+msgstr "Discard"

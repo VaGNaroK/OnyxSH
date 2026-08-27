@@ -11203,3 +11203,107 @@ msgstr "Przejdź do poprzedniego promptu"
 # 
 msgid "Jump to Next Prompt"
 msgstr "Przejdź do następnego promptu"
+
+# 
+msgid "Save as Root"
+msgstr "Zapisz jako root"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "Zapisz z podwyższonymi uprawnieniami superużytkownika / root (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "Zapisz zmiany (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "Przełącz tryb edycji (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "Treść obcięta na potrzeby podglądu. Przejście do trybu edycji załaduje cały plik."
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "Ten plik jest tylko do odczytu. Zmiany można zapisać z uprawnieniami superużytkownika (root)."
+
+# 
+msgid "Edit Mode"
+msgstr "Tryb edycji"
+
+# 
+msgid "Preview Mode"
+msgstr "Tryb podglądu"
+
+# 
+msgid "More Options"
+msgstr "Więcej opcji"
+
+# 
+msgid "Open with External App..."
+msgstr "Otwórz w aplikacji zewnętrznej..."
+
+# 
+msgid "Reload from Disk"
+msgstr "Przeładuj z dysku"
+
+# 
+msgid "File saved successfully."
+msgstr "Plik zapisany pomyślnie."
+
+# 
+msgid "Save Failed"
+msgstr "Zapisywanie nie powiodło się"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "Nie udało się zapisać jako superużytkownik."
+
+# 
+msgid "Failed to save remote file."
+msgstr "Nie udało się zapisać pliku zdalnego."
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "Nie udało się zapisać pliku zdalnego jako root."
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "Nie masz uprawnień do modyfikowania '{filename}'. Czy chcesz zapisać z uprawnieniami superużytkownika (root)?"
+
+# 
+msgid "Superuser Authentication"
+msgstr "Uwierzytelnianie superużytkownika"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "Do zapisania zmian z uprawnieniami administratora wymagane jest hasło."
+
+# 
+msgid "Authenticate & Save"
+msgstr "Uwierzytelnij i zapisz"
+
+# 
+msgid "Discard Changes?"
+msgstr "Odrzucić zmiany?"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "Masz niezapisane zmiany, które zostaną utracone. Czy na pewno chcesz je odrzucić?"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "Masz niezapisane zmiany w '{filename}'. Czy chcesz je zapisać przed zamknięciem?"
+
+# 
+msgid "Save & Close"
+msgstr "Zapisz i zamknij"
+
+# 
+msgid "Discard Changes"
+msgstr "Odrzuć zmiany"
+
+# 
+msgid "Discard"
+msgstr "Odrzuć"

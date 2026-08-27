@@ -11209,3 +11209,107 @@ msgstr "Salta al prompt precedente"
 # 
 msgid "Jump to Next Prompt"
 msgstr "Salta al prompt successivo"
+
+# 
+msgid "Save as Root"
+msgstr "Salva come root"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "Salva con privilegi elevati di superutente / root (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "Salva modifiche (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "Attiva/disattiva modalità modifica (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "Contenuto troncato per l'anteprima. Il passaggio alla modalità di modifica caricherà il file completo."
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "Questo file è di sola lettura. Le modifiche possono essere salvate con i privilegi di superutente (root)."
+
+# 
+msgid "Edit Mode"
+msgstr "Modalità modifica"
+
+# 
+msgid "Preview Mode"
+msgstr "Modalità anteprima"
+
+# 
+msgid "More Options"
+msgstr "Altre opzioni"
+
+# 
+msgid "Open with External App..."
+msgstr "Apri con app esterna..."
+
+# 
+msgid "Reload from Disk"
+msgstr "Ricarica dal disco"
+
+# 
+msgid "File saved successfully."
+msgstr "File salvato con successo."
+
+# 
+msgid "Save Failed"
+msgstr "Salvataggio non riuscito"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "Impossibile salvare come superutente."
+
+# 
+msgid "Failed to save remote file."
+msgstr "Impossibile salvare il file remoto."
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "Impossibile salvare il file remoto come root."
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "Non disponi dell'autorizzazione per modificare '{filename}'. Desideri salvare con i privilegi di superutente (root)?"
+
+# 
+msgid "Superuser Authentication"
+msgstr "Autenticazione superutente"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "È richiesta una password per salvare le modifiche con privilegi amministrativi."
+
+# 
+msgid "Authenticate & Save"
+msgstr "Autentica e salva"
+
+# 
+msgid "Discard Changes?"
+msgstr "Scartare le modifiche?"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "Hai modifiche non salvate che andranno perse. Sei sicuro di volerle scartare?"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "Hai modifiche non salvate in '{filename}'. Vuoi salvarle prima di chiudere?"
+
+# 
+msgid "Save & Close"
+msgstr "Salva e chiudi"
+
+# 
+msgid "Discard Changes"
+msgstr "Scarta modifiche"
+
+# 
+msgid "Discard"
+msgstr "Scarta"

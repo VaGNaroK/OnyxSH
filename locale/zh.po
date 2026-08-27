@@ -11145,3 +11145,107 @@ msgstr "跳转到上一个提示符"
 # 
 msgid "Jump to Next Prompt"
 msgstr "跳转到下一个提示符"
+
+# 
+msgid "Save as Root"
+msgstr "以 Root 身份保存"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "以提升的超级用户 / Root 权限保存 (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "保存更改 (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "切换编辑模式 (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "预览内容已被截断。切换到编辑模式将加载完整文件。"
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "此文件为只读。可以使用超级用户 (Root) 权限保存修改。"
+
+# 
+msgid "Edit Mode"
+msgstr "编辑模式"
+
+# 
+msgid "Preview Mode"
+msgstr "预览模式"
+
+# 
+msgid "More Options"
+msgstr "更多选项"
+
+# 
+msgid "Open with External App..."
+msgstr "使用外部应用程序打开..."
+
+# 
+msgid "Reload from Disk"
+msgstr "从磁盘重新加载"
+
+# 
+msgid "File saved successfully."
+msgstr "文件保存成功。"
+
+# 
+msgid "Save Failed"
+msgstr "保存失败"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "以超级用户身份保存失败。"
+
+# 
+msgid "Failed to save remote file."
+msgstr "保存远程文件失败。"
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "以 Root 身份保存远程文件失败。"
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "您没有修改“{filename}”的权限。您想以超级用户 (Root) 权限保存吗？"
+
+# 
+msgid "Superuser Authentication"
+msgstr "超级用户身份验证"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "需要密码才能使用管理权限保存更改。"
+
+# 
+msgid "Authenticate & Save"
+msgstr "验证并保存"
+
+# 
+msgid "Discard Changes?"
+msgstr "放弃更改？"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "您有未保存的更改将会丢失。确定要放弃它们吗？"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "“{filename}”中有未保存的更改。关闭前是否要保存它们？"
+
+# 
+msgid "Save & Close"
+msgstr "保存并关闭"
+
+# 
+msgid "Discard Changes"
+msgstr "放弃更改"
+
+# 
+msgid "Discard"
+msgstr "放弃"

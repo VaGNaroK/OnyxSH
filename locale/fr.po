@@ -11219,3 +11219,107 @@ msgstr "Sauter au prompt précédent"
 # 
 msgid "Jump to Next Prompt"
 msgstr "Sauter au prompt suivant"
+
+# 
+msgid "Save as Root"
+msgstr "Enregistrer en tant que root"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "Enregistrer avec les privilèges élevés de superutilisateur / root (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "Enregistrer les modifications (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "Basculer en mode édition (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "Contenu tronqué pour l'aperçu. Passer en mode édition chargera le fichier complet."
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "Ce fichier est en lecture seule. Les modifications peuvent être enregistrées avec les privilèges de superutilisateur (root)."
+
+# 
+msgid "Edit Mode"
+msgstr "Mode édition"
+
+# 
+msgid "Preview Mode"
+msgstr "Mode aperçu"
+
+# 
+msgid "More Options"
+msgstr "Plus d'options"
+
+# 
+msgid "Open with External App..."
+msgstr "Ouvrir avec une application externe..."
+
+# 
+msgid "Reload from Disk"
+msgstr "Recharger depuis le disque"
+
+# 
+msgid "File saved successfully."
+msgstr "Fichier enregistré avec succès."
+
+# 
+msgid "Save Failed"
+msgstr "Échec de l'enregistrement"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "Échec de l'enregistrement en tant que superutilisateur."
+
+# 
+msgid "Failed to save remote file."
+msgstr "Échec de l'enregistrement du fichier distant."
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "Échec de l'enregistrement du fichier distant en tant que root."
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "Vous n'avez pas la permission de modifier '{filename}'. Voulez-vous enregistrer avec les privilèges de superutilisateur (root) ?"
+
+# 
+msgid "Superuser Authentication"
+msgstr "Authentification du superutilisateur"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "Un mot de passe est requis pour enregistrer les modifications avec des privilèges d'administrateur."
+
+# 
+msgid "Authenticate & Save"
+msgstr "Authentifier et enregistrer"
+
+# 
+msgid "Discard Changes?"
+msgstr "Abandonner les modifications ?"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "Vous avez des modifications non enregistrées qui seront perdues. Êtes-vous sûr de vouloir les abandonner ?"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "Vous avez des modifications non enregistrées dans '{filename}'. Voulez-vous les enregistrer avant de fermer ?"
+
+# 
+msgid "Save & Close"
+msgstr "Enregistrer et fermer"
+
+# 
+msgid "Discard Changes"
+msgstr "Abandonner les modifications"
+
+# 
+msgid "Discard"
+msgstr "Abandonner"

@@ -11508,3 +11508,107 @@ msgstr "Pular para o Prompt Anterior"
 # 
 msgid "Jump to Next Prompt"
 msgstr "Pular para o Próximo Prompt"
+
+# 
+msgid "Save as Root"
+msgstr "Salvar como Root"
+
+# 
+msgid "Save with elevated Superuser / Root privileges (Ctrl+Shift+S)"
+msgstr "Salvar com privilégios elevados de Superusuário / Root (Ctrl+Shift+S)"
+
+# 
+msgid "Save changes (Ctrl+S)"
+msgstr "Salvar alterações (Ctrl+S)"
+
+# 
+msgid "Toggle Edit Mode (Ctrl+E)"
+msgstr "Alternar Modo de Edição (Ctrl+E)"
+
+# 
+msgid "Content truncated for preview. Switching to Edit Mode will load the full file."
+msgstr "Conteúdo truncado para visualização. Mudar para o Modo de Edição carregará o arquivo completo."
+
+# 
+msgid "This file is read-only. Edits can be saved with Superuser (Root) privileges."
+msgstr "Este arquivo é somente leitura. As alterações podem ser salvas com privilégios de Superusuário (Root)."
+
+# 
+msgid "Edit Mode"
+msgstr "Modo Edição"
+
+# 
+msgid "Preview Mode"
+msgstr "Modo Visualização"
+
+# 
+msgid "More Options"
+msgstr "Mais Opções"
+
+# 
+msgid "Open with External App..."
+msgstr "Abrir com aplicativo externo..."
+
+# 
+msgid "Reload from Disk"
+msgstr "Recarregar do Disco"
+
+# 
+msgid "File saved successfully."
+msgstr "Arquivo salvo com sucesso."
+
+# 
+msgid "Save Failed"
+msgstr "Falha ao Salvar"
+
+# 
+msgid "Failed to save as superuser."
+msgstr "Falha ao salvar como superusuário."
+
+# 
+msgid "Failed to save remote file."
+msgstr "Falha ao salvar arquivo remoto."
+
+# 
+msgid "Failed to save remote file as root."
+msgstr "Falha ao salvar arquivo remoto como root."
+
+# 
+msgid "You do not have permission to modify '{filename}'. Would you like to save with Superuser (Root) privileges?"
+msgstr "Você não tem permissão para modificar '{filename}'. Deseja salvar com privilégios de Superusuário (Root)?"
+
+# 
+msgid "Superuser Authentication"
+msgstr "Autenticação de Superusuário"
+
+# 
+msgid "A password is required to save changes with administrative privileges."
+msgstr "É necessária uma senha para salvar as alterações com privilégios administrativos."
+
+# 
+msgid "Authenticate & Save"
+msgstr "Autenticar e Salvar"
+
+# 
+msgid "Discard Changes?"
+msgstr "Descartar Alterações?"
+
+# 
+msgid "You have unsaved changes that will be lost. Are you sure you want to discard them?"
+msgstr "Você tem alterações não salvas que serão perdidas. Tem certeza de que deseja descartá-las?"
+
+# 
+msgid "You have unsaved changes in '{filename}'. Do you want to save them before closing?"
+msgstr "Você tem alterações não salvas em '{filename}'. Deseja salvá-las antes de fechar?"
+
+# 
+msgid "Save & Close"
+msgstr "Salvar e Fechar"
+
+# 
+msgid "Discard Changes"
+msgstr "Descartar Alterações"
+
+# 
+msgid "Discard"
+msgstr "Descartar"
