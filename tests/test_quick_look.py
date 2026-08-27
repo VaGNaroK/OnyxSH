@@ -114,7 +114,7 @@ class TestQuickLook(unittest.TestCase):
             res = self.dialog._on_key_pressed(None, Gdk.KEY_Up, 0, 0)
             self.assertEqual(res, Gdk.EVENT_STOP)
             self.mock_nav_cb.assert_called_with(-1)
-            mock_prev_call.assert_called_once_with(item_prev, "/home/user")
+            mock_prev_call.assert_called_once_with(item_prev, "/home/user", None)
 
         # Down / J to navigate next
         item_next = FileItem("next.txt", "-rw-r--r--", 20, datetime.now(), "u", "g")
@@ -123,7 +123,7 @@ class TestQuickLook(unittest.TestCase):
             res = self.dialog._on_key_pressed(None, Gdk.KEY_Down, 0, 0)
             self.assertEqual(res, Gdk.EVENT_STOP)
             self.mock_nav_cb.assert_called_with(1)
-            mock_prev_call.assert_called_once_with(item_next, "/home/user")
+            mock_prev_call.assert_called_once_with(item_next, "/home/user", None)
 
     def test_action_callbacks(self):
         item = FileItem("main.py", "-rw-r--r--", 100, datetime.now(), "u", "g")
@@ -142,6 +142,78 @@ class TestQuickLook(unittest.TestCase):
         self.dialog._on_checksum_clicked(None)
         self.mock_checksum_cb.assert_called_once_with(item, "/home/user")
 
+    def test_edit_mode_toggle(self):
+        self.assertFalse(self.dialog.is_editing)
+        self.assertFalse(self.dialog.text_view.get_editable())
+
+        # Toggle on
+        self.dialog._toggle_edit_mode(True)
+        self.assertTrue(self.dialog.is_editing)
+        self.assertTrue(self.dialog.text_view.get_editable())
+        self.assertTrue(self.dialog.save_btn.get_visible())
+        self.assertTrue(self.dialog.save_sudo_btn.get_visible())
+        self.assertIn("editing", self.dialog.text_view.get_css_classes())
+
+        # Toggle off without dirty
+        self.dialog._toggle_edit_mode(False)
+        self.assertFalse(self.dialog.is_editing)
+        self.assertFalse(self.dialog.text_view.get_editable())
+        self.assertFalse(self.dialog.save_btn.get_visible())
+        self.assertFalse(self.dialog.save_sudo_btn.get_visible())
+
+    def test_dirty_state_tracking(self):
+        item = FileItem("config.yaml", "-rw-r--r--", 50, datetime.now(), "u", "g")
+        self.dialog.current_item = item
+        self.dialog.current_folder = str(self.test_dir)
+        self.dialog._render_text_preview(item, b"port: 8080\n", is_truncated=False, full_path="/tmp/config.yaml")
+
+        self.assertFalse(self.dialog.is_dirty)
+        self.assertFalse(self.dialog.save_btn.get_sensitive())
+
+        # Insert modification
+        self.dialog.text_buffer.set_text("port: 9090\n")
+        self.assertTrue(self.dialog.is_dirty)
+        self.assertTrue(self.dialog.save_btn.get_sensitive())
+        self.assertIn("●", self.dialog.title_label.get_text())
+
+    def test_editor_keyboard_shortcuts(self):
+        # Ctrl+E toggles edit mode
+        with patch.object(self.dialog.edit_toggle_btn, "set_active") as mock_toggle:
+            self.dialog._is_binary = False
+            self.dialog._is_image = False
+            res = self.dialog._on_key_pressed(None, Gdk.KEY_e, 0, Gdk.ModifierType.CONTROL_MASK)
+            self.assertEqual(res, Gdk.EVENT_STOP)
+            mock_toggle.assert_called_once()
+
+        # Ctrl+S saves
+        with patch.object(self.dialog, "_on_save_clicked") as mock_save:
+            res = self.dialog._on_key_pressed(None, Gdk.KEY_s, 0, Gdk.ModifierType.CONTROL_MASK)
+            self.assertEqual(res, Gdk.EVENT_STOP)
+            mock_save.assert_called_once_with(as_sudo=False)
+
+        # Ctrl+Shift+S saves as root
+        with patch.object(self.dialog, "_on_save_clicked") as mock_save_sudo:
+            state = Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK
+            res = self.dialog._on_key_pressed(None, Gdk.KEY_s, 0, state)
+            self.assertEqual(res, Gdk.EVENT_STOP)
+            mock_save_sudo.assert_called_once_with(as_sudo=True)
+
+    def test_save_file_content_operations_local(self):
+        from onyxsh.filemanager.operations import FileOperations
+        from onyxsh.sessions.models import SessionItem
+
+        session = SessionItem(name="local", host="localhost", session_type="local")
+        ops = FileOperations(session)
+
+        test_file = self.test_dir / "test_write.txt"
+        test_file.write_text("initial content", encoding="utf-8")
+
+        success, msg = ops.save_file_content(str(test_file), "updated content", as_sudo=False)
+        self.assertTrue(success)
+        self.assertEqual(msg, "OK")
+        self.assertEqual(test_file.read_text(encoding="utf-8"), "updated content")
+
 
 if __name__ == "__main__":
     unittest.main()
+

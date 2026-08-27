@@ -719,3 +719,222 @@ class FileOperations:
                         del self._active_processes[transfer_id]
 
         threading.Thread(target=upload_thread, daemon=True).start()
+
+    def save_file_content(
+        self,
+        file_path: str,
+        content: str,
+        as_sudo: bool = False,
+        sudo_password: Optional[str] = None,
+        timeout: int = 15,
+    ) -> Tuple[bool, str]:
+        """
+        Saves text content to a local or remote file, with optional superuser (sudo/pkexec) elevation.
+
+        Args:
+            file_path: Absolute path to the file on local host or remote session.
+            content: Text string to write to the file.
+            as_sudo: Whether to execute with elevated superuser privileges.
+            sudo_password: Optional sudo password for elevated write.
+            timeout: Command timeout in seconds.
+
+        Returns:
+            Tuple of (success: bool, error_code_or_message: str)
+            On success: (True, "OK")
+            On permission error: (False, "PERMISSION_DENIED")
+            On sudo password required: (False, "PASSWORD_REQUIRED")
+            On other error: (False, detailed_error_message)
+        """
+        session = self.session_item
+        is_remote = session is not None and session.is_ssh()
+
+        content_bytes = content.encode("utf-8")
+
+        if not is_remote:
+            # --- LOCAL SAVE ---
+            target_path = Path(file_path).resolve()
+            if not as_sudo:
+                try:
+                    parent_dir = target_path.parent
+                    if not parent_dir.exists():
+                        parent_dir.mkdir(parents=True, exist_ok=True)
+
+                    with tempfile.NamedTemporaryFile(
+                        mode="w",
+                        encoding="utf-8",
+                        dir=str(parent_dir) if os.access(parent_dir, os.W_OK) else None,
+                        delete=False,
+                    ) as tmp:
+                        tmp.write(content)
+                        tmp_path = Path(tmp.name)
+
+                    try:
+                        if target_path.exists():
+                            st = target_path.stat()
+                            os.chmod(tmp_path, st.st_mode)
+                        os.replace(tmp_path, target_path)
+                        return True, "OK"
+                    except PermissionError:
+                        if tmp_path.exists():
+                            tmp_path.unlink()
+                        return False, "PERMISSION_DENIED"
+                except PermissionError:
+                    return False, "PERMISSION_DENIED"
+                except Exception as e:
+                    self.logger.error(f"Local file write error: {e}")
+                    return False, str(e)
+            else:
+                # Local save with sudo / pkexec
+                is_flatpak = Path("/.flatpak-info").exists()
+                try:
+                    if is_flatpak:
+                        if sudo_password:
+                            cmd = [
+                                "flatpak-spawn",
+                                "--host",
+                                "sudo",
+                                "-S",
+                                "tee",
+                                str(target_path),
+                            ]
+                            proc = subprocess.run(
+                                cmd,
+                                input=f"{sudo_password}\n".encode("utf-8") + content_bytes,
+                                capture_output=True,
+                                timeout=timeout,
+                            )
+                        else:
+                            cmd = [
+                                "flatpak-spawn",
+                                "--host",
+                                "pkexec",
+                                "tee",
+                                str(target_path),
+                            ]
+                            proc = subprocess.run(
+                                cmd,
+                                input=content_bytes,
+                                capture_output=True,
+                                timeout=timeout,
+                            )
+                    else:
+                        import shutil
+                        if sudo_password:
+                            cmd = ["sudo", "-S", "tee", str(target_path)]
+                            proc = subprocess.run(
+                                cmd,
+                                input=f"{sudo_password}\n".encode("utf-8") + content_bytes,
+                                capture_output=True,
+                                timeout=timeout,
+                            )
+                        elif shutil.which("pkexec"):
+                            cmd = ["pkexec", "tee", str(target_path)]
+                            proc = subprocess.run(
+                                cmd,
+                                input=content_bytes,
+                                capture_output=True,
+                                timeout=timeout,
+                            )
+                        else:
+                            cmd = ["sudo", "tee", str(target_path)]
+                            proc = subprocess.run(
+                                cmd,
+                                input=content_bytes,
+                                capture_output=True,
+                                timeout=timeout,
+                            )
+
+                    if proc.returncode == 0:
+                        return True, "OK"
+                    else:
+                        err_text = proc.stderr.decode("utf-8", errors="replace")
+                        if "incorrect password" in err_text.lower() or "password" in err_text.lower():
+                            return False, "PASSWORD_REQUIRED"
+                        if "permission denied" in err_text.lower():
+                            return False, "PERMISSION_DENIED"
+                        return False, err_text or _("Failed to save as superuser.")
+                except Exception as e:
+                    self.logger.error(f"Local sudo write error: {e}")
+                    return False, str(e)
+
+        else:
+            # --- REMOTE SSH SAVE ---
+            from ..terminal.spawner import get_spawner
+            spawner = get_spawner()
+
+            try:
+                if not as_sudo:
+                    remote_cmd = ["tee", file_path]
+                    result = spawner._build_non_interactive_ssh_command(
+                        session, remote_cmd, connect_timeout=min(timeout, 8)
+                    )
+                    if not result:
+                        return False, _("Failed to build SSH command.")
+                    full_cmd, sshpass_env = result
+
+                    run_env = os.environ.copy()
+                    if sshpass_env:
+                        run_env.update(sshpass_env)
+
+                    proc = subprocess.run(
+                        full_cmd,
+                        input=content_bytes,
+                        capture_output=True,
+                        timeout=timeout,
+                        env=run_env,
+                    )
+
+                    if proc.returncode == 0:
+                        return True, "OK"
+                    else:
+                        err_text = (proc.stdout + proc.stderr).decode("utf-8", errors="replace")
+                        if "permission denied" in err_text.lower() or "read-only" in err_text.lower():
+                            return False, "PERMISSION_DENIED"
+                        return False, err_text or _("Failed to save remote file.")
+
+                else:
+                    # Remote SSH Sudo
+                    if sudo_password:
+                        remote_cmd = ["sudo", "-S", "tee", file_path]
+                        stdin_data = f"{sudo_password}\n".encode("utf-8") + content_bytes
+                    else:
+                        remote_cmd = ["sudo", "-n", "tee", file_path]
+                        stdin_data = content_bytes
+
+                    result = spawner._build_non_interactive_ssh_command(
+                        session, remote_cmd, connect_timeout=min(timeout, 8)
+                    )
+                    if not result:
+                        return False, _("Failed to build SSH command.")
+                    full_cmd, sshpass_env = result
+
+                    run_env = os.environ.copy()
+                    if sshpass_env:
+                        run_env.update(sshpass_env)
+
+                    proc = subprocess.run(
+                        full_cmd,
+                        input=stdin_data,
+                        capture_output=True,
+                        timeout=timeout,
+                        env=run_env,
+                    )
+
+                    if proc.returncode == 0:
+                        return True, "OK"
+                    else:
+                        err_text = (proc.stdout + proc.stderr).decode("utf-8", errors="replace")
+                        if (
+                            "a password is required" in err_text.lower()
+                            or "password:" in err_text.lower()
+                            or "incorrect password" in err_text.lower()
+                        ):
+                            return False, "PASSWORD_REQUIRED"
+                        if "permission denied" in err_text.lower():
+                            return False, "PERMISSION_DENIED"
+                        return False, err_text or _("Failed to save remote file as root.")
+
+            except Exception as e:
+                self.logger.error(f"Remote save exception: {e}")
+                return False, str(e)
+

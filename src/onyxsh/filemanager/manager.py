@@ -3267,6 +3267,7 @@ class FileManager(GObject.Object):
                 on_calculate_checksum=lambda itm, folder: self._on_calculate_checksum_action(
                     None, None, [itm]
                 ),
+                on_file_saved=lambda itm, folder: self.refresh(),
             )
 
         self.quick_look_dialog.preview_item(
