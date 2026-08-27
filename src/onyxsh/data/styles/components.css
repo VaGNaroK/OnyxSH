@@ -288,20 +288,17 @@
 
 .file-detailed-col-date {
     font-family: monospace;
-    min-width: 135px;
+    min-width: 145px;
 }
 
 .file-detailed-col-perms {
     font-family: monospace;
-    min-width: 95px;
+    min-width: 110px;
 }
 
 .file-detailed-col-owner {
-    min-width: 110px;
-}
-
-.file-detailed-col-group {
-    min-width: 110px;
+    font-family: monospace;
+    min-width: 160px;
 }
 
 /* ==========================================================================

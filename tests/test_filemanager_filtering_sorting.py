@@ -261,21 +261,14 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.assertIsNotNone(perms_label.get_tooltip_markup())
         self.assertEqual(perms_label.get_text(), "drwxrwxr-x")
 
-        # 5. Owner cell
+        # 5. Owner cell (formats as owner:group)
         self.fm._setup_owner_cell(None, list_item)
         self.fm._bind_owner_cell(None, list_item)
         owner_label = list_item.get_child()
         self.assertIsNotNone(owner_label.get_tooltip_markup())
-        self.assertEqual(owner_label.get_text(), "vagnarok")
+        self.assertEqual(owner_label.get_text(), "vagnarok:vagnarok")
 
-        # 6. Group cell
-        self.fm._setup_group_cell(None, list_item)
-        self.fm._bind_group_cell(None, list_item)
-        group_label = list_item.get_child()
-        self.assertIsNotNone(group_label.get_tooltip_markup())
-        self.assertEqual(group_label.get_text(), "vagnarok")
-
-        # 7. Parent directory item (..) should not have tooltip markup
+        # 6. Parent directory item (..) should not have tooltip markup
         self.fm._setup_name_cell(None, list_item)
         parent_item = FileItem("..", "drwxr-xr-x", 0, datetime.now(), "root", "root")
         list_item.get_item = MagicMock(return_value=parent_item)
@@ -289,7 +282,6 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.fm.date_sorter = Gtk.CustomSorter.new(self.fm._sort_by_date, None)
         self.fm.perms_sorter = Gtk.CustomSorter.new(self.fm._sort_by_permissions, None)
         self.fm.owner_sorter = Gtk.CustomSorter.new(self.fm._sort_by_owner, None)
-        self.fm.group_sorter = Gtk.CustomSorter.new(self.fm._sort_by_group, None)
 
         popover = self.fm._create_sort_popover()
         self.assertIsInstance(popover, Gtk.Popover)

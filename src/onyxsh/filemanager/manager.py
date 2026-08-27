@@ -1156,7 +1156,10 @@ class FileManager(GObject.Object):
 
     def _sort_by_owner(self, a, b, *_):
         return self._dolphin_sort_priority(
-            a, b, lambda x, y: (x.owner > y.owner) - (x.owner < y.owner)
+            a,
+            b,
+            lambda x, y: ((x.owner, x.group) > (y.owner, y.group))
+            - ((x.owner, x.group) < (y.owner, y.group)),
         )
 
     def _sort_by_group(self, a, b, *_):
@@ -1687,7 +1690,6 @@ class FileManager(GObject.Object):
         self.date_sorter = Gtk.CustomSorter.new(self._sort_by_date, None)
         self.perms_sorter = Gtk.CustomSorter.new(self._sort_by_permissions, None)
         self.owner_sorter = Gtk.CustomSorter.new(self._sort_by_owner, None)
-        self.group_sorter = Gtk.CustomSorter.new(self._sort_by_group, None)
 
         col_view.append_column(
             self._create_column(
@@ -1725,14 +1727,6 @@ class FileManager(GObject.Object):
                 self.owner_sorter,
                 self._setup_owner_cell,
                 self._bind_owner_cell,
-            )
-        )
-        col_view.append_column(
-            self._create_column(
-                _("Group"),
-                self.group_sorter,
-                self._setup_group_cell,
-                self._bind_group_cell,
             )
         )
 
@@ -1888,9 +1882,10 @@ class FileManager(GObject.Object):
         label.add_controller(gesture)
         list_item.set_child(label)
 
-    def _setup_group_cell(self, factory, list_item):
+    def _setup_owner_cell(self, factory, list_item):
         label = Gtk.Label(xalign=0.0)
-        label.add_css_class("file-detailed-col-group")
+        label.add_css_class("file-detailed-col-owner")
+        label.add_css_class("numeric")
         gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
         gesture.connect("pressed", self._on_item_right_click, list_item)
         label.add_controller(gesture)
@@ -1920,21 +1915,7 @@ class FileManager(GObject.Object):
             label.set_text("")
             label.set_tooltip_markup(None)
         else:
-            label.set_text(file_item.owner)
-            if hasattr(file_item, "tooltip_markup"):
-                label.set_tooltip_markup(file_item.tooltip_markup)
-
-    def _bind_group_cell(self, factory, list_item):
-        self._bind_cell_common(list_item)
-        label = list_item.get_child()
-        file_item: FileItem = list_item.get_item()
-        if not file_item:
-            return
-        if file_item.name == "..":
-            label.set_text("")
-            label.set_tooltip_markup(None)
-        else:
-            label.set_text(file_item.group)
+            label.set_text(f"{file_item.owner}:{file_item.group}")
             if hasattr(file_item, "tooltip_markup"):
                 label.set_tooltip_markup(file_item.tooltip_markup)
 
@@ -2020,7 +2001,6 @@ class FileManager(GObject.Object):
             (_("Date Modified"), self.date_sorter, 2),
             (_("Permissions"), self.perms_sorter, 3),
             (_("Owner"), self.owner_sorter, 4),
-            (_("Group"), self.group_sorter, 5),
         ]
 
         for label_text, sorter, col_idx in sort_options:
