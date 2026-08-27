@@ -13,6 +13,7 @@ import stat
 import subprocess
 import tempfile
 import threading
+import time
 import weakref
 from datetime import datetime
 from functools import partial
@@ -130,6 +131,8 @@ class FileManager(GObject.Object):
         self._rsync_checks_in_progress: Set[str] = set()
         self._dir_size_cache: Dict[str, int] = {}
         self._dir_size_calculating: Set[str] = set()
+        self._disk_usage_cache: Dict[str, Tuple[float, str]] = {}
+        self._quick_jump_needs_update = True
 
         # State for verified command execution
         self._pending_command = None
@@ -706,6 +709,7 @@ class FileManager(GObject.Object):
 
         self.quick_jump_popover = Gtk.Popover()
         self.quick_jump_popover.add_css_class("quick-jump-popover")
+        self.quick_jump_popover.connect("notify::visible", self._on_quick_jump_popover_visible)
         self.quick_jump_button.set_popover(self.quick_jump_popover)
         self.action_bar.pack_start(self.quick_jump_button)
 
@@ -917,7 +921,7 @@ class FileManager(GObject.Object):
             self.breadcrumb_box.append(btn)
 
         self._update_bookmark_star_ui()
-        self._update_quick_jump_popover()
+        self._quick_jump_needs_update = True
 
     def _on_breadcrumb_button_clicked(self, button, path_to_navigate):
         if path_to_navigate != self.current_path:
@@ -927,6 +931,12 @@ class FileManager(GObject.Object):
                 self.bound_terminal.feed_child(command.encode("utf-8"))
             else:
                 self.refresh(path_to_navigate, source="filemanager")
+
+    def _on_quick_jump_popover_visible(self, popover, _param_spec):
+        """Builds Quick Jump contents lazily on first open or when invalidated."""
+        if popover.get_visible() and getattr(self, "_quick_jump_needs_update", True):
+            self._update_quick_jump_popover()
+            self._quick_jump_needs_update = False
 
     def _update_quick_jump_popover(self):
         """Constructs the content box inside the Quick Jump popover."""
@@ -1053,7 +1063,9 @@ class FileManager(GObject.Object):
             self.settings_manager.add_bookmark(curr)
             self._show_toast(_("Bookmark added"))
         self._update_bookmark_star_ui()
-        self._update_quick_jump_popover()
+        self._quick_jump_needs_update = True
+        if self.quick_jump_popover.get_visible():
+            self._update_quick_jump_popover()
 
     def _update_bookmark_star_ui(self):
         """Updates the star button appearance based on whether current path is bookmarked."""
@@ -1089,7 +1101,9 @@ class FileManager(GObject.Object):
         self.settings_manager.remove_bookmark(path)
         self._show_toast(_("Bookmark removed"))
         self._update_bookmark_star_ui()
-        self._update_quick_jump_popover()
+        self._quick_jump_needs_update = True
+        if self.quick_jump_popover.get_visible():
+            self._update_quick_jump_popover()
 
     def _setup_filtering_and_sorting(self):
         self.combined_filter = Gtk.CustomFilter()
@@ -1101,24 +1115,24 @@ class FileManager(GObject.Object):
         search_term = search_text.get_text().lower().strip() if search_text else ""
 
         if search_term:
-            if file_item.name == "..":
+            if file_item._name == "..":
                 return False
             show_hidden = self.hidden_files_toggle.get_active()
             if self.recursive_search_enabled and self._showing_recursive_results:
-                name_to_check = file_item.name.split("/")[-1]
+                name_to_check = file_item._name.split("/")[-1]
                 if not show_hidden and name_to_check.startswith("."):
                     return False
                 return True
             # For non-recursive search, check both hidden status and search term
-            if not show_hidden and file_item.name.startswith("."):
+            if not show_hidden and file_item._name.startswith("."):
                 return False
-            return search_term in file_item.name.lower()
+            return search_term in file_item._name_lower
 
-        if file_item.name == "..":
+        if file_item._name == "..":
             return True
 
         show_hidden = self.hidden_files_toggle.get_active()
-        if not show_hidden and file_item.name.startswith("."):
+        if not show_hidden and file_item._name.startswith("."):
             return False
 
         return True
@@ -1126,16 +1140,13 @@ class FileManager(GObject.Object):
     def _dolphin_sort_priority(
         self, file_item_a, file_item_b, secondary_sort_func=None
     ):
-        if file_item_a.name == "..":
+        if file_item_a._name == "..":
             return -1
-        if file_item_b.name == "..":
+        if file_item_b._name == "..":
             return 1
 
-        def get_type(item):
-            return 0 if item.is_directory_like else 1
-
-        a_type = get_type(file_item_a)
-        b_type = get_type(file_item_b)
+        a_type = 0 if file_item_a._is_dir_like else 1
+        b_type = 0 if file_item_b._is_dir_like else 1
 
         if a_type != b_type:
             return a_type - b_type
@@ -1143,8 +1154,8 @@ class FileManager(GObject.Object):
         if secondary_sort_func:
             return secondary_sort_func(file_item_a, file_item_b)
 
-        name_a = file_item_a.name.lower()
-        name_b = file_item_b.name.lower()
+        name_a = file_item_a._name_lower
+        name_b = file_item_b._name_lower
         return (name_a > name_b) - (name_a < name_b)
 
     def _sort_by_name(self, a, b, *_):
@@ -1822,6 +1833,27 @@ class FileManager(GObject.Object):
         link_icon.set_visible(False)
         badges_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
 
+        # Pre-allocate badge labels once per row template
+        badge_exec = Gtk.Label(label="+x")
+        badge_exec.add_css_class("badge-pill")
+        badge_exec.add_css_class("badge-exec")
+        badge_exec.set_tooltip_text(_("Executable file"))
+        badge_exec.set_visible(False)
+
+        badge_root = Gtk.Label(label="root")
+        badge_root.add_css_class("badge-pill")
+        badge_root.add_css_class("badge-root")
+        badge_root.set_tooltip_text(_("Owned by root"))
+        badge_root.set_visible(False)
+
+        badge_type = Gtk.Label()
+        badge_type.add_css_class("badge-pill")
+        badge_type.set_visible(False)
+
+        badges_box.append(badge_exec)
+        badges_box.append(badge_root)
+        badges_box.append(badge_type)
+
         name_box.append(icon)
         name_box.append(name_label)
         name_box.append(link_icon)
@@ -1894,30 +1926,22 @@ class FileManager(GObject.Object):
         else:
             link_icon.set_visible(False)
 
-        while child := badges_box.get_first_child():
-            badges_box.remove(child)
+        badge_exec = badges_box.get_first_child()
+        badge_root = badge_exec.get_next_sibling()
+        badge_type = badge_root.get_next_sibling()
 
         if file_item.name != "..":
-            if file_item.is_executable and not file_item.is_directory:
-                badge = Gtk.Label(label="+x")
-                badge.add_css_class("badge-pill")
-                badge.add_css_class("badge-exec")
-                badge.set_tooltip_text(_("Executable file"))
-                badges_box.append(badge)
+            badge_exec.set_visible(file_item.is_executable and not file_item.is_directory)
+            badge_root.set_visible(file_item.is_root_owned)
 
-            if file_item.is_root_owned:
-                badge = Gtk.Label(label="root")
-                badge.add_css_class("badge-pill")
-                badge.add_css_class("badge-root")
-                badge.set_tooltip_text(_("Owned by root"))
-                badges_box.append(badge)
-
-            if file_item.file_type_badge:
-                badge_text, css_class = file_item.file_type_badge
-                badge = Gtk.Label(label=badge_text)
-                badge.add_css_class("badge-pill")
-                badge.add_css_class(css_class)
-                badges_box.append(badge)
+            type_info = file_item.file_type_badge
+            if type_info:
+                badge_text, css_class = type_info
+                badge_type.set_text(badge_text)
+                badge_type.set_css_classes(["badge-pill", css_class])
+                badge_type.set_visible(True)
+            else:
+                badge_type.set_visible(False)
 
             size_label.set_text(file_item.formatted_size)
             date_label.set_text(file_item.formatted_date)
@@ -1929,6 +1953,9 @@ class FileManager(GObject.Object):
             else:
                 row_box.set_tooltip_markup(None)
         else:
+            badge_exec.set_visible(False)
+            badge_root.set_visible(False)
+            badge_type.set_visible(False)
             size_label.set_text("")
             date_label.set_text("")
             perms_label.set_text("")
@@ -2150,6 +2177,10 @@ class FileManager(GObject.Object):
         badges_box = Gtk.Box(
             spacing=2, orientation=Gtk.Orientation.HORIZONTAL, halign=Gtk.Align.CENTER
         )
+        badge_lbl = Gtk.Label()
+        badge_lbl.add_css_class("badge-pill")
+        badge_lbl.set_visible(False)
+        badges_box.append(badge_lbl)
         card.append(badges_box)
 
         label = Gtk.Label(xalign=0.5, justify=Gtk.Justification.CENTER)
@@ -2213,22 +2244,23 @@ class FileManager(GObject.Object):
                 )
 
         if badges_box:
-            while child := badges_box.get_first_child():
-                badges_box.remove(child)
-
-            if file_item.name != "..":
-                badge_info = file_item.file_type_badge
-                if badge_info:
-                    badge_text, badge_css = badge_info
-                    b_label = Gtk.Label(label=badge_text)
-                    b_label.add_css_class("badge-pill")
-                    b_label.add_css_class(badge_css)
-                    badges_box.append(b_label)
-                elif file_item.is_executable and not file_item.is_directory:
-                    b_label = Gtk.Label(label="+x")
-                    b_label.add_css_class("badge-pill")
-                    b_label.add_css_class("badge-exec")
-                    badges_box.append(b_label)
+            badge_lbl = badges_box.get_first_child()
+            if badge_lbl:
+                if file_item.name != "..":
+                    badge_info = file_item.file_type_badge
+                    if badge_info:
+                        badge_text, badge_css = badge_info
+                        badge_lbl.set_text(badge_text)
+                        badge_lbl.set_css_classes(["badge-pill", badge_css])
+                        badge_lbl.set_visible(True)
+                    elif file_item.is_executable and not file_item.is_directory:
+                        badge_lbl.set_text("+x")
+                        badge_lbl.set_css_classes(["badge-pill", "badge-exec"])
+                        badge_lbl.set_visible(True)
+                    else:
+                        badge_lbl.set_visible(False)
+                else:
+                    badge_lbl.set_visible(False)
 
         # Set rich tooltip on card
         if hasattr(file_item, "tooltip_markup"):
@@ -2427,8 +2459,8 @@ class FileManager(GObject.Object):
                     except Exception:
                         pass
 
-            directories.sort(key=lambda x: x.name.lower())
-            files.sort(key=lambda x: x.name.lower())
+            directories.sort(key=lambda x: x._name_lower)
+            files.sort(key=lambda x: x._name_lower)
 
             all_items = []
             if requested_path != "/" and parent_item:
@@ -2848,14 +2880,26 @@ class FileManager(GObject.Object):
             return f"{size_bytes / 1024**3:.1f} GB"
 
     def _get_free_disk_space_text(self) -> str:
-        """Returns formatted free disk space for current path."""
+        """Returns formatted free disk space for current path with TTL caching."""
         try:
+            if not hasattr(self, "_disk_usage_cache"):
+                self._disk_usage_cache = {}
+
+            now = time.monotonic()
             if not self.session_item or self.session_item.is_local():
                 path_to_check = self.current_path or os.path.expanduser("~")
+                cache_key = path_to_check
+                if cache_key in self._disk_usage_cache:
+                    cached_time, cached_val = self._disk_usage_cache[cache_key]
+                    if now - cached_time < 10.0:
+                        return cached_val
+
                 if not os.path.exists(path_to_check):
                     path_to_check = "/"
                 usage = shutil.disk_usage(path_to_check)
-                return self._format_bytes(usage.free)
+                formatted = self._format_bytes(usage.free)
+                self._disk_usage_cache[cache_key] = (now, formatted)
+                return formatted
             else:
                 if (
                     hasattr(self, "_remote_free_space_cache")
@@ -2895,12 +2939,7 @@ class FileManager(GObject.Object):
             self.search_entry.set_sensitive(True)
             self._update_search_placeholder()
 
-        if hasattr(self, "combined_filter"):
-            self.combined_filter.changed(Gtk.FilterChange.DIFFERENT)
-        if hasattr(self, "sorted_store"):
-            sorter = self.sorted_store.get_sorter()
-            if sorter:
-                sorter.changed(Gtk.SorterChange.DIFFERENT)
+        # Unselect all on folder navigation to prevent stale selection state
         if self.selection_model and self.selection_model.get_n_items() > 0:
             self.selection_model.unselect_all()
             if source == "filemanager":

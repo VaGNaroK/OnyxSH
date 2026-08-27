@@ -90,17 +90,44 @@ class FileItem(GObject.GObject):
     ):
         super().__init__()
         self._name = name
+        self._name_lower = name.lower() if name else ""
         self._permissions = perms
         self._size = size
         self._date = date
         self._owner = owner
         self._group = group
         self._link_target = link_target
+
+        self._is_dir = perms.startswith("d") if perms else False
+        self._is_link = is_link or (perms.startswith("l") if perms else False)
+        self._is_dir_like = self._is_dir or (
+            self._is_link and bool(link_target) and link_target.endswith("/")
+        )
+
+        # Pre-compute executable flag
+        if not self._is_dir and perms and len(perms) >= 10:
+            p = perms[1:10]
+            self._is_exec = (
+                p[2] in "xstXST" or p[5] in "xstXST" or p[8] in "xstXST"
+            )
+        else:
+            self._is_exec = False
+
+        # Pre-compute root owned flag
+        self._is_root = owner in ("root", "0")
+
+        # Lazy memoized formatting
+        self._cached_formatted_size = None
+        self._cached_formatted_date = None
+        self._cached_formatted_date_short = None
+        self._cached_octal = None
+        self._cached_type_desc = None
+        self._cached_file_type_badge = None
+        self._cached_extension = None
+        self._cached_tooltip_markup = None
+
         # Performance: Defer icon resolution - set to None for lazy loading
-        # Only directories get immediate icon (no MIME lookup needed)
-        if perms.startswith("d") or (
-            perms.startswith("l") and link_target.endswith("/")
-        ):
+        if self._is_dir_like:
             self._cached_icon_name = "folder-symbolic"
         else:
             self._cached_icon_name = None  # Lazy - resolved on first access
@@ -108,6 +135,10 @@ class FileItem(GObject.GObject):
     @property
     def name(self) -> str:
         return self._name
+
+    @property
+    def name_lower(self) -> str:
+        return self._name_lower
 
     @property
     def permissions(self) -> str:
@@ -123,15 +154,17 @@ class FileItem(GObject.GObject):
 
     @property
     def formatted_size(self) -> str:
-        size = self._size
-        if size < 1024:
-            return f"{size} B"
-        elif size < 1024**2:
-            return f"{size / 1024:.1f} KB"
-        elif size < 1024**3:
-            return f"{size / 1024**2:.1f} MB"
-        else:
-            return f"{size / 1024**3:.1f} GB"
+        if self._cached_formatted_size is None:
+            size = self._size
+            if size < 1024:
+                self._cached_formatted_size = f"{size} B"
+            elif size < 1024**2:
+                self._cached_formatted_size = f"{size / 1024:.1f} KB"
+            elif size < 1024**3:
+                self._cached_formatted_size = f"{size / 1024**2:.1f} MB"
+            else:
+                self._cached_formatted_size = f"{size / 1024**3:.1f} GB"
+        return self._cached_formatted_size
 
     @property
     def date(self) -> datetime:
@@ -139,19 +172,26 @@ class FileItem(GObject.GObject):
 
     @property
     def formatted_date(self) -> str:
-        if isinstance(self._date, datetime):
-            return self._date.strftime("%Y-%m-%d %H:%M")
-        return str(self._date)
+        if self._cached_formatted_date is None:
+            if isinstance(self._date, datetime):
+                self._cached_formatted_date = self._date.strftime("%Y-%m-%d %H:%M")
+            else:
+                self._cached_formatted_date = str(self._date)
+        return self._cached_formatted_date
 
     @property
     def formatted_date_short(self) -> str:
         """Returns a compact date string (e.g. '26/08 10:20' or '2026-08-26')."""
-        if isinstance(self._date, datetime):
-            now = datetime.now()
-            if self._date.year == now.year:
-                return self._date.strftime("%d/%m %H:%M")
-            return self._date.strftime("%d/%m/%y")
-        return str(self._date)[:10]
+        if self._cached_formatted_date_short is None:
+            if isinstance(self._date, datetime):
+                now = datetime.now()
+                if self._date.year == now.year:
+                    self._cached_formatted_date_short = self._date.strftime("%d/%m %H:%M")
+                else:
+                    self._cached_formatted_date_short = self._date.strftime("%d/%m/%y")
+            else:
+                self._cached_formatted_date_short = str(self._date)[:10]
+        return self._cached_formatted_date_short
 
     @property
     def date_modified(self) -> str:
@@ -160,83 +200,93 @@ class FileItem(GObject.GObject):
     @property
     def permissions_octal(self) -> str:
         """Converts symbolic permissions (e.g. '-rwxr-xr-x') to octal notation (e.g. '0755')."""
-        if not self._permissions or len(self._permissions) < 10:
-            return "0644"
-        perms = self._permissions[1:10]
-        val = 0
-        for i, c in enumerate(perms):
-            if c in "rwxst":
-                val += 1 << (8 - i)
-        return f"{val:04o}"
+        if self._cached_octal is None:
+            if not self._permissions or len(self._permissions) < 10:
+                self._cached_octal = "0644"
+            else:
+                perms = self._permissions[1:10]
+                val = 0
+                for i, c in enumerate(perms):
+                    if c in "rwxst":
+                        val += 1 << (8 - i)
+                self._cached_octal = f"{val:04o}"
+        return self._cached_octal
 
     @property
     def type_description(self) -> str:
         """Returns a localized, user-friendly description of the file/item type."""
-        if self._name == "..":
-            return _("Parent Directory")
-        if self.is_directory:
-            return _("Directory / Folder")
-        if self.is_link:
-            return _("Symbolic Link")
-
-        ext = self.extension.lower()
-        ext_map = {
-            ".py": _("Python Script"),
-            ".sh": _("Shell Script"),
-            ".bash": _("Bash Script"),
-            ".zsh": _("Zsh Script"),
-            ".json": _("JSON Document"),
-            ".yaml": _("YAML Document"),
-            ".yml": _("YAML Document"),
-            ".toml": _("TOML Document"),
-            ".xml": _("XML Document"),
-            ".html": _("HTML Document"),
-            ".css": _("CSS Stylesheet"),
-            ".js": _("JavaScript File"),
-            ".ts": _("TypeScript File"),
-            ".md": _("Markdown Document"),
-            ".txt": _("Plain Text Document"),
-            ".log": _("Log File"),
-            ".pdf": _("PDF Document"),
-            ".png": _("PNG Image"),
-            ".jpg": _("JPEG Image"),
-            ".jpeg": _("JPEG Image"),
-            ".svg": _("SVG Vector Graphic"),
-            ".webp": _("WebP Image"),
-            ".gif": _("GIF Image"),
-            ".zip": _("ZIP Archive"),
-            ".tar": _("TAR Archive"),
-            ".gz": _("GZip Archive"),
-            ".xz": _("XZ Archive"),
-            ".7z": _("7-Zip Archive"),
-            ".deb": _("Debian Package"),
-            ".rpm": _("RPM Package"),
-            ".c": _("C Source Code"),
-            ".cpp": _("C++ Source Code"),
-            ".h": _("C/C++ Header"),
-            ".rs": _("Rust Source Code"),
-            ".go": _("Go Source Code"),
-            ".java": _("Java Source Code"),
-            ".conf": _("Configuration File"),
-            ".ini": _("Configuration File"),
-            ".crt": _("Security Certificate"),
-            ".pem": _("PEM Certificate/Key"),
-            ".pub": _("Public Key"),
-            ".key": _("Private Key"),
-        }
-        if ext in ext_map:
-            return ext_map[ext]
-        if self.is_executable:
-            return _("Executable Program")
-        return _("File")
+        if self._cached_type_desc is None:
+            if self._name == "..":
+                self._cached_type_desc = _("Parent Directory")
+            elif self._is_dir:
+                self._cached_type_desc = _("Directory / Folder")
+            elif self._is_link:
+                self._cached_type_desc = _("Symbolic Link")
+            else:
+                ext = self.extension
+                ext_map = {
+                    ".py": _("Python Script"),
+                    ".sh": _("Shell Script"),
+                    ".bash": _("Bash Script"),
+                    ".zsh": _("Zsh Script"),
+                    ".json": _("JSON Document"),
+                    ".yaml": _("YAML Document"),
+                    ".yml": _("YAML Document"),
+                    ".toml": _("TOML Document"),
+                    ".xml": _("XML Document"),
+                    ".html": _("HTML Document"),
+                    ".css": _("CSS Stylesheet"),
+                    ".js": _("JavaScript File"),
+                    ".ts": _("TypeScript File"),
+                    ".md": _("Markdown Document"),
+                    ".txt": _("Plain Text Document"),
+                    ".log": _("Log File"),
+                    ".pdf": _("PDF Document"),
+                    ".png": _("PNG Image"),
+                    ".jpg": _("JPEG Image"),
+                    ".jpeg": _("JPEG Image"),
+                    ".svg": _("SVG Vector Graphic"),
+                    ".webp": _("WebP Image"),
+                    ".gif": _("GIF Image"),
+                    ".zip": _("ZIP Archive"),
+                    ".tar": _("TAR Archive"),
+                    ".gz": _("GZip Archive"),
+                    ".xz": _("XZ Archive"),
+                    ".7z": _("7-Zip Archive"),
+                    ".deb": _("Debian Package"),
+                    ".rpm": _("RPM Package"),
+                    ".c": _("C Source Code"),
+                    ".cpp": _("C++ Source Code"),
+                    ".h": _("C/C++ Header"),
+                    ".rs": _("Rust Source Code"),
+                    ".go": _("Go Source Code"),
+                    ".java": _("Java Source Code"),
+                    ".conf": _("Configuration File"),
+                    ".ini": _("Configuration File"),
+                    ".crt": _("Security Certificate"),
+                    ".pem": _("PEM Certificate/Key"),
+                    ".pub": _("Public Key"),
+                    ".key": _("Private Key"),
+                }
+                if ext in ext_map:
+                    self._cached_type_desc = ext_map[ext]
+                elif self._is_exec:
+                    self._cached_type_desc = _("Executable Program")
+                else:
+                    self._cached_type_desc = _("File")
+        return self._cached_type_desc
 
     @property
     def tooltip_markup(self) -> str:
         """Generates a rich, formatted Pango Markup tooltip for the item."""
-        if self._name == "..":
-            return f"<b>{_('Go to parent directory')}</b>"
+        if self._cached_tooltip_markup is not None:
+            return self._cached_tooltip_markup
 
-        icon_emoji = "📁" if self.is_directory else ("🔗" if self.is_link else "📄")
+        if self._name == "..":
+            self._cached_tooltip_markup = f"<b>{_('Go to parent directory')}</b>"
+            return self._cached_tooltip_markup
+
+        icon_emoji = "📁" if self._is_dir else ("🔗" if self._is_link else "📄")
         safe_name = GLib.markup_escape_text(self._name)
         type_desc = GLib.markup_escape_text(self.type_description)
 
@@ -245,7 +295,7 @@ class FileItem(GObject.GObject):
             "<span alpha='30%'>──────────────────────────────────────────</span>",
         ]
 
-        if self.is_directory:
+        if self._is_dir:
             lines.append(
                 f"📦 <b>{_('Size')}:</b> {self.formatted_size} <span alpha='70%'>({_('Directory')})</span>"
             )
@@ -260,11 +310,12 @@ class FileItem(GObject.GObject):
         )
         lines.append(f"👤 <b>{_('Owner')}:</b> {self._owner} : {self._group}")
 
-        if self.is_link and self._link_target:
+        if self._is_link and self._link_target:
             safe_target = GLib.markup_escape_text(self._link_target)
             lines.append(f"🔗 <b>{_('Target')}:</b> <tt>{safe_target}</tt>")
 
-        return "\n".join(lines)
+        self._cached_tooltip_markup = "\n".join(lines)
+        return self._cached_tooltip_markup
 
     @property
     def owner(self) -> str:
@@ -276,61 +327,69 @@ class FileItem(GObject.GObject):
 
     @property
     def is_directory(self) -> bool:
-        return self._permissions.startswith("d")
+        return self._is_dir
 
     @property
     def is_link(self) -> bool:
-        return self._permissions.startswith("l")
+        return self._is_link
 
     @property
     def is_directory_like(self) -> bool:
         """Returns True if the item is a directory or a link to a directory."""
-        return self.is_directory or (
-            self.is_link and self._link_target and self._link_target.endswith("/")
-        )
+        return self._is_dir_like
 
     @property
     def extension(self) -> str:
         """Returns lowercase file extension including dot (e.g. '.sh', '.py') or empty string."""
-        if "." in self._name and not self.is_directory:
-            return "." + self._name.rsplit(".", 1)[-1].lower()
-        return ""
+        if self._cached_extension is None:
+            if "." in self._name and not self._is_dir:
+                self._cached_extension = "." + self._name.rsplit(".", 1)[-1].lower()
+            else:
+                self._cached_extension = ""
+        return self._cached_extension
 
     @property
     def is_root_owned(self) -> bool:
         """Returns True if the file owner is 'root' or UID 0."""
-        return self._owner in ("root", "0")
+        return self._is_root
 
     @property
     def file_type_badge(self):
         """Returns tuple (badge_text, css_class) for common file extensions, or None."""
-        if self.is_directory or self._name == "..":
+        if self._cached_file_type_badge is False:
             return None
-            
-        lower_name = self._name.lower()
-        ext = self.extension.lower()
+        if self._cached_file_type_badge is not None:
+            return self._cached_file_type_badge
+
+        if self._is_dir or self._name == "..":
+            self._cached_file_type_badge = False
+            return None
+
+        lower_name = self._name_lower
+        ext = self.extension
 
         if ext == ".py":
-            return ("PY", "badge-py")
+            badge = ("PY", "badge-py")
         elif ext in (".sh", ".bash", ".zsh"):
-            return ("SH", "badge-sh")
+            badge = ("SH", "badge-sh")
         elif ext == ".log":
-            return ("LOG", "badge-log")
+            badge = ("LOG", "badge-log")
         elif lower_name in ("dockerfile", "docker-compose.yml", "docker-compose.yaml") or lower_name.startswith("dockerfile."):
-            return ("DOCKER", "badge-docker")
+            badge = ("DOCKER", "badge-docker")
         elif ext == ".json":
-            return ("JSON", "badge-json")
+            badge = ("JSON", "badge-json")
         elif ext in (".yaml", ".yml"):
-            return ("YAML", "badge-yaml")
-        return None
+            badge = ("YAML", "badge-yaml")
+        else:
+            badge = False
+
+        self._cached_file_type_badge = badge
+        return badge if badge is not False else None
 
     @property
     def is_executable(self) -> bool:
         """Returns True if the item has execute permissions (user, group, or others)."""
-        if self._permissions and len(self._permissions) >= 10:
-            perms = self._permissions[1:10]
-            return any(c in "xstXST" for c in (perms[2], perms[5], perms[8]))
-        return False
+        return self._is_exec
 
     @property
     def is_script_or_executable(self) -> bool:

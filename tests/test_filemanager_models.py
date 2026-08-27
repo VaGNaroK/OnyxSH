@@ -286,7 +286,30 @@ class TestFileItemModels(unittest.TestCase):
         item_parent = FileItem("..", "drwxr-xr-x", 0, dt, "u", "g")
         self.assertIn("parent directory", item_parent.tooltip_markup.lower())
 
+    def test_optimized_properties_and_memoization(self):
+        dt = datetime(2026, 8, 26, 12, 0, 0)
+        item = FileItem("MyScript.SH", "-rwxr-xr-x", 1024, dt, "root", "root")
+        self.assertEqual(item.name_lower, "myscript.sh")
+        self.assertFalse(item.is_directory)
+        self.assertFalse(item.is_link)
+        self.assertFalse(item.is_directory_like)
+        self.assertTrue(item.is_executable)
+        self.assertTrue(item.is_root_owned)
+        self.assertEqual(item.extension, ".sh")
+        self.assertEqual(item.file_type_badge, ("SH", "badge-sh"))
+
+        # Test memoization stability
+        self.assertEqual(item.formatted_size, "1.0 KB")
+        self.assertEqual(item.formatted_size, "1.0 KB")
+        self.assertEqual(item.formatted_date, "2026-08-26 12:00")
+        self.assertEqual(item.formatted_date, "2026-08-26 12:00")
+        self.assertEqual(item.permissions_octal, "0755")
+        self.assertEqual(item.permissions_octal, "0755")
+        self.assertEqual(item.type_description, "Shell Script")
+        self.assertEqual(item.type_description, "Shell Script")
+
 
 if __name__ == "__main__":
     unittest.main()
+
 

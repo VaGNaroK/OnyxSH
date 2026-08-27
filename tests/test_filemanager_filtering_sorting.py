@@ -30,6 +30,11 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.fm._clipboard_items = []
         self.fm._clipboard_operation = None
         self.fm._clipboard_session_key = None
+        self.fm._disk_usage_cache = {}
+        self.fm._quick_jump_needs_update = True
+        self.fm.quick_jump_popover = Gtk.Popover()
+        self.fm.settings_manager = MagicMock()
+        self.fm.settings_manager.get_bookmarks.return_value = []
         self.fm.session_item = SessionItem(
             name="Local", session_type="local", host="localhost", port=22
         )
@@ -322,7 +327,25 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.assertEqual(perms_label.get_text(), "drwxrwxr-x")
         self.assertEqual(owner_label.get_text(), "vagnarok:vagnarok")
 
+    def test_disk_usage_cache(self):
+        self.fm.current_path = "/tmp"
+        txt1 = self.fm._get_free_disk_space_text()
+        self.assertIsInstance(txt1, str)
+        self.assertIn("/tmp", self.fm._disk_usage_cache)
+        # Immediate next call uses cache
+        txt2 = self.fm._get_free_disk_space_text()
+        self.assertEqual(txt1, txt2)
+
+    def test_lazy_quick_jump_popover(self):
+        self.assertTrue(self.fm._quick_jump_needs_update)
+        mock_popover = MagicMock()
+        mock_popover.get_visible.return_value = True
+        self.fm._on_quick_jump_popover_visible(mock_popover, None)
+        self.assertFalse(self.fm._quick_jump_needs_update)
+        self.assertIsNotNone(self.fm.quick_jump_popover.get_child())
+
 
 if __name__ == "__main__":
     unittest.main()
+
 
