@@ -77,6 +77,16 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
 
 ---
 
+### [BUG-FP-006] Bloqueio de Gravação Não-Privilegiada em Arquivos de Sistema no Sandbox
+- **Commit:** `c95b194`
+- **Componente:** `src/onyxsh/filemanager/operations.py`, `src/onyxsh/filemanager/quick_look.py`
+- **Sintoma:** Ao clicar no botão comum "Salvar alterações" (sem Root) em arquivos de sistema (`/etc/hosts`), o app exibia mensagem de sucesso sem pedir senha, mas gravava apenas no overlay privado do container Flatpak sem modificar o arquivo real do host.
+- **Causa Raiz:** No container Flatpak, a pasta `/etc` é montada como tmpfs/overlay com permissão de escrita para o processo do app. O comando `os.replace()` substituía o arquivo no container silenciosamente sem lançar `PermissionError`.
+- **Correção:** Validação rigorosa de diretórios de sistema (`/etc/`, `/usr/`, `/var/`, etc.) e verificação de permissão `os.access(W_OK)`. Salvamentos comuns sem sudo são imediatamente rejeitados com `PERMISSION_DENIED`, abrindo o diálogo modal para salvar como Superusuário (Root).
+- **Testes:** `tests/test_quick_look.py` (`test_save_file_content_normal_denied_for_system_files`, `test_quick_look_readonly_save_triggers_permission_dialog`).
+
+---
+
 ## 2. Gerenciador de Arquivos & Quick Look
 
 ### [BUG-FM-001] Latência na Navegação de Pastas por Recriação Síncrona do Quick Jump
