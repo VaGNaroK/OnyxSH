@@ -288,6 +288,40 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         box = popover.get_child()
         self.assertIsInstance(box, Gtk.Box)
 
+    def test_detailed_list_view_and_header(self):
+        header = self.fm._create_detailed_header()
+        self.assertIsInstance(header, Gtk.Box)
+        self.assertEqual(len(self.fm.detailed_header_buttons), 5)
+        self.assertIn("name", self.fm.detailed_header_buttons)
+        self.assertIn("size", self.fm.detailed_header_buttons)
+        self.assertIn("date", self.fm.detailed_header_buttons)
+        self.assertIn("perms", self.fm.detailed_header_buttons)
+        self.assertIn("owner", self.fm.detailed_header_buttons)
+
+        list_item = MagicMock()
+        self.fm._setup_detailed_item(None, list_item)
+        row_box = list_item.set_child.call_args[0][0]
+        list_item.get_child = MagicMock(return_value=row_box)
+
+        test_dt = datetime(2026, 8, 9, 0, 21)
+        item = FileItem("manifests/", "drwxrwxr-x", 4096, test_dt, "vagnarok", "vagnarok")
+        list_item.get_item = MagicMock(return_value=item)
+        self.fm._bind_detailed_item(None, list_item)
+
+        name_box = row_box.get_first_child()
+        icon = name_box.get_first_child()
+        name_label = icon.get_next_sibling()
+        size_label = name_box.get_next_sibling()
+        date_label = size_label.get_next_sibling()
+        perms_label = date_label.get_next_sibling()
+        owner_label = perms_label.get_next_sibling()
+
+        self.assertEqual(name_label.get_text(), "manifests")
+        self.assertEqual(size_label.get_text(), "4.0 KB")
+        self.assertEqual(date_label.get_text(), "2026-08-09 00:21")
+        self.assertEqual(perms_label.get_text(), "drwxrwxr-x")
+        self.assertEqual(owner_label.get_text(), "vagnarok:vagnarok")
+
 
 if __name__ == "__main__":
     unittest.main()

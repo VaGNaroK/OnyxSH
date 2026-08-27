@@ -654,7 +654,8 @@ class FileManager(GObject.Object):
         self.view_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         self.view_stack.set_transition_duration(150)
 
-        self.column_view = self._create_detailed_column_view()
+        self.column_view = self._create_detailed_list_view()
+        self.detailed_header = self._create_detailed_header()
         self.grid_view = self._create_icon_grid_view()
 
         self.view_stack.add_named(self.column_view, "list")
@@ -827,6 +828,9 @@ class FileManager(GObject.Object):
 
         progress_widget = self.transfer_manager.create_progress_widget()
         self.main_box.append(progress_widget)
+
+        if hasattr(self, "detailed_header") and self.detailed_header:
+            self.main_box.append(self.detailed_header)
 
         self.main_box.append(self.scrolled_window)
         self.main_box.append(self.action_bar)
@@ -1679,99 +1683,323 @@ class FileManager(GObject.Object):
                 items.append(item)
         return items
 
-    def _create_detailed_column_view(self) -> Gtk.ColumnView:
-        col_view = Gtk.ColumnView()
-        col_view.add_css_class("file-manager-column-view")
-        col_view.set_show_column_separators(False)
-        col_view.set_show_row_separators(False)
+    def _ensure_sorters(self):
+        """Initializes sorters if not already created."""
+        if not hasattr(self, "name_sorter") or not self.name_sorter:
+            self.name_sorter = Gtk.CustomSorter.new(self._sort_by_name, None)
+        if not hasattr(self, "size_sorter") or not self.size_sorter:
+            self.size_sorter = Gtk.CustomSorter.new(self._sort_by_size, None)
+        if not hasattr(self, "date_sorter") or not self.date_sorter:
+            self.date_sorter = Gtk.CustomSorter.new(self._sort_by_date, None)
+        if not hasattr(self, "perms_sorter") or not self.perms_sorter:
+            self.perms_sorter = Gtk.CustomSorter.new(self._sort_by_permissions, None)
+        if not hasattr(self, "owner_sorter") or not self.owner_sorter:
+            self.owner_sorter = Gtk.CustomSorter.new(self._sort_by_owner, None)
 
-        self.name_sorter = Gtk.CustomSorter.new(self._sort_by_name, None)
-        self.size_sorter = Gtk.CustomSorter.new(self._sort_by_size, None)
-        self.date_sorter = Gtk.CustomSorter.new(self._sort_by_date, None)
-        self.perms_sorter = Gtk.CustomSorter.new(self._sort_by_permissions, None)
-        self.owner_sorter = Gtk.CustomSorter.new(self._sort_by_owner, None)
+    def _create_detailed_header(self) -> Gtk.Box:
+        self._ensure_sorters()
+        header_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        header_box.add_css_class("file-detailed-header")
+        header_box.set_margin_start(4)
+        header_box.set_margin_end(16)
+        header_box.set_margin_top(2)
+        header_box.set_margin_bottom(2)
 
-        col_view.append_column(
-            self._create_column(
-                _("Name"),
-                self.name_sorter,
-                self._setup_name_cell,
-                self._bind_name_cell,
-                expand=True,
-            )
-        )
-        col_view.append_column(
-            self._create_column(
-                _("Size"), self.size_sorter, self._setup_size_cell, self._bind_size_cell
-            )
-        )
-        col_view.append_column(
-            self._create_column(
-                _("Date Modified"),
-                self.date_sorter,
-                self._setup_date_cell,
-                self._bind_date_cell,
-            )
-        )
-        col_view.append_column(
-            self._create_column(
-                _("Permissions"),
-                self.perms_sorter,
-                self._setup_permissions_cell,
-                self._bind_permissions_cell,
-            )
-        )
-        col_view.append_column(
-            self._create_column(
-                _("Owner"),
-                self.owner_sorter,
-                self._setup_owner_cell,
-                self._bind_owner_cell,
-            )
-        )
+        self.detailed_header_buttons = {}
 
-        view_sorter = col_view.get_sorter()
+        cols_def = [
+            ("name", _("Name"), self.name_sorter, None, True, 0.0),
+            ("size", _("Size"), self.size_sorter, 80, False, 1.0),
+            ("date", _("Date Modified"), self.date_sorter, 150, False, 0.5),
+            ("perms", _("Permissions"), self.perms_sorter, 110, False, 0.5),
+            ("owner", _("Owner"), self.owner_sorter, 160, False, 0.0),
+        ]
+
+        for col_id, title, sorter, width, expand, xalign in cols_def:
+            btn = Gtk.Button()
+            btn.add_css_class("flat")
+            btn.add_css_class(f"file-detailed-header-{col_id}")
+            if expand:
+                btn.set_hexpand(True)
+            if width:
+                btn.set_size_request(width, -1)
+
+            btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+            lbl = Gtk.Label(label=title, xalign=xalign)
+            lbl.add_css_class("file-detailed-header-label")
+            if expand:
+                lbl.set_hexpand(True)
+            icon = Gtk.Image.new_from_icon_name("pan-down-symbolic")
+            icon.set_visible(col_id == "name")
+            icon.add_css_class("dim-label")
+
+            btn_box.append(lbl)
+            btn_box.append(icon)
+            btn.set_child(btn_box)
+
+            btn.connect(
+                "clicked", self._on_detailed_header_clicked, col_id, sorter, icon
+            )
+            self.detailed_header_buttons[col_id] = (btn, icon, sorter)
+            header_box.append(btn)
+
+        return header_box
+
+    def _on_detailed_header_clicked(self, _btn, col_id, sorter, active_icon):
+        if not hasattr(self, "sorted_store") or not self.sorted_store:
+            return
+
+        if getattr(self, "_current_sort_col", "name") == col_id:
+            is_desc = getattr(self, "_sort_descending", False)
+            self._sort_descending = not is_desc
+            active_icon.set_from_icon_name(
+                "pan-up-symbolic" if self._sort_descending else "pan-down-symbolic"
+            )
+            active_icon.set_visible(True)
+            if self._sort_descending:
+                inv_sorter = Gtk.CustomSorter.new(
+                    lambda a, b, *_: -sorter.compare(a, b), None
+                )
+                self.sorted_store.set_sorter(inv_sorter)
+            else:
+                self.sorted_store.set_sorter(sorter)
+        else:
+            self._current_sort_col = col_id
+            self._sort_descending = False
+            for c_id, (_b, ico, _s) in self.detailed_header_buttons.items():
+                if c_id == col_id:
+                    ico.set_from_icon_name("pan-down-symbolic")
+                    ico.set_visible(True)
+                else:
+                    ico.set_visible(False)
+            self.sorted_store.set_sorter(sorter)
+
+    def _create_detailed_list_view(self) -> Gtk.ListView:
+        factory = Gtk.SignalListItemFactory()
+        factory.connect("setup", self._setup_detailed_item)
+        factory.connect("bind", self._bind_detailed_item)
+        factory.connect("unbind", self._unbind_cell)
+
+        self._ensure_sorters()
+
         self.sorted_store = Gtk.SortListModel(
-            model=self.filtered_store, sorter=view_sorter
+            model=self.filtered_store, sorter=self.name_sorter
         )
         self.selection_model = Gtk.MultiSelection(model=self.sorted_store)
-        self.selection_model.connect("selection-changed", self._on_selection_changed_update_status)
-        col_view.set_model(self.selection_model)
-        col_view.sort_by_column(
-            col_view.get_columns().get_item(0), Gtk.SortType.ASCENDING
+        self.selection_model.connect(
+            "selection-changed", self._on_selection_changed_update_status
         )
 
-        col_view.connect("activate", self._on_row_activated)
+        list_view = Gtk.ListView(model=self.selection_model, factory=factory)
+        list_view.add_css_class("file-manager-detailed-view")
+
+        list_view.connect("activate", self._on_row_activated)
 
         key_controller = Gtk.EventControllerKey.new()
         key_controller.connect("key-pressed", self._on_column_view_key_pressed)
         key_controller.connect("key-released", self._on_column_view_key_released)
-        col_view.add_controller(key_controller)
+        list_view.add_controller(key_controller)
 
         background_click = Gtk.GestureClick.new()
         background_click.set_button(Gdk.BUTTON_SECONDARY)
         background_click.connect("pressed", self._on_column_view_background_click)
-        col_view.add_controller(background_click)
+        list_view.add_controller(background_click)
 
-        return col_view
+        return list_view
 
-    def _setup_name_cell(self, factory, list_item):
-        box = Gtk.Box(spacing=6, orientation=Gtk.Orientation.HORIZONTAL)
-        box.append(Gtk.Image())
-        label = Gtk.Label(xalign=0.0)
-        box.append(label)
+    def _setup_detailed_item(self, factory, list_item):
+        row_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        row_box.add_css_class("file-detailed-row")
+        row_box.set_margin_start(4)
+        row_box.set_margin_end(4)
+
+        # Name box (icon + name + link_icon + badges)
+        name_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        name_box.set_hexpand(True)
+        icon = Gtk.Image()
+        name_label = Gtk.Label(xalign=0.0)
         link_icon = Gtk.Image()
         link_icon.set_visible(False)
-        box.append(link_icon)
+        badges_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
 
-        badges_box = Gtk.Box(spacing=4, orientation=Gtk.Orientation.HORIZONTAL)
-        box.append(badges_box)
+        name_box.append(icon)
+        name_box.append(name_label)
+        name_box.append(link_icon)
+        name_box.append(badges_box)
+
+        # Metadata labels matching header widths
+        size_label = Gtk.Label(xalign=1.0)
+        size_label.set_width_chars(9)
+        size_label.set_size_request(80, -1)
+        size_label.add_css_class("file-detailed-col-size")
+        size_label.add_css_class("numeric")
+
+        date_label = Gtk.Label(xalign=0.5)
+        date_label.set_width_chars(17)
+        date_label.set_size_request(150, -1)
+        date_label.add_css_class("file-detailed-col-date")
+        date_label.add_css_class("numeric")
+
+        perms_label = Gtk.Label(xalign=0.5)
+        perms_label.set_width_chars(11)
+        perms_label.set_size_request(110, -1)
+        perms_label.add_css_class("file-detailed-col-perms")
+        perms_label.add_css_class("numeric")
+
+        owner_label = Gtk.Label(xalign=0.0)
+        owner_label.set_width_chars(18)
+        owner_label.set_size_request(160, -1)
+        owner_label.add_css_class("file-detailed-col-owner")
+        owner_label.add_css_class("numeric")
+
+        row_box.append(name_box)
+        row_box.append(size_label)
+        row_box.append(date_label)
+        row_box.append(perms_label)
+        row_box.append(owner_label)
 
         gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
         gesture.connect("pressed", self._on_item_right_click, list_item)
-        box.add_controller(gesture)
+        row_box.add_controller(gesture)
 
-        list_item.set_child(box)
+        list_item.set_child(row_box)
+
+    def _bind_detailed_item(self, factory, list_item):
+        self._bind_cell_common(list_item)
+        row_box = list_item.get_child()
+        file_item: FileItem = list_item.get_item()
+        if not file_item or not row_box:
+            return
+
+        name_box = row_box.get_first_child()
+        icon = name_box.get_first_child()
+        name_label = icon.get_next_sibling()
+        link_icon = name_label.get_next_sibling()
+        badges_box = link_icon.get_next_sibling()
+
+        size_label = name_box.get_next_sibling()
+        date_label = size_label.get_next_sibling()
+        perms_label = date_label.get_next_sibling()
+        owner_label = perms_label.get_next_sibling()
+
+        icon.set_from_icon_name(file_item.icon_name)
+        display_name = file_item.name
+        if file_item.is_directory and display_name.endswith("/"):
+            display_name = display_name[:-1]
+        name_label.set_text(display_name)
+
+        if file_item.is_link:
+            link_icon.set_from_icon_name("emblem-symbolic-link-symbolic")
+            link_icon.set_visible(True)
+        else:
+            link_icon.set_visible(False)
+
+        while child := badges_box.get_first_child():
+            badges_box.remove(child)
+
+        if file_item.name != "..":
+            if file_item.is_executable and not file_item.is_directory:
+                badge = Gtk.Label(label="+x")
+                badge.add_css_class("badge-pill")
+                badge.add_css_class("badge-exec")
+                badge.set_tooltip_text(_("Executable file"))
+                badges_box.append(badge)
+
+            if file_item.is_root_owned:
+                badge = Gtk.Label(label="root")
+                badge.add_css_class("badge-pill")
+                badge.add_css_class("badge-root")
+                badge.set_tooltip_text(_("Owned by root"))
+                badges_box.append(badge)
+
+            if file_item.file_type_badge:
+                badge_text, css_class = file_item.file_type_badge
+                badge = Gtk.Label(label=badge_text)
+                badge.add_css_class("badge-pill")
+                badge.add_css_class(css_class)
+                badges_box.append(badge)
+
+            size_label.set_text(file_item.formatted_size)
+            date_label.set_text(file_item.formatted_date)
+            perms_label.set_text(file_item.permissions)
+            owner_label.set_text(f"{file_item.owner}:{file_item.group}")
+
+            if hasattr(file_item, "tooltip_markup"):
+                row_box.set_tooltip_markup(file_item.tooltip_markup)
+            else:
+                row_box.set_tooltip_markup(None)
+        else:
+            size_label.set_text("")
+            date_label.set_text("")
+            perms_label.set_text("")
+            owner_label.set_text("")
+            row_box.set_tooltip_markup(None)
+
+    def _setup_name_cell(self, factory, list_item):
+        self._setup_detailed_item(factory, list_item)
+
+    def _bind_name_cell(self, factory, list_item):
+        self._bind_detailed_item(factory, list_item)
+
+    def _setup_size_cell(self, factory, list_item):
+        label = Gtk.Label(xalign=1.0)
+        label.add_css_class("file-detailed-col-size")
+        label.add_css_class("numeric")
+        list_item.set_child(label)
+
+    def _bind_size_cell(self, factory, list_item):
+        label = list_item.get_child()
+        file_item = list_item.get_item()
+        if label and file_item:
+            label.set_text(file_item.formatted_size if file_item.name != ".." else "")
+            if hasattr(file_item, "tooltip_markup") and file_item.name != "..":
+                label.set_tooltip_markup(file_item.tooltip_markup)
+
+    def _setup_date_cell(self, factory, list_item):
+        label = Gtk.Label(xalign=0.5)
+        label.add_css_class("file-detailed-col-date")
+        label.add_css_class("numeric")
+        list_item.set_child(label)
+
+    def _bind_date_cell(self, factory, list_item):
+        label = list_item.get_child()
+        file_item = list_item.get_item()
+        if label and file_item:
+            label.set_text(file_item.formatted_date if file_item.name != ".." else "")
+            if hasattr(file_item, "tooltip_markup") and file_item.name != "..":
+                label.set_tooltip_markup(file_item.tooltip_markup)
+
+    def _setup_permissions_cell(self, factory, list_item):
+        label = Gtk.Label(xalign=0.5)
+        label.add_css_class("file-detailed-col-perms")
+        label.add_css_class("numeric")
+        list_item.set_child(label)
+
+    def _bind_permissions_cell(self, factory, list_item):
+        label = list_item.get_child()
+        file_item = list_item.get_item()
+        if label and file_item:
+            label.set_text(file_item.permissions if file_item.name != ".." else "")
+            if hasattr(file_item, "tooltip_markup") and file_item.name != "..":
+                label.set_tooltip_markup(file_item.tooltip_markup)
+
+    def _setup_owner_cell(self, factory, list_item):
+        label = Gtk.Label(xalign=0.0)
+        label.add_css_class("file-detailed-col-owner")
+        label.add_css_class("numeric")
+        list_item.set_child(label)
+
+    def _bind_owner_cell(self, factory, list_item):
+        label = list_item.get_child()
+        file_item = list_item.get_item()
+        if label and file_item:
+            label.set_text(
+                f"{file_item.owner}:{file_item.group}"
+                if file_item.name != ".."
+                else ""
+            )
+            if hasattr(file_item, "tooltip_markup") and file_item.name != "..":
+                label.set_tooltip_markup(file_item.tooltip_markup)
 
     def _bind_cell_common(self, list_item):
         """No-op kept for backwards compatibility."""
@@ -1781,166 +2009,8 @@ class FileManager(GObject.Object):
         """No-op kept for backwards compatibility."""
         pass
 
-    def _bind_name_cell(self, factory, list_item):
-        self._bind_cell_common(list_item)
-        box = list_item.get_child()
-        icon = box.get_first_child()
-        label = icon.get_next_sibling()
-        link_icon = label.get_next_sibling()
-        badges_box = link_icon.get_next_sibling()
-
-        file_item: FileItem = list_item.get_item()
-        if not file_item:
-            return
-
-        icon.set_from_icon_name(file_item.icon_name)
-        display_name = file_item.name
-        if file_item.is_directory and display_name.endswith("/"):
-            display_name = display_name[:-1]
-        label.set_text(display_name)
-
-        if file_item.is_link:
-            link_icon.set_from_icon_name("emblem-symbolic-link-symbolic")
-            link_icon.set_visible(True)
-        else:
-            link_icon.set_visible(False)
-
-        # Clear existing badges
-        while child := badges_box.get_first_child():
-            badges_box.remove(child)
-
-        # Render chips/badges
-        if file_item.name != "..":
-            # 1. Executable badge (+x)
-            if file_item.is_executable and not file_item.is_directory:
-                badge = Gtk.Label(label="+x")
-                badge.add_css_class("badge-pill")
-                badge.add_css_class("badge-exec")
-                badge.set_tooltip_text(_("Executable file"))
-                badges_box.append(badge)
-
-            # 2. Root owner badge (root)
-            if file_item.is_root_owned:
-                badge = Gtk.Label(label="root")
-                badge.add_css_class("badge-pill")
-                badge.add_css_class("badge-root")
-                badge.set_tooltip_text(_("Owned by root"))
-                badges_box.append(badge)
-
-            # 3. File type / extension badge
-            type_badge = file_item.file_type_badge
-            if type_badge:
-                badge_text, css_class = type_badge
-                badge = Gtk.Label(label=badge_text)
-                badge.add_css_class("badge-pill")
-                badge.add_css_class(css_class)
-                badges_box.append(badge)
-
-        # Set rich tooltip on name cell
-        if file_item.name != ".." and hasattr(file_item, "tooltip_markup"):
-            box.set_tooltip_markup(file_item.tooltip_markup)
-        else:
-            box.set_tooltip_markup(None)
-
-    def _setup_text_cell(self, factory, list_item):
-        label = Gtk.Label(xalign=0.0)
-        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-        gesture.connect("pressed", self._on_item_right_click, list_item)
-        label.add_controller(gesture)
-        list_item.set_child(label)
-
-    def _setup_size_cell(self, factory, list_item):
-        label = Gtk.Label(xalign=1.0)
-        label.add_css_class("file-detailed-col-size")
-        label.add_css_class("numeric")
-        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-        gesture.connect("pressed", self._on_item_right_click, list_item)
-        label.add_controller(gesture)
-        list_item.set_child(label)
-
-    def _setup_date_cell(self, factory, list_item):
-        label = Gtk.Label(xalign=0.5)
-        label.add_css_class("file-detailed-col-date")
-        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-        gesture.connect("pressed", self._on_item_right_click, list_item)
-        label.add_controller(gesture)
-        list_item.set_child(label)
-
-    def _setup_permissions_cell(self, factory, list_item):
-        label = Gtk.Label(xalign=0.5)
-        label.add_css_class("file-detailed-col-perms")
-        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-        gesture.connect("pressed", self._on_item_right_click, list_item)
-        label.add_controller(gesture)
-        list_item.set_child(label)
-
-    def _setup_owner_cell(self, factory, list_item):
-        label = Gtk.Label(xalign=0.0)
-        label.add_css_class("file-detailed-col-owner")
-        label.add_css_class("numeric")
-        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-        gesture.connect("pressed", self._on_item_right_click, list_item)
-        label.add_controller(gesture)
-        list_item.set_child(label)
-
-    def _bind_permissions_cell(self, factory, list_item):
-        self._bind_cell_common(list_item)
-        label = list_item.get_child()
-        file_item: FileItem = list_item.get_item()
-        if not file_item:
-            return
-        if file_item.name == "..":
-            label.set_text("")
-            label.set_tooltip_markup(None)
-        else:
-            label.set_text(file_item.permissions)
-            if hasattr(file_item, "tooltip_markup"):
-                label.set_tooltip_markup(file_item.tooltip_markup)
-
-    def _bind_owner_cell(self, factory, list_item):
-        self._bind_cell_common(list_item)
-        label = list_item.get_child()
-        file_item: FileItem = list_item.get_item()
-        if not file_item:
-            return
-        if file_item.name == "..":
-            label.set_text("")
-            label.set_tooltip_markup(None)
-        else:
-            label.set_text(f"{file_item.owner}:{file_item.group}")
-            if hasattr(file_item, "tooltip_markup"):
-                label.set_tooltip_markup(file_item.tooltip_markup)
-
-    def _bind_size_cell(self, factory, list_item):
-        self._bind_cell_common(list_item)
-        label = list_item.get_child()
-        file_item: FileItem = list_item.get_item()
-        if not file_item:
-            return
-        if file_item.name == "..":
-            label.set_text("")
-            label.set_tooltip_markup(None)
-        else:
-            label.set_text(file_item.formatted_size)
-            if hasattr(file_item, "tooltip_markup"):
-                label.set_tooltip_markup(file_item.tooltip_markup)
-
-    def _bind_date_cell(self, factory, list_item):
-        self._bind_cell_common(list_item)
-        label = list_item.get_child()
-        file_item: FileItem = list_item.get_item()
-        if not file_item:
-            return
-        if file_item.name == "..":
-            label.set_text("")
-            label.set_tooltip_markup(None)
-        else:
-            label.set_text(file_item.formatted_date)
-            if hasattr(file_item, "tooltip_markup"):
-                label.set_tooltip_markup(file_item.tooltip_markup)
-
     def _get_active_view(self) -> Optional[Gtk.Widget]:
-        """Returns the currently active view widget (ColumnView or GridView)."""
+        """Returns the currently active view widget (ColumnView/ListView or GridView)."""
         if not hasattr(self, "view_stack") or not self.view_stack:
             return getattr(self, "column_view", None)
         visible = self.view_stack.get_visible_child_name()
@@ -1955,6 +2025,9 @@ class FileManager(GObject.Object):
         self._current_view_mode = mode
         if hasattr(self, "view_stack") and self.view_stack:
             self.view_stack.set_visible_child_name(mode)
+
+        if hasattr(self, "detailed_header") and self.detailed_header:
+            self.detailed_header.set_visible(mode == "list")
 
         if hasattr(self, "view_list_btn") and self.view_list_btn:
             self.view_list_btn.set_active(mode == "list")

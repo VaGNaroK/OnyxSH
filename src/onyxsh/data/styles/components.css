@@ -247,57 +247,74 @@
 }
 
 .file-manager-main-box .file-manager-column-view header,
-.file-manager-main-box .file-manager-column-view header button,
-.file-manager-main-box .file-manager-column-view header button:focus,
-.file-manager-main-box .file-manager-column-view header button:active,
-.file-manager-main-box .file-manager-column-view header button:checked {
+.file-detailed-header {
+    padding: 2px 6px;
+    border-bottom: 1px solid alpha(@window_fg_color, 0.12);
+    background-color: alpha(@window_fg_color, 0.03);
+}
+
+.file-detailed-header button,
+.file-detailed-header button:focus,
+.file-detailed-header button:active {
     font-weight: 600;
-    color: alpha(@window_fg_color, 0.75);
-    padding: 4px 6px;
+    color: alpha(@window_fg_color, 0.7);
+    padding: 3px 6px;
     border-radius: 4px;
     background: transparent;
-    background-image: none;
-    box-shadow: none;
     border: none;
-    outline: none;
+    box-shadow: none;
 }
 
-.file-manager-main-box .file-manager-column-view header button:hover {
+.file-detailed-header button:hover {
     background-color: alpha(@accent_bg_color, 0.12);
     color: @window_fg_color;
-    box-shadow: none;
-    border: none;
 }
 
-.file-manager-main-box .file-manager-column-view columnviewcolumn,
-.file-manager-main-box .file-manager-column-view header cell,
-.file-manager-main-box .file-manager-column-view header button {
-    border-left: none;
-    border-right: none;
-    border-top: none;
+.file-detailed-header-label {
+    font-weight: 600;
+    font-size: 0.9em;
 }
 
-.file-manager-main-box .file-manager-column-view cell {
-    padding: 2px 6px;
+.file-manager-detailed-view {
+    background: transparent;
+}
+
+.file-detailed-row {
+    padding: 3px 6px;
+    border-radius: 6px;
+    margin: 1px 2px;
+    transition: background-color 100ms ease;
+}
+
+.file-detailed-row:hover {
+    background-color: alpha(@accent_bg_color, 0.10);
+}
+
+.file-manager-detailed-view row:selected .file-detailed-row {
+    background-color: alpha(@accent_bg_color, 0.25);
 }
 
 .file-detailed-col-size {
     font-family: monospace;
-    min-width: 75px;
+    color: alpha(@window_fg_color, 0.85);
+    min-width: 80px;
 }
 
 .file-detailed-col-date {
     font-family: monospace;
-    min-width: 145px;
+    color: alpha(@window_fg_color, 0.85);
+    min-width: 150px;
 }
 
 .file-detailed-col-perms {
     font-family: monospace;
+    color: alpha(@window_fg_color, 0.85);
     min-width: 110px;
 }
 
 .file-detailed-col-owner {
     font-family: monospace;
+    color: alpha(@window_fg_color, 0.85);
     min-width: 160px;
 }
 
