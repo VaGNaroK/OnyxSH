@@ -10,6 +10,7 @@ gi.require_version("Gtk", "4.0")
 from gi.repository import GObject
 
 from onyxsh.filemanager.models import FileItem
+from onyxsh.utils.translation_utils import _
 
 
 class TestFileItemModels(unittest.TestCase):
@@ -261,16 +262,16 @@ class TestFileItemModels(unittest.TestCase):
 
     def test_type_description(self):
         item_py = FileItem("app.py", "-rw-r--r--", 100, datetime.now(), "u", "g")
-        self.assertEqual(item_py.type_description, "Python Script")
+        self.assertEqual(item_py.type_description, _("Python Script"))
 
         item_dir = FileItem("src", "drwxr-xr-x", 4096, datetime.now(), "u", "g")
-        self.assertEqual(item_dir.type_description, "Directory / Folder")
+        self.assertEqual(item_dir.type_description, _("Directory / Folder"))
 
         item_link = FileItem("lnk", "lrwxrwxrwx", 10, datetime.now(), "u", "g", is_link=True)
-        self.assertEqual(item_link.type_description, "Symbolic Link")
+        self.assertEqual(item_link.type_description, _("Symbolic Link"))
 
         item_parent = FileItem("..", "drwxr-xr-x", 0, datetime.now(), "u", "g")
-        self.assertEqual(item_parent.type_description, "Parent Directory")
+        self.assertEqual(item_parent.type_description, _("Parent Directory"))
 
     def test_tooltip_markup(self):
         dt = datetime(2026, 8, 26, 10, 30, 0)
@@ -284,7 +285,7 @@ class TestFileItemModels(unittest.TestCase):
         self.assertIn("vagnarok : staff", tooltip)
 
         item_parent = FileItem("..", "drwxr-xr-x", 0, dt, "u", "g")
-        self.assertIn("parent directory", item_parent.tooltip_markup.lower())
+        self.assertIn(_("Go to parent directory").lower(), item_parent.tooltip_markup.lower())
 
     def test_optimized_properties_and_memoization(self):
         dt = datetime(2026, 8, 26, 12, 0, 0)
@@ -305,8 +306,8 @@ class TestFileItemModels(unittest.TestCase):
         self.assertEqual(item.formatted_date, "2026-08-26 12:00")
         self.assertEqual(item.permissions_octal, "0755")
         self.assertEqual(item.permissions_octal, "0755")
-        self.assertEqual(item.type_description, "Shell Script")
-        self.assertEqual(item.type_description, "Shell Script")
+        self.assertEqual(item.type_description, _("Shell Script"))
+        self.assertEqual(item.type_description, _("Shell Script"))
 
 
 if __name__ == "__main__":

@@ -11290,3 +11290,275 @@ msgstr "Отменить изменения"
 # 
 msgid "Discard"
 msgstr "Отменить"
+
+# 
+msgid "Detailed List View"
+msgstr "Подробный список"
+
+# 
+msgid "Icon Grid View"
+msgstr "Сетка значков"
+
+# 
+msgid "Sort Files..."
+msgstr "Сортировать файлы..."
+
+# 
+msgid "Executable file"
+msgstr "Исполняемый файл"
+
+# 
+msgid "Owned by root"
+msgstr "Владелец root"
+
+# 
+msgid "folder"
+msgstr "папка"
+
+# 
+msgid "file"
+msgstr "файл"
+
+# 
+msgid "folders"
+msgstr "папки"
+
+# 
+msgid "files"
+msgstr "файлы"
+
+# 
+msgid "selected"
+msgstr "выбрано"
+
+# 
+msgid "0 selected"
+msgstr "0 выбрано"
+
+# 
+msgid "folder selected"
+msgstr "папка выбрана"
+
+# 
+msgid "folders selected"
+msgstr "папок выбрано"
+
+# 
+msgid "file selected"
+msgstr "файл выбран"
+
+# 
+msgid "files selected"
+msgstr "файлов выбрано"
+
+# 
+msgid "item"
+msgstr "элемент"
+
+# 
+msgid "items"
+msgstr "элементов"
+
+# 
+msgid "Free Space"
+msgstr "Свободное место"
+
+# 
+msgid "Parent Directory"
+msgstr "Родительский каталог"
+
+# 
+msgid "Directory / Folder"
+msgstr "Каталог / Папка"
+
+# 
+msgid "Symbolic Link"
+msgstr "Символическая ссылка"
+
+# 
+msgid "Go to parent directory"
+msgstr "Перейти в родительский каталог"
+
+# 
+msgid "Python Script"
+msgstr "Скрипт Python"
+
+# 
+msgid "Shell Script"
+msgstr "Скрипт Shell"
+
+# 
+msgid "Bash Script"
+msgstr "Скрипт Bash"
+
+# 
+msgid "Zsh Script"
+msgstr "Скрипт Zsh"
+
+# 
+msgid "JSON Document"
+msgstr "Документ JSON"
+
+# 
+msgid "YAML Document"
+msgstr "Документ YAML"
+
+# 
+msgid "TOML Document"
+msgstr "Документ TOML"
+
+# 
+msgid "XML Document"
+msgstr "Документ XML"
+
+# 
+msgid "HTML Document"
+msgstr "Документ HTML"
+
+# 
+msgid "CSS Stylesheet"
+msgstr "Таблица стилей CSS"
+
+# 
+msgid "JavaScript File"
+msgstr "Файл JavaScript"
+
+# 
+msgid "TypeScript File"
+msgstr "Файл TypeScript"
+
+# 
+msgid "Markdown Document"
+msgstr "Документ Markdown"
+
+# 
+msgid "Plain Text Document"
+msgstr "Текстовый документ"
+
+# 
+msgid "Log File"
+msgstr "Файл журнала"
+
+# 
+msgid "PDF Document"
+msgstr "Документ PDF"
+
+# 
+msgid "PNG Image"
+msgstr "Изображение PNG"
+
+# 
+msgid "JPEG Image"
+msgstr "Изображение JPEG"
+
+# 
+msgid "SVG Vector Graphic"
+msgstr "Векторная графика SVG"
+
+# 
+msgid "WebP Image"
+msgstr "Изображение WebP"
+
+# 
+msgid "GIF Image"
+msgstr "Изображение GIF"
+
+# 
+msgid "ZIP Archive"
+msgstr "Архив ZIP"
+
+# 
+msgid "TAR Archive"
+msgstr "Архив TAR"
+
+# 
+msgid "GZip Archive"
+msgstr "Архив GZip"
+
+# 
+msgid "XZ Archive"
+msgstr "Архив XZ"
+
+# 
+msgid "7-Zip Archive"
+msgstr "Архив 7-Zip"
+
+# 
+msgid "Debian Package"
+msgstr "Пакет Debian"
+
+# 
+msgid "RPM Package"
+msgstr "Пакет RPM"
+
+# 
+msgid "C Source Code"
+msgstr "Исходный код C"
+
+# 
+msgid "C++ Source Code"
+msgstr "Исходный код C++"
+
+# 
+msgid "C/C++ Header"
+msgstr "Заголовочный файл C/C++"
+
+# 
+msgid "Rust Source Code"
+msgstr "Исходный код Rust"
+
+# 
+msgid "Go Source Code"
+msgstr "Исходный код Go"
+
+# 
+msgid "Java Source Code"
+msgstr "Исходный код Java"
+
+# 
+msgid "Configuration File"
+msgstr "Файл конфигурации"
+
+# 
+msgid "Security Certificate"
+msgstr "Сертификат безопасности"
+
+# 
+msgid "PEM Certificate/Key"
+msgstr "Сертификат/Ключ PEM"
+
+# 
+msgid "Public Key"
+msgstr "Открытый ключ"
+
+# 
+msgid "Private Key"
+msgstr "Закрытый ключ"
+
+# 
+msgid "Executable Program"
+msgstr "Исполняемая программа"
+
+# 
+msgid "Target"
+msgstr "Цель"
+
+# 
+msgid "Modified"
+msgstr "Изменено"
+
+# 
+msgid "Upload Directory"
+msgstr "Загрузить каталог"
+
+# 
+msgid "Select Directory"
+msgstr "Выбрать каталог"
+
+# 
+msgid "Please select a valid directory!"
+msgstr "Пожалуйста, выберите действительный каталог!"
+
+# 
+msgid "Directory does not exist"
+msgstr "Каталог не существует"

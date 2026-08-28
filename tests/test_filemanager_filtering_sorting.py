@@ -328,13 +328,19 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.assertEqual(owner_label.get_text(), "vagnarok:vagnarok")
 
     def test_disk_usage_cache(self):
+        import time
         self.fm.current_path = "/tmp"
         txt1 = self.fm._get_free_disk_space_text()
         self.assertIsInstance(txt1, str)
+        # Aguardar conclusão do cálculo assíncrono em background
+        for _ in range(50):
+            if "/tmp" in self.fm._disk_usage_cache:
+                break
+            time.sleep(0.02)
         self.assertIn("/tmp", self.fm._disk_usage_cache)
         # Immediate next call uses cache
         txt2 = self.fm._get_free_disk_space_text()
-        self.assertEqual(txt1, txt2)
+        self.assertEqual(self.fm._disk_usage_cache["/tmp"][1], txt2)
 
     def test_lazy_quick_jump_popover(self):
         self.assertTrue(self.fm._quick_jump_needs_update)

@@ -11323,3 +11323,275 @@ msgstr "Abandonner les modifications"
 # 
 msgid "Discard"
 msgstr "Abandonner"
+
+# 
+msgid "Detailed List View"
+msgstr "Vue en liste détaillée"
+
+# 
+msgid "Icon Grid View"
+msgstr "Vue en grille d'icônes"
+
+# 
+msgid "Sort Files..."
+msgstr "Trier les fichiers..."
+
+# 
+msgid "Executable file"
+msgstr "Fichier exécutable"
+
+# 
+msgid "Owned by root"
+msgstr "Appartient à root"
+
+# 
+msgid "folder"
+msgstr "dossier"
+
+# 
+msgid "file"
+msgstr "fichier"
+
+# 
+msgid "folders"
+msgstr "dossiers"
+
+# 
+msgid "files"
+msgstr "fichiers"
+
+# 
+msgid "selected"
+msgstr "sélectionné(s)"
+
+# 
+msgid "0 selected"
+msgstr "0 sélectionné"
+
+# 
+msgid "folder selected"
+msgstr "dossier sélectionné"
+
+# 
+msgid "folders selected"
+msgstr "dossiers sélectionnés"
+
+# 
+msgid "file selected"
+msgstr "fichier sélectionné"
+
+# 
+msgid "files selected"
+msgstr "fichiers sélectionnés"
+
+# 
+msgid "item"
+msgstr "élément"
+
+# 
+msgid "items"
+msgstr "éléments"
+
+# 
+msgid "Free Space"
+msgstr "Espace libre"
+
+# 
+msgid "Parent Directory"
+msgstr "Répertoire parent"
+
+# 
+msgid "Directory / Folder"
+msgstr "Répertoire / Dossier"
+
+# 
+msgid "Symbolic Link"
+msgstr "Lien symbolique"
+
+# 
+msgid "Go to parent directory"
+msgstr "Aller au répertoire parent"
+
+# 
+msgid "Python Script"
+msgstr "Script Python"
+
+# 
+msgid "Shell Script"
+msgstr "Script Shell"
+
+# 
+msgid "Bash Script"
+msgstr "Script Bash"
+
+# 
+msgid "Zsh Script"
+msgstr "Script Zsh"
+
+# 
+msgid "JSON Document"
+msgstr "Document JSON"
+
+# 
+msgid "YAML Document"
+msgstr "Document YAML"
+
+# 
+msgid "TOML Document"
+msgstr "Document TOML"
+
+# 
+msgid "XML Document"
+msgstr "Document XML"
+
+# 
+msgid "HTML Document"
+msgstr "Document HTML"
+
+# 
+msgid "CSS Stylesheet"
+msgstr "Feuille de style CSS"
+
+# 
+msgid "JavaScript File"
+msgstr "Fichier JavaScript"
+
+# 
+msgid "TypeScript File"
+msgstr "Fichier TypeScript"
+
+# 
+msgid "Markdown Document"
+msgstr "Document Markdown"
+
+# 
+msgid "Plain Text Document"
+msgstr "Document texte brut"
+
+# 
+msgid "Log File"
+msgstr "Fichier journal (log)"
+
+# 
+msgid "PDF Document"
+msgstr "Document PDF"
+
+# 
+msgid "PNG Image"
+msgstr "Image PNG"
+
+# 
+msgid "JPEG Image"
+msgstr "Image JPEG"
+
+# 
+msgid "SVG Vector Graphic"
+msgstr "Graphique vectoriel SVG"
+
+# 
+msgid "WebP Image"
+msgstr "Image WebP"
+
+# 
+msgid "GIF Image"
+msgstr "Image GIF"
+
+# 
+msgid "ZIP Archive"
+msgstr "Archive ZIP"
+
+# 
+msgid "TAR Archive"
+msgstr "Archive TAR"
+
+# 
+msgid "GZip Archive"
+msgstr "Archive GZip"
+
+# 
+msgid "XZ Archive"
+msgstr "Archive XZ"
+
+# 
+msgid "7-Zip Archive"
+msgstr "Archive 7-Zip"
+
+# 
+msgid "Debian Package"
+msgstr "Paquet Debian"
+
+# 
+msgid "RPM Package"
+msgstr "Paquet RPM"
+
+# 
+msgid "C Source Code"
+msgstr "Code source C"
+
+# 
+msgid "C++ Source Code"
+msgstr "Code source C++"
+
+# 
+msgid "C/C++ Header"
+msgstr "En-tête C/C++"
+
+# 
+msgid "Rust Source Code"
+msgstr "Code source Rust"
+
+# 
+msgid "Go Source Code"
+msgstr "Code source Go"
+
+# 
+msgid "Java Source Code"
+msgstr "Code source Java"
+
+# 
+msgid "Configuration File"
+msgstr "Fichier de configuration"
+
+# 
+msgid "Security Certificate"
+msgstr "Certificat de sécurité"
+
+# 
+msgid "PEM Certificate/Key"
+msgstr "Certificat/Clé PEM"
+
+# 
+msgid "Public Key"
+msgstr "Clé publique"
+
+# 
+msgid "Private Key"
+msgstr "Clé privée"
+
+# 
+msgid "Executable Program"
+msgstr "Programme exécutable"
+
+# 
+msgid "Target"
+msgstr "Cible"
+
+# 
+msgid "Modified"
+msgstr "Modifié"
+
+# 
+msgid "Upload Directory"
+msgstr "Téléverser le répertoire"
+
+# 
+msgid "Select Directory"
+msgstr "Sélectionner le répertoire"
+
+# 
+msgid "Please select a valid directory!"
+msgstr "Veuillez sélectionner un répertoire valide !"
+
+# 
+msgid "Directory does not exist"
+msgstr "Le répertoire n'existe pas"

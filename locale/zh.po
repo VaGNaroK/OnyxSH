@@ -11249,3 +11249,275 @@ msgstr "放弃更改"
 # 
 msgid "Discard"
 msgstr "放弃"
+
+# 
+msgid "Detailed List View"
+msgstr "详细列表视图"
+
+# 
+msgid "Icon Grid View"
+msgstr "图标网格视图"
+
+# 
+msgid "Sort Files..."
+msgstr "排序文件..."
+
+# 
+msgid "Executable file"
+msgstr "可执行文件"
+
+# 
+msgid "Owned by root"
+msgstr "所有者为 root"
+
+# 
+msgid "folder"
+msgstr "文件夹"
+
+# 
+msgid "file"
+msgstr "文件"
+
+# 
+msgid "folders"
+msgstr "文件夹"
+
+# 
+msgid "files"
+msgstr "文件"
+
+# 
+msgid "selected"
+msgstr "已选择"
+
+# 
+msgid "0 selected"
+msgstr "已选择 0 项"
+
+# 
+msgid "folder selected"
+msgstr "已选择文件夹"
+
+# 
+msgid "folders selected"
+msgstr "已选择文件夹"
+
+# 
+msgid "file selected"
+msgstr "已选择文件"
+
+# 
+msgid "files selected"
+msgstr "已选择文件"
+
+# 
+msgid "item"
+msgstr "项"
+
+# 
+msgid "items"
+msgstr "项"
+
+# 
+msgid "Free Space"
+msgstr "可用空间"
+
+# 
+msgid "Parent Directory"
+msgstr "上级目录"
+
+# 
+msgid "Directory / Folder"
+msgstr "目录 / 文件夹"
+
+# 
+msgid "Symbolic Link"
+msgstr "符号链接"
+
+# 
+msgid "Go to parent directory"
+msgstr "前往上级目录"
+
+# 
+msgid "Python Script"
+msgstr "Python 脚本"
+
+# 
+msgid "Shell Script"
+msgstr "Shell 脚本"
+
+# 
+msgid "Bash Script"
+msgstr "Bash 脚本"
+
+# 
+msgid "Zsh Script"
+msgstr "Zsh 脚本"
+
+# 
+msgid "JSON Document"
+msgstr "JSON 文档"
+
+# 
+msgid "YAML Document"
+msgstr "YAML 文档"
+
+# 
+msgid "TOML Document"
+msgstr "TOML 文档"
+
+# 
+msgid "XML Document"
+msgstr "XML 文档"
+
+# 
+msgid "HTML Document"
+msgstr "HTML 文档"
+
+# 
+msgid "CSS Stylesheet"
+msgstr "CSS 样式表"
+
+# 
+msgid "JavaScript File"
+msgstr "JavaScript 文件"
+
+# 
+msgid "TypeScript File"
+msgstr "TypeScript 文件"
+
+# 
+msgid "Markdown Document"
+msgstr "Markdown 文档"
+
+# 
+msgid "Plain Text Document"
+msgstr "纯文本文档"
+
+# 
+msgid "Log File"
+msgstr "日志文件"
+
+# 
+msgid "PDF Document"
+msgstr "PDF 文档"
+
+# 
+msgid "PNG Image"
+msgstr "PNG 图像"
+
+# 
+msgid "JPEG Image"
+msgstr "JPEG 图像"
+
+# 
+msgid "SVG Vector Graphic"
+msgstr "SVG 矢量图形"
+
+# 
+msgid "WebP Image"
+msgstr "WebP 图像"
+
+# 
+msgid "GIF Image"
+msgstr "GIF 图像"
+
+# 
+msgid "ZIP Archive"
+msgstr "ZIP 压缩包"
+
+# 
+msgid "TAR Archive"
+msgstr "TAR 归档"
+
+# 
+msgid "GZip Archive"
+msgstr "GZip 压缩包"
+
+# 
+msgid "XZ Archive"
+msgstr "XZ 压缩包"
+
+# 
+msgid "7-Zip Archive"
+msgstr "7-Zip 压缩包"
+
+# 
+msgid "Debian Package"
+msgstr "Debian 软件包"
+
+# 
+msgid "RPM Package"
+msgstr "RPM 软件包"
+
+# 
+msgid "C Source Code"
+msgstr "C 源代码"
+
+# 
+msgid "C++ Source Code"
+msgstr "C++ 源代码"
+
+# 
+msgid "C/C++ Header"
+msgstr "C/C++ 头文件"
+
+# 
+msgid "Rust Source Code"
+msgstr "Rust 源代码"
+
+# 
+msgid "Go Source Code"
+msgstr "Go 源代码"
+
+# 
+msgid "Java Source Code"
+msgstr "Java 源代码"
+
+# 
+msgid "Configuration File"
+msgstr "配置文件"
+
+# 
+msgid "Security Certificate"
+msgstr "安全证书"
+
+# 
+msgid "PEM Certificate/Key"
+msgstr "PEM 证书/密钥"
+
+# 
+msgid "Public Key"
+msgstr "公钥"
+
+# 
+msgid "Private Key"
+msgstr "私钥"
+
+# 
+msgid "Executable Program"
+msgstr "可执行程序"
+
+# 
+msgid "Target"
+msgstr "目标"
+
+# 
+msgid "Modified"
+msgstr "修改时间"
+
+# 
+msgid "Upload Directory"
+msgstr "上传目录"
+
+# 
+msgid "Select Directory"
+msgstr "选择目录"
+
+# 
+msgid "Please select a valid directory!"
+msgstr "请选择有效的目录！"
+
+# 
+msgid "Directory does not exist"
+msgstr "目录不存在"

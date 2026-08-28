@@ -133,6 +133,11 @@ class FileManager(GObject.Object):
         self._dir_size_calculating: Set[str] = set()
         self._disk_usage_cache: Dict[str, Tuple[float, str]] = {}
         self._quick_jump_needs_update = True
+        self._dir_cache: Dict[str, Tuple[float, list]] = {}
+        self._DIR_CACHE_TTL: float = 3.0   # segundos — janela segura para sessões locais
+        self._DIR_CACHE_MAX: int = 30      # máximo de entradas (LRU simples)
+        self._last_breadcrumb_path: str = ""
+        self._disk_space_calculating: bool = False
 
         # State for verified command execution
         self._pending_command = None
@@ -888,18 +893,37 @@ class FileManager(GObject.Object):
         self.upload_button.set_visible(is_remote)
 
     def _update_breadcrumb(self):
+        """Atualiza o breadcrumb de forma incremental, reutilizando widgets existentes.
+
+        Ao invés de destruir e recriar todos os botões a cada navegação, apenas
+        reconstrói os widgets quando o caminho realmente mudou. Isso reduz
+        alocações GTK e tempo de layout em navegações consecutivas.
+        """
+        path_str = self.current_path or ""
+
+        # ── Otimização incremental: pular se o caminho não mudou ──────────────
+        if path_str == getattr(self, "_last_breadcrumb_path", ""):
+            # Caminho idêntico — apenas atualizar o estado visual do bookmark
+            self._update_bookmark_star_ui()
+            return
+        self._last_breadcrumb_path = path_str
+        # ─────────────────────────────────────────────────────────────────────
+
+        # Reconstrução completa quando o caminho mudou
         child = self.breadcrumb_box.get_first_child()
         while child:
             self.breadcrumb_box.remove(child)
             child = self.breadcrumb_box.get_first_child()
 
-        path = Path(self.current_path)
+        path = Path(path_str)
 
         if not path.parts or path.parts == ("/",):
             btn = Gtk.Button(label="/")
             btn.add_css_class("flat")
             btn.connect("clicked", self._on_breadcrumb_button_clicked, "/")
             self.breadcrumb_box.append(btn)
+            self._update_bookmark_star_ui()
+            self._quick_jump_needs_update = True
             return
 
         accumulated_path = Path()
@@ -2318,7 +2342,11 @@ class FileManager(GObject.Object):
 
         # For non-cd commands, success is confirmed by the refresh completing
         if command_type != "cd":
-            GLib.timeout_add(15, lambda: self.refresh(source="filemanager"))
+            def _invalidate_and_refresh():
+                if hasattr(self, "_invalidate_dir_cache"):
+                    self._invalidate_dir_cache(self.current_path)
+                return self.refresh(source="filemanager")
+            GLib.timeout_add(15, _invalidate_and_refresh)
 
     def _on_row_activated(self, col_view, position):
         item: FileItem = col_view.get_model().get_item(position)
@@ -2376,6 +2404,11 @@ class FileManager(GObject.Object):
             self.current_path = path
         self._update_breadcrumb()
 
+        # Invalidar cache quando o usuário forçar refresh explícito (sem mudança de path)
+        # Navegações normais (com path diferente) reusam o cache via _list_local_files
+        if path is None and hasattr(self, "_dir_cache"):
+            self._invalidate_dir_cache(self.current_path)
+
         if hasattr(self, "search_entry"):
             self.search_entry.set_sensitive(False)
             self.search_entry.set_placeholder_text(_("Loading..."))
@@ -2388,17 +2421,37 @@ class FileManager(GObject.Object):
     def _list_local_files(self, requested_path: str, source: str = "filemanager"):
         """Ultra-fast native directory listing using os.scandir and POSIX stat."""
         try:
-            if self._is_destroyed or requested_path != self.current_path:
+            if self._is_destroyed:
                 return
 
+            # Para pre-fetches (source="prefetch"), apenas popular o cache — nunca atualizar UI
+            is_prefetch = (source == "prefetch")
+
+            # Para operações normais, verificar se ainda estamos no path correto
+            if not is_prefetch and requested_path != self.current_path:
+                return
+
+            # ── Cache check (Causa 1) ────────────────────────────────────────
+            now = time.monotonic()
+            cached = self._dir_cache.get(requested_path)
+            if cached is not None:
+                cached_time, cached_items = cached
+                if now - cached_time <= self._DIR_CACHE_TTL:
+                    # Cache hit — retornar imediatamente sem I/O
+                    if not is_prefetch:
+                        GLib.idle_add(self._set_store_items, cached_items, requested_path, source)
+                    return
+            # ─────────────────────────────────────────────────────────────────
+
             if not os.path.exists(requested_path) or not os.path.isdir(requested_path):
-                GLib.idle_add(
-                    self._update_store_with_files,
-                    requested_path,
-                    [],
-                    _("Directory does not exist"),
-                    source,
-                )
+                if not is_prefetch:
+                    GLib.idle_add(
+                        self._update_store_with_files,
+                        requested_path,
+                        [],
+                        _("Directory does not exist"),
+                        source,
+                    )
                 return
 
             parent_item = None
@@ -2425,7 +2478,9 @@ class FileManager(GObject.Object):
 
             with os.scandir(requested_path) as entries:
                 for entry in entries:
-                    if self._is_destroyed or requested_path != self.current_path:
+                    if self._is_destroyed:
+                        return
+                    if not is_prefetch and requested_path != self.current_path:
                         return
                     try:
                         st = entry.stat(follow_symlinks=False)
@@ -2468,12 +2523,22 @@ class FileManager(GObject.Object):
             all_items.extend(directories)
             all_items.extend(files)
 
-            GLib.idle_add(self._set_store_items, all_items, requested_path, source)
+            # ── Popular cache (Causa 1) ────────────────────────────────────
+            # Política LRU simples: se atingiu o limite, remover a entrada mais antiga
+            if len(self._dir_cache) >= self._DIR_CACHE_MAX:
+                oldest_key = min(self._dir_cache, key=lambda k: self._dir_cache[k][0])
+                del self._dir_cache[oldest_key]
+            self._dir_cache[requested_path] = (time.monotonic(), list(all_items))
+            # ──────────────────────────────────────────────────────────────
+
+            if not is_prefetch:
+                GLib.idle_add(self._set_store_items, all_items, requested_path, source)
         except Exception as e:
             self.logger.error(f"Error in local file listing for {requested_path}: {e}")
-            GLib.idle_add(
-                self._update_store_with_files, requested_path, [], str(e), source
-            )
+            if not (source == "prefetch"):
+                GLib.idle_add(
+                    self._update_store_with_files, requested_path, [], str(e), source
+                )
 
     def _list_files_thread(self, requested_path: str, source: str = "filemanager"):
         """Task 1: UI Batching - Process files in batches to avoid UI freezing.
@@ -2665,8 +2730,19 @@ class FileManager(GObject.Object):
             return False
 
         if self.store is not None:
-            # Single splice replaces all items - more efficient than multiple operations
-            self.store.splice(0, self.store.get_n_items(), items)
+            # Suspender o filtro durante o splice para evitar N recálculos.
+            # O filtro é temporariamente removido do FilterListModel, o splice
+            # é feito no store bruto, e o filtro é reconectado em seguida.
+            # O GTK então faz um único recálculo em lote — muito mais eficiente.
+            current_filter = None
+            if hasattr(self, "filtered_store") and self.filtered_store is not None:
+                current_filter = self.filtered_store.get_filter()
+                self.filtered_store.set_filter(None)
+            try:
+                self.store.splice(0, self.store.get_n_items(), items)
+            finally:
+                if current_filter is not None and hasattr(self, "filtered_store") and self.filtered_store is not None:
+                    self.filtered_store.set_filter(current_filter)
 
         # Track this as the last successfully listed path (for permission denied fallback)
         self._last_successful_path = requested_path
@@ -2675,7 +2751,46 @@ class FileManager(GObject.Object):
         self._recursive_search_in_progress = False
         self._restore_search_entry(source)
         self._update_status_bar()
+
+        # ── Pre-fetch do diretório pai (extensão da Causa 1) ──────────────────
+        # Pré-popular o cache com o diretório pai em background, de modo que
+        # ao pressionar "..", o resultado já esteja disponível instantaneamente.
+        if (
+            requested_path != "/"
+            and not self._is_destroyed
+            and not self._is_remote_session()
+            and not self._recursive_search_in_progress
+        ):
+            parent_path = str(Path(requested_path).parent)
+            if parent_path not in self._dir_cache:
+                # Submeter com prioridade baixa: a thread do pool já está disponível
+                AsyncTaskManager.get().submit_io(
+                    self._list_local_files, parent_path, "prefetch"
+                )
+        # ─────────────────────────────────────────────────────────────────────
+
         return False
+
+    def _invalidate_dir_cache(self, path: str = None) -> None:
+        """Invalida entradas do cache de diretório após operações de arquivo.
+
+        Se 'path' for fornecido, invalida apenas aquele caminho e seu pai.
+        Se 'path' for None, limpa todo o cache (usado em refresh manual).
+
+        Args:
+            path: Caminho absoluto do diretório afetado, ou None para limpeza total.
+        """
+        if path is None:
+            self._dir_cache.clear()
+            return
+
+        # Invalidar o diretório afetado
+        self._dir_cache.pop(path, None)
+
+        # Invalidar o pai também (pois o conteúdo do pai lista este diretório)
+        parent = str(Path(path).parent)
+        if parent and parent != path:
+            self._dir_cache.pop(parent, None)
 
     def _update_store_with_files(
         self,
@@ -2880,27 +2995,56 @@ class FileManager(GObject.Object):
             return f"{size_bytes / 1024**3:.1f} GB"
 
     def _get_free_disk_space_text(self) -> str:
-        """Returns formatted free disk space for current path with TTL caching."""
-        try:
-            if not hasattr(self, "_disk_usage_cache"):
-                self._disk_usage_cache = {}
+        """Retorna o espaço livre formatado para o caminho atual, com cache.
 
+        Esta versão é 100% não-bloqueante: retorna sempre o valor em cache
+        (ou string vazia se ainda não disponível) e agenda cálculo assíncrono
+        quando o cache expirou ou o caminho mudou.
+        """
+        try:
             now = time.monotonic()
             if not self.session_item or self.session_item.is_local():
                 path_to_check = self.current_path or os.path.expanduser("~")
                 cache_key = path_to_check
+
                 if cache_key in self._disk_usage_cache:
                     cached_time, cached_val = self._disk_usage_cache[cache_key]
-                    if now - cached_time < 10.0:
+                    if now - cached_time < 30.0:   # TTL aumentado para 30s
                         return cached_val
+                    # Cache expirado — agendar recálculo assíncrono se não em progresso
 
-                if not os.path.exists(path_to_check):
-                    path_to_check = "/"
-                usage = shutil.disk_usage(path_to_check)
-                formatted = self._format_bytes(usage.free)
-                self._disk_usage_cache[cache_key] = (now, formatted)
-                return formatted
+                # Cache miss ou expirado — agendar cálculo em background
+                if not getattr(self, "_disk_space_calculating", False):
+                    self._disk_space_calculating = True
+                    path_snapshot = path_to_check  # capturar por closure
+
+                    def _calculate():
+                        try:
+                            p = path_snapshot if os.path.exists(path_snapshot) else "/"
+                            usage = shutil.disk_usage(p)
+                            formatted = self._format_bytes(usage.free)
+                            self._disk_usage_cache[path_snapshot] = (
+                                time.monotonic(), formatted
+                            )
+
+                            def _update_ui():
+                                self._disk_space_calculating = False
+                                if not self._is_destroyed:
+                                    self._update_status_bar()
+                                return False
+
+                            GLib.idle_add(_update_ui)
+                        except Exception:
+                            self._disk_space_calculating = False
+
+                    AsyncTaskManager.get().submit_io(_calculate)
+
+                # Retornar valor em cache expirado (melhor que "" durante o cálculo)
+                if cache_key in self._disk_usage_cache:
+                    return self._disk_usage_cache[cache_key][1]
+                return ""  # Nenhum valor disponível ainda
             else:
+                # Sessões remotas: usar cache existente sem bloquear
                 if (
                     hasattr(self, "_remote_free_space_cache")
                     and self.current_path in self._remote_free_space_cache
@@ -3306,7 +3450,10 @@ class FileManager(GObject.Object):
                 on_calculate_checksum=lambda itm, folder: self._on_calculate_checksum_action(
                     None, None, [itm]
                 ),
-                on_file_saved=lambda itm, folder: self.refresh(),
+                on_file_saved=lambda itm, folder: (
+                    self._invalidate_dir_cache(self.current_path),
+                    self.refresh(),
+                ),
             )
 
         self.quick_look_dialog.preview_item(
@@ -4218,6 +4365,8 @@ class FileManager(GObject.Object):
                             self.logger.info(
                                 "Download to current local directory completed. Refreshing view."
                             )
+                            if hasattr(self, "_invalidate_dir_cache"):
+                                self._invalidate_dir_cache(self.current_path)
                             self.refresh(source="filemanager")
 
                 # Prepare download in background to get sizes and check space

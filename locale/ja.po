@@ -11254,3 +11254,275 @@ msgstr "変更を破棄"
 # 
 msgid "Discard"
 msgstr "破棄"
+
+# 
+msgid "Detailed List View"
+msgstr "詳細リスト表示"
+
+# 
+msgid "Icon Grid View"
+msgstr "アイコン グリッド表示"
+
+# 
+msgid "Sort Files..."
+msgstr "ファイルを並べ替え..."
+
+# 
+msgid "Executable file"
+msgstr "実行可能ファイル"
+
+# 
+msgid "Owned by root"
+msgstr "root が所有"
+
+# 
+msgid "folder"
+msgstr "フォルダー"
+
+# 
+msgid "file"
+msgstr "ファイル"
+
+# 
+msgid "folders"
+msgstr "フォルダー"
+
+# 
+msgid "files"
+msgstr "ファイル"
+
+# 
+msgid "selected"
+msgstr "選択済み"
+
+# 
+msgid "0 selected"
+msgstr "0 個選択"
+
+# 
+msgid "folder selected"
+msgstr "フォルダーが選択されました"
+
+# 
+msgid "folders selected"
+msgstr "フォルダーが選択されました"
+
+# 
+msgid "file selected"
+msgstr "ファイルが選択されました"
+
+# 
+msgid "files selected"
+msgstr "ファイルが選択されました"
+
+# 
+msgid "item"
+msgstr "項目"
+
+# 
+msgid "items"
+msgstr "項目"
+
+# 
+msgid "Free Space"
+msgstr "空き容量"
+
+# 
+msgid "Parent Directory"
+msgstr "親ディレクトリ"
+
+# 
+msgid "Directory / Folder"
+msgstr "ディレクトリ / フォルダー"
+
+# 
+msgid "Symbolic Link"
+msgstr "シンボリック リンク"
+
+# 
+msgid "Go to parent directory"
+msgstr "親ディレクトリへ移動"
+
+# 
+msgid "Python Script"
+msgstr "Python スクリプト"
+
+# 
+msgid "Shell Script"
+msgstr "シェル スクリプト"
+
+# 
+msgid "Bash Script"
+msgstr "Bash スクリプト"
+
+# 
+msgid "Zsh Script"
+msgstr "Zsh スクリプト"
+
+# 
+msgid "JSON Document"
+msgstr "JSON ドキュメント"
+
+# 
+msgid "YAML Document"
+msgstr "YAML ドキュメント"
+
+# 
+msgid "TOML Document"
+msgstr "TOML ドキュメント"
+
+# 
+msgid "XML Document"
+msgstr "XML ドキュメント"
+
+# 
+msgid "HTML Document"
+msgstr "HTML ドキュメント"
+
+# 
+msgid "CSS Stylesheet"
+msgstr "CSS スタイルシート"
+
+# 
+msgid "JavaScript File"
+msgstr "JavaScript ファイル"
+
+# 
+msgid "TypeScript File"
+msgstr "TypeScript ファイル"
+
+# 
+msgid "Markdown Document"
+msgstr "Markdown ドキュメント"
+
+# 
+msgid "Plain Text Document"
+msgstr "プレーン テキスト ドキュメント"
+
+# 
+msgid "Log File"
+msgstr "ログ ファイル"
+
+# 
+msgid "PDF Document"
+msgstr "PDF ドキュメント"
+
+# 
+msgid "PNG Image"
+msgstr "PNG 画像"
+
+# 
+msgid "JPEG Image"
+msgstr "JPEG 画像"
+
+# 
+msgid "SVG Vector Graphic"
+msgstr "SVG ベクター グラフィック"
+
+# 
+msgid "WebP Image"
+msgstr "WebP 画像"
+
+# 
+msgid "GIF Image"
+msgstr "GIF 画像"
+
+# 
+msgid "ZIP Archive"
+msgstr "ZIP アーカイブ"
+
+# 
+msgid "TAR Archive"
+msgstr "TAR アーカイブ"
+
+# 
+msgid "GZip Archive"
+msgstr "GZip アーカイブ"
+
+# 
+msgid "XZ Archive"
+msgstr "XZ アーカイブ"
+
+# 
+msgid "7-Zip Archive"
+msgstr "7-Zip アーカイブ"
+
+# 
+msgid "Debian Package"
+msgstr "Debian パッケージ"
+
+# 
+msgid "RPM Package"
+msgstr "RPM パッケージ"
+
+# 
+msgid "C Source Code"
+msgstr "C ソースコード"
+
+# 
+msgid "C++ Source Code"
+msgstr "C++ ソースコード"
+
+# 
+msgid "C/C++ Header"
+msgstr "C/C++ ヘッダー"
+
+# 
+msgid "Rust Source Code"
+msgstr "Rust ソースコード"
+
+# 
+msgid "Go Source Code"
+msgstr "Go ソースコード"
+
+# 
+msgid "Java Source Code"
+msgstr "Java ソースコード"
+
+# 
+msgid "Configuration File"
+msgstr "設定ファイル"
+
+# 
+msgid "Security Certificate"
+msgstr "セキュリティ証明書"
+
+# 
+msgid "PEM Certificate/Key"
+msgstr "PEM 証明書/鍵"
+
+# 
+msgid "Public Key"
+msgstr "公開鍵"
+
+# 
+msgid "Private Key"
+msgstr "秘密鍵"
+
+# 
+msgid "Executable Program"
+msgstr "実行可能プログラム"
+
+# 
+msgid "Target"
+msgstr "ターゲット"
+
+# 
+msgid "Modified"
+msgstr "変更日時"
+
+# 
+msgid "Upload Directory"
+msgstr "ディレクトリをアップロード"
+
+# 
+msgid "Select Directory"
+msgstr "ディレクトリを選択"
+
+# 
+msgid "Please select a valid directory!"
+msgstr "有効なディレクトリを選択してください！"
+
+# 
+msgid "Directory does not exist"
+msgstr "ディレクトリが存在しません"
