@@ -11592,3 +11592,19 @@ msgstr "Hierarchikus fanézet"
 # 
 msgid "Calculating..."
 msgstr "Számítás..."
+
+# 
+msgid "Fit to Window"
+msgstr "Ablakhoz igazítás"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Eredeti méret (100%)"
+
+# 
+msgid "Fit"
+msgstr "Igazítás"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Kattintson az Igazítás és 100% közötti váltáshoz"

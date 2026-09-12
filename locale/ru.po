@@ -11570,3 +11570,19 @@ msgstr "Иерархическое дерево"
 # 
 msgid "Calculating..."
 msgstr "Вычисление..."
+
+# 
+msgid "Fit to Window"
+msgstr "По размеру окна"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Исходный размер (100%)"
+
+# 
+msgid "Fit"
+msgstr "Подогнать"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Нажмите для переключения между Подогнать и 100%"

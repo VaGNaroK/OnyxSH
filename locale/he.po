@@ -11550,3 +11550,19 @@ msgstr "תצוגת עץ היררכית"
 # 
 msgid "Calculating..."
 msgstr "מחשב..."
+
+# 
+msgid "Fit to Window"
+msgstr "התאם לחלון"
+
+# 
+msgid "Original Size (100%)"
+msgstr "גודל מקורי (100%)"
+
+# 
+msgid "Fit"
+msgstr "התאם"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "לחץ כדי לעבור בין התאם ל-100%"

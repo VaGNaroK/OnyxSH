@@ -11600,3 +11600,19 @@ msgstr "Vista de árbol jerárquico"
 # 
 msgid "Calculating..."
 msgstr "Calculando..."
+
+# 
+msgid "Fit to Window"
+msgstr "Ajustar a la ventana"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Tamaño original (100%)"
+
+# 
+msgid "Fit"
+msgstr "Ajustar"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Haga clic para alternar entre Ajustar y 100%"

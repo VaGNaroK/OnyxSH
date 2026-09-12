@@ -11581,3 +11581,19 @@ msgstr "Hierarkkinen puunäkymä"
 # 
 msgid "Calculating..."
 msgstr "Lasketaan..."
+
+# 
+msgid "Fit to Window"
+msgstr "Sovita ikkunaan"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Alkuperäinen koko (100%)"
+
+# 
+msgid "Fit"
+msgstr "Sovita"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Napsauta vaihtaaksesi Sovita ja 100% välillä"

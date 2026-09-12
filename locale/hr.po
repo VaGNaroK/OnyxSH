@@ -11573,3 +11573,19 @@ msgstr "Hijerarhijski prikaz stabla"
 # 
 msgid "Calculating..."
 msgstr "Izračunavanje..."
+
+# 
+msgid "Fit to Window"
+msgstr "Prilagodi prozoru"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Izvorna veličina (100%)"
+
+# 
+msgid "Fit"
+msgstr "Prilagodi"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Kliknite za prebacivanje između Prilagodi i 100%"

@@ -11576,3 +11576,19 @@ msgstr "Hierarkisk trädvy"
 # 
 msgid "Calculating..."
 msgstr "Beräknar..."
+
+# 
+msgid "Fit to Window"
+msgstr "Anpassa till fönster"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Ursprunglig storlek (100%)"
+
+# 
+msgid "Fit"
+msgstr "Anpassa"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Klicka för att växla mellan Anpassa och 100%"

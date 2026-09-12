@@ -9,6 +9,13 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [Não Lançado] - 2026-09-11
 
 ### Adicionado
+- **Zoom Interativo e Pan (Arrastar para Navegar) em Imagens no Quick Look**: Suporte a aceleração por hardware (GPU/GSK) com fallback para renderização em software (CPU/Cairo), ampliando a capacidade de inspeção de fotos, esquemáticos e capturas de tela no visualizador de arquivos (`src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/data/styles/components.css`, `scripts/sync_translations.py`, `tests/test_quick_look.py`):
+  - 🔍 **Controle Amplo de Escala**: Faixa de zoom de 10% (0.1x) a 1600% (16.0x) com degraus progressivos suaves (+25% / -20%).
+  - 🖐️ **Pan Livre e Gestos Avançados**: Navegação por clique e arraste (`Gtk.GestureDrag`) com indicação dinâmica de cursor (`grab`/`grabbing`), zoom focalizado via roda do mouse (<kbd>Ctrl</kbd> + Scroll) e suporte a pinça contínua no touchpad (`Gtk.GestureZoom`).
+  - 🎛️ **Barra de Ferramentas e Metadados**: Barra de rodapé integrada (`.quick-look-zoom-bar`) com exibição de dimensões da imagem, tamanho e data, além de botões conectados Libadwaita (`[-]`, indicador com alternância rápida entre Ajustar e 100%, `[+]`, Ajustar à Janela e Tamanho Real 1:1).
+  - ⌨️ **Atalhos Rápidos de Teclado**: <kbd>Ctrl + +</kbd> / <kbd>=</kbd> para aproximar, <kbd>Ctrl + -</kbd> para afastar, <kbd>Ctrl + 0</kbd> para ajustar à janela e <kbd>Ctrl + 1</kbd> para tamanho real 100%.
+  - 🛡️ **Zero Regressões**: Isolamento estrito de atalhos e gestos para não interferir na navegação de arquivos nem no editor de texto/código embutido. Reset automático de escala ao navegar entre imagens.
+  - 🌐 **Internacionalização Completa**: Suporte nativo em todos os 28 idiomas do OnyxSH.
 - **Visualização em Árvore Hierárquica (Tree View) com Métricas Recursivas de Disco no File Manager**: Terceiro modo de exibição integrado com `Gtk.TreeListModel` e `Gtk.TreeExpander` (`src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/models.py`, `src/onyxsh/data/styles/components.css`, `tests/test_filemanager_tree_view.py`):
   - 🌳 **Navegação Aninhada Expansível**: Expansão e recolhimento hierárquico com suporte completo a atalhos de teclado (<kbd>→</kbd> para expandir pasta, <kbd>←</kbd> para recolher ou navegar para o nó pai).
   - 📊 **Cálculo Assíncrono de Métricas Recursivas em Background**: Varredura sem travamento da UI para pastas locais (`os.scandir`) e remotas SSH (`ls -la`), com emissão de sinal thread-safe `metrics-updated`, contagem de itens e formatação inteligente de tamanho.

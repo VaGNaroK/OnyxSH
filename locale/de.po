@@ -11614,3 +11614,19 @@ msgstr "Hierarchische Strukturansicht"
 # 
 msgid "Calculating..."
 msgstr "Berechnung..."
+
+# 
+msgid "Fit to Window"
+msgstr "An Fenster anpassen"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Originalgröße (100%)"
+
+# 
+msgid "Fit"
+msgstr "Anpassen"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Klicken, um zwischen Anpassen und 100% umzuschalten"

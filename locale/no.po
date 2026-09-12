@@ -11583,3 +11583,19 @@ msgstr "Hierarkisk trevisning"
 # 
 msgid "Calculating..."
 msgstr "Beregner..."
+
+# 
+msgid "Fit to Window"
+msgstr "Tilpass til vindu"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Opprinnelig størrelse (100%)"
+
+# 
+msgid "Fit"
+msgstr "Tilpass"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Klikk for å veksle mellom Tilpass og 100%"

@@ -11531,3 +11531,19 @@ msgstr "계층형 트리 보기"
 # 
 msgid "Calculating..."
 msgstr "계산 중..."
+
+# 
+msgid "Fit to Window"
+msgstr "창에 맞추기"
+
+# 
+msgid "Original Size (100%)"
+msgstr "원래 크기 (100%)"
+
+# 
+msgid "Fit"
+msgstr "맞추기"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "맞추기와 100% 간 전환하려면 클릭"

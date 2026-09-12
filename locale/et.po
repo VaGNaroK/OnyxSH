@@ -11613,3 +11613,19 @@ msgstr "Hierarhiline puuvaade"
 # 
 msgid "Calculating..."
 msgstr "Arvutamine..."
+
+# 
+msgid "Fit to Window"
+msgstr "Sobita aknasse"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Algne suurus (100%)"
+
+# 
+msgid "Fit"
+msgstr "Sobita"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Klõpsake, et lülitada Sobita ja 100% vahel"

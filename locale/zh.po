@@ -11529,3 +11529,19 @@ msgstr "分层树形视图"
 # 
 msgid "Calculating..."
 msgstr "正在计算..."
+
+# 
+msgid "Fit to Window"
+msgstr "适应窗口"
+
+# 
+msgid "Original Size (100%)"
+msgstr "原始尺寸 (100%)"
+
+# 
+msgid "Fit"
+msgstr "适应"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "点击在适应和100%之间切换"

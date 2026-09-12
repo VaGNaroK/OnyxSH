@@ -409,6 +409,17 @@
 - [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.11.0`
 - [x] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/models.py`, `src/onyxsh/data/styles/components.css`, `scripts/sync_translations.py`, `tests/test_filemanager_tree_view.py`.
 
+### 📌 5.10. Zoom Interativo e Pan em Imagens no Quick Look
+- [x] **Descrição:** Suporte a zoom contínuo e navegação por arraste (Pan) na visualização de imagens do Quick Look com aceleração por hardware (GPU/GSK) e fallback para CPU (Cairo).
+- [x] **Recursos:**
+  - 🔍 **Controle de Escala Seguro:** Escala de 10% a 1600% com degraus suaves (+25% / -20%).
+  - 🖐️ **Pan & Gestos Avançados:** Arraste com o mouse (`Gtk.GestureDrag`) com mudança dinâmica de cursor (`grab`/`grabbing`), zoom centralizado na roda do mouse (<kbd>Ctrl</kbd> + Scroll) e pinça no touchpad (`Gtk.GestureZoom`).
+  - 🎛️ **Barra de Rodapé:** Linked buttons Libadwaita (`[-]`, indicador com toggle, `[+]`, Ajustar à Janela e Tamanho Real 100%).
+  - ⌨️ **Atalhos de Teclado:** <kbd>Ctrl++</kbd>, <kbd>Ctrl+-</kbd>, <kbd>Ctrl+0</kbd>, <kbd>Ctrl+1</kbd>.
+- [x] **Status:** ✅ Implementado no ciclo `v0.11.0` (`src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/data/styles/components.css`, `scripts/sync_translations.py`, `tests/test_quick_look.py`).
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.11.0`
+- [x] **Módulos Afetados:** `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/data/styles/components.css`, `scripts/sync_translations.py`, `tests/test_quick_look.py`.
+
 ---
 
 ## 📅 Matriz de Versões e Entregas Sugerida
@@ -417,7 +428,7 @@
 | :--- | :--- | :--- |
 | **`v0.9.0`** | **Produtividade & Core UX** | • Command Palette (`Ctrl+Shift+P`)<br>• Restauração Automática de Sessões<br>• Integração Semântica OSC 133<br>• Histórico Inteligente e Snippets de Comandos<br>• Autocomplete e Notificações Desktop<br>• Novo Logo Vetorial Oficial OnyxSH |
 | **`v0.10.1`** | **File Manager 2.0 & In-Place Editor** | • **Editor Embutido no Quick Look (com Sudo / Root / SSH)**<br>• **Quick Look (Preview com Tecla `Espaço`)**<br>• **Ações Rápidas de Terminal & IA no File Manager**<br>• **Atalhos Rápidos (Bookmarks) e Barra de Status com Espaço Livre**<br>• **Badges Visuais de Permissões (+x)**<br>• **Verificador & Comparador de Checksums / Hash**<br>• Production Guard & Roteamento Inteligente de IA<br>• Modo Estritamente Offline & Diagnóstico (`--diagnose`) |
-| **`v0.11.0`** | **DevOps, Observabilidade & Remoto** | • Modo Dual-Pane Local ⇄ Remoto no File Manager<br>• **Tree View Hierárquica com Métricas de Disco (Implementado)**<br>• Dashboard de Recursos em Tempo Real (CPU/RAM/Rede)<br>• Gráficos & Imagens no Terminal (Protocolo Sixel)<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs<br>• Auto-Correção Proativa de Erros de Terminal<br>• Exportação com Anotações & Relatório HTML de Saúde |
+| **`v0.11.0`** | **DevOps, Observabilidade & Remoto** | • Modo Dual-Pane Local ⇄ Remoto no File Manager<br>• **Tree View Hierárquica com Métricas de Disco (Implementado)**<br>• **Zoom & Pan em Imagens no Quick Look (Implementado)**<br>• Dashboard de Recursos em Tempo Real (CPU/RAM/Rede)<br>• Gráficos & Imagens no Terminal (Protocolo Sixel)<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs<br>• Auto-Correção Proativa de Erros de Terminal<br>• Exportação com Anotações & Relatório HTML de Saúde |
 | **`v1.0.0`** | **Maturidade, Extensibilidade & Cofres** | • API de Plugins (Onyx Bridge)<br>• Ferramentas Customizadas para o Agente & Catálogo de Receitas<br>• Integração com Gerenciadores de Segredos (Bitwarden, 1Password)<br>• Compartilhamento Instantâneo de Snippets via Link<br>• Estabilização Completa de Pacotes Flatpak, Debian e AUR |
 | **`v1.1.0`** | **Colaboração & Proteção Avançada** | • Sessões Compartilhadas & Terminal Multiplayer (Pair Programming)<br>• Modo "Sombra" (Dry-Run Sandbox com visualização de diff)<br>• Detecção Proativa de Comportamento Anômalo<br>• Aprendizado por Demonstração (Demonstration Learning) |
 

@@ -11574,3 +11574,19 @@ msgstr "Hiyerarşik Ağaç Görünümü"
 # 
 msgid "Calculating..."
 msgstr "Hesaplanıyor..."
+
+# 
+msgid "Fit to Window"
+msgstr "Pencereye Sığdır"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Orijinal Boyut (%100)"
+
+# 
+msgid "Fit"
+msgstr "Sığdır"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Sığdır ve %100 arasında geçiş yapmak için tıklayın"

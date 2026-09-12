@@ -11573,3 +11573,19 @@ msgstr "Lagskipt trjásýn"
 # 
 msgid "Calculating..."
 msgstr "Reiknar..."
+
+# 
+msgid "Fit to Window"
+msgstr "Laga að glugga"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Upprunaleg stærð (100%)"
+
+# 
+msgid "Fit"
+msgstr "Laga"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Smelltu til að skipta á milli Laga og 100%"

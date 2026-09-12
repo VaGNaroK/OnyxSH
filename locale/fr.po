@@ -11603,3 +11603,19 @@ msgstr "Vue en arborescence hiérarchique"
 # 
 msgid "Calculating..."
 msgstr "Calcul en cours..."
+
+# 
+msgid "Fit to Window"
+msgstr "Ajuster à la fenêtre"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Taille originale (100%)"
+
+# 
+msgid "Fit"
+msgstr "Ajuster"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Cliquez pour basculer entre Ajuster et 100%"

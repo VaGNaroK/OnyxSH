@@ -11593,3 +11593,19 @@ msgstr "Vista ad albero gerarchico"
 # 
 msgid "Calculating..."
 msgstr "Calcolo in corso..."
+
+# 
+msgid "Fit to Window"
+msgstr "Adatta alla finestra"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Dimensioni originali (100%)"
+
+# 
+msgid "Fit"
+msgstr "Adatta"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Fai clic per alternare tra Adatta e 100%"

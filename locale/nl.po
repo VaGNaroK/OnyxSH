@@ -11585,3 +11585,19 @@ msgstr "Hiërarchische boomweergave"
 # 
 msgid "Calculating..."
 msgstr "Berekenen..."
+
+# 
+msgid "Fit to Window"
+msgstr "Aanpassen aan venster"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Oorspronkelijke grootte (100%)"
+
+# 
+msgid "Fit"
+msgstr "Passend"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Klik om te schakelen tussen Passend en 100%"

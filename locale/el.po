@@ -11603,3 +11603,19 @@ msgstr "Ιεραρχική προβολή δέντρου"
 # 
 msgid "Calculating..."
 msgstr "Υπολογισμός..."
+
+# 
+msgid "Fit to Window"
+msgstr "Προσαρμογή στο παράθυρο"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Αρχικό μέγεθος (100%)"
+
+# 
+msgid "Fit"
+msgstr "Προσαρμογή"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Κάντε κλικ για εναλλαγή μεταξύ Προσαρμογή και 100%"

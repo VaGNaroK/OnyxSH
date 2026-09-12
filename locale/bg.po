@@ -11583,3 +11583,19 @@ msgstr "Йерархичен изглед на дърво"
 # 
 msgid "Calculating..."
 msgstr "Изчисляване..."
+
+# 
+msgid "Fit to Window"
+msgstr "Побиране в прозореца"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Оригинален размер (100%)"
+
+# 
+msgid "Fit"
+msgstr "Побиране"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Щракнете за превключване между Побиране и 100%"

@@ -11534,3 +11534,19 @@ msgstr "階層ツリー表示"
 # 
 msgid "Calculating..."
 msgstr "計算中..."
+
+# 
+msgid "Fit to Window"
+msgstr "ウィンドウに合わせる"
+
+# 
+msgid "Original Size (100%)"
+msgstr "元のサイズ (100%)"
+
+# 
+msgid "Fit"
+msgstr "合わせる"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "クリックして「合わせる」と「100%」を切り替え"

@@ -11574,3 +11574,19 @@ msgstr "Ієрархічний вигляд дерева"
 # 
 msgid "Calculating..."
 msgstr "Обчислення..."
+
+# 
+msgid "Fit to Window"
+msgstr "Підігнати до вікна"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Оригінальний розмір (100%)"
+
+# 
+msgid "Fit"
+msgstr "Підігнати"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Клацніть для перемикання між Підігнати та 100%"

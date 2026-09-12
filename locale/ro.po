@@ -11593,3 +11593,19 @@ msgstr "Vizualizare ierarhică tip arbore"
 # 
 msgid "Calculating..."
 msgstr "Se calculează..."
+
+# 
+msgid "Fit to Window"
+msgstr "Potrivește la fereastră"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Dimensiune originală (100%)"
+
+# 
+msgid "Fit"
+msgstr "Potrivește"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Faceți clic pentru a comuta între Potrivește și 100%"

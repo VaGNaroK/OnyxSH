@@ -12345,3 +12345,19 @@ msgstr "Hierarchical Tree View"
 # 
 msgid "Calculating..."
 msgstr "Calculating..."
+
+# 
+msgid "Fit to Window"
+msgstr "Fit to Window"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Original Size (100%)"
+
+# 
+msgid "Fit"
+msgstr "Fit"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Click to toggle between Fit and 100%"

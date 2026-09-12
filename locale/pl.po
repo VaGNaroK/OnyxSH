@@ -11587,3 +11587,19 @@ msgstr "Widok drzewa hierarchicznego"
 # 
 msgid "Calculating..."
 msgstr "Obliczanie..."
+
+# 
+msgid "Fit to Window"
+msgstr "Dopasuj do okna"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Oryginalny rozmiar (100%)"
+
+# 
+msgid "Fit"
+msgstr "Dopasuj"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Kliknij, aby przełączyć między Dopasuj a 100%"

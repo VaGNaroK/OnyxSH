@@ -11577,3 +11577,19 @@ msgstr "Hierarchické stromové zobrazenie"
 # 
 msgid "Calculating..."
 msgstr "Počítanie..."
+
+# 
+msgid "Fit to Window"
+msgstr "Prispôsobiť oknu"
+
+# 
+msgid "Original Size (100%)"
+msgstr "Pôvodná veľkosť (100%)"
+
+# 
+msgid "Fit"
+msgstr "Prispôsobiť"
+
+# 
+msgid "Click to toggle between Fit and 100%"
+msgstr "Kliknutím prepnete medzi Prispôsobiť a 100%"

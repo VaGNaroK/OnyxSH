@@ -297,6 +297,133 @@ class TestQuickLook(unittest.TestCase):
             self.dialog._on_save_clicked(as_sudo=False)
             mock_dialog.assert_called_once()
 
+    def test_image_zoom_controls_initialization(self):
+        self.assertIsNotNone(self.dialog.scrolled_image)
+        self.assertIsNotNone(self.dialog.picture)
+        self.assertIsNotNone(self.dialog.zoom_out_btn)
+        self.assertIsNotNone(self.dialog.zoom_label_btn)
+        self.assertIsNotNone(self.dialog.zoom_in_btn)
+        self.assertIsNotNone(self.dialog.zoom_fit_btn)
+        self.assertIsNotNone(self.dialog.zoom_100_btn)
+        self.assertEqual(self.dialog._zoom_mode, "fit")
+        self.assertEqual(self.dialog._zoom_factor, 1.0)
+
+    def test_image_zoom_in_out_and_limits(self):
+        self.dialog._is_image = True
+        self.dialog._img_natural_w = 1000
+        self.dialog._img_natural_h = 800
+
+        # Zoom in from fit
+        self.dialog._zoom_in()
+        self.assertEqual(self.dialog._zoom_mode, "manual")
+        self.assertGreater(self.dialog._zoom_factor, 1.0)
+        self.assertFalse(self.dialog.picture.get_can_shrink())
+
+        # Zoom in repeatedly to hit MAX_ZOOM (16.0)
+        for _ in range(30):
+            self.dialog._zoom_in()
+        self.assertAlmostEqual(self.dialog._zoom_factor, 16.0)
+        self.assertFalse(self.dialog.zoom_in_btn.get_sensitive())
+
+        # Zoom out repeatedly to hit MIN_ZOOM (0.10)
+        for _ in range(50):
+            self.dialog._zoom_out()
+        self.assertAlmostEqual(self.dialog._zoom_factor, 0.10)
+        self.assertFalse(self.dialog.zoom_out_btn.get_sensitive())
+
+    def test_image_zoom_fit_and_100_modes(self):
+        self.dialog._is_image = True
+        self.dialog._img_natural_w = 1200
+        self.dialog._img_natural_h = 900
+
+        # 1. 100% zoom
+        self.dialog._zoom_100()
+        self.assertEqual(self.dialog._zoom_mode, "manual")
+        self.assertEqual(self.dialog._zoom_factor, 1.0)
+        self.assertEqual(self.dialog.zoom_label_btn.get_label(), "100%")
+
+        # 2. Fit to window
+        self.dialog._zoom_fit()
+        self.assertEqual(self.dialog._zoom_mode, "fit")
+        self.assertTrue(self.dialog.picture.get_can_shrink())
+        self.assertIn(self.dialog.zoom_label_btn.get_label(), ["Fit", "Ajustar"])
+
+        # 3. Toggle via zoom label button
+        self.dialog._on_zoom_label_clicked()
+        self.assertEqual(self.dialog._zoom_mode, "manual")
+        self.assertEqual(self.dialog._zoom_factor, 1.0)
+        self.dialog._on_zoom_label_clicked()
+        self.assertEqual(self.dialog._zoom_mode, "fit")
+
+    def test_image_zoom_keyboard_shortcuts(self):
+        self.dialog._is_image = True
+        self.dialog._img_natural_w = 800
+        self.dialog._img_natural_h = 600
+        self.dialog._zoom_fit()
+
+        # Ctrl++ zooms in
+        res = self.dialog._on_key_pressed(None, Gdk.KEY_plus, 0, Gdk.ModifierType.CONTROL_MASK)
+        self.assertEqual(res, Gdk.EVENT_STOP)
+        self.assertEqual(self.dialog._zoom_mode, "manual")
+        self.assertGreater(self.dialog._zoom_factor, 1.0)
+
+        # Ctrl+- zooms out
+        res = self.dialog._on_key_pressed(None, Gdk.KEY_minus, 0, Gdk.ModifierType.CONTROL_MASK)
+        self.assertEqual(res, Gdk.EVENT_STOP)
+
+        # Ctrl+0 fits to window
+        res = self.dialog._on_key_pressed(None, Gdk.KEY_0, 0, Gdk.ModifierType.CONTROL_MASK)
+        self.assertEqual(res, Gdk.EVENT_STOP)
+        self.assertEqual(self.dialog._zoom_mode, "fit")
+
+        # Ctrl+1 sets 100%
+        res = self.dialog._on_key_pressed(None, Gdk.KEY_1, 0, Gdk.ModifierType.CONTROL_MASK)
+        self.assertEqual(res, Gdk.EVENT_STOP)
+        self.assertEqual(self.dialog._zoom_factor, 1.0)
+
+    def test_non_image_mode_ignores_zoom_shortcuts(self):
+        self.dialog._is_image = False
+        self.dialog._is_binary = True
+
+        # Ctrl++ should propagate when not an image
+        res = self.dialog._on_key_pressed(None, Gdk.KEY_plus, 0, Gdk.ModifierType.CONTROL_MASK)
+        self.assertEqual(res, Gdk.EVENT_PROPAGATE)
+
+        # Ctrl+0 should propagate when not an image
+        res = self.dialog._on_key_pressed(None, Gdk.KEY_0, 0, Gdk.ModifierType.CONTROL_MASK)
+        self.assertEqual(res, Gdk.EVENT_PROPAGATE)
+
+    def test_image_drag_pan_and_scroll_gestures(self):
+        self.dialog._is_image = True
+        self.dialog._img_natural_w = 2000
+        self.dialog._img_natural_h = 1500
+        self.dialog._set_zoom(2.0)
+
+        # Drag gesture
+        mock_gesture = MagicMock()
+        self.dialog._on_image_drag_begin(mock_gesture, 100.0, 100.0)
+        self.dialog._on_image_drag_update(mock_gesture, -50.0, -30.0)
+        self.dialog._on_image_drag_end(mock_gesture, -50.0, -30.0)
+
+        # Scroll gesture with Ctrl
+        mock_scroll_controller = MagicMock()
+        mock_scroll_controller.get_current_event_state.return_value = Gdk.ModifierType.CONTROL_MASK
+        old_zoom = self.dialog._zoom_factor
+
+        # Scroll up (dy < 0) -> zoom in
+        res_up = self.dialog._on_image_scroll(mock_scroll_controller, 0.0, -1.0)
+        self.assertEqual(res_up, Gdk.EVENT_STOP)
+        self.assertGreater(self.dialog._zoom_factor, old_zoom)
+
+        # Scroll down (dy > 0) -> zoom out
+        res_down = self.dialog._on_image_scroll(mock_scroll_controller, 0.0, 1.0)
+        self.assertEqual(res_down, Gdk.EVENT_STOP)
+
+        # Scroll without Ctrl -> propagate
+        mock_scroll_controller.get_current_event_state.return_value = Gdk.ModifierType(0)
+        res_no_ctrl = self.dialog._on_image_scroll(mock_scroll_controller, 0.0, -1.0)
+        self.assertEqual(res_no_ctrl, Gdk.EVENT_PROPAGATE)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -91,6 +91,12 @@ class QuickLookDialog(BaseDialog):
         self._full_file_loaded = False
         self._is_binary = False
         self._is_image = False
+        self._zoom_factor: float = 1.0
+        self._zoom_mode: str = "fit"  # "fit" or "manual"
+        self._img_natural_w: int = 0
+        self._img_natural_h: int = 0
+        self._drag_start_hadj: float = 0.0
+        self._drag_start_vadj: float = 0.0
 
         self._setup_ui()
         self._setup_keyboard_shortcuts()
@@ -233,23 +239,72 @@ class QuickLookDialog(BaseDialog):
 
         self.stack.add_named(text_container, "text")
 
-        # Page 3: Image Preview
-        image_container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        scrolled_image = Gtk.ScrolledWindow(vexpand=True, hexpand=True)
+        # Page 3: Image Preview with Zoom & Pan
+        image_container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+
+        self.scrolled_image = Gtk.ScrolledWindow(vexpand=True, hexpand=True)
+        self.scrolled_image.add_css_class("quick-look-scrolled-image")
+
         self.picture = Gtk.Picture()
         self.picture.set_can_shrink(True)
         self.picture.set_valign(Gtk.Align.CENTER)
         self.picture.set_halign(Gtk.Align.CENTER)
         self.picture.set_margin_top(16)
         self.picture.set_margin_bottom(16)
-        scrolled_image.set_child(self.picture)
-        image_container.append(scrolled_image)
+        self.picture.set_margin_start(16)
+        self.picture.set_margin_end(16)
+        self.scrolled_image.set_child(self.picture)
 
-        self.image_info_label = Gtk.Label(label="", xalign=0.5)
+        self._setup_image_controllers()
+        image_container.append(self.scrolled_image)
+
+        # Bottom Bar: Info on Left + Zoom Controls on Right
+        image_bottom_bar = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
+        image_bottom_bar.set_margin_start(16)
+        image_bottom_bar.set_margin_end(16)
+        image_bottom_bar.set_margin_top(4)
+        image_bottom_bar.set_margin_bottom(8)
+        image_bottom_bar.add_css_class("quick-look-zoom-bar")
+
+        self.image_info_label = Gtk.Label(label="", xalign=0.0)
         self.image_info_label.add_css_class("caption")
         self.image_info_label.add_css_class("dim-label")
-        self.image_info_label.set_margin_bottom(8)
-        image_container.append(self.image_info_label)
+        self.image_info_label.set_hexpand(True)
+        image_bottom_bar.append(self.image_info_label)
+
+        # Linked button box for Zoom Controls
+        zoom_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        zoom_box.add_css_class("linked")
+        zoom_box.set_halign(Gtk.Align.END)
+
+        self.zoom_out_btn = Gtk.Button(icon_name="zoom-out-symbolic")
+        self.zoom_out_btn.set_tooltip_text(_("Zoom Out (Ctrl+-)"))
+        self.zoom_out_btn.connect("clicked", lambda _: self._zoom_out())
+        zoom_box.append(self.zoom_out_btn)
+
+        self.zoom_label_btn = Gtk.Button(label=_("Fit"))
+        self.zoom_label_btn.add_css_class("quick-look-zoom-label")
+        self.zoom_label_btn.set_tooltip_text(_("Click to toggle between Fit and 100%"))
+        self.zoom_label_btn.connect("clicked", self._on_zoom_label_clicked)
+        zoom_box.append(self.zoom_label_btn)
+
+        self.zoom_in_btn = Gtk.Button(icon_name="zoom-in-symbolic")
+        self.zoom_in_btn.set_tooltip_text(_("Zoom In (Ctrl++)"))
+        self.zoom_in_btn.connect("clicked", lambda _: self._zoom_in())
+        zoom_box.append(self.zoom_in_btn)
+
+        self.zoom_fit_btn = Gtk.Button(icon_name="zoom-fit-best-symbolic")
+        self.zoom_fit_btn.set_tooltip_text(_("Fit to Window (Ctrl+0)"))
+        self.zoom_fit_btn.connect("clicked", lambda _: self._zoom_fit())
+        zoom_box.append(self.zoom_fit_btn)
+
+        self.zoom_100_btn = Gtk.Button(icon_name="zoom-original-symbolic")
+        self.zoom_100_btn.set_tooltip_text(_("Original Size (100%)"))
+        self.zoom_100_btn.connect("clicked", lambda _: self._zoom_100())
+        zoom_box.append(self.zoom_100_btn)
+
+        image_bottom_bar.append(zoom_box)
+        image_container.append(image_bottom_bar)
 
         self.stack.add_named(image_container, "image")
 
@@ -365,7 +420,22 @@ class QuickLookDialog(BaseDialog):
                 self.edit_toggle_btn.set_active(not self.edit_toggle_btn.get_active())
                 return Gdk.EVENT_STOP
 
-        # 2. Close on Escape
+        # 2. Image Zoom Shortcuts (Ctrl++, Ctrl+-, Ctrl+0, Ctrl+1)
+        if self._is_image:
+            if ctrl and keyval in (Gdk.KEY_plus, Gdk.KEY_equal, Gdk.KEY_KP_Add):
+                self._zoom_in()
+                return Gdk.EVENT_STOP
+            if ctrl and keyval in (Gdk.KEY_minus, Gdk.KEY_underscore, Gdk.KEY_KP_Subtract):
+                self._zoom_out()
+                return Gdk.EVENT_STOP
+            if ctrl and keyval in (Gdk.KEY_0, Gdk.KEY_KP_0):
+                self._zoom_fit()
+                return Gdk.EVENT_STOP
+            if ctrl and keyval in (Gdk.KEY_1, Gdk.KEY_KP_1):
+                self._zoom_100()
+                return Gdk.EVENT_STOP
+
+        # 3. Close on Escape
         if keyval == Gdk.KEY_Escape:
             self._handle_close_request()
             return Gdk.EVENT_STOP
@@ -458,6 +528,15 @@ class QuickLookDialog(BaseDialog):
         self._full_file_loaded = False
         self._is_binary = False
         self._is_image = False
+        self._zoom_mode = "fit"
+        self._zoom_factor = 1.0
+        self._img_natural_w = 0
+        self._img_natural_h = 0
+        if hasattr(self, "picture") and self.picture:
+            self.picture.set_can_shrink(True)
+            self.picture.set_size_request(-1, -1)
+        self._update_cursor()
+        self._update_zoom_ui()
 
         self._update_title_display()
         ext = Path(item.name).suffix.lower()
@@ -527,9 +606,26 @@ class QuickLookDialog(BaseDialog):
 
                 def on_loaded():
                     self.spinner.stop()
-                    self.picture.set_file(file_obj)
+                    try:
+                        # Hardware-accelerated GPU Gdk.Texture loading
+                        texture = Gdk.Texture.new_from_file(file_obj)
+                        self.picture.set_paintable(texture)
+                        self._img_natural_w = texture.get_width()
+                        self._img_natural_h = texture.get_height()
+                    except Exception as tex_err:
+                        self.logger.warning(f"Gdk.Texture direct load fallback: {tex_err}")
+                        self.picture.set_file(file_obj)
+                        self._img_natural_w = 0
+                        self._img_natural_h = 0
+
+                    self._zoom_fit()
+                    dim_text = (
+                        f" • {self._img_natural_w}x{self._img_natural_h}"
+                        if self._img_natural_w > 0
+                        else ""
+                    )
                     self.image_info_label.set_text(
-                        f"{item.name} • {item.formatted_size} • {item.date_modified}"
+                        f"{item.name}{dim_text} • {item.formatted_size} • {item.date_modified}"
                     )
                     self.stack.set_visible_child_name("image")
                     if is_temp and Path(local_path).exists():
@@ -554,6 +650,242 @@ class QuickLookDialog(BaseDialog):
                 GLib.idle_add(on_error)
 
         threading.Thread(target=load_worker, daemon=True).start()
+
+    # =========================================================================
+    # Image Zoom & Pan Gestures
+    # =========================================================================
+
+    def _setup_image_controllers(self) -> None:
+        """Configures scroll, drag, and pinch gestures for image zooming and panning."""
+        # 1. Ctrl + Mouse Scroll Wheel
+        scroll_controller = Gtk.EventControllerScroll.new(
+            Gtk.EventControllerScrollFlags.VERTICAL | Gtk.EventControllerScrollFlags.BOTH_AXES
+        )
+        scroll_controller.connect("scroll", self._on_image_scroll)
+        self.scrolled_image.add_controller(scroll_controller)
+
+        # 2. Click & Drag to Pan when zoomed
+        drag_gesture = Gtk.GestureDrag.new()
+        drag_gesture.connect("drag-begin", self._on_image_drag_begin)
+        drag_gesture.connect("drag-update", self._on_image_drag_update)
+        drag_gesture.connect("drag-end", self._on_image_drag_end)
+        self.scrolled_image.add_controller(drag_gesture)
+
+        # 3. Touchpad Pinch-to-Zoom
+        pinch_gesture = Gtk.GestureZoom.new()
+        pinch_gesture.connect("begin", self._on_image_pinch_begin)
+        pinch_gesture.connect("scale-changed", self._on_image_pinch_scale)
+        self.scrolled_image.add_controller(pinch_gesture)
+
+    def _on_image_scroll(
+        self,
+        controller: Gtk.EventControllerScroll,
+        dx: float,
+        dy: float,
+    ) -> bool:
+        """Handles Ctrl+Scroll for focal-point zoom."""
+        if not self._is_image:
+            return Gdk.EVENT_PROPAGATE
+
+        modifiers = controller.get_current_event_state()
+        if not (modifiers & Gdk.ModifierType.CONTROL_MASK):
+            return Gdk.EVENT_PROPAGATE
+
+        if dy < 0:
+            self._zoom_in()
+            return Gdk.EVENT_STOP
+        elif dy > 0:
+            self._zoom_out()
+            return Gdk.EVENT_STOP
+
+        return Gdk.EVENT_PROPAGATE
+
+    def _on_image_drag_begin(
+        self, gesture: Gtk.GestureDrag, start_x: float, start_y: float
+    ) -> None:
+        """Starts drag-to-pan tracking when zoomed."""
+        if not self._is_image or self._zoom_mode == "fit":
+            return
+        hadj = self.scrolled_image.get_hadjustment()
+        vadj = self.scrolled_image.get_vadjustment()
+        self._drag_start_hadj = hadj.get_value() if hadj else 0.0
+        self._drag_start_vadj = vadj.get_value() if vadj else 0.0
+        self.scrolled_image.set_cursor_from_name("grabbing")
+
+    def _on_image_drag_update(
+        self, gesture: Gtk.GestureDrag, offset_x: float, offset_y: float
+    ) -> None:
+        """Smoothly pans the ScrolledWindow as mouse moves."""
+        if not self._is_image or self._zoom_mode == "fit":
+            return
+        hadj = self.scrolled_image.get_hadjustment()
+        vadj = self.scrolled_image.get_vadjustment()
+        if hadj:
+            hadj.set_value(self._drag_start_hadj - offset_x)
+        if vadj:
+            vadj.set_value(self._drag_start_vadj - offset_y)
+
+    def _on_image_drag_end(
+        self, gesture: Gtk.GestureDrag, offset_x: float, offset_y: float
+    ) -> None:
+        """Restores grab cursor on drag release."""
+        if not self._is_image:
+            return
+        self._update_cursor()
+
+    def _on_image_pinch_begin(self, gesture: Gtk.GestureZoom, sequence) -> None:
+        """Caches base zoom factor at the start of a pinch gesture."""
+        self._pinch_start_factor = self._zoom_factor
+
+    def _on_image_pinch_scale(self, gesture: Gtk.GestureZoom, scale: float) -> None:
+        """Smoothly updates zoom level as pinch gesture scales."""
+        if not self._is_image:
+            return
+        base = getattr(self, "_pinch_start_factor", self._zoom_factor)
+        new_factor = base * scale
+        self._set_zoom(new_factor)
+
+    def _set_zoom(
+        self,
+        factor: float,
+        focal_x: Optional[float] = None,
+        focal_y: Optional[float] = None,
+    ) -> None:
+        """Applies a specific zoom factor to the image with optional focal point preservation."""
+        if not self._is_image:
+            return
+
+        w = self._img_natural_w if self._img_natural_w > 0 else max(100, self.picture.get_width())
+        h = self._img_natural_h if self._img_natural_h > 0 else max(100, self.picture.get_height())
+        if w <= 0 or h <= 0:
+            return
+
+        factor = max(0.10, min(16.0, factor))
+        old_factor = (
+            self._zoom_factor
+            if self._zoom_mode == "manual"
+            else (self.picture.get_width() / w if w > 0 else 1.0)
+        )
+
+        self._zoom_factor = factor
+        self._zoom_mode = "manual"
+
+        scaled_w = max(32, int(w * factor))
+        scaled_h = max(32, int(h * factor))
+
+        self.picture.set_can_shrink(False)
+        self.picture.set_size_request(scaled_w, scaled_h)
+
+        hadj = self.scrolled_image.get_hadjustment()
+        vadj = self.scrolled_image.get_vadjustment()
+
+        if hadj and vadj and old_factor > 0:
+            scale_ratio = factor / old_factor
+            if focal_x is not None:
+                new_hadj = (hadj.get_value() + focal_x) * scale_ratio - focal_x
+                hadj.set_value(max(0.0, new_hadj))
+            else:
+                page_w = hadj.get_page_size()
+                center_x = hadj.get_value() + page_w / 2.0
+                new_hadj = center_x * scale_ratio - page_w / 2.0
+                hadj.set_value(max(0.0, new_hadj))
+
+            if focal_y is not None:
+                new_vadj = (vadj.get_value() + focal_y) * scale_ratio - focal_y
+                vadj.set_value(max(0.0, new_vadj))
+            else:
+                page_h = vadj.get_page_size()
+                center_y = vadj.get_value() + page_h / 2.0
+                new_vadj = center_y * scale_ratio - page_h / 2.0
+                vadj.set_value(max(0.0, new_vadj))
+
+        self._update_zoom_ui()
+        self._update_cursor()
+
+    def _zoom_in(self) -> None:
+        """Increases image zoom level by 25%."""
+        if not self._is_image:
+            return
+        if self._zoom_mode == "fit":
+            current_w = self.picture.get_width()
+            if current_w > 0 and self._img_natural_w > 0:
+                base = current_w / self._img_natural_w
+            else:
+                base = self._zoom_factor
+            next_factor = min(16.0, max(0.1, round(base * 1.25, 2)))
+        else:
+            next_factor = min(16.0, round(self._zoom_factor * 1.25, 2))
+        self._set_zoom(next_factor)
+
+    def _zoom_out(self) -> None:
+        """Decreases image zoom level by 20%."""
+        if not self._is_image:
+            return
+        if self._zoom_mode == "fit":
+            current_w = self.picture.get_width()
+            if current_w > 0 and self._img_natural_w > 0:
+                base = current_w / self._img_natural_w
+            else:
+                base = self._zoom_factor
+            next_factor = max(0.1, round(base / 1.25, 2))
+        else:
+            next_factor = max(0.1, round(self._zoom_factor / 1.25, 2))
+        self._set_zoom(next_factor)
+
+    def _zoom_fit(self) -> None:
+        """Resets image to dynamically fit within the window."""
+        self._zoom_mode = "fit"
+        self._zoom_factor = 1.0
+        self.picture.set_can_shrink(True)
+        self.picture.set_size_request(-1, -1)
+        hadj = getattr(self.scrolled_image, "get_hadjustment", lambda: None)()
+        vadj = getattr(self.scrolled_image, "get_vadjustment", lambda: None)()
+        if hadj:
+            hadj.set_value(0.0)
+        if vadj:
+            vadj.set_value(0.0)
+        self._update_zoom_ui()
+        self._update_cursor()
+
+    def _zoom_100(self) -> None:
+        """Sets image to its 1:1 original pixel resolution."""
+        self._set_zoom(1.0)
+
+    def _on_zoom_label_clicked(self, _btn=None) -> None:
+        """Toggles between Fit and 100% zoom."""
+        if self._zoom_mode == "fit":
+            self._zoom_100()
+        else:
+            self._zoom_fit()
+
+    def _update_zoom_ui(self) -> None:
+        """Updates the zoom indicator and button states."""
+        if not hasattr(self, "zoom_label_btn"):
+            return
+
+        if self._zoom_mode == "fit":
+            self.zoom_label_btn.set_label(_("Fit"))
+            self.zoom_fit_btn.set_sensitive(False)
+            self.zoom_100_btn.set_sensitive(True)
+        else:
+            pct = int(round(self._zoom_factor * 100))
+            self.zoom_label_btn.set_label(f"{pct}%")
+            self.zoom_fit_btn.set_sensitive(True)
+            self.zoom_100_btn.set_sensitive(abs(self._zoom_factor - 1.0) > 0.01)
+
+        can_zoom_in = self._zoom_factor < 15.99
+        can_zoom_out = self._zoom_factor > 0.11
+        self.zoom_in_btn.set_sensitive(can_zoom_in)
+        self.zoom_out_btn.set_sensitive(can_zoom_out)
+
+    def _update_cursor(self) -> None:
+        """Updates mouse cursor based on zoom state."""
+        if not hasattr(self, "scrolled_image"):
+            return
+        if self._is_image and self._zoom_mode == "manual" and self._zoom_factor > 1.0:
+            self.scrolled_image.set_cursor_from_name("grab")
+        else:
+            self.scrolled_image.set_cursor_from_name("default")
 
     def _preview_text_or_binary(
         self,
