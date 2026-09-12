@@ -11523,3 +11523,11 @@ msgstr "Please select a valid directory!"
 # 
 msgid "Directory does not exist"
 msgstr "Directory does not exist"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "계층형 트리 보기"
+
+# 
+msgid "Calculating..."
+msgstr "계산 중..."

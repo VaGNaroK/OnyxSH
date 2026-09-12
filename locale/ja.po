@@ -11526,3 +11526,11 @@ msgstr "有効なディレクトリを選択してください！"
 # 
 msgid "Directory does not exist"
 msgstr "ディレクトリが存在しません"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "階層ツリー表示"
+
+# 
+msgid "Calculating..."
+msgstr "計算中..."

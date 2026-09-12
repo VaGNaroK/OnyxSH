@@ -162,6 +162,33 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
 
 ---
 
+### [BUG-FM-009] Deslocamento Vertical e Viewport Vazia ao Alternar para Grade de Ícones
+- **Componente:** `src/onyxsh/filemanager/manager.py`
+- **Sintoma:** Ao trocar da Lista Detalhada para a Grade de Ícones, a tela ficava em branco e parecia que os diretórios não haviam sido carregados, forçando o usuário a navegar pela trilha de breadcrumbs (`/ > home > vagnarok`) para forçar o recarregamento dos ícones.
+- **Causa Raiz:** O ajuste de rolagem vertical (`vadjustment`) do `Gtk.ScrolledWindow` mantinha a posição de rolagem da lista detalhada (onde o usuário havia rolado para baixo). Como a grade compacta os itens em múltiplas colunas, a altura total da grade é muito menor que a da lista, posicionando a viewport no espaço vazio abaixo do final da grade. Além disso, o `Gtk.Stack` era homogêneo por padrão, reservando altura fantasma da lista na grade.
+- **Correção:** Desativação de homogeneidade no `view_stack` (`set_vhomogeneous(False)` e `set_hhomogeneous(False)`), reinício explícito dos ajustes de rolagem horizontal e vertical para `0.0` em `_set_view_mode`, solicitação de redimensionamento/redesenho (`queue_resize()`, `queue_draw()`), e suporte a refresh direto ao clicar no botão do diretório atual no breadcrumb.
+- **Testes:** `tests/test_filemanager_filtering_sorting.py` (`test_view_mode_switching_resets_scroll`, `test_breadcrumb_click_current_path_refreshes`).
+
+---
+
+### [BUG-FM-010] Latência Severa de Abertura (>10s) e Stall na Navegação de Pastas
+- **Componentes:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/utils/translation_utils.py`
+- **Sintoma:** Ao clicar no ícone do gerenciador de arquivos, a tela permanecia com fundo branco exibindo "Carregando..." por 10 a 13 segundos antes de listar os diretórios. Ao dar duplo clique para abrir pastas, ocorria um atraso perceptível de mais de 3 segundos.
+- **Causa Raiz:**
+  1. `_set_store_items` alternava `set_filter(None)` $\rightarrow$ `splice` $\rightarrow$ `set_filter(filter)`, o que disparava 3 reconstruções e reordenações completas de árvore no GTK4 com Python (~5,4s a 7,7s por chamada).
+  2. As três visões do `Gtk.Stack` (Lista, Grade e Árvore) mantinham modelos de dados simultaneamente conectados, forçando a criação síncrona concorrente de ~160 templates de widgets para as três visualizações. Na visão de árvore, disparava varredura recursiva de métricas (`scan_dir`) mesmo quando em modo lista.
+  3. `rebind_terminal` e `set_visibility(True)` chamavam dois refreshes consecutivos na abertura do File Manager, dobrando o tempo de processamento.
+  4. Falta de memoização em `translation_utils._()`, gerando mais de 24.000 chamadas `posix.stat` no disco a cada renderização (~0,8s).
+- **Correção:**
+  1. Atualização atômica direta via `store.splice(0, n, items)` sem desmontar e remontar filtros no `Gtk.FilterListModel`.
+  2. Implementação de *Lazy Model Attachment*: apenas a visualização ativa mantém o modelo conectado (`set_model`); visualizações inativas recebem `None`.
+  3. Condicionamento da execução de `_calculate_tree_dir_metrics_async` estritamente a `_current_view_mode == "tree"`.
+  4. Proteção contra segundo refresh redundante em `set_visibility()` se o caminho já estiver sincronizado com o terminal.
+  5. Memoização da função `_()` com `@functools.lru_cache(maxsize=1024)`.
+- **Testes:** `tests/test_filemanager_filtering_sorting.py` (`test_lazy_model_attachment_on_view_switch`, `test_set_store_items_preserves_filter_without_toggle_stall`, `test_translation_cache_efficiency`).
+
+---
+
 ## 3. Assistente de IA, Parser de Scripts & Agent Mode
 
 ### [BUG-AI-001] Bypass de Comandos Perigosos no Production Guard
@@ -337,3 +364,9 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
    ```bash
    PYTHONPATH=src python3 -m unittest discover -s tests
    ```
+6. **Nunca faça `set_filter(None)` antes de `splice` no `FilterListModel` em GTK4:**
+   No GTK4 com Python, redefinir filtros força a reavaliação de todos os itens e reordenação com altíssimo custo de CPU. Atualize o `store` subjacente diretamente.
+7. **Nunca anexe modelos de dados em múltiplas visões concorrentes dentro de `Gtk.Stack`:**
+   Use *Lazy Model Attachment* (`set_model(None)` nas visões inativas) para que o GTK não construa dezenas de instâncias de widgets para visualizações ocultas.
+8. **Sempre use memoização com `@lru_cache` para rotinas de tradução `gettext` chamadas em loops de UI:**
+   A função padrão `gettext.gettext` realiza I/O síncrono no disco (`posix.stat`) a cada lookup, provocando degradação drástica da taxa de quadros (FPS).

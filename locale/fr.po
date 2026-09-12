@@ -11595,3 +11595,11 @@ msgstr "Veuillez sélectionner un répertoire valide !"
 # 
 msgid "Directory does not exist"
 msgstr "Le répertoire n'existe pas"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "Vue en arborescence hiérarchique"
+
+# 
+msgid "Calculating..."
+msgstr "Calcul en cours..."

@@ -204,11 +204,56 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.assertFalse(self.fm.view_grid_btn.get_active())
         self.assertEqual(self.fm._get_active_view(), self.fm.column_view)
 
-        # 3. Legacy compact mode or invalid mode defaults to list
+        # 3. Switch to tree mode
+        self.fm.tree_view = Gtk.ListView()
+        self.fm.view_stack.add_named(self.fm.tree_view, "tree")
+        self.fm.view_tree_btn = Gtk.ToggleButton()
+        self.fm._set_view_mode("tree", save_preference=True)
+        self.assertEqual(self.fm._current_view_mode, "tree")
+        self.assertEqual(self.fm.view_stack.get_visible_child_name(), "tree")
+        self.assertTrue(self.fm.view_tree_btn.get_active())
+        self.assertFalse(self.fm.view_list_btn.get_active())
+        self.assertFalse(self.fm.view_grid_btn.get_active())
+        self.assertEqual(self.fm._get_active_view(), self.fm.tree_view)
+        mock_settings.set.assert_called_with("file_manager_view_mode", "tree")
+
+        # 4. Legacy compact mode or invalid mode defaults to list
         self.fm._set_view_mode("compact")
         self.assertEqual(self.fm._current_view_mode, "list")
         self.fm._set_view_mode("unknown_mode")
         self.assertEqual(self.fm._current_view_mode, "list")
+
+    def test_view_mode_switching_resets_scroll(self):
+        mock_sw = MagicMock()
+        mock_vadjust = MagicMock()
+        mock_hadjust = MagicMock()
+        mock_sw.get_vadjustment.return_value = mock_vadjust
+        mock_sw.get_hadjustment.return_value = mock_hadjust
+        self.fm.scrolled_window = mock_sw
+
+        self.fm.view_stack = Gtk.Stack()
+        self.fm.column_view = Gtk.ColumnView()
+        self.fm.grid_view = Gtk.GridView()
+        self.fm.view_stack.add_named(self.fm.column_view, "list")
+        self.fm.view_stack.add_named(self.fm.grid_view, "grid")
+
+        self.fm._set_view_mode("grid", save_preference=False)
+        mock_vadjust.set_value.assert_called_with(0.0)
+        mock_hadjust.set_value.assert_called_with(0.0)
+
+    def test_breadcrumb_click_current_path_refreshes(self):
+        self.fm.current_path = "/home/user"
+        self.fm.refresh = MagicMock()
+        self.fm.bound_terminal = None
+
+        # Clicking current path should call refresh
+        self.fm._on_breadcrumb_button_clicked(None, "/home/user")
+        self.fm.refresh.assert_called_with(source="filemanager")
+
+        # Clicking different path should call refresh with path
+        self.fm.refresh.reset_mock()
+        self.fm._on_breadcrumb_button_clicked(None, "/home")
+        self.fm.refresh.assert_called_with("/home", source="filemanager")
 
     def test_grid_item_factory_lifecycle(self):
         item = FileItem("server.py", "-rwxr-xr-x", 2048, datetime.now(), "root", "root")
@@ -349,6 +394,80 @@ class TestFileManagerFilteringAndSorting(unittest.TestCase):
         self.fm._on_quick_jump_popover_visible(mock_popover, None)
         self.assertFalse(self.fm._quick_jump_needs_update)
         self.assertIsNotNone(self.fm.quick_jump_popover.get_child())
+
+    def test_lazy_model_attachment_on_view_switch(self):
+        """Validates that inactive views have model=None to avoid concurrent widget overhead."""
+        self.fm.settings_manager = MagicMock()
+        self.fm.view_stack = Gtk.Stack()
+        self.fm.column_view = Gtk.ColumnView()
+        self.fm.grid_view = Gtk.GridView()
+        self.fm.tree_view = Gtk.ListView()
+        self.fm.view_stack.add_named(self.fm.column_view, "list")
+        self.fm.view_stack.add_named(self.fm.grid_view, "grid")
+        self.fm.view_stack.add_named(self.fm.tree_view, "tree")
+
+        self.fm.view_list_btn = Gtk.ToggleButton()
+        self.fm.view_grid_btn = Gtk.ToggleButton()
+        self.fm.view_tree_btn = Gtk.ToggleButton()
+
+        dummy_list_model = Gtk.MultiSelection(model=Gio.ListStore.new(FileItem))
+        dummy_tree_model = Gtk.MultiSelection(model=Gio.ListStore.new(FileItem))
+        self.fm.selection_model = dummy_list_model
+        self.fm.tree_selection_model = dummy_tree_model
+
+        # Switch to list
+        self.fm._set_view_mode("list", save_preference=False)
+        self.assertEqual(self.fm.column_view.get_model(), dummy_list_model)
+        self.assertIsNone(self.fm.grid_view.get_model())
+        self.assertIsNone(self.fm.tree_view.get_model())
+
+        # Switch to grid
+        self.fm._set_view_mode("grid", save_preference=False)
+        self.assertEqual(self.fm.grid_view.get_model(), dummy_list_model)
+        self.assertIsNone(self.fm.column_view.get_model())
+        self.assertIsNone(self.fm.tree_view.get_model())
+
+        # Switch to tree
+        self.fm._set_view_mode("tree", save_preference=False)
+        self.assertEqual(self.fm.tree_view.get_model(), dummy_tree_model)
+        self.assertIsNone(self.fm.column_view.get_model())
+        self.assertIsNone(self.fm.grid_view.get_model())
+
+    def test_set_store_items_preserves_filter_without_toggle_stall(self):
+        """Verifies _set_store_items updates store directly without resetting filter."""
+        self.fm.current_path = "/tmp"
+        self.fm._is_destroyed = False
+        self.fm.logger = MagicMock()
+        self.fm._is_remote_session = MagicMock(return_value=False)
+        self.fm._restore_search_entry = MagicMock()
+        self.fm._update_status_bar = MagicMock()
+        self.fm._dir_cache = {}
+
+        self.fm.store = Gio.ListStore.new(FileItem)
+        self.fm.combined_filter = Gtk.CustomFilter()
+        self.fm.combined_filter.set_filter_func(self.fm._filter_files)
+        self.fm.filtered_store = Gtk.FilterListModel(model=self.fm.store)
+        self.fm.filtered_store.set_filter(self.fm.combined_filter)
+
+        f1 = FileItem("alpha.txt", "-rw-r--r--", 100, datetime.now(), "u", "g")
+        f2 = FileItem("beta.txt", "-rw-r--r--", 100, datetime.now(), "u", "g")
+        f3 = FileItem(".secret", "-rw-r--r--", 100, datetime.now(), "u", "g")
+
+        self.fm._set_store_items([f1, f2, f3], requested_path="/tmp", source="filemanager")
+        self.assertEqual(self.fm.store.get_n_items(), 3)
+        # Filter is still active, hiding dotfile
+        self.assertEqual(self.fm.filtered_store.get_n_items(), 2)
+        # Ensure filter was not set to None
+        self.assertIsNotNone(self.fm.filtered_store.get_filter())
+
+    def test_translation_cache_efficiency(self):
+        """Verifies that _() uses lru_cache for fast repeated lookups."""
+        from onyxsh.utils.translation_utils import _
+        self.assertTrue(hasattr(_, "cache_info"))
+        initial_hits = _.cache_info().hits
+        _("Directory")
+        _("Directory")
+        self.assertGreater(_.cache_info().hits, initial_hits)
 
 
 if __name__ == "__main__":

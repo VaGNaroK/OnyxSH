@@ -11566,3 +11566,11 @@ msgstr "Please select a valid directory!"
 # 
 msgid "Directory does not exist"
 msgstr "Dizin mevcut değil"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "Hiyerarşik Ağaç Görünümü"
+
+# 
+msgid "Calculating..."
+msgstr "Hesaplanıyor..."

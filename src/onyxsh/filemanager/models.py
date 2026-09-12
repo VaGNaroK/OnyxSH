@@ -85,8 +85,22 @@ class FileItem(GObject.GObject):
         ),
     }
 
+    __gsignals__ = {
+        "metrics-updated": (GObject.SignalFlags.RUN_FIRST, None, ()),
+    }
+
     def __init__(
-        self, name, perms, size, date, owner, group, is_link=False, link_target=""
+        self,
+        name,
+        perms,
+        size,
+        date,
+        owner,
+        group,
+        is_link=False,
+        link_target="",
+        full_path="",
+        parent_path="",
     ):
         super().__init__()
         self._name = name
@@ -97,6 +111,11 @@ class FileItem(GObject.GObject):
         self._owner = owner
         self._group = group
         self._link_target = link_target
+        self._full_path = full_path
+        self._parent_path = parent_path
+        self._recursive_size = None
+        self._item_count = None
+        self._cached_formatted_recursive_size = None
 
         self._is_dir = perms.startswith("d") if perms else False
         self._is_link = is_link or (perms.startswith("l") if perms else False)
@@ -131,6 +150,72 @@ class FileItem(GObject.GObject):
             self._cached_icon_name = "folder-symbolic"
         else:
             self._cached_icon_name = None  # Lazy - resolved on first access
+
+    @property
+    def full_path(self) -> str:
+        return self._full_path
+
+    @full_path.setter
+    def full_path(self, val: str) -> None:
+        self._full_path = val
+
+    @property
+    def parent_path(self) -> str:
+        return self._parent_path
+
+    @parent_path.setter
+    def parent_path(self, val: str) -> None:
+        self._parent_path = val
+
+    @property
+    def recursive_size(self):
+        return self._recursive_size
+
+    @recursive_size.setter
+    def recursive_size(self, val) -> None:
+        self._recursive_size = val
+        self._cached_formatted_recursive_size = None
+
+    @property
+    def item_count(self):
+        return self._item_count
+
+    @item_count.setter
+    def item_count(self, val) -> None:
+        self._item_count = val
+
+    @property
+    def formatted_recursive_size(self) -> str:
+        if self._recursive_size is None:
+            return ""
+        if self._cached_formatted_recursive_size is None:
+            size = self._recursive_size
+            if size < 1024:
+                self._cached_formatted_recursive_size = f"{size} B"
+            elif size < 1024**2:
+                self._cached_formatted_recursive_size = f"{size / 1024:.1f} KB"
+            elif size < 1024**3:
+                self._cached_formatted_recursive_size = f"{size / 1024**2:.1f} MB"
+            else:
+                self._cached_formatted_recursive_size = f"{size / 1024**3:.1f} GB"
+        return self._cached_formatted_recursive_size
+
+    @property
+    def tree_size_summary(self) -> str:
+        """Returns the formatted size representation for Tree View."""
+        if not self._is_dir:
+            return self.formatted_size
+        if self._recursive_size is not None:
+            items_str = (
+                _("items") if self._item_count != 1 else _("item")
+            )
+            count_str = (
+                f" ({self._item_count} {items_str})"
+                if self._item_count is not None
+                else ""
+            )
+            return f"{self.formatted_recursive_size}{count_str}"
+        return _("Calculating...")
 
     @property
     def name(self) -> str:

@@ -131,6 +131,11 @@ class FileManager(GObject.Object):
         self._rsync_checks_in_progress: Set[str] = set()
         self._dir_size_cache: Dict[str, int] = {}
         self._dir_size_calculating: Set[str] = set()
+        self._dir_metrics_cache: Dict[str, Tuple[int, int]] = {}
+        self._dir_metrics_calculating: Set[str] = set()
+        self.tree_model: Optional[Gtk.TreeListModel] = None
+        self.tree_selection_model: Optional[Gtk.MultiSelection] = None
+        self.tree_view: Optional[Gtk.ListView] = None
         self._disk_usage_cache: Dict[str, Tuple[float, str]] = {}
         self._quick_jump_needs_update = True
         self._dir_cache: Dict[str, Tuple[float, list]] = {}
@@ -507,8 +512,14 @@ class FileManager(GObject.Object):
             self.column_view.set_model(None)
         if hasattr(self, "grid_view") and self.grid_view:
             self.grid_view.set_model(None)
+        if hasattr(self, "tree_view") and self.tree_view:
+            self.tree_view.set_model(None)
 
         # Task 2: Clear model wrappers in correct order
+        if hasattr(self, "tree_selection_model"):
+            self.tree_selection_model = None
+        if hasattr(self, "tree_model"):
+            self.tree_model = None
         if hasattr(self, "selection_model"):
             self.selection_model = None
         if hasattr(self, "sorted_store"):
@@ -534,6 +545,7 @@ class FileManager(GObject.Object):
         self.transfer_manager = None
         self.column_view = None
         self.grid_view = None
+        self.tree_view = None
         self.view_stack = None
         self.main_box = None
         self.revealer = None
@@ -661,13 +673,17 @@ class FileManager(GObject.Object):
         self.view_stack = Gtk.Stack()
         self.view_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         self.view_stack.set_transition_duration(150)
+        self.view_stack.set_vhomogeneous(False)
+        self.view_stack.set_hhomogeneous(False)
 
         self.column_view = self._create_detailed_list_view()
         self.detailed_header = self._create_detailed_header()
         self.grid_view = self._create_icon_grid_view()
+        self.tree_view = self._create_tree_view()
 
         self.view_stack.add_named(self.column_view, "list")
         self.view_stack.add_named(self.grid_view, "grid")
+        self.view_stack.add_named(self.tree_view, "tree")
 
         self.scrolled_window.set_child(self.view_stack)
 
@@ -737,6 +753,14 @@ class FileManager(GObject.Object):
             "toggled", lambda b: self._on_view_mode_toggle(b, "grid")
         )
         self.view_mode_box.append(self.view_grid_btn)
+
+        self.view_tree_btn = Gtk.ToggleButton()
+        self.view_tree_btn.set_child(icon_image("format-indent-more-symbolic"))
+        self.tooltip_helper.add_tooltip(self.view_tree_btn, _("Hierarchical Tree View"))
+        self.view_tree_btn.connect(
+            "toggled", lambda b: self._on_view_mode_toggle(b, "tree")
+        )
+        self.view_mode_box.append(self.view_tree_btn)
 
         self.action_bar.pack_start(self.view_mode_box)
 
@@ -955,6 +979,8 @@ class FileManager(GObject.Object):
                 self.bound_terminal.feed_child(command.encode("utf-8"))
             else:
                 self.refresh(path_to_navigate, source="filemanager")
+        else:
+            self.refresh(source="filemanager")
 
     def _on_quick_jump_popover_visible(self, popover, _param_spec):
         """Builds Quick Jump contents lazily on first open or when invalidated."""
@@ -1704,10 +1730,44 @@ class FileManager(GObject.Object):
         column.set_sorter(sorter)
         return column
 
+    def _get_active_selection_model(self) -> Optional[Gtk.MultiSelection]:
+        """Returns the active selection model based on the current view mode."""
+        if (
+            getattr(self, "_current_view_mode", "list") == "tree"
+            and hasattr(self, "tree_selection_model")
+            and self.tree_selection_model
+        ):
+            return self.tree_selection_model
+        return getattr(self, "selection_model", None)
+
+    def get_item_full_path(self, item: FileItem) -> str:
+        """Returns the normalized absolute path of a FileItem."""
+        if not item:
+            return ""
+        if getattr(item, "full_path", ""):
+            return item.full_path
+        base = self.current_path or "/"
+        clean_name = item.name.rstrip("/")
+        return str(PurePosixPath(base).joinpath(clean_name))
+
     def get_selected_items(self) -> List[FileItem]:
-        """Gets all selected items from the ColumnView."""
+        """Gets all selected FileItems from the active view (ColumnView or TreeView)."""
         items = []
-        if not hasattr(self, "selection_model"):
+        mode = getattr(self, "_current_view_mode", "list")
+        if mode == "tree" and hasattr(self, "tree_selection_model") and self.tree_selection_model:
+            selection = self.tree_selection_model.get_selection()
+            size = selection.get_size()
+            for i in range(size):
+                position = selection.get_nth(i)
+                if hasattr(self, "tree_model") and self.tree_model:
+                    row = self.tree_model.get_item(position)
+                    if row:
+                        item = row.get_item() if isinstance(row, Gtk.TreeListRow) else row
+                        if isinstance(item, FileItem):
+                            items.append(item)
+            return items
+
+        if not hasattr(self, "selection_model") or not self.selection_model:
             return items
 
         selection = self.selection_model.get_selection()
@@ -1918,6 +1978,9 @@ class FileManager(GObject.Object):
         gesture.connect("pressed", self._on_item_right_click, list_item)
         row_box.add_controller(gesture)
 
+        row_box.set_has_tooltip(True)
+        row_box.connect("query-tooltip", self._on_row_query_tooltip, list_item)
+
         list_item.set_child(row_box)
 
     def _bind_detailed_item(self, factory, list_item):
@@ -1971,11 +2034,7 @@ class FileManager(GObject.Object):
             date_label.set_text(file_item.formatted_date)
             perms_label.set_text(file_item.permissions)
             owner_label.set_text(f"{file_item.owner}:{file_item.group}")
-
-            if hasattr(file_item, "tooltip_markup"):
-                row_box.set_tooltip_markup(file_item.tooltip_markup)
-            else:
-                row_box.set_tooltip_markup(None)
+            row_box.set_tooltip_markup(file_item.tooltip_markup)
         else:
             badge_exec.set_visible(False)
             badge_root.set_visible(False)
@@ -2060,30 +2119,99 @@ class FileManager(GObject.Object):
         """No-op kept for backwards compatibility."""
         pass
 
+    def _on_row_query_tooltip(
+        self, _widget, _x, _y, _keyboard_mode, tooltip, list_item
+    ) -> bool:
+        """Lazily resolves and sets rich Pango markup tooltip only when hovered."""
+        item = list_item.get_item()
+        if not item:
+            return False
+        if isinstance(item, Gtk.TreeListRow):
+            item = item.get_item()
+        if item and hasattr(item, "tooltip_markup"):
+            markup = item.tooltip_markup
+            if markup:
+                tooltip.set_markup(markup)
+                return True
+        return False
+
     def _get_active_view(self) -> Optional[Gtk.Widget]:
-        """Returns the currently active view widget (ColumnView/ListView or GridView)."""
+        """Returns the currently active view widget (ColumnView/ListView, GridView, or TreeView)."""
         if not hasattr(self, "view_stack") or not self.view_stack:
             return getattr(self, "column_view", None)
         visible = self.view_stack.get_visible_child_name()
         if visible == "grid" and hasattr(self, "grid_view") and self.grid_view:
             return self.grid_view
+        if visible == "tree" and hasattr(self, "tree_view") and self.tree_view:
+            return self.tree_view
         return getattr(self, "column_view", None)
 
     def _set_view_mode(self, mode: str, save_preference: bool = True) -> None:
-        """Switches the active file manager view mode between 'list' and 'grid'."""
-        if mode not in ("list", "grid"):
+        """Switches the active file manager view mode between 'list', 'grid', and 'tree'."""
+        if mode not in ("list", "grid", "tree"):
             mode = "list"
         self._current_view_mode = mode
         if hasattr(self, "view_stack") and self.view_stack:
             self.view_stack.set_visible_child_name(mode)
 
         if hasattr(self, "detailed_header") and self.detailed_header:
-            self.detailed_header.set_visible(mode == "list")
+            self.detailed_header.set_visible(mode in ("list", "tree"))
 
         if hasattr(self, "view_list_btn") and self.view_list_btn:
             self.view_list_btn.set_active(mode == "list")
         if hasattr(self, "view_grid_btn") and self.view_grid_btn:
             self.view_grid_btn.set_active(mode == "grid")
+        if hasattr(self, "view_tree_btn") and self.view_tree_btn:
+            self.view_tree_btn.set_active(mode == "tree")
+
+        if hasattr(self, "sort_menu_button") and self.sort_menu_button:
+            self.sort_menu_button.set_visible(mode == "grid")
+
+        # Lazy model attachment: connect model ONLY to the active view.
+        # Inactive views get model=None to eliminate background widget instantiation and CPU/I-O waste.
+        if (
+            hasattr(self, "column_view")
+            and hasattr(self, "grid_view")
+            and hasattr(self, "tree_view")
+            and hasattr(self, "selection_model")
+            and hasattr(self, "tree_selection_model")
+        ):
+            if mode == "list":
+                if self.column_view.get_model() != self.selection_model:
+                    self.column_view.set_model(self.selection_model)
+                if self.grid_view.get_model() is not None:
+                    self.grid_view.set_model(None)
+                if self.tree_view.get_model() is not None:
+                    self.tree_view.set_model(None)
+            elif mode == "grid":
+                if self.column_view.get_model() is not None:
+                    self.column_view.set_model(None)
+                if self.grid_view.get_model() != self.selection_model:
+                    self.grid_view.set_model(self.selection_model)
+                if self.tree_view.get_model() is not None:
+                    self.tree_view.set_model(None)
+            elif mode == "tree":
+                if self.column_view.get_model() is not None:
+                    self.column_view.set_model(None)
+                if self.grid_view.get_model() is not None:
+                    self.grid_view.set_model(None)
+                if self.tree_view.get_model() != self.tree_selection_model:
+                    self.tree_view.set_model(self.tree_selection_model)
+
+        # Reset vertical and horizontal scroll position to top when switching view modes
+        # to prevent viewport desynchronization where shorter grid views get stuck in empty ghost space.
+        if hasattr(self, "scrolled_window") and self.scrolled_window:
+            vadjust = self.scrolled_window.get_vadjustment()
+            if vadjust:
+                vadjust.set_value(0.0)
+            hadjust = self.scrolled_window.get_hadjustment()
+            if hadjust:
+                hadjust.set_value(0.0)
+
+        active_view = self._get_active_view()
+        if active_view:
+            active_view.queue_resize()
+            active_view.queue_draw()
 
         if save_preference and hasattr(self, "settings_manager") and self.settings_manager:
             try:
@@ -2156,7 +2284,7 @@ class FileManager(GObject.Object):
         grid_view.set_max_columns(24)
         grid_view.set_min_columns(2)
         grid_view.set_enable_rubberband(True)
-        grid_view.set_model(self.selection_model)
+        grid_view.set_model(None)  # Lazy model attachment
         grid_view.connect("activate", self._on_row_activated)
 
         factory = Gtk.SignalListItemFactory()
@@ -2227,6 +2355,9 @@ class FileManager(GObject.Object):
         gesture.connect("pressed", self._on_item_right_click, list_item)
         card.add_controller(gesture)
 
+        card.set_has_tooltip(True)
+        card.connect("query-tooltip", self._on_row_query_tooltip, list_item)
+
         list_item.set_child(card)
 
     def _bind_grid_item(self, factory, list_item):
@@ -2283,15 +2414,419 @@ class FileManager(GObject.Object):
                         badge_lbl.set_visible(True)
                     else:
                         badge_lbl.set_visible(False)
+                    card.set_tooltip_markup(file_item.tooltip_markup)
                 else:
                     badge_lbl.set_visible(False)
-
-        # Set rich tooltip on card
-        if hasattr(file_item, "tooltip_markup"):
-            card.set_tooltip_markup(file_item.tooltip_markup)
+                    card.set_tooltip_markup(None)
 
     def _unbind_grid_item(self, factory, list_item):
         self._unbind_cell(factory, list_item)
+
+    def _create_tree_view(self) -> Gtk.ListView:
+        """Creates the hierarchical Tree View using Gtk.TreeListModel and Gtk.TreeExpander."""
+        self._ensure_sorters()
+        self.tree_model = Gtk.TreeListModel.new(
+            self.sorted_store,
+            False,
+            False,
+            self._tree_create_children_model,
+            None,
+        )
+        self.tree_selection_model = Gtk.MultiSelection(model=self.tree_model)
+        self.tree_selection_model.connect(
+            "selection-changed", self._on_selection_changed_update_status
+        )
+
+        factory = Gtk.SignalListItemFactory()
+        factory.connect("setup", self._setup_tree_item)
+        factory.connect("bind", self._bind_tree_item)
+        factory.connect("unbind", self._unbind_tree_item)
+
+        tree_view = Gtk.ListView(model=None, factory=factory)  # Lazy model attachment
+        tree_view.add_css_class("file-manager-tree-view")
+        tree_view.connect("activate", self._on_row_activated)
+
+        key_controller = Gtk.EventControllerKey.new()
+        key_controller.connect("key-pressed", self._on_column_view_key_pressed)
+        key_controller.connect("key-released", self._on_column_view_key_released)
+        tree_view.add_controller(key_controller)
+
+        background_click = Gtk.GestureClick.new()
+        background_click.set_button(Gdk.BUTTON_SECONDARY)
+        background_click.connect(
+            "pressed",
+            lambda g, n, x, y: self._on_view_background_click(
+                g, n, x, y, tree_view
+            ),
+        )
+        tree_view.add_controller(background_click)
+
+        return tree_view
+
+    def _setup_tree_item(self, factory, list_item):
+        row_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        row_box.add_css_class("file-detailed-row")
+        row_box.add_css_class("file-tree-row")
+        row_box.set_margin_start(4)
+        row_box.set_margin_end(4)
+
+        expander = Gtk.TreeExpander()
+        expander.add_css_class("file-tree-expander")
+        expander.set_hexpand(True)
+
+        name_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        name_box.set_hexpand(True)
+        icon = Gtk.Image()
+        name_label = Gtk.Label(xalign=0.0)
+        link_icon = Gtk.Image()
+        link_icon.set_visible(False)
+        badges_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+
+        badge_exec = Gtk.Label(label="+x")
+        badge_exec.add_css_class("badge-pill")
+        badge_exec.add_css_class("badge-exec")
+        badge_exec.set_tooltip_text(_("Executable file"))
+        badge_exec.set_visible(False)
+
+        badge_root = Gtk.Label(label="root")
+        badge_root.add_css_class("badge-pill")
+        badge_root.add_css_class("badge-root")
+        badge_root.set_tooltip_text(_("Owned by root"))
+        badge_root.set_visible(False)
+
+        badge_type = Gtk.Label()
+        badge_type.add_css_class("badge-pill")
+        badge_type.set_visible(False)
+
+        badges_box.append(badge_exec)
+        badges_box.append(badge_root)
+        badges_box.append(badge_type)
+
+        name_box.append(icon)
+        name_box.append(name_label)
+        name_box.append(link_icon)
+        name_box.append(badges_box)
+
+        expander.set_child(name_box)
+
+        size_label = Gtk.Label(xalign=1.0)
+        size_label.set_width_chars(14)
+        size_label.set_size_request(110, -1)
+        size_label.add_css_class("file-detailed-col-size")
+        size_label.add_css_class("numeric")
+
+        date_label = Gtk.Label(xalign=0.5)
+        date_label.set_width_chars(17)
+        date_label.set_size_request(150, -1)
+        date_label.add_css_class("file-detailed-col-date")
+        date_label.add_css_class("numeric")
+
+        perms_label = Gtk.Label(xalign=0.5)
+        perms_label.set_width_chars(11)
+        perms_label.set_size_request(110, -1)
+        perms_label.add_css_class("file-detailed-col-perms")
+        perms_label.add_css_class("numeric")
+
+        owner_label = Gtk.Label(xalign=0.0)
+        owner_label.set_width_chars(18)
+        owner_label.set_size_request(160, -1)
+        owner_label.add_css_class("file-detailed-col-owner")
+        owner_label.add_css_class("numeric")
+
+        row_box.append(expander)
+        row_box.append(size_label)
+        row_box.append(date_label)
+        row_box.append(perms_label)
+        row_box.append(owner_label)
+
+        gesture = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+        gesture.connect("pressed", self._on_item_right_click, list_item)
+        row_box.add_controller(gesture)
+
+        row_box.set_has_tooltip(True)
+        row_box.connect("query-tooltip", self._on_row_query_tooltip, list_item)
+
+        list_item.set_child(row_box)
+
+    def _bind_tree_item(self, factory, list_item):
+        self._bind_cell_common(list_item)
+        row_box = list_item.get_child()
+        tree_row = list_item.get_item()
+        if not tree_row or not row_box:
+            return
+
+        expander = row_box.get_first_child()
+        name_box = expander.get_child()
+        icon = name_box.get_first_child()
+        name_label = icon.get_next_sibling()
+        link_icon = name_label.get_next_sibling()
+        badges_box = link_icon.get_next_sibling()
+
+        size_label = expander.get_next_sibling()
+        date_label = size_label.get_next_sibling()
+        perms_label = date_label.get_next_sibling()
+        owner_label = perms_label.get_next_sibling()
+
+        if isinstance(tree_row, Gtk.TreeListRow):
+            expander.set_list_row(tree_row)
+            file_item = tree_row.get_item()
+        else:
+            file_item = tree_row
+
+        if not file_item:
+            return
+
+        icon.set_from_icon_name(file_item.icon_name)
+        display_name = file_item.name
+        if file_item.is_directory and display_name.endswith("/"):
+            display_name = display_name[:-1]
+        name_label.set_text(display_name)
+
+        if file_item.is_link:
+            link_icon.set_from_icon_name("emblem-symbolic-link-symbolic")
+            link_icon.set_visible(True)
+        else:
+            link_icon.set_visible(False)
+
+        badge_exec = badges_box.get_first_child()
+        badge_root = badge_exec.get_next_sibling()
+        badge_type = badge_root.get_next_sibling()
+
+        if file_item.name != "..":
+            badge_exec.set_visible(file_item.is_executable and not file_item.is_directory)
+            badge_root.set_visible(file_item.is_root_owned)
+
+            type_info = file_item.file_type_badge
+            if type_info:
+                badge_text, css_class = type_info
+                badge_type.set_text(badge_text)
+                badge_type.set_css_classes(["badge-pill", css_class])
+                badge_type.set_visible(True)
+            else:
+                badge_type.set_visible(False)
+
+            size_label.set_text(file_item.tree_size_summary)
+            date_label.set_text(file_item.formatted_date)
+            perms_label.set_text(file_item.permissions)
+            owner_label.set_text(f"{file_item.owner}:{file_item.group}")
+
+            # Disconnect previous metrics handler if recycled
+            prev_handler = getattr(row_box, "_metrics_handler_id", None)
+            prev_item = getattr(row_box, "_bound_file_item", None)
+            if prev_handler and prev_item:
+                try:
+                    if GObject.signal_handler_is_connected(prev_item, prev_handler):
+                        prev_item.disconnect(prev_handler)
+                except Exception:
+                    pass
+
+            def on_metrics_updated(itm):
+                if not self._is_destroyed and size_label:
+                    size_label.set_text(itm.tree_size_summary)
+
+            handler_id = file_item.connect("metrics-updated", on_metrics_updated)
+            row_box._metrics_handler_id = handler_id
+            row_box._bound_file_item = file_item
+
+            if file_item.is_directory and file_item.recursive_size is None:
+                if getattr(self, "_current_view_mode", "list") == "tree":
+                    self._calculate_tree_dir_metrics_async(file_item)
+            row_box.set_tooltip_markup(file_item.tooltip_markup)
+        else:
+            badge_exec.set_visible(False)
+            badge_root.set_visible(False)
+            badge_type.set_visible(False)
+            size_label.set_text("")
+            date_label.set_text("")
+            perms_label.set_text("")
+            owner_label.set_text("")
+            row_box.set_tooltip_markup(None)
+
+    def _unbind_tree_item(self, factory, list_item):
+        row_box = list_item.get_child()
+        if row_box:
+            handler_id = getattr(row_box, "_metrics_handler_id", None)
+            bound_item = getattr(row_box, "_bound_file_item", None)
+            if handler_id and bound_item:
+                try:
+                    if GObject.signal_handler_is_connected(bound_item, handler_id):
+                        bound_item.disconnect(handler_id)
+                except Exception:
+                    pass
+            row_box._metrics_handler_id = None
+            row_box._bound_file_item = None
+
+    def _tree_create_children_model(self, item: FileItem, user_data=None) -> Optional[Gio.ListModel]:
+        """Creates and populates child model when a tree directory row is expanded."""
+        if not item or not item.is_directory or item.name in (".", ".."):
+            return None
+
+        dir_path = self.get_item_full_path(item)
+        if not dir_path:
+            return None
+
+        child_store = Gio.ListStore.new(FileItem)
+
+        if not self._is_remote_session():
+            try:
+                directories = []
+                files = []
+                with os.scandir(dir_path) as entries:
+                    for entry in entries:
+                        try:
+                            st = entry.stat(follow_symlinks=False)
+                            perms = stat.filemode(st.st_mode)
+                            is_link = entry.is_symlink()
+                            link_target = ""
+                            if is_link:
+                                try:
+                                    link_target = os.readlink(entry.path)
+                                except Exception:
+                                    pass
+                            dt = datetime.fromtimestamp(st.st_mtime)
+                            is_dir = entry.is_dir(follow_symlinks=False)
+                            display_name = entry.name + ("/" if is_dir else "")
+                            child_item = FileItem(
+                                display_name,
+                                perms,
+                                st.st_size,
+                                dt,
+                                _resolve_user_name(st.st_uid),
+                                _resolve_group_name(st.st_gid),
+                                is_link=is_link,
+                                link_target=link_target,
+                                full_path=entry.path,
+                                parent_path=dir_path,
+                            )
+                            if child_item.is_directory_like:
+                                directories.append(child_item)
+                            else:
+                                files.append(child_item)
+                        except Exception:
+                            pass
+
+                directories.sort(key=lambda x: x.name_lower)
+                files.sort(key=lambda x: x.name_lower)
+                child_store.splice(0, 0, directories + files)
+            except Exception as e:
+                self.logger.warning(f"Error expanding local tree folder {dir_path}: {e}")
+        else:
+            def fetch_remote_children():
+                try:
+                    if not self.operations or self._is_destroyed:
+                        return
+                    cmd = ["ls", "-la", "--classify", "--time-style=long-iso", dir_path]
+                    success, output = self.operations.execute_command_on_session(cmd, timeout=8)
+                    if not success:
+                        cmd = ["ls", "-la", "--classify", dir_path]
+                        success, output = self.operations.execute_command_on_session(cmd, timeout=8)
+                    if success and output:
+                        lines = output.strip().split("\n")
+                        if lines and lines[0].startswith("total "):
+                            lines = lines[1:]
+                        dirs = []
+                        fls = []
+                        for line in lines:
+                            ci = FileItem.from_ls_line(line)
+                            if ci and ci.name not in (".", ".."):
+                                ci.full_path = f"{dir_path.rstrip('/')}/{ci.name}"
+                                ci.parent_path = dir_path
+                                if ci.is_directory_like:
+                                    dirs.append(ci)
+                                else:
+                                    fls.append(ci)
+                        dirs.sort(key=lambda x: x.name_lower)
+                        fls.sort(key=lambda x: x.name_lower)
+                        all_children = dirs + fls
+                        GLib.idle_add(lambda: child_store.splice(0, 0, all_children))
+                except Exception as e:
+                    self.logger.warning(f"Error fetching remote tree children for {dir_path}: {e}")
+
+            AsyncTaskManager.get().submit_io(fetch_remote_children)
+
+        return child_store
+
+    def _calculate_tree_dir_metrics_async(self, item: FileItem):
+        """Asynchronously calculates recursive disk usage (bytes and item count) for a directory."""
+        if not item or not item.is_directory or item.name in (".", ".."):
+            return
+
+        dir_path = self.get_item_full_path(item)
+        if not dir_path:
+            return
+
+        if hasattr(self, "_dir_metrics_cache") and dir_path in self._dir_metrics_cache:
+            sz, count = self._dir_metrics_cache[dir_path]
+            item.recursive_size = sz
+            item.item_count = count
+            item.emit("metrics-updated")
+            return
+
+        if not hasattr(self, "_dir_metrics_calculating"):
+            self._dir_metrics_calculating = set()
+
+        if dir_path in self._dir_metrics_calculating:
+            return
+
+        self._dir_metrics_calculating.add(dir_path)
+
+        def worker():
+            try:
+                total_size = 0
+                item_count = 0
+                if not self._is_remote_session():
+                    def scan_dir(p: str, current_depth: int = 0) -> Tuple[int, int]:
+                        if current_depth > 12:
+                            return 0, 0
+                        s = 0
+                        c = 0
+                        try:
+                            with os.scandir(p) as it:
+                                for entry in it:
+                                    try:
+                                        if entry.is_file(follow_symlinks=False):
+                                            s += entry.stat(follow_symlinks=False).st_size
+                                            c += 1
+                                        elif entry.is_dir(follow_symlinks=False):
+                                            c += 1
+                                            sub_s, sub_c = scan_dir(entry.path, current_depth + 1)
+                                            s += sub_s
+                                            c += sub_c
+                                    except Exception:
+                                        pass
+                        except Exception:
+                            pass
+                        return s, c
+
+                    total_size, item_count = scan_dir(dir_path)
+                elif self.operations:
+                    success, output = self.operations.execute_command_on_session(["du", "-sb", dir_path], timeout=5)
+                    if success and output.strip():
+                        parts = output.strip().split()
+                        if parts and parts[0].isdigit():
+                            total_size = int(parts[0])
+                    success_c, output_c = self.operations.execute_command_on_session(
+                        ["find", dir_path, "-maxdepth", "3"], timeout=5
+                    )
+                    if success_c and output_c:
+                        lines = [l for l in output_c.strip().split("\n") if l]
+                        item_count = max(0, len(lines) - 1)
+
+                if hasattr(self, "_dir_metrics_cache"):
+                    self._dir_metrics_cache[dir_path] = (total_size, item_count)
+
+                item.recursive_size = total_size
+                item.item_count = item_count
+
+                if not self._is_destroyed:
+                    GLib.idle_add(item.emit, "metrics-updated")
+            except Exception as e:
+                self.logger.debug(f"Metrics calc error for {dir_path}: {e}")
+            finally:
+                if hasattr(self, "_dir_metrics_calculating"):
+                    self._dir_metrics_calculating.discard(dir_path)
+
+        AsyncTaskManager.get().submit_io(worker)
 
     def _confirm_pending_command(self):
         """
@@ -2349,9 +2884,31 @@ class FileManager(GObject.Object):
             GLib.timeout_add(15, _invalidate_and_refresh)
 
     def _on_row_activated(self, col_view, position):
-        item: FileItem = col_view.get_model().get_item(position)
-        if not item:
+        model = col_view.get_model() if col_view else None
+        if not model:
+            if col_view == getattr(self, "tree_view", None):
+                model = getattr(self, "tree_selection_model", None)
+            elif col_view == getattr(self, "grid_view", None):
+                model = getattr(self, "grid_selection_model", None)
+            elif col_view == getattr(self, "column_view", None):
+                model = getattr(self, "selection_model", None)
+        if not model:
             return
+        raw_item = model.get_item(position)
+        if not raw_item:
+            return
+
+        if isinstance(raw_item, Gtk.TreeListRow):
+            tree_row = raw_item
+            item = tree_row.get_item()
+            if not item:
+                return
+            if item.is_directory_like and item.name != "..":
+                if tree_row.is_expandable():
+                    tree_row.set_expanded(not tree_row.get_expanded())
+                return
+        else:
+            item = raw_item
 
         if item.is_directory_like:
             new_path = ""
@@ -2359,8 +2916,7 @@ class FileManager(GObject.Object):
                 if self.current_path != "/":
                     new_path = str(Path(self.current_path).parent)
             else:
-                base_path = self.current_path.rstrip("/")
-                new_path = f"{base_path}/{item.name}"
+                new_path = self.get_item_full_path(item)
 
             if not new_path:
                 return
@@ -2379,13 +2935,24 @@ class FileManager(GObject.Object):
             if self._is_remote_session():
                 self._on_open_edit_action(None, None, [item])
             else:
-                full_path = Path(self.current_path).joinpath(item.name)
+                item_path = self.get_item_full_path(item)
+                full_path = Path(item_path)
                 self._open_local_file(full_path)
 
     def set_visibility(self, visible: bool, source: str = "filemanager"):
         self.revealer.set_reveal_child(visible)
         if visible:
-            self.refresh(source=source)
+            # Check if current directory already matches the terminal to avoid redundant refresh
+            terminal_dir = self._get_terminal_current_directory() or self._get_default_directory_for_session()
+            should_refresh = True
+            if self.current_path and terminal_dir:
+                try:
+                    if os.path.realpath(terminal_dir) == os.path.realpath(self.current_path):
+                        should_refresh = False
+                except Exception:
+                    pass
+            if should_refresh:
+                self.refresh(source=source)
             self._apply_background_transparency()
             if source == "filemanager":
                 active_view = self._get_active_view()
@@ -2729,20 +3296,18 @@ class FileManager(GObject.Object):
             )
             return False
 
+        for itm in items:
+            if not getattr(itm, "full_path", ""):
+                if itm.name != "..":
+                    clean = itm.name.rstrip("/")
+                    itm.full_path = os.path.join(requested_path, clean)
+                else:
+                    itm.full_path = str(Path(requested_path).parent)
+            if not getattr(itm, "parent_path", ""):
+                itm.parent_path = requested_path
+
         if self.store is not None:
-            # Suspender o filtro durante o splice para evitar N recálculos.
-            # O filtro é temporariamente removido do FilterListModel, o splice
-            # é feito no store bruto, e o filtro é reconectado em seguida.
-            # O GTK então faz um único recálculo em lote — muito mais eficiente.
-            current_filter = None
-            if hasattr(self, "filtered_store") and self.filtered_store is not None:
-                current_filter = self.filtered_store.get_filter()
-                self.filtered_store.set_filter(None)
-            try:
-                self.store.splice(0, self.store.get_n_items(), items)
-            finally:
-                if current_filter is not None and hasattr(self, "filtered_store") and self.filtered_store is not None:
-                    self.filtered_store.set_filter(current_filter)
+            self.store.splice(0, self.store.get_n_items(), items)
 
         # Track this as the last successfully listed path (for permission denied fallback)
         self._last_successful_path = requested_path
@@ -3130,17 +3695,18 @@ class FileManager(GObject.Object):
                 self._show_general_context_menu(translated_x, translated_y)
                 return
 
-            if self.selection_model is None:
+            active_sel = self._get_active_selection_model()
+            if active_sel is None:
                 self._show_general_context_menu(translated_x, translated_y)
                 return
 
-            if position >= self.selection_model.get_n_items():
+            if position >= active_sel.get_n_items():
                 self._show_general_context_menu(translated_x, translated_y)
                 return
 
-            if not self.selection_model.is_selected(position):
-                self.selection_model.unselect_all()
-                self.selection_model.select_item(position, True)
+            if not active_sel.is_selected(position):
+                active_sel.unselect_all()
+                active_sel.select_item(position, True)
 
             selected_items = self.get_selected_items()
             if selected_items:
@@ -3378,14 +3944,42 @@ class FileManager(GObject.Object):
                 self.search_entry.set_text(char)
                 self.search_entry.set_position(-1)
                 self.search_entry.grab_focus()
+        active_sel = self._get_active_selection_model()
         if keyval in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
             if (
-                self.selection_model
-                and self.selection_model.get_selection().get_size() > 0
+                active_sel
+                and active_sel.get_selection().get_size() > 0
             ):
-                pos = self.selection_model.get_selection().get_nth(0)
+                pos = active_sel.get_selection().get_nth(0)
                 self._on_row_activated(self._get_active_view(), pos)
                 return Gdk.EVENT_STOP
+
+        elif getattr(self, "_current_view_mode", "list") == "tree":
+            if keyval == Gdk.KEY_Right:
+                if active_sel and active_sel.get_selection().get_size() > 0:
+                    pos = active_sel.get_selection().get_nth(0)
+                    if hasattr(self, "tree_model") and self.tree_model:
+                        row = self.tree_model.get_item(pos)
+                        if isinstance(row, Gtk.TreeListRow) and row.is_expandable():
+                            if not row.get_expanded():
+                                row.set_expanded(True)
+                                return Gdk.EVENT_STOP
+            elif keyval == Gdk.KEY_Left:
+                if active_sel and active_sel.get_selection().get_size() > 0:
+                    pos = active_sel.get_selection().get_nth(0)
+                    if hasattr(self, "tree_model") and self.tree_model:
+                        row = self.tree_model.get_item(pos)
+                        if isinstance(row, Gtk.TreeListRow):
+                            if row.is_expandable() and row.get_expanded():
+                                row.set_expanded(False)
+                                return Gdk.EVENT_STOP
+                            else:
+                                parent_row = row.get_parent()
+                                if parent_row:
+                                    parent_pos = parent_row.get_position()
+                                    active_sel.unselect_all()
+                                    active_sel.select_item(parent_pos, True)
+                                    return Gdk.EVENT_STOP
 
         elif keyval == Gdk.KEY_Escape:
             current_text = (

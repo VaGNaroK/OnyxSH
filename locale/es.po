@@ -11592,3 +11592,11 @@ msgstr "¡Por favor, seleccione un directorio válido!"
 # 
 msgid "Directory does not exist"
 msgstr "El directorio no existe"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "Vista de árbol jerárquico"
+
+# 
+msgid "Calculating..."
+msgstr "Calculando..."

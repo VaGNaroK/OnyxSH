@@ -11569,3 +11569,11 @@ msgstr "Please select a valid directory!"
 # 
 msgid "Directory does not exist"
 msgstr "Directory does not exist"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "Hierarchické stromové zobrazenie"
+
+# 
+msgid "Calculating..."
+msgstr "Počítanie..."

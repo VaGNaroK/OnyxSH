@@ -11521,3 +11521,11 @@ msgstr "请选择有效的目录！"
 # 
 msgid "Directory does not exist"
 msgstr "目录不存在"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "分层树形视图"
+
+# 
+msgid "Calculating..."
+msgstr "正在计算..."

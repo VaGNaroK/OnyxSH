@@ -36,9 +36,13 @@ for c_dir in candidate_locale_dirs:
             locale_dir = c_dir
             break
 
+import functools
+
 # Configure the translation text domain for onyxsh
 gettext.bindtextdomain("onyxsh", locale_dir)
 gettext.textdomain("onyxsh")
 
-# Export _ directly as the translation function
-_ = gettext.gettext
+# Export _ with LRU cache to eliminate massive redundant disk stats during UI rendering
+@functools.lru_cache(maxsize=1024)
+def _(message: str) -> str:
+    return gettext.gettext(message)

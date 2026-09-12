@@ -130,6 +130,16 @@
 
 ---
 
+### ~~BUG-010: Latência Severa de Abertura (>10s) e Stall na Navegação do File Manager~~ ✅ *[RESOLVIDO]*
+
+**Severidade:** 🔴 Alta — Abertura do gerenciador de arquivos levava >10s em tela branca e duplo clique em pastas causava atraso de ~3s.
+
+**Arquivos:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/utils/translation_utils.py`
+
+**Status:** Corrigido com atualização atômica do `store.splice` sem redefinir filtros, implementação de *Lazy Model Attachment* em `Gtk.Stack` (apenas a visão ativa mantém o modelo conectado), eliminação de duplo refresh na abertura, condicionamento das métricas recursivas à visão em árvore e memoização de `_()` com `@functools.lru_cache(maxsize=1024)`. Tempo de abertura reduzido de 13,5s para 0,40s (~33x) e navegação para 0,028s (~100x). Coberto por testes em `tests/test_filemanager_filtering_sorting.py`.
+
+---
+
 ## 🔧 Melhorias Sugeridas
 
 ### IMP-001: Policy Engine — Frozenset com Multi-word Commands Ineficaz

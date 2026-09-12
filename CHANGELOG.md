@@ -6,6 +6,31 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ---
 
+## [Não Lançado] - 2026-09-11
+
+### Adicionado
+- **Visualização em Árvore Hierárquica (Tree View) com Métricas Recursivas de Disco no File Manager**: Terceiro modo de exibição integrado com `Gtk.TreeListModel` e `Gtk.TreeExpander` (`src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/models.py`, `src/onyxsh/data/styles/components.css`, `tests/test_filemanager_tree_view.py`):
+  - 🌳 **Navegação Aninhada Expansível**: Expansão e recolhimento hierárquico com suporte completo a atalhos de teclado (<kbd>→</kbd> para expandir pasta, <kbd>←</kbd> para recolher ou navegar para o nó pai).
+  - 📊 **Cálculo Assíncrono de Métricas Recursivas em Background**: Varredura sem travamento da UI para pastas locais (`os.scandir`) e remotas SSH (`ls -la`), com emissão de sinal thread-safe `metrics-updated`, contagem de itens e formatação inteligente de tamanho.
+  - 🗂️ **Integração Completa com o File Manager**: Paridade com Quick Look, menu de contexto com ações de terminal, arrastar/soltar e seleção simples/múltipla.
+  - 🌐 **Internacionalização (28 Idiomas)**: Strings traduzidas em todos os 28 catálogos `.po`/`.mo` (`scripts/sync_translations.py`).
+
+### Otimizado
+- **Otimizações Extremas de Desempenho no Gerenciador de Arquivos**:
+  - ⚡ **Abertura 33x Mais Rápida (Sub-segundo, de 13,5s para 0,40s)**:
+    - Substituição do ciclo ineficiente de desmontagem de filtros (`set_filter(None)`) por atualização atômica direta via `store.splice(0, n, items)`.
+    - Implementação de *Lazy Model Attachment*: apenas a visualização ativa (Lista, Grade ou Árvore) retém o modelo conectado (`set_model`), atribuindo `None` às visualizações inativas no `Gtk.Stack` e evitando a instanciação concorrente de centenas de templates de widgets.
+    - Eliminação do ciclo duplo de atualização na abertura através de detecção de sincronia de caminho em `set_visibility()`.
+    - Execução estritamente condicionada da varredura recursiva de métricas da árvore apenas quando o modo ativo for `"tree"`.
+  - 🚀 **Navegação de Diretórios 100x Mais Rápida (Instantânea, de 3,5s para 0,028s)**: Navegação imediata entre pastas sem latência perceptível ao dar duplo clique.
+  - 🧠 **Memoização em Memória de Traduções (`_()`)**: Aplicação de `@functools.lru_cache(maxsize=1024)` em `translation_utils._()`, reduzindo o tempo de resolução de 0,768s para 0,0013s e eliminando mais de 24.000 chamadas síncronas `posix.stat` no disco por segundo.
+
+### Corrigido
+- **Dessincronização de Scroll ao Trocar para Grade de Ícones (`BUG-FM-009`)**: Reset automático de `vadjustment` e `hadjustment` para `0.0`, remoção de homogeneidade do `Gtk.Stack` e atualização imediata por clique no diretório atual da trilha de breadcrumbs.
+- **Latência Severa de Abertura e Stall na Navegação do File Manager (`BUG-FM-010`)**: Eliminação de reordenação tripla redundante de filtros no GTK4 e renderização concorrente de visualizações inativas.
+
+---
+
 ## [0.10.1] - 2026-08-26
 
 ### Adicionado

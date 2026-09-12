@@ -11606,3 +11606,11 @@ msgstr "Bitte wählen Sie ein gültiges Verzeichnis aus!"
 # 
 msgid "Directory does not exist"
 msgstr "Verzeichnis existiert nicht"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "Hierarchische Strukturansicht"
+
+# 
+msgid "Calculating..."
+msgstr "Berechnung..."

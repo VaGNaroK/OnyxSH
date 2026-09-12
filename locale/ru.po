@@ -11562,3 +11562,11 @@ msgstr "Пожалуйста, выберите действительный ка
 # 
 msgid "Directory does not exist"
 msgstr "Каталог не существует"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "Иерархическое дерево"
+
+# 
+msgid "Calculating..."
+msgstr "Вычисление..."

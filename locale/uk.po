@@ -11566,3 +11566,11 @@ msgstr "Please select a valid directory!"
 # 
 msgid "Directory does not exist"
 msgstr "Каталог не існує"
+
+# 
+msgid "Hierarchical Tree View"
+msgstr "Ієрархічний вигляд дерева"
+
+# 
+msgid "Calculating..."
+msgstr "Обчислення..."

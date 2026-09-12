@@ -405,9 +405,9 @@
 - [x] **Módulos Afetados:** `src/onyxsh/ui/dialogs/checksum_dialog.py`, `src/onyxsh/utils/checksum_utils.py`, `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/quick_look.py`, `scripts/sync_translations.py`, `tests/test_checksum.py`.
 
 ### 📌 5.9. Visualização em Árvore Hierárquica (Tree View) com Métricas Recursivas de Disco
-- [ ] **Descrição:** Modo alternativo de navegação em árvore hierárquica expansível no File Manager com cálculo e exibição recursiva de tamanho de pastas e contagem de arquivos para identificação rápida de diretórios pesados.
-- [ ] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/models.py`.
+- [x] **Descrição:** Modo alternativo de navegação em árvore hierárquica expansível no File Manager com cálculo e exibição recursiva de tamanho de pastas e contagem de arquivos para identificação rápida de diretórios pesados.
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Baixo/Médio | **Alvo:** `v0.11.0`
+- [x] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/models.py`, `src/onyxsh/data/styles/components.css`, `scripts/sync_translations.py`, `tests/test_filemanager_tree_view.py`.
 
 ---
 
@@ -417,7 +417,7 @@
 | :--- | :--- | :--- |
 | **`v0.9.0`** | **Produtividade & Core UX** | • Command Palette (`Ctrl+Shift+P`)<br>• Restauração Automática de Sessões<br>• Integração Semântica OSC 133<br>• Histórico Inteligente e Snippets de Comandos<br>• Autocomplete e Notificações Desktop<br>• Novo Logo Vetorial Oficial OnyxSH |
 | **`v0.10.1`** | **File Manager 2.0 & In-Place Editor** | • **Editor Embutido no Quick Look (com Sudo / Root / SSH)**<br>• **Quick Look (Preview com Tecla `Espaço`)**<br>• **Ações Rápidas de Terminal & IA no File Manager**<br>• **Atalhos Rápidos (Bookmarks) e Barra de Status com Espaço Livre**<br>• **Badges Visuais de Permissões (+x)**<br>• **Verificador & Comparador de Checksums / Hash**<br>• Production Guard & Roteamento Inteligente de IA<br>• Modo Estritamente Offline & Diagnóstico (`--diagnose`) |
-| **`v0.11.0`** | **DevOps, Observabilidade & Remoto** | • Modo Dual-Pane Local ⇄ Remoto no File Manager<br>• Tree View Hierárquica com Métricas de Disco<br>• Dashboard de Recursos em Tempo Real (CPU/RAM/Rede)<br>• Gráficos & Imagens no Terminal (Protocolo Sixel)<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs<br>• Auto-Correção Proativa de Erros de Terminal<br>• Exportação com Anotações & Relatório HTML de Saúde |
+| **`v0.11.0`** | **DevOps, Observabilidade & Remoto** | • Modo Dual-Pane Local ⇄ Remoto no File Manager<br>• **Tree View Hierárquica com Métricas de Disco (Implementado)**<br>• Dashboard de Recursos em Tempo Real (CPU/RAM/Rede)<br>• Gráficos & Imagens no Terminal (Protocolo Sixel)<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs<br>• Auto-Correção Proativa de Erros de Terminal<br>• Exportação com Anotações & Relatório HTML de Saúde |
 | **`v1.0.0`** | **Maturidade, Extensibilidade & Cofres** | • API de Plugins (Onyx Bridge)<br>• Ferramentas Customizadas para o Agente & Catálogo de Receitas<br>• Integração com Gerenciadores de Segredos (Bitwarden, 1Password)<br>• Compartilhamento Instantâneo de Snippets via Link<br>• Estabilização Completa de Pacotes Flatpak, Debian e AUR |
 | **`v1.1.0`** | **Colaboração & Proteção Avançada** | • Sessões Compartilhadas & Terminal Multiplayer (Pair Programming)<br>• Modo "Sombra" (Dry-Run Sandbox com visualização de diff)<br>• Detecção Proativa de Comportamento Anômalo<br>• Aprendizado por Demonstração (Demonstration Learning) |
 
