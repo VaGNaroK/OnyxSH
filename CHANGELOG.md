@@ -35,6 +35,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ### Corrigido
 - **Dessincronização de Scroll ao Trocar para Grade de Ícones (`BUG-FM-009`)**: Reset automático de `vadjustment` e `hadjustment` para `0.0`, remoção de homogeneidade do `Gtk.Stack` e atualização imediata por clique no diretório atual da trilha de breadcrumbs.
 - **Latência Severa de Abertura e Stall na Navegação do File Manager (`BUG-FM-010`)**: Eliminação de reordenação tripla redundante de filtros no GTK4 e renderização concorrente de visualizações inativas.
+- **Sobre-escape de Aspas e Alucinação de Tokens em Nomes com Apóstrofo no Assistente de IA (`BUG-AI-010`)**: Injeção dinâmica do diretório de trabalho corrente (`$PWD`) no prompt do sistema, diretrizes de *Clean Quoting (KISS)* e sanitização de pós-processamento para remoção de barras espúrias (`\\'`), duplicação de tokens (`'s 's`) e aspas redundantes.
 
 ---
 

@@ -301,5 +301,99 @@ done"""
         self.assertEqual(plan.steps[1].argv, ["touch", "/tmp/pasta com espaco/arquivo novo.txt"])
 
 
+    def test_clean_overescaped_command_fixes_escaped_apostrophes_and_duplicate_tokens(self):
+        """Should clean up corrupted escapes and token repetitions in commands from local LLMs."""
+        # Exact issue reported by user
+        cmd_corrupted = r'cd "$HOME/Dante\'s \'s Inferno PC PORT"'
+        cleaned = TerminalAiAssistant._clean_overescaped_command(cmd_corrupted)
+        self.assertEqual(cleaned, 'cd "$HOME/Dante\'s Inferno PC PORT"')
+
+        # Double escaped slash
+        cmd_double_escaped = 'cd "$HOME/Dante\\\\\'s \'s Inferno PC PORT"'
+        cleaned_double = TerminalAiAssistant._clean_overescaped_command(cmd_double_escaped)
+        self.assertEqual(cleaned_double, 'cd "$HOME/Dante\'s Inferno PC PORT"')
+
+        # Relative path with corrupted escaping
+        cmd_rel = r'cd "Dante\'s \'s Inferno PC PORT"'
+        self.assertEqual(
+            TerminalAiAssistant._clean_overescaped_command(cmd_rel),
+            'cd "Dante\'s Inferno PC PORT"'
+        )
+
+        # Doubled double quotes
+        cmd_quotes = 'cd ""$HOME/Dante""'
+        self.assertEqual(
+            TerminalAiAssistant._clean_overescaped_command(cmd_quotes),
+            'cd "$HOME/Dante"'
+        )
+
+        # Distorted ./~/ path
+        cmd_path = './~/scripts/run.sh'
+        self.assertEqual(
+            TerminalAiAssistant._clean_overescaped_command(cmd_path),
+            '~/scripts/run.sh'
+        )
+
+        # Valid unquoted escaped command should be preserved
+        cmd_valid_unquoted = r"cd Dante\'s\ Inferno\ PC\ PORT"
+        self.assertEqual(
+            TerminalAiAssistant._clean_overescaped_command(cmd_valid_unquoted),
+            cmd_valid_unquoted
+        )
+
+    def test_clean_overescaped_reply_text(self):
+        """Should clean over-escaped patterns in explanatory text and markdown blocks."""
+        reply = (
+            "Para abrir a pasta, use:\n\n"
+            '`cd "$HOME/Dante\\\'s \'s Inferno PC PORT"`\n\n'
+            "```bash\n"
+            'cd "$HOME/Dante\\\'s \'s Inferno PC PORT"\n'
+            "```"
+        )
+        cleaned = TerminalAiAssistant._clean_overescaped_reply_text(reply)
+        self.assertNotIn(r"\'s \'s", cleaned)
+        self.assertNotIn(r"\\'s", cleaned)
+        self.assertIn('`cd "$HOME/Dante\'s Inferno PC PORT"`', cleaned)
+        self.assertIn('cd "$HOME/Dante\'s Inferno PC PORT"', cleaned)
+
+    def test_system_prompt_includes_cwd_context_and_clean_quoting(self):
+        """System prompt should include clean quoting rules and cwd context when available."""
+        prompt_with_cwd = TerminalAiAssistant._get_system_prompt(cwd="~/Projetos")
+        self.assertIn("CURRENT WORKING DIRECTORY", prompt_with_cwd)
+        self.assertIn("~/Projetos", prompt_with_cwd)
+        self.assertIn("DYNAMIC PATHS & CLEAN COMMAND QUOTING (KISS)", prompt_with_cwd)
+        self.assertIn("Dante's Inferno PC PORT", prompt_with_cwd)
+
+        prompt_without_cwd = TerminalAiAssistant._get_system_prompt()
+        self.assertNotIn("CURRENT WORKING DIRECTORY", prompt_without_cwd)
+        self.assertIn("DYNAMIC PATHS & CLEAN COMMAND QUOTING (KISS)", prompt_without_cwd)
+
+    def test_get_current_working_directory_from_terminal(self):
+        """get_current_working_directory should sanitize home directory and subpaths."""
+        import pathlib
+        from unittest.mock import MagicMock
+
+        home = str(pathlib.Path.home()).rstrip("/")
+
+        # Mock terminal at $HOME
+        term_home = MagicMock()
+        term_home.get_current_directory_uri.return_value = f"file://{home}"
+        self.assistant.terminal_manager = MagicMock()
+        self.assistant.terminal_manager.get_active_terminal.return_value = term_home
+        self.assertEqual(self.assistant.get_current_working_directory(), "~")
+
+        # Mock terminal in subfolder of $HOME
+        term_sub = MagicMock()
+        term_sub.get_current_directory_uri.return_value = f"file://{home}/Projetos/OnyxSH"
+        self.assistant.terminal_manager.get_active_terminal.return_value = term_sub
+        self.assertEqual(self.assistant.get_current_working_directory(), "~/Projetos/OnyxSH")
+
+        # Mock terminal in system directory
+        term_sys = MagicMock()
+        term_sys.get_current_directory_uri.return_value = "file:///etc/nginx"
+        self.assistant.terminal_manager.get_active_terminal.return_value = term_sys
+        self.assertEqual(self.assistant.get_current_working_directory(), "/etc/nginx")
+
+
 if __name__ == "__main__":
     unittest.main()

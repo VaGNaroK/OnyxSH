@@ -274,6 +274,21 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
 
 ---
 
+### [BUG-AI-010] Sobre-escape de Aspas e Alucinação de Tokens em Nomes com Apóstrofo
+- **Componentes:** `src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/agent/context_manager.py`
+- **Sintoma:** Ao sugerir comandos para diretórios ou arquivos contendo espaços, maiúsculas ou apóstrofos (ex.: `"Dante's Inferno PC PORT"`), modelos locais (Ollama 7B) geravam comandos malformados com barras desnecessárias dentro de aspas duplas (`cd "$HOME/Dante\\'s 's Inferno PC PORT"`), repetição de tokens (`'s 's`) e prefixação redundante de `$HOME/`, fazendo o comando falhar com erro no Bash.
+- **Causa Raiz:**
+  1. Confusão entre regras de escape JSON (`\"`, `\\`) e sintaxe do Bash: dentro de aspas duplas `"..."`, uma aspa simples `'` não requer escape no Bash. A barra invertida torna-se literal (`\'`), quebrando a busca do diretório.
+  2. Alucinação de repetição de token comum em tokenizers menores ao lidar com contrações e apóstrofos (`'s 's`).
+  3. Falta de diretiva explícita de quoting limpo (KISS) e ausência de injeção do diretório de trabalho corrente (`$PWD`) no prompt do sistema.
+- **Correção:**
+  1. Inclusão de regra explícita de *Clean Quoting (KISS)* no prompt de sistema: orienta o uso de aspas duplas simples `cd "Nome da Pasta"`, proibindo barras invertidas redundantes (`\\'`) para apóstrofos e instruindo o uso de caminhos relativos no diretório atual.
+  2. Implementação do método `get_current_working_directory()` que detecta o diretório do terminal ativo e injeta a seção `CURRENT WORKING DIRECTORY` no prompt do sistema.
+  3. Implementação dos sanitizadores `_clean_overescaped_command()` e `_clean_overescaped_reply_text()`, que removem barras invertidas espúrias antes de apóstrofos dentro de aspas duplas, corrigem duplicação de tokens (`'s 's` $\rightarrow$ `'s`) e normalizam caminhos distorcidos.
+- **Testes:** `tests/test_ai_assistant_script_filter.py` (`test_clean_overescaped_command_fixes_escaped_apostrophes_and_duplicate_tokens`, `test_clean_overescaped_reply_text`, `test_system_prompt_includes_cwd_context_and_clean_quoting`, `test_get_current_working_directory_from_terminal`).
+
+---
+
 ## 4. Terminal, Rastreamento Semântico & Atalhos
 
 ### [BUG-TERM-001] Cálculo de Coordenadas e Salto de Prompts Semânticos (OSC 133)

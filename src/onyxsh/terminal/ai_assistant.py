@@ -72,6 +72,7 @@ class TerminalAiAssistant(GObject.Object):
     _SYSTEM_PROMPT_TEMPLATE = (
         "You are an expert Linux systems engineer and interactive terminal assistant inside the OnyxSH emulator running on {os_context}."
         " Your mission is to provide clear, production-ready, safe, and logically ordered command-line solutions."
+        "{cwd_context}"
         "\n\n"
         "**CRITICAL RULES:**\n"
         "1. **OUTPUT FORMAT:** Respond with RAW JSON only. Do NOT wrap root response in markdown code blocks like ```json ... ```.\n"
@@ -79,7 +80,7 @@ class TerminalAiAssistant(GObject.Object):
         "3. **MANDATORY FULL SCRIPT IN 'reply':** When the user requests a script, program, or automation, you MUST ALWAYS write the COMPLETE, FULL-LENGTH script with all functions and logic inside a Markdown code block (```bash ... ```) in the 'reply' field. Never provide only steps, summaries, or descriptions without the actual code. The user expects the code to be visible in the chat.\n"
         "4. **LANGUAGE & FULL LOCALIZATION:** You MUST respond entirely and strictly in {language}. Every part of the response — including explanatory texts, markdown headings, transitional phrases, step lists (1, 2, 3...), code comments (# ...), log messages, and user-facing CLI output strings (`echo \"...\"`, `log_message ...`) — MUST be written in {language}. Never leave numbered steps, bullet points, or instructions in English.\n"
         "5. **TERMINAL AWARENESS:** The user is ALREADY working inside the OnyxSH terminal emulator. Never instruct the user to 'Open the terminal (Ctrl+Alt+T)' or open graphical desktop text editors unless explicitly asked. Always provide direct CLI solutions.\n"
-        "6. **DYNAMIC PATHS & MODERN STANDARDS:** Always use `$HOME`, `~`, or relative paths. NEVER invent fake hardcoded user paths like `/home/usuario/` or `/home/user/`. Use modern system command equivalents for {os_context} (e.g. `ip` instead of `ifconfig`, `ss` instead of `netstat`, `systemctl` instead of `/etc/init.d/`). Do NOT install or update random system packages like Flatpak unless explicitly requested by the user.\n"
+        "6. **DYNAMIC PATHS & CLEAN COMMAND QUOTING (KISS):** Keep commands clean, simple, and direct. When operating in the user's current working directory, use simple relative paths (e.g. `cd \"Folder Name\"`, `ls`, `./script.sh`) instead of prepending redundant `$HOME/` or absolute paths. When dealing with directory or file names containing spaces, uppercase letters, special characters, or apostrophes/single quotes (e.g. `Dante's Inferno PC PORT`), ALWAYS enclose the path in simple double quotes: `\"Dante's Inferno PC PORT\"`. NEVER add backslashes inside double quotes for apostrophes or single quotes (do NOT write `\\'` or `\'` inside `\"...\"` — inside double quotes, single quotes are literal and do not need escaping in bash). Never over-escape or duplicate tokens. Use modern system command equivalents for {os_context} (e.g. `ip` instead of `ifconfig`, `ss` instead of `netstat`, `systemctl` instead of `/etc/init.d/`). Do NOT install or update random system packages like Flatpak unless explicitly requested by the user.\n"
         "7. **COMMANDS & SCRIPT EXECUTION:** In the 'commands' array, provide the exact commands to create the file and run it: `cat << 'EOF' > ~/myscript.sh\\n<FULL_SCRIPT_CODE_HERE>\\nEOF`, `chmod +x ~/myscript.sh`, `~/myscript.sh`. NEVER generate an empty heredoc or a template containing only `#!/usr/bin/env bash` or `...`.\n"
         "8. **PACKAGE MANAGEMENT & UPDATES:** When upgrading system packages while excluding or holding specific packages (like Microsoft Edge or Linux kernel), use official native package manager holding mechanisms in a single concise chained command (e.g. `sudo apt-mark hold microsoft-edge-stable && sudo apt update && sudo apt upgrade -y && sudo apt-mark unhold microsoft-edge-stable` on Debian/Ubuntu/Mint, or `sudo dnf upgrade -x 'kernel*'` on Fedora) instead of generating complex temporary bash scripts or fragile parsing hacks.\n"
     )
@@ -96,8 +97,8 @@ class TerminalAiAssistant(GObject.Object):
 
 
     @classmethod
-    def _get_system_prompt(cls) -> str:
-        """Get the system prompt with the system's default language and OS context."""
+    def _get_system_prompt(cls, cwd: Optional[str] = None) -> str:
+        """Get the system prompt with the system's default language, OS context, and optional working directory."""
         import locale
         import os
 
@@ -143,8 +144,17 @@ class TerminalAiAssistant(GObject.Object):
 
         os_context = cls._detect_os_context()
 
+        cwd_context = ""
+        if cwd and str(cwd).strip():
+            cwd_clean = str(cwd).strip()
+            cwd_context = (
+                f"\n\n**CURRENT WORKING DIRECTORY:** The active terminal is currently at `{cwd_clean}`. "
+                f"When suggesting commands to navigate to or run files located inside this directory, prefer clean relative paths "
+                f"(e.g. `cd \"Folder Name\"`, `ls`, `./script.sh`) instead of prepending redundant `$HOME/` or absolute paths."
+            )
+
         return cls._SYSTEM_PROMPT_TEMPLATE.format(
-            language=language, os_context=os_context
+            language=language, os_context=os_context, cwd_context=cwd_context
         )
 
     def __init__(self, window, settings_manager, terminal_manager):
@@ -198,6 +208,39 @@ class TerminalAiAssistant(GObject.Object):
     def set_routing_profile(self, profile: str) -> None:
         """Sets the active routing profile."""
         self.settings_manager.set("ai_routing_profile", str(profile).lower())
+
+    def get_current_working_directory(self, terminal_id: int = -1) -> str:
+        """
+        Resolves the current working directory from the specified terminal or the active tab.
+        Returns a sanitized string like '~', '~/Projetos', or '/var/log', or '' if unavailable.
+        """
+        terminal = None
+        if terminal_id != -1:
+            ref = self._terminal_refs.get(terminal_id)
+            if ref:
+                terminal = ref()
+        if not terminal and self.terminal_manager:
+            if hasattr(self.terminal_manager, "get_active_terminal"):
+                terminal = self.terminal_manager.get_active_terminal()
+
+        if terminal and hasattr(terminal, "get_current_directory_uri"):
+            try:
+                uri = terminal.get_current_directory_uri()
+                if uri and uri.startswith("file://"):
+                    from urllib.parse import unquote, urlparse
+                    import pathlib
+
+                    parsed = urlparse(uri)
+                    clean_path = unquote(parsed.path).split("?")[0].rstrip("/")
+                    home_dir = str(pathlib.Path.home()).rstrip("/")
+                    if clean_path == home_dir:
+                        return "~"
+                    elif clean_path.startswith(home_dir + "/"):
+                        return f"~/{clean_path[len(home_dir)+1:]}"
+                    return clean_path or "/"
+            except Exception:
+                pass
+        return ""
 
     def missing_configuration(self, prompt: str = "") -> List[str]:
         missing = []
@@ -555,7 +598,8 @@ class TerminalAiAssistant(GObject.Object):
             history = self._conversations.setdefault(terminal_id, [])
             history.append({"role": "user", "content": prompt})
 
-            system_prompt = self._get_system_prompt()
+            cwd = self.get_current_working_directory(terminal_id)
+            system_prompt = self._get_system_prompt(cwd=cwd)
             context_size = int(self.settings_manager.get("ai_context_size", 8192))
 
             # Approximate budget: reserve 1000 tokens for output generation
@@ -1294,11 +1338,14 @@ class TerminalAiAssistant(GObject.Object):
                     synth_cmd = f"cat << 'EOF' > {target_script_name}\n{full_scripts[0]}\nEOF"
                     commands.insert(0, {"command": synth_cmd, "description": f"Criar {target_script_name}"})
 
-        # Normalize any distorted paths (e.g. './~/script.sh' -> '~/script.sh')
+        # Clean over-escaped paths, quotes, and duplicated tokens in commands
         for c in commands:
             cmd_val = c.get("command", "")
-            if isinstance(cmd_val, str) and "./~/" in cmd_val:
-                c["command"] = cmd_val.replace("./~/", "~/")
+            if isinstance(cmd_val, str):
+                c["command"] = self._clean_overescaped_command(cmd_val)
+
+        # Clean over-escaped patterns in explanation text
+        reply_text = self._clean_overescaped_reply_text(reply_text)
 
         return reply_text, commands, code_snippets
 
@@ -1515,6 +1562,63 @@ class TerminalAiAssistant(GObject.Object):
 
         return clean_text
 
+    @classmethod
+    def _clean_overescaped_command(cls, cmd: str) -> str:
+        """
+        Cleans over-escaped or corrupted commands generated by local LLMs:
+        - Fixes double-double quotes: ""path"" -> "path"
+        - Fixes token duplication: 's 's -> 's
+        - Fixes erroneous backslashes before apostrophes inside double quotes: "Dante\\'s" -> "Dante's"
+        - Normalizes distorted paths: './~/' -> '~/'
+        """
+        if not cmd or not isinstance(cmd, str):
+            return cmd
+
+        # 1. Normalize distorted paths
+        if "./~/" in cmd:
+            cmd = cmd.replace("./~/", "~/")
+
+        # 2. Fix duplicated double-quotes (e.g. ""$HOME/..."" -> "$HOME/...")
+        cmd = re.sub(r'""([^"]+)""', r'"\1"', cmd)
+
+        # 3. Fix token repetition around apostrophes (e.g. "Dante\'s \'s", "Dante\\'s 's", "Dante's 's")
+        cmd = re.sub(r"\\*['’]s\s+\\*['’]s\b", "'s", cmd)
+
+        # 4. Inside double quotes, remove backslashes preceding single quotes / apostrophes
+        def _fix_inner_quotes(m):
+            inner = m.group(1)
+            # In bash inside "...", a single quote never needs escaping and \+ before ' is an error
+            cleaned = re.sub(r"\\+(['’])", r"\1", inner)
+            return f'"{cleaned}"'
+
+        cmd = re.sub(r'"((?:[^"\\]|\\.)*)"', _fix_inner_quotes, cmd)
+
+        return cmd.strip()
+
+    @classmethod
+    def _clean_overescaped_reply_text(cls, reply: str) -> str:
+        """
+        Cleans over-escaped or corrupted patterns inside the explanation text and markdown code blocks.
+        """
+        if not reply or not isinstance(reply, str):
+            return reply
+
+        # 1. Fix token repetition around apostrophes (e.g. Dante\\'s 's, Dante\'s \'s, Dante's 's)
+        reply = re.sub(r"\\*['’]s\s+\\*['’]s\b", "'s", reply)
+
+        # 2. Inside double quotes, remove backslashes preceding single quotes / apostrophes
+        def _fix_inner_quotes(m):
+            inner = m.group(1)
+            cleaned = re.sub(r"\\+(['’])", r"\1", inner)
+            return f'"{cleaned}"'
+
+        reply = re.sub(r'"((?:[^"\\]|\\.)*)"', _fix_inner_quotes, reply)
+
+        # 3. Inside backticks or inline code, clean up duplicated double-quotes (e.g. `""...""`)
+        reply = re.sub(r'`""([^"]+)""`', r'`"\1"`', reply)
+
+        return reply
+
     @staticmethod
     def _is_script_line(line: str) -> bool:
         """Helper to identify if a line is part of a shell script structure."""
@@ -1689,7 +1793,7 @@ class TerminalAiAssistant(GObject.Object):
         if isinstance(value, list):
             for item in value:
                 if isinstance(item, str) and item.strip():
-                    cmd_clean = item.strip()
+                    cmd_clean = self._clean_overescaped_command(item.strip())
                     if self._is_valid_cli_command(cmd_clean):
                         commands.append({"command": cmd_clean, "description": ""})
                 elif isinstance(item, dict):
@@ -1704,7 +1808,7 @@ class TerminalAiAssistant(GObject.Object):
                         candidate = item["tool"]
                     description = item.get("description") or ""
                     if isinstance(candidate, str) and candidate.strip():
-                        cand_clean = candidate.strip()
+                        cand_clean = self._clean_overescaped_command(candidate.strip())
                         if self._is_valid_cli_command(cand_clean) or "step_id" in item:
                             item_dict = dict(item)
                             item_dict["command"] = cand_clean
@@ -1713,11 +1817,12 @@ class TerminalAiAssistant(GObject.Object):
                 elif hasattr(item, "to_dict"):
                     d = item.to_dict()
                     cmd_str = " ".join(item.argv) if getattr(item, "argv", None) else getattr(item, "tool", "")
-                    if self._is_valid_cli_command(cmd_str):
-                        d["command"] = cmd_str
+                    cmd_clean = self._clean_overescaped_command(cmd_str)
+                    if self._is_valid_cli_command(cmd_clean):
+                        d["command"] = cmd_clean
                         commands.append(d)
         elif isinstance(value, str) and value.strip():
-            cmd_clean = value.strip()
+            cmd_clean = self._clean_overescaped_command(value.strip())
             if self._is_valid_cli_command(cmd_clean):
                 commands.append({"command": cmd_clean, "description": ""})
         return commands
