@@ -6,7 +6,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ---
 
-## [Não Lançado] - 2026-09-12
+## [0.11.0] - 2026-09-13
 
 ### Adicionado
 - **Sugestão Proativa de Correção e Ações Rápidas para Erros de Terminal (TODO 3.7)**: Motor heurístico em tempo real e integração com IA que detecta comandos com falha e oferece correções imediatas e diagnósticos sem travar o fluxo do usuário (`src/onyxsh/agent/error_matcher.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/settings/config.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `tests/test_terminal_error_suggestions.py`):

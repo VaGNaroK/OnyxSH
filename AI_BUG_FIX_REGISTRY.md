@@ -1,8 +1,8 @@
 # 🧠 OnyxSH — Registro de Bugs Corrigidos & Base de Conhecimento para IA
 
 > **Arquivo:** `AI_BUG_FIX_REGISTRY.md`  
-> **Versão do Projeto:** v0.10.1  
-> **Última Atualização:** Setembro/2026 (12/09/2026)  
+> **Versão do Projeto:** v0.11.0  
+> **Última Atualização:** Setembro/2026 (13/09/2026)  
 > **Finalidade:** Servir como guia definitivo e índice de consulta para agentes de IA e desenvolvedores, detalhando todos os bugs já identificados, diagnosticados e corrigidos no repositório.
 
 ---
