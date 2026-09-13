@@ -608,6 +608,59 @@
     background-color: transparent;
 }
 
+/* ==========================================================================
+   Real-Time Resource Metrics Dashboard
+   ========================================================================== */
+.resource-dashboard-view {
+    background-color: transparent;
+}
+
+.resource-dashboard-toolbar {
+    background-color: alpha(@window_fg_color, 0.04);
+    border-radius: 8px;
+    padding: 6px 10px;
+    border: 1px solid alpha(@borders, 0.4);
+}
+
+.resource-metric-card {
+    background-color: alpha(@window_fg_color, 0.035);
+    border: 1px solid alpha(@borders, 0.5);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.resource-metric-card .card-title {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.metric-value-title {
+    font-size: 20px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.5px;
+}
+
+.metric-net-rx {
+    color: #2ecc71;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.metric-net-tx {
+    color: #e67e22;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.sparkline-canvas {
+    border-radius: 6px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+
 
 
 

@@ -79,6 +79,8 @@ class WindowActions:
             "copy-last-output": self.copy_last_command_output,
             "analyze-last-error-ai": self.analyze_last_error_with_ai,
             "show-command-history": self.show_command_history,
+            "show-resource-monitor": self.show_resource_monitor,
+            "toggle-resource-monitor": self.show_resource_monitor,
             "system-diagnostics": self.show_system_diagnostics,
             "export-terminal-buffer": self.export_terminal_buffer,
             "toggle-tftp-server": self.toggle_tftp_server,
@@ -1213,6 +1215,14 @@ class WindowActions:
             dialog.present()
         except Exception as e:
             self.logger.error(f"Error opening system diagnostics dialog: {e}")
+
+    def show_resource_monitor(self, *args) -> None:
+        """Opens or presents the real-time resource monitor dialog."""
+        try:
+            from .dialogs.resource_dashboard_dialog import ResourceDashboardDialog
+            ResourceDashboardDialog.show_dashboard(parent_window=self.window)
+        except Exception as e:
+            self.logger.error(f"Error opening resource monitor dialog: {e}")
 
     copy_last_output = copy_last_command_output
     analyze_last_error_ai = analyze_last_error_with_ai

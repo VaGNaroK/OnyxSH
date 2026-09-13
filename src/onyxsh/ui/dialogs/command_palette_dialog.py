@@ -650,6 +650,31 @@ class CommandPaletteDialog(BaseDialog):
         )
         self._items.append(
             CommandPaletteItem(
+                "show-resource-monitor",
+                _("Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"),
+                _("Ferramentas"),
+                "computer-symbolic",
+                action_name="show-resource-monitor",
+                shortcut=get_accel_label("show-resource-monitor"),
+                keywords=[
+                    "monitor",
+                    "recursos",
+                    "cpu",
+                    "ram",
+                    "memoria",
+                    "disco",
+                    "rede",
+                    "graficos",
+                    "desempenho",
+                    "hardware",
+                    "ssh",
+                    "system",
+                    "dashboard",
+                ],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
                 "highlight-settings",
                 _("Regras de Realce Sintático e Temas"),
                 _("Configurações"),

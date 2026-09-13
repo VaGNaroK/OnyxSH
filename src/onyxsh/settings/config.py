@@ -288,6 +288,9 @@ class DefaultSettings:
             "notify_long_commands_condition": "unfocused",
             "notify_long_commands_sound": True,
             "show_command_running_indicator": True,
+            # Resource Monitor Dashboard Settings
+            "resource_monitor_refresh_interval": 2,
+            "resource_monitor_history_points": 30,
             # Autocomplete & Suggestions Settings
             "autocomplete_enabled": True,
             "autocomplete_style": "both",  # "both", "popup", "ghost"

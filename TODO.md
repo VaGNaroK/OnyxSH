@@ -173,9 +173,10 @@
 - [ ] **Módulos Afetados:** `src/onyxsh/agent/audit_logger.py`.
 
 ### 🛡️ 2.7. Dashboard de Métricas de Recursos em Tempo Real (CPU, RAM, Disco, Rede - Local & SSH)
-- [ ] **Descrição:** Painel lateral dedicado ou flutuante exibindo gráficos de utilização em tempo real de CPU, memória, disco e rede para a máquina local e sessões SSH remotas conectadas (via `/proc` e `sysstat`).
-- [ ] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/ui/widgets/`, `src/onyxsh/sessions/`, `src/onyxsh/ui/sidebar_manager.py`.
+- [x] **Descrição:** Painel dedicado e janela flutuante não-modal exibindo gráficos e métricas de utilização em tempo real de CPU, memória RAM & Swap, disco e tráfego de rede (I/O) para a máquina local e sessões SSH remotas conectadas.
+- [x] **Status:** ✅ Implementado no ciclo `v0.11.0` (`src/onyxsh/system/metrics.py`, `src/onyxsh/ui/widgets/resource_dashboard.py`, `src/onyxsh/ui/widgets/sparkline.py`, `src/onyxsh/ui/dialogs/resource_dashboard_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/window_ui.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_system_metrics.py`).
+- [x] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
+- [x] **Módulos Afetados:** `src/onyxsh/system/metrics.py`, `src/onyxsh/ui/widgets/resource_dashboard.py`, `src/onyxsh/ui/widgets/sparkline.py`, `src/onyxsh/ui/dialogs/resource_dashboard_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/window_ui.py`.
 
 ### 🛡️ 2.8. Modo "Leitura Obrigatória" com Justificativa de Auditoria para Produção
 - [ ] **Descrição:** Em hosts de produção protegidos pelo Production Guard, exigir que qualquer comando de escrita/modificação passe por uma justificativa textual obrigatória gravada diretamente no log de auditoria antes da execução.

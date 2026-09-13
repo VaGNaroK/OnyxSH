@@ -91,6 +91,7 @@ class WindowUIBuilder:
         self.toggle_sidebar_button = None
         self.file_manager_button = None
         self.command_manager_button = None
+        self.resource_monitor_button = None
         self.cleanup_button = None
         self.font_sizer_widget = None
         self.scrolled_tab_bar = None
@@ -332,6 +333,14 @@ class WindowUIBuilder:
         ai_enabled = self.settings_manager.get("ai_assistant_enabled", False)
         self.ai_assistant_button.set_visible(ai_enabled)
 
+        # Resource Monitor button
+        self.resource_monitor_button = Gtk.Button()
+        self.resource_monitor_button.set_child(icon_image("computer-symbolic"))
+        self.resource_monitor_button.add_css_class("flat")
+        self.resource_monitor_button.connect(
+            "clicked", lambda _: self.window.action_handler.show_resource_monitor()
+        )
+
         self.cleanup_button = Gtk.MenuButton(visible=False)
         self.cleanup_button.set_child(icon_image("user-trash-symbolic"))
         self.cleanup_button.add_css_class("destructive-action")
@@ -370,6 +379,9 @@ class WindowUIBuilder:
         self.tooltip_helper.add_tooltip_with_shortcut(
             self.ai_assistant_button, _("Ask AI Assistant"), "ai-assistant"
         )
+        self.tooltip_helper.add_tooltip_with_shortcut(
+            self.resource_monitor_button, _("Resource Monitor"), "show-resource-monitor"
+        )
         self.tooltip_helper.add_tooltip(
             self.cleanup_button, _("Manage Temporary Files")
         )
@@ -395,6 +407,7 @@ class WindowUIBuilder:
             self.command_manager_button.add_css_class("flipped-icon")
             self.search_button.add_css_class("flipped-icon")
             self.ai_assistant_button.add_css_class("flipped-icon")
+            self.resource_monitor_button.add_css_class("flipped-icon")
             self.cleanup_button.add_css_class("flipped-icon")
             self.menu_button.add_css_class("flipped-icon")
             self.new_tab_button.add_css_class("flipped-icon")
@@ -403,6 +416,7 @@ class WindowUIBuilder:
             header_bar.pack_end(self.file_manager_button)
             header_bar.pack_end(self.command_manager_button)
             header_bar.pack_end(self.ai_assistant_button)
+            header_bar.pack_end(self.resource_monitor_button)
             header_bar.pack_end(self.search_button)
             header_bar.pack_end(self.cleanup_button)
             header_bar.pack_start(self.menu_button)
@@ -413,6 +427,7 @@ class WindowUIBuilder:
             header_bar.pack_start(self.file_manager_button)
             header_bar.pack_start(self.command_manager_button)
             header_bar.pack_start(self.ai_assistant_button)
+            header_bar.pack_start(self.resource_monitor_button)
             header_bar.pack_start(self.search_button)
             header_bar.pack_start(self.cleanup_button)
             header_bar.pack_end(self.menu_button)

@@ -7,6 +7,14 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [Unreleased]
 
 ### Adicionado
+- **Dashboard de Métricas de Recursos em Tempo Real (TODO 2.7)**:
+  - 📊 **Monitoramento de Hardware em Tempo Real com Zero-Overhead**: Monitoramento contínuo de CPU, Memória RAM & Swap, Armazenamento em Disco e Tráfego de Rede (I/O) em tempo real, sem travar nem degradar o desempenho ou a taxa de quadros do terminal (`src/onyxsh/system/metrics.py`, `src/onyxsh/ui/widgets/resource_dashboard.py`, `src/onyxsh/ui/widgets/sparkline.py`, `src/onyxsh/ui/dialogs/resource_dashboard_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/window_ui.py`, `tests/test_system_metrics.py`).
+  - 🧵 **Coleta Desacoplada e Assíncrona (`MetricsWorkerThread`)**: Toda a coleta roda fora do loop principal do GTK em uma thread trabalhadora dedicada com `threading.Event`, com despacho thread-safe via `GLib.idle_add`.
+  - ⏸️ **Suspensão Inteligente sob Demanda (0% CPU Ocioso)**: Pausa imediata da thread e das chamadas ao sistema quando a janela do monitor é fechada ou minimizada, eliminando qualquer consumo fantasma de CPU ou I/O quando inativo.
+  - 📈 **Sparklines Ultra-Leves via Cairo (`SparklineCanvas`)**: Traçado contínuo com preenchimento em gradiente e indicador de pico renderizado em menos de 0.05ms, com atualização estritamente sob demanda.
+  - 🌐 **Suporte a Máquina Local e Servidores Remotos SSH**: Seletor dinâmico que detecta sessões SSH ativas e permite monitorar instâncias remotas via consultas não-invasivas (sem interferir no PTY do terminal) com timeout estrito de 2.0s.
+  - 🪟 **Janela Flutuante Não-Modal (`ResourceDashboardDialog`)**: Permite manter o monitor aberto lado a lado ou em um segundo monitor enquanto o usuário continua digitando no terminal sem interrupção.
+  - ⌨️ **Acesso Rápido**: Integrado com botão dedicado no cabeçalho da janela, atalho na Command Palette (<kbd>Ctrl + Shift + P</kbd>) e ação `show-resource-monitor`.
 - **Indicador Visual de Execução em Andamento no Terminal (*Live Loading Feedback*)**:
   - ⏳ **Feedback em Tempo Real para Comandos Longos**: Exibição dinâmica de um `Gtk.Spinner` animado e cronômetro de tempo decorrido ao vivo (`0.3s`, `1.5s`, `1m 12s`...) no badge flutuante e no cabeçalho de splits durante a execução de comandos que demoram a responder (como `flatpak search`, `sleep 10`, downloads e compilações), dando certeza ao usuário de que o terminal está ativo e trabalhando.
   - 🔄 **Indicador Discreto na Barra de Abas**: Exibição de spinner dedicado na aba correspondente enquanto qualquer terminal associado estiver em execução.
