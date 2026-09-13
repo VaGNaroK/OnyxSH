@@ -358,7 +358,7 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
   1. No backend X11 do `tooltip_helper.py`, substituição de `set_tooltip_text` pelo sinal assíncrono nativo sob demanda `query-tooltip`, reduzindo o tempo de registro de 1,58s para 0,0003s (ganho de 4000x).
   2. Implementação do singleton `get_policy_engine()` em `policy_engine.py`.
   3. Pré-aquecimento do painel em background via `GLib.idle_add(self._prewarm_ai_panel)` ao inicializar a janela, tornando o clique no botão imediato (< 1 ms).
-- **Testes:** `tests/test_tooltip_helper.py` (`test_add_tooltip_uses_query_tooltip_on_native`, `test_add_tooltip_with_shortcut_on_native`), `tests/test_policy_engine.py` (`test_get_policy_engine_singleton`).
+- **Testes:** `tests/test_tooltip_helper.py` (`test_add_tooltip_uses_query_tooltip_on_native`, `test_add_tooltip_with_shortcut_on_native`), `tests/test_policy_engine.py` (`test_get_policy_engine_singleton`), `tests/test_window_ui.py` (`test_prewarm_ai_panel_execution`, `test_glib_idle_add_prewarm_available`).
 
 ---
 

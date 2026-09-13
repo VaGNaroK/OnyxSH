@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Optional
 import gi
 
 gi.require_version("Adw", "1")
-from gi.repository import Adw, Gdk, Gio, Gtk, Pango
+from gi.repository import Adw, Gdk, Gio, GLib, Gtk, Pango
 
 from ..data.command_manager_models import (
     get_command_button_manager,
