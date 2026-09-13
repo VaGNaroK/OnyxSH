@@ -175,8 +175,21 @@ class TestPostVerification(unittest.TestCase):
         """Standard paths and simple tilde/HOME references must expand cleanly."""
         self.assertEqual(safe_quote_path("~"), '"$HOME"')
         self.assertEqual(safe_quote_path("$HOME"), '"$HOME"')
+        self.assertEqual(safe_quote_path("${HOME}"), '"$HOME"')
         self.assertEqual(safe_quote_path("~/simple.txt"), '"$HOME/simple.txt"')
+        self.assertEqual(safe_quote_path("$HOME/diagnostico.sh"), '"$HOME/diagnostico.sh"')
+        self.assertEqual(safe_quote_path("${HOME}/diagnostico.sh"), '"$HOME/diagnostico.sh"')
+        self.assertEqual(safe_quote_path('"${HOME}/diagnostico.sh"'), '"$HOME/diagnostico.sh"')
         self.assertEqual(safe_quote_path("/var/log/nginx.log"), "/var/log/nginx.log")
+
+    def test_infer_file_permissions_braced_home(self):
+        """Should safely expand ${HOME} in check command without literal single quotes."""
+        checks = self.verifier.infer_verifications(['chmod +x "${HOME}/diagnostico_python.sh"'])
+        self.assertEqual(len(checks), 1)
+        chk = checks[0]
+        self.assertEqual(chk.check_type, "path_permissions")
+        self.assertIn('"$HOME/diagnostico_python.sh"', chk.check_command)
+        self.assertNotIn("'${HOME}/diagnostico_python.sh'", chk.check_command)
 
 
 if __name__ == "__main__":

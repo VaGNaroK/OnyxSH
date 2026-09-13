@@ -64,24 +64,31 @@ class VerificationResult:
 
 
 def safe_quote_path(path: str) -> str:
-    """Quotes a path safely for shell execution while preserving ~ or $HOME expansion."""
+    """Quotes a path safely for shell execution while preserving ~, $HOME, or ${VAR} expansion."""
     p = path.strip("\"'")
-    # Shell metacharacters, control characters and quotes that must be escaped
     dangerous = set("$`!\\\"\n\r\t|;&<>()")
+
     if p.startswith("~/"):
         subpath = p[2:]
         if any(c in subpath for c in dangerous):
             return f'"$HOME"/{shlex.quote(subpath)}'
         return f'"$HOME/{subpath}"'
-    elif p == "~" or p == "$HOME":
+    elif p == "~":
         return '"$HOME"'
-    elif p.startswith("$HOME/"):
-        subpath = p[6:]
-        if any(c in subpath for c in dangerous):
-            return f'"$HOME"/{shlex.quote(subpath)}'
-        return f'"$HOME/{subpath}"'
-    else:
-        return shlex.quote(p)
+
+    var_match = re.match(r"^(\$[A-Za-z_][A-Za-z0-9_]*|\$\{[A-Za-z_][A-Za-z0-9_]*\})(.*)$", p)
+    if var_match:
+        raw_var, rest = var_match.group(1), var_match.group(2)
+        var_name = raw_var.strip("${}")
+        if not rest:
+            return f'"${var_name}"'
+        if rest.startswith("/"):
+            subpath = rest[1:]
+            if any(c in subpath for c in dangerous):
+                return f'"${var_name}"/{shlex.quote(subpath)}'
+            return f'"${var_name}/{subpath}"'
+
+    return shlex.quote(p)
 
 
 class PostVerifier:
