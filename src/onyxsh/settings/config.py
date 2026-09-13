@@ -323,7 +323,7 @@ class DefaultSettings:
             "ai_assistant_enabled": False,
             "ai_assistant_offline_mode": False,
             "ai_assistant_provider": "groq",
-            "ai_assistant_model": "llama-3.1-8b-instant",
+            "ai_assistant_model": "openai/gpt-oss-120b",
             "ai_assistant_api_key": "",
             "ai_openrouter_site_url": "",
             "ai_openrouter_site_name": "",
@@ -352,7 +352,7 @@ class DefaultSettings:
             "ai_smart_routing_enabled": True,
             "ai_routing_profile": "auto",  # "auto", "fast", "advanced"
             "ai_fast_provider": "groq",
-            "ai_fast_model": "llama-3.1-8b-instant",
+            "ai_fast_model": "qwen/qwen3.8-27b",
             "ai_advanced_provider": "gemini",
             "ai_advanced_model": "gemini-2.5-flash",
             "ai_api_key_gemini": "",

@@ -14,9 +14,12 @@ class TestAiOfflineMode(unittest.TestCase):
         # Ensure clean state
         self.settings.set("ai_assistant_enabled", True)
         self.settings.set("ai_assistant_offline_mode", False)
+        self.settings.set("ai_smart_routing_enabled", False)
         self.settings.set("ai_assistant_provider", "groq")
         self.settings.set("ai_assistant_model", "llama-3.1-8b-instant")
         self.settings.set("ai_assistant_api_key", "gsk_test_key_12345")
+        self.settings.set("ai_api_key_groq", "")
+        self.settings.set("ai_api_key_gemini", "")
         self.settings.set("ai_local_base_url", "http://localhost:11434/v1")
 
         self.mock_window = MagicMock()

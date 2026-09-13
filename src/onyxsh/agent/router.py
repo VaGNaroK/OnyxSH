@@ -122,7 +122,7 @@ class SmartRouter:
     """
 
     DEFAULT_FAST_PROVIDER = "groq"
-    DEFAULT_FAST_MODEL = "llama-3.1-8b-instant"
+    DEFAULT_FAST_MODEL = "qwen/qwen3.8-27b"
 
     DEFAULT_ADVANCED_PROVIDER = "gemini"
     DEFAULT_ADVANCED_MODEL = "gemini-2.5-flash"
@@ -167,11 +167,17 @@ class SmartRouter:
                 "ai_local_base_url", "http://localhost:11434/v1"
             ).strip()
             raw_model = self.settings_manager.get("ai_assistant_model", "").strip()
-            if not raw_model or raw_model in {
+            cloud_defaults = {
                 self.DEFAULT_FAST_MODEL,
                 self.DEFAULT_ADVANCED_MODEL,
+                "openai/gpt-oss-120b",
+                "qwen/qwen3.8-27b",
+                "llama-3.1-8b-instant",
+                "llama-3.3-70b-versatile",
                 "openrouter/polaris-alpha",
-            }:
+                "gemini-2.5-flash",
+            }
+            if not raw_model or raw_model in cloud_defaults:
                 local_model = self.DEFAULT_LOCAL_MODEL
             else:
                 local_model = raw_model

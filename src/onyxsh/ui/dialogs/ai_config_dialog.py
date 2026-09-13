@@ -32,7 +32,7 @@ class AIConfigDialog(Adw.PreferencesWindow):
     ]
 
     DEFAULT_MODELS = {
-        "groq": "llama-3.1-8b-instant",
+        "groq": "openai/gpt-oss-120b",
         "gemini": "gemini-2.5-flash",
         "openrouter": "openrouter/polaris-alpha",
         "local": "llama3.2",
@@ -282,7 +282,7 @@ class AIConfigDialog(Adw.PreferencesWindow):
         self.fast_model_row = Adw.EntryRow(
             title=_("Modelo Rápido"),
         )
-        self.fast_model_row.set_text(self.settings_manager.get("ai_fast_model", "llama-3.1-8b-instant"))
+        self.fast_model_row.set_text(self.settings_manager.get("ai_fast_model", "qwen/qwen3.8-27b"))
         self.fast_model_row.connect(
             "changed",
             lambda r: self._on_agent_setting_changed("ai_fast_model", r.get_text().strip()),
@@ -593,12 +593,21 @@ class AIConfigDialog(Adw.PreferencesWindow):
         if provider_id == "groq":
             self.model_row.set_title(_("Model Identifier"))
             self.api_key_row.set_title(_("Groq API Key"))
+            key = self.settings_manager.get("ai_api_key_groq", "") or self.settings_manager.get("ai_assistant_api_key", "")
+            if key and self.api_key_row.get_text() != key:
+                self.api_key_row.set_text(key)
         elif provider_id == "gemini":
             self.model_row.set_title(_("Model Identifier"))
             self.api_key_row.set_title(_("Google AI Studio API Key"))
+            key = self.settings_manager.get("ai_api_key_gemini", "") or self.settings_manager.get("ai_assistant_api_key", "")
+            if key and self.api_key_row.get_text() != key:
+                self.api_key_row.set_text(key)
         elif provider_id == "openrouter":
             self.model_row.set_title(_("Model Identifier"))
             self.api_key_row.set_title(_("OpenRouter API Key"))
+            key = self.settings_manager.get("ai_api_key_openrouter", "") or self.settings_manager.get("ai_assistant_api_key", "")
+            if key and self.api_key_row.get_text() != key:
+                self.api_key_row.set_text(key)
         elif provider_id == "local":
             self.model_row.set_title(_("Model Name"))
             self.api_key_row.set_title(_("API Key (if required)"))
@@ -646,6 +655,17 @@ class AIConfigDialog(Adw.PreferencesWindow):
         key = entry_row.get_text().strip()
         self.settings_manager.set("ai_assistant_api_key", key)
         self.emit("setting-changed", "ai_assistant_api_key", key)
+        provider_id = self._get_selected_provider_id()
+        if provider_id in ("groq", "gemini", "openrouter"):
+            prov_key = f"ai_api_key_{provider_id}"
+            self.settings_manager.set(prov_key, key)
+            self.emit("setting-changed", prov_key, key)
+            if provider_id == "groq" and hasattr(self, "key_groq_row") and self.key_groq_row.get_text() != key:
+                self.key_groq_row.set_text(key)
+            elif provider_id == "gemini" and hasattr(self, "key_gemini_row") and self.key_gemini_row.get_text() != key:
+                self.key_gemini_row.set_text(key)
+            elif provider_id == "openrouter" and hasattr(self, "key_openrouter_row") and self.key_openrouter_row.get_text() != key:
+                self.key_openrouter_row.set_text(key)
 
     def _on_model_changed(self, entry_row) -> None:
         """Handle model change."""
@@ -657,6 +677,12 @@ class AIConfigDialog(Adw.PreferencesWindow):
         """Handle Agent mode setting changes."""
         self.settings_manager.set(key, value)
         self.emit("setting-changed", key, value)
+        provider_id = self._get_selected_provider_id()
+        if key == f"ai_api_key_{provider_id}":
+            self.settings_manager.set("ai_assistant_api_key", value)
+            self.emit("setting-changed", "ai_assistant_api_key", value)
+            if hasattr(self, "api_key_row") and self.api_key_row.get_text() != value:
+                self.api_key_row.set_text(value)
         if "api_key" in key:
             val_preview = f"{value[:4]}... (len={len(value)})" if value else "EMPTY"
             self.logger.info(f"[AIConfigDialog] Setting updated: {key} = {val_preview}")
@@ -775,20 +801,17 @@ class AIConfigDialog(Adw.PreferencesWindow):
 
         def test_worker():
             from ...agent.providers.groq import GroqProvider
-            prov = GroqProvider({"provider": "groq", "api_key": key})
-            try:
-                prov.complete([{"role": "user", "content": "Ping"}])
-                success = True
-            except Exception:
-                success = False
+            models = GroqProvider.discover_available_models(key, force_refresh=True)
+            success = len(models) > 0
 
             def update_ui():
                 button.set_sensitive(True)
                 button.set_label(_("Testar"))
                 if success:
-                    self._show_toast(_("✅ Conexão com a Groq estabelecida com sucesso!"))
+                    sample = ", ".join(models[:2])
+                    self._show_toast(_("✅ Groq conectado! Modelos: {models}").format(models=sample))
                 else:
-                    self._show_toast(_("❌ Falha na autenticação com a Groq."))
+                    self._show_toast(_("❌ Falha na autenticação com a Groq (Chave inválida)."))
 
             GLib.idle_add(update_ui)
 
