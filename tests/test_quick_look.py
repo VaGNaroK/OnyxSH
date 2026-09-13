@@ -12,7 +12,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Gdk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Gdk, Gtk
+from gi.repository import Gdk, GLib, Gtk
 
 from onyxsh.filemanager.models import FileItem
 from onyxsh.filemanager.quick_look import QuickLookDialog
@@ -423,6 +423,98 @@ class TestQuickLook(unittest.TestCase):
         mock_scroll_controller.get_current_event_state.return_value = Gdk.ModifierType(0)
         res_no_ctrl = self.dialog._on_image_scroll(mock_scroll_controller, 0.0, -1.0)
         self.assertEqual(res_no_ctrl, Gdk.EVENT_PROPAGATE)
+
+    def _flush_glib(self, count: int = 100, condition=None, timeout: float = 3.0):
+        """Helper to process pending GLib idle events and background thread dispatches."""
+        import time
+        ctx = GLib.MainContext.default()
+        start = time.time()
+        for _ in range(count):
+            while ctx.pending():
+                ctx.iteration(False)
+            if condition and condition():
+                break
+            time.sleep(0.01)
+            if time.time() - start > timeout:
+                break
+
+    def test_get_item_path_resolution(self):
+        # 1. Fallback when full_path is empty
+        item = FileItem("script.py", "-rw-r--r--", 10, datetime.now(), "u", "g")
+        self.dialog.current_folder = "/home/user"
+        self.dialog.current_item = item
+        self.assertEqual(self.dialog._get_item_path(item), "/home/user/script.py")
+
+        # 2. Honors explicit item.full_path (e.g. from TreeView or Search)
+        item.full_path = "/home/user/subfolder/script.py"
+        self.assertEqual(self.dialog._get_item_path(item), "/home/user/subfolder/script.py")
+
+    def test_preview_item_with_subfolder_full_path(self):
+        # Create subfolder and test python file
+        sub_dir = self.test_dir / "Atividades"
+        sub_dir.mkdir(parents=True, exist_ok=True)
+        py_file = sub_dir / "boas_vindas.py"
+        py_file.write_text("print('Bem-vindo!')\n")
+
+        item = FileItem("boas_vindas.py", "-rw-r--r--", len("print('Bem-vindo!')\n"), datetime.now(), "u", "g")
+        item.full_path = str(py_file)
+
+        # Parent folder passed as current_folder (just like TreeView in FileManager)
+        self.dialog.preview_item(item, str(self.test_dir))
+        self._flush_glib(condition=lambda: self.dialog.stack.get_visible_child_name() != "loading")
+
+        self.assertEqual(self.dialog.stack.get_visible_child_name(), "text")
+        text = self.dialog.text_buffer.get_text(
+            self.dialog.text_buffer.get_start_iter(),
+            self.dialog.text_buffer.get_end_iter(),
+            True,
+        )
+        self.assertIn("print('Bem-vindo!')", text)
+        self.assertIn(str(py_file), self.dialog.subtitle_label.get_text())
+
+    def test_preview_text_file_not_found_transitions_to_error_without_name_error(self):
+        item = FileItem("missing.py", "-rw-r--r--", 10, datetime.now(), "u", "g")
+        missing_path = "/nonexistent/path/missing.py"
+
+        self.dialog._preview_text_or_binary(item, missing_path)
+        self._flush_glib(condition=lambda: self.dialog.stack.get_visible_child_name() != "loading")
+
+        # Should transition to error page, NOT stay stuck on loading
+        self.assertEqual(self.dialog.stack.get_visible_child_name(), "error")
+        desc = self.dialog.error_status.get_description()
+        self.assertTrue(len(desc) > 0)
+        self.assertIn("missing.py", desc)
+
+    def test_preview_image_file_not_found_transitions_to_error_without_name_error(self):
+        item = FileItem("missing.png", "-rw-r--r--", 10, datetime.now(), "u", "g")
+        missing_path = "/nonexistent/path/missing.png"
+
+        self.dialog._preview_image(item, missing_path)
+        self._flush_glib(condition=lambda: self.dialog.stack.get_visible_child_name() != "loading")
+
+        # Should transition to error page, NOT stay stuck on loading
+        self.assertEqual(self.dialog.stack.get_visible_child_name(), "error")
+        desc = self.dialog.error_status.get_description()
+        self.assertTrue(len(desc) > 0)
+        self.assertIn("missing.png", desc)
+
+    def test_save_worker_error_does_not_raise_name_error(self):
+        item = FileItem("readonly.txt", "-rw-r--r--", 10, datetime.now(), "u", "g")
+        self.dialog.current_item = item
+        self.dialog.current_folder = str(self.test_dir)
+        self.dialog.text_buffer.set_text("Modified content")
+        self.dialog.is_dirty = True
+
+        mock_ops = MagicMock()
+        mock_ops.save_file_content.side_effect = OSError("Disk I/O failure")
+        self.dialog.operations = mock_ops
+
+        with patch.object(self.dialog, "_show_error_dialog") as mock_err_dialog:
+            self.dialog._on_save_clicked(as_sudo=False)
+            self._flush_glib(condition=lambda: not self.dialog._is_saving)
+            mock_err_dialog.assert_called_once()
+            args = mock_err_dialog.call_args[0]
+            self.assertIn("Disk I/O failure", args[1])
 
 
 if __name__ == "__main__":

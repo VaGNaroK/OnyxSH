@@ -1495,6 +1495,7 @@ class FileManager(GObject.Object):
         if not relative_path:
             relative_path = full_path.name
 
+        file_item.full_path = str(full_path)
         file_item._name = relative_path
         return file_item
 
@@ -4050,12 +4051,51 @@ class FileManager(GObject.Object):
                 ),
             )
 
+        full_p = self.get_item_full_path(item)
+        folder = (
+            str(PurePosixPath(full_p).parent)
+            if full_p
+            else (self.current_path or "/")
+        )
         self.quick_look_dialog.preview_item(
-            item, self.current_path or "/", self.operations
+            item, folder, self.operations
         )
 
     def _navigate_quick_look(self, delta: int) -> Optional[Tuple[FileItem, str]]:
         """Move the selection up/down in the file manager and return the newly selected item."""
+        mode = getattr(self, "_current_view_mode", "list")
+        if (
+            mode == "tree"
+            and hasattr(self, "tree_selection_model")
+            and self.tree_selection_model
+            and hasattr(self, "tree_model")
+            and self.tree_model
+        ):
+            selection = self.tree_selection_model.get_selection()
+            if selection.get_size() == 0:
+                return None
+            curr_pos = selection.get_nth(0)
+            new_pos = curr_pos + delta
+            if 0 <= new_pos < self.tree_model.get_n_items():
+                self.tree_selection_model.select_item(new_pos, True)
+                active_view = self._get_active_view()
+                if active_view and hasattr(active_view, "scroll_to"):
+                    active_view.scroll_to(
+                        new_pos, None, Gtk.ListScrollFlags.NONE, None
+                    )
+                row = self.tree_model.get_item(new_pos)
+                if row:
+                    item = row.get_item() if isinstance(row, Gtk.TreeListRow) else row
+                    if isinstance(item, FileItem) and item.name != "..":
+                        full_p = self.get_item_full_path(item)
+                        folder = (
+                            str(PurePosixPath(full_p).parent)
+                            if full_p
+                            else (self.current_path or "/")
+                        )
+                        return item, folder
+            return None
+
         if not hasattr(self, "selection_model") or not self.selection_model:
             return None
 
@@ -4075,7 +4115,13 @@ class FileManager(GObject.Object):
                 )
             item = self.sorted_store.get_item(new_pos)
             if item and item.name != "..":
-                return item, self.current_path or "/"
+                full_p = self.get_item_full_path(item)
+                folder = (
+                    str(PurePosixPath(full_p).parent)
+                    if full_p
+                    else (self.current_path or "/")
+                )
+                return item, folder
         return None
 
     def _on_quick_look_action(self, _action, _param, items: List[FileItem]):

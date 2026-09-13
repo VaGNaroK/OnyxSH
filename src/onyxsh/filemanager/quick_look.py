@@ -16,7 +16,7 @@ import binascii
 import mimetypes
 import os
 import threading
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Callable, List, Optional, Tuple
 
 import gi
@@ -503,13 +503,24 @@ class QuickLookDialog(BaseDialog):
             self.save_btn.set_sensitive(self.is_dirty)
             self._update_title_display()
 
+    def _get_item_path(self, item: Optional[FileItem] = None) -> str:
+        """Resolve the canonical full path of an item, honoring item.full_path."""
+        target = item or self.current_item
+        if not target:
+            return ""
+        if getattr(target, "full_path", ""):
+            return target.full_path
+        if self.current_folder:
+            return f"{self.current_folder.rstrip('/')}/{target.name}"
+        return target.name
+
     def _update_title_display(self) -> None:
         """Update window title and subtitle with file info and dirty indicator."""
         if not self.current_item:
             return
         dirty_marker = " ●" if self.is_dirty else ""
         self.title_label.set_text(f"{self.current_item.name}{dirty_marker}")
-        full_path = f"{self.current_folder.rstrip('/')}/{self.current_item.name}"
+        full_path = self._get_item_path(self.current_item)
         self.subtitle_label.set_text(f"{self.current_item.formatted_size} • {full_path}")
 
     def preview_item(
@@ -520,7 +531,10 @@ class QuickLookDialog(BaseDialog):
     ) -> None:
         """Update and present preview for a given FileItem."""
         self.current_item = item
-        self.current_folder = current_folder
+        if getattr(item, "full_path", ""):
+            self.current_folder = str(PurePosixPath(item.full_path).parent)
+        else:
+            self.current_folder = current_folder
         self.operations = operations
         self._current_text_content = ""
         self._original_text_content = ""
@@ -563,18 +577,20 @@ class QuickLookDialog(BaseDialog):
         self.edit_toggle_btn.set_visible(True)
         self.menu_btn.set_visible(True)
 
+        full_path = self._get_item_path(item)
+
         # 1. Image Preview
         if ext in IMAGE_EXTENSIONS:
             self._is_image = True
             self.edit_toggle_btn.set_visible(False)
             self.save_btn.set_visible(False)
             self.save_sudo_btn.set_visible(False)
-            self._preview_image(item, f"{current_folder.rstrip('/')}/{item.name}", operations)
+            self._preview_image(item, full_path, operations)
             self.present()
             return
 
         # 2. Text / Code / Script / Log Preview
-        self._preview_text_or_binary(item, f"{current_folder.rstrip('/')}/{item.name}", operations)
+        self._preview_text_or_binary(item, full_path, operations)
         self.present()
 
     def _preview_image(self, item: FileItem, full_path: str, operations=None) -> None:
@@ -639,11 +655,12 @@ class QuickLookDialog(BaseDialog):
 
             except Exception as e:
                 self.logger.warning(f"Failed to load image preview for {full_path}: {e}")
+                err_msg = str(e)
 
-                def on_error():
+                def on_error(msg=err_msg):
                     self.spinner.stop()
                     self.error_status.set_title(_("Unable to preview image"))
-                    self.error_status.set_description(str(e))
+                    self.error_status.set_description(msg)
                     self.stack.set_visible_child_name("error")
                     return GLib.SOURCE_REMOVE
 
@@ -943,25 +960,32 @@ class QuickLookDialog(BaseDialog):
                 def on_data_ready():
                     self.spinner.stop()
                     self._is_binary = is_binary
-                    if is_binary:
-                        self.edit_toggle_btn.set_visible(False)
-                        self.save_btn.set_visible(False)
-                        self.save_sudo_btn.set_visible(False)
-                        self._render_binary_preview(item, raw_bytes)
-                    else:
-                        self.edit_toggle_btn.set_visible(True)
-                        self._render_text_preview(item, raw_bytes, is_truncated, full_path)
+                    try:
+                        if is_binary:
+                            self.edit_toggle_btn.set_visible(False)
+                            self.save_btn.set_visible(False)
+                            self.save_sudo_btn.set_visible(False)
+                            self._render_binary_preview(item, raw_bytes)
+                        else:
+                            self.edit_toggle_btn.set_visible(True)
+                            self._render_text_preview(item, raw_bytes, is_truncated, full_path)
+                    except Exception as render_err:
+                        self.logger.exception(f"Error rendering preview for {full_path}: {render_err}")
+                        self.error_status.set_title(_("Unable to preview file"))
+                        self.error_status.set_description(str(render_err))
+                        self.stack.set_visible_child_name("error")
                     return GLib.SOURCE_REMOVE
 
                 GLib.idle_add(on_data_ready)
 
             except Exception as e:
                 self.logger.warning(f"Error reading preview for {full_path}: {e}")
+                err_msg = str(e)
 
-                def on_error():
+                def on_error(msg=err_msg):
                     self.spinner.stop()
                     self.error_status.set_title(_("Unable to preview file"))
-                    self.error_status.set_description(str(e))
+                    self.error_status.set_description(msg)
                     self.stack.set_visible_child_name("error")
                     return GLib.SOURCE_REMOVE
 
@@ -977,8 +1001,8 @@ class QuickLookDialog(BaseDialog):
         full_path: str = "",
     ) -> None:
         """Render text content into the TextBuffer and evaluate permissions."""
-        if not full_path and self.current_folder and item:
-            full_path = f"{self.current_folder.rstrip('/')}/{item.name}"
+        if not full_path:
+            full_path = self._get_item_path(item)
         try:
             text = raw_bytes.decode("utf-8")
         except UnicodeDecodeError:
@@ -1134,7 +1158,7 @@ class QuickLookDialog(BaseDialog):
         if enabled:
             # If file was truncated, load full content first
             if self.is_truncated and not self._full_file_loaded and self.current_item:
-                full_path = f"{self.current_folder.rstrip('/')}/{self.current_item.name}"
+                full_path = self._get_item_path(self.current_item)
                 self._full_file_loaded = True
                 self._preview_text_or_binary(
                     self.current_item, full_path, self.operations, load_full=True
@@ -1185,7 +1209,7 @@ class QuickLookDialog(BaseDialog):
         start_iter = self.text_buffer.get_start_iter()
         end_iter = self.text_buffer.get_end_iter()
         content = self.text_buffer.get_text(start_iter, end_iter, True)
-        full_path = f"{self.current_folder.rstrip('/')}/{self.current_item.name}"
+        full_path = self._get_item_path(self.current_item)
 
         self._is_saving = True
         self.save_btn.set_sensitive(False)
@@ -1245,12 +1269,13 @@ class QuickLookDialog(BaseDialog):
 
             except Exception as e:
                 self.logger.error(f"Save worker error: {e}")
+                err_msg = str(e)
 
-                def on_err():
+                def on_err(msg=err_msg):
                     self._is_saving = False
                     self.save_btn.set_sensitive(self.is_dirty)
                     self.save_sudo_btn.set_sensitive(True)
-                    self._show_error_dialog(_("Save Failed"), str(e))
+                    self._show_error_dialog(_("Save Failed"), msg)
                     return GLib.SOURCE_REMOVE
 
                 GLib.idle_add(on_err)
@@ -1401,8 +1426,7 @@ class QuickLookDialog(BaseDialog):
         if self.on_calculate_checksum:
             self.on_calculate_checksum(self.current_item, self.current_folder)
         else:
-            base_path = Path(self.current_folder)
-            full_path = str(base_path / self.current_item.name)
+            full_path = self._get_item_path(self.current_item)
             from ..ui.dialogs.checksum_dialog import ChecksumDialog
 
             dialog = ChecksumDialog(
