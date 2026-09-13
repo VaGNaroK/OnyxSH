@@ -261,9 +261,17 @@
 - [ ] **Módulos Afetados:** `src/onyxsh/plugins/` (novo pacote).
 
 ### 🤖 3.7. Sugestão de Correção Proativa e Ações Rápidas para Erros Comuns de Terminal
-- [ ] **Descrição:** Ao detectar saídas de erro conhecidas no terminal (ex: `command not found`, `permission denied`, `port already in use`, `address already bound`, `no space left on device`), o assistente exibe uma notificação sutil ou botão com 1 clique para auto-correção sugerida pela IA.
-- [ ] **Prioridade:** 🟡 Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/agent/verifier.py`, `src/onyxsh/terminal/semantic_tracker.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`.
+- [x] **Descrição:** Ao detectar saídas de erro conhecidas no terminal (ex: `command not found`, `permission denied`, `port already in use`, `address already bound`, `no space left on device`), o assistente exibe uma notificação sutil ou botão com 1 clique para auto-correção sugerida pela IA.
+- [x] **Recursos Implementados:**
+  - 🧠 **Motor Heurístico Multi-Padrão (`TerminalErrorMatcher`)**: Classificação instantânea em memória de 9 categorias de erro com extração de alvos dinâmicos (portas, binários ausentes, pacotes Python/Node).
+  - ⚡ **Ações Rápidas em 1 Clique (Zero Latência)**: Execução ou inserção no prompt (`sudo <cmd>`, `lsof -i :<port>`, `apt search <pkg>`, `df -h`, `git status`).
+  - 🔔 **Toasts Interativos Não-Intrusivos (`Adw.Toast`)**: Notificações flutuantes que nunca roubam o foco do teclado do terminal, com auto-dispensa em 7 segundos.
+  - 🏷️ **Badges Semânticos Dinâmicos nas Abas e Headers**: Botão de ação rápida (`⚡`) e botão de IA (`✨`) integrados ao indicador semântico `[✗ code]`.
+  - 🤖 **Diagnóstico Integrado com o Assistente de IA**: Injeção contextualizada de código de erro, comando e logs no painel de chat.
+  - ⚙️ **Preferências Completas**: Alternador de ativação, escolha de modo (Notificação e Badge, Apenas Badge, Apenas Notificação) e chave para auto-execução imediata vs inserção segura no prompt.
+- [x] **Status:** ✅ Implementado no ciclo `v0.11.0` (`src/onyxsh/agent/error_matcher.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/settings/config.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `tests/test_terminal_error_suggestions.py`).
+- [x] **Prioridade:** 🟡 Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
+- [x] **Módulos Afetados:** `src/onyxsh/agent/error_matcher.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/settings/config.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `tests/test_terminal_error_suggestions.py`.
 
 ### 🤖 3.8. Catálogo de "Receitas" Guiadas do Agente com Validação de Pré-requisitos & Rollback
 - [ ] **Descrição:** Catálogo curado de receitas de automação em YAML/JSON (ex: "Instalar Docker Engine", "Configurar Nginx com SSL Let's Encrypt", "Hardening de SSH") com validação de pré-requisitos (SO, pacotes, portas livres), execução assistida passo a passo e capacidade de rollback em falhas.

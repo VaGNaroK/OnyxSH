@@ -438,6 +438,56 @@ class PreferencesDialog(Adw.PreferencesWindow):
         test_notif_row.set_activatable_widget(test_btn)
         notifications_group.add(test_notif_row)
 
+        # Proactive Error Suggestions Group
+        error_group = Adw.PreferencesGroup(
+            title=_("Sugestões Proativas para Erros de Terminal"),
+            description=_("Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"),
+        )
+        page.add(error_group)
+
+        proactive_error_row = self._create_switch_row(
+            _("Sugestões Proativas para Erros"),
+            _(
+                "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+            ),
+            "ai_proactive_error_suggestions",
+            default_value=True,
+        )
+        error_group.add(proactive_error_row)
+
+        error_mode_row = Adw.ComboRow(
+            title=_("Modo de Exibição das Sugestões"),
+            subtitle=_("Como as sugestões de erro e ações rápidas devem ser apresentadas"),
+        )
+        mode_map = ["toast_and_badge", "badge_only", "toast_only"]
+        mode_strings = [
+            _("Notificação (Toast) e Badge no Terminal"),
+            _("Apenas Badge no Terminal"),
+            _("Apenas Notificação (Toast)"),
+        ]
+        error_mode_row.set_model(Gtk.StringList.new(mode_strings))
+        current_mode = self.settings_manager.get(
+            "ai_error_suggestion_mode", "toast_and_badge"
+        )
+        mode_index = mode_map.index(current_mode) if current_mode in mode_map else 0
+        error_mode_row.set_selected(mode_index)
+        error_mode_row.connect(
+            "notify::selected",
+            self._on_error_mode_changed,
+            mode_map,
+        )
+        error_group.add(error_mode_row)
+
+        auto_exec_row = self._create_switch_row(
+            _("Executar Ações Rápidas Imediatamente"),
+            _(
+                "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+            ),
+            "ai_error_auto_execute_quick_fix",
+            default_value=False,
+        )
+        error_group.add(auto_exec_row)
+
         # Autocomplete and Suggestions Group
         autocomplete_group = Adw.PreferencesGroup(
             title=_("Autocomplete e Sugestões Inteligentes"),
@@ -803,6 +853,11 @@ class PreferencesDialog(Adw.PreferencesWindow):
         get_desktop_notifier().send_test_notification(
             window=self.get_transient_for()
         )
+
+    def _on_error_mode_changed(self, combo_row, _param, mode_map):
+        index = combo_row.get_selected()
+        if 0 <= index < len(mode_map):
+            self._on_setting_changed("ai_error_suggestion_mode", mode_map[index])
 
     def _on_instance_behavior_changed(self, combo_row, _param, behavior_map):
         index = combo_row.get_selected()

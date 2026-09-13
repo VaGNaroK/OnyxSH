@@ -17,6 +17,7 @@
 | **Agent Mode** | `src/onyxsh/agent/` | Motor seguro de agente: planner, orchestrator, policy engine, verifier |
 | **Smart Router** | `src/onyxsh/agent/router.py` | Roteamento inteligente entre modelos rápidos/avançados |
 | **Semantic Tracker** | `src/onyxsh/terminal/semantic_tracker.py` | Rastreamento OSC 133 de prompts, comandos e saídas |
+| **Error Matcher** | `src/onyxsh/agent/error_matcher.py` | Motor heurístico de detecção de erros e sugestão de correções em 1 clique |
 | **Production Guard** | `src/onyxsh/terminal/production_guard.py` | Detecção de comandos destrutivos em terminais de produção |
 | **File Manager** | `src/onyxsh/filemanager/` | Gerenciador de arquivos integrado com Quick Look |
 | **Sessions** | `src/onyxsh/sessions/` | Gerenciamento e persistência de sessões SSH/locais |
@@ -379,6 +380,7 @@ tests/
 ├── test_shell_tools.py           # Shell command execution tools
 ├── test_smart_router.py          # Smart model routing
 ├── test_snippet_resolver.py      # Snippet resolution
+├── test_terminal_error_suggestions.py # Proactive error suggestions and quick actions
 ├── test_terminal_exporter.py     # Terminal content export
 └── test_tunnel_manager.py        # SSH tunnel management
 ```

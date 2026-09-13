@@ -3595,7 +3595,7 @@ class FileManager(GObject.Object):
 
                             def _update_ui():
                                 self._disk_space_calculating = False
-                                if not self._is_destroyed:
+                                if not getattr(self, "_is_destroyed", False):
                                     self._update_status_bar()
                                 return False
 

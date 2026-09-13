@@ -34,8 +34,9 @@ def _get_psutil():
 import gi
 
 gi.require_version("Gtk", "4.0")
+gi.require_version("Adw", "1")
 gi.require_version("Vte", "3.91")
-from gi.repository import Gdk, GLib, GObject, Gtk, Vte
+from gi.repository import Adw, Gdk, GLib, GObject, Gtk, Vte
 
 from ..helpers import is_valid_url
 from ..sessions.models import SessionItem
@@ -909,28 +910,67 @@ class TerminalManager:
         self, terminal: Vte.Terminal, cmd: SemanticCommand
     ) -> None:
         try:
-            if self.tab_manager:
-                self.tab_manager.update_semantic_badge_for_terminal(terminal, cmd)
-
-            # Record executed command to enriched SQLite history
             cmd_text = (
                 cmd.command_text
                 or self.semantic_tracker.get_last_command_text(terminal)
             )
+            if cmd_text and not cmd.command_text:
+                cmd.command_text = cmd_text
+
+            cwd = cmd.cwd or ""
+            if not cwd and hasattr(terminal, "get_current_directory_uri"):
+                uri = terminal.get_current_directory_uri()
+                if uri and uri.startswith("file://"):
+                    cwd = uri[7:]
+                    if cwd.startswith("localhost/"):
+                        cwd = cwd[9:]
+                    elif cwd.startswith("localhost"):
+                        cwd = cwd[len("localhost") :]
+
+            # Proactive Error Detection for failed commands
+            error_match = None
+            if cmd.exit_code is not None and cmd.exit_code != 0:
+                try:
+                    output = (
+                        cmd.output_cache
+                        or self.semantic_tracker.extract_command_output(terminal, cmd)
+                        or ""
+                    )
+                    if not output.strip() and hasattr(terminal, "get_text_format"):
+                        try:
+                            full_buf = terminal.get_text_format(Vte.Format.TEXT) or ""
+                            if full_buf.strip():
+                                lines = [l for l in full_buf.splitlines() if l.strip()]
+                                if lines and re.search(r"[$#%>]\s*$", lines[-1]):
+                                    output = "\n".join(lines[-11:-1])
+                                else:
+                                    output = "\n".join(lines[-10:])
+                        except Exception:
+                            pass
+
+                    from ..agent.error_matcher import get_terminal_error_matcher
+
+                    error_match = get_terminal_error_matcher().match(
+                        command=cmd_text,
+                        exit_code=cmd.exit_code,
+                        output=output,
+                        cwd=cwd,
+                    )
+                except Exception as em_err:
+                    self.logger.debug(
+                        f"Error evaluating proactive error matcher: {em_err}"
+                    )
+
+            if self.tab_manager:
+                self.tab_manager.update_semantic_badge_for_terminal(
+                    terminal, cmd, error_match=error_match
+                )
+
+            # Record executed command to enriched SQLite history
             if cmd_text and cmd_text.strip():
                 from ..data.command_history_manager import (
                     get_command_history_manager,
                 )
-
-                cwd = cmd.cwd or ""
-                if not cwd and hasattr(terminal, "get_current_directory_uri"):
-                    uri = terminal.get_current_directory_uri()
-                    if uri and uri.startswith("file://"):
-                        cwd = uri[7:]
-                        if cwd.startswith("localhost/"):
-                            cwd = cwd[9:]
-                        elif cwd.startswith("localhost"):
-                            cwd = cwd[len("localhost") :]
 
                 host = "localhost"
                 sess_name = ""
@@ -950,9 +990,6 @@ class TerminalManager:
                     duration_ms=dur_ms,
                 )
 
-            if cmd_text and not cmd.command_text:
-                cmd.command_text = cmd_text
-
             # Check and send desktop notification for long-running commands
             from .desktop_notifier import get_desktop_notifier
 
@@ -961,10 +998,68 @@ class TerminalManager:
                 cmd=cmd,
                 window=self.parent_window,
             )
+
+            # Proactive error suggestion toast
+            if (
+                error_match
+                and self.settings_manager.get(
+                    "ai_proactive_error_suggestions", True
+                )
+            ):
+                mode = self.settings_manager.get(
+                    "ai_error_suggestion_mode", "toast_and_badge"
+                )
+                if mode in ("toast_and_badge", "toast_only"):
+                    self._show_error_suggestion_toast(terminal, cmd, error_match)
         except Exception as e:
             self.logger.debug(
                 f"Error updating semantic events/notifications for terminal: {e}"
             )
+
+    def _show_error_suggestion_toast(
+        self, terminal: Vte.Terminal, cmd: SemanticCommand, error_match: Any
+    ) -> None:
+        """Displays an interactive Adw.Toast proposing quick-fix or AI diagnosis for failed command."""
+        try:
+            if not (hasattr(self, "parent_window") and self.parent_window):
+                return
+            if not (
+                hasattr(self.parent_window, "toast_overlay")
+                and self.parent_window.toast_overlay
+            ):
+                return
+
+            action_label = error_match.quick_fix_label or _("🤖 Diagnosticar com IA")
+            title_text = f"⚠️ {error_match.title}: {error_match.description}"
+            if len(title_text) > 85:
+                title_text = f"⚠️ {error_match.title}"
+
+            toast = Adw.Toast(title=title_text)
+            toast.set_button_label(action_label)
+            toast.set_timeout(7)
+
+            def _on_toast_button_clicked(_t):
+                action_handler = getattr(self.parent_window, "action_handler", None)
+                if not action_handler:
+                    return
+                if getattr(error_match, "has_quick_fix", False):
+                    auto_exec = self.settings_manager.get(
+                        "ai_error_auto_execute_quick_fix", False
+                    )
+                    action_handler.apply_terminal_quick_fix(
+                        terminal=terminal,
+                        command_str=error_match.quick_fix_command,
+                        auto_execute=auto_exec,
+                    )
+                else:
+                    action_handler.analyze_last_error_with_ai(
+                        terminal=terminal, error_match=error_match
+                    )
+
+            toast.connect("button-clicked", _on_toast_button_clicked)
+            self.parent_window.toast_overlay.add_toast(toast)
+        except Exception as e:
+            self.logger.debug(f"Error showing proactive error toast: {e}")
 
     def _update_title(
         self, terminal: Vte.Terminal, osc7_info: Optional[OSC7Info] = None

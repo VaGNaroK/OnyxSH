@@ -390,6 +390,19 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
 
 ---
 
+### [BUG-TERM-004] Colapso de Intervalo no VTE e Falhas Transitórias de Detecção de Erros
+- **Commit:** `641f26b`
+- **Componente:** `src/onyxsh/terminal/semantic_tracker.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/agent/error_matcher.py`
+- **Sintoma:** Comandos rápidos de uma única linha (`cat /etc/shadow`) ou tracebacks em scripts Python caíam no fallback genérico `Comando Falhou (exit 1)` porque a extração semântica por intervalo retornava vazia antes da conclusão da renderização no buffer VTE. Além disso, variações textuais do curl (`Failed to connect to... Couldn't connect to server`, exit 7) não casavam com o padrão `Connection refused`.
+- **Causa Raiz:** A janela calculada entre `output_start_row` e `output_end_row` colapsava ou desencontrava com o buffer real do VTE em comandos de finalização ultrarrápida.
+- **Correção:** 
+  1. Implementado fallback multinível em `extract_command_output`: se o range estiver vazio, varre as imediações do cursor (`cur_row - 25` a `cur_row + 1`) e extrai as linhas pós-comando do buffer completo via `terminal.get_text_format(Vte.Format.TEXT)`.
+  2. Adicionada heurística estrita para alvos de sistema (`/etc/shadow`, `/etc/sudoers`, `/etc/gshadow`) e pacotes sem `sudo`.
+  3. Adicionadas variantes de erro de conexão do curl (`Failed to connect`, `Couldn't connect to server`, exit 7) e extração de porta com sugestão de diagnóstico do serviço (`ss -tulpn | grep <port>`).
+- **Testes:** `tests/test_terminal_error_suggestions.py`.
+
+---
+
 ## 5. Core, Async Tasks, Segurança & Infraestrutura
 
 ### [BUG-CORE-001] Mapeamento Incorreto de Tasks no `AsyncTaskManager`

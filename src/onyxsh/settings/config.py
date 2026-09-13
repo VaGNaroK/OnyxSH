@@ -348,6 +348,10 @@ class DefaultSettings:
             "ai_agent_max_read_bytes": 20000,
             "ai_agent_post_verification": True,
             "ai_agent_auto_verify": False,
+            # Proactive Terminal Error Suggestions
+            "ai_proactive_error_suggestions": True,
+            "ai_error_suggestion_mode": "toast_and_badge",  # "toast_and_badge", "badge_only", "toast_only"
+            "ai_error_auto_execute_quick_fix": False,
             # Smart Model Routing
             "ai_smart_routing_enabled": True,
             "ai_routing_profile": "auto",  # "auto", "fast", "advanced"

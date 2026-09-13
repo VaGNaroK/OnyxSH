@@ -278,13 +278,24 @@ class SemanticTracker:
                 if hasattr(terminal, "get_column_count")
                 else 200
             )
+            text = ""
             if hasattr(terminal, "get_text_range_format"):
                 res = terminal.get_text_range_format(
                     Vte.Format.TEXT, prompt_row, 0, start_row + 1, col_count
                 )
                 text = res[0] if isinstance(res, tuple) else (res or "")
-            else:
-                text = ""
+            elif hasattr(terminal, "get_text_range"):
+                res = terminal.get_text_range(
+                    prompt_row, 0, start_row + 1, col_count, None, None
+                )
+                text = res[0] if isinstance(res, tuple) else (res or "")
+
+            if not text.strip() and hasattr(terminal, "get_text_format"):
+                full_buf = terminal.get_text_format(Vte.Format.TEXT) or ""
+                if full_buf.strip():
+                    non_empty = [l for l in full_buf.splitlines() if l.strip()]
+                    if non_empty:
+                        text = non_empty[-1]
 
             lines = [l for l in text.splitlines() if l.strip()]
             if lines:
@@ -309,9 +320,10 @@ class SemanticTracker:
         self, terminal: Vte.Terminal, cmd: SemanticCommand
     ) -> str:
         """Uses VTE text range extraction to return output between command start and finish."""
-        if cmd.output_cache is not None:
+        if cmd.output_cache is not None and cmd.output_cache.strip():
             return cmd.output_cache
 
+        output_text = ""
         try:
             start_row = cmd.output_start_row
             end_row = cmd.output_end_row if cmd.output_end_row is not None else start_row
@@ -324,15 +336,17 @@ class SemanticTracker:
                 else 200
             )
 
-            # Extract full text from start_row to end_row using modern VTE Format API
+            # 1. Primary: Extract full text from start_row to end_row using modern VTE Format API
             if hasattr(terminal, "get_text_range_format"):
                 text_range = terminal.get_text_range_format(
                     Vte.Format.TEXT, start_row, 0, end_row + 1, col_count
                 )
-            else:
+            elif hasattr(terminal, "get_text_range"):
                 text_range = terminal.get_text_range(
                     start_row, 0, end_row + 1, col_count, None, None
                 )
+            else:
+                text_range = ""
 
             if isinstance(text_range, tuple):
                 output_text = text_range[0] or ""
@@ -340,6 +354,47 @@ class SemanticTracker:
                 output_text = text_range
             else:
                 output_text = ""
+
+            # 2. Fallback: If output_text is empty or just whitespace, scan near cursor
+            if not output_text.strip() and hasattr(terminal, "get_cursor_position"):
+                try:
+                    col, cur_row = terminal.get_cursor_position()
+                    scan_start = max(0, min(start_row, cur_row - 25))
+                    scan_end = max(end_row + 1, cur_row + 1)
+                    if hasattr(terminal, "get_text_range_format"):
+                        res = terminal.get_text_range_format(
+                            Vte.Format.TEXT, scan_start, 0, scan_end, col_count
+                        )
+                        output_text = res[0] if isinstance(res, tuple) else (res or "")
+                except Exception:
+                    pass
+
+            # 3. Fallback: If still empty, use full buffer text
+            if not output_text.strip() and hasattr(terminal, "get_text_format"):
+                try:
+                    import re
+
+                    full_buf = terminal.get_text_format(Vte.Format.TEXT) or ""
+                    if full_buf.strip():
+                        lines = full_buf.splitlines()
+                        cmd_clean = (cmd.command_text or "").strip()
+                        found_idx = -1
+                        if cmd_clean:
+                            for i in range(len(lines) - 1, -1, -1):
+                                if cmd_clean in lines[i]:
+                                    found_idx = i
+                                    break
+                        if found_idx != -1:
+                            output_lines = lines[found_idx + 1 :]
+                            if output_lines and re.search(
+                                r"[$#%>]\s*$", output_lines[-1]
+                            ):
+                                output_lines = output_lines[:-1]
+                            output_text = "\n".join(output_lines)
+                        else:
+                            output_text = "\n".join(lines[-15:])
+                except Exception:
+                    pass
 
             cmd.output_cache = output_text.strip()
             return cmd.output_cache

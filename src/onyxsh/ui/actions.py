@@ -1065,8 +1065,42 @@ class WindowActions:
         except Exception as e:
             self.logger.error(f"Error copying last command output: {e}")
 
-    def analyze_last_error_with_ai(self, terminal=None, *args):
-        """Opens AI assistant pre-filled with the last command error output."""
+    def apply_terminal_quick_fix(
+        self, terminal=None, command_str: str = "", auto_execute: bool = False
+    ) -> None:
+        """Injects or executes a quick-fix command into the target terminal."""
+        try:
+            if not terminal or isinstance(terminal, Gio.SimpleAction):
+                terminal = (
+                    self.window.tab_manager.get_active_terminal()
+                    if self.window.tab_manager
+                    else None
+                )
+            if not terminal or not command_str:
+                return
+
+            if auto_execute:
+                payload = command_str.encode("utf-8") + b"\n"
+            else:
+                payload = command_str.encode("utf-8")
+
+            if hasattr(terminal, "feed_child_binary"):
+                terminal.feed_child_binary(payload)
+            else:
+                terminal.feed_child(payload)
+
+            if hasattr(self.window, "toast_overlay") and self.window.toast_overlay:
+                msg = (
+                    _("Comando executado no terminal.")
+                    if auto_execute
+                    else _("Comando inserido no prompt do terminal.")
+                )
+                self.window.toast_overlay.add_toast(Adw.Toast(title=msg))
+        except Exception as e:
+            self.logger.error(f"Error applying terminal quick fix: {e}")
+
+    def analyze_last_error_with_ai(self, terminal=None, error_match=None, *args):
+        """Opens AI assistant pre-filled with the last command error output and diagnostics."""
         try:
             if not terminal or isinstance(terminal, Gio.SimpleAction):
                 terminal = (
@@ -1082,15 +1116,34 @@ class WindowActions:
             exit_code = cmd.exit_code if cmd and cmd.exit_code is not None else 1
             cmd_text = cmd.command_text if cmd and cmd.command_text else ""
 
+            if not error_match:
+                from ..agent.error_matcher import get_terminal_error_matcher
+
+                error_match = get_terminal_error_matcher().match(
+                    command=cmd_text,
+                    exit_code=exit_code,
+                    output=output,
+                    cwd=getattr(cmd, "cwd", ""),
+                )
+
             prompt_lines = [
                 f"O comando executado no terminal falhou com código de saída {exit_code}."
             ]
+            if error_match and getattr(error_match, "title", None):
+                prompt_lines.append(
+                    f"Diagnóstico preliminar: **{error_match.title}** ({error_match.description})"
+                )
             if cmd_text:
-                prompt_lines.append(f"Comando: `{cmd_text}`")
+                prompt_lines.append(f"Comando executado:\n```bash\n{cmd_text}\n```")
             if output:
-                prompt_lines.append(f"Saída do terminal:\n```text\n{output}\n```")
+                # Limit output size to prevent token overflow while keeping relevant error lines
+                max_chars = 3000
+                trimmed_output = output[-max_chars:] if len(output) > max_chars else output
+                prompt_lines.append(f"Saída do terminal:\n```text\n{trimmed_output}\n```")
+            if error_match and getattr(error_match, "ai_prompt_hint", None):
+                prompt_lines.append(f"Dica de contexto: {error_match.ai_prompt_hint}")
             prompt_lines.append(
-                "Por favor, analise a causa do erro e forneça a solução recomendada para corrigir o problema."
+                "Por favor, analise a causa raiz do problema e proponha uma solução segura passo a passo para corrigir o erro."
             )
             full_prompt = "\n\n".join(prompt_lines)
 

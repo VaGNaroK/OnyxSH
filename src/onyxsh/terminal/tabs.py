@@ -3,7 +3,7 @@
 import re
 import threading
 import weakref
-from typing import TYPE_CHECKING, Callable, List, Optional
+from typing import TYPE_CHECKING, Any, Callable, List, Optional
 
 import gi
 
@@ -77,6 +77,30 @@ def _create_terminal_pane(
             return root.action_handler
         return None
 
+    def _on_pane_quick_fix_clicked(_):
+        handler = _get_window_action_handler()
+        if not handler:
+            return
+        match = getattr(terminal, "_last_error_match", None)
+        if match and match.has_quick_fix:
+            auto_exec = False
+            if hasattr(handler.window, "terminal_manager"):
+                auto_exec = handler.window.terminal_manager.settings_manager.get(
+                    "ai_error_auto_execute_quick_fix", False
+                )
+            handler.apply_terminal_quick_fix(
+                terminal, match.quick_fix_command, auto_execute=auto_exec
+            )
+
+    semantic_quick_fix_btn = icon_button(
+        "system-run-symbolic", size=14, tooltip=_("Aplicar correção rápida")
+    )
+    semantic_quick_fix_btn.add_css_class("flat")
+    semantic_quick_fix_btn.set_size_request(24, 24)
+    semantic_quick_fix_btn.set_visible(False)
+    semantic_quick_fix_btn.connect("clicked", _on_pane_quick_fix_clicked)
+    semantic_status_box.append(semantic_quick_fix_btn)
+
     semantic_ai_btn = icon_button(
         "sparkles-symbolic", size=14, tooltip=_("Analisar erro com Assistente de IA")
     )
@@ -86,7 +110,9 @@ def _create_terminal_pane(
     semantic_ai_btn.connect(
         "clicked",
         lambda _: _get_window_action_handler()
-        and _get_window_action_handler().analyze_last_error_with_ai(terminal),
+        and _get_window_action_handler().analyze_last_error_with_ai(
+            terminal, error_match=getattr(terminal, "_last_error_match", None)
+        ),
     )
     semantic_status_box.append(semantic_ai_btn)
 
@@ -139,6 +165,7 @@ def _create_terminal_pane(
     toolbar_view.close_button = close_button
     toolbar_view.semantic_status_box = semantic_status_box
     toolbar_view.semantic_status_label = semantic_status_label
+    toolbar_view.semantic_quick_fix_btn = semantic_quick_fix_btn
     toolbar_view.semantic_ai_btn = semantic_ai_btn
     toolbar_view.semantic_copy_btn = semantic_copy_btn
     # MODIFIED: Store a reference to the header box for live updates
@@ -587,6 +614,30 @@ class TabManager:
                 return root.action_handler
             return None
 
+        def _on_tab_quick_fix_clicked(_):
+            handler = _get_window_action_handler()
+            if not handler:
+                return
+            match = getattr(terminal, "_last_error_match", None)
+            if match and match.has_quick_fix:
+                auto_exec = False
+                if hasattr(handler.window, "terminal_manager"):
+                    auto_exec = handler.window.terminal_manager.settings_manager.get(
+                        "ai_error_auto_execute_quick_fix", False
+                    )
+                handler.apply_terminal_quick_fix(
+                    terminal, match.quick_fix_command, auto_execute=auto_exec
+                )
+
+        semantic_quick_fix_btn = icon_button(
+            "system-run-symbolic", size=14, tooltip=_("Aplicar correção rápida")
+        )
+        semantic_quick_fix_btn.add_css_class("flat")
+        semantic_quick_fix_btn.set_size_request(24, 24)
+        semantic_quick_fix_btn.set_visible(False)
+        semantic_quick_fix_btn.connect("clicked", _on_tab_quick_fix_clicked)
+        semantic_status_box.append(semantic_quick_fix_btn)
+
         semantic_ai_btn = icon_button(
             "sparkles-symbolic", size=14, tooltip=_("Analisar erro com Assistente de IA")
         )
@@ -596,7 +647,9 @@ class TabManager:
         semantic_ai_btn.connect(
             "clicked",
             lambda _: _get_window_action_handler()
-            and _get_window_action_handler().analyze_last_error_with_ai(terminal),
+            and _get_window_action_handler().analyze_last_error_with_ai(
+                terminal, error_match=getattr(terminal, "_last_error_match", None)
+            ),
         )
         semantic_status_box.append(semantic_ai_btn)
 
@@ -617,6 +670,9 @@ class TabManager:
 
         terminal.semantic_status_box = semantic_status_box
         terminal.semantic_status_label = semantic_status_label
+        terminal.semantic_quick_fix_btn = semantic_quick_fix_btn
+        terminal.semantic_ai_btn = semantic_ai_btn
+        terminal.semantic_copy_btn = semantic_copy_btn
         terminal.onyxsh_session = session
         is_production = bool(getattr(session, "is_production", False))
         terminal.is_production = is_production
@@ -1514,15 +1570,20 @@ class TabManager:
             pane.title_label.set_label(new_title)
 
     def update_semantic_badge_for_terminal(
-        self, terminal: Vte.Terminal, cmd: SemanticCommand
+        self,
+        terminal: Vte.Terminal,
+        cmd: SemanticCommand,
+        error_match: Optional[Any] = None,
     ) -> None:
-        """Updates the status badge and AI error button on the terminal's pane header or floating overlay."""
+        """Updates the status badge and AI/Quick-fix error buttons on the terminal's pane header or floating overlay."""
         page = self.get_page_for_terminal(terminal)
         if not page:
             return
 
         if not cmd.is_finished:
             return
+
+        terminal._last_error_match = error_match
 
         dur_str = cmd.formatted_duration
         if cmd.is_success:
@@ -1535,15 +1596,20 @@ class TabManager:
                 badge_text = f"[✗ {cmd.exit_code}]"
             is_error = True
 
-        def _apply_to_badge(status_box, status_label, ai_btn, copy_btn):
+        def _apply_to_badge(status_box, status_label, quick_fix_btn, ai_btn, copy_btn):
             if not (status_box and status_label):
                 return
             if is_error:
                 status_box.remove_css_class("dim-label")
                 status_box.add_css_class("error")
+                if error_match and getattr(error_match, "title", None):
+                    status_label.set_tooltip_text(f"{error_match.title}: {error_match.description}")
+                else:
+                    status_label.set_tooltip_text(_("O comando falhou com código de erro"))
             else:
                 status_box.remove_css_class("error")
                 status_box.add_css_class("dim-label")
+                status_label.set_tooltip_text(None)
 
             if badge_text:
                 status_label.set_text(badge_text)
@@ -1553,6 +1619,14 @@ class TabManager:
             else:
                 status_box.set_visible(False)
 
+            if quick_fix_btn:
+                has_qf = bool(is_error and error_match and getattr(error_match, "has_quick_fix", False))
+                quick_fix_btn.set_visible(has_qf)
+                if has_qf:
+                    lbl = getattr(error_match, "quick_fix_label", _("Ação rápida"))
+                    qf_cmd = getattr(error_match, "quick_fix_command", "")
+                    quick_fix_btn.set_tooltip_text(f"{lbl}: {qf_cmd}")
+
             if ai_btn:
                 ai_btn.set_visible(is_error)
 
@@ -1560,6 +1634,7 @@ class TabManager:
         _apply_to_badge(
             getattr(terminal, "semantic_status_box", None),
             getattr(terminal, "semantic_status_label", None),
+            getattr(terminal, "semantic_quick_fix_btn", None),
             getattr(terminal, "semantic_ai_btn", None),
             getattr(terminal, "semantic_copy_btn", None),
         )
@@ -1570,6 +1645,7 @@ class TabManager:
             _apply_to_badge(
                 getattr(pane, "semantic_status_box", None),
                 getattr(pane, "semantic_status_label", None),
+                getattr(pane, "semantic_quick_fix_btn", None),
                 getattr(pane, "semantic_ai_btn", None),
                 getattr(pane, "semantic_copy_btn", None),
             )
