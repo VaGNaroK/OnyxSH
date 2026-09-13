@@ -152,7 +152,7 @@ flatpak build-bundle "${REPO_DIR}" "${BUNDLE_FILE}" "${APP_ID}"
 
 if [ "${INSTALL_BUNDLE}" = true ]; then
   log "Instalando bundle localmente..."
-  flatpak install -y --user --bundle "${BUNDLE_FILE}"
+  flatpak install -y --user --reinstall --bundle "${BUNDLE_FILE}"
 fi
 
 if [ "${CLEAN_CACHE}" = true ]; then

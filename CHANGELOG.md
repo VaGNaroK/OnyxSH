@@ -6,7 +6,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ---
 
-## [Não Lançado] - 2026-09-11
+## [Não Lançado] - 2026-09-12
 
 ### Adicionado
 - **Zoom Interativo e Pan (Arrastar para Navegar) em Imagens no Quick Look**: Suporte a aceleração por hardware (GPU/GSK) com fallback para renderização em software (CPU/Cairo), ampliando a capacidade de inspeção de fotos, esquemáticos e capturas de tela no visualizador de arquivos (`src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/data/styles/components.css`, `scripts/sync_translations.py`, `tests/test_quick_look.py`):
@@ -23,6 +23,10 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - 🌐 **Internacionalização (28 Idiomas)**: Strings traduzidas em todos os 28 catálogos `.po`/`.mo` (`scripts/sync_translations.py`).
 
 ### Otimizado
+- **Aceleração Extrema na Abertura do Painel de Chat da IA (21x mais rápido, de 1,62s para 0,077s, e clique instantâneo com *Idle Prewarm*) (`BUG-AI-014`)**:
+  - ⚡ **Tooltips Nativos Assíncronos via `query-tooltip` no GTK 4 / X11**: Substituição de `widget.set_tooltip_text()` síncrono pelo sinal nativo sob demanda no `tooltip_helper.py`, eliminando o congelamento da UI e reduzindo o tempo de registro de 100 tooltips de 1,58s para 0,0003s (ganho de mais de 4.000x).
+  - 🚀 **Pré-Aquecimento em Segundo Plano (*Idle Prewarm*)**: Inicialização do `AIChatPanel` em background ocioso (`GLib.idle_add`) logo após o carregamento da janela, permitindo abertura instantânea (< 1 ms) ao clicar no botão "Perguntar ao assistente de IA".
+  - 🧠 **Singleton do Motor de Políticas (`get_policy_engine`)**: Eliminação de leituras repetidas de arquivos JSON de políticas no disco e recompilação de regexes a cada comando de mensagem renderizado.
 - **Otimizações Extremas de Desempenho no Gerenciador de Arquivos**:
   - ⚡ **Abertura 33x Mais Rápida (Sub-segundo, de 13,5s para 0,40s)**:
     - Substituição do ciclo ineficiente de desmontagem de filtros (`set_filter(None)`) por atualização atômica direta via `store.splice(0, n, items)`.
@@ -33,6 +37,11 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - 🧠 **Memoização em Memória de Traduções (`_()`)**: Aplicação de `@functools.lru_cache(maxsize=1024)` em `translation_utils._()`, reduzindo o tempo de resolução de 0,768s para 0,0013s e eliminando mais de 24.000 chamadas síncronas `posix.stat` no disco por segundo.
 
 ### Corrigido
+- **Quick Look Congelado em "Carregando..." ao Abrir Arquivos em Subpastas e Busca Recursiva (`BUG-FM-011`)**: Correção da resolução de caminhos canônicos com `_get_item_path` priorizando `item.full_path` e eliminação de exceção `NameError: cannot access free variable 'e'` nos callbacks assíncronos do `GLib.idle_add` em erros de I/O.
+- **Falha de Conexão com a API Groq por Modelos Descontinuados e Rejeição de Formato JSON (`BUG-AI-011`)**: Atualização dos modelos padrão para `openai/gpt-oss-120b` e `qwen/qwen3.8-27b`, condicionamento de `"response_format": {"type": "json_object"}` à presença da palavra `"json"` no payload para evitar HTTP 400, descoberta dinâmica de modelos disponíveis na chave e sincronização de chaves de API em tempo real.
+- **Falha de Resolução de Aspas em Variáveis de Ambiente no Verificador Pós-Execução (`BUG-AI-012`)**: Ajuste em `safe_quote_path()` para preservar e permitir expansão correta de `${HOME}`, `$HOME` e `~` em comandos de verificação pós-execução no Bash sem quebrar caminhos com espaços.
+- **Retenção Indesejada de VRAM no Ollama com Provedores em Nuvem Ativos (`BUG-AI-013`)**: Consulta dinâmica ao endpoint `/api/ps` do Ollama para ejetar todos os modelos ativos da VRAM com `keep_alive = 0` ao trocar para provedor de nuvem, ao desligar o modo offline ou ao fechar a aplicação, desocupando a GPU.
+- **Latência Excessiva (>1,6s) ao Abrir o Painel "Perguntar ao Assistente de IA" (`BUG-AI-014`)**: Resolução de bloqueio síncrono no display server X11 durante o registro de tooltips no histórico de mensagens.
 - **Dessincronização de Scroll ao Trocar para Grade de Ícones (`BUG-FM-009`)**: Reset automático de `vadjustment` e `hadjustment` para `0.0`, remoção de homogeneidade do `Gtk.Stack` e atualização imediata por clique no diretório atual da trilha de breadcrumbs.
 - **Latência Severa de Abertura e Stall na Navegação do File Manager (`BUG-FM-010`)**: Eliminação de reordenação tripla redundante de filtros no GTK4 e renderização concorrente de visualizações inativas.
 - **Sobre-escape de Aspas e Alucinação de Tokens em Nomes com Apóstrofo no Assistente de IA (`BUG-AI-010`)**: Injeção dinâmica do diretório de trabalho corrente (`$PWD`) no prompt do sistema, diretrizes de *Clean Quoting (KISS)* e sanitização de pós-processamento para remoção de barras espúrias (`\\'`), duplicação de tokens (`'s 's`) e aspas redundantes.

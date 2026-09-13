@@ -2,7 +2,7 @@
 
 > **Arquivo:** `AI_BUG_FIX_REGISTRY.md`  
 > **Versão do Projeto:** v0.10.1  
-> **Última Atualização:** Agosto/2026  
+> **Última Atualização:** Setembro/2026 (12/09/2026)  
 > **Finalidade:** Servir como guia definitivo e índice de consulta para agentes de IA e desenvolvedores, detalhando todos os bugs já identificados, diagnosticados e corrigidos no repositório.
 
 ---
@@ -189,6 +189,21 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
 
 ---
 
+### [BUG-FM-011] Quick Look Congelado em "Carregando..." ao Abrir Arquivos em Subpastas e Busca Recursiva
+- **Componentes:** `src/onyxsh/filemanager/quick_look.py`, `src/onyxsh/filemanager/manager.py`
+- **Sintoma:** Ao abrir arquivos em subpastas (ex.: `/home/vagnarok/Atividades/boas_vindas.py`) ou a partir da busca recursiva e Tree View, o diálogo do Quick Look permanecia congelado na tela de *"Carregando pré-visualização..."* sem exibir o conteúdo e sem transicionar para a página de erro.
+- **Causa Raiz:**
+  1. Concatenação incorreta de caminhos (`self.current_folder / item.name`), ignorando `item.full_path` do objeto `FileItem`. Isso gerava um caminho inexistente na raiz da pasta aberta, disparando `FileNotFoundError`.
+  2. `NameError: cannot access free variable 'e'` no callback assíncrono `GLib.idle_add(on_error)`. No Python 3, a variável `e` do bloco `except Exception as e:` é desalocada ao término do bloco, falhando quando o callback da interface gráfica tentava acessá-la e travando a transição de telas.
+- **Correção:**
+  1. Criação do método canônico `QuickLookDialog._get_item_path()`, priorizando `item.full_path` com fallback para `current_folder / item.name`.
+  2. Sincronização de `self.current_folder` com `PurePosixPath(item.full_path).parent`.
+  3. Captura prévia de `err_msg = str(e)` repassando como parâmetro padrão `def on_error(msg=err_msg):` nos callbacks de carregamento e salvamento.
+  4. Suporte aprimorado na navegação por teclado no modo Tree View dentro do Quick Look.
+- **Testes:** `tests/test_quick_look.py` (`test_get_item_path_resolution`, `test_preview_item_with_subfolder_full_path`, `test_preview_text_file_not_found_transitions_to_error_without_name_error`, `test_preview_image_file_not_found_transitions_to_error_without_name_error`, `test_save_worker_error_does_not_raise_name_error`).
+
+---
+
 ## 3. Assistente de IA, Parser de Scripts & Agent Mode
 
 ### [BUG-AI-001] Bypass de Comandos Perigosos no Production Guard
@@ -286,6 +301,64 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
   2. Implementação do método `get_current_working_directory()` que detecta o diretório do terminal ativo e injeta a seção `CURRENT WORKING DIRECTORY` no prompt do sistema.
   3. Implementação dos sanitizadores `_clean_overescaped_command()` e `_clean_overescaped_reply_text()`, que removem barras invertidas espúrias antes de apóstrofos dentro de aspas duplas, corrigem duplicação de tokens (`'s 's` $\rightarrow$ `'s`) e normalizam caminhos distorcidos.
 - **Testes:** `tests/test_ai_assistant_script_filter.py` (`test_clean_overescaped_command_fixes_escaped_apostrophes_and_duplicate_tokens`, `test_clean_overescaped_reply_text`, `test_system_prompt_includes_cwd_context_and_clean_quoting`, `test_get_current_working_directory_from_terminal`).
+
+---
+
+### [BUG-AI-011] Falha de Conexão na API Groq por Modelos Descontinuados e Rejeição de Formato JSON
+- **Componentes:** `src/onyxsh/agent/providers/groq.py`, `src/onyxsh/ui/dialogs/ai_config_dialog.py`, `src/onyxsh/settings/config.py`, `src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/agent/router.py`
+- **Sintoma:** Ao configurar a chave da Groq e testar a conexão no diálogo de configurações ou enviar prompts ao assistente de IA, ocorriam erros de conexão, HTTP 404 (`model_not_found`) ou HTTP 400 (`'messages' must contain the word 'json'`).
+- **Causa Raiz:**
+  1. A Groq Cloud API aposentou os modelos `llama-3.3-70b-versatile` e `llama-3.1-8b-instant`, retornando HTTP 404.
+  2. O provedor `GroqProvider` enviava fixo `"response_format": {"type": "json_object"}`. A API da Groq rejeita estritamente esse parâmetro com HTTP 400 caso a palavra `"json"` não esteja presente no corpo da mensagem enviada.
+  3. O botão de testar conexão executava inferência completa em vez de validar a chave contra o endpoint canônico `/openai/v1/models`.
+  4. Falta de sincronização bidirecional em tempo real entre o campo geral de API Key e as chaves específicas por provedor.
+- **Correção:**
+  1. Atualização dos modelos padrão para `openai/gpt-oss-120b` (perfil avançado) e `qwen/qwen3.8-27b` (perfil rápido).
+  2. Implementação do método `GroqProvider.discover_available_models()` com cache local e filtro de modelos incompatíveis (whisper, guard).
+  3. Condicionamento de `"response_format": {"type": "json_object"}` à presença da palavra `"json"` na mensagem.
+  4. O botão "Testar" agora utiliza a descoberta dinâmica de modelos com feedback detalhado.
+  5. Sincronização em tempo real das chaves de API nos diálogos de configuração.
+- **Testes:** `tests/test_groq_provider.py` (`test_default_model`, `test_custom_model`, `test_missing_api_key_raises`, `test_discover_available_models_fallback`, `test_discover_available_models_from_api`, `test_complete_without_json_does_not_set_response_format`, `test_complete_with_json_sets_response_format`, `test_complete_stream`).
+
+---
+
+### [BUG-AI-012] Falha de Resolução de Aspas em Variáveis de Ambiente no Verificador Pós-Execução
+- **Componente:** `src/onyxsh/agent/verifier.py`
+- **Sintoma:** O assistente sugeria a criação de scripts e, ao executar a verificação de sanidade pós-execução (`ai_agent_post_verification`), comandos como `ls -ld '${HOME}/diagnostico_python.sh'` falhavam acusando arquivo não encontrado.
+- **Causa Raiz:** A função `safe_quote_path()` envolvia cegamente todo o caminho em aspas simples literais (`'${HOME}/...'`), impedindo a expansão de `${HOME}`, `$HOME` e `~` pelo interpretador Bash.
+- **Correção:** Ajustada a função `safe_quote_path()` para reconhecer prefixos de variáveis de ambiente (`${HOME}`, `$HOME`, `~`), preservando a expansão da home do usuário sem quebrar caminhos contendo espaços.
+- **Testes:** `tests/test_post_verification.py` (`test_safe_quote_path_expands_home_variables`, `test_post_verifier_script_diagnostics`).
+
+---
+
+### [BUG-AI-013] Retenção Indesejada de VRAM no Ollama com Provedores em Nuvem Ativos
+- **Componentes:** `src/onyxsh/agent/providers/ollama.py`, `src/onyxsh/terminal/ai_assistant.py`, `src/onyxsh/app.py`
+- **Sintoma:** Mesmo com a API da Groq configurada e o Modo Estritamente Offline desativado, o Ollama mantinha o modelo `llama3.1:8b` carregado na GPU ocupando 5.9 GB de VRAM indefinidamente.
+- **Causa Raiz:**
+  1. O Ollama utiliza `keep_alive = -1` no pré-carregamento, fixando o modelo na memória GPU até receber `keep_alive = 0`.
+  2. As rotinas `unload_model()` e `_unload_ai_model_on_exit()` abortavam precocemente se o provedor ativo fosse de nuvem (`provider_name not in ("local", "ollama")`).
+  3. `OllamaProvider.unload()` só tentava descarregar `self.model`. Se as configurações já estivessem apontando para um modelo de nuvem (`openai/gpt-oss-120b`), o Ollama ignorava o comando de liberação.
+- **Correção:**
+  1. `OllamaProvider.unload()` agora consulta `/api/ps` e envia `{"keep_alive": 0}` para todos os modelos que estiverem ativos na VRAM.
+  2. `unload_model()` agora é disparado sempre que o usuário muda para um provedor de nuvem ou desativa o Modo Offline.
+  3. `preload_model_async()` faz a liberação residual em segundo plano ao abrir o terminal em modo nuvem se `ai_unload_on_exit` estiver ativo.
+  4. O encerramento da aplicação em `app.py` sempre notifica o Ollama para liberar VRAM.
+- **Testes:** `tests/test_llm_lifecycle.py` (`test_ollama_unload_all_active_models`, `test_ai_assistant_unload_when_cloud_provider`, `test_handle_setting_changed_offline_to_cloud`).
+
+---
+
+### [BUG-AI-014] Latência Excessiva (>1,6s) ao Abrir o Painel "Perguntar ao Assistente de IA"
+- **Componentes:** `src/onyxsh/utils/tooltip_helper.py`, `src/onyxsh/agent/policy_engine.py`, `src/onyxsh/ui/widgets/ai_chat_panel.py`, `src/onyxsh/ui/window_ui.py`
+- **Sintoma:** Ao clicar no ícone "Perguntar ao assistente de IA", ocorria um congelamento perceptível de 1,6 a 2 segundos na thread da interface antes da abertura do chat.
+- **Causa Raiz:**
+  1. No GTK 4 sob X11, o método `widget.set_tooltip_text()` bloqueava por ~15 ms por widget para sincronização com o display server. Com ~100 widgets com tooltip criados no histórico de mensagens, a UI congelava por mais de 1,4 segundo.
+  2. O painel `AIChatPanel` era criado de forma preguiçosa e bloqueante no momento exato do clique.
+  3. O `PolicyEngine()` era instanciado repetidamente para cada comando de cada balão de mensagem, lendo arquivos JSON e recompilando dezenas de regexes no loop da UI.
+- **Correção:**
+  1. No backend X11 do `tooltip_helper.py`, substituição de `set_tooltip_text` pelo sinal assíncrono nativo sob demanda `query-tooltip`, reduzindo o tempo de registro de 1,58s para 0,0003s (ganho de 4000x).
+  2. Implementação do singleton `get_policy_engine()` em `policy_engine.py`.
+  3. Pré-aquecimento do painel em background via `GLib.idle_add(self._prewarm_ai_panel)` ao inicializar a janela, tornando o clique no botão imediato (< 1 ms).
+- **Testes:** `tests/test_tooltip_helper.py` (`test_add_tooltip_uses_query_tooltip_on_native`, `test_add_tooltip_with_shortcut_on_native`), `tests/test_policy_engine.py` (`test_get_policy_engine_singleton`).
 
 ---
 
