@@ -213,6 +213,78 @@ class TestLLMLifecycle(unittest.TestCase):
         total_len = sum(len(m["content"]) for m in messages)
         self.assertLessEqual(total_len, int((4096 - 1000) * 3.5) + 3000)
 
+    @patch("requests.post")
+    @patch("requests.get")
+    def test_ollama_unload_all_active_models(self, mock_get, mock_post):
+        mock_get_resp = MagicMock()
+        mock_get_resp.status_code = 200
+        mock_get_resp.json.return_value = {
+            "models": [
+                {"name": "llama3.1:8b", "model": "llama3.1:8b"},
+                {"name": "ornith-1.5:9b", "model": "ornith-1.5:9b"},
+            ]
+        }
+        mock_get.return_value = mock_get_resp
+
+        mock_post_resp = MagicMock()
+        mock_post_resp.status_code = 200
+        mock_post.return_value = mock_post_resp
+
+        provider = OllamaProvider({
+            "model": "qwen2.5-coder:3b",
+            "local_base_url": "http://localhost:11434/v1",
+        })
+
+        result = provider.unload()
+        self.assertTrue(result)
+
+        # Verify calls to /api/generate for both active models + self.model
+        posted_models = [call.kwargs.get("json", {}).get("model") for call in mock_post.call_args_list]
+        self.assertIn("llama3.1:8b", posted_models)
+        self.assertIn("ornith-1.5:9b", posted_models)
+        self.assertIn("qwen2.5-coder:3b", posted_models)
+
+    @patch("onyxsh.agent.providers.ollama.OllamaProvider.unload")
+    def test_ai_assistant_unload_when_cloud_provider(self, mock_unload):
+        mock_settings = MagicMock()
+        mock_settings.get.side_effect = lambda k, default=None: {
+            "ai_assistant_enabled": True,
+            "ai_assistant_provider": "groq",
+            "ai_assistant_offline_mode": False,
+            "ai_unload_on_exit": True,
+            "ai_assistant_model": "openai/gpt-oss-120b",
+            "ai_local_base_url": "http://localhost:11434/v1",
+            "ai_assistant_api_key": "gsk_test",
+        }.get(k, default)
+
+        assistant = TerminalAiAssistant(None, mock_settings, None)
+        # Even with cloud provider, unload_model still triggers Ollama cleanup
+        assistant.unload_model()
+        mock_unload.assert_called_once()
+
+    @patch("onyxsh.terminal.ai_assistant.TerminalAiAssistant.unload_model")
+    def test_handle_setting_changed_offline_to_cloud(self, mock_unload):
+        mock_settings = MagicMock()
+        mock_settings.get.side_effect = lambda k, default=None: {
+            "ai_assistant_enabled": True,
+            "ai_assistant_provider": "groq",
+            "ai_assistant_offline_mode": False,
+            "ai_preload_local_model": True,
+            "ai_assistant_model": "openai/gpt-oss-120b",
+            "ai_local_base_url": "http://localhost:11434/v1",
+        }.get(k, default)
+
+        assistant = TerminalAiAssistant(None, mock_settings, None)
+
+        # 1. Switching offline mode from True to False triggers unload
+        assistant.handle_setting_changed("ai_assistant_offline_mode", True, False)
+        self.assertTrue(mock_unload.called)
+
+        # 2. Switching provider to groq triggers unload
+        mock_unload.reset_mock()
+        assistant.handle_setting_changed("ai_assistant_provider", "local", "groq")
+        self.assertTrue(mock_unload.called)
+
 
 if __name__ == "__main__":
     unittest.main()

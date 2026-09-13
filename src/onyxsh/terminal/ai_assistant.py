@@ -64,7 +64,7 @@ class TerminalAiAssistant(GObject.Object):
     }
 
     DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
-    DEFAULT_GROQ_MODEL = "llama-3.1-8b-instant"
+    DEFAULT_GROQ_MODEL = "openai/gpt-oss-120b"
     DEFAULT_OPENROUTER_MODEL = "openrouter/polaris-alpha"
     DEFAULT_LOCAL_MODEL = "llama3.2"
 
@@ -366,7 +366,14 @@ class TerminalAiAssistant(GObject.Object):
             return
 
         provider_name = self.settings_manager.get("ai_assistant_provider", "").strip().lower()
-        if provider_name not in ("local", "ollama"):
+        if provider_name not in ("local", "ollama") and not self.is_offline_mode():
+            # In cloud mode: ensure any previously lingering local model in VRAM is evicted if unload is enabled
+            if self.settings_manager.get("ai_unload_on_exit", True):
+                try:
+                    from ..core.tasks import AsyncTaskManager
+                    AsyncTaskManager.get().submit_io(self.unload_model)
+                except Exception as e:
+                    self.logger.debug("Failed to submit async unload task: %s", e)
             return
 
         try:
@@ -398,13 +405,15 @@ class TerminalAiAssistant(GObject.Object):
         """Unload local model from VRAM immediately."""
         if not self.settings_manager.get("ai_unload_on_exit", True):
             return True
-        provider_name = self.settings_manager.get("ai_assistant_provider", "").strip().lower()
-        if provider_name not in ("local", "ollama") and not self.is_offline_mode():
-            return True
         try:
+            provider_name = self.settings_manager.get("ai_assistant_provider", "").strip().lower()
+            if provider_name in ("local", "ollama") or self.is_offline_mode():
+                model = self.settings_manager.get("ai_assistant_model", "").strip() or self.DEFAULT_LOCAL_MODEL
+            else:
+                model = self.DEFAULT_LOCAL_MODEL
             config = {
                 "provider": "local",
-                "model": self.settings_manager.get("ai_assistant_model", "").strip() or self.DEFAULT_LOCAL_MODEL,
+                "model": model,
                 "local_base_url": self.settings_manager.get("ai_local_base_url", "http://localhost:11434/v1").strip(),
             }
             from ..agent.providers import get_provider
@@ -425,12 +434,18 @@ class TerminalAiAssistant(GObject.Object):
             "ai_assistant_provider",
             "ai_assistant_model",
             "ai_local_base_url",
+            "ai_assistant_offline_mode",
         }:
             self.clear_all_conversations()
             # If changing provider/model, unload previous if local and preload new if local
-            if (old_value and str(old_value).lower() in ("local", "ollama")) or key in ("ai_assistant_model", "ai_local_base_url"):
+            if key == "ai_assistant_offline_mode" and not new_value:
                 self.unload_model()
-            if self.is_enabled() and self.settings_manager.get("ai_assistant_provider", "").lower() in ("local", "ollama"):
+            elif key == "ai_assistant_provider" and str(new_value).lower() not in ("local", "ollama"):
+                self.unload_model()
+            elif (old_value and str(old_value).lower() in ("local", "ollama")) or key in ("ai_assistant_model", "ai_local_base_url"):
+                self.unload_model()
+
+            if self.is_enabled() and (self.settings_manager.get("ai_assistant_provider", "").lower() in ("local", "ollama") or self.is_offline_mode()):
                 self.preload_model_async()
         elif key in {
             "ai_assistant_api_key",
@@ -442,7 +457,7 @@ class TerminalAiAssistant(GObject.Object):
             if new_value:
                 self.preload_model_async()
         elif key == "ai_context_size":
-            if self.is_enabled() and self.settings_manager.get("ai_assistant_provider", "").lower() in ("local", "ollama"):
+            if self.is_enabled() and (self.settings_manager.get("ai_assistant_provider", "").lower() in ("local", "ollama") or self.is_offline_mode()):
                 self.preload_model_async()
 
     # ------------------------------------------------------------------

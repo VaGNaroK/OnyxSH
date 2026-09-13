@@ -66,28 +66,58 @@ class OllamaProvider(LLMProvider):
 
     def unload(self) -> bool:
         """
-        Unload the model from GPU VRAM immediately.
+        Unload the model (and any active models in VRAM) from GPU immediately.
 
-        Using keep_alive=0 causes Ollama to release the model from memory.
+        Using keep_alive=0 causes Ollama to release models from memory.
         """
         import requests
 
-        native_url = f"{self._get_native_base_url()}/api/generate"
-        payload = {
-            "model": self.model,
-            "keep_alive": 0,
-        }
+        native_base = self._get_native_base_url()
+        headers = self._get_headers()
+        success = False
+
+        # 1. Query Ollama /api/ps to evict any models currently active in VRAM
         try:
-            self.logger.info(f"Unloading local model {self.model} from VRAM...")
-            resp = requests.post(native_url, json=payload, headers=self._get_headers(), timeout=5)
-            if resp.status_code == 200:
-                self.logger.info(f"Local model {self.model} unloaded from VRAM successfully.")
-                return True
-            self.logger.warning(f"Unload returned status {resp.status_code}: {resp.text}")
-            return False
+            resp_ps = requests.get(f"{native_base}/api/ps", headers=headers, timeout=2)
+            if resp_ps.status_code == 200:
+                active_models = resp_ps.json().get("models", [])
+                for m in active_models:
+                    m_name = m.get("name") or m.get("model")
+                    if m_name and m_name != self.model:
+                        try:
+                            self.logger.info(f"Evicting active model {m_name} from VRAM...")
+                            requests.post(
+                                f"{native_base}/api/generate",
+                                json={"model": m_name, "keep_alive": 0},
+                                headers=headers,
+                                timeout=5,
+                            )
+                        except Exception as e:
+                            self.logger.debug(f"Failed to evict {m_name}: {e}")
         except Exception as e:
-            self.logger.warning(f"Failed to unload local model {self.model} from VRAM: {e}")
-            return False
+            self.logger.debug(f"Failed to query /api/ps during unload: {e}")
+
+        # 2. Unload the configured model
+        if self.model:
+            native_url = f"{native_base}/api/generate"
+            payload = {
+                "model": self.model,
+                "keep_alive": 0,
+            }
+            try:
+                self.logger.info(f"Unloading local model {self.model} from VRAM...")
+                resp = requests.post(native_url, json=payload, headers=headers, timeout=5)
+                if resp.status_code == 200:
+                    self.logger.info(f"Local model {self.model} unloaded from VRAM successfully.")
+                    success = True
+                else:
+                    self.logger.warning(f"Unload returned status {resp.status_code}: {resp.text}")
+            except Exception as e:
+                self.logger.warning(f"Failed to unload local model {self.model} from VRAM: {e}")
+        else:
+            success = True
+
+        return success
 
     def is_loaded(self) -> bool:
         """Check if the model is currently active/loaded in VRAM."""

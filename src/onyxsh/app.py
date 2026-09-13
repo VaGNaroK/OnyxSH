@@ -1140,15 +1140,15 @@ class CommTerminalApp(Adw.Application):
             if not self.settings_manager.get("ai_unload_on_exit", True):
                 return
             provider_name = self.settings_manager.get("ai_assistant_provider", "").strip().lower()
-            if provider_name in ("local", "ollama"):
-                config = {
-                    "provider": provider_name,
-                    "model": self.settings_manager.get("ai_assistant_model", "").strip(),
-                    "local_base_url": self.settings_manager.get("ai_local_base_url", "http://localhost:11434/v1").strip(),
-                }
-                from .agent.providers import get_provider
-                provider = get_provider(provider_name, config)
-                provider.unload()
+            model = self.settings_manager.get("ai_assistant_model", "").strip() if provider_name in ("local", "ollama") else ""
+            config = {
+                "provider": "ollama",
+                "model": model,
+                "local_base_url": self.settings_manager.get("ai_local_base_url", "http://localhost:11434/v1").strip(),
+            }
+            from .agent.providers import get_provider
+            provider = get_provider("ollama", config)
+            provider.unload()
         except Exception as e:
             self.logger.debug("Failed to unload AI model on exit: %s", e)
 
