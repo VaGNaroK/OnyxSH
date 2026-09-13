@@ -1157,8 +1157,8 @@ class MessageBubble(Gtk.Box):
             if isinstance(item, str):
                 argv = item.split()
                 try:
-                    from ...agent.policy_engine import PolicyEngine
-                    pe = PolicyEngine()
+                    from ...agent.policy_engine import get_policy_engine
+                    pe = get_policy_engine()
                     risk = int(pe.classify(argv))
                 except Exception:
                     risk = 0
@@ -2142,8 +2142,6 @@ class AIChatPanel(Gtk.Box):
 
     def _add_tooltip(self, widget: Gtk.Widget, text: str):
         """Add tooltip to widget using custom helper or fallback to standard."""
-        # Ensure tooltip is enabled (may have been disabled to force-close popup)
-        widget.set_has_tooltip(True)
         helper = get_tooltip_helper()
         if helper:
             helper.add_tooltip(widget, text)

@@ -128,6 +128,10 @@ class WindowUIBuilder:
         self.window.set_content(main_box)
         self.logger.info("Main window UI constructed successfully.")
 
+        # Warm up AI chat panel in idle if enabled, so opening it is instantaneous
+        if self.settings_manager.get("ai_assistant_enabled", False):
+            GLib.idle_add(self._prewarm_ai_panel)
+
     def _setup_styles(self) -> None:
         """Applies application-wide CSS for various custom widgets."""
         # Load main window styles
@@ -835,6 +839,14 @@ class WindowUIBuilder:
         self.ai_chat_panel.connect("close-requested", self._on_ai_panel_close)
         self.ai_chat_panel.connect("execute-command", self._on_ai_execute_command)
         self.ai_chat_panel.connect("run-command", self._on_ai_run_command)
+
+    def _prewarm_ai_panel(self) -> bool:
+        """Pre-instantiate the AI chat panel in background idle for instant opening."""
+        try:
+            self._create_ai_chat_panel()
+        except Exception as e:
+            self.logger.debug("Failed to prewarm AI chat panel: %s", e)
+        return False
 
     def _on_ai_panel_close(self, _panel) -> None:
         """Handle AI panel close request."""

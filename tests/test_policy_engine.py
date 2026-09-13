@@ -100,6 +100,13 @@ class TestPolicyEngine(unittest.TestCase):
         self.assertEqual(evaluated.approval, "polkit")
         self.assertTrue(evaluated.requires_admin)
 
+    def test_get_policy_engine_singleton(self):
+        from onyxsh.agent.policy_engine import get_policy_engine
+        pe1 = get_policy_engine()
+        pe2 = get_policy_engine()
+        self.assertIs(pe1, pe2)
+        self.assertIsInstance(pe1, PolicyEngine)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -257,3 +257,15 @@ class PolicyEngine:
         evaluated_steps = [self.evaluate_step(step) for step in plan.steps]
         plan.steps = evaluated_steps
         return plan
+
+
+_shared_policy_engine: Optional[PolicyEngine] = None
+
+
+def get_policy_engine() -> PolicyEngine:
+    """Return a cached singleton PolicyEngine instance."""
+    global _shared_policy_engine
+    if _shared_policy_engine is None:
+        _shared_policy_engine = PolicyEngine()
+    return _shared_policy_engine
+

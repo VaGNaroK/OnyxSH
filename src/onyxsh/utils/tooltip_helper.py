@@ -395,9 +395,25 @@ class TooltipHelper:
         else:
             full_text = tooltip_text
 
-        # On X11, use native GTK tooltip to avoid segfaults
+        # On X11, use native GTK tooltip via query-tooltip to avoid synchronous X11 blocking latency
         if self._use_native_tooltips:
-            widget.set_tooltip_text(full_text)
+            widget._custom_tooltip_base_text = tooltip_text
+            widget._custom_tooltip_action = action_name
+            widget._custom_tooltip_text = full_text
+            if not getattr(widget, "_has_native_tooltip_handler", False):
+                def _on_query_shortcut(_w, _x, _y, _k, tooltip):
+                    action = getattr(_w, "_custom_tooltip_action", None)
+                    base_text = getattr(_w, "_custom_tooltip_base_text", "")
+                    sc = self._get_shortcut_label(action) if action else None
+                    txt = f"{base_text} ({sc})" if sc else base_text
+                    if txt:
+                        tooltip.set_text(txt)
+                        return True
+                    return False
+
+                widget.set_has_tooltip(True)
+                widget.connect("query-tooltip", _on_query_shortcut)
+                widget._has_native_tooltip_handler = True
             return
 
         # Store base text and action name for dynamic lookup
@@ -420,7 +436,7 @@ class TooltipHelper:
 
         This replaces the widget's default tooltip with a custom animated popover.
         The widget's existing tooltip_text property will be cleared.
-        On X11 backends, uses native GTK tooltips to avoid segfaults.
+        On X11 backends, uses native GTK tooltips via query-tooltip to avoid segfaults and latency.
 
         Args:
             widget: The GTK widget to add the tooltip to.
@@ -429,9 +445,20 @@ class TooltipHelper:
         if not tooltip_text:
             return
 
-        # On X11, use native GTK tooltip to avoid segfaults
+        # On X11, use native GTK tooltip via query-tooltip to avoid synchronous X11 blocking latency
         if self._use_native_tooltips:
-            widget.set_tooltip_text(tooltip_text)
+            widget._custom_tooltip_text = tooltip_text
+            if not getattr(widget, "_has_native_tooltip_handler", False):
+                def _on_query(_w, _x, _y, _k, tooltip):
+                    text = getattr(_w, "_custom_tooltip_text", "")
+                    if text:
+                        tooltip.set_text(text)
+                        return True
+                    return False
+
+                widget.set_has_tooltip(True)
+                widget.connect("query-tooltip", _on_query)
+                widget._has_native_tooltip_handler = True
             return
 
         # Store tooltip text on the widget
