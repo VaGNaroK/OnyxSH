@@ -44,6 +44,12 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - 🧠 **Memoização em Memória de Traduções (`_()`)**: Aplicação de `@functools.lru_cache(maxsize=1024)` em `translation_utils._()`, reduzindo o tempo de resolução de 0,768s para 0,0013s e eliminando mais de 24.000 chamadas síncronas `posix.stat` no disco por segundo.
 
 ### Corrigido
+- **Marcação e Estado Visual de Seleção Incorreto nos Botões da Header Bar (`BUG-UI-001`)**:
+  - Resolução do fundo retangular cinza persistente exibido nos botões de Sessões, Gerenciador de Arquivos, Gerenciador de Comandos e Busca mesmo quando inativos/fechados.
+  - Correção do botão do Assistente de IA que nunca recebia a indicação retangular de uso ao abrir o painel de chat.
+  - Padronização de todos os 5 botões de alternância como `Gtk.ToggleButton` com estilo plano (`.flat`) nativo do Libadwaita (fundo transparente quando inativo e retângulo cinza `:checked` quando ativo/em uso).
+  - Remoção de regra legada em `window.css` que forçava transparência incondicional no botão de sessões ativo.
+  - Sincronização bidirecional completa dos estados ativo/inativo entre a visibilidade dos respectivos painéis/diálogos e os botões da barra superior (`_show_command_manager_dialog`, `close-request`, `notify::visible`, `show_ai_panel`, `hide_ai_panel`).
 - **Falha de Detecção Heurística e Colapso de Linhas em Sugestões de Erro de Terminal (`BUG-TERM-004`)**:
   - Resolução do colapso de intervalo de coordenadas no buffer VTE em comandos ultrarrápidos (`cat /etc/shadow`) através de escaneamento resiliente nas imediações do cursor e leitura do buffer completo (`get_text_format`).
   - Adicionada heurística direta para alvos de sistema estritamente protegidos (`/etc/shadow`, `/etc/sudoers`, `/etc/gshadow`) e comandos de pacotes/serviços que requerem superusuário quando executados sem `sudo`.

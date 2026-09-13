@@ -259,6 +259,8 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         self.sidebar_popover = self.ui_builder.sidebar_popover
         self.toggle_sidebar_button = self.ui_builder.toggle_sidebar_button
         self.file_manager_button = self.ui_builder.file_manager_button
+        self.command_manager_button = self.ui_builder.command_manager_button
+        self.ai_assistant_button = self.ui_builder.ai_assistant_button
         self.cleanup_button = self.ui_builder.cleanup_button
         self.cleanup_popover = self.ui_builder.cleanup_popover
         self.font_sizer_widget = self.ui_builder.font_sizer_widget
@@ -313,6 +315,10 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         )
         self.settings_manager.add_change_listener(self._on_setting_changed)
         self.file_manager_button.connect("toggled", self._on_toggle_file_manager)
+        if self.command_manager_button:
+            self.command_manager_button.connect(
+                "toggled", self._on_toggle_command_manager
+            )
 
     def _setup_actions(self) -> None:
         """Set up window-level actions by delegating to the action handler."""
@@ -791,9 +797,13 @@ class CommTerminalWindow(Adw.ApplicationWindow):
 
     def _on_ai_assistant_requested(self, *_args) -> None:
         if not getattr(self, "ai_assistant", None):
+            if hasattr(self, "ai_assistant_button") and self.ai_assistant_button:
+                self.ai_assistant_button.set_active(False)
             return
 
         if not self.settings_manager.get("ai_assistant_enabled", False):
+            if hasattr(self, "ai_assistant_button") and self.ai_assistant_button:
+                self.ai_assistant_button.set_active(False)
             self.toast_overlay.add_toast(
                 Adw.Toast(
                     title=_(
@@ -805,6 +815,8 @@ class CommTerminalWindow(Adw.ApplicationWindow):
 
         missing = self.ai_assistant.missing_configuration()
         if missing:
+            if hasattr(self, "ai_assistant_button") and self.ai_assistant_button:
+                self.ai_assistant_button.set_active(False)
             labels = {
                 "provider": _("Provider"),
                 "model": _("Model"),
@@ -2404,6 +2416,15 @@ class CommTerminalWindow(Adw.ApplicationWindow):
 
         return Gdk.EVENT_STOP
 
+    def _on_toggle_command_manager(self, button: Gtk.ToggleButton) -> None:
+        """Handler for Command Manager toggle button."""
+        if button.get_active():
+            if self.command_manager_dialog is None or not self.command_manager_dialog.get_visible():
+                self._show_command_manager_dialog()
+        else:
+            if self.command_manager_dialog and self.command_manager_dialog.get_visible():
+                self.command_manager_dialog.close()
+
     def _show_command_manager_dialog(self):
         """Creates and shows the Command Manager dialog, or closes it if already visible."""
         if self.command_manager_dialog is None:
@@ -2416,10 +2437,33 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             self.command_manager_dialog.connect(
                 "command-selected", self._on_command_selected_from_manager
             )
+            self.command_manager_dialog.connect(
+                "close-request", self._on_command_manager_dialog_close_request
+            )
+            self.command_manager_dialog.connect(
+                "notify::visible", self._on_command_manager_dialog_visible_changed
+            )
+
         if self.command_manager_dialog.get_visible():
             self.command_manager_dialog.close()
+            if self.command_manager_button and self.command_manager_button.get_active():
+                self.command_manager_button.set_active(False)
         else:
             self.command_manager_dialog.present()
+            if self.command_manager_button and not self.command_manager_button.get_active():
+                self.command_manager_button.set_active(True)
+
+    def _on_command_manager_dialog_close_request(self, dialog) -> bool:
+        """Synchronize button state when user closes dialog."""
+        if self.command_manager_button and self.command_manager_button.get_active():
+            self.command_manager_button.set_active(False)
+        return False
+
+    def _on_command_manager_dialog_visible_changed(self, dialog, param) -> None:
+        """Synchronize button state when dialog visibility changes."""
+        is_visible = dialog.get_visible()
+        if self.command_manager_button and self.command_manager_button.get_active() != is_visible:
+            self.command_manager_button.set_active(is_visible)
 
     def _on_command_selected_from_manager(
         self, dialog, command_text: str, execute: bool

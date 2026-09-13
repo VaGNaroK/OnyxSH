@@ -298,18 +298,21 @@ class WindowUIBuilder:
         self.toggle_sidebar_button = Gtk.ToggleButton()
         self.toggle_sidebar_button.set_child(icon_image("pin-symbolic"))
         self.toggle_sidebar_button.add_css_class("sidebar-toggle-button")
+        self.toggle_sidebar_button.add_css_class("flat")
 
         self.file_manager_button = Gtk.ToggleButton()
         self.file_manager_button.set_child(icon_image("folder-open-symbolic"))
+        self.file_manager_button.add_css_class("flat")
 
         # Command Manager button
-        self.command_manager_button = Gtk.Button()
+        self.command_manager_button = Gtk.ToggleButton()
         self.command_manager_button.set_child(icon_image("utilities-terminal-symbolic"))
-        self.command_manager_button.set_action_name("win.show-command-manager")
+        self.command_manager_button.add_css_class("flat")
 
         # Add the new search button
         self.search_button = Gtk.ToggleButton()
         self.search_button.set_child(icon_image("edit-find-symbolic"))
+        self.search_button.add_css_class("flat")
 
         # Broadcast button is kept for internal use but not added to header bar
         # The functionality is integrated into the Command Manager
@@ -317,13 +320,13 @@ class WindowUIBuilder:
         self.broadcast_button.set_child(icon_image("utilities-terminal-symbolic"))
         self.broadcast_button.set_visible(False)  # Hidden from header bar
 
-        self.ai_assistant_button = Gtk.Button()
+        self.ai_assistant_button = Gtk.ToggleButton()
         self.ai_assistant_button.set_child(
             icon_image("avatar-default-symbolic", use_bundled=False)
         )  # System icon
         self.ai_assistant_button.add_css_class("flat")
         self.ai_assistant_button.connect(
-            "clicked", lambda _btn: self.window._on_ai_assistant_requested()
+            "toggled", self._on_toggle_ai_assistant_button
         )
         # Set initial visibility based on settings
         ai_enabled = self.settings_manager.get("ai_assistant_enabled", False)
@@ -452,6 +455,7 @@ class WindowUIBuilder:
             self.toggle_sidebar_button,
             self.file_manager_button,
             self.command_manager_button,
+            self.ai_assistant_button,
             self.search_button,
             self.cleanup_button,
             self.menu_button,
@@ -482,6 +486,7 @@ class WindowUIBuilder:
             self.header_bar.pack_end(self.toggle_sidebar_button)
             self.header_bar.pack_end(self.file_manager_button)
             self.header_bar.pack_end(self.command_manager_button)
+            self.header_bar.pack_end(self.ai_assistant_button)
             self.header_bar.pack_end(self.search_button)
             self.header_bar.pack_end(self.cleanup_button)
             self.header_bar.pack_start(self.menu_button)
@@ -491,6 +496,7 @@ class WindowUIBuilder:
             self.header_bar.pack_start(self.toggle_sidebar_button)
             self.header_bar.pack_start(self.file_manager_button)
             self.header_bar.pack_start(self.command_manager_button)
+            self.header_bar.pack_start(self.ai_assistant_button)
             self.header_bar.pack_start(self.search_button)
             self.header_bar.pack_start(self.cleanup_button)
             self.header_bar.pack_end(self.menu_button)
@@ -874,6 +880,16 @@ class WindowUIBuilder:
             else:
                 terminal.feed_child(command.encode("utf-8") + b"\n")
 
+    def _on_toggle_ai_assistant_button(self, button: Gtk.ToggleButton) -> None:
+        """Handle toggling of the AI assistant button."""
+        if button.get_active():
+            if not self._ai_panel_visible:
+                if hasattr(self.window, "_on_ai_assistant_requested"):
+                    self.window._on_ai_assistant_requested()
+        else:
+            if self._ai_panel_visible:
+                self.hide_ai_panel()
+
     def show_ai_panel(self, initial_text: Optional[str] = None, auto_send: bool = False) -> None:
         """Show the AI chat panel."""
         # Lazy create the panel
@@ -894,6 +910,8 @@ class WindowUIBuilder:
             self.ai_paned.set_position(target_pos)
 
             self._ai_panel_visible = True
+            if self.ai_assistant_button and not self.ai_assistant_button.get_active():
+                self.ai_assistant_button.set_active(True)
 
         if initial_text:
             if auto_send:
@@ -916,6 +934,8 @@ class WindowUIBuilder:
             # Remove panel
             self.ai_paned.set_end_child(None)
             self._ai_panel_visible = False
+            if self.ai_assistant_button and self.ai_assistant_button.get_active():
+                self.ai_assistant_button.set_active(False)
 
     def toggle_ai_panel(self) -> None:
         """Toggle the AI chat panel visibility."""

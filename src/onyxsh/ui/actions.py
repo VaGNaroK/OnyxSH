@@ -451,7 +451,12 @@ class WindowActions:
 
     def show_command_manager(self, *_args):
         self._hide_tooltip()
-        self.window._show_command_manager_dialog()
+        if hasattr(self.window, "command_manager_button") and self.window.command_manager_button:
+            self.window.command_manager_button.set_active(
+                not self.window.command_manager_button.get_active()
+            )
+        else:
+            self.window._show_command_manager_dialog()
 
     def show_tunnel_manager(self, *_args):
         self._hide_tooltip()

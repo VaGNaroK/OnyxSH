@@ -26,6 +26,7 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
 - [3. Assistente de IA, Parser de Scripts & Agent Mode](#3-assistente-de-ia-parser-de-scripts--agent-mode)
 - [4. Terminal, Rastreamento Semântico & Atalhos](#4-terminal-rastreamento-semântico--atalhos)
 - [5. Core, Async Tasks, Segurança & Infraestrutura](#5-core-async-tasks-segurança--infraestrutura)
+- [6. Interface do Usuário & Header Bar](#6-interface-do-usuário--header-bar)
 
 ---
 
@@ -448,6 +449,27 @@ Antes de propor diagnósticos, refatorações ou modificações no código do **
 - **Componente:** `src/onyxsh/ui/actions.py`, `src/onyxsh/terminal/ai_assistant.py`
 - **Sintoma:** `Gtk-CRITICAL` e texto não renderizado em nomes de sessões ou comandos contendo `&` (ex.: `Quick Jump & Bookmarks`).
 - **Correção:** Uso de `GLib.markup_escape_text()` antes de repassar strings a componentes com `use-markup=True`.
+
+---
+
+## 6. Interface do Usuário & Header Bar
+
+### [BUG-UI-001] Marcação de Seleção Retangular Cinza Persistente e Dessincronia de Botões na Header Bar
+- **Componentes:** `src/onyxsh/ui/window_ui.py`, `src/onyxsh/data/styles/window.css`, `src/onyxsh/window.py`, `src/onyxsh/ui/actions.py`
+- **Sintoma:** 
+  1. Os botões de Sessões, Gerenciador de Arquivos, Gerenciador de Comandos e Busca exibiam um retângulo cinza de seleção ao fundo mesmo quando inativos/fechados.
+  2. O botão do Assistente de IA permanecia sem nenhuma marcação retangular cinza mesmo ao ser clicado e com o painel de chat aberto.
+- **Causa Raiz:**
+  1. No GTK4/Libadwaita, botões na `Adw.HeaderBar` sem a classe CSS `.flat` recebem por padrão moldura sólida de botão (retângulo com borda e fundo cinza claro). Os botões de Sessões, Arquivos, Comandos e Busca não tinham `.add_css_class("flat")`.
+  2. Em `window.css`, havia uma regra forçando `.sidebar-toggle-button:active, .sidebar-toggle-button:checked { background: transparent; }`, que impedia o botão de sessões de mostrar o fundo ativo quando ligado.
+  3. O botão do Assistente de IA era um `Gtk.Button` simples (sem estado toggle) com `.flat`, impossibilitando a exibição do estado `:checked`.
+  4. O botão do Gerenciador de Comandos usava `set_action_name("win.show-command-manager")` apontando para uma `SimpleAction` sem estado (stateless), o que reseta o estado `active` de `Gtk.ToggleButton` no GTK4.
+- **Correção:**
+  1. Adicionado `.add_css_class("flat")` a todos os 5 botões de alternância da header bar.
+  2. Convertidos `command_manager_button` e `ai_assistant_button` para `Gtk.ToggleButton`.
+  3. Removida a sobreposição transparente em `window.css` para permitir a renderização do estado nativo `:checked` do Libadwaita.
+  4. Sincronização bidirecional completa: abertura e fechamento via atalho ou close do diálogo/painel atualizam `set_active()` do respectivo botão.
+- **Testes:** `tests/test_window_ui.py` (`test_header_bar_toggle_buttons_types_and_flat_classes`, `test_ai_assistant_button_sync_on_show_and_hide_panel`, `test_on_toggle_ai_assistant_button_handlers`, `test_window_css_no_sidebar_toggle_transparent_override`, `test_window_command_manager_toggle_sync`, `test_window_actions_show_command_manager_toggles_button`).
 
 ---
 

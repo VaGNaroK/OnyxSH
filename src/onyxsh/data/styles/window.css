@@ -217,11 +217,6 @@ popover.menu separator {
     background-color: alpha(currentColor, 0.15);
 }
 
-/* Sidebar toggle button styling - hover only, no active background */
-.sidebar-toggle-button:active,
-.sidebar-toggle-button:checked {
-    background: transparent;
-}
 
 /* Sidebar container - simple box layout */
 .sidebar-container {
