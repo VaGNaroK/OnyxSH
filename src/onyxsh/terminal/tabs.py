@@ -2,6 +2,7 @@
 
 import re
 import threading
+import time
 import weakref
 from typing import TYPE_CHECKING, Any, Callable, List, Optional
 
@@ -65,6 +66,11 @@ def _create_terminal_pane(
     semantic_status_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
     semantic_status_box.set_valign(Gtk.Align.CENTER)
     semantic_status_box.set_visible(False)
+
+    semantic_spinner = Gtk.Spinner()
+    semantic_spinner.set_size_request(14, 14)
+    semantic_spinner.set_visible(False)
+    semantic_status_box.append(semantic_spinner)
 
     semantic_status_label = Gtk.Label(label="")
     semantic_status_label.add_css_class("caption")
@@ -165,6 +171,7 @@ def _create_terminal_pane(
     toolbar_view.close_button = close_button
     toolbar_view.semantic_status_box = semantic_status_box
     toolbar_view.semantic_status_label = semantic_status_label
+    toolbar_view.semantic_spinner = semantic_spinner
     toolbar_view.semantic_quick_fix_btn = semantic_quick_fix_btn
     toolbar_view.semantic_ai_btn = semantic_ai_btn
     toolbar_view.semantic_copy_btn = semantic_copy_btn
@@ -600,6 +607,11 @@ class TabManager:
         semantic_status_box.set_valign(Gtk.Align.START)
         semantic_status_box.set_visible(False)
 
+        semantic_spinner = Gtk.Spinner()
+        semantic_spinner.set_size_request(14, 14)
+        semantic_spinner.set_visible(False)
+        semantic_status_box.append(semantic_spinner)
+
         semantic_status_label = Gtk.Label(label="")
         semantic_status_label.add_css_class("caption")
         semantic_status_box.append(semantic_status_label)
@@ -670,6 +682,7 @@ class TabManager:
 
         terminal.semantic_status_box = semantic_status_box
         terminal.semantic_status_label = semantic_status_label
+        terminal.semantic_spinner = semantic_spinner
         terminal.semantic_quick_fix_btn = semantic_quick_fix_btn
         terminal.semantic_ai_btn = semantic_ai_btn
         terminal.semantic_copy_btn = semantic_copy_btn
@@ -788,6 +801,13 @@ class TabManager:
         )
         label.set_width_chars(8)
         tab_widget.append(label)
+
+        tab_spinner = Gtk.Spinner()
+        tab_spinner.set_size_request(12, 12)
+        tab_spinner.set_visible(False)
+        tab_spinner.add_css_class("tab-spinner")
+        tab_widget.append(tab_spinner)
+        tab_widget.spinner = tab_spinner
 
         close_button = icon_button(
             "window-close-symbolic", css_classes=["circular", "flat"]
@@ -1380,6 +1400,10 @@ class TabManager:
             if tab_to_remove in self.pages:
                 del self.pages[tab_to_remove]
 
+            # Stop any running command timers for terminals in this page
+            for term in self.get_all_terminals_in_page(page):
+                self._stop_running_indicator(term)
+
             # Explicitly destroy the FileManager instance
             if page in self.file_managers:
                 fm = self.file_managers.pop(page)
@@ -1569,6 +1593,145 @@ class TabManager:
         if pane and hasattr(pane, "title_label"):
             pane.title_label.set_label(new_title)
 
+    def _get_tab_for_page(self, page: Adw.ViewStackPage) -> Optional[Gtk.Box]:
+        """Finds the tab widget corresponding to a view stack page."""
+        tabs = getattr(self, "tabs", None)
+        if not tabs:
+            return None
+        pages = getattr(self, "pages", {})
+        for tab in tabs:
+            if pages.get(tab) == page:
+                return tab
+        return None
+
+    def _is_any_terminal_running_in_page(self, page: Adw.ViewStackPage) -> bool:
+        """Checks if any terminal in the page is currently running a command."""
+        get_all_fn = getattr(self, "get_all_terminals_in_page", None)
+        if not get_all_fn:
+            return False
+        try:
+            terminals = get_all_fn(page)
+            for t in terminals:
+                if getattr(t, "_running_cmd", None) is not None:
+                    return True
+        except Exception:
+            pass
+        return False
+
+    def _stop_running_indicator(self, terminal: Vte.Terminal) -> None:
+        """Stops the live execution timer and hides running visuals for a terminal."""
+        timer_id = getattr(terminal, "_running_timer_id", None)
+        if timer_id is not None:
+            try:
+                GLib.source_remove(timer_id)
+            except Exception:
+                pass
+            terminal._running_timer_id = None
+        terminal._running_cmd = None
+        self._set_running_visuals(terminal, is_running=False)
+
+    def _set_running_visuals(
+        self, terminal: Vte.Terminal, is_running: bool, time_text: str = ""
+    ) -> None:
+        """Updates badge and tab spinner visuals for running / stopped states."""
+        page = self.get_page_for_terminal(terminal)
+        if not page:
+            return
+
+        def _apply_badge_running(box, label, spinner, quick_fix, ai_btn, copy_btn):
+            if not (box and label and spinner):
+                return
+            if is_running:
+                box.remove_css_class("error")
+                box.remove_css_class("dim-label")
+                box.add_css_class("running")
+                spinner.set_visible(True)
+                spinner.start()
+                label.set_text(time_text)
+                label.set_tooltip_text(_("Comando em execução..."))
+                if quick_fix:
+                    quick_fix.set_visible(False)
+                if ai_btn:
+                    ai_btn.set_visible(False)
+                if copy_btn:
+                    copy_btn.set_visible(False)
+                box.set_visible(True)
+            else:
+                spinner.stop()
+                spinner.set_visible(False)
+                box.remove_css_class("running")
+
+        # 1. Floating overlay on terminal
+        _apply_badge_running(
+            getattr(terminal, "semantic_status_box", None),
+            getattr(terminal, "semantic_status_label", None),
+            getattr(terminal, "semantic_spinner", None),
+            getattr(terminal, "semantic_quick_fix_btn", None),
+            getattr(terminal, "semantic_ai_btn", None),
+            getattr(terminal, "semantic_copy_btn", None),
+        )
+
+        # 2. Split pane header
+        pane = self._find_pane_for_terminal(page, terminal)
+        if pane:
+            _apply_badge_running(
+                getattr(pane, "semantic_status_box", None),
+                getattr(pane, "semantic_status_label", None),
+                getattr(pane, "semantic_spinner", None),
+                getattr(pane, "semantic_quick_fix_btn", None),
+                getattr(pane, "semantic_ai_btn", None),
+                getattr(pane, "semantic_copy_btn", None),
+            )
+
+        # 3. Tab bar spinner
+        tab = self._get_tab_for_page(page)
+        if tab and hasattr(tab, "spinner"):
+            if is_running:
+                tab.spinner.set_visible(True)
+                tab.spinner.start()
+            else:
+                if not self._is_any_terminal_running_in_page(page):
+                    tab.spinner.stop()
+                    tab.spinner.set_visible(False)
+
+    def _on_running_timer_tick(self, terminal: Vte.Terminal) -> bool:
+        """Periodic callback updating the running duration counter."""
+        cmd = getattr(terminal, "_running_cmd", None)
+        if cmd is None:
+            return GLib.SOURCE_REMOVE
+
+        start_time = getattr(terminal, "_running_start_time", 0.0)
+        elapsed = max(0.0, time.time() - start_time)
+
+        # Debounce: don't show indicator if running for less than 200ms
+        if elapsed < 0.2:
+            return GLib.SOURCE_CONTINUE
+
+        if elapsed < 60.0:
+            time_text = f"{elapsed:.1f}s"
+        else:
+            mins = int(elapsed // 60)
+            secs = elapsed % 60
+            time_text = f"{mins}m {secs:.0f}s"
+
+        self._set_running_visuals(terminal, is_running=True, time_text=time_text)
+        return GLib.SOURCE_CONTINUE
+
+    def show_command_running_indicator(
+        self, terminal: Vte.Terminal, cmd: SemanticCommand
+    ) -> None:
+        """Starts live visual feedback (spinner and ticking duration timer) for an executing command."""
+        page = self.get_page_for_terminal(terminal)
+        if not page:
+            return
+
+        self._stop_running_indicator(terminal)
+
+        terminal._running_cmd = cmd
+        terminal._running_start_time = time.time()
+        timer_id = GLib.timeout_add(100, self._on_running_timer_tick, terminal)
+        terminal._running_timer_id = timer_id
+
     def update_semantic_badge_for_terminal(
         self,
         terminal: Vte.Terminal,
@@ -1579,6 +1742,9 @@ class TabManager:
         page = self.get_page_for_terminal(terminal)
         if not page:
             return
+
+        # Stop live running indicator before applying finished state
+        self._stop_running_indicator(terminal)
 
         if not cmd.is_finished:
             return
@@ -1596,9 +1762,13 @@ class TabManager:
                 badge_text = f"[✗ {cmd.exit_code}]"
             is_error = True
 
-        def _apply_to_badge(status_box, status_label, quick_fix_btn, ai_btn, copy_btn):
+        def _apply_to_badge(status_box, status_label, quick_fix_btn, ai_btn, copy_btn, spinner):
             if not (status_box and status_label):
                 return
+            if spinner:
+                spinner.stop()
+                spinner.set_visible(False)
+            status_box.remove_css_class("running")
             if is_error:
                 status_box.remove_css_class("dim-label")
                 status_box.add_css_class("error")
@@ -1637,6 +1807,7 @@ class TabManager:
             getattr(terminal, "semantic_quick_fix_btn", None),
             getattr(terminal, "semantic_ai_btn", None),
             getattr(terminal, "semantic_copy_btn", None),
+            getattr(terminal, "semantic_spinner", None),
         )
 
         # 2. Update on pane header (split view)
@@ -1648,7 +1819,14 @@ class TabManager:
                 getattr(pane, "semantic_quick_fix_btn", None),
                 getattr(pane, "semantic_ai_btn", None),
                 getattr(pane, "semantic_copy_btn", None),
+                getattr(pane, "semantic_spinner", None),
             )
+
+        # 3. Tab spinner check
+        tab = self._get_tab_for_page(page)
+        if tab and hasattr(tab, "spinner") and not self._is_any_terminal_running_in_page(page):
+            tab.spinner.stop()
+            tab.spinner.set_visible(False)
 
     def set_tab_title(self, page: Adw.ViewStackPage, new_title: str) -> None:
         if not (page and new_title):
@@ -2320,6 +2498,7 @@ class TabManager:
 
     def close_pane(self, terminal: Vte.Terminal) -> None:
         """Close a single pane within a tab."""
+        self._stop_running_indicator(terminal)
         self.terminal_manager.remove_terminal(terminal)
 
     def _on_move_to_tab_callback(self, terminal: Vte.Terminal):

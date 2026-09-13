@@ -485,6 +485,9 @@ class TerminalManager:
         self.semantic_tracker.register_command_finished_callback(
             self._on_semantic_command_finished
         )
+        self.semantic_tracker.register_command_started_callback(
+            self._on_semantic_command_started
+        )
         self.manual_ssh_tracker = ManualSSHTracker(
             self.registry, self._on_manual_ssh_state_changed
         )
@@ -905,6 +908,18 @@ class TerminalManager:
             self._update_title(terminal)
         except Exception as e:
             self.logger.debug(f"Error handling window title change: {e}")
+
+    def _on_semantic_command_started(
+        self, terminal: Vte.Terminal, cmd: SemanticCommand
+    ) -> None:
+        """Called when a command starts executing in a terminal."""
+        try:
+            if not self.settings_manager.get("show_command_running_indicator", True):
+                return
+            if self.tab_manager:
+                self.tab_manager.show_command_running_indicator(terminal, cmd)
+        except Exception as e:
+            self.logger.debug(f"Error handling command started event: {e}")
 
     def _on_semantic_command_finished(
         self, terminal: Vte.Terminal, cmd: SemanticCommand

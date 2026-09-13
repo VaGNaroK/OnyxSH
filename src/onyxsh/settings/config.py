@@ -282,11 +282,12 @@ class DefaultSettings:
             "session_restore_policy": "always",
             "session_restore_ssh_auto_reconnect": True,
             "session_restore_ui_panels": True,
-            # Long-Running Command Notifications
+            # Long-Running Command Notifications & Feedback
             "notify_long_commands": True,
             "notify_long_commands_threshold": 10,
             "notify_long_commands_condition": "unfocused",
             "notify_long_commands_sound": True,
+            "show_command_running_indicator": True,
             # Autocomplete & Suggestions Settings
             "autocomplete_enabled": True,
             "autocomplete_style": "both",  # "both", "popup", "ghost"

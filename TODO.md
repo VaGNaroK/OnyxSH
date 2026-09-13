@@ -53,6 +53,7 @@
   - Seleção cirúrgica de saída: copiar apenas a saída do último comando executado.
   - Indicador visual de status de saída (ícone de sucesso `0` ou erro `>0` na barra do painel).
   - Medição de tempo de execução por comando (ex: `⏱ 1.4s`).
+  - Indicador de execução em andamento (*Live Loading Feedback* com spinner animado e cronômetro em tempo real `0.3s`, `1.5s`... para comandos longos ou bloqueantes).
   - Botão de envio rápido da saída de um comando específico para análise no chat de IA.
 - [x] **Status:** ✅ Implementado no ciclo `v0.9.0` (`src/onyxsh/terminal/semantic_tracker.py`, `src/onyxsh/terminal/spawner.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`).
 - [x] **Prioridade:** 🟡 Média/Alta | **Esforço:** Médio/Alto | **Alvo:** `v0.9.0`

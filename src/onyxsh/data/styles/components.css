@@ -415,6 +415,16 @@
     border-color: alpha(@error_color, 0.6);
 }
 
+.semantic-floating-badge.running {
+    background-color: alpha(@accent_bg_color, 0.15);
+    border-color: alpha(@accent_color, 0.45);
+}
+
+.semantic-floating-badge.running spinner,
+.tab-spinner {
+    color: @accent_color;
+}
+
 /* ==========================================================================
    Production Guard Banner
    ========================================================================== */

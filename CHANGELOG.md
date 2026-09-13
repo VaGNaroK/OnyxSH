@@ -4,7 +4,16 @@ Todas as mudanças notáveis no projeto **OnyxSH** a partir de 13 de Agosto de 2
 
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e este projeto segue o [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
----
+## [Unreleased]
+
+### Adicionado
+- **Indicador Visual de Execução em Andamento no Terminal (*Live Loading Feedback*)**:
+  - ⏳ **Feedback em Tempo Real para Comandos Longos**: Exibição dinâmica de um `Gtk.Spinner` animado e cronômetro de tempo decorrido ao vivo (`0.3s`, `1.5s`, `1m 12s`...) no badge flutuante e no cabeçalho de splits durante a execução de comandos que demoram a responder (como `flatpak search`, `sleep 10`, downloads e compilações), dando certeza ao usuário de que o terminal está ativo e trabalhando.
+  - 🔄 **Indicador Discreto na Barra de Abas**: Exibição de spinner dedicado na aba correspondente enquanto qualquer terminal associado estiver em execução.
+  - ⏱️ **Debounce Inteligente de 200ms**: Previne cintilações e ruído visual para comandos instantâneos de shell (`cd`, `ls`, `clear`), ativando o feedback visual apenas para comandos com duração perceptível.
+  - 🎨 **Estilização e Destaque Visual**: Classe CSS `.semantic-floating-badge.running` com tonalidade baseada no `@accent_color` e ocultação automática de ações de pós-execução durante a execução.
+  - 🛑 **Transição e Interrupção Limpas**: Cancelamento imediato de timers e spinners ao término do comando ou cancelamento manual (<kbd>Ctrl + C</kbd>), transicionando de volta ao badge estático de duração final (`⏱ 3.5s [copiar]`).
+  - ⚙️ **Configuração Dedicada**: Nova chave `"show_command_running_indicator"` (padrão: `True`).
 
 ## [0.11.0] - 2026-09-13
 

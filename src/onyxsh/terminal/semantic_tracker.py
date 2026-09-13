@@ -132,6 +132,9 @@ class SemanticTracker:
         self.on_command_finished_callbacks: List[
             Callable[[Vte.Terminal, SemanticCommand], None]
         ] = []
+        self.on_command_started_callbacks: List[
+            Callable[[Vte.Terminal, SemanticCommand], None]
+        ] = []
 
     def get_or_create_state(self, terminal: Vte.Terminal) -> SemanticTerminalState:
         with self._lock:
@@ -149,6 +152,12 @@ class SemanticTracker:
     ) -> None:
         if callback not in self.on_command_finished_callbacks:
             self.on_command_finished_callbacks.append(callback)
+
+    def register_command_started_callback(
+        self, callback: Callable[[Vte.Terminal, SemanticCommand], None]
+    ) -> None:
+        if callback not in self.on_command_started_callbacks:
+            self.on_command_started_callbacks.append(callback)
 
     def _get_absolute_row(self, terminal: Vte.Terminal) -> int:
         """Returns the true absolute line index in the terminal scrollback buffer."""
@@ -214,6 +223,8 @@ class SemanticTracker:
                 self.logger.debug(
                     f"Command execution STARTED (C): start_time={state.current_command.start_time if state.current_command else None}"
                 )
+                if state.current_command:
+                    self._notify_started(terminal, state.current_command)
                 return state.current_command
 
             elif action == "D":
@@ -243,6 +254,13 @@ class SemanticTracker:
                 GLib.idle_add(cb, terminal, cmd)
             except Exception as e:
                 self.logger.error(f"Error invoking semantic callback: {e}")
+
+    def _notify_started(self, terminal: Vte.Terminal, cmd: SemanticCommand) -> None:
+        for cb in self.on_command_started_callbacks:
+            try:
+                GLib.idle_add(cb, terminal, cmd)
+            except Exception as e:
+                self.logger.error(f"Error invoking semantic start callback: {e}")
 
     def get_last_command(self, terminal: Vte.Terminal) -> Optional[SemanticCommand]:
         with self._lock:
