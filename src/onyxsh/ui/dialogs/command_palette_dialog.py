@@ -411,6 +411,28 @@ class CommandPaletteDialog(BaseDialog):
         )
         self._items.append(
             CommandPaletteItem(
+                "export-terminal-runbook",
+                _("Exportar Sessão como Caderno de Bordo (Runbook)..."),
+                _("Terminal"),
+                "document-edit-symbolic",
+                action_name="export-terminal-runbook",
+                shortcut=get_accel_label("export-terminal-runbook"),
+                keywords=[
+                    "caderno de bordo",
+                    "runbook",
+                    "anotações",
+                    "post-mortem",
+                    "relatorio",
+                    "documentacao",
+                    "procedimento",
+                    "passo a passo",
+                    "markdown",
+                    "html",
+                ],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
                 "toggle-broadcast",
                 _("Modo Transmissão (Comando p/ Todas as Abas)"),
                 _("Terminal"),

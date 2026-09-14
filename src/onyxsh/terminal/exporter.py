@@ -406,19 +406,78 @@ class TerminalExporter:
 
         return "\n".join(lines_output) + "\n"
 
+    def export_runbook_markdown(
+        self,
+        terminal: Vte.Terminal,
+        runbook: Optional[Any] = None,
+        collapse_long_outputs: bool = True,
+    ) -> str:
+        """Exports the terminal session as a structured Markdown runbook."""
+        from .runbook import get_runbook_generator
+        gen = get_runbook_generator()
+        rb_data = runbook or gen.from_terminal(terminal)
+        return gen.render_markdown(rb_data, collapse_long_outputs=collapse_long_outputs)
+
+    def export_runbook_html(
+        self,
+        terminal: Vte.Terminal,
+        runbook: Optional[Any] = None,
+        collapse_long_outputs: bool = True,
+    ) -> str:
+        """Exports the terminal session as an interactive HTML runbook."""
+        from .runbook import get_runbook_generator
+        gen = get_runbook_generator()
+        rb_data = runbook or gen.from_terminal(terminal)
+        return gen.render_html(rb_data, collapse_long_outputs=collapse_long_outputs)
+
+    def export_runbook_log(
+        self,
+        terminal: Vte.Terminal,
+        runbook: Optional[Any] = None,
+    ) -> str:
+        """Exports the terminal session as a structured text runbook log."""
+        from .runbook import get_runbook_generator
+        gen = get_runbook_generator()
+        rb_data = runbook or gen.from_terminal(terminal)
+        return gen.render_log(rb_data)
+
     def format_content(
         self,
         terminal: Vte.Terminal,
         format_id: str,
         selection_only: bool = False,
+        runbook_data: Optional[Any] = None,
+        collapse_long_outputs: bool = True,
     ) -> Tuple[str, str, str]:
         """
         Returns (content_string, default_extension, mime_type) for the requested format.
 
-        Format IDs: 'txt', 'log', 'md', 'html', 'cast'
+        Format IDs: 'txt', 'log', 'md', 'html', 'cast', 'runbook_md', 'runbook_html', 'runbook_log'
         """
         fmt = format_id.lower().lstrip(".")
-        if fmt == "txt":
+        if fmt == "runbook_md":
+            return (
+                self.export_runbook_markdown(
+                    terminal, runbook_data, collapse_long_outputs=collapse_long_outputs
+                ),
+                ".md",
+                "text/markdown",
+            )
+        elif fmt == "runbook_html":
+            return (
+                self.export_runbook_html(
+                    terminal, runbook_data, collapse_long_outputs=collapse_long_outputs
+                ),
+                ".html",
+                "text/html",
+            )
+        elif fmt == "runbook_log":
+            return (
+                self.export_runbook_log(terminal, runbook_data),
+                ".log",
+                "text/plain",
+            )
+        elif fmt == "txt":
             return self.export_plain_text(terminal, selection_only), ".txt", "text/plain"
         elif fmt == "log":
             return self.export_log(terminal, selection_only), ".log", "text/plain"

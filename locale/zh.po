@@ -11885,3 +11885,347 @@ msgstr "挂载点"
 # 
 msgid "Total acumulado"
 msgstr "累计总量"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 会话运行手册 (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 直接导出"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "导出终端与运行手册"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "导出当前会话为运行手册..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "导出当前会话为运行手册 (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "导出范围"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "选择导出全部终端历史记录还是仅导出活动选中内容。"
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "完整终端缓冲区"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "此会话中记录的所有命令和输出"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "仅选中文本"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "仅终端中当前高亮显示的部分"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "终端中未选择任何文本"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "文件格式"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "选择导出输出的目标格式。"
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "文件预览"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "复制到剪贴板"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "保存为文件..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "运行手册元数据"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "操作报告标题的一般信息。"
+
+# 
+msgid "Título do Procedimento"
+msgstr "程序标题"
+
+# 
+msgid "Operador / Autor"
+msgstr "操作员 / 作者"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "目标 / 背景"
+
+# 
+msgid "Status do Procedimento"
+msgstr "程序状态"
+
+# 
+msgid "Concluído"
+msgstr "已完成"
+
+# 
+msgid "Em Andamento"
+msgstr "进行中"
+
+# 
+msgid "Incidente Investigado"
+msgstr "已调查的事件"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "预防性维护"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "会话步骤与注释"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "选择要包含的命令并为每个步骤添加技术说明性注释。"
+
+# 
+msgid "identificadas"
+msgstr "已识别"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(未生成输出)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(无输出)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "批注 / 说明:"
+
+# 
+msgid "Anotação:"
+msgstr "批注:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "结论与观察"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "操作日志与运行手册"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "运行手册 / 记录簿"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "运行手册已复制到剪贴板。"
+
+# 
+msgid "Comandos da Sessão"
+msgstr "会话命令"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "结论与经验总结"
+
+# 
+msgid "Copiado!"
+msgstr "已复制！"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "深色主题独立网页，支持打印 / PDF 导出样式"
+
+# 
+msgid "Data / Hora:"
+msgstr "日期 / 时间:"
+
+# 
+msgid "Data:"
+msgstr "日期:"
+
+# 
+msgid "Date:"
+msgstr "日期:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "带有标注、徽章和步骤的文档格式"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "复制到剪贴板失败。"
+
+# 
+msgid "Etapas:"
+msgstr "步骤:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "渲染预览失败。"
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "保存文件失败:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "运行手册格式"
+
+# 
+msgid "Informações da Sessão"
+msgstr "会话信息"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "交互式 HTML 报告 (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown 运行手册 (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "在此终端会话中尚未执行任何命令。"
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "未记录任何命令"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "未为此文档选择任何步骤。"
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "未选择任何步骤。"
+
+# 
+msgid "Nota:"
+msgstr "注意:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "程序最终说明"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "目标 / 背景"
+
+# 
+msgid "Observações Preliminares"
+msgstr "初步观察"
+
+# 
+msgid "Operador / Autor:"
+msgstr "操作员 / 作者:"
+
+# 
+msgid "Operador:"
+msgstr "操作员:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "已执行步骤"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "分步执行详情"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "标准操作规程 / 运行手册"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "折叠较长的命令输出"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "保存运行手册"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "保存终端输出"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "成功保存:"
+
+# 
+msgid "Saída do Comando"
+msgstr "命令输出"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "终端输出已复制到剪贴板。"
+
+# 
+msgid "Sessão Local"
+msgstr "本地会话"
+
+# 
+msgid "Sessão:"
+msgstr "会话:"
+
+# 
+msgid "Status:"
+msgstr "状态:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "结构化运行手册日志 (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "用于工单系统和审计附件的文本报告"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "所有文件"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "记录步骤总数:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "对于超过 15 行的输出使用折叠块 (<details>)"
+
+# 
+msgid "_Cancelar"
+msgstr "取消(_C)"
+
+# 
+msgid "_Salvar"
+msgstr "保存(_S)"
+
+# 
+msgid "linhas"
+msgstr "行"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "预览中截断了其余输出"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 将会话导出为运行手册..."

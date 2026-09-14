@@ -11939,3 +11939,347 @@ msgstr "Monteringspunkt"
 # 
 msgid "Total acumulado"
 msgstr "Akkumulert totalt"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Loggbok (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Direkte eksport"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Eksporter terminal og loggbok"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Eksporter økt som loggbok..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Eksporter økt som loggbok (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Eksportomfang"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Velg om du vil eksportere hele terminalhistorikken eller bare det aktive valget."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Full terminalbuffer"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Alle kommandoer og utdata registrert i denne økten"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Bare valgt tekst"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Bare den delen som er merket i terminalen"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Ingen tekst er valgt i terminalen"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Filformat"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Velg målformatet for den eksporterte utdataen."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Forhåndsvisning av fil"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Kopier til utklippstavle"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Lagre som fil..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Loggbok-metadata"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Generell informasjon for overskriften til den operative rapporten."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Prosedyretittel"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operatør / Forfatter"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Mål / Kontekst"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Prosedyrestatus"
+
+# 
+msgid "Concluído"
+msgstr "Fullført"
+
+# 
+msgid "Em Andamento"
+msgstr "Pågår"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Undersøkt hendelse"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Forebyggende vedlikehold"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Økttrinn og merknader"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Velg kommandoer som skal inkluderes, og legg til forklarende notater for hvert trinn."
+
+# 
+msgid "identificadas"
+msgstr "identifisert"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Ingen utdata generert)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Ingen utdata)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Merknad / Kommentar:"
+
+# 
+msgid "Anotação:"
+msgstr "Merknad:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "KONKLUSJON & OBSERVASJONER"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Loggbok og operasjonell runbook"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Loggbok / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook kopiert til utklippstavlen."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Sesjonskommandoer"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Konklusjon og lærdom"
+
+# 
+msgid "Copiado!"
+msgstr "Kopiert!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Frittstående nettside i mørkt tema med utskrifts-/PDF-stiler"
+
+# 
+msgid "Data / Hora:"
+msgstr "Dato / Tid:"
+
+# 
+msgid "Data:"
+msgstr "Dato:"
+
+# 
+msgid "Date:"
+msgstr "Dato:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Dokumentasjonsformat med fremhevinger, merker og trinn"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Kunne ikke kopiere til utklippstavlen."
+
+# 
+msgid "Etapas:"
+msgstr "Trinn:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Kunne ikke gjengi forhåndsvisning."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Kunne ikke lagre filen:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Runbook-format"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Sesjonsinformasjon"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Interaktiv HTML-rapport (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Ingen kommandoer er utført i denne terminalsesjonen ennå."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Ingen kommandoer registrert"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Ingen trinn valgt for dette dokumentet."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Ingen trinn valgt."
+
+# 
+msgid "Nota:"
+msgstr "Merk:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Avsluttende merknader for prosedyren"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "MÅL / KONTEKST"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Foreløpige observasjoner"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Operatør / Forfatter:"
+
+# 
+msgid "Operador:"
+msgstr "Operatør:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "UTFØRTE TRINN"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Trinnvis utførelse"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Standard driftsprosedyre / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Skjul lange kommandoutdata"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Lagre runbook"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Lagre terminalutdata"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Vellykket lagret:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Kommandoutdata"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Terminalutdata kopiert til utklippstavlen."
+
+# 
+msgid "Sessão Local"
+msgstr "Lokal sesjon"
+
+# 
+msgid "Sessão:"
+msgstr "Sesjon:"
+
+# 
+msgid "Status:"
+msgstr "Status:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Strukturert runbook-logg (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Tekstrapport for sakshåndteringssystemer og revisjonsvedlegg"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Alle filer"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Totalt registrerte trinn:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Bruker sammenleggbare blokker (<details>) for utdata lengre enn 15 linjer"
+
+# 
+msgid "_Cancelar"
+msgstr "_Avbryt"
+
+# 
+msgid "_Salvar"
+msgstr "_Lagre"
+
+# 
+msgid "linhas"
+msgstr "linjer"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "resterende utdata avkortet i forhåndsvisning"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Eksporter sesjon som runbook..."

@@ -11930,3 +11930,347 @@ msgstr "Bağlama Noktası"
 # 
 msgid "Total acumulado"
 msgstr "Kümülatif toplam"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Oturum Seyir Defteri (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Doğrudan Dışa Aktar"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Terminali ve Seyir Defterini Dışa Aktar"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Oturumu Seyir Defteri Olarak Dışa Aktar..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Oturumu Seyir Defteri (Runbook) Olarak Dışa Aktar..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Dışa Aktarma Kapsamı"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Tüm terminal geçmişini mi yoksa yalnızca etkin seçimi mi dışa aktaracağınızı seçin."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Tam Terminal Arabelleği"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Bu oturumda kaydedilen tüm komutlar ve çıktılar"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Yalnızca Seçili Metin"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Yalnızca terminalde şu anda vurgulanan bölüm"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Terminalde seçili metin yok"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Dosya Biçimi"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Dışa aktarılan çıktı için hedef biçimi seçin."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Dosya Önizleme"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Panoya Kopyala"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Dosya Olarak Kaydet..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Seyir Defteri Üstverileri"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Operasyonel rapor başlığı için genel bilgiler."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Prosedür Başlığı"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operatör / Yazar"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Amaç / Bağlam"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Prosedür Durumu"
+
+# 
+msgid "Concluído"
+msgstr "Tamamlandı"
+
+# 
+msgid "Em Andamento"
+msgstr "Devam Ediyor"
+
+# 
+msgid "Incidente Investigado"
+msgstr "İncelenen Olay"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Önleyici Bakım"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Oturum Adımları ve Notlar"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Dahil edilecek komutları seçin ve her adım için açıklayıcı notlar ekleyin."
+
+# 
+msgid "identificadas"
+msgstr "belirlendi"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Çıktı üretilmedi)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Çıktı yok)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Açıklama / Yorum:"
+
+# 
+msgid "Anotação:"
+msgstr "Açıklama:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "SONUÇ VE GÖZLEMLER"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Seyir Defteri ve Operasyonel Runbook"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Seyir Defteri / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook panoya kopyalandı."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Oturum Komutları"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Sonuç ve Çıkarılan Dersler"
+
+# 
+msgid "Copiado!"
+msgstr "Kopyalandı!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Yazdırma / PDF stillerine sahip koyu temalı bağımsız web sayfası"
+
+# 
+msgid "Data / Hora:"
+msgstr "Tarih / Saat:"
+
+# 
+msgid "Data:"
+msgstr "Tarih:"
+
+# 
+msgid "Date:"
+msgstr "Tarih:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Açıklama kutuları, rozetler ve adımlar içeren dokümantasyon biçimi"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Panoya kopyalama başarısız oldu."
+
+# 
+msgid "Etapas:"
+msgstr "Adımlar:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Önizleme oluşturulamadı."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Dosya kaydedilemedi:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Runbook Biçimi"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Oturum Bilgileri"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Etkileşimli HTML Raporu (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Bu terminal oturumunda henüz hiçbir komut çalıştırılmadı."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Kaydedilmiş komut yok"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Bu belge için hiçbir adım seçilmedi."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Hiçbir adım seçilmedi."
+
+# 
+msgid "Nota:"
+msgstr "Not:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Prosedür Nihai Notları"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "HEDEF / BAĞLAM"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Ön Gözlemler"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Operatör / Yazar:"
+
+# 
+msgid "Operador:"
+msgstr "Operatör:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "YÜRÜTÜLEN ADIMLAR"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Adım Adım Yürütme"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Standart Operasyonel Prosedür / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Uzun komut çıktılarını daralt"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Runbook'u Kaydet"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Terminal Çıktısını Kaydet"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Başarıyla kaydedildi:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Komut Çıktısı"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Terminal çıktısı panoya kopyalandı."
+
+# 
+msgid "Sessão Local"
+msgstr "Yerel Oturum"
+
+# 
+msgid "Sessão:"
+msgstr "Oturum:"
+
+# 
+msgid "Status:"
+msgstr "Durum:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Yapılandırılmış Runbook Günlüğü (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Bilet sistemleri ve denetim ekleri için metin raporu"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Tüm Dosyalar"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Toplam Kayıtlı Adım:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "15 satırdan uzun çıktılar için daraltılabilir bloklar (<details>) kullanır"
+
+# 
+msgid "_Cancelar"
+msgstr "İ_ptal"
+
+# 
+msgid "_Salvar"
+msgstr "_Kaydet"
+
+# 
+msgid "linhas"
+msgstr "satır"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "çıktının geri kalanı önizlemede kesildi"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Oturumu Runbook Olarak Dışa Aktar..."

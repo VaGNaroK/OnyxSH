@@ -340,6 +340,11 @@ def create_terminal_menu(
     )
     export_item.set_icon(Gio.ThemedIcon.new("document-save-symbolic"))
     standard_section.append_item(export_item)
+    runbook_item = Gio.MenuItem.new(
+        _("Export Session as Runbook..."), "win.export-terminal-runbook"
+    )
+    runbook_item.set_icon(Gio.ThemedIcon.new("document-edit-symbolic"))
+    standard_section.append_item(runbook_item)
     standard_section.append(_("Clear Session"), "win.clear-session")
     menu.append_section(None, standard_section)
 

@@ -11929,3 +11929,347 @@ msgstr "Tengipunktur"
 # 
 msgid "Total acumulado"
 msgstr "Uppsafnað samtals"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Leiðarbók (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Bein útflutningur"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Flytja út skel og leiðarbók"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Flytja út setu sem leiðarbók..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Flytja út setu sem leiðarbók (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Umfang útflutnings"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Veldu hvort flytja eigi út alla skeljasöguna eða aðeins virkt val."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Fullur skeljarbiðminni"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Allar skipanir og úttak sem skráð eru í þessari setu"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Aðeins valinn texti"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Aðeins sá hluti sem nú er valinn í skelinni"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Enginn texti valinn í skelinni"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Skráarsnið"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Veldu áfangasnið fyrir útflutta úttakið."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Forskoðun skráar"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Afrita á klemmuspjald"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Vista sem skrá..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Lýsigögn leiðarbókar"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Almennar upplýsingar fyrir haus rekstrarskýrslu."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Titill verkferlis"
+
+# 
+msgid "Operador / Autor"
+msgstr "Stjórnandi / Höfundur"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Markmið / Samhengi"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Staða verkferlis"
+
+# 
+msgid "Concluído"
+msgstr "Lokið"
+
+# 
+msgid "Em Andamento"
+msgstr "Í vinnslu"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Rannsakað atvik"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Fyrirbyggjandi viðhald"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Skref setu og athugasemdir"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Veldu skipanir sem á að taka með og bættu við skýringum fyrir hvert skref."
+
+# 
+msgid "identificadas"
+msgstr "greind"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Engin úttak búin til)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Ekkert úttak)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Athugasemd / Skýring:"
+
+# 
+msgid "Anotação:"
+msgstr "Athugasemd:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "NIÐURSTAÐA OG ATHUGANIR"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Leiðarbók og verklagsreglur"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Leiðarbók / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook afritað á klemmuspjald."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Skipanir setu"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Niðurstaða og lærdómur"
+
+# 
+msgid "Copiado!"
+msgstr "Afritað!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Sjálfstæð vefsíða í dökku þema með prent-/PDF-stílum"
+
+# 
+msgid "Data / Hora:"
+msgstr "Dagsetning / Tími:"
+
+# 
+msgid "Data:"
+msgstr "Dagsetning:"
+
+# 
+msgid "Date:"
+msgstr "Dagsetning:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Skjölunarsnið með áherslukössum, merkjum og skrefum"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Mistókst að afrita á klemmuspjald."
+
+# 
+msgid "Etapas:"
+msgstr "Skref:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Mistókst að birta forskoðun."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Mistókst að vista skrá:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Snið leiðarbókar"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Upplýsingar um setu"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Gagnvirk HTML-skýrsla (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Engar skipanir hafa verið keyrðar í þessari skjásetu enn."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Engar skipanir skráðar"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Engin skref valin fyrir þetta skjal."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Engin skref valin."
+
+# 
+msgid "Nota:"
+msgstr "Athugið:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Lokaathugasemdir verklags"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "MARKMIÐ / SAMHENGI"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Upphafsathuganir"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Stjórnandi / Höfundur:"
+
+# 
+msgid "Operador:"
+msgstr "Stjórnandi:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "FRAMKVÆMD SKREF"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Framkvæmd skref fyrir skref"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Stöðluð vinnubrögð / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Fella saman langar skipanaúttök"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Vista leiðarbók"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Vista úttak skjás"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Vistun tókst:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Úttak skipunar"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Úttak skjás afritað á klemmuspjald."
+
+# 
+msgid "Sessão Local"
+msgstr "Staðbundin seta"
+
+# 
+msgid "Sessão:"
+msgstr "Seta:"
+
+# 
+msgid "Status:"
+msgstr "Staða:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Skipulögð leiðarbókaskrá (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Textaskýrsla fyrir miðakerfi og úttektarviðhengi"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Allar skrár"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Samtals skráð skref:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Notar fellanlega kubba (<details>) fyrir úttök sem eru lengri en 15 línur"
+
+# 
+msgid "_Cancelar"
+msgstr "_Hætta við"
+
+# 
+msgid "_Salvar"
+msgstr "_Vista"
+
+# 
+msgid "linhas"
+msgstr "línur"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "afgangur úttaks var styttur í forskoðun"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Flytja út setu sem leiðarbók..."

@@ -11927,3 +11927,347 @@ msgstr "Bod připojení"
 # 
 msgid "Total acumulado"
 msgstr "Kumulativní souhrn"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Provozní deník (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Přímý export"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Exportovat terminál a Runbook"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Exportovat relaci jako Runbook..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Exportovat relaci jako provozní deník (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Rozsah exportu"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Zvolte, zda chcete exportovat celou historii terminálu nebo pouze aktivní výběr."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Úplná vyrovnávací paměť terminálu"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Všechny příkazy a výstupy zaznamenané v této relaci"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Pouze vybraný text"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Pouze aktuálně zvýrazněná část v terminálu"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "V terminálu není vybrán žádný text"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Formát souboru"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Vyberte cílový formát pro exportovaný výstup."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Náhled souboru"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Kopírovat do schránky"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Uložit jako soubor..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Metadata provozního deníku"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Obecné informace pro záhlaví provozní zprávy."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Název postupu"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operátor / Autor"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Cíl / Kontext"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Stav postupu"
+
+# 
+msgid "Concluído"
+msgstr "Dokončeno"
+
+# 
+msgid "Em Andamento"
+msgstr "Probíhá"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Vyšetřený incident"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Preventivní údržba"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Kroky relace a poznámky"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Vyberte příkazy, které chcete zahrnout, a přidejte vysvětlující poznámky pro každý krok."
+
+# 
+msgid "identificadas"
+msgstr "identifikováno"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Nebyl vygenerován žádný výstup)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Žádný výstup)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Poznámka / Komentář:"
+
+# 
+msgid "Anotação:"
+msgstr "Poznámka:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "ZÁVĚR A POZOROVÁNÍ"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Provozní deník a operační runbook"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Provozní deník / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook byl zkopírován do schránky."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Příkazy relace"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Závěr a ponaučení"
+
+# 
+msgid "Copiado!"
+msgstr "Zkopírováno!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Samostatná webová stránka v tmavém motivu se styly pro tisk / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "Datum / Čas:"
+
+# 
+msgid "Data:"
+msgstr "Datum:"
+
+# 
+msgid "Date:"
+msgstr "Datum:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Formát dokumentace se zvýrazněnými poznámkami, odznaky a kroky"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Nepodařilo se zkopírovat do schránky."
+
+# 
+msgid "Etapas:"
+msgstr "Kroky:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Nepodařilo se vykreslit náhled."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Nepodařilo se uložit soubor:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Formát runbooku"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Informace o relaci"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Interaktivní zpráva HTML (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "V této relaci terminálu ještě nebyly provedeny žádné příkazy."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Žádné zaznamenané příkazy"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Pro tento dokument nebyly vybrány žádné kroky."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Nebyly vybrány žádné kroky."
+
+# 
+msgid "Nota:"
+msgstr "Poznámka:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Závěrečné poznámky k postupu"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "CÍL / KONTEXT"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Předběžná pozorování"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Operátor / Autor:"
+
+# 
+msgid "Operador:"
+msgstr "Operátor:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "PROVEDENÉ KROKY"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Krok za krokem provádění"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Standardní operační postup / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Sbalit dlouhé výstupy příkazů"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Uložit runbook"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Uložit výstup terminálu"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Úspěšně uloženo:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Výstup příkazu"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Výstup terminálu byl zkopírován do schránky."
+
+# 
+msgid "Sessão Local"
+msgstr "Místní relace"
+
+# 
+msgid "Sessão:"
+msgstr "Relace:"
+
+# 
+msgid "Status:"
+msgstr "Stav:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Strukturovaný protokol runbooku (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Textová zpráva pro ticketingové systémy a přílohy auditu"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Všechny soubory"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Celkem zaznamenaných kroků:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Používá sbalitelné bloky (<details>) pro výstupy delší než 15 řádků"
+
+# 
+msgid "_Cancelar"
+msgstr "_Zrušit"
+
+# 
+msgid "_Salvar"
+msgstr "_Uložit"
+
+# 
+msgid "linhas"
+msgstr "řádků"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "zbývající výstup byl v náhledu zkrácen"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Exportovat relaci jako Runbook..."

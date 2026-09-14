@@ -11930,3 +11930,347 @@ msgstr "Точка монтування"
 # 
 msgid "Total acumulado"
 msgstr "Накопичений підсумок"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Бортовий журнал (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Прямий експорт"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Експорт термінала та бортового журналу"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Експортувати сесію як бортовий журнал..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Експортувати сесію як бортовий журнал (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Область експорту"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Виберіть, чи експортувати всю історію термінала, чи лише активне виділення."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Повний буфер термінала"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Усі команди та виводи, записані в цій сесії"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Лише виділений текст"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Лише фрагмент, виділений у терміналі в даний момент"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "У терміналі немає виділеного тексту"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Формат файлу"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Виберіть формат для експортованих даних."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Попередній перегляд файлу"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Копіювати в буфер обміну"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Зберегти як файл..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Метадані бортового журналу"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Загальна інформація для заголовка оперативного звіту."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Назва процедури"
+
+# 
+msgid "Operador / Autor"
+msgstr "Оператор / Автор"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Мета / Контекст"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Статус процедури"
+
+# 
+msgid "Concluído"
+msgstr "Завершено"
+
+# 
+msgid "Em Andamento"
+msgstr "В процесі"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Розслідуваний інцидент"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Профілактичне обслуговування"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Кроки сесії та примітки"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Виберіть команди для включення та додайте пояснювальні примітки для кожного кроку."
+
+# 
+msgid "identificadas"
+msgstr "виявлено"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Вивід не згенеровано)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Немає виводу)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Примітка / Коментар:"
+
+# 
+msgid "Anotação:"
+msgstr "Примітка:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "ВИСНОВОК ТА СПОСТЕРЕЖЕННЯ"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Бортовий журнал та операційний регламент"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Бортовий журнал / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Бортовий журнал скопійовано в буфер обміну."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Команди сесії"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Висновки та отримані уроки"
+
+# 
+msgid "Copiado!"
+msgstr "Скопійовано!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Автономна веб-сторінка в темній темі зі стилями для друку / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "Дата / Час:"
+
+# 
+msgid "Data:"
+msgstr "Дата:"
+
+# 
+msgid "Date:"
+msgstr "Дата:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Формат документації з примітками, значками та кроками"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Не вдалося скопіювати в буфер обміну."
+
+# 
+msgid "Etapas:"
+msgstr "Кроки:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Не вдалося відобразити попередній перегляд."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Не вдалося зберегти файл:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Формат бортового журналу"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Інформація про сесію"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Інтерактивний звіт HTML (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Бортовий журнал Markdown (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "У цій сесії терміналу ще не було виконано жодної команди."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Немає записаних команд"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Для цього документа не вибрано жодного кроку."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Кроки не вибрано."
+
+# 
+msgid "Nota:"
+msgstr "Примітка:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Заключні примітки до процедури"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "МЕТА / КОНТЕКСТ"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Попередні спостереження"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Оператор / Автор:"
+
+# 
+msgid "Operador:"
+msgstr "Оператор:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "ВИКОНАНІ КРОКИ"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Покрокове виконання"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Стандартна операційна процедура / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Згортати довгий вивід команд"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Зберегти бортовий журнал"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Зберегти вивід терміналу"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Успішно збережено:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Вивід команди"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Вивід терміналу скопійовано в буфер обміну."
+
+# 
+msgid "Sessão Local"
+msgstr "Локальна сесія"
+
+# 
+msgid "Sessão:"
+msgstr "Сесія:"
+
+# 
+msgid "Status:"
+msgstr "Статус:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Структурований журнал Runbook (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Текстовий звіт для систем тікетів та аудиторських додатків"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Усі файли"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Всього записаних кроків:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Використовує розкладні блоки (<details>) для виводу довше 15 рядків"
+
+# 
+msgid "_Cancelar"
+msgstr "_Скасувати"
+
+# 
+msgid "_Salvar"
+msgstr "_Зберегти"
+
+# 
+msgid "linhas"
+msgstr "рядків"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "решту виводу скорочено в попередньому перегляді"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Експортувати сесію як бортовий журнал..."

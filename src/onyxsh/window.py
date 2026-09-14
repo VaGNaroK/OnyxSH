@@ -1513,7 +1513,11 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         """Action handler for exporting the current terminal scrollback buffer."""
         self._show_export_terminal_dialog()
 
-    def _show_export_terminal_dialog(self, terminal: Optional[Vte.Terminal] = None):
+    def _show_export_terminal_dialog(
+        self,
+        terminal: Optional[Vte.Terminal] = None,
+        start_in_runbook_mode: bool = False,
+    ):
         """Opens the terminal export dialog."""
         target_term = terminal or self.tab_manager.get_selected_terminal()
         if not target_term:
@@ -1523,7 +1527,9 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             return
         from .ui.dialogs.export_dialog import ExportTerminalDialog
 
-        dialog = ExportTerminalDialog(self, target_term)
+        dialog = ExportTerminalDialog(
+            self, target_term, start_in_runbook_mode=start_in_runbook_mode
+        )
         dialog.present()
 
     def _update_search_occurrence_display(self):

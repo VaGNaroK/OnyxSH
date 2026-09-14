@@ -11948,3 +11948,347 @@ msgstr "Csatolási pont"
 # 
 msgid "Total acumulado"
 msgstr "Halmozott összeg"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Napló (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Közvetlen exportálás"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Terminál és napló exportálása"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Munkamenet exportálása naplóként..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Munkamenet exportálása naplóként (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Exportálás hatóköre"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Válassza ki, hogy a teljes terminál előzményt vagy csak a kijelölést exportálja."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Teljes terminál puffer"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "A munkamenetben rögzített összes parancs és kimenet"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Csak a kijelölt szöveg"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Csak a terminálban jelenleg kijelölt rész"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Nincs kijelölt szöveg a terminálban"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Fájlformátum"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Válassza ki az exportált kimenet célformátumát."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Fájlelőnézet"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Másolás a vágólapra"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Mentés fájlként..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Napló metaadatai"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Általános információk a működési jelentés fejlécéhez."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Eljárás címe"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operátor / Szerző"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Cél / Kontextus"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Eljárás állapota"
+
+# 
+msgid "Concluído"
+msgstr "Befejezve"
+
+# 
+msgid "Em Andamento"
+msgstr "Folyamatban"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Kivizsgált incidens"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Megelőző karbantartás"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Munkamenet lépései és jegyzetek"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Válassza ki a felvenni kívánt parancsokat, és adjon hozzá magyarázó megjegyzéseket."
+
+# 
+msgid "identificadas"
+msgstr "azonosítva"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Nem jött létre kimenet)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Nincs kimenet)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Jegyzet / Megjegyzés:"
+
+# 
+msgid "Anotação:"
+msgstr "Jegyzet:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "KÖVETKEZTETÉS ÉS ÉSZREVÉTELEK"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Üzemeltetési napló és eljárásrend"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Napló / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook a vágólapra másolva."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Munkamenet parancsai"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Következtetés és tanulságok"
+
+# 
+msgid "Copiado!"
+msgstr "Másolva!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Önálló weboldal sötét témával, nyomtatási / PDF stílusokkal"
+
+# 
+msgid "Data / Hora:"
+msgstr "Dátum / Időpont:"
+
+# 
+msgid "Data:"
+msgstr "Dátum:"
+
+# 
+msgid "Date:"
+msgstr "Dátum:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Dokumentációs formátum kiemelésekkel, jelvényekkel és lépésekkel"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Nem sikerült a vágólapra másolni."
+
+# 
+msgid "Etapas:"
+msgstr "Lépések:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Nem sikerült az előnézet megjelenítése."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Nem sikerült a fájl mentése:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Runbook formátum"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Munkamenet adatai"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Interaktív HTML jelentés (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Ebben a terminál-munkamenetben még nem futott parancs."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Nincsenek rögzített parancsok"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Nincs kiválasztott lépés ehhez a dokumentumhoz."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Nincs kiválasztva lépés."
+
+# 
+msgid "Nota:"
+msgstr "Megjegyzés:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Az eljárás záró megjegyzései"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "CÉL / KONTEXTUS"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Előzetes észrevételek"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Kezelő / Szerző:"
+
+# 
+msgid "Operador:"
+msgstr "Kezelő:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "VÉGREHAJTOTT LÉPÉSEK"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Végrehajtás lépésről lépésre"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Szabványos működési eljárás / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Hosszú parancskimenetek összecsukása"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Runbook mentése"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Terminál kimenet mentése"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Sikeresen mentve:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Parancs kimenete"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Terminál kimenet a vágólapra másolva."
+
+# 
+msgid "Sessão Local"
+msgstr "Helyi munkamenet"
+
+# 
+msgid "Sessão:"
+msgstr "Munkamenet:"
+
+# 
+msgid "Status:"
+msgstr "Állapot:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Strukturált Runbook napló (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Szöveges jelentés hibajegykezelő rendszerekhez és audit mellékletekhez"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Minden fájl"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Összes rögzített lépés:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Összecsukható blokkokat (<details>) használ a 15 sornál hosszabb kimenetekhez"
+
+# 
+msgid "_Cancelar"
+msgstr "_Mégse"
+
+# 
+msgid "_Salvar"
+msgstr "_Mentés"
+
+# 
+msgid "linhas"
+msgstr "sor"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "a fennmaradó kimenet csonkolva van az előnézetben"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Munkamenet exportálása Runbookként..."

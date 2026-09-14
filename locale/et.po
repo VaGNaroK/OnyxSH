@@ -11969,3 +11969,347 @@ msgstr "Haakepunkt"
 # 
 msgid "Total acumulado"
 msgstr "Kogusumma kokku"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Logiraamat (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Otsene eksport"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Ekspordi terminal ja logiraamat"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Ekspordi seanss logiraamatuna..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Ekspordi seanss logiraamatuna (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Ekspordi ulatus"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Valige, kas eksportida kogu terminali ajalugu või ainult aktiivne valik."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Täielik terminali puhver"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Kõik selles seansis salvestatud käsud ja väljundid"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Ainult valitud tekst"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Ainult praegu terminalis esiletõstetud osa"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Terminalis pole teksti valitud"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Failivorming"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Valige eksporditava väljundi sihtvorming."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Faili eelvaade"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Kopeeri lõikelauale"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Salvesta failina..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Logiraamatu metaandmed"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Üldine teave operatiivaruande päise jaoks."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Protseduuri pealkiri"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operaator / Autor"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Eesmärk / Kontekst"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Protseduuri staatus"
+
+# 
+msgid "Concluído"
+msgstr "Lõpetatud"
+
+# 
+msgid "Em Andamento"
+msgstr "Pooleli"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Uuritud vahejuhtum"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Ennetav hooldus"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Seansi sammud ja märkused"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Valige kaasatavad käsud ja lisage igale sammule selgitavad märkused."
+
+# 
+msgid "identificadas"
+msgstr "tuvastatud"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Väljundit ei genereeritud)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Väljund puudub)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Märkus / Kommentaar:"
+
+# 
+msgid "Anotação:"
+msgstr "Märkus:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "KOKKUVÕTE JA TÄHELEPANEKUD"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Logiraamat ja operatiivne juhend"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Logiraamat / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook kopeeriti lõikelauale."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Seansi käsud"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Kokkuvõte ja õppetunnid"
+
+# 
+msgid "Copiado!"
+msgstr "Kopeeritud!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Eraldiseisev tumeda teemaga veebileht printimis-/PDF-stiilidega"
+
+# 
+msgid "Data / Hora:"
+msgstr "Kuupäev / Kellaaeg:"
+
+# 
+msgid "Data:"
+msgstr "Kuupäev:"
+
+# 
+msgid "Date:"
+msgstr "Kuupäev:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Dokumentatsioonivorming esiletõstude, märkide ja sammudega"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Lõikelauale kopeerimine nurjus."
+
+# 
+msgid "Etapas:"
+msgstr "Sammud:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Eelvaate renderdamine nurjus."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Faili salvestamine nurjus:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Runbooki vorming"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Seansi teave"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Interaktiivne HTML-aruanne (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdowni Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Selles terminaliseansis pole veel ühtegi käsku täidetud."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Käske pole salvestatud"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Selle dokumendi jaoks pole ühtegi sammu valitud."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Ühtegi sammu pole valitud."
+
+# 
+msgid "Nota:"
+msgstr "Märkus:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Protseduuri lõppmärkused"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "EESMÄRK / KONTEKST"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Esialgsed tähelepanekud"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Operaator / Autor:"
+
+# 
+msgid "Operador:"
+msgstr "Operaator:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "TÄIDETUD SAMMUD"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Täitmise samm-sammult"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Standardne toimimisprotseduur / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Ahenda pikkade käskude väljundid"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Salvesta runbook"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Salvesta terminali väljund"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Edukalt salvestatud:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Käsu väljund"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Terminali väljund kopeeriti lõikelauale."
+
+# 
+msgid "Sessão Local"
+msgstr "Kohalik seanss"
+
+# 
+msgid "Sessão:"
+msgstr "Seanss:"
+
+# 
+msgid "Status:"
+msgstr "Olek:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Struktureeritud runbooki logi (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Tekstiaruanne piletisüsteemidele ja auditimanustele"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Kõik failid"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Registreeritud samme kokku:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Kasutab ahendatavaid plokke (<details>) üle 15 rea pikkuste väljundite jaoks"
+
+# 
+msgid "_Cancelar"
+msgstr "_Loobu"
+
+# 
+msgid "_Salvar"
+msgstr "_Salvesta"
+
+# 
+msgid "linhas"
+msgstr "rida"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "ülejäänud väljund on eelvaates kärbitud"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Ekspordi seanss runbookina..."

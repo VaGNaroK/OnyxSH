@@ -11887,3 +11887,347 @@ msgstr "마운트"
 # 
 msgid "Total acumulado"
 msgstr "누적 합계"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 세션 런북 (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 직접 내보내기"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "터미널 및 런북 내보내기"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "세션을 런북으로 내보내기..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "세션을 런북(작업 일지)으로 내보내기..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "내보내기 범위"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "전체 터미널 기록을 내보낼지 또는 현재 선택 영역만 내보낼지 선택하세요."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "전체 터미널 버퍼"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "이 세션에 기록된 모든 명령과 출력"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "선택한 텍스트만"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "현재 터미널에서 강조 표시된 부분만"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "터미널에서 선택된 텍스트가 없습니다"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "파일 형식"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "내보낼 출력의 대상 형식을 선택하세요."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "파일 미리보기"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "클립보드에 복사"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "파일로 저장..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "런북 메타데이터"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "운영 보고서 헤더에 대한 일반 정보입니다."
+
+# 
+msgid "Título do Procedimento"
+msgstr "절차 제목"
+
+# 
+msgid "Operador / Autor"
+msgstr "운영자 / 작성자"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "목표 / 배경"
+
+# 
+msgid "Status do Procedimento"
+msgstr "절차 상태"
+
+# 
+msgid "Concluído"
+msgstr "완료됨"
+
+# 
+msgid "Em Andamento"
+msgstr "진행 중"
+
+# 
+msgid "Incidente Investigado"
+msgstr "조사된 인시던트"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "예방 유지보수"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "세션 단계 및 메모"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "포함할 명령을 선택하고 각 단계에 대한 설명 메모를 추가하세요."
+
+# 
+msgid "identificadas"
+msgstr "감지됨"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(출력이 생성되지 않음)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(출력 없음)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "주석 / 코멘트:"
+
+# 
+msgid "Anotação:"
+msgstr "주석:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "결론 및 관찰 사항"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "운영 일지 및 런북"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "런북 / 운영 일지"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "런북이 클립보드에 복사되었습니다."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "세션 명령어"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "결론 및 학습 내용"
+
+# 
+msgid "Copiado!"
+msgstr "복사됨!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "인쇄 / PDF 스타일이 적용된 다크 테마 독립형 웹페이지"
+
+# 
+msgid "Data / Hora:"
+msgstr "날짜 / 시간:"
+
+# 
+msgid "Data:"
+msgstr "날짜:"
+
+# 
+msgid "Date:"
+msgstr "날짜:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "강조 설명, 배지 및 단계가 포함된 문서 형식"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "클립보드 복사에 실패했습니다."
+
+# 
+msgid "Etapas:"
+msgstr "단계:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "미리보기를 렌더링하지 못했습니다."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "파일을 저장하지 못했습니다:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "런북 형식"
+
+# 
+msgid "Informações da Sessão"
+msgstr "세션 정보"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "대화형 HTML 보고서 (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown 런북 (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "이 터미널 세션에서는 아직 실행된 명령어가 없습니다."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "기록된 명령어 없음"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "이 문서에 대해 선택된 단계가 없습니다."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "선택된 단계가 없습니다."
+
+# 
+msgid "Nota:"
+msgstr "참고:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "절차 최종 참고 사항"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "목표 / 배경"
+
+# 
+msgid "Observações Preliminares"
+msgstr "사전 관찰 사항"
+
+# 
+msgid "Operador / Autor:"
+msgstr "운영자 / 작성자:"
+
+# 
+msgid "Operador:"
+msgstr "운영자:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "실행된 단계"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "단계별 실행 내역"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "표준 운영 절차 / 런북"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "긴 명령 출력 접기"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "런북 저장"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "터미널 출력 저장"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "성공적으로 저장됨:"
+
+# 
+msgid "Saída do Comando"
+msgstr "명령 출력"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "터미널 출력이 클립보드에 복사되었습니다."
+
+# 
+msgid "Sessão Local"
+msgstr "로컬 세션"
+
+# 
+msgid "Sessão:"
+msgstr "세션:"
+
+# 
+msgid "Status:"
+msgstr "상태:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "구조화된 런북 로그 (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "티켓팅 시스템 및 감사 첨부 파일을 위한 텍스트 보고서"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "모든 파일"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "총 기록된 단계 수:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "15줄 이상의 출력에 대해 접을 수 있는 블록(<details>)을 사용합니다"
+
+# 
+msgid "_Cancelar"
+msgstr "취소(_C)"
+
+# 
+msgid "_Salvar"
+msgstr "저장(_S)"
+
+# 
+msgid "linhas"
+msgstr "줄"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "미리보기에서 나머지 출력이 잘렸습니다"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 세션을 런북으로 내보내기..."

@@ -11959,3 +11959,347 @@ msgstr "Σημείο προσάρτησης"
 # 
 msgid "Total acumulado"
 msgstr "Σωρευτικό σύνολο"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Ημερολόγιο λειτουργίας (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Άμεση εξαγωγή"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Εξαγωγή τερματικού & Runbook"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Εξαγωγή συνεδρίας ως Runbook..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Εξαγωγή συνεδρίας ως Runbook (Ημερολόγιο)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Εύρος εξαγωγής"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Επιλέξτε εάν θα εξαχθεί ολόκληρο το ιστορικό του τερματικού ή μόνο η επιλογή."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Πλήρης ενδιάμεση μνήμη τερματικού"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Όλες οι εντολές και οι έξοδοι που καταγράφηκαν σε αυτήν τη συνεδρία"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Μόνο επιλεγμένο κείμενο"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Μόνο το επισημασμένο τμήμα στο τερματικό"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Δεν έχει επιλεγεί κείμενο στο τερματικό"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Μορφή αρχείου"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Επιλέξτε τη μορφή προορισμού για την εξαγωγή."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Προεπισκόπηση αρχείου"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Αντιγραφή στο πρόχειρο"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Αποθήκευση ως αρχείο..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Μεταδεδομένα Runbook"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Γενικές πληροφορίες για την κεφαλίδα της αναφοράς λειτουργίας."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Τίτλος διαδικασίας"
+
+# 
+msgid "Operador / Autor"
+msgstr "Χειριστής / Συντάκτης"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Στόχος / Πλαίσιο"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Κατάσταση διαδικασίας"
+
+# 
+msgid "Concluído"
+msgstr "Ολοκληρώθηκε"
+
+# 
+msgid "Em Andamento"
+msgstr "Σε εξέλιξη"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Διερευνημένο περιστατικό"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Προληπτική συντήρηση"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Βήματα συνεδρίας & Σημειώσεις"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Επιλέξτε εντολές προς συμπερίληψη και προσθέστε επεξηγηματικές σημειώσεις για κάθε βήμα."
+
+# 
+msgid "identificadas"
+msgstr "εντοπίστηκαν"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Δεν δημιουργήθηκε έξοδος)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Χωρίς έξοδο)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Σημείωση / Σχόλιο:"
+
+# 
+msgid "Anotação:"
+msgstr "Σημείωση:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "ΣΥΜΠΕΡΑΣΜΑ & ΠΑΡΑΤΗΡΗΣΕΙΣ"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Ημερολόγιο λειτουργίας & επιχειρησιακό runbook"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Ημερολόγιο λειτουργίας / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Το Runbook αντιγράφηκε στο πρόχειρο."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Εντολές συνεδρίας"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Συμπέρασμα & Διδάγματα"
+
+# 
+msgid "Copiado!"
+msgstr "Αντιγράφηκε!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Αυτόνομη ιστοσελίδα με σκούρο θέμα και στυλ για εκτύπωση / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "Ημερομηνία / Ώρα:"
+
+# 
+msgid "Data:"
+msgstr "Ημερομηνία:"
+
+# 
+msgid "Date:"
+msgstr "Ημερομηνία:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Μορφή τεκμηρίωσης με επισημάνσεις, κονκάρδες και βήματα"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Αποτυχία αντιγραφής στο πρόχειρο."
+
+# 
+msgid "Etapas:"
+msgstr "Βήματα:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Αποτυχία απόδοσης προεπισκόπησης."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Αποτυχία αποθήκευσης αρχείου:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Μορφή Runbook"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Πληροφορίες συνεδρίας"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Διαδραστική αναφορά HTML (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Δεν έχει εκτελεστεί καμία εντολή σε αυτήν τη συνεδρία τερματικού ακόμα."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Δεν καταγράφηκαν εντολές"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Δεν έχουν επιλεγεί βήματα για αυτό το έγγραφο."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Δεν επιλέχθηκαν βήματα."
+
+# 
+msgid "Nota:"
+msgstr "Σημείωση:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Τελικές σημειώσεις διαδικασίας"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "ΣΤΟΧΟΣ / ΠΛΑΙΣΙΟ"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Προκαταρκτικές παρατηρήσεις"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Χειριστής / Συντάκτης:"
+
+# 
+msgid "Operador:"
+msgstr "Χειριστής:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "ΕΚΤΕΛΕΣΘΕΝΤΑ ΒΗΜΑΤΑ"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Βήμα προς βήμα εκτέλεση"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Τυπική διαδικασία λειτουργίας / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Σύμπτυξη μεγάλων εξόδων εντολών"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Αποθήκευση Runbook"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Αποθήκευση εξόδου τερματικού"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Αποθηκεύτηκε με επιτυχία:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Έξοδος εντολής"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Η έξοδος του τερματικού αντιγράφηκε στο πρόχειρο."
+
+# 
+msgid "Sessão Local"
+msgstr "Τοπική συνεδρία"
+
+# 
+msgid "Sessão:"
+msgstr "Συνεδρία:"
+
+# 
+msgid "Status:"
+msgstr "Κατάσταση:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Δομημένο αρχείο καταγραφής Runbook (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Αναφορά κειμένου για συστήματα αιτημάτων και συνημμένα ελέγχου"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Όλα τα αρχεία"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Σύνολο καταγεγραμμένων βημάτων:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Χρησιμοποιεί πτυσσόμενα μπλοκ (<details>) για εξόδους άνω των 15 γραμμών"
+
+# 
+msgid "_Cancelar"
+msgstr "_Άκυρο"
+
+# 
+msgid "_Salvar"
+msgstr "_Αποθήκευση"
+
+# 
+msgid "linhas"
+msgstr "γραμμές"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "το υπόλοιπο της εξόδου περικόπηκε στην προεπισκόπηση"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Εξαγωγή συνεδρίας ως Runbook..."

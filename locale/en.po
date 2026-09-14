@@ -12697,3 +12697,347 @@ msgstr "Mount"
 # 
 msgid "Total acumulado"
 msgstr "Accumulated total"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Session Runbook"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Direct Export"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Export Terminal & Runbook"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Export Session as Runbook..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Export Session as Runbook (Session Logbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Export Scope"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Choose whether to export the entire terminal history or active selection only."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Full Terminal Buffer"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "All commands and outputs recorded in this session"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Selected Text Only"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Only the currently highlighted section in the terminal"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "No text currently selected in the terminal"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "File Format"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Select the destination format for the exported output."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "File Preview"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Copy to Clipboard"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Save as File..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Runbook Metadata"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "General information for operational report header."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Procedure Title"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operator / Author"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Objective / Context"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Procedure Status"
+
+# 
+msgid "Concluído"
+msgstr "Completed"
+
+# 
+msgid "Em Andamento"
+msgstr "In Progress"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Investigated Incident"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Preventive Maintenance"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Session Steps & Annotations"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Select commands to include and add technical explanatory notes for each step."
+
+# 
+msgid "identificadas"
+msgstr "identified"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(No output generated)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(No output)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Annotation / Comment:"
+
+# 
+msgid "Anotação:"
+msgstr "Annotation:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "CONCLUSION & OBSERVATIONS"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Logbook & Operational Runbook"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Runbook / Logbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook copied to clipboard."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Session Commands"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Conclusion & Lessons Learned"
+
+# 
+msgid "Copiado!"
+msgstr "Copied!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Dark-themed standalone webpage with print / PDF styling"
+
+# 
+msgid "Data / Hora:"
+msgstr "Date / Time:"
+
+# 
+msgid "Data:"
+msgstr "Date:"
+
+# 
+msgid "Date:"
+msgstr "Date:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Documentation format with callouts, badges and steps"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Failed to copy to clipboard."
+
+# 
+msgid "Etapas:"
+msgstr "Steps:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Failed to render preview."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Failed to save file:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Runbook Format"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Session Information"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Interactive HTML Report (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "No commands have been executed in this terminal session yet."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "No commands recorded"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "No steps selected for this document."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "No steps selected."
+
+# 
+msgid "Nota:"
+msgstr "Note:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Procedure Final Notes"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "OBJECTIVE / CONTEXT"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Preliminary Observations"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Operator / Author:"
+
+# 
+msgid "Operador:"
+msgstr "Operator:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "EXECUTED STEPS"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Execution Step-by-Step"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Standard Operating Procedure / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Collapse long command outputs"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Save Runbook"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Save Terminal Output"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Successfully saved:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Command Output"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Terminal output copied to clipboard."
+
+# 
+msgid "Sessão Local"
+msgstr "Local Session"
+
+# 
+msgid "Sessão:"
+msgstr "Session:"
+
+# 
+msgid "Status:"
+msgstr "Status:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Structured Runbook Log (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Text report for ticketing systems and audit attachments"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "All Files"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Total Recorded Steps:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Uses collapsible blocks (<details>) for outputs longer than 15 lines"
+
+# 
+msgid "_Cancelar"
+msgstr "_Cancel"
+
+# 
+msgid "_Salvar"
+msgstr "_Save"
+
+# 
+msgid "linhas"
+msgstr "lines"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "remaining output truncated in preview"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Export Session as Runbook..."

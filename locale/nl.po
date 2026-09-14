@@ -11941,3 +11941,347 @@ msgstr "Koppelpunt"
 # 
 msgid "Total acumulado"
 msgstr "Geaccumuleerd totaal"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Logboek (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Directe export"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Terminal & logboek exporteren"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Sessie exporteren als logboek..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Sessie exporteren als logboek (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Exportbereik"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Kies of u de volledige terminalgeschiedenis of alleen de actieve selectie wilt exporteren."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Volledige terminalbuffer"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Alle opdrachten en uitvoer vastgelegd in deze sessie"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Alleen geselecteerde tekst"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Alleen het momenteel gemarkeerde gedeelte in de terminal"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Geen tekst geselecteerd in de terminal"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Bestandsindeling"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Selecteer de doelindeling voor de geëxporteerde uitvoer."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Bestandsvoorbeeld"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Kopiëren naar klembord"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Opslaan als bestand..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Logboek-metadata"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Algemene informatie voor de kop van het operationele rapport."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Proceduretitel"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operator / Auteur"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Doel / Context"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Procedurestatus"
+
+# 
+msgid "Concluído"
+msgstr "Voltooid"
+
+# 
+msgid "Em Andamento"
+msgstr "In behandeling"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Onderzocht incident"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Preventief onderhoud"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Sessiestappen en annotaties"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Selecteer opdrachten om op te nemen en voeg toelichtingen toe voor elke stap."
+
+# 
+msgid "identificadas"
+msgstr "geïdentificeerd"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Geen uitvoer gegenereerd)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Geen uitvoer)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Aantekening / Commentaar:"
+
+# 
+msgid "Anotação:"
+msgstr "Aantekening:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "CONCLUSIE & OPMERKINGEN"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Logboek & Operationeel Runbook"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Logboek / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook gekopieerd naar klembord."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Sessie-opdrachten"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Conclusie & Geleerde lessen"
+
+# 
+msgid "Copiado!"
+msgstr "Gekopieerd!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Zelfstandige webpagina met donker thema en stijl voor afdrukken / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "Datum / Tijd:"
+
+# 
+msgid "Data:"
+msgstr "Datum:"
+
+# 
+msgid "Date:"
+msgstr "Datum:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Documentatieformaat met toelichtingen, badges en stappen"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Kopiëren naar klembord mislukt."
+
+# 
+msgid "Etapas:"
+msgstr "Stappen:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Kan voorbeeld niet weergeven."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Bestand opslaan mislukt:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Runbook-formaat"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Sessie-informatie"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Interactief HTML-rapport (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Er zijn nog geen opdrachten uitgevoerd in deze terminal-sessie."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Geen opdrachten vastgelegd"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Geen stappen geselecteerd voor dit document."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Geen stappen geselecteerd."
+
+# 
+msgid "Nota:"
+msgstr "Opmerking:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Eindopmerkingen van de procedure"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "DOEL / CONTEXT"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Voorlopige waarnemingen"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Operator / Auteur:"
+
+# 
+msgid "Operador:"
+msgstr "Operator:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "UITGEVOERDE STAPPEN"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Stapsgewijze uitvoering"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Standaard operationele procedure / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Lange opdrachtuitvoer samenvouwen"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Runbook opslaan"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Terminaluitvoer opslaan"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Succesvol opgeslagen:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Opdrachtuitvoer"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Terminaluitvoer gekopieerd naar klembord."
+
+# 
+msgid "Sessão Local"
+msgstr "Lokale sessie"
+
+# 
+msgid "Sessão:"
+msgstr "Sessie:"
+
+# 
+msgid "Status:"
+msgstr "Status:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Gestructureerd runbook-logboek (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Tekstrapport voor ticketsystemen en auditbijlagen"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Alle bestanden"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Totaal aantal geregistreerde stappen:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Gebruikt inklapbare blokken (<details>) voor uitvoer van meer dan 15 regels"
+
+# 
+msgid "_Cancelar"
+msgstr "_Annuleren"
+
+# 
+msgid "_Salvar"
+msgstr "_Opslaan"
+
+# 
+msgid "linhas"
+msgstr "regels"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "resterende uitvoer afgekapt in voorbeeld"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Sessie exporteren als Runbook..."

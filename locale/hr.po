@@ -11929,3 +11929,347 @@ msgstr "Točka montiranja"
 # 
 msgid "Total acumulado"
 msgstr "Ukupno akumulirano"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Dnevnik sesije (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Izravan izvoz"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Izvezi terminal i Runbook"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Izvezi sesiju kao Runbook..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Izvezi sesiju kao Runbook (dnevnik sesije)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Opseg izvoza"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Odaberite želite li izvesti cijelu povijest terminala ili samo aktivni odabir."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Puni međuspremnik terminala"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Sve naredbe i izlazi zabilježeni u ovoj sesiji"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Samo odabrani tekst"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Samo trenutno istaknuti dio u terminalu"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Nema odabranog teksta u terminalu"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Format datoteke"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Odaberite odredišni format za izvezeni izlaz."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Pretpregled datoteke"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Kopiraj u međuspremnik"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Spremi kao datoteku..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Metapodaci dnevnika"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Opće informacije za zaglavlje operativnog izvješća."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Naslov postupka"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operator / Autor"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Cilj / Kontekst"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Status postupka"
+
+# 
+msgid "Concluído"
+msgstr "Dovršeno"
+
+# 
+msgid "Em Andamento"
+msgstr "U tijeku"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Istraženi incident"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Preventivno održavanje"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Koraci sesije i bilješke"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Odaberite naredbe koje želite uključiti i dodajte objašnjenja za svaki korak."
+
+# 
+msgid "identificadas"
+msgstr "identificirano"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Nema generiranog izlaza)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Nema izlaza)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Bilješka / Komentar:"
+
+# 
+msgid "Anotação:"
+msgstr "Bilješka:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "ZAKLJUČAK I ZAPAŽANJA"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Dnevnik rada i operativni runbook"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Dnevnik / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook je kopiran u međuspremnik."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Naredbe sesije"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Zaključak i pouke"
+
+# 
+msgid "Copiado!"
+msgstr "Kopirano!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Samostalna web-stranica u tamnoj temi sa stilovima za ispis / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "Datum / Vrijeme:"
+
+# 
+msgid "Data:"
+msgstr "Datum:"
+
+# 
+msgid "Date:"
+msgstr "Datum:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Format dokumentacije s istaknutim okvirima, oznakama i koracima"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Kopiranje u međuspremnik nije uspjelo."
+
+# 
+msgid "Etapas:"
+msgstr "Koraci:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Generiranje pretpregleda nije uspjelo."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Spremanje datoteke nije uspjelo:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Format runbooka"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Informacije o sesiji"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Interaktivno HTML izvješće (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "U ovoj sesiji terminala još nije izvršena nijedna naredba."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Nema zabilježenih naredbi"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Za ovaj dokument nije odabran nijedan korak."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Nijedan korak nije odabran."
+
+# 
+msgid "Nota:"
+msgstr "Napomena:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Završne bilješke postupka"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "CILJ / KONTEKST"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Preliminarna zapažanja"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Operator / Autor:"
+
+# 
+msgid "Operador:"
+msgstr "Operator:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "IZVRŠENI KORACI"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Izvršenje korak po korak"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Standardni operativni postupak / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Sažmi dugačke izlaze naredbi"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Spremi runbook"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Spremi izlaz terminala"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Uspješno spremljeno:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Izlaz naredbe"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Izlaz terminala kopiran je u međuspremnik."
+
+# 
+msgid "Sessão Local"
+msgstr "Lokalna sesija"
+
+# 
+msgid "Sessão:"
+msgstr "Sesija:"
+
+# 
+msgid "Status:"
+msgstr "Status:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Strukturirani runbook zapisnik (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Tekstualno izvješće za sustave ulaznica i privitke revizije"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Sve datoteke"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Ukupno zabilježenih koraka:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Koristi sklopive blokove (<details>) za izlaze dulje od 15 redaka"
+
+# 
+msgid "_Cancelar"
+msgstr "_Odustani"
+
+# 
+msgid "_Salvar"
+msgstr "_Spremi"
+
+# 
+msgid "linhas"
+msgstr "redaka"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "preostali izlaz je skraćen u pretpregledu"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Izvezi sesiju kao Runbook..."

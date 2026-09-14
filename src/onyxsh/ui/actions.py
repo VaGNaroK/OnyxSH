@@ -83,6 +83,7 @@ class WindowActions:
             "toggle-resource-monitor": self.show_resource_monitor,
             "system-diagnostics": self.show_system_diagnostics,
             "export-terminal-buffer": self.export_terminal_buffer,
+            "export-terminal-runbook": self.export_terminal_runbook,
             "toggle-tftp-server": self.toggle_tftp_server,
             "git-ai-commit": self.git_ai_commit,
             "preferences": self.preferences,
@@ -445,6 +446,10 @@ class WindowActions:
     def export_terminal_buffer(self, *_args):
         self._hide_tooltip()
         self.window._show_export_terminal_dialog()
+
+    def export_terminal_runbook(self, *_args):
+        self._hide_tooltip()
+        self.window._show_export_terminal_dialog(start_in_runbook_mode=True)
 
     def toggle_broadcast(self, *_args):
         self.window.broadcast_button.set_active(

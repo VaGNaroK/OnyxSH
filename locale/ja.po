@@ -11890,3 +11890,347 @@ msgstr "マウント"
 # 
 msgid "Total acumulado"
 msgstr "累積合計"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 セッション運用手順書 (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 直接エクスポート"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "ターミナルと運用手順書のエクスポート"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "セッションを運用手順書としてエクスポート..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "セッションを運用手順書 (Runbook) としてエクスポート..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "エクスポート範囲"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "ターミナル履歴全体をエクスポートするか、アクティブな選択範囲のみをエクスポートするかを選択します。"
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "ターミナルの全バッファ"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "このセッションで記録されたすべてのコマンドと出力"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "選択したテキストのみ"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "ターミナルで現在ハイライト表示されている部分のみ"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "ターミナルでテキストが選択されていません"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "ファイル形式"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "エクスポートする出力の宛先形式を選択します。"
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "ファイルプレビュー"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "クリップボードにコピー"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "ファイルとして保存..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "運用手順書のメタデータ"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "運用レポートのヘッダーに関する一般的な情報。"
+
+# 
+msgid "Título do Procedimento"
+msgstr "手順のタイトル"
+
+# 
+msgid "Operador / Autor"
+msgstr "オペレーター / 作成者"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "目的 / コンテキスト"
+
+# 
+msgid "Status do Procedimento"
+msgstr "手順のステータス"
+
+# 
+msgid "Concluído"
+msgstr "完了"
+
+# 
+msgid "Em Andamento"
+msgstr "進行中"
+
+# 
+msgid "Incidente Investigado"
+msgstr "調査済みインシデント"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "予防保守"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "セッションの手順と注釈"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "含めるコマンドを選択し、各ステップに技術的な説明メモを追加します。"
+
+# 
+msgid "identificadas"
+msgstr "件検出"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(出力は生成されませんでした)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(出力なし)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "注釈 / コメント:"
+
+# 
+msgid "Anotação:"
+msgstr "注釈:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "結論と所見"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "運用日誌とオペレーショナル・ランブック"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "運用手順書 / ログブック"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "運用手順書がクリップボードにコピーされました。"
+
+# 
+msgid "Comandos da Sessão"
+msgstr "セッションコマンド"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "結論と教訓"
+
+# 
+msgid "Copiado!"
+msgstr "コピーしました！"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "印刷 / PDFスタイル対応のダークテーマ独立型Webページ"
+
+# 
+msgid "Data / Hora:"
+msgstr "日付 / 時刻:"
+
+# 
+msgid "Data:"
+msgstr "日付:"
+
+# 
+msgid "Date:"
+msgstr "日付:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "コールアウト、バッジ、ステップを含むドキュメント形式"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "クリップボードへのコピーに失敗しました。"
+
+# 
+msgid "Etapas:"
+msgstr "手順:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "プレビューのレンダリングに失敗しました。"
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "ファイルの保存に失敗しました:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "運用手順書の形式"
+
+# 
+msgid "Informações da Sessão"
+msgstr "セッション情報"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "インタラクティブ HTML レポート (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown 運用手順書 (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "このターミナルセッションではまだコマンドが実行されていません。"
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "記録されたコマンドはありません"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "このドキュメントに選択された手順はありません。"
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "手順が選択されていません。"
+
+# 
+msgid "Nota:"
+msgstr "注記:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "手順の最終備考"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "目的 / 背景"
+
+# 
+msgid "Observações Preliminares"
+msgstr "予備的観察事項"
+
+# 
+msgid "Operador / Autor:"
+msgstr "オペレーター / 作成者:"
+
+# 
+msgid "Operador:"
+msgstr "オペレーター:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "実行された手順"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "ステップバイステップの実行"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "標準作業手順書 / 運用手順書"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "長いコマンド出力を折りたたむ"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "運用手順書を保存"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "ターミナル出力を保存"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "正常に保存されました:"
+
+# 
+msgid "Saída do Comando"
+msgstr "コマンド出力"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "ターミナル出力がクリップボードにコピーされました。"
+
+# 
+msgid "Sessão Local"
+msgstr "ローカルセッション"
+
+# 
+msgid "Sessão:"
+msgstr "セッション:"
+
+# 
+msgid "Status:"
+msgstr "ステータス:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "構造化運用手順書ログ (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "チケット管理システムおよび監査添付ファイル用のテキストレポート"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "すべてのファイル"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "記録された手順の合計:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "15行を超える出力には折りたたみブロック (<details>) を使用します"
+
+# 
+msgid "_Cancelar"
+msgstr "キャンセル(_C)"
+
+# 
+msgid "_Salvar"
+msgstr "保存(_S)"
+
+# 
+msgid "linhas"
+msgstr "行"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "プレビューでは残りの出力が切り捨てられています"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 セッションを運用手順書としてエクスポート..."

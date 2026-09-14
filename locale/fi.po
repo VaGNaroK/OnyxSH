@@ -11937,3 +11937,347 @@ msgstr "Liitoskohta"
 # 
 msgid "Total acumulado"
 msgstr "Kertynyt yhteensä"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Toimintapäiväkirja (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Suora vienti"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Vie pääte ja toimintapäiväkirja"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Vie istunto toimintapäiväkirjana..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Vie istunto toimintapäiväkirjana (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Viennin laajuus"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Valitse viedäänkö koko päätteen historia vai vain aktiivinen valinta."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Päätteen koko puskuri"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Kaikki tässä istunnossa tallennetut komennot ja tulosteet"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Vain valittu teksti"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Vain päätteessä tällä hetkellä korostettu osa"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Päätteessä ei ole valittua tekstiä"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Tiedostomuoto"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Valitse viedyn tulosteen kohdemuoto."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Tiedoston esikatselu"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Kopioi leikepöydälle"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Tallenna tiedostona..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Toimintapäiväkirjan metatiedot"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Yleistiedot toimintaraportin otsikkoa varten."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Menettelyn otsikko"
+
+# 
+msgid "Operador / Autor"
+msgstr "Käyttäjä / Tekijä"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Tavoite / Konteksti"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Menettelyn tila"
+
+# 
+msgid "Concluído"
+msgstr "Valmis"
+
+# 
+msgid "Em Andamento"
+msgstr "Käynnissä"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Tutkittu tapaus"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Ennaltaehkäisevä huolto"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Istunnon vaiheet ja muistiinpanot"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Valitse sisällytettävät komennot ja lisää selittävät huomautukset kullekin vaiheelle."
+
+# 
+msgid "identificadas"
+msgstr "tunnistettu"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Ei tulostetta luotu)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Ei tulostetta)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Huomautus / Kommentti:"
+
+# 
+msgid "Anotação:"
+msgstr "Huomautus:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "PÄÄTELMÄT JA HAVAINNOT"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Toimintapäiväkirja ja operatiivinen käsikirja"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Toimintapäiväkirja / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Käsikirja kopioitu leikepöydälle."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Istunnon komennot"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Päätelmät ja opitut asiat"
+
+# 
+msgid "Copiado!"
+msgstr "Kopioitu!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Itsenäinen tummateemainen verkkosivu tulostus-/PDF-tyyleillä"
+
+# 
+msgid "Data / Hora:"
+msgstr "Päivämäärä / Aika:"
+
+# 
+msgid "Data:"
+msgstr "Päivämäärä:"
+
+# 
+msgid "Date:"
+msgstr "Päivämäärä:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Dokumentaatiomuoto korostuksilla, tunnuksilla ja vaiheilla"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Kopiointi leikepöydälle epäonnistui."
+
+# 
+msgid "Etapas:"
+msgstr "Vaiheet:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Esikatselun luominen epäonnistui."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Tiedoston tallennus epäonnistui:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Käsikirjan muoto"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Istunnon tiedot"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Interaktiivinen HTML-raportti (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown-käsikirja (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Tässä pääteistunnossa ei ole vielä suoritettu yhtään komentoa."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Ei tallennettuja komentoja"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Tähän asiakirjaan ei ole valittu vaiheita."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Vaiheita ei ole valittu."
+
+# 
+msgid "Nota:"
+msgstr "Huomautus:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Menettelyn loppuhuomautukset"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "TAVOITE / TAUSTA"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Alustavat havainnot"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Käyttäjä / Tekijä:"
+
+# 
+msgid "Operador:"
+msgstr "Käyttäjä:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "SUORITETUT VAIHEET"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Vaiheittainen suoritus"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Vakiotoimintamenettely / Käsikirja"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Kutista pitkät komentotulosteet"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Tallenna käsikirja"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Tallenna päätteen tuloste"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Tallennettu onnistuneesti:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Komennon tuloste"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Päätteen tuloste kopioitu leikepöydälle."
+
+# 
+msgid "Sessão Local"
+msgstr "Paikallinen istunto"
+
+# 
+msgid "Sessão:"
+msgstr "Istunto:"
+
+# 
+msgid "Status:"
+msgstr "Tila:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Rakenteinen käsikirjaloki (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Tekstiraportti tiketöintijärjestelmiin ja tarkastusliitteisiin"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Kaikki tiedostot"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Tallennettuja vaiheita yhteensä:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Käyttää taitettavia lohkoja (<details>) yli 15 rivin tulosteille"
+
+# 
+msgid "_Cancelar"
+msgstr "_Peruuta"
+
+# 
+msgid "_Salvar"
+msgstr "_Tallenna"
+
+# 
+msgid "linhas"
+msgstr "riviä"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "loput tulosteesta katkaistu esikatselussa"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Vie istunto käsikirjana..."

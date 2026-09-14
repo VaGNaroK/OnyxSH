@@ -11970,3 +11970,347 @@ msgstr "Einhängepunkt"
 # 
 msgid "Total acumulado"
 msgstr "Gesamt kumuliert"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Betriebstagebuch (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Direkter Export"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Terminal & Runbook exportieren"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Sitzung als Runbook exportieren..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Sitzung als Betriebstagebuch (Runbook) exportieren..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Exportumfang"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Wählen Sie, ob der gesamte Terminalverlauf oder nur die aktive Auswahl exportiert werden soll."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Vollständiger Terminal-Puffer"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Alle in dieser Sitzung aufgezeichneten Befehle und Ausgaben"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Nur ausgewählter Text"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Nur der aktuell im Terminal markierte Bereich"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Kein Text im Terminal ausgewählt"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Dateiformat"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Wählen Sie das Zielformat für die exportierte Ausgabe."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Dateivorschau"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "In die Zwischenablage kopieren"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Als Datei speichern..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Runbook-Metadaten"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Allgemeine Informationen für die Kopfzeile des Betriebsberichts."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Verfahrenstitel"
+
+# 
+msgid "Operador / Autor"
+msgstr "Bediener / Autor"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Ziel / Kontext"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Verfahrensstatus"
+
+# 
+msgid "Concluído"
+msgstr "Abgeschlossen"
+
+# 
+msgid "Em Andamento"
+msgstr "In Bearbeitung"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Untersuchter Vorfall"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Vorbeugende Wartung"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Sitzungsschritte & Anmerkungen"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Wählen Sie die einzuschließenden Befehle aus und fügen Sie Erläuterungen für jeden Schritt hinzu."
+
+# 
+msgid "identificadas"
+msgstr "erkannt"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Keine Ausgabe erzeugt)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Keine Ausgabe)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Anmerkung / Kommentar:"
+
+# 
+msgid "Anotação:"
+msgstr "Anmerkung:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "FAZIT & BEOBACHTUNGEN"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Betriebstagebuch & Operational Runbook"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Betriebstagebuch / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Runbook in die Zwischenablage kopiert."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Sitzungsbefehle"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Fazit & Erkenntnisse"
+
+# 
+msgid "Copiado!"
+msgstr "Kopiert!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Eigenständige Webseite im dunklen Design mit Druck-/PDF-Stil"
+
+# 
+msgid "Data / Hora:"
+msgstr "Datum / Uhrzeit:"
+
+# 
+msgid "Data:"
+msgstr "Datum:"
+
+# 
+msgid "Date:"
+msgstr "Datum:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Dokumentationsformat mit Hinweisfeldern, Badges und Schritten"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Fehler beim Kopieren in die Zwischenablage."
+
+# 
+msgid "Etapas:"
+msgstr "Schritte:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Vorschau konnte nicht gerendert werden."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Datei konnte nicht gespeichert werden:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Runbook-Format"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Sitzungsinformationen"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Interaktiver HTML-Bericht (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "In dieser Terminalsitzung wurden noch keine Befehle ausgeführt."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Keine Befehle aufgezeichnet"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Keine Schritte für dieses Dokument ausgewählt."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Keine Schritte ausgewählt."
+
+# 
+msgid "Nota:"
+msgstr "Hinweis:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Abschließende Hinweise zum Verfahren"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "ZIEL / KONTEXT"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Vorläufige Beobachtungen"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Bediener / Autor:"
+
+# 
+msgid "Operador:"
+msgstr "Bediener:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "AUSGEFÜHRTE SCHRITTE"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Schritt-für-Schritt-Ausführung"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Betriebsverfahren / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Lange Befehlsausgaben einklappen"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Runbook speichern"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Terminal-Ausgabe speichern"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Erfolgreich gespeichert:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Befehlsausgabe"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Terminal-Ausgabe in die Zwischenablage kopiert."
+
+# 
+msgid "Sessão Local"
+msgstr "Lokale Sitzung"
+
+# 
+msgid "Sessão:"
+msgstr "Sitzung:"
+
+# 
+msgid "Status:"
+msgstr "Status:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Strukturiertes Runbook-Protokoll (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Textbericht für Ticketsysteme und Audit-Anhänge"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Alle Dateien"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Gesamtzahl aufgezeichneter Schritte:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Verwendet einklappbare Blöcke (<details>) für Ausgaben mit mehr als 15 Zeilen"
+
+# 
+msgid "_Cancelar"
+msgstr "_Abbrechen"
+
+# 
+msgid "_Salvar"
+msgstr "_Speichern"
+
+# 
+msgid "linhas"
+msgstr "Zeilen"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "restliche Ausgabe in der Vorschau abgeschnitten"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Sitzung als Runbook exportieren..."

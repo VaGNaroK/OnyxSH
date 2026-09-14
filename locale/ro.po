@@ -11949,3 +11949,347 @@ msgstr "Punct de montare"
 # 
 msgid "Total acumulado"
 msgstr "Total cumulat"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Jurnal de bord (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Export direct"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Exportă terminalul și jurnalul de bord"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Exportă sesiunea ca jurnal de bord..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Exportă sesiunea ca jurnal de bord (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Domeniul de export"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Alegeți dacă doriți să exportați întregul istoric al terminalului sau doar selecția activă."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Buffer complet al terminalului"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Toate comenzile și ieșirile înregistrate în această sesiune"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Doar textul selectat"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Doar secțiunea evidențiată în prezent în terminal"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Niciun text selectat în terminal"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Format fișier"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Selectați formatul de destinație pentru ieșirea exportată."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Previzualizare fișier"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Copiază în clipboard"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Salvează ca fișier..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Metadate jurnal de bord"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Informații generale pentru antetul raportului operațional."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Titlul procedurii"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operator / Autor"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Obiectiv / Context"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Starea procedurii"
+
+# 
+msgid "Concluído"
+msgstr "Finalizat"
+
+# 
+msgid "Em Andamento"
+msgstr "În desfășurare"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Incident investigat"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Mentenanță preventivă"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Pașii sesiunii și adnotări"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Selectați comenzile de inclus și adăugați note explicative pentru fiecare pas."
+
+# 
+msgid "identificadas"
+msgstr "identificate"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Nicio ieșire generată)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Fără ieșire)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Adnotare / Comentariu:"
+
+# 
+msgid "Anotação:"
+msgstr "Adnotare:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "CONCLUZIE ȘI OBSERVAȚII"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Jurnal de bord și runbook operațional"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Jurnal de bord / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Jurnalul de bord a fost copiat în clipboard."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Comenzile sesiunii"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Concluzii și lecții învățate"
+
+# 
+msgid "Copiado!"
+msgstr "Copiat!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Pagină web autonomă cu temă întunecată și stiluri pentru imprimare / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "Dată / Oră:"
+
+# 
+msgid "Data:"
+msgstr "Dată:"
+
+# 
+msgid "Date:"
+msgstr "Dată:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Format de documentație cu casete explicative, ecusoane și pași"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Eroare la copierea în clipboard."
+
+# 
+msgid "Etapas:"
+msgstr "Pași:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Nu s-a putut reda previzualizarea."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Salvarea fișierului a eșuat:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Formatul jurnalului de bord"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Informații despre sesiune"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Raport HTML interactiv (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Runbook Markdown (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Nu a fost executată nicio comandă în această sesiune de terminal până acum."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Nicio comandă înregistrată"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Nu a fost selectat niciun pas pentru acest document."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Niciun pas selectat."
+
+# 
+msgid "Nota:"
+msgstr "Notă:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Note finale ale procedurii"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "OBIECTIV / CONTEXT"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Observații preliminare"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Operator / Autor:"
+
+# 
+msgid "Operador:"
+msgstr "Operator:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "PAȘI EXECUTAȚI"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Execuție pas cu pas"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Procedură operațională standard / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Restrângeți ieșirile lungi de comenzi"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Salvați jurnalul de bord"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Salvați ieșirea terminalului"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Salvat cu succes:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Ieșirea comenzii"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Ieșirea terminalului a fost copiată în clipboard."
+
+# 
+msgid "Sessão Local"
+msgstr "Sesiune locală"
+
+# 
+msgid "Sessão:"
+msgstr "Sesiune:"
+
+# 
+msgid "Status:"
+msgstr "Stare:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Jurnal structurat de bord (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Raport text pentru sisteme de tichete și atașamente de audit"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Toate fișierele"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Total pași înregistrați:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Folosește blocuri pliabile (<details>) pentru ieșiri mai mari de 15 linii"
+
+# 
+msgid "_Cancelar"
+msgstr "_Anulare"
+
+# 
+msgid "_Salvar"
+msgstr "_Salvare"
+
+# 
+msgid "linhas"
+msgstr "linii"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "restul ieșirii a fost trunchiat în previzualizare"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Exportați sesiunea ca jurnal de bord..."

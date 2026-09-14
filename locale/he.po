@@ -11906,3 +11906,347 @@ msgstr "נקודת עיגון"
 # 
 msgid "Total acumulado"
 msgstr "סך הכל מצטבר"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 יומן פעילות (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 ייצוא ישיר"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "ייצוא מסוף ויומן פעילות"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "ייצא הפעלה כיומן פעילות..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "ייצא הפעלה כיומן פעילות (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "היקף הייצוא"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "בחר אם לייצא את כל היסטוריית המסוף או רק את הבחירה הפעילה."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "חוצץ מסוף מלא"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "כל הפקודות והפלטים שהוקלטו בהפעלה זו"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "טקסט נבחר בלבד"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "רק הקטע המודגש כעת במסוף"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "לא נבחר טקסט במסוף"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "פורמט קובץ"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "בחר את פורמט היעד עבור הפלט המיוצא."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "תצוגה מקדימה של הקובץ"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "העתק ללוח"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "שמור כקובץ..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "מטא-נתונים של יומן פעילות"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "מידע כללי עבור כותרת הדוח התפעולי."
+
+# 
+msgid "Título do Procedimento"
+msgstr "כותרת הנוהל"
+
+# 
+msgid "Operador / Autor"
+msgstr "מפעיל / מחבר"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "מטרה / הקשר"
+
+# 
+msgid "Status do Procedimento"
+msgstr "סטטוס הנוהל"
+
+# 
+msgid "Concluído"
+msgstr "הושלם"
+
+# 
+msgid "Em Andamento"
+msgstr "בתהליך"
+
+# 
+msgid "Incidente Investigado"
+msgstr "תקרית שנחקרה"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "תחזוקה מונעת"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "שלבי הפעלה והערות"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "בחר פקודות לכלול והוסף הערות הסבר טכניות לכל שלב."
+
+# 
+msgid "identificadas"
+msgstr "זוהו"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(לא הופק פלט)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(אין פלט)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "הערה / הסבר:"
+
+# 
+msgid "Anotação:"
+msgstr "הערה:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "סיכום ומסקנות"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "יומן פעילות ונוהל תפעולי"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "יומן פעילות / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "ה-Runbook הועתק ללוח הגזירים."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "פקודות הפעילות"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "מסקנות ולקחים שנלמדו"
+
+# 
+msgid "Copiado!"
+msgstr "הועתק!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "דף אינטרנט עצמאי בערכת נושא כהה עם סגנון להדפסה / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "תאריך / שעה:"
+
+# 
+msgid "Data:"
+msgstr "תאריך:"
+
+# 
+msgid "Date:"
+msgstr "תאריך:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "תבנית תיעוד עם תיבות הדגשה, תגים ושלבים"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "ההעתקה ללוח הגזירים נכשלה."
+
+# 
+msgid "Etapas:"
+msgstr "שלבים:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "רינדור התצוגה המקדימה נכשל."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "שמירת הקובץ נכשלה:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "תבנית ה-Runbook"
+
+# 
+msgid "Informações da Sessão"
+msgstr "פרטי הפעילות"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "דוח HTML אינטראקטיבי (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Runbook ב-Markdown (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "טרם הופעלו פקודות בהפעלת מסוף זו."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "לא תועדו פקודות"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "לא נבחרו שלבים עבור מסמך זה."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "לא נבחרו שלבים."
+
+# 
+msgid "Nota:"
+msgstr "הערה:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "הערות סיום לנוהל"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "יעד / הקשר"
+
+# 
+msgid "Observações Preliminares"
+msgstr "הערות מקדימות"
+
+# 
+msgid "Operador / Autor:"
+msgstr "מפעיל / מחבר:"
+
+# 
+msgid "Operador:"
+msgstr "מפעיל:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "שלבים שבוצעו"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "ביצוע שלב אחר שלב"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "נוהל תפעולי תקני / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "כווץ פלטים ארוכים של פקודות"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "שמור Runbook"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "שמור פלט מסוף"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "נשמר בהצלחה:"
+
+# 
+msgid "Saída do Comando"
+msgstr "פלט הפקודה"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "פלט המסוף הועתק ללוח הגזירים."
+
+# 
+msgid "Sessão Local"
+msgstr "פעילות מקומית"
+
+# 
+msgid "Sessão:"
+msgstr "פעילות:"
+
+# 
+msgid "Status:"
+msgstr "סטטוס:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "יומן Runbook מובנה (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "דוח טקסט עבור מערכות פניות וקובצי ביקורת מצורפים"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "כל הקבצים"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "סה״כ שלבים מתועדים:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "משתמש בבלוקים מתקפלים (<details>) עבור פלטים שאורכם מעל 15 שורות"
+
+# 
+msgid "_Cancelar"
+msgstr "_ביטול"
+
+# 
+msgid "_Salvar"
+msgstr "_שמור"
+
+# 
+msgid "linhas"
+msgstr "שורות"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "שאר הפלט נחתך בתצוגה המקדימה"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 ייצא פעילות בתור Runbook..."

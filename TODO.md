@@ -104,9 +104,16 @@
 - [x] **Módulos Afetados:** `src/onyxsh/terminal/completion/`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `src/onyxsh/settings/config.py`.
 
 ### 📌 1.9. Exportação de Sessão com Anotações e Narrativa ("Caderno de Bordo" / Runbook)
-- [ ] **Descrição:** Permitir adicionar comentários e anotações explicativas em Markdown intercaladas entre comandos e saídas ao exportar o terminal, gerando documentação técnica automática, runbooks e relatórios post-mortem.
-- [ ] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/terminal/exporter.py`, `src/onyxsh/ui/dialogs/export_dialog.py`.
+- [x] **Descrição:** Permitir adicionar comentários e anotações explicativas em Markdown intercaladas entre comandos e saídas ao exportar o terminal, gerando documentação técnica automática, runbooks operacionais, relatórios post-mortem e auditorias de infraestrutura.
+- [x] **Recursos:**
+  - Extração estruturada de comandos via `SemanticTracker` (OSC 133) com fallback inteligente por regex de prompt e blocos de comandos.
+  - Painel de edição com alternador de abas (*Exportação Direta* vs *Caderno de Bordo (Runbook)*), metadados executivos (Título, Operador, Objetivo, Observações Preliminares, Status do Procedimento, Notas Finais / Conclusão).
+  - Cards expansíveis de cada comando com toggle de seleção de passos e editor de anotações técnicas contextuais.
+  - Três formatos de exportação executiva: Markdown com Callouts e Badges (`.md`), Relatório HTML Interativo standalone com tema dark moderno e folha de estilos otimizada para impressão/PDF (`.html`), e Log Estruturado de Auditoria para sistemas de chamados (`.log`).
+  - Suporte a `<details>` expansível/recolhível para saídas longas (> 15 linhas), cópia para área de transferência e atalhos na Command Palette e Menu de Contexto do Terminal.
+- [x] **Status:** ✅ Implementado no ciclo `v0.10.0` (`src/onyxsh/terminal/runbook.py`, `src/onyxsh/terminal/exporter.py`, `src/onyxsh/ui/dialogs/export_dialog.py`, `src/onyxsh/window.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/menus.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`).
+- [x] **Prioridade:** 🟢 Média | **Esforço:** Médio | **Alvo:** `v0.10.0`
+- [x] **Módulos Afetados:** `src/onyxsh/terminal/runbook.py`, `src/onyxsh/terminal/exporter.py`, `src/onyxsh/ui/dialogs/export_dialog.py`, `src/onyxsh/window.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/menus.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`.
 
 ### 📌 1.10. Suporte a Gráficos e Imagens no Buffer do Terminal (Protocolo Sixel / iTerm2 Graphics)
 - [ ] **Descrição:** Renderizar imagens (PNG, JPEG, SVG) e plotagens gráficas diretamente dentro do buffer do terminal usando protocolo Sixel ou extensões gráficas VTE.

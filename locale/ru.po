@@ -11926,3 +11926,347 @@ msgstr "Точка монтирования"
 # 
 msgid "Total acumulado"
 msgstr "Накопленный итог"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Бортовой журнал (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Прямой экспорт"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Экспорт терминала и бортового журнала"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Экспортировать сессию как бортовой журнал..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Экспортировать сессию как бортовой журнал (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Область экспорта"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Выберите, экспортировать ли всю историю терминала или только текущее выделение."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Полный буфер терминала"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Все команды и выводы, записанные в этой сессии"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Только выделенный текст"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Только текущий фрагмент, выделенный в терминале"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "В терминале не выделен текст"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Формат файла"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Выберите формат для экспортированного вывода."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Предпросмотр файла"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Скопировать в буфер обмена"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Сохранить как файл..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Метаданные бортового журнала"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Общая информация для заголовка оперативного отчета."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Название процедуры"
+
+# 
+msgid "Operador / Autor"
+msgstr "Оператор / Автор"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Цель / Контекст"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Статус процедуры"
+
+# 
+msgid "Concluído"
+msgstr "Завершено"
+
+# 
+msgid "Em Andamento"
+msgstr "В процессе"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Расследованный инцидент"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Профилактическое обслуживание"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Шаги сессии и примечания"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Выберите команды для включения и добавьте пояснительные примечания к каждому шагу."
+
+# 
+msgid "identificadas"
+msgstr "обнаружено"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Вывод не был сгенерирован)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Нет вывода)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Примечание / Комментарий:"
+
+# 
+msgid "Anotação:"
+msgstr "Примечание:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "ЗАКЛЮЧЕНИЕ И НАБЛЮДЕНИЯ"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Бортовой журнал и операционный регламент"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Бортовой журнал / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Бортовой журнал скопирован в буфер обмена."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Команды сессии"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Заключение и выводы"
+
+# 
+msgid "Copiado!"
+msgstr "Скопировано!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Автономная веб-страница в темной теме со стилями для печати / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "Дата / Время:"
+
+# 
+msgid "Data:"
+msgstr "Дата:"
+
+# 
+msgid "Date:"
+msgstr "Дата:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Формат документации с выделениями, значками и шагами"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Не удалось скопировать в буфер обмена."
+
+# 
+msgid "Etapas:"
+msgstr "Шаги:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Не удалось отобразить предварительный просмотр."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Не удалось сохранить файл:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Формат бортового журнала"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Сведения о сессии"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Интерактивный отчет HTML (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Бортовой журнал Markdown (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "В этой сессии терминала еще не было выполнено ни одной команды."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Нет записанных команд"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Для этого документа не выбрано ни одного шага."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Шаги не выбраны."
+
+# 
+msgid "Nota:"
+msgstr "Примечание:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Заключительные примечания к процедуре"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "ЦЕЛЬ / КОНТЕКСТ"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Предварительные наблюдения"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Оператор / Автор:"
+
+# 
+msgid "Operador:"
+msgstr "Оператор:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "ВЫПОЛНЕННЫЕ ШАГИ"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Пошаговое выполнение"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Стандартная процедура / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Сворачивать длинный вывод команд"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Сохранить бортовой журнал"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Сохранить вывод терминала"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Успешно сохранено:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Вывод команды"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Вывод терминала скопирован в буфер обмена."
+
+# 
+msgid "Sessão Local"
+msgstr "Локальная сессия"
+
+# 
+msgid "Sessão:"
+msgstr "Сессия:"
+
+# 
+msgid "Status:"
+msgstr "Статус:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Структурированный журнал Runbook (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Текстовый отчет для тикет-систем и аудиторских вложений"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Все файлы"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Всего записанных шагов:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Использует сворачиваемые блоки (<details>) для вывода длиннее 15 строк"
+
+# 
+msgid "_Cancelar"
+msgstr "_Отмена"
+
+# 
+msgid "_Salvar"
+msgstr "_Сохранить"
+
+# 
+msgid "linhas"
+msgstr "строк"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "оставшаяся часть вывода усечена в предпросмотре"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Экспортировать сессию как бортовой журнал..."

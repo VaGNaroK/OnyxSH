@@ -11939,3 +11939,347 @@ msgstr "Точка на монтиране"
 # 
 msgid "Total acumulado"
 msgstr "Кумулативно общо"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Дневник на сесията (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Директен експорт"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Експорт на терминал и дневник"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Експорт на сесията като дневник..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Експорт на сесията като бордови дневник (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Обхват на експорта"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Изберете дали да експортирате цялата хронология на терминала или само селекцията."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Пълен буфер на терминала"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Всички команди и изходи, записани в тази сесия"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Само избрания текст"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Само текущо маркираната част в терминала"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Няма избран текст в терминала"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Файлов формат"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Изберете формата на дестинацията за експортирания изход."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Преглед на файла"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Копиране в клипборда"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Запазване като файл..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Метаданни на дневника"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Обща информация за заглавната част на оперативния отчет."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Заглавие на процедурата"
+
+# 
+msgid "Operador / Autor"
+msgstr "Оператор / Автор"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Цел / Контекст"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Статус на процедурата"
+
+# 
+msgid "Concluído"
+msgstr "Завършено"
+
+# 
+msgid "Em Andamento"
+msgstr "В процес"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Разследван инцидент"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Профилактична поддръжка"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Стъпки на сесията и бележки"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Изберете команди за включване и добавете пояснителни бележки за всяка стъпка."
+
+# 
+msgid "identificadas"
+msgstr "идентифицирани"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Няма генериран изход)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Няма изход)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Бележка / Коментар:"
+
+# 
+msgid "Anotação:"
+msgstr "Бележка:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "ЗАКЛЮЧЕНИЕ И НАБЛЮДЕНИЯ"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Дневник и оперативен наръчник"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Дневник / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Дневникът е копиран в клипборда."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Команди на сесията"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Заключение и поуки"
+
+# 
+msgid "Copiado!"
+msgstr "Копирано!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Самостоятелна уеб страница с тъмна тема и стилове за печат / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "Дата / Час:"
+
+# 
+msgid "Data:"
+msgstr "Дата:"
+
+# 
+msgid "Date:"
+msgstr "Дата:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Формат на документация с карета, значки и стъпки"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Грешка при копиране в клипборда."
+
+# 
+msgid "Etapas:"
+msgstr "Стъпки:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Неуспешно рендиране на визуализацията."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Грешка при запис на файла:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Формат на дневника"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Информация за сесията"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Интерактивен HTML отчет (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Markdown Runbook (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "В тази терминална сесия все още не са изпълнени команди."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Няма записани команди"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Няма избрани стъпки за този документ."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Няма избрани стъпки."
+
+# 
+msgid "Nota:"
+msgstr "Забележка:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Окончателни бележки по процедурата"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "ЦЕЛ / КОНТЕКСТ"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Предварителни наблюдения"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Оператор / Автор:"
+
+# 
+msgid "Operador:"
+msgstr "Оператор:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "ИЗПЪЛНЕНИ СТЪПКИ"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Стъпка по стъпка изпълнение"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Стандартна оперативна процедура / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Свиване на дълги изходи от команди"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Запазване на дневника"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Запазване на изхода от терминала"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Успешно записано:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Изход на командата"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Изходът на терминала е копиран в клипборда."
+
+# 
+msgid "Sessão Local"
+msgstr "Локална сесия"
+
+# 
+msgid "Sessão:"
+msgstr "Сесия:"
+
+# 
+msgid "Status:"
+msgstr "Статус:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Структуриран лог на дневника (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Текстов отчет за тикет системи и одиторски прикачени файлове"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Всички файлове"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Общо записани стъпки:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Използва сгъваеми блокове (<details>) за изходи с повече от 15 реда"
+
+# 
+msgid "_Cancelar"
+msgstr "_Отказ"
+
+# 
+msgid "_Salvar"
+msgstr "_Запази"
+
+# 
+msgid "linhas"
+msgstr "реда"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "останалият изход е отрязан в прегледа"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Експортиране на сесията като дневник..."

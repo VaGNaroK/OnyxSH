@@ -11949,3 +11949,347 @@ msgstr "Montaggio"
 # 
 msgid "Total acumulado"
 msgstr "Totale accumulato"
+
+# 
+msgid "📘 Caderno de Bordo (Runbook)"
+msgstr "📘 Diario di bordo (Runbook)"
+
+# 
+msgid "📜 Exportação Direta"
+msgstr "📜 Esportazione diretta"
+
+# 
+msgid "Export Terminal & Runbook"
+msgstr "Esporta terminale e diario di bordo"
+
+# 
+msgid "Export Session as Runbook..."
+msgstr "Esporta sessione come diario di bordo..."
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)..."
+msgstr "Esporta sessione come diario di bordo (Runbook)..."
+
+# 
+msgid "Escopo da Exportação"
+msgstr "Ambito di esportazione"
+
+# 
+msgid "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa."
+msgstr "Scegli se esportare l'intera cronologia del terminale o solo la selezione attiva."
+
+# 
+msgid "Buffer Completo do Terminal"
+msgstr "Buffer completo del terminale"
+
+# 
+msgid "Todos os comandos e saídas gravados nesta sessão"
+msgstr "Tutti i comandi e gli output registrati in questa sessione"
+
+# 
+msgid "Apenas Texto Selecionado"
+msgstr "Solo testo selezionato"
+
+# 
+msgid "Apenas o trecho atualmente destacado no terminal"
+msgstr "Solo la sezione attualmente evidenziata nel terminale"
+
+# 
+msgid "Nenhum texto selecionado no terminal"
+msgstr "Nessun testo selezionato nel terminale"
+
+# 
+msgid "Formato do Arquivo"
+msgstr "Formato file"
+
+# 
+msgid "Selecione o formato de destino do texto exportado."
+msgstr "Seleziona il formato di destinazione per l'output esportato."
+
+# 
+msgid "Pré-visualização do Arquivo"
+msgstr "Anteprima file"
+
+# 
+msgid "Copiar para a Área de Transferência"
+msgstr "Copia negli appunti"
+
+# 
+msgid "Salvar como Arquivo..."
+msgstr "Salva come file..."
+
+# 
+msgid "Metadados do Caderno de Bordo"
+msgstr "Metadati del diario di bordo"
+
+# 
+msgid "Informações gerais para o cabeçalho do relatório operacional."
+msgstr "Informazioni generali per l'intestazione del report operativo."
+
+# 
+msgid "Título do Procedimento"
+msgstr "Titolo della procedura"
+
+# 
+msgid "Operador / Autor"
+msgstr "Operatore / Autore"
+
+# 
+msgid "Objetivo / Contexto"
+msgstr "Obiettivo / Contesto"
+
+# 
+msgid "Status do Procedimento"
+msgstr "Stato della procedura"
+
+# 
+msgid "Concluído"
+msgstr "Completato"
+
+# 
+msgid "Em Andamento"
+msgstr "In corso"
+
+# 
+msgid "Incidente Investigado"
+msgstr "Incidente esaminato"
+
+# 
+msgid "Manutenção Preventiva"
+msgstr "Manutenzione preventiva"
+
+# 
+msgid "Etapas da Sessão e Anotações"
+msgstr "Passaggi della sessione e note"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa."
+msgstr "Seleziona i comandi da includere e aggiungi note esplicative per ogni passaggio."
+
+# 
+msgid "identificadas"
+msgstr "identificate"
+
+# 
+msgid "(Sem saída gerada)"
+msgstr "(Nessun output generato)"
+
+# 
+msgid "(Sem saída)"
+msgstr "(Nessun output)"
+
+# 
+msgid "Anotação / Comentário:"
+msgstr "Annotazione / Commento:"
+
+# 
+msgid "Anotação:"
+msgstr "Annotazione:"
+
+# 
+msgid "CONCLUSÃO & OBSERVAÇÕES"
+msgstr "CONCLUSIONE E OSSERVAZIONI"
+
+# 
+msgid "Caderno de Bordo & Runbook Operacional"
+msgstr "Diario di bordo e Runbook operativo"
+
+# 
+msgid "Caderno de Bordo / Runbook"
+msgstr "Diario di bordo / Runbook"
+
+# 
+msgid "Caderno de Bordo copiado para a área de transferência."
+msgstr "Diario di bordo copiato negli appunti."
+
+# 
+msgid "Comandos da Sessão"
+msgstr "Comandi della sessione"
+
+# 
+msgid "Conclusão & Lições Aprendidas"
+msgstr "Conclusione e lezioni apprese"
+
+# 
+msgid "Copiado!"
+msgstr "Copiato!"
+
+# 
+msgid "Dark-themed standalone webpage with print / PDF styling"
+msgstr "Pagina web autonoma con tema scuro e stili per stampa / PDF"
+
+# 
+msgid "Data / Hora:"
+msgstr "Data / Ora:"
+
+# 
+msgid "Data:"
+msgstr "Data:"
+
+# 
+msgid "Date:"
+msgstr "Data:"
+
+# 
+msgid "Documentation format with callouts, badges and steps"
+msgstr "Formato di documentazione con riquadri evidenziati, badge e passaggi"
+
+# 
+msgid "Erro ao copiar para a área de transferência."
+msgstr "Errore durante la copia negli appunti."
+
+# 
+msgid "Etapas:"
+msgstr "Passaggi:"
+
+# 
+msgid "Falha ao renderizar pré-visualização."
+msgstr "Impossibile eseguire il rendering dell'anteprima."
+
+# 
+msgid "Falha ao salvar arquivo:"
+msgstr "Impossibile salvare il file:"
+
+# 
+msgid "Formato do Caderno de Bordo"
+msgstr "Formato del diario di bordo"
+
+# 
+msgid "Informações da Sessão"
+msgstr "Informazioni sulla sessione"
+
+# 
+msgid "Interactive HTML Report (.html)"
+msgstr "Report HTML interattivo (.html)"
+
+# 
+msgid "Markdown Runbook (.md)"
+msgstr "Runbook in Markdown (.md)"
+
+# 
+msgid "Nenhum comando foi executado nesta sessão do terminal ainda."
+msgstr "Nessun comando è stato ancora eseguito in questa sessione di terminale."
+
+# 
+msgid "Nenhum comando registrado"
+msgstr "Nessun comando registrato"
+
+# 
+msgid "Nenhuma etapa selecionada para este documento."
+msgstr "Nessun passaggio selezionato per questo documento."
+
+# 
+msgid "Nenhuma etapa selecionada."
+msgstr "Nessun passaggio selezionato."
+
+# 
+msgid "Nota:"
+msgstr "Nota:"
+
+# 
+msgid "Notas Finais do Procedimento"
+msgstr "Note finali della procedura"
+
+# 
+msgid "OBJETIVO / CONTEXTO"
+msgstr "OBIETTIVO / CONTESTO"
+
+# 
+msgid "Observações Preliminares"
+msgstr "Osservazioni preliminari"
+
+# 
+msgid "Operador / Autor:"
+msgstr "Operatore / Autore:"
+
+# 
+msgid "Operador:"
+msgstr "Operatore:"
+
+# 
+msgid "PASSOS EXECUTADOS"
+msgstr "PASSAGGI ESEGUITI"
+
+# 
+msgid "Passo a Passo da Execução"
+msgstr "Esecuzione passo dopo passo"
+
+# 
+msgid "Procedimento Operacional / Runbook"
+msgstr "Procedura operativa standard / Runbook"
+
+# 
+msgid "Recolher saídas longas de comandos"
+msgstr "Comprimi gli output lunghi dei comandi"
+
+# 
+msgid "Salvar Caderno de Bordo"
+msgstr "Salva diario di bordo"
+
+# 
+msgid "Salvar Saída do Terminal"
+msgstr "Salva output del terminale"
+
+# 
+msgid "Salvo com sucesso:"
+msgstr "Salvato con successo:"
+
+# 
+msgid "Saída do Comando"
+msgstr "Output del comando"
+
+# 
+msgid "Saída do terminal copiada para a área de transferência."
+msgstr "Output del terminale copiato negli appunti."
+
+# 
+msgid "Sessão Local"
+msgstr "Sessione locale"
+
+# 
+msgid "Sessão:"
+msgstr "Sessione:"
+
+# 
+msgid "Status:"
+msgstr "Stato:"
+
+# 
+msgid "Structured Runbook Log (.log)"
+msgstr "Log strutturato del diario di bordo (.log)"
+
+# 
+msgid "Text report for ticketing systems and audit attachments"
+msgstr "Report di testo per sistemi di ticketing e allegati di audit"
+
+# 
+msgid "Todos os Arquivos"
+msgstr "Tutti i file"
+
+# 
+msgid "Total de Etapas Registradas:"
+msgstr "Totale passaggi registrati:"
+
+# 
+msgid "Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"
+msgstr "Utilizza blocchi comprimibili (<details>) per output più lunghi di 15 righe"
+
+# 
+msgid "_Cancelar"
+msgstr "_Annulla"
+
+# 
+msgid "_Salvar"
+msgstr "_Salva"
+
+# 
+msgid "linhas"
+msgstr "righe"
+
+# 
+msgid "restante da saída truncado na pré-visualização"
+msgstr "resto dell'output troncato nell'anteprima"
+
+# 
+msgid "📘 Export Session as Runbook..."
+msgstr "📘 Esporta sessione come diario di bordo..."
