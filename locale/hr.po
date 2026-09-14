@@ -11589,3 +11589,343 @@ msgstr "Prilagodi"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Kliknite za prebacivanje između Prilagodi i 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Pokreni sa sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Dijagnosticiraj pomoću AI"
+
+# 
+msgid "Permissão Negada"
+msgstr "Dozvola odbijena"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Pretraži paket"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Naredba nije pronađena"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Priključak je već u upotrebi"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Nestalo prostora na disku"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Provjeri disk (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Nedostaje Python modul"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Nedostaje Node.js modul"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Datoteka nije pronađena"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Ispiši direktorij (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Neuspjeh mrežne veze"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Pogreška Git operacije"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Pogledaj git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Primijeni brzi popravak"
+
+# 
+msgid "Ação rápida"
+msgstr "Brza radnja"
+
+# 
+msgid "Comando em execução..."
+msgstr "Naredba se izvodi..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Naredba nije uspjela s kodom pogreške"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Naredba je izvršena u terminalu."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Naredba umetnuta u odzivnik terminala."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Proaktivni prijedlozi za pogreške terminala"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Pametno otkrivanje pogrešaka terminala s brzim radnjama u 1 kliku i AI dijagnostikom"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Proaktivni prijedlozi za pogreške"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Otkrij pogreške naredbi (npr. odbijena dozvola, priključak u upotrebi, nedostaje paket) i predloži trenutni popravak"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Način prikaza prijedloga"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Kako bi trebali biti prikazani prijedlozi pogrešaka i brze radnje"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Obavijest (Toast) i značka u terminalu"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Samo značka u terminalu"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Samo obavijest (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Odmah izvrši brze radnje"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Ako je omogućeno, odmah izvršava naredbu popravka u terminalu po kliku; ako je onemogućeno, samo je umeće u odzivnik na pregled"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Naredba nije uspjela zbog nedostatka administratorskih (root) ovlasti ili dozvola za pisanje."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Naredba nije uspjela s Dozvola odbijena. Provjerite rješava li to pokretanje sa sudo ili je potrebno prilagoditi dozvole s chmod ili chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Naredba '{cmd_name}' nije instalirana ili nije pronađena u PATH-u."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Izvršena naredba nije pronađena u sustavu."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Naredba '{cmd_name}' nije pronađena. Identificirajte koji Linux paket (apt, dnf, pacman, snap, pip, cargo) pruža ovu izvršnu datoteku i predložite sigurnu naredbu instalacije."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Provjeri priključak {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Mrežni priključak {port} već koristi drugi proces."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Zatražena mrežna adresa ili priključak već koristi drugi proces."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Mrežni priključak {port} je zauzet (Address already in use). Pomozite identificirati proces koji radi i pokažite kako osloboditi priključak."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Datotečni sustav ili particija diska nema slobodnog prostora za ovu radnju."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Na disku nema slobodnog prostora (No space left on device). Predložite naredbe za provjeru punih particija (df -h) i pronalaženje velikih datoteka za sigurno čišćenje."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Python modul '{pkg}' nije instaliran u okruženju."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Python skripta nije uspjela zbog nedostatka modula '{pkg}'. Predložite kako ga instalirati putem pip-a ili u virtualnom okruženju."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Node.js modul '{pkg}' nije pronađen."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js skripta nije uspjela zbog nedostatka modula '{pkg}'. Predložite kako ga instalirati putem npm-a ili yarn-a."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Navedena datoteka ili put do direktorija ne postoji ili je relativni put netočan."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Naredba nije uspjela jer datoteka ili direktorij ne postoji (No such file or directory). Provjerite relativne putove, tipfelere i predložite provjeru s ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Provjeri priključak :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Veza odbijena (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Nije se bilo moguće povezati s priključkom :{port} na localhostu (usluga neaktivna ili veza odbijena)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Mrežno povezivanje nije uspjelo ili odredišni poslužitelj trenutno ne prihvaća veze."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Naredba nije uspjela zbog odbijanja veze ili nedostupne mreže. Dijagnosticirajte radi li udaljena usluga, blokira li je vatrozid ili postoji pogreška priključka/DNS-a."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Git operacija nije uspjela zbog stanja repozitorija, sukoba spajanja ili udaljenih grana."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Git operacija nije uspjela. Pregledajte radno stablo, sukobe spajanja ili razilazeće grane i predložite sigurne korake sinkronizacije bez gubitka podataka."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Naredba nije uspjela ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Naredba nije uspjela s izlaznim kodom {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Naredba '{cmd}' nije uspjela s izlaznim kodom {code}. Analizirajte izlaz terminala, identificirajte uzrok pogreške i predložite preporučeno rješenje."
+
+# 
+msgid "Resource Monitor"
+msgstr "Nadzor resursa"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Nadzor resursa sustava"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Nadzor resursa u stvarnom vremenu (CPU, RAM, disk, mreža)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Pauziraj / nastavi ažuriranja u stvarnom vremenu"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Lokalno (Ovo računalo)"
+
+# 
+msgid "Taxa:"
+msgstr "Frekvencija:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Procesor (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Učitavanje jezgri..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Memorija (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Učitavanje memorije..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Pohrana (Disk)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Učitavanje particije..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Mrežni promet"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Ukupno: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Povezivanje..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Pauzirano"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Aktivno"
+
+# 
+msgid "Erro"
+msgstr "Pogreška"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Povezano"
+
+# 
+msgid "núcleos"
+msgstr "jezgri"
+
+# 
+msgid "Carga"
+msgstr "Opterećenje"
+
+# 
+msgid "livres"
+msgstr "slobodno"
+
+# 
+msgid "Montagem"
+msgstr "Točka montiranja"
+
+# 
+msgid "Total acumulado"
+msgstr "Ukupno akumulirano"

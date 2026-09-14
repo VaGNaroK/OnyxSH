@@ -11589,3 +11589,343 @@ msgstr "Laga"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Smelltu til að skipta á milli Laga og 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Keyra með sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Greina með gervigreind"
+
+# 
+msgid "Permissão Negada"
+msgstr "Aðgangi hafnað"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Leita að pakka"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Skipun fannst ekki"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Gátt er þegar í notkun"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Diskapláss er búið"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Athuga disk (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Vantar Python-einingu"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Vantar Node.js-einingu"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Skrá fannst ekki"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Skrá möppu (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Bilun í nettengingu"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git-aðgerðarvilla"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Skoða git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Virkja skyndilausn"
+
+# 
+msgid "Ação rápida"
+msgstr "Snögg aðgerð"
+
+# 
+msgid "Comando em execução..."
+msgstr "Skipun í gangi..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Skipun mistókst með villukóða"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Skipun keyrð í skel."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Skipun sett inn í skeljarkvaðningu."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Fyrirbyggjandi tillögur vegna skeljarvillna"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Snjallgreining á skeljarvillum með 1-smells flýtiaðgerðum og gervigreindargreiningu"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Fyrirbyggjandi villutillögur"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Greina skipanavillur (t.d. aðgangi hafnað, gátt í notkun, vantar pakka) og stinga upp á tafarlausri lausn"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Birtingarhamur tillagna"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Hvernig birta skal villutillögur og flýtiaðgerðir"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Tilkynning (Toast) og skeljarmerki"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Aðeins skeljarmerki"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Aðeins tilkynning (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Framkvæma flýtiaðgerðir strax"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Ef virkjað er keyrir leiðréttingarskipunin í skelinni strax við smell; ef óvirkt er aðeins sett inn í kvaðningu til skoðunar"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Skipun mistókst vegna skorts á rótarréttindum (root) eða skrifheimildum."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Skipun mistókst með Aðgangi hafnað. Athugaðu hvort lyfting með sudo leysir málið, eða hvort breyta þurfi skráarheimildum með chmod eða chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Skipunin '{cmd_name}' er ekki uppsett eða fannst ekki í PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Keyrð skipun fannst ekki á kerfinu."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Skipunin '{cmd_name}' fannst ekki. Greindu hvaða Linux-pakki (apt, dnf, pacman, snap, pip, cargo) inniheldur skránna og stingdu upp á öruggri uppsetningarskipun."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Skoða gátt {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Netgátt {port} er þegar í notkun hjá öðru ferli."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Umbeðið netfang eða gátt er þegar í notkun hjá öðru ferli."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Netgátt {port} er upptekin (Address already in use). Hjálpaðu til við að greina hvaða ferli keyrir á henni og sýndu hvernig á að losa hana."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Skráarkerfið eða disksneiðin hefur ekkert laust pláss fyrir þessa aðgerð."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Diskurinn hefur ekkert laust pláss (No space left on device). Stingdu upp á skipunum til að skoða fullar sneiðar (df -h) og finna stórar skrár til öruggrar hreinsunar."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Python-einingin '{pkg}' er ekki uppsett í umhverfinu."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Python-skriftan mistókst vegna þess að eininguna '{pkg}' vantar. Stingdu upp á hvernig á að setja hana upp með pip eða í sýndarumhverfi."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Node.js-einingin '{pkg}' fannst ekki."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js-skriftan mistókst vegna þess að eininguna '{pkg}' vantar. Stingdu upp á hvernig á að setja hana upp með npm eða yarn."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Tilgreind skrá eða möppuslóð er ekki til eða afstæð slóð er röng."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Skipun mistókst vegna þess að skráin eða mappan er ekki til (No such file or directory). Athugaðu afstæðar slóðir, innsláttarvillur og stingdu upp á staðfestingu með ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Athuga gátt :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Tengingu hafnað (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Ekki tókst að tengjast gátt :{port} á localhost (þjónusta óvirk eða tengingu hafnað)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Nettenging mistókst eða áfangamiðlari tekur ekki við tengingum eins og er."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Skipun mistókst vegna þess að tengingu var hafnað eða net var ótengt. Athugaðu hvort fjarþjónustan keyri, sé lokuð af eldvegg eða hvort gáttar-/DNS-villa sé til staðar."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Git-aðgerðin mistókst vegna stöðu gagnageymslunnar, sameiningarárekstra eða fjarlægra greina."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Git-aðgerðin mistókst. Skoðaðu vinnutréð, sameiningarárekstra eða mismunandi greinar og stingdu upp á öruggum skrefum til að samstilla án gagnataps."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Skipun mistókst ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Skipunin mistókst með stöðukóða {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Skipunin '{cmd}' mistókst með stöðukóða {code}. Greindu úttak skeljarinnar, finndu orsök villunnar og stingdu upp á lausn."
+
+# 
+msgid "Resource Monitor"
+msgstr "Auðlindavakt"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Kerfisauðlindavakt"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Rauntímaauðlindavakt (CPU, RAM, diskur, net)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Gera hlé / Halda áfram rauntímauppfærslum"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Staðbundið (Þessi tölva)"
+
+# 
+msgid "Taxa:"
+msgstr "Tíðni:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Örgjörvi (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Hleður kjörnum..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Vinnsluminni (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Hleður minni..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Geymsla (Diskur)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Hleður sneið..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Netumferð"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Samtals: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Tengist..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Í hléi"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Virkt"
+
+# 
+msgid "Erro"
+msgstr "Villa"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Tengt"
+
+# 
+msgid "núcleos"
+msgstr "kjarnar"
+
+# 
+msgid "Carga"
+msgstr "Álag"
+
+# 
+msgid "livres"
+msgstr "laust"
+
+# 
+msgid "Montagem"
+msgstr "Tengipunktur"
+
+# 
+msgid "Total acumulado"
+msgstr "Uppsafnað samtals"

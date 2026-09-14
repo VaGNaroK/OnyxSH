@@ -11590,3 +11590,343 @@ msgstr "Sığdır"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Sığdır ve %100 arasında geçiş yapmak için tıklayın"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ sudo ile çalıştır"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Yapay Zeka ile Teşhis Et"
+
+# 
+msgid "Permissão Negada"
+msgstr "Erişim Engellendi"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Paket Ara"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Komut Bulunamadı"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Bağlantı Noktası Zaten Kullanımda"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Disk Alanı Doldu"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Diski Kontrol Et (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Eksik Python Modülü"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Eksik Node.js Modülü"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Dosya Bulunamadı"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Dizini Listele (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Ağ Bağlantısı Hatası"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git İşlemi Hatası"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 git status görüntüle"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Hızlı düzeltmeyi uygula"
+
+# 
+msgid "Ação rápida"
+msgstr "Hızlı eylem"
+
+# 
+msgid "Comando em execução..."
+msgstr "Komut çalışıyor..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Komut hata koduyla başarısız oldu"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Terminalde yürütülen komut."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Komut terminal komut istemine eklendi."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Terminal Hataları İçin Önleyici Öneriler"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "1 tıkla hızlı işlemler ve Yapay Zeka teşhisi ile terminal arızalarının akıllı tespiti"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Önleyici Hata Önerileri"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Komut hatalarını tespit et (ör. erişim engellendi, bağlantı noktası kullanımda, eksik paket) ve anında düzeltme öner"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Öneri Görüntüleme Modu"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Hata önerileri ve hızlı eylemlerin nasıl sunulacağı"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Bildirim (Toast) ve Terminal Rozeti"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Yalnızca Terminal Rozeti"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Yalnızca Bildirim (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Hızlı Eylemleri Hemen Yürüt"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Etkinleştirilirse, tıklandığında düzeltme komutunu terminalde hemen çalıştırır; devre dışıysa, yalnızca gözden geçirilmek üzere komut istemine ekler"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Komut, süper kullanıcı (root) ayrıcalıkları veya yazma izni eksikliği nedeniyle başarısız oldu."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Komut Erişim Engellendi hatasıyla başarısız oldu. sudo ile çalıştırmanın çözüp çözmediğini veya chmod/chown ile dosya izinlerini değiştirmek gerekip gerekmediğini kontrol edin."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "'{cmd_name}' komutu yüklü değil veya PATH içinde bulunamadı."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Yürütülen komut sistemde bulunamadı."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "'{cmd_name}' komutu bulunamadı. Hangi Linux paketinin (apt, dnf, pacman, snap, pip, cargo) bu ikiliyi sağladığını belirleyin ve güvenli kurulum komutunu önerin."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Bağlantı Noktasını İncele {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "{port} ağ bağlantı noktası zaten başka bir işlem tarafından kullanılıyor."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "İstenen ağ adresi veya bağlantı noktası zaten başka bir işlem tarafından kullanılıyor."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "{port} ağ bağlantı noktası meşgul (Address already in use). Hangi işlemin çalıştığını belirlemeye yardımcı olun ve bağlantı noktasını nasıl boşaltacağınızı gösterin."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Dosya sistemi veya disk bölümünde bu işlem için boş alan kalmadı."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Diskte boş alan kalmadı (No space left on device). Dolu bölümleri kontrol etmek (df -h) ve güvenli temizlik için büyük dosyaları bulmak amacıyla komutlar önerin."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "'{pkg}' Python modülü ortamda yüklü değil."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Python betiği '{pkg}' modülü eksik olduğu için başarısız oldu. pip ile veya uygun sanal ortamda nasıl kurulacağını önerin."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "'{pkg}' Node.js modülü bulunamadı."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js betiği '{pkg}' modülü eksik olduğu için başarısız oldu. npm veya yarn ile nasıl kurulacağını önerin."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Belirtilen dosya veya dizin yolu mevcut değil veya göreli yol yanlış."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Komut, dosya veya dizin mevcut olmadığı için başarısız oldu (No such file or directory). Göreli yolları, yazım hatalarını kontrol edin ve ls ile doğrulamalar önerin."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Bağlantı Noktasını Kontrol Et :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Bağlantı Reddedildi (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "localhost üzerindeki :{port} bağlantı noktasına bağlanılamadı (hizmet etkin değil veya bağlantı reddedildi)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Ağ bağlantısı başarısız oldu veya hedef sunucu şu anda bağlantıları kabul etmiyor."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Komut bağlantı reddi veya ulaşılamayan ağ nedeniyle başarısız oldu. Uzak hizmetin çalışıp çalışmadığını, güvenlik duvarı engelini veya bağlantı noktası/DNS hatasını teşhis edin."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Git işlemi depo durumu, birleştirme çakışmaları veya uzak dal sorunları nedeniyle başarısız oldu."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Git işlemi başarısız oldu. Çalışma ağacını, birleştirme çakışmalarını veya ayrılan dalları inceleyin ve veri kaybı olmadan güvenli eşitleme adımları önerin."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Komut Başarısız Oldu ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Komut {code} çıkış koduyla başarısız oldu."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "'{cmd}' komutu {code} çıkış koduyla başarısız oldu. Terminal çıktılarını analiz edin, hatanın nedenini belirleyin ve önerilen çözümü sunun."
+
+# 
+msgid "Resource Monitor"
+msgstr "Kaynak İzleyici"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Sistem Kaynak İzleyicisi"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Gerçek Zamanlı Kaynak İzleyici (CPU, RAM, Disk, Ağ)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Gerçek zamanlı güncellemeleri duraklat / sürdür"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Yerel (Bu Bilgisayar)"
+
+# 
+msgid "Taxa:"
+msgstr "Sıklık:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "İşlemci (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Çekirdekler yükleniyor..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Bellek (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Bellek yükleniyor..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Depolama (Disk)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Bölüm yükleniyor..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Ağ Trafiği"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Toplam: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Bağlanıyor..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Duraklatıldı"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Etkin"
+
+# 
+msgid "Erro"
+msgstr "Hata"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Bağlandı"
+
+# 
+msgid "núcleos"
+msgstr "çekirdek"
+
+# 
+msgid "Carga"
+msgstr "Yük"
+
+# 
+msgid "livres"
+msgstr "boş"
+
+# 
+msgid "Montagem"
+msgstr "Bağlama Noktası"
+
+# 
+msgid "Total acumulado"
+msgstr "Kümülatif toplam"

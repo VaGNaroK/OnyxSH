@@ -11608,3 +11608,343 @@ msgstr "Igazítás"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Kattintson az Igazítás és 100% közötti váltáshoz"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Futtatás sudo-val"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Diagnosztizálás MI-vel"
+
+# 
+msgid "Permissão Negada"
+msgstr "Hozzáférés megtagadva"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Csomag keresése"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "A parancs nem található"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "A port már használatban van"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Elfogyott a lemezterület"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Lemez ellenőrzése (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Hiányzó Python modul"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Hiányzó Node.js modul"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "A fájl nem található"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Könyvtár listázása (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Hálózati kapcsolati hiba"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git műveleti hiba"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 git status megtekintése"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Gyorsjavítás alkalmazása"
+
+# 
+msgid "Ação rápida"
+msgstr "Gyors művelet"
+
+# 
+msgid "Comando em execução..."
+msgstr "Parancs végrehajtása folyamatban..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "A parancs hibakóddal leállt"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "A parancs lefutott a terminálban."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "A parancs beillesztve a terminál parancssorába."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Proaktív javaslatok terminálhibák esetén"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Intelligens terminálhiba-felismerés 1 kattintásos gyorsműveletekkel és MI-diagnosztikával"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Proaktív hibajavaslatok"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Parancshibák észlelése (pl. engedély megtagadva, foglalt port, hiányzó csomag) és azonnali javítás javaslása"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Javaslatok megjelenítési módja"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Hogyan jelenjenek meg a hibajavaslatok és a gyorsműveletek"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Értesítés (Toast) és jelvény a terminálban"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Csak jelvény a terminálban"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Csak értesítés (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Gyorsműveletek azonnali végrehajtása"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Ha engedélyezve van, kattintáskor azonnal lefut a javítóparancs a terminálban; ha le van tiltva, csak beilleszti felülvizsgálatra"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "A parancs rendszergazdai (root) jogosultságok vagy írási jogosultság hiánya miatt meghiúsult."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "A parancs Hozzáférés megtagadva hibával meghiúsult. Ellenőrizze, hogy a sudo-val való futtatás segít-e, vagy a jogosultságokat kell módosítani chmod/chown segítségével."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "A(z) '{cmd_name}' parancs nincs telepítve, vagy nem található a PATH-ban."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "A végrehajtott parancs nem található a rendszeren."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "A(z) '{cmd_name}' parancs nem található. Azonosítsa, melyik Linux-csomag (apt, dnf, pacman, snap, pip, cargo) biztosítja ezt a binárist, és javasolja a biztonságos telepítési parancsot."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 {port} port ellenőrzése"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "A(z) {port} hálózati portot már egy másik folyamat használja."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "A kért hálózati cím vagy port már használatban van egy másik folyamat által."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "A(z) {port} hálózati port foglalt (Address already in use). Segítsen azonosítani a futó folyamatot, és mutassa meg a port felszabadításának módját."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "A fájlrendszer vagy a lemezpartíció nem rendelkezik elegendő szabad hellyel a művelethez."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "A lemezen nincs szabad hely (No space left on device). Javasoljon parancsokat a megtelt partíciók ellenőrzésére (df -h) és nagyméretű fájlok keresésére a biztonságos törléshez."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "A(z) '{pkg}' Python modul nincs telepítve a környezetben."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "A Python parancsfájl a hiányzó '{pkg}' modul miatt meghiúsult. Javasolja a pip vagy a megfelelő virtuális környezet használatával történő telepítést."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "A(z) '{pkg}' Node.js modul nem található."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "A Node.js parancsfájl a hiányzó '{pkg}' modul miatt meghiúsult. Javasolja az npm vagy yarn segítségével történő telepítést."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "A megadott fájl vagy könyvtár elérési útja nem létezik, vagy a relatív út helytelen."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "A parancs meghiúsult, mert a fájl vagy könyvtár nem létezik (No such file or directory). Ellenőrizze a relatív útvonalakat, elgépeléseket, és javasoljon ellenőrzést ls paranccsal."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 :{port} port ellenőrzése"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Kapcsolat elutasítva (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Nem sikerült csatlakozni a localhost :{port} portjához (az inactive szolgáltatás vagy elutasított kapcsolat miatt)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "A hálózati kapcsolat meghiúsult, vagy a célkiszolgáló jelenleg nem fogad kapcsolatokat."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "A parancs elutasított kapcsolat vagy elérhetetlen hálózat miatt meghiúsult. Vizsgálja meg, hogy a távoli szolgáltatás fut-e, tűzfal blokkolja-e, vagy port/DNS hiba áll-e fenn."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "A Git művelet meghiúsult a tároló állapota, egyesítési ütközések vagy távoli ágak miatt."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "A Git művelet meghiúsult. Vizsgálja meg a munkaterületet, az egyesítési ütközéseket vagy az eltérő ágakat, és javasoljon biztonságos szinkronizálási lépéseket adatvesztés nélkül."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "A parancs meghiúsult ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "A parancs meghiúsult a következő kilépési kóddal: {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "A(z) '{cmd}' parancs meghiúsult a következő kilépési kóddal: {code}. Elemezze a terminál kimenetét, azonosítsa a hiba okát, és javasolja az ajánlott megoldást."
+
+# 
+msgid "Resource Monitor"
+msgstr "Erőforrás-figyelő"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Rendszer-erőforrás figyelő"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Valós idejű erőforrás-figyelő (CPU, RAM, lemez, hálózat)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Valós idejű frissítések szüneteltetése / folytatása"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Helyi (Ez a számítógép)"
+
+# 
+msgid "Taxa:"
+msgstr "Gyakoriság:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Processzor (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Magok betöltése..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Memória (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Memória betöltése..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Tárhely (Lemez)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Partíció betöltése..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Hálózati forgalom"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Összesen: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Csatlakozás..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Szüneteltetve"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Aktív"
+
+# 
+msgid "Erro"
+msgstr "Hiba"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Csatlakoztatva"
+
+# 
+msgid "núcleos"
+msgstr "mag"
+
+# 
+msgid "Carga"
+msgstr "Terhelés"
+
+# 
+msgid "livres"
+msgstr "szabad"
+
+# 
+msgid "Montagem"
+msgstr "Csatolási pont"
+
+# 
+msgid "Total acumulado"
+msgstr "Halmozott összeg"

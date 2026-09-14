@@ -11609,3 +11609,343 @@ msgstr "Potrivește"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Faceți clic pentru a comuta între Potrivește și 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Execută cu sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Diagnosticare cu AI"
+
+# 
+msgid "Permissão Negada"
+msgstr "Permisiune refuzată"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Caută pachet"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Comandă negăsită"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Port deja utilizat"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Spațiu pe disc epuizat"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Verifică discul (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Modul Python lipsă"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Modul Node.js lipsă"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Fișier negăsit"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Listează directorul (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Eșec conexiune la rețea"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Eroare operație Git"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Vezi git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Aplică remedierea rapidă"
+
+# 
+msgid "Ação rápida"
+msgstr "Acțiune rapidă"
+
+# 
+msgid "Comando em execução..."
+msgstr "Comandă în execuție..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Comanda a eșuat cu cod de eroare"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Comandă executată în terminal."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Comandă inserată în linia de comandă a terminalului."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Sugestii proactive pentru erori de terminal"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Detectare inteligentă a erorilor de terminal cu acțiuni rapide la 1 clic și diagnosticare prin AI"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Sugestii proactive pentru erori"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Detectează eșecurile comenzilor (ex.: permisiune refuzată, port utilizat, pachet lipsă) și sugerează remediere imediată"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Mod de afișare a sugestiilor"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Cum ar trebui prezentate sugestiile de eroare și acțiunile rapide"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Notificare (Toast) și insignă în terminal"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Doar insignă în terminal"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Doar notificare (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Execută acțiunile rapide imediat"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Dacă este activat, execută comanda de remediere în terminal imediat la clic; dacă este dezactivat, o inserează doar în linia de comandă pentru verificare"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Comanda a eșuat din cauza lipsei de privilegii de superutilizator (root) sau permisiuni de scriere."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Comanda a eșuat cu Permisiune refuzată. Verificați dacă rularea cu sudo rezolvă problema sau dacă trebuie ajustate permisiunile cu chmod sau chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Comanda '{cmd_name}' nu este instalată sau nu a fost găsită în PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Comanda executată nu a fost găsită în sistem."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Comanda '{cmd_name}' nu a fost găsită. Identificați ce pachet Linux (apt, dnf, pacman, snap, pip, cargo) furnizează acest binar și sugerați comanda sigură de instalare."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Inspectează portul {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Portul de rețea {port} este deja utilizat de un alt proces."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Adresa sau portul de rețea solicitat este deja utilizat de un alt proces."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Portul de rețea {port} este ocupat (Address already in use). Ajutați la identificarea procesului activ și arătați cum se eliberează portul sau se folosește altul."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Sistemul de fișiere sau partiția de disc nu are spațiu liber pentru această operație."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Discul nu mai are spațiu liber (No space left on device). Sugerați comenzi pentru inspectarea partițiilor pline (df -h) și găsirea fișierelor mari pentru curățare sigură."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Modulul Python '{pkg}' nu este instalat în mediu."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Scriptul Python a eșuat din cauza lipsei modulului '{pkg}'. Sugerați cum se instalează prin pip sau în mediul virtual corespunzător."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Modulul Node.js '{pkg}' nu a fost găsit."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Scriptul Node.js a eșuat din cauza lipsei modulului '{pkg}'. Sugerați cum se instalează prin npm sau yarn."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Fișierul sau calea de director specificată nu există sau calea relativă este incorectă."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Comanda a eșuat deoarece fișierul sau directorul nu există (No such file or directory). Verificați căile relative, greșelile de tipar și sugerați verificări cu ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Verifică portul :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Conexiune refuzată (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Nu s-a putut conecta la portul :{port} pe localhost (serviciu inactiv sau conexiune refuzată)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Conexiunea de rețea a eșuat sau serverul de destinație nu acceptă conexiuni în acest moment."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Comanda a eșuat din cauza refuzului conexiunii sau rețelei inaccesibile. Diagnosticați dacă serviciul la distanță rulează, este blocat de firewall sau are erori de port/DNS."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Operația Git a eșuat din cauza stării depozitului, conflictelor de îmbinare sau ramurilor la distanță."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Operația Git a eșuat. Inspectați arborele de lucru, conflictele de îmbinare sau ramurile divergente și sugerați pași siguri de sincronizare fără pierderi de date."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Comandă eșuată ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Comanda a eșuat cu codul de ieșire {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Comanda '{cmd}' a eșuat cu codul de ieșire {code}. Analizați ieșirile terminalului, identificați cauza erorii și propuneți soluția recomandată."
+
+# 
+msgid "Resource Monitor"
+msgstr "Monitor de resurse"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Monitor de resurse de sistem"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Monitor de resurse în timp real (CPU, RAM, disc, rețea)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Pauză / Reluare actualizări în timp real"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Local (Acest computer)"
+
+# 
+msgid "Taxa:"
+msgstr "Frecvență:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Procesor (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Se încarcă nucleele..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Memorie (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Se încarcă memoria..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Stocare (Disc)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Se încarcă partiția..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Trafic de rețea"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Total: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Conectare..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ În pauză"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Activ"
+
+# 
+msgid "Erro"
+msgstr "Eroare"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Conectat"
+
+# 
+msgid "núcleos"
+msgstr "nuclee"
+
+# 
+msgid "Carga"
+msgstr "Încărcare"
+
+# 
+msgid "livres"
+msgstr "liberi"
+
+# 
+msgid "Montagem"
+msgstr "Punct de montare"
+
+# 
+msgid "Total acumulado"
+msgstr "Total cumulat"

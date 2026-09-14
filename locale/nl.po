@@ -11601,3 +11601,343 @@ msgstr "Passend"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Klik om te schakelen tussen Passend en 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Uitvoeren met sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Diagnosticeren met AI"
+
+# 
+msgid "Permissão Negada"
+msgstr "Toegang geweigerd"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Pakket zoeken"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Opdracht niet gevonden"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Poort al in gebruik"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Schijfruimte vol"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Schijf controleren (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Ontbrekende Python-module"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Ontbrekende Node.js-module"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Bestand niet gevonden"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Map weergeven (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Netwerkverbindingsfout"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git-bewerkingsfout"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 git status bekijken"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Snelle correctie toepassen"
+
+# 
+msgid "Ação rápida"
+msgstr "Snelle actie"
+
+# 
+msgid "Comando em execução..."
+msgstr "Opdracht wordt uitgevoerd..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "De opdracht is mislukt met foutcode"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Opdracht uitgevoerd in terminal."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Opdracht ingevoegd in terminalprompt."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Proactieve suggesties voor terminalfouten"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Slimme detectie van terminalfouten met 1-klik snelle acties en AI-diagnose"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Proactieve foutsuggesties"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Detecteer opdrachtfouten (bijv. toegang geweigerd, poort in gebruik, ontbrekend pakket) en stel onmiddellijke oplossing voor"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Weergavemodus voor suggesties"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Hoe foutsuggesties en snelle acties moeten worden gepresenteerd"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Melding (Toast) en terminalbadge"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Alleen terminalbadge"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Alleen melding (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Snelle acties direct uitvoeren"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Indien ingeschakeld, voert het herstelcommando direct in de terminal uit na het klikken; indien uitgeschakeld, voegt het alleen in voor controle"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "De opdracht is mislukt wegens een gebrek aan root-rechten of schrijfrechten."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "De opdracht is mislukt met Toegang geweigerd. Controleer of uitvoeren met sudo helpt of dat bestandsrechten gewijzigd moeten worden met chmod of chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "De opdracht '{cmd_name}' is niet geïnstalleerd of niet gevonden in PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "De uitgevoerde opdracht is niet gevonden op het systeem."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "De opdracht '{cmd_name}' is niet gevonden. Bepaal welk Linux-pakket (apt, dnf, pacman, snap, pip, cargo) dit binaire bestand levert en stel het veilige installatiecommando voor."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Poort {port} inspecteren"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Netwerkpoort {port} wordt al gebruikt door een ander proces."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Het gevraagde netwerkadres of de poort wordt al gebruikt door een ander proces."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Netwerkpoort {port} is bezet (Address already in use). Help identificeren welk proces actief is en toon hoe de poort vrijgemaakt kan worden."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Het bestandssysteem of de schijfpartitie heeft geen vrije ruimte meer voor deze bewerking."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "De schijf heeft geen vrije ruimte meer (No space left on device). Stel commando's voor om volle partities te inspecteren (df -h) en grote bestanden te vinden voor opschoning."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "De Python-module '{pkg}' is niet geïnstalleerd in de omgeving."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Het Python-script is mislukt vanwege de ontbrekende module '{pkg}'. Stel voor hoe deze via pip of in de juiste virtuele omgeving geïnstalleerd kan worden."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "De Node.js-module '{pkg}' is niet gevonden."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Het Node.js-script is mislukt vanwege de ontbrekende module '{pkg}'. Stel voor hoe deze via npm of yarn geïnstalleerd kan worden."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Het opgegeven bestand of mappad bestaat niet of het relatieve pad is onjuist."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "De opdracht is mislukt omdat het bestand of de map niet bestaat (No such file or directory). Controleer relatieve paden, typefouten en stel controles voor met ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Poort :{port} controleren"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Verbinding geweigerd (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Kan geen verbinding maken met poort :{port} op localhost (service inactief of verbinding geweigerd)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "De netwerkverbinding is mislukt of de doelserver accepteert momenteel geen verbindingen."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "De opdracht is mislukt wegens geweigerde verbinding of onbereikbaar netwerk. Controleer of de externe service actief is, geblokkeerd wordt door firewall of poort-/DNS-fouten heeft."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "De Git-bewerking is mislukt vanwege de status van de repository, samenvoegconflicten of externe branches."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "De Git-bewerking is mislukt. Controleer de werkboom, samenvoegconflicten of afwijkende branches en stel veilige synchronisatiestappen voor zonder gegevensverlies."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Opdracht mislukt ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "De opdracht is mislukt met afsluitcode {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "De opdracht '{cmd}' is mislukt met afsluitcode {code}. Analyseer de terminaluitvoer, identificeer de oorzaak van de fout en stel de aanbevolen oplossing voor."
+
+# 
+msgid "Resource Monitor"
+msgstr "Broncontrole"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Systeembroncontrole"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Realtime broncontrole (CPU, RAM, schijf, netwerk)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Realtime updates pauzeren / hervatten"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Lokaal (Deze computer)"
+
+# 
+msgid "Taxa:"
+msgstr "Frequentie:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Processor (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Kernen laden..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Geheugen (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Geheugen laden..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Opslag (Schijf)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Partitie laden..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Netwerkverkeer"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Totaal: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Verbinden..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Gepauzeerd"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Actief"
+
+# 
+msgid "Erro"
+msgstr "Fout"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Verbonden"
+
+# 
+msgid "núcleos"
+msgstr "kernen"
+
+# 
+msgid "Carga"
+msgstr "Belasting"
+
+# 
+msgid "livres"
+msgstr "vrij"
+
+# 
+msgid "Montagem"
+msgstr "Koppelpunt"
+
+# 
+msgid "Total acumulado"
+msgstr "Geaccumuleerd totaal"

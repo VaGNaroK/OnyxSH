@@ -11629,3 +11629,343 @@ msgstr "Sobita"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Klõpsake, et lülitada Sobita ja 100% vahel"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Käivita sudoga"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Diagnoosi tehisintellektiga"
+
+# 
+msgid "Permissão Negada"
+msgstr "Juurdepääs keelatud"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Otsi paketti"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Käsku ei leitud"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Port on juba kasutusel"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Kettaruum on otsas"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Kontrolli ketast (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Puuduv Pythoni moodul"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Puuduv Node.js moodul"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Faili ei leitud"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Kuva kataloog (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Võrguühenduse tõrge"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Giti toimingu tõrge"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Vaata git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Rakenda kiirparandus"
+
+# 
+msgid "Ação rápida"
+msgstr "Kiirtoiming"
+
+# 
+msgid "Comando em execução..."
+msgstr "Käsk käivitatud..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Käsk ebaõnnestus veakoodiga"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Terminalis käivitatud käsk."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Käsk lisatud terminali viibale."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Proaktiivsed soovitused terminali vigadele"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Nutikas terminali tõrgete tuvastamine 1 klõpsuga kiirtoimingute ja AI-diagnostikaga"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Proaktiivsed veasoovitused"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Tuvasta käsuvead (nt juurdepääs keelatud, port hõivatud, puuduv pakett) ja soovita kohest lahendust"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Soovituste kuvamisrežiim"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Kuidas veasoovitusi ja kiirtoiminguid tuleks kuvada"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Teavitus (Toast) ja terminali märgis"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Ainult terminali märgis"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Ainult teavitus (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Käivita kiirtoimingud kohe"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Kui lubatud, käivitab paranduskäsu terminalis kohe klõpsates; kui keelatud, lisab selle viibale ainult ülevaatamiseks"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Käsk ebaõnnestus administraatori (root) õiguste või kirjutusõiguste puudumise tõttu."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Käsk ebaõnnestus (Juurdepääs keelatud). Kontrollige, kas sudoga käivitamine lahendab probleemi või on vaja muuta õigusi käsuga chmod või chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Käsk '{cmd_name}' ei ole installitud või seda ei leitud PATH-ist."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Käivitatud käsku süsteemist ei leitud."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Käsku '{cmd_name}' ei leitud. Tehke kindlaks, milline Linuxi pakett (apt, dnf, pacman, snap, pip, cargo) selle binaari pakub, ja soovitage turvalist paigalduskäsku."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Kontrolli porti {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Võrguport {port} on juba teise protsessi poolt kasutusel."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Soovitud võrguaadress või port on juba teise protsessi poolt kasutusel."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Võrguport {port} on hõivatud (Address already in use). Aidake tuvastada seal töötav protsess ja näidake, kuidas port vabastada või teist kasutada."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Failisüsteemis või kettapartitsioonis pole selle toimingu jaoks vaba ruumi."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Kettal pole vaba ruumi (No space left on device). Soovitage käske täis partitsioonide kontrollimiseks (df -h) ja suurte failide leidmiseks turvaliseks puhastamiseks."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Pythoni moodul '{pkg}' ei ole keskkonda installitud."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Pythoni skript ebaõnnestus puuduva mooduli '{pkg}' tõttu. Soovitage, kuidas seda pipi kaudu või virtuaalkeskkonnas installida."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Node.js moodulit '{pkg}' ei leitud."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js skript ebaõnnestus puuduva mooduli '{pkg}' tõttu. Soovitage, kuidas seda npm või yarni kaudu paigaldada."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Määratud faili või kataloogi teed pole olemas või suhteline tee on vale."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Käsk ebaõnnestus, kuna faili või kataloogi pole olemas (No such file or directory). Kontrollige suhtelisi teid, trükivigu ja soovitage kontrolli käsuga ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Kontrolli porti :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Ühendus tagasi lükatud (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Ei õnnestunud luua ühendust pordiga :{port} localhostis (teenus ei tööta või ühendus lükati tagasi)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Võrguühendus ebaõnnestus või sihtserver ei võta praegu ühendusi vastu."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Käsk ebaõnnestus tagasilükatud ühenduse või kättesaamatu võrgu tõttu. Kontrollige, kas kaugteenus töötab, kas tulemüür blokeerib seda või esineb pordi/DNS-i viga."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Giti toiming ebaõnnestus repositooriumi oleku, liitmiskonfliktide või kaugharude tõttu."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Giti toiming ebaõnnestus. Kontrollige tööpuud, liitmiskonflikte või lahknenud harusid ning soovitage turvalisi sünkroonimistoiminguid ilma andmekaota."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Käsk ebaõnnestus ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Käsk ebaõnnestus väljumiskoodiga {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Käsk '{cmd}' ebaõnnestus väljumiskoodiga {code}. Analüüsige terminali väljundit, tuvastage vea põhjus ja soovitage lahendust."
+
+# 
+msgid "Resource Monitor"
+msgstr "Ressursimonitor"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Süsteemi ressursimonitor"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Reaalajas ressursimonitor (CPU, RAM, ketas, võrk)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Peata / jätka reaalajas värskendusi"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Kohalik (See arvuti)"
+
+# 
+msgid "Taxa:"
+msgstr "Sagedus:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Protsessor (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Tuumade laadimine..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Mälu (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Mälu laadimine..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Salvestusruum (Ketas)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Partitsiooni laadimine..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Võrguliiklus"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Kokku: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Ühenduse loomine..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Peatatud"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Aktiivne"
+
+# 
+msgid "Erro"
+msgstr "Viga"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Ühendatud"
+
+# 
+msgid "núcleos"
+msgstr "tuuma"
+
+# 
+msgid "Carga"
+msgstr "Koormus"
+
+# 
+msgid "livres"
+msgstr "vaba"
+
+# 
+msgid "Montagem"
+msgstr "Haakepunkt"
+
+# 
+msgid "Total acumulado"
+msgstr "Kogusumma kokku"

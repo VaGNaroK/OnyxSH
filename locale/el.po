@@ -11619,3 +11619,343 @@ msgstr "Προσαρμογή"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Κάντε κλικ για εναλλαγή μεταξύ Προσαρμογή και 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Εκτέλεση με sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Διάγνωση με AI"
+
+# 
+msgid "Permissão Negada"
+msgstr "Δεν επιτρέπεται η πρόσβαση"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Αναζήτηση πακέτου"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Η εντολή δεν βρέθηκε"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Η θύρα χρησιμοποιείται ήδη"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Εξαντλήθηκε ο χώρος στο δίσκο"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Έλεγχος δίσκου (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Λείπει το άρθρωμα Python"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Λείπει το άρθρωμα Node.js"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Το αρχείο δεν βρέθηκε"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Προβολή καταλόγου (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Αποτυχία σύνδεσης δικτύου"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Σφάλμα λειτουργίας Git"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Προβολή git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Εφαρμογή γρήγορης διόρθωσης"
+
+# 
+msgid "Ação rápida"
+msgstr "Γρήγορη ενέργεια"
+
+# 
+msgid "Comando em execução..."
+msgstr "Η εντολή εκτελείται..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Η εντολή απέτυχε με κωδικό σφάλματος"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Η εντολή εκτελέστηκε στο τερματικό."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Η εντολή εισήχθη στη γραμμή εντολών."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Προληπτικές προτάσεις για σφάλματα τερματικού"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Έξυπνος εντοπισμός σφαλμάτων τερματικού με γρήγορες ενέργειες με 1 κλικ και διάγνωση μέσω AI"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Προληπτικές προτάσεις σφαλμάτων"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Εντοπισμός αποτυχιών εντολών (π.χ. άρνηση πρόσβασης, δεσμευμένη θύρα, πακέτο που λείπει) και πρόταση άμεσης διόρθωσης"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Λειτουργία προβολής προτάσεων"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Πώς πρέπει να παρουσιάζονται οι προτάσεις σφαλμάτων και οι γρήγορες ενέργειες"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Ειδοποίηση (Toast) και κονκάρδα τερματικού"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Μόνο κονκάρδα τερματικού"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Μόνο ειδοποίηση (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Άμεση εκτέλεση γρήγορων ενεργειών"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Εάν ενεργοποιηθεί, εκτελεί την εντολή διόρθωσης στο τερματικό αμέσως με το κλικ. Εάν απενεργοποιηθεί, την εισάγει μόνο στη γραμμή εντολών για έλεγχο"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Η εντολή απέτυχε λόγω έλλειψης δικαιωμάτων διαχειριστή (root) ή δικαιωμάτων εγγραφής."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Η εντολή απέτυχε με Δεν επιτρέπεται η πρόσβαση. Ελέγξτε αν η εκτέλεση με sudo το επιλύει ή αν απαιτείται τροποποίηση δικαιωμάτων με chmod ή chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Η εντολή '{cmd_name}' δεν είναι εγκατεστημένη ή δεν βρέθηκε στο PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Η εκτελεσθείσα εντολή δεν βρέθηκε στο σύστημα."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Η εντολή '{cmd_name}' δεν βρέθηκε. Προσδιορίστε ποιο πακέτο Linux (apt, dnf, pacman, snap, pip, cargo) παρέχει αυτό το εκτελέσιμο και προτείνετε την ασφαλή εντολή εγκατάστασης."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Επιθεώρηση θύρας {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Η θύρα δικτύου {port} χρησιμοποιείται ήδη από άλλη διεργασία."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Η διεύθυνση ή η θύρα δικτύου που ζητήθηκε χρησιμοποιείται ήδη από άλλη διεργασία."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Η θύρα δικτύου {port} είναι κατειλημμένη (Address already in use). Βοηθήστε στον εντοπισμό της διεργασίας και δείξτε πώς να ελευθερώσετε τη θύρα."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Το σύστημα αρχείων ή το διαμέρισμα δίσκου δεν έχει ελεύθερο χώρο για αυτήν τη λειτουργία."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Ο δίσκος δεν έχει ελεύθερο χώρο (No space left on device). Προτείνετε εντολές για έλεγχο γεμάτων διαμερισμάτων (df -h) και εύρεση μεγάλων αρχείων για ασφαλή εκκαθάριση."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Το άρθρωμα Python '{pkg}' δεν είναι εγκατεστημένο στο περιβάλλον."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Το σενάριο Python απέτυχε λόγω έλλειψης του αρθρώματος '{pkg}'. Προτείνετε πώς να το εγκαταστήσετε μέσω pip ή στο κατάλληλο εικονικό περιβάλλον."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Το άρθρωμα Node.js '{pkg}' δεν βρέθηκε."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Το σενάριο Node.js απέτυχε λόγω έλλειψης του αρθρώματος '{pkg}'. Προτείνετε πώς να το εγκαταστήσετε μέσω npm ή yarn."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Το καθορισμένο αρχείο ή η διαδρομή καταλόγου δεν υπάρχει ή η σχετική διαδρομή είναι εσφαλμένη."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Η εντολή απέτυχε επειδή το αρχείο ή ο κατάλογος δεν υπάρχει (No such file or directory). Ελέγξτε σχετικές διαδρομές, τυπογραφικά λάθη και προτείνετε έλεγχο με ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Έλεγχος θύρας :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Άρνηση σύνδεσης (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Δεν ήταν δυνατή η σύνδεση στη θύρα :{port} στο localhost (ανενεργή υπηρεσία ή άρνηση σύνδεσης)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Η σύνδεση δικτύου απέτυχε ή ο διακομιστής προορισμού δεν δέχεται συνδέσεις αυτήν τη στιγμή."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Η εντολή απέτυχε λόγω άρνησης σύνδεσης ή μη προσβάσιμου δικτύου. Ελέγξτε αν η απομακρυσμένη υπηρεσία εκτελείται, μπλοκάρεται από τείχος προστασίας ή έχει σφάλμα θύρας/DNS."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Η λειτουργία Git απέτυχε λόγω της κατάστασης του αποθετηρίου, συγκρούσεων συγχώνευσης ή απομακρυσμένων κλάδων."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Η λειτουργία Git απέτυχε. Ελέγξτε το δέντρο εργασίας, τις συγκρούσεις συγχώνευσης ή τους αποκλίνοντες κλάδους και προτείνετε ασφαλή βήματα συγχρονισμού χωρίς απώλεια δεδομένων."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Η εντολή απέτυχε ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Η εντολή απέτυχε με κωδικό εξόδου {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Η εντολή '{cmd}' απέτυχε με κωδικό εξόδου {code}. Αναλύστε τις εξόδους του τερματικού, εντοπίστε την αιτία του σφάλματος και προτείνετε τη συνιστώμενη λύση."
+
+# 
+msgid "Resource Monitor"
+msgstr "Παρακολούθηση πόρων"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Παρακολούθηση πόρων συστήματος"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Παρακολούθηση πόρων σε πραγματικό χρόνο (CPU, RAM, δίσκος, δίκτυο)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Παύση / Συνέχιση ενημερώσεων σε πραγματικό χρόνο"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Τοπικά (Αυτός ο υπολογιστής)"
+
+# 
+msgid "Taxa:"
+msgstr "Ρυθμός:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Επεξεργαστής (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Φόρτωση πυρήνων..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Μνήμη (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Φόρτωση μνήμης..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Χώρος αποθήκευσης (Δίσκος)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Φόρτωση διαμερίσματος..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Κίνηση δικτύου"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Σύνολο: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Σύνδεση..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Σε παύση"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Ενεργό"
+
+# 
+msgid "Erro"
+msgstr "Σφάλμα"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Συνδέθηκε"
+
+# 
+msgid "núcleos"
+msgstr "πυρήνες"
+
+# 
+msgid "Carga"
+msgstr "Φορτίο"
+
+# 
+msgid "livres"
+msgstr "ελεύθερα"
+
+# 
+msgid "Montagem"
+msgstr "Σημείο προσάρτησης"
+
+# 
+msgid "Total acumulado"
+msgstr "Σωρευτικό σύνολο"

@@ -11908,3 +11908,343 @@ msgstr "Ajustar"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Clique para alternar entre Ajustar e 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Executar com sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Diagnosticar com IA"
+
+# 
+msgid "Permissão Negada"
+msgstr "Permissão Negada"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Buscar Pacote"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Comando Não Encontrado"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Porta Já em Uso"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Espaço em Disco Esgotado"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Verificar Disco (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Módulo Python Ausente"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Módulo Node.js Ausente"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Arquivo Não Encontrado"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Listar Diretório (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Falha de Conexão de Rede"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Erro de Operação Git"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Ver git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Aplicar correção rápida"
+
+# 
+msgid "Ação rápida"
+msgstr "Ação rápida"
+
+# 
+msgid "Comando em execução..."
+msgstr "Comando em execução..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "O comando falhou com código de erro"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Comando executado no terminal."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Comando inserido no prompt do terminal."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Sugestões Proativas para Erros de Terminal"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Sugestões Proativas para Erros"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Modo de Exibição das Sugestões"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Notificação (Toast) e Badge no Terminal"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Apenas Badge no Terminal"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Apenas Notificação (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Executar Ações Rápidas Imediatamente"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "O comando executado não foi encontrado no sistema."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Inspecionar Porta {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "A porta de rede {port} já está sendo utilizada por outro processo."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "O módulo Python '{pkg}' não está instalado no ambiente."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "O módulo Node.js '{pkg}' não foi encontrado."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Verificar Porta :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Conexão Recusada (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Comando Falhou ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "O comando falhou com código de saída {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+
+# 
+msgid "Resource Monitor"
+msgstr "Monitor de Recursos"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Monitor de Recursos do Sistema"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Pausar / Retomar atualizações em tempo real"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Local (Este Computador)"
+
+# 
+msgid "Taxa:"
+msgstr "Taxa:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Processador (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Carregando núcleos..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Memória (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Carregando memória..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Armazenamento (Disco)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Carregando partição..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Tráfego de Rede"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Total: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Conectando..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Pausado"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Ativo"
+
+# 
+msgid "Erro"
+msgstr "Erro"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Conectado"
+
+# 
+msgid "núcleos"
+msgstr "núcleos"
+
+# 
+msgid "Carga"
+msgstr "Carga"
+
+# 
+msgid "livres"
+msgstr "livres"
+
+# 
+msgid "Montagem"
+msgstr "Montagem"
+
+# 
+msgid "Total acumulado"
+msgstr "Total acumulado"

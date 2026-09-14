@@ -11587,3 +11587,343 @@ msgstr "Přizpůsobit"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Kliknutím přepnete mezi Přizpůsobit a 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Spustit se sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Diagnostikovat pomocí AI"
+
+# 
+msgid "Permissão Negada"
+msgstr "Přístup odepřen"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Hledat balíček"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Příkaz nenalezen"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Port se již používá"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Nedostatek místa na disku"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Zkontrolovat disk (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Chybějící modul Python"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Chybějící modul Node.js"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Soubor nenalezen"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Vypsat adresář (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Selhání síťového připojení"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Chyba operace Git"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Zobrazit git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Použít rychlou opravu"
+
+# 
+msgid "Ação rápida"
+msgstr "Rychlá akce"
+
+# 
+msgid "Comando em execução..."
+msgstr "Příkaz se provádí..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Příkaz selhal s kódem chyby"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Příkaz byl spuštěn v terminálu."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Příkaz vložen do příkazového řádku terminálu."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Proaktivní návrhy pro chyby terminálu"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Inteligentní detekce chyb terminálu s rychlými akcemi na 1 kliknutí a diagnostikou pomocí AI"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Proaktivní návrhy chyb"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Detekovat selhání příkazů (např. odepřen přístup, port v provozu, chybějící balíček) a navrhnout okamžitou opravu"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Režim zobrazení návrhů"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Jak by měly být prezentovány návrhy chyb a rychlé akce"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Upozornění (Toast) a odznak v terminálu"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Pouze odznak v terminálu"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Pouze upozornění (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Okamžitě provést rychlé akce"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Je-li povoleno, provede příkaz opravy v terminálu ihned po kliknutí; je-li zakázáno, vloží jej pouze do výzvy ke kontrole"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Příkaz selhal kvůli nedostatku oprávnění správce (root) nebo oprávnění k zápisu."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Příkaz selhal s chybou Přístup odepřen. Zkontrolujte, zda pomůže spuštění se sudo nebo zda je nutné upravit oprávnění pomocí chmod či chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Příkaz '{cmd_name}' není nainstalován nebo nebyl nalezen v PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Spuštěný příkaz nebyl v systému nalezen."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Příkaz '{cmd_name}' nebyl nalezen. Určete, který balíček Linuxu (apt, dnf, pacman, snap, pip, cargo) tento binární soubor poskytuje, a navrhněte bezpečný příkaz k instalaci."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Zkontrolovat port {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Síťový port {port} je již používán jiným procesem."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Požadovaná síťová adresa nebo port je již používán jiným procesem."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Síťový port {port} je obsazen (Address already in use). Pomozte určit běžící proces a ukažte, jak port uvolnit nebo použít jiný."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Souborový systém nebo diskový oddíl nemá pro tuto operaci dostatek volného místa."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Na disku není volné místo (No space left on device). Navrhněte příkazy ke kontrole plných oddílů (df -h) a nalezení velkých souborů pro bezpečné čištění."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Modul Pythonu '{pkg}' není v prostředí nainstalován."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Skript Pythonu selhal kvůli chybějícímu modulu '{pkg}'. Navrhněte, jak jej nainstalovat pomocí pip nebo ve vhodném virtuálním prostředí."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Modul Node.js '{pkg}' nebyl nalezen."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Skript Node.js selhal kvůli chybějícímu modulu '{pkg}'. Navrhněte, jak jej nainstalovat pomocí npm nebo yarn."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Zadaný soubor nebo cesta k adresáři neexistuje nebo je relativní cesta nesprávná."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Příkaz selhal, protože soubor nebo adresář neexistuje (No such file or directory). Zkontrolujte relativní cesty, překlepy a navrhněte ověření pomocí ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Zkontrolovat port :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Spojení odmítnuto (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Nelze se připojit k portu :{port} na localhost (služba je neaktivní nebo spojení bylo odmítnuto)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Připojení k síti selhalo nebo cílový server momentálně nepřijímá připojení."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Příkaz selhal kvůli odmítnutí spojení nebo nedostupné síti. Zjistěte, zda vzdálená služba běží, zda není blokována firewallem nebo zda nejde o chybu portu/DNS."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Operace Git selhala z důvodu stavu repozitáře, konfliktů při slučování nebo vzdálených větví."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Operace Git selhala. Zkontrolujte pracovní strom, konflikty při slučování nebo odlišné větve a navrhněte bezpečné kroky synchronizace bez ztráty dat."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Příkaz selhal ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Příkaz selhal s návratovým kódem {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Příkaz '{cmd}' selhal s návratovým kódem {code}. Analyzujte výstup terminálu, zjistěte příčinu chyby a navrhněte doporučené řešení."
+
+# 
+msgid "Resource Monitor"
+msgstr "Sledování prostředků"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Sledování systémových prostředků"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Sledování prostředků v reálném čase (CPU, RAM, disk, síť)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Pozastavit / obnovit aktualizace v reálném čase"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Místní (Tento počítač)"
+
+# 
+msgid "Taxa:"
+msgstr "Frekvence:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Procesor (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Načítání jader..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Paměť (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Načítání paměti..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Úložiště (Disk)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Načítání oddílu..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Síťový provoz"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Celkem: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Připojování..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Pozastaveno"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Aktivní"
+
+# 
+msgid "Erro"
+msgstr "Chyba"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Připojeno"
+
+# 
+msgid "núcleos"
+msgstr "jader"
+
+# 
+msgid "Carga"
+msgstr "Zátěž"
+
+# 
+msgid "livres"
+msgstr "volných"
+
+# 
+msgid "Montagem"
+msgstr "Bod připojení"
+
+# 
+msgid "Total acumulado"
+msgstr "Kumulativní souhrn"

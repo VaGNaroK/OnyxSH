@@ -11566,3 +11566,343 @@ msgstr "התאם"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "לחץ כדי לעבור בין התאם ל-100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ הפעל עם sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 אבחן באמצעות AI"
+
+# 
+msgid "Permissão Negada"
+msgstr "הגישה נדחתה"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 חפש חבילה"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "הפקודה לא נמצאה"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "הפורט כבר בשימוש"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "שטח הדיסק אזל"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 בדוק דיסק (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "מודול Python חסר"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "מודול Node.js חסר"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "הקובץ לא נמצא"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 הצג תיקייה (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "כשל בחיבור לרשת"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "שגיאת פעולת Git"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 צפה ב-git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "החל תיקון מהיר"
+
+# 
+msgid "Ação rápida"
+msgstr "פעולה מהירה"
+
+# 
+msgid "Comando em execução..."
+msgstr "הפקודה פועלת..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "הפקודה נכשלה עם קוד שגיאה"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "הפקודה הופעלה במסוף."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "הפקודה הוכנסה לשורת הפקודה במסוף."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "הצעות יזומות לשגיאות מסוף"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "זיהוי חכם של כשלים במסוף עם פעולות מהירות בלחיצה אחת ואבחון AI"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "הצעות יזומות לשגיאות"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "זהה כשלי פקודות (למשל: גישה נדחתה, פורט בשימוש, חבילה חסרה) והצע תיקון מיידי"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "מצב תצוגת הצעות"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "כיצד יש להציג הצעות שגיאה ופעולות מהירות"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "הודעה (Toast) ותג במסוף"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "תג במסוף בלבד"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "הודעה (Toast) בלבד"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "בצע פעולות מהירות באופן מיידי"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "אם מופעל, מפעיל את פקודת התיקון במסוף מיד עם הלחיצה; אם מושבת, רק מכניס אותה לשורת הפקודה לבדיקה"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "הפקודה נכשלה עקב חוסר בהרשאות משתמש-על (root) או הרשאות כתיבה."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "הפקודה נכשלה עם שגיאת גישה נדחתה. בדוק אם הרצה עם sudo פותרת את הבעיה, או אם נדרש לשנות הרשאות קובץ/תיקייה באמצעות chmod או chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "הפקודה '{cmd_name}' אינה מותקנת או שלא נמצאה ב-PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "הפקודה שהופעלה לא נמצאה במערכת."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "הפקודה '{cmd_name}' לא נמצאה. זהה איזו חבילת לינוקס (apt, dnf, pacman, snap, pip, cargo) מספקת קובץ זה והצע פקודת התקנה בטוחה."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 בדוק פורט {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "פורט הרשת {port} כבר בשימוש על ידי תהליך אחר."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "כתובת הרשת או הפורט המבוקש כבר בשימוש על ידי תהליך אחר."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "פורט הרשת {port} תפוס (Address already in use). עזור לזהות איזה תהליך פועל בו והראה כיצד לשחרר את הפורט או להשתמש באחר."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "במערכת הקבצים או במחיצת הדיסק אין מספיק מקום פנוי לפעולה זו."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "בדיסק אזל המקום הפנוי (No space left on device). הצע פקודות לבדיקת מחיצות מלאות (df -h) ומציאת קבצים גדולים לניקוי בטוח."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "מודול ה-Python '{pkg}' אינו מותקן בסביבה."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "סקריפט ה-Python נכשל עקב מחסור במודול '{pkg}'. הצע כיצד להתקין אותו באמצעות pip או בסביבה הווירטואלית המתאימה."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "מודול ה-Node.js '{pkg}' לא נמצא."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "סקריפט ה-Node.js נכשל עקב מחסור במודול '{pkg}'. הצע כיצד להתקין אותו באמצעות npm או yarn."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "הקובץ או נתיב התיקייה שצוינו אינם קיימים או שהנתיב היחסי שגוי."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "הפקודה נכשלה מכיוון שהקובץ או התיקייה אינם קיימים (No such file or directory). בדוק נתיבים יחסיים, שגיאות הקלדה והצע אימות באמצעות ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 בדוק פורט :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "החיבור נדחה (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "לא ניתן היה להתחבר לפורט :{port} ב-localhost (השירות אינו פעיל או שהחיבור נדחה)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "חיבור הרשת נכשל או ששרת היעד אינו מקבל חיבורים כעת."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "הפקודה נכשלה עקב סירוב לחיבור או רשת לא נגישה. אבחן אם השירות המרוחק פעיל, חסום על ידי חומת אש, או שיש שגיאת פורט/DNS."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "פעולת ה-Git נכשלה עקב מצב המאגר, קונפליקטים במיזוג או ענפים מרוחקים."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "פעולת ה-Git נכשלה. בדוק את עץ העבודה, קונפליקטים במיזוג או ענפים שהתפצלו והצע צעדים בטוחים לסנכרון ללא אובדן נתונים."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "הפקודה נכשלה ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "הפקודה נכשלה עם קוד יציאה {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "הפקודה '{cmd}' נכשלה עם קוד יציאה {code}. נתח את פלט המסוף, זהה את סיבת השגיאה והצע את הפתרון המומלץ."
+
+# 
+msgid "Resource Monitor"
+msgstr "צג משאבים"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "צג משאבי מערכת"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "צג משאבים בזמן אמת (CPU, RAM, דיסק, רשת)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "השהה / המשך עדכונים בזמן אמת"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "מקומי (מחשב זה)"
+
+# 
+msgid "Taxa:"
+msgstr "תדירות:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "מעבד (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "טוען ליבות..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "זיכרון (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "טוען זיכרון..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "אחסון (דיסק)"
+
+# 
+msgid "Carregando partição..."
+msgstr "טוען מחיצה..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "תעבורת רשת"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "סה״כ: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 מתחבר..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ מושהה"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 פעיל"
+
+# 
+msgid "Erro"
+msgstr "שגיאה"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 מחובר"
+
+# 
+msgid "núcleos"
+msgstr "ליבות"
+
+# 
+msgid "Carga"
+msgstr "עומס"
+
+# 
+msgid "livres"
+msgstr "פנוי"
+
+# 
+msgid "Montagem"
+msgstr "נקודת עיגון"
+
+# 
+msgid "Total acumulado"
+msgstr "סך הכל מצטבר"

@@ -11586,3 +11586,343 @@ msgstr "Подогнать"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Нажмите для переключения между Подогнать и 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Запустить с sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Диагностировать с помощью ИИ"
+
+# 
+msgid "Permissão Negada"
+msgstr "Отказано в доступе"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Искать пакет"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Команда не найдена"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Порт уже используется"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Закончилось свободное место на диске"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Проверить диск (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Отсутствует модуль Python"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Отсутствует модуль Node.js"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Файл не найден"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Список каталога (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Сбой сетевого подключения"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Ошибка операции Git"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Посмотреть git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Применить быстрое исправление"
+
+# 
+msgid "Ação rápida"
+msgstr "Быстрое действие"
+
+# 
+msgid "Comando em execução..."
+msgstr "Команда выполняется..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Команда завершилась с кодом ошибки"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Команда выполнена в терминале."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Команда вставлена в строку терминала."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Проактивные предложения при ошибках терминала"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Умное обнаружение сбоев терминала с быстрыми действиями в 1 клик и диагностикой через ИИ"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Проактивные предложения при ошибках"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Обнаруживать сбои команд (например, отказ в доступе, занятый порт, отсутствующий пакет) и предлагать быстрое решение"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Режим отображения предложений"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Как должны отображаться предложения об ошибках и быстрые действия"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Уведомление (Toast) и значок в терминале"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Только значок в терминале"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Только уведомление (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Немедленно выполнять быстрые действия"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Если включено, выполняет команду исправления в терминале сразу по клику; если выключено, только вставляет в строку для проверки"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Команда не выполнена из-за отсутствия прав суперпользователя (root) или прав на запись."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Команда завершилась с ошибкой Отказано в доступе (Permission Denied). Проверьте, решает ли запуск через sudo проблему или нужно изменить права через chmod / chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Команда '{cmd_name}' не установлена или не найдена в PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Выполненная команда не найдена в системе."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Команда '{cmd_name}' не найдена. Определите, какой пакет Linux (apt, dnf, pacman, snap, pip, cargo) предоставляет этот бинарный файл, и предложите безопасную команду установки."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Проверить порт {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Сетевой порт {port} уже используется другим процессом."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Запрошенный сетевой адрес или порт уже используется другим процессом."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Сетевой порт {port} занят (Address already in use). Помогите определить запущенный процесс и покажите, как освободить порт или использовать другой."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "В файловой системе или на разделе диска нет свободного места для этой операции."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "На диске закончилось свободное место (No space left on device). Предложите команды для проверки заполненных разделов (df -h) и поиска больших файлов для безопасной очистки."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Модуль Python '{pkg}' не установлен в окружении."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Скрипт Python завершился ошибкой из-за отсутствия модуля '{pkg}'. Предложите, как установить его через pip или в виртуальном окружении."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Модуль Node.js '{pkg}' не найден."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Скрипт Node.js завершился ошибкой из-за отсутствия модуля '{pkg}'. Предложите, как установить его через npm или yarn."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Указанный файл или путь к каталогу не существует или относительный путь неверен."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Команда не выполнена, так как файл или каталог не существует (No such file or directory). Проверьте относительные пути, опечатки и предложите проверку через ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Проверить порт :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "В соединении отказано (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Не удалось подключиться к порту :{port} на localhost (служба неактивна или в соединении отказано)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Сбой сетевого подключения или целевой сервер в настоящее время не принимает соединения."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Команда не выполнена из-за отказа в соединении или недоступности сети. Проверьте, работает ли удаленная служба, не заблокирована ли она брандмауэром и нет ли ошибок порта/DNS."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Операция Git завершилась сбоем из-за состояния репозитория, конфликтов слияния или удаленных веток."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Операция Git не выполнена. Проверьте рабочее дерево, конфликты слияния или расходящиеся ветки и предложите безопасные шаги синхронизации без потери данных."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Сбой команды ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Команда завершилась с кодом выхода {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Команда '{cmd}' завершилась с кодом выхода {code}. Проанализируйте вывод терминала, определите причину ошибки и предложите рекомендуемое решение."
+
+# 
+msgid "Resource Monitor"
+msgstr "Монитор ресурсов"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Монитор системных ресурсов"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Монитор ресурсов в реальном времени (ЦП, ОЗУ, диск, сеть)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Приостановить / возобновить обновления в реальном времени"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Локально (Этот компьютер)"
+
+# 
+msgid "Taxa:"
+msgstr "Частота:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Процессор (ЦП)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Загрузка ядер..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Память (ОЗУ)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Загрузка памяти..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Хранилище (Диск)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Загрузка раздела..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Сетевой трафик"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Всего: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Подключение..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Приостановлено"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Активен"
+
+# 
+msgid "Erro"
+msgstr "Ошибка"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Подключено"
+
+# 
+msgid "núcleos"
+msgstr "ядер"
+
+# 
+msgid "Carga"
+msgstr "Нагрузка"
+
+# 
+msgid "livres"
+msgstr "свободно"
+
+# 
+msgid "Montagem"
+msgstr "Точка монтирования"
+
+# 
+msgid "Total acumulado"
+msgstr "Накопленный итог"

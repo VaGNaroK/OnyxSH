@@ -11547,3 +11547,343 @@ msgstr "맞추기"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "맞추기와 100% 간 전환하려면 클릭"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ sudo로 실행"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 AI로 진단"
+
+# 
+msgid "Permissão Negada"
+msgstr "권한이 거부됨"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 패키지 검색"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "명령어를 찾을 수 없음"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "포트가 이미 사용 중임"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "디스크 공간 부족"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 디스크 확인 (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Python 모듈 누락"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Node.js 모듈 누락"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "파일을 찾을 수 없음"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 디렉터리 목록 (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "네트워크 연결 실패"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git 작업 오류"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 git status 보기"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "빠른 수정 적용"
+
+# 
+msgid "Ação rápida"
+msgstr "빠른 동작"
+
+# 
+msgid "Comando em execução..."
+msgstr "명령어 실행 중..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "명령어가 오류 코드로 실패했습니다"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "터미널에서 실행된 명령입니다."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "명령어가 터미널 프롬프트에 입력되었습니다."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "터미널 오류에 대한 선제적 제안"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "원클릭 빠른 작업 및 AI 진단을 통한 터미널 오류 스마트 감지"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "선제적 오류 제안"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "명령 실패(예: 권한 거부, 포트 사용 중, 패키지 누락)를 감지하고 즉각적인 해결책 제안"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "제안 표시 모드"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "오류 제안 및 빠른 작업이 표시되는 방법"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "알림(토스트) 및 터미널 배지"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "터미널 배지만"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "알림(토스트)만"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "빠른 작업을 즉시 실행"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "활성화된 경우 클릭 시 터미널에서 수정 명령을 즉시 실행합니다. 비활성화된 경우 검토를 위해 프롬프트에 삽입하기만 합니다"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "수퍼유저(root) 권한 또는 쓰기 권한이 부족하여 명령이 실패했습니다."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "명령이 권한 거부(Permission Denied)로 실패했습니다. sudo로 실행하여 해결되는지, 또는 chmod/chown으로 파일 및 디렉터리 권한을 변경해야 하는지 확인하세요."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "'{cmd_name}' 명령어가 설치되지 않았거나 PATH에서 찾을 수 없습니다."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "실행된 명령어를 시스템에서 찾을 수 없습니다."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "'{cmd_name}' 명령어를 찾을 수 없습니다. 어떤 Linux 패키지(apt, dnf, pacman, snap, pip, cargo)가 이 바이너리를 제공하는지 확인하고 안전한 설치 명령을 제안하세요."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 포트 {port} 검사"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "네트워크 포트 {port}은(는) 이미 다른 프로세스에서 사용 중입니다."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "요청한 네트워크 주소 또는 포트가 이미 다른 프로세스에서 사용 중입니다."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "네트워크 포트 {port}이(가) 사용 중입니다(Address already in use). 실행 중인 프로세스를 식별하고 포트를 해제하거나 다른 포트를 사용하는 방법을 안내하세요."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "파일 시스템 또는 디스크 파티션에 이 작업을 위한 여유 공간이 없습니다."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "디스크에 여유 공간이 없습니다(No space left on device). 가득 찬 파티션을 확인(df -h)하고 안전한 정리를 위해 대용량 파일을 찾는 명령을 제안하세요."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Python 모듈 '{pkg}'이(가) 환경에 설치되지 않았습니다."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Python 스크립트가 모듈 '{pkg}' 누락으로 실패했습니다. pip를 통해 또는 적절한 가상 환경에 설치하는 방법을 제안하세요."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Node.js 모듈 '{pkg}'을(를) 찾을 수 없습니다."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js 스크립트가 모듈 '{pkg}' 누락으로 실패했습니다. npm 또는 yarn을 통해 설치하는 방법을 제안하세요."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "지정한 파일 또는 디렉터리 경로가 존재하지 않거나 상대 경로가 올바르지 않습니다."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "파일 또는 디렉터리가 존재하지 않아 명령이 실패했습니다(No such file or directory). 상대 경로와 오타를 확인하고 ls를 통한 검증을 제안하세요."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 포트 :{port} 확인"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "연결이 거부됨(:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "localhost의 포트 :{port}에 연결할 수 없습니다(서비스 비활성 또는 연결 거부)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "네트워크 연결이 실패했거나 대상 서버가 현재 연결을 수락하지 않습니다."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "연결 거부 또는 네트워크 접근 불가로 명령이 실패했습니다. 원격 서비스가 실행 중인지, 방화벽에 차단되었는지, 포트/DNS 오류가 있는지 진단하세요."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "저장소 상태, 병합 충돌 또는 원격 브랜치 문제로 인해 Git 작업이 실패했습니다."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Git 작업이 실패했습니다. 작업 트리, 병합 충돌 또는 갈라진 브랜치를 검사하고 데이터 손실 없이 동기화할 수 있는 안전한 단계를 제안하세요."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "명령 실패 ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "명령이 종료 코드 {code}(으)로 실패했습니다."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "'{cmd}' 명령이 종료 코드 {code}(으)로 실패했습니다. 터미널 출력을 분석하고 오류 원인을 파악하여 권장 해결책을 제시하세요."
+
+# 
+msgid "Resource Monitor"
+msgstr "리소스 모니터"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "시스템 리소스 모니터"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "실시간 리소스 모니터 (CPU, RAM, 디스크, 네트워크)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "실시간 업데이트 일시 중지 / 계속"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "로컬 (이 컴퓨터)"
+
+# 
+msgid "Taxa:"
+msgstr "주기:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "프로세서 (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "코어 로드 중..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "메모리 (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "메모리 로드 중..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "저장소 (디스크)"
+
+# 
+msgid "Carregando partição..."
+msgstr "파티션 로드 중..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "네트워크 트래픽"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "합계: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 연결 중..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ 일시 중지됨"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 활성"
+
+# 
+msgid "Erro"
+msgstr "오류"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 연결됨"
+
+# 
+msgid "núcleos"
+msgstr "코어"
+
+# 
+msgid "Carga"
+msgstr "부하"
+
+# 
+msgid "livres"
+msgstr "여유"
+
+# 
+msgid "Montagem"
+msgstr "마운트"
+
+# 
+msgid "Total acumulado"
+msgstr "누적 합계"

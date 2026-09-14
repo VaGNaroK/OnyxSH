@@ -11550,3 +11550,343 @@ msgstr "合わせる"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "クリックして「合わせる」と「100%」を切り替え"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ sudo で実行"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 AI で診断"
+
+# 
+msgid "Permissão Negada"
+msgstr "アクセス許可が拒否されました"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 パッケージを検索"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "コマンドが見つかりません"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "ポートは既に使用されています"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "ディスク容量不足"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 ディスクを確認 (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Python モジュールが見つかりません"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Node.js モジュールが見つかりません"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "ファイルが見つかりません"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 ディレクトリを一覧表示 (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "ネットワーク接続の失敗"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git 操作エラー"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 git status を確認"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "クイック修正を適用"
+
+# 
+msgid "Ação rápida"
+msgstr "クイックアクション"
+
+# 
+msgid "Comando em execução..."
+msgstr "コマンドを実行中..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "コマンドがエラーコードで失敗しました"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "ターミナルで実行されたコマンド。"
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "コマンドがターミナルのプロンプトに入力されました。"
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "ターミナルエラーの予防的提案"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "1クリックのクイックアクションと AI 診断によるターミナル障害のスマート検出"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "予防的エラー提案"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "コマンドの失敗（権限拒否、ポート使用中、パッケージ欠落など）を検出し、即時修正を提案"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "提案の表示モード"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "エラーの提案とクイックアクションの表示方法"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "通知 (トースト) とターミナルバッジ"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "ターミナルバッジのみ"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "通知 (トースト) のみ"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "クイックアクションをすぐに実行"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "有効な場合、クリック時にターミナルで修正コマンドを即座に実行します。無効な場合、確認のためにプロンプトに挿入するだけです"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "スーパーユーザー (root) 権限または書き込み権限がないため、コマンドが失敗しました。"
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "コマンドが「アクセス拒否 (Permission Denied)」で失敗しました。sudo による昇格で解決するか、chmod や chown で権限を変更する必要があるか確認してください。"
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "コマンド '{cmd_name}' はインストールされていないか、PATH に見つかりません。"
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "実行されたコマンドはシステムに見つかりませんでした。"
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "コマンド '{cmd_name}' が見つかりませんでした。どの Linux パッケージ (apt, dnf, pacman, snap, pip, cargo) がこのバイナリを提供しているかを特定し、安全なインストールコマンドを提案してください。"
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 ポート {port} を検査"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "ネットワークポート {port} はすでに別のプロセスで使用されています。"
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "要求されたネットワークアドレスまたはポートは、すでに別のプロセスで使用されています。"
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "ネットワークポート {port} は使用中です (Address already in use)。実行中のプロセスを特定し、ポートを解放するか別のポートを使用する方法を示してください。"
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "ファイルシステムまたはディスクパーティションに、この操作のための空き容量がありません。"
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "ディスクの空き容量がありません (No space left on device)。容量がいっぱいのパーティションを確認するコマンド (df -h) と、安全なクリーンアップのための大容量ファイルを検索するコマンドを提案してください。"
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Python モジュール '{pkg}' が環境にインストールされていません。"
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Python スクリプトはモジュール '{pkg}' が不足しているため失敗しました。pip または適切な仮想環境を介してインストールする方法を提案してください。"
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Node.js モジュール '{pkg}' が見つかりませんでした。"
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js スクリプトはモジュール '{pkg}' が不足しているため失敗しました。npm または yarn を介してインストールする方法を提案してください。"
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "指定されたファイルまたはディレクトリのパスが存在しないか、相対パスが正しくありません。"
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "ファイルまたはディレクトリが存在しないため、コマンドが失敗しました (No such file or directory)。相対パスや入力ミスを確認し、ls による検証を提案してください。"
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 ポート :{port} を確認"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "接続が拒否されました (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "localhost のポート :{port} に接続できませんでした (サービスが停止しているか、接続が拒否されました)。"
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "ネットワーク接続が失敗したか、宛先サーバーが現在接続を受け入れていません。"
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "接続拒否またはネットワーク到達不能によりコマンドが失敗しました。リモートサービスが実行されているか、ファイアウォールでブロックされているか、ポート/DNS エラーがないか診断してください。"
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "リポジトリの状態、マージの競合、またはリモートブランチの問題により、Git 操作が失敗しました。"
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Git 操作が失敗しました。作業ツリー、マージの競合、または分岐したブランチを調べ、データを失うことなく安全に同期する手順を提案してください。"
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "コマンドが失敗しました ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "コマンドが終了コード {code} で失敗しました。"
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "コマンド '{cmd}' が終了コード {code} で失敗しました。ターミナルの出力を分析し、エラーの原因を特定して、推奨される解決策を提案してください。"
+
+# 
+msgid "Resource Monitor"
+msgstr "リソースモニター"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "システムリソースモニター"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "リアルタイムリソースモニター (CPU、RAM、ディスク、ネットワーク)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "リアルタイム更新の一時停止 / 再開"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "ローカル (このコンピューター)"
+
+# 
+msgid "Taxa:"
+msgstr "レート:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "プロセッサ (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "コアを読み込み中..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "メモリ (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "メモリを読み込み中..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "ストレージ (ディスク)"
+
+# 
+msgid "Carregando partição..."
+msgstr "パーティションを読み込み中..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "ネットワークトラフィック"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "合計: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 接続中..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ 一時停止"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 アクティブ"
+
+# 
+msgid "Erro"
+msgstr "エラー"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 接続済み"
+
+# 
+msgid "núcleos"
+msgstr "コア"
+
+# 
+msgid "Carga"
+msgstr "負荷"
+
+# 
+msgid "livres"
+msgstr "空き"
+
+# 
+msgid "Montagem"
+msgstr "マウント"
+
+# 
+msgid "Total acumulado"
+msgstr "累積合計"

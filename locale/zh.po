@@ -11545,3 +11545,343 @@ msgstr "适应"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "点击在适应和100%之间切换"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ 使用 sudo 运行"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 使用 AI 诊断"
+
+# 
+msgid "Permissão Negada"
+msgstr "权限被拒绝"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 搜索软件包"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "未找到命令"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "端口已被占用"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "磁盘空间耗尽"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 检查磁盘 (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "缺少 Python 模块"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "缺少 Node.js 模块"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "文件未找到"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 列出目录 (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "网络连接失败"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git 操作错误"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 查看 git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "应用快速修复"
+
+# 
+msgid "Ação rápida"
+msgstr "快捷操作"
+
+# 
+msgid "Comando em execução..."
+msgstr "命令正在运行..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "命令失败，出现错误代码"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "终端中执行的命令。"
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "命令已插入终端提示符。"
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "终端错误主动建议"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "智能检测终端故障，支持一键快捷操作与 AI 诊断"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "错误主动建议"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "检测命令故障（如权限拒绝、端口占用、缺少软件包）并建议立即修复"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "建议显示模式"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "错误建议和快捷操作的呈现方式"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "通知 (Toast) 和终端徽章"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "仅终端徽章"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "仅通知 (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "立即执行快捷操作"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "启用后，点击时立即在终端中执行修复命令；禁用后，仅插入到提示符以供检查"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "命令因缺少超级用户 (root) 权限或写入权限而失败。"
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "命令因权限被拒绝 (Permission Denied) 失败。请检查使用 sudo 提权是否能解决，或者是否需要使用 chmod / chown 更改文件或目录权限。"
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "命令 '{cmd_name}' 未安装或未在 PATH 中找到。"
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "系统中未找到执行的命令。"
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "未找到命令 '{cmd_name}'。请识别哪个 Linux 软件包（apt、dnf、pacman、snap、pip、cargo）提供此二进制文件并建议安全的安装命令。"
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 检查端口 {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "网络端口 {port} 已被其他进程占用。"
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "请求的网络地址或端口已被其他进程占用。"
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "网络端口 {port} 已被占用 (Address already in use)。请帮助识别正在运行的进程，并演示如何释放该端口或使用其他端口。"
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "文件系统或磁盘分区没有足够的可用空间来执行此操作。"
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "磁盘已无可用空间 (No space left on device)。请建议检查已满分区 (df -h) 并查找大文件进行安全清理的命令。"
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Python 模块 '{pkg}' 未在环境中安装。"
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Python 脚本因缺少模块 '{pkg}' 而失败。请建议如何通过 pip 或在适当的虚拟环境中进行安装。"
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "未找到 Node.js 模块 '{pkg}'。"
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js 脚本因缺少模块 '{pkg}' 而失败。请建议如何通过 npm 或 yarn 进行安装。"
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "指定的文件或目录路径不存在，或者相对路径不正确。"
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "命令因文件或目录不存在 (No such file or directory) 而失败。请检查相对路径、输入拼写错误，并建议使用 ls 进行验证。"
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 检查端口 :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "连接被拒绝 (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "无法连接到 localhost 上的端口 :{port}（服务未运行或连接被拒绝）。"
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "网络连接失败或目标服务器当前不接受连接。"
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "命令因连接被拒绝或网络不可达而失败。请诊断远程服务是否正在运行、是否被防火墙阻止，或是否存在端口/DNS 错误。"
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Git 操作因存储库状态、合并冲突或远程分支问题而失败。"
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Git 操作失败。请检查工作区、合并冲突或分叉的分支，并提出无数据丢失的安全同步步骤建议。"
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "命令失败 ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "命令失败，退出代码为 {code}。"
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "命令 '{cmd}' 失败，退出代码为 {code}。请分析终端输出，找出错误原因并提出建议的解决方案。"
+
+# 
+msgid "Resource Monitor"
+msgstr "资源监视器"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "系统资源监视器"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "实时资源监视器（CPU、内存、磁盘、网络）"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "暂停/恢复实时更新"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "本地（这台电脑）"
+
+# 
+msgid "Taxa:"
+msgstr "频率："
+
+# 
+msgid "Processador (CPU)"
+msgstr "处理器 (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "正在加载核心..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "内存 (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "正在加载内存..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "存储 (磁盘)"
+
+# 
+msgid "Carregando partição..."
+msgstr "正在加载分区..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "网络流量"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "总量：↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 正在连接..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ 已暂停"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 活跃"
+
+# 
+msgid "Erro"
+msgstr "错误"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 已连接"
+
+# 
+msgid "núcleos"
+msgstr "核心"
+
+# 
+msgid "Carga"
+msgstr "负载"
+
+# 
+msgid "livres"
+msgstr "可用"
+
+# 
+msgid "Montagem"
+msgstr "挂载点"
+
+# 
+msgid "Total acumulado"
+msgstr "累计总量"

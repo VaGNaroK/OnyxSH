@@ -11597,3 +11597,343 @@ msgstr "Tilpas"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Klik for at skifte mellem Tilpas og 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Kør med sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Diagnosticer med AI"
+
+# 
+msgid "Permissão Negada"
+msgstr "Tilladelse nægtet"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Søg efter pakke"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Kommando ikke fundet"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Port allerede i brug"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Diskplads opbrugt"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Tjek disk (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Manglende Python-modul"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Manglende Node.js-modul"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Fil ikke fundet"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Oplist mappe (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Netværksforbindelsesfejl"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git-handlingsfejl"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Vis git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Anvend hurtig rettelse"
+
+# 
+msgid "Ação rápida"
+msgstr "Hurtig handling"
+
+# 
+msgid "Comando em execução..."
+msgstr "Kommando kører..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Kommandoen mislykkedes med fejlkode"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Kommando udført i terminal."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Kommando indsat i terminalprompten."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Proaktive forslag til terminalfejl"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Smart registrering af terminalfejl med 1-klik hurtige handlinger og AI-diagnostik"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Proaktive fejl-forslag"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Registrer kommandofejl (f.eks. tilladelse nægtet, optaget port, manglende pakke) og foreslå øjeblikkelig rettelse"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Visningstilstand for forslag"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Hvordan fejl-forslag og hurtige handlinger skal præsenteres"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Notifikation (Toast) og terminalmærke"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Kun terminalmærke"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Kun notifikation (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Udfør hurtige handlinger med det samme"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Hvis aktiveret, udføres rettelseskommandoen i terminalen med det samme ved klik; hvis deaktiveret, indsættes den kun til gennemsyn"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Kommandoen mislykkedes på grund af manglende superbruger-rettigheder (root) eller skriveadgang."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Kommandoen mislykkedes med Tilladelse nægtet. Tjek om kørsel med sudo løser det, eller om fil-/mapperettigheder skal ændres med chmod eller chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Kommandoen '{cmd_name}' er ikke installeret eller blev ikke fundet i PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Den udførte kommando blev ikke fundet på systemet."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Kommandoen '{cmd_name}' blev ikke fundet. Identificer hvilken Linux-pakke (apt, dnf, pacman, snap, pip, cargo) der leverer denne binære fil, og foreslå den sikre installationskommando."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Undersøg port {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Netværksport {port} bruges allerede af en anden proces."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Den anmodede netværksadresse eller port bruges allerede af en anden proces."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Netværksport {port} er optaget (Address already in use). Hjælp med at identificere hvilken proces der kører på den, og vis hvordan porten frigøres."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Filsystemet eller diskpartitionen har ikke fri plads tilbage til denne handling."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Disken har ikke mere ledig plads (No space left on device). Foreslå kommandoer til at inspicere fulde partitioner (df -h) og finde store filer til sikker oprydning."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Python-modulet '{pkg}' er ikke installeret i miljøet."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Python-scriptet mislykkedes på grund af manglende modul '{pkg}'. Foreslå hvordan det installeres via pip eller i det rette virtuelle miljø."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Node.js-modulet '{pkg}' blev ikke fundet."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js-scriptet mislykkedes på grund af manglende modul '{pkg}'. Foreslå hvordan det installeres via npm eller yarn."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Den angivne fil eller mappesti findes ikke, eller den relative sti er forkert."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Kommandoen mislykkedes fordi filen eller mappen ikke findes (No such file or directory). Tjek relative stier, tastefejl og foreslå validering med ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Tjek port :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Forbindelse nægtet (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Kunne ikke oprette forbindelse til port :{port} på localhost (tjeneste inaktiv eller forbindelse nægtet)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Netværksforbindelsen mislykkedes, eller destinationsserveren accepterer ikke forbindelser i øjeblikket."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Kommandoen mislykkedes på grund af afvist forbindelse eller utilgængeligt netværk. Undersøg om fjerntjenesten kører, er blokeret af firewall eller har port-/DNS-fejl."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Git-handlingen mislykkedes på grund af lagerets tilstand, flettekonflikter eller fjernforgreningsproblemer."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Git-handlingen mislykkedes. Undersøg arbejdstræet, flettekonflikter eller divergerende grene og foreslå sikre synkroniseringstrin uden datatab."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Kommando mislykkedes ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Kommandoen mislykkedes med afslutningskode {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Kommandoen '{cmd}' mislykkedes med afslutningskode {code}. Analyser terminalens output, identificer årsagen til fejlen og foreslå den anbefalede løsning."
+
+# 
+msgid "Resource Monitor"
+msgstr "Ressourceovervågning"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Systemressourceovervågning"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Ressourceovervågning i realtid (CPU, RAM, disk, netværk)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Sæt på pause / genoptag opdateringer i realtid"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Lokal (Denne computer)"
+
+# 
+msgid "Taxa:"
+msgstr "Frekvens:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Processor (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Indlæser kerner..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Hukommelse (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Indlæser hukommelse..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Lager (Disk)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Indlæser partition..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Netværkstrafik"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "I alt: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Opretter forbindelse..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Sat på pause"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Aktiv"
+
+# 
+msgid "Erro"
+msgstr "Fejl"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Forbundet"
+
+# 
+msgid "núcleos"
+msgstr "kerner"
+
+# 
+msgid "Carga"
+msgstr "Belastning"
+
+# 
+msgid "livres"
+msgstr "ledig"
+
+# 
+msgid "Montagem"
+msgstr "Monteringspunkt"
+
+# 
+msgid "Total acumulado"
+msgstr "Akkumuleret i alt"

@@ -11597,3 +11597,343 @@ msgstr "Sovita"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Napsauta vaihtaaksesi Sovita ja 100% välillä"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Suorita sudo-komennolla"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Diagnosoi tekoälyllä"
+
+# 
+msgid "Permissão Negada"
+msgstr "Lupa evätty"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Hae pakettia"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Komentoa ei löydy"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Portti on jo käytössä"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Levytila vähissä"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Tarkista levy (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Puuttuva Python-moduuli"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Puuttuva Node.js-moduuli"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Tiedostoa ei löydy"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Listaa hakemisto (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Verkkoyhteyden virhe"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git-toiminnon virhe"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Näytä git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Käytä pikakorjausta"
+
+# 
+msgid "Ação rápida"
+msgstr "Pikatoiminto"
+
+# 
+msgid "Comando em execução..."
+msgstr "Komentoa suoritetaan..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Komento epäonnistui virhekoodilla"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Komento suoritettu päätteessä."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Komento lisätty päätekehotteeseen."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Proaktiiviset ehdotukset päätevirheille"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Älykäs päätevirheiden tunnistus 1 napsautuksen pikatoiminnoilla ja tekoälydiagnostiikalla"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Proaktiiviset virhe-ehdotukset"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Tunnista komentovirheet (esim. lupa evätty, portti käytössä, puuttuva paketti) ja ehdota välitöntä korjausta"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Ehdotusten näyttötila"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Miten virhe-ehdotukset ja pikatoiminnot tulisi esittää"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Ilmoitus (Toast) ja päätemerkki"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Vain päätemerkki"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Vain ilmoitus (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Suorita pikatoiminnot välittömästi"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Jos käytössä, suorittaa korjauskomennon päätteessä heti napsautettaessa; jos poistettu käytöstä, lisää sen vain kehotteeseen tarkistusta varten"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Komento epäonnistui pääkäyttäjän (root) oikeuksien tai kirjoitusoikeuksien puuttumisen vuoksi."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Komento epäonnistui (Lupa evätty). Tarkista ratkaiseeko suoritus sudolla ongelman tai pitääkö tiedosto-oikeuksia muuttaa chmod- tai chown-komennolla."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Komentoa '{cmd_name}' ei ole asennettu tai sitä ei löydy PATH-muuttujasta."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Suoritettua komentoa ei löytynyt järjestelmästä."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Komentoa '{cmd_name}' ei löytynyt. Tunnista mikä Linux-paketti (apt, dnf, pacman, snap, pip, cargo) tarjoaa tämän binaarin ja ehdota turvallista asennuskomentoa."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Tarkista portti {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Verkkoportti {port} on jo toisen prosessin käytössä."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Pyydetty verkko-osoite tai portti on jo toisen prosessin käytössä."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Verkkoportti {port} on varattu (Address already in use). Auta tunnistamaan siinä pyörivä prosessi ja näytä miten portti vapautetaan tai vaihdetaan."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Tiedostojärjestelmässä tai levyosiossa ei ole vapaata tilaa tälle toiminnolle."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Levyllä ei ole vapaata tilaa (No space left on device). Ehdota komentoja täysien osioiden tarkistamiseen (df -h) ja suurten tiedostojen löytämiseen turvallista siivousta varten."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Python-moduulia '{pkg}' ei ole asennettu ympäristöön."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Python-skripti epäonnistui puuttuvan moduulin '{pkg}' vuoksi. Ehdota miten se asennetaan pipin kautta tai virtuaaliympäristössä."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Node.js-moduulia '{pkg}' ei löytynyt."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js-skripti epäonnistui puuttuvan moduulin '{pkg}' vuoksi. Ehdota miten se asennetaan npm- tai yarn-työkalulla."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Määritettyä tiedostoa tai hakemistopolkua ei ole olemassa tai suhteellinen polku on virheellinen."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Komento epäonnistui, koska tiedostoa tai hakemistoa ei ole olemassa (No such file or directory). Tarkista suhteelliset polut, kirjoitusvirheet ja ehdota tarkistusta ls-komennolla."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Tarkista portti :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Yhteys estetty (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Yhteyttä porttiin :{port} localhostissa ei voitu muodostaa (palvelu ei ole aktiivinen tai yhteys estetty)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Verkkoyhteys epäonnistui tai kohdepalvelin ei ota tällä hetkellä vastaan yhteyksiä."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Komento epäonnistui hylätyn yhteyden tai tavoittamattoman verkon vuoksi. Selvitä onko etäpalvelu käynnissä, palomuurin estämä tai onko kyseessä portti-/DNS-virhe."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Git-toiminto epäonnistui tietovaraston tilan, yhdistämisristiriitojen tai etähaarojen vuoksi."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Git-toiminto epäonnistui. Tarkista työhakemisto, yhdistämisristiriidat tai eroavat haarat ja ehdota turvallisia synkronointivaiheita ilman tietojen menetystä."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Komento epäonnistui ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Komento epäonnistui poistumiskoodilla {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Komento '{cmd}' epäonnistui poistumiskoodilla {code}. Analysoi päätteen tulosteet, tunnista virheen syy ja ehdota suositeltua ratkaisua."
+
+# 
+msgid "Resource Monitor"
+msgstr "Resurssienvalvonta"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Järjestelmäresurssien valvonta"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Rereaaliaikainen resurssienvalvonta (CPU, RAM, levy, verkko)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Keskeytä / jatka reaaliaikaisia päivityksiä"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Paikallinen (Tämä tietokone)"
+
+# 
+msgid "Taxa:"
+msgstr "Taajuus:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Suoritin (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Ladataan ytimiä..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Muisti (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Ladataan muistia..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Tallennustila (Levy)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Ladataan osiota..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Verkkoliikenne"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Yhteensä: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Yhdistetään..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Keskeytetty"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Aktiivinen"
+
+# 
+msgid "Erro"
+msgstr "Virhe"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Yhdistetty"
+
+# 
+msgid "núcleos"
+msgstr "ydintä"
+
+# 
+msgid "Carga"
+msgstr "Kuorma"
+
+# 
+msgid "livres"
+msgstr "vapaana"
+
+# 
+msgid "Montagem"
+msgstr "Liitoskohta"
+
+# 
+msgid "Total acumulado"
+msgstr "Kertynyt yhteensä"

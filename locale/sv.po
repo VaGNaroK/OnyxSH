@@ -11592,3 +11592,343 @@ msgstr "Anpassa"
 # 
 msgid "Click to toggle between Fit and 100%"
 msgstr "Klicka för att växla mellan Anpassa och 100%"
+
+# 
+msgid "⚡ Executar com sudo"
+msgstr "⚡ Kör med sudo"
+
+# 
+msgid "🤖 Diagnosticar com IA"
+msgstr "🤖 Diagnostisera med AI"
+
+# 
+msgid "Permissão Negada"
+msgstr "Åtkomst nekad"
+
+# 
+msgid "🔍 Buscar Pacote"
+msgstr "🔍 Sök paket"
+
+# 
+msgid "Comando Não Encontrado"
+msgstr "Kommandot hittades inte"
+
+# 
+msgid "Porta Já em Uso"
+msgstr "Porten används redan"
+
+# 
+msgid "Espaço em Disco Esgotado"
+msgstr "Diskutrymmet slut"
+
+# 
+msgid "💾 Verificar Disco (df -h)"
+msgstr "💾 Kontrollera disk (df -h)"
+
+# 
+msgid "Módulo Python Ausente"
+msgstr "Python-modul saknas"
+
+# 
+msgid "Módulo Node.js Ausente"
+msgstr "Node.js-modul saknas"
+
+# 
+msgid "Arquivo Não Encontrado"
+msgstr "Filen hittades inte"
+
+# 
+msgid "📂 Listar Diretório (ls -la)"
+msgstr "📂 Lista katalog (ls -la)"
+
+# 
+msgid "Falha de Conexão de Rede"
+msgstr "Nätverksanslutningsfel"
+
+# 
+msgid "Erro de Operação Git"
+msgstr "Git-åtgärdsfel"
+
+# 
+msgid "🌿 Ver git status"
+msgstr "🌿 Visa git status"
+
+# 
+msgid "Aplicar correção rápida"
+msgstr "Använd snabbkorrigering"
+
+# 
+msgid "Ação rápida"
+msgstr "Snabbåtgärd"
+
+# 
+msgid "Comando em execução..."
+msgstr "Kommando körs..."
+
+# 
+msgid "O comando falhou com código de erro"
+msgstr "Kommandot misslyckades med felkod"
+
+# 
+msgid "Comando executado no terminal."
+msgstr "Kommando kört i terminal."
+
+# 
+msgid "Comando inserido no prompt do terminal."
+msgstr "Kommando infogat i terminalprompten."
+
+# 
+msgid "Sugestões Proativas para Erros de Terminal"
+msgstr "Proaktiva förslag för terminalfel"
+
+# 
+msgid "Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"
+msgstr "Smart identifiering av terminalfel med snabbåtgärder med 1 klick och AI-diagnostik"
+
+# 
+msgid "Sugestões Proativas para Erros"
+msgstr "Proaktiva felförslag"
+
+# 
+msgid "Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"
+msgstr "Upptäck kommandofel (t.ex. åtkomst nekad, upptagen port, saknat paket) och föreslå omedelbar korrigering"
+
+# 
+msgid "Modo de Exibição das Sugestões"
+msgstr "Visningsläge för förslag"
+
+# 
+msgid "Como as sugestões de erro e ações rápidas devem ser apresentadas"
+msgstr "Hur felförslag och snabbåtgärder ska presenteras"
+
+# 
+msgid "Notificação (Toast) e Badge no Terminal"
+msgstr "Avisering (Toast) och terminalmärke"
+
+# 
+msgid "Apenas Badge no Terminal"
+msgstr "Endast terminalmärke"
+
+# 
+msgid "Apenas Notificação (Toast)"
+msgstr "Endast avisering (Toast)"
+
+# 
+msgid "Executar Ações Rápidas Imediatamente"
+msgstr "Kör snabbåtgärder omedelbart"
+
+# 
+msgid "Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"
+msgstr "Om aktiverat körs korrigeringskommandot i terminalen omedelbart vid klick; om inaktiverat infogas det endast för granskning"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root) ou permissão de escrita."
+msgstr "Kommandot misslyckades på grund av brist på root-behörighet eller skrivbehörighet."
+
+# 
+msgid "O comando falhou com Permissão Negada (Permission Denied). Verifique se elevar com sudo resolve, ou se é necessário alterar permissões de arquivo/diretório com chmod ou chown."
+msgstr "Kommandot misslyckades med Åtkomst nekad. Kontrollera om körning med sudo löser det, eller om fil-/katalogbehörigheter måste ändras med chmod eller chown."
+
+# 
+msgid "O comando '{cmd_name}' não está instalado ou não foi encontrado no PATH."
+msgstr "Kommandot '{cmd_name}' är inte installerat eller hittades inte i PATH."
+
+# 
+msgid "O comando executado não foi encontrado no sistema."
+msgstr "Det körda kommandot hittades inte på systemet."
+
+# 
+msgid "O comando '{cmd_name}' não foi encontrado. Identifique qual pacote Linux (apt, dnf, pacman, snap, pip, cargo) fornece este binário e sugira o comando seguro de instalação."
+msgstr "Kommandot '{cmd_name}' hittades inte. Identifiera vilket Linux-paket (apt, dnf, pacman, snap, pip, cargo) som tillhandahåller denna binär och föreslå det säkra installationskommandot."
+
+# 
+msgid "🔍 Inspecionar Porta {port}"
+msgstr "🔍 Inspektera port {port}"
+
+# 
+msgid "A porta de rede {port} já está sendo utilizada por outro processo."
+msgstr "Nätverksport {port} används redan av en annan process."
+
+# 
+msgid "O endereço ou porta de rede solicitado já está sendo utilizado por outro processo."
+msgstr "Den begärda nätverksadressen eller porten används redan av en annan process."
+
+# 
+msgid "A porta de rede {port} está ocupada (Address already in use). Ajude a identificar qual processo está rodando nela e mostre como liberar a porta ou usar outra."
+msgstr "Nätverksport {port} är upptagen (Address already in use). Hjälp till att identifiera vilken process som körs och visa hur porten frigörs eller byts."
+
+# 
+msgid "O sistema de arquivos ou a partição de disco não possui espaço livre para esta operação."
+msgstr "Filsystemet eller diskpartitionen har inget ledigt utrymme kvar för denna åtgärd."
+
+# 
+msgid "O disco está sem espaço livre (No space left on device). Sugira comandos para verificar as partições mais cheias (df -h) e encontrar arquivos pesados para limpeza segura."
+msgstr "Disken har inget ledigt utrymme kvar (No space left on device). Föreslå kommandon för att inspektera fulla partitioner (df -h) och hitta stora filer för säker rensning."
+
+# 
+msgid "📦 pip install {pkg}"
+msgstr "📦 pip install {pkg}"
+
+# 
+msgid "O módulo Python '{pkg}' não está instalado no ambiente."
+msgstr "Python-modulen '{pkg}' är inte installerad i miljön."
+
+# 
+msgid "O script Python falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via pip ou no ambiente virtual apropriado."
+msgstr "Python-skriptet misslyckades på grund av saknad modul '{pkg}'. Föreslå hur den installeras via pip eller i lämplig virtuell miljö."
+
+# 
+msgid "📦 npm install {pkg}"
+msgstr "📦 npm install {pkg}"
+
+# 
+msgid "O módulo Node.js '{pkg}' não foi encontrado."
+msgstr "Node.js-modulen '{pkg}' hittades inte."
+
+# 
+msgid "O script Node.js falhou por falta do módulo '{pkg}'. Sugira como instalá-lo via npm ou yarn."
+msgstr "Node.js-skriptet misslyckades på grund av saknad modul '{pkg}'. Föreslå hur den installeras via npm eller yarn."
+
+# 
+msgid "O arquivo ou caminho de diretório especificado não existe ou o caminho relativo está incorreto."
+msgstr "Den angivna filen eller katalogsökvägen finns inte eller så är den relativa sökvägen felaktig."
+
+# 
+msgid "O comando falhou porque o arquivo ou diretório não existe (No such file or directory). Verifique caminhos relativos, erros de digitação e sugira validações com ls."
+msgstr "Kommandot misslyckades eftersom filen eller katalogen inte finns (No such file or directory). Kontrollera relativa sökvägar, stavfel och föreslå kontroll med ls."
+
+# 
+msgid "🔍 Verificar Porta :{port}"
+msgstr "🔍 Kontrollera port :{port}"
+
+# 
+msgid "Conexão Recusada (:{port})"
+msgstr "Anslutning nekad (:{port})"
+
+# 
+msgid "Não foi possível conectar à porta :{port} no localhost (serviço inativo ou conexão recusada)."
+msgstr "Kunde inte ansluta till port :{port} på localhost (tjänst inaktiv eller anslutning nekad)."
+
+# 
+msgid "A conexão de rede falhou ou o servidor de destino não está aceitando conexões no momento."
+msgstr "Nätverksanslutningen misslyckades eller destinationsservern accepterar för närvarande inte anslutningar."
+
+# 
+msgid "O comando falhou por recusa de conexão ou rede inalcançável (Connection refused). Diagnostique se o serviço remoto está ativo, se há bloqueio de firewall ou erro de porta/DNS."
+msgstr "Kommandot misslyckades på grund av nekad anslutning eller onåbart nätverk. Diagnostisera om fjärrtjänsten körs, blockeras av brandvägg eller har port-/DNS-fel."
+
+# 
+msgid "A operação Git falhou devido ao estado do repositório, conflitos de merge ou ramificação remota."
+msgstr "Git-åtgärden misslyckades på grund av arkivets tillstånd, sammanslagningskonflikter eller fjärrgrenar."
+
+# 
+msgid "A operação Git falhou. Analise a árvore de trabalho, conflitos de merge ou branches divergentes e sugira passos seguros para sincronização sem perda de dados."
+msgstr "Git-åtgärden misslyckades. Inspektera arbetsträdet, sammanslagningskonflikter eller divergerande grenar och föreslå säkra synkroniseringssteg utan dataförlust."
+
+# 
+msgid "Comando Falhou ({code})"
+msgstr "Kommandot misslyckades ({code})"
+
+# 
+msgid "O comando falhou com código de saída {code}."
+msgstr "Kommandot misslyckades med slutkod {code}."
+
+# 
+msgid "O comando '{cmd}' falhou com código de saída {code}. Analise as saídas do terminal, identifique a causa do erro e proponha a solução recomendada."
+msgstr "Kommandot '{cmd}' misslyckades med slutkod {code}. Analysera terminalutdata, identifiera orsaken till felet och föreslå den rekommenderade lösningen."
+
+# 
+msgid "Resource Monitor"
+msgstr "Resursövervakare"
+
+# 
+msgid "Monitor de Recursos do Sistema"
+msgstr "Systemresursövervakare"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (CPU, RAM, Disco, Rede)"
+msgstr "Realtidsresursövervakare (CPU, RAM, disk, nätverk)"
+
+# 
+msgid "Pausar / Retomar atualizações em tempo real"
+msgstr "Pausa / återuppta realtidsuppdateringar"
+
+# 
+msgid "Local (Este Computador)"
+msgstr "Lokal (Den här datorn)"
+
+# 
+msgid "Taxa:"
+msgstr "Frekvens:"
+
+# 
+msgid "Processador (CPU)"
+msgstr "Processor (CPU)"
+
+# 
+msgid "Carregando núcleos..."
+msgstr "Läser in kärnor..."
+
+# 
+msgid "Memória (RAM)"
+msgstr "Minne (RAM)"
+
+# 
+msgid "Carregando memória..."
+msgstr "Läser in minne..."
+
+# 
+msgid "Armazenamento (Disco)"
+msgstr "Lagring (Disk)"
+
+# 
+msgid "Carregando partição..."
+msgstr "Läser in partition..."
+
+# 
+msgid "Tráfego de Rede"
+msgstr "Nätverkstrafik"
+
+# 
+msgid "Total: ↓ 0 B  ↑ 0 B"
+msgstr "Totalt: ↓ 0 B  ↑ 0 B"
+
+# 
+msgid "🟡 Conectando..."
+msgstr "🟡 Ansluter..."
+
+# 
+msgid "⏸️ Pausado"
+msgstr "⏸️ Pausad"
+
+# 
+msgid "🟢 Ativo"
+msgstr "🟢 Aktiv"
+
+# 
+msgid "Erro"
+msgstr "Fel"
+
+# 
+msgid "🟢 Conectado"
+msgstr "🟢 Ansluten"
+
+# 
+msgid "núcleos"
+msgstr "kärnor"
+
+# 
+msgid "Carga"
+msgstr "Belastning"
+
+# 
+msgid "livres"
+msgstr "ledigt"
+
+# 
+msgid "Montagem"
+msgstr "Monteringspunkt"
+
+# 
+msgid "Total acumulado"
+msgstr "Ackumulerat totalt"
