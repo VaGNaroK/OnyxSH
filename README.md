@@ -89,6 +89,18 @@ O **OnyxSH** é um terminal moderno, intuitivo e de alto desempenho construído 
 
 ---
 
+### 📘 Caderno de Bordo & Exportação com Anotações (Runbook)
+* **Documentação Técnica em 1 Clique**: Transforma comandos e saídas do terminal em relatórios operacionais estruturados, playbooks técnicos e documentação de post-mortems.
+* **Metadados Executivos**: Título, operador/autor, objetivo, status do procedimento (Concluído, Em Andamento, Incidente Investigado, Manutenção Preventiva), observações e conclusão.
+* **Anotações Contextuais por Passo**: Cards expansíveis de cada comando com checkboxes para selecionar passos e editor de comentários técnicos.
+* **Formatos de Alta Fidelidade**:
+  - **Markdown Executivo (`.md`)**: Badges de status, callouts e blocos retráteis `<details>` para saídas com mais de 15 linhas.
+  - **HTML Interativo Standalone (`.html`)**: Relatório dark profissional com folha de estilos `@media print` pronta para PDF.
+  - **Log Estruturado (`.log`)**: Texto puro formatado para anexos em tickets (Jira, ServiceNow) e auditoria.
+* **Acesso Direto**: Disponível no menu de contexto do terminal, na Command Palette (`Ctrl + Shift + P`) e integrado ao diálogo de exportação.
+
+---
+
 ### 🤖 Assistente de IA Integrado & Gestão de VRAM
 
 <img width="1457" height="699" alt="Painel do Assistente de IA" src="https://github.com/user-attachments/assets/762fa599-a266-41c3-83c2-f28fe825f0f6" />

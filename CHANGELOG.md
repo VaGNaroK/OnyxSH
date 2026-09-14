@@ -7,6 +7,16 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [Unreleased]
 
 ### Adicionado
+- **Caderno de Bordo / Exportação de Sessão com Anotações e Narrativa (Runbook - TODO 1.9)**:
+  - 📘 **Transformação de Sessões em Documentação Viva**: Extração estruturada de comandos e saídas do terminal via marcadores semânticos OSC 133 e fallback inteligente de prompt para gerar relatórios operacionais completos, playbooks técnicos, documentações pós-incidente e relatórios de auditoria (`src/onyxsh/terminal/runbook.py`, `src/onyxsh/terminal/exporter.py`, `src/onyxsh/ui/dialogs/export_dialog.py`, `src/onyxsh/window.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/menus.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_terminal_runbook.py`).
+  - 📝 **Metadados Executivos e Anotações por Passo**: Campos completos para título do procedimento, operador/autor, objetivo, status do procedimento (Concluído, Em Andamento, Incidente Investigado, Manutenção Preventiva), observações preliminares e notas finais/conclusão, com cards expansíveis e campos para comentários técnicos individuais por comando.
+  - 📑 **Múltiplos Formatos de Exportação Executiva**:
+    - **Markdown Executivo (`.md`)**: badges de status, callouts para observações/conclusão, blocos retráteis `<details>` para saídas longas (> 15 linhas) e blocos de código com linguagem shell.
+    - **HTML Interativo Standalone (`.html`)**: relatório moderno e elegante em tema dark independente, com tipografia profissional e folha de estilos `@media print` otimizada para impressão direta e exportação em PDF.
+    - **Log Estruturado de Auditoria (`.log`)**: texto puro limpo adequado para sistemas de chamados (Jira, ServiceNow) e anexos de auditoria de infraestrutura.
+  - 🎛️ **Alternador de Modos Nativos**: Interface unificada com `Gtk.StackSwitcher` entre "📘 Caderno de Bordo (Runbook)" e "📜 Exportação Direta" (preservando 100% dos formatos legados TXT, Log, MD, HTML, Asciinema).
+  - ⌨️ **Acesso Rápido Global**: Integrado à Command Palette (<kbd>Ctrl + Shift + P</kbd>), Menu de Contexto do Terminal ("📘 Export Session as Runbook...") e atalho de janela `win.export-terminal-runbook`.
+  - 🌐 **Internacionalização Completa**: 86 novas chaves traduzidas em todos os 28 idiomas do OnyxSH.
 - **Dashboard de Métricas de Recursos em Tempo Real (TODO 2.7)**:
   - 📊 **Monitoramento de Hardware em Tempo Real com Zero-Overhead**: Monitoramento contínuo de CPU, Memória RAM & Swap, Armazenamento em Disco e Tráfego de Rede (I/O) em tempo real, sem travar nem degradar o desempenho ou a taxa de quadros do terminal (`src/onyxsh/system/metrics.py`, `src/onyxsh/ui/widgets/resource_dashboard.py`, `src/onyxsh/ui/widgets/sparkline.py`, `src/onyxsh/ui/dialogs/resource_dashboard_dialog.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/window_ui.py`, `tests/test_system_metrics.py`).
   - 🧵 **Coleta Desacoplada e Assíncrona (`MetricsWorkerThread`)**: Toda a coleta roda fora do loop principal do GTK em uma thread trabalhadora dedicada com `threading.Event`, com despacho thread-safe via `GLib.idle_add`.

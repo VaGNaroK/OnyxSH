@@ -89,6 +89,18 @@
 
 ---
 
+### 📘 Session Runbook & Annotated Export
+* **1-Click Technical Documentation**: Transforms terminal commands and outputs into structured operational runbooks, post-mortems, and technical playbooks.
+* **Executive Metadata**: Procedure title, operator/author, objective, procedure status (Completed, In Progress, Investigated Incident, Preventive Maintenance), and concluding observations.
+* **Contextual Step Annotations**: Expandable cards for each command with inclusion toggles and technical commentary editors.
+* **High-Fidelity Formats**:
+  - **Executive Markdown (`.md`)**: Status badges, callouts, and collapsible `<details>` blocks for outputs longer than 15 lines.
+  - **Interactive Standalone HTML (`.html`)**: Polished dark-themed report with `@media print` styling ready for PDF export and printing.
+  - **Structured Log (`.log`)**: Clean plain-text formatting tailored for ticketing attachments (Jira, ServiceNow) and infrastructure audit trails.
+* **Direct Access**: Accessible via the terminal context menu, Command Palette (`Ctrl + Shift + P`), and integrated export dialog.
+
+---
+
 ### 🤖 Integrated AI Assistant & VRAM Management
 
 <img width="1457" height="699" alt="AI Chat Assistant Panel" src="https://github.com/user-attachments/assets/762fa599-a266-41c3-83c2-f28fe825f0f6" />

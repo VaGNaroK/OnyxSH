@@ -330,9 +330,10 @@ class ExportTerminalDialog(BaseDialog):
                 time_str = f" • 🕒 {step.timestamp_str}" if step.timestamp_str else ""
                 sub_info = f"{status_str}{dur_str}{time_str}"
 
+                safe_cmd = GLib.markup_escape_text(step.command) if step.command else ""
                 expander = Adw.ExpanderRow(
-                    title=f"#{idx}  {step.command}",
-                    subtitle=sub_info,
+                    title=f"#{idx}  {safe_cmd}",
+                    subtitle=GLib.markup_escape_text(sub_info),
                 )
 
                 check = Gtk.CheckButton(active=step.included)
@@ -350,9 +351,10 @@ class ExportTerminalDialog(BaseDialog):
                 if out_snippet:
                     first_line = out_snippet.splitlines()[0][:90]
                     lines_count = len(out_snippet.splitlines())
+                    safe_first_line = GLib.markup_escape_text(first_line)
                     out_row = Adw.ActionRow(
                         title=_("Saída do Comando"),
-                        subtitle=f"{first_line}... ({lines_count} {_('linhas')})",
+                        subtitle=f"{safe_first_line}... ({lines_count} {_('linhas')})",
                     )
                     expander.add_row(out_row)
 
@@ -365,7 +367,9 @@ class ExportTerminalDialog(BaseDialog):
         box.append(steps_group)
 
         # 3. Conclusion Group
-        conclusion_group = Adw.PreferencesGroup(title=_("Conclusão & Lições Aprendidas"))
+        conclusion_group = Adw.PreferencesGroup(
+            title=GLib.markup_escape_text(_("Conclusão & Lições Aprendidas"))
+        )
         self.rb_conclusion_row = Adw.EntryRow(title=_("Notas Finais do Procedimento"))
         self.rb_conclusion_row.set_text(self.runbook_data.metadata.conclusion)
         self.rb_conclusion_row.connect("changed", self._on_runbook_conclusion_changed)
@@ -377,7 +381,10 @@ class ExportTerminalDialog(BaseDialog):
         first_rb_check = None
 
         for fmt_id, title, desc, _ext, _mime in self.RUNBOOK_FORMAT_OPTIONS:
-            row = Adw.ActionRow(title=title, subtitle=desc)
+            row = Adw.ActionRow(
+                title=GLib.markup_escape_text(title),
+                subtitle=GLib.markup_escape_text(desc),
+            )
             if first_rb_check is None:
                 check = Gtk.CheckButton(active=(fmt_id == self.selected_runbook_format))
                 first_rb_check = check
@@ -394,7 +401,9 @@ class ExportTerminalDialog(BaseDialog):
 
         self.collapse_switch = Adw.SwitchRow(
             title=_("Recolher saídas longas de comandos"),
-            subtitle=_("Usa blocos retráteis (<details>) para saídas com mais de 15 linhas"),
+            subtitle=GLib.markup_escape_text(
+                _("Usa blocos retráteis (<details>) para saídas com mais de 15 linhas")
+            ),
             active=True,
         )
         self.collapse_switch.connect("notify::active", lambda *_: self._update_preview())
