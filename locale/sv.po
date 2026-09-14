@@ -12276,3 +12276,119 @@ msgstr "återstående utdata har trunkerats i förhandsgranskningen"
 # 
 msgid "📘 Export Session as Runbook..."
 msgstr "📘 Exportera session som runbook..."
+
+# 
+msgid "Test Connection (Ping / Latency)"
+msgstr "Test Connection (Ping / Latency)"
+
+# 
+msgid "SSH & Health Check"
+msgstr "SSH & Health Check"
+
+# 
+msgid "Health & Latency Monitoring (RTT)"
+msgstr "Health & Latency Monitoring (RTT)"
+
+# 
+msgid "Continuously measures latency and detects signal loss on SSH connections"
+msgstr "Continuously measures latency and detects signal loss on SSH connections"
+
+# 
+msgid "Latency Check Interval"
+msgstr "Latency Check Interval"
+
+# 
+msgid "Seconds between background RTT latency measurements"
+msgstr "Seconds between background RTT latency measurements"
+
+# 
+msgid "Smart Auto-Reconnect on Drops"
+msgstr "Smart Auto-Reconnect on Drops"
+
+# 
+msgid "Attempts to reconnect dropped SSH sessions with countdown and on-screen alert"
+msgstr "Attempts to reconnect dropped SSH sessions with countdown and on-screen alert"
+
+# 
+msgid "Max Reconnect Attempts"
+msgstr "Max Reconnect Attempts"
+
+# 
+msgid "Number of attempts before giving up auto-reconnect"
+msgstr "Number of attempts before giving up auto-reconnect"
+
+# 
+msgid "SSH KeepAlive (ServerAliveInterval)"
+msgstr "SSH KeepAlive (ServerAliveInterval)"
+
+# 
+msgid "Interval in seconds to send KeepAlive probe packets"
+msgstr "Interval in seconds to send KeepAlive probe packets"
+
+# 
+msgid "Dual-Pane Mode (Local ⇄ Remote)"
+msgstr "Dual-Pane Mode (Local ⇄ Remote)"
+
+# 
+msgid "💻 Local"
+msgstr "💻 Local"
+
+# 
+msgid "Home Directory"
+msgstr "Home Directory"
+
+# 
+msgid "Up One Level"
+msgstr "Up One Level"
+
+# 
+msgid "Filter local..."
+msgstr "Filter local..."
+
+# 
+msgid "Upload Selected to Remote Folder (➔)"
+msgstr "Upload Selected to Remote Folder (➔)"
+
+# 
+msgid "Download Selected to Local Folder (⬅)"
+msgstr "Download Selected to Local Folder (⬅)"
+
+# 
+msgid "Compare Files (Diff Local ⇄ Remote)"
+msgstr "Compare Files (Diff Local ⇄ Remote)"
+
+# 
+msgid "Please select local files to upload."
+msgstr "Please select local files to upload."
+
+# 
+msgid "Please select remote files to download."
+msgstr "Please select remote files to download."
+
+# 
+msgid "Please select a file to compare."
+msgstr "Please select a file to compare."
+
+# 
+msgid "Local and remote files are identical."
+msgstr "Local and remote files are identical."
+
+# 
+msgid "Cannot compare directories directly."
+msgstr "Cannot compare directories directly."
+
+# 
+msgid "Local file is too large for text diff (> 5MB)."
+msgstr "Local file is too large for text diff (> 5MB)."
+
+# 
+msgid "Remote file is too large for text diff (> 5MB)."
+msgstr "Remote file is too large for text diff (> 5MB)."
+
+# 
+msgid "Diff is only supported for text and code files (binary detected)."
+msgstr "Diff is only supported for text and code files (binary detected)."
+
+# 
+msgid "Failed to download remote file for comparison: {}"
+msgstr "Failed to download remote file for comparison: {}"

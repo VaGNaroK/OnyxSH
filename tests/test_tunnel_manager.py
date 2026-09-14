@@ -140,7 +140,31 @@ class TestSSHTunnelManager(unittest.TestCase):
         unreg = manager.unregister_tunnel(tid)
         self.assertTrue(unreg)
         self.assertIsNone(manager.get_tunnel(tid))
+        manager.shutdown()
+
+    def test_tunnel_manager_shutdown_and_health_monitor_stop(self):
+        """Test that stop_health_monitor and shutdown clean up resources properly."""
+        manager = SSHTunnelManager()
+        self.assertIsNotNone(manager._health_check_source_id)
+
+        # Calling stop_health_monitor should remove source and set to None
+        manager.stop_health_monitor()
+        self.assertIsNone(manager._health_check_source_id)
+
+        # Calling again should be idempotent
+        manager.stop_health_monitor()
+        self.assertIsNone(manager._health_check_source_id)
+
+        # Register a mock tunnel and test shutdown
+        tunnel = SSHTunnel(name="ToShutdown", type="local", local_port=9999)
+        manager.register_tunnel(tunnel)
+        self.assertEqual(len(manager.get_all_tunnels()), 1)
+
+        manager.shutdown()
+        self.assertEqual(tunnel.status, "stopped")
+        self.assertIsNone(manager._health_check_source_id)
 
 
 if __name__ == "__main__":
     unittest.main()
+

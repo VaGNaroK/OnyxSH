@@ -4,7 +4,7 @@ import os
 import threading
 import time
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 from enum import Enum
 from typing import Dict, List, Optional
 
@@ -116,19 +116,36 @@ class TransferManager(GObject.Object):
             if os.path.exists(self.history_file):
                 with open(self.history_file, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                    for item_data in data:
-                        # Re-hydrate enums
-                        item_data["transfer_type"] = TransferType(
-                            item_data["transfer_type"]
-                        )
-                        item_data["status"] = TransferStatus(item_data["status"])
-                        # These are not saved, so they are not in item_data
-                        item_data.pop("cancellation_event", None)
-                        item_data.pop("is_cancellable", None)
-                        # For backward compatibility with old history files
-                        if "is_directory" not in item_data:
-                            item_data["is_directory"] = False
-                        self.history.append(TransferItem(**item_data))
+                    if isinstance(data, list):
+                        valid_field_names = {f.name for f in fields(TransferItem)}
+                        for raw_item in data:
+                            if not isinstance(raw_item, dict):
+                                continue
+                            try:
+                                item_data = dict(raw_item)
+                                # Re-hydrate enums
+                                item_data["transfer_type"] = TransferType(
+                                    item_data["transfer_type"]
+                                )
+                                item_data["status"] = TransferStatus(item_data["status"])
+                                # These are not saved, so they are not in item_data
+                                item_data.pop("cancellation_event", None)
+                                item_data.pop("is_cancellable", None)
+                                # For backward compatibility with old history files
+                                if "is_directory" not in item_data:
+                                    item_data["is_directory"] = False
+
+                                # Filter unknown/extra fields to prevent unexpected keyword argument errors
+                                filtered_data = {
+                                    k: v
+                                    for k, v in item_data.items()
+                                    if k in valid_field_names
+                                }
+                                self.history.append(TransferItem(**filtered_data))
+                            except Exception as item_err:
+                                self.logger.warning(
+                                    f"Skipping invalid transfer history entry: {item_err}"
+                                )
             # Keep history trimmed
             self.history = self.history[:50]
         except Exception as e:

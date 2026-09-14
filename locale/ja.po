@@ -12234,3 +12234,119 @@ msgstr "プレビューでは残りの出力が切り捨てられています"
 # 
 msgid "📘 Export Session as Runbook..."
 msgstr "📘 セッションを運用手順書としてエクスポート..."
+
+# 
+msgid "Test Connection (Ping / Latency)"
+msgstr "接続テスト (Ping / レイテンシ)"
+
+# 
+msgid "SSH & Health Check"
+msgstr "SSH とヘルスチェック"
+
+# 
+msgid "Health & Latency Monitoring (RTT)"
+msgstr "ヘルス＆レイテンシ監視 (RTT)"
+
+# 
+msgid "Continuously measures latency and detects signal loss on SSH connections"
+msgstr "レイテンシを継続的に測定し、SSH接続のシグナル喪失を検出します"
+
+# 
+msgid "Latency Check Interval"
+msgstr "レイテンシ確認間隔"
+
+# 
+msgid "Seconds between background RTT latency measurements"
+msgstr "バックグラウンドでの RTT レイテンシ測定間隔 (秒)"
+
+# 
+msgid "Smart Auto-Reconnect on Drops"
+msgstr "切断時のスマート自動再接続"
+
+# 
+msgid "Attempts to reconnect dropped SSH sessions with countdown and on-screen alert"
+msgstr "切断されたSSHセッションをカウントダウンと画面通知で自動再接続します"
+
+# 
+msgid "Max Reconnect Attempts"
+msgstr "最大再接続試行回数"
+
+# 
+msgid "Number of attempts before giving up auto-reconnect"
+msgstr "自動再接続を断念するまでの試行回数"
+
+# 
+msgid "SSH KeepAlive (ServerAliveInterval)"
+msgstr "SSH キープアライブ (ServerAliveInterval)"
+
+# 
+msgid "Interval in seconds to send KeepAlive probe packets"
+msgstr "キープアライブプローブパケットを送信する間隔 (秒)"
+
+# 
+msgid "Dual-Pane Mode (Local ⇄ Remote)"
+msgstr "デュアルペインモード (ローカル ⇄ リモート)"
+
+# 
+msgid "💻 Local"
+msgstr "💻 ローカル"
+
+# 
+msgid "Home Directory"
+msgstr "ホームディレクトリ"
+
+# 
+msgid "Up One Level"
+msgstr "1つ上の階層へ"
+
+# 
+msgid "Filter local..."
+msgstr "ローカルをフィルター..."
+
+# 
+msgid "Upload Selected to Remote Folder (➔)"
+msgstr "選択項目をリモートフォルダにアップロード (➔)"
+
+# 
+msgid "Download Selected to Local Folder (⬅)"
+msgstr "選択項目をローカルフォルダにダウンロード (⬅)"
+
+# 
+msgid "Compare Files (Diff Local ⇄ Remote)"
+msgstr "ファイルを比較 (Diff ローカル ⇄ リモート)"
+
+# 
+msgid "Please select local files to upload."
+msgstr "アップロードするローカルファイルを選択してください。"
+
+# 
+msgid "Please select remote files to download."
+msgstr "ダウンロードするリモートファイルを選択してください。"
+
+# 
+msgid "Please select a file to compare."
+msgstr "比較するファイルを選択してください。"
+
+# 
+msgid "Local and remote files are identical."
+msgstr "ローカルファイルとリモートファイルは同一です。"
+
+# 
+msgid "Cannot compare directories directly."
+msgstr "ディレクトリを直接比較することはできません。"
+
+# 
+msgid "Local file is too large for text diff (> 5MB)."
+msgstr "ローカルファイルがテキスト比較には大きすぎます (> 5MB)。"
+
+# 
+msgid "Remote file is too large for text diff (> 5MB)."
+msgstr "リモートファイルがテキスト比較には大きすぎます (> 5MB)。"
+
+# 
+msgid "Diff is only supported for text and code files (binary detected)."
+msgstr "差分比較はテキストおよびコードファイルのみ対応しています (バイナリが検出されました)。"
+
+# 
+msgid "Failed to download remote file for comparison: {}"
+msgstr "比較用のリモートファイルのダウンロードに失敗しました: {}"

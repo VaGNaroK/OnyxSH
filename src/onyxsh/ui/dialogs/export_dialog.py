@@ -581,8 +581,10 @@ class ExportTerminalDialog(BaseDialog):
                         if path:
                             self._write_export_file(path, content)
                 except GLib.Error as err:
-                    if err.code != Gtk.DialogError.DISMISSED:
+                    if not err.matches(Gtk.DialogError.quark(), Gtk.DialogError.DISMISSED):
                         self.logger.error(f"FileDialog error: {err.message}")
+                except Exception as err:
+                    self.logger.error(f"FileDialog error: {err}")
 
             file_dialog.save(self, None, _on_file_dialog_saved)
         else:

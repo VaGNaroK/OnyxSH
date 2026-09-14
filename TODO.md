@@ -157,10 +157,11 @@
 - [x] **Módulos Afetados:** `src/onyxsh/terminal/tunnel_manager.py`, `src/onyxsh/ui/dialogs/tunnel_manager_dialog.py`, `src/onyxsh/ui/dialogs/tunnel_edit_dialog.py`, `src/onyxsh/sessions/models.py`, `src/onyxsh/terminal/spawner.py`.
 
 ### 🛡️ 2.3. Health Check e Auto-Reconexão de Sessões SSH
-- [ ] **Descrição:** Monitoramento proativo da saúde das conexões remotas.
-- [ ] **Recursos:** Detecção imediata de quebra de socket SSH com exibição de banner de aviso e tentativa automática de reconexão (`KeepAlive` inteligente); medição de latência (ping/RTT em ms) exibida na árvore de sessões.
-- [ ] **Prioridade:** 🟡 Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/sessions/`, `src/onyxsh/ui/sidebar_manager.py`.
+- [x] **Descrição:** Monitoramento proativo da saúde das conexões remotas.
+- [x] **Recursos:** Detecção imediata de quebra de socket SSH com exibição de banner de aviso e tentativa automática de reconexão (`KeepAlive` inteligente); medição de latência (ping/RTT em ms) exibida na árvore de sessões, cabeçalho do terminal e abas com badges coloridos e ação no menu de contexto.
+- [x] **Status:** ✅ Implementado no ciclo `v0.11.0` (`src/onyxsh/terminal/ssh_health_monitor.py`, `src/onyxsh/terminal/spawner.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/ui/widgets/ssh_error_banner.py`, `src/onyxsh/sessions/tree.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`, `tests/test_ssh_health_monitor.py`).
+- [x] **Prioridade:** 🟡 Alta | **Esforço:** Médio | **Alvo:** `v0.11.0`
+- [x] **Módulos Afetados:** `src/onyxsh/terminal/ssh_health_monitor.py`, `src/onyxsh/terminal/spawner.py`, `src/onyxsh/terminal/manager.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/sessions/tree.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/preferences_dialog.py`.
 
 ### 🛡️ 2.4. Execução em Múltiplos Hosts (Multi-Host Exec / Cluster Commands)
 - [ ] **Descrição:** Capacidade de selecionar múltiplos servidores na árvore de sessões e disparar um comando em paralelo.
@@ -401,13 +402,16 @@
 - [x] **Módulos Afetados:** `src/onyxsh/filemanager/models.py`, `src/onyxsh/filemanager/manager.py`.
 
 ### 📌 5.7. Modo Dual-Pane Local ⇄ Remoto para Sessões SSH
-- [ ] **Descrição:** Ao conectar em uma sessão SSH remota, permitir dividir o gerenciador de arquivos em dois painéis lado a lado (Painel Local à esquerda e Painel Remoto SSH à direita).
-- [ ] **Recursos:**
-  - Transferência bidirecional com arrastar e soltar (*drag-and-drop*) entre painéis.
-  - Botões dedicados de upload (`->`) e download (`<-`).
-  - Sincronização e visualização de diffs de arquivos entre local e servidor.
-- [ ] **Prioridade:** 🟡 Média | **Esforço:** Alto | **Alvo:** `v0.11.0`
-- [ ] **Módulos Afetados:** `src/onyxsh/filemanager/manager.py`, `src/onyxsh/filemanager/transfer_manager.py`, `src/onyxsh/terminal/tabs.py`.
+- [x] **Descrição:** Ao conectar em uma sessão SSH remota, permitir dividir o gerenciador de arquivos em dois painéis lado a lado (Painel Local à esquerda e Painel Remoto SSH à direita).
+- [x] **Recursos:**
+  - 🔄 **Navegação Local e Remota Simultânea:** Painel Local independente (`LocalFileBrowserPane`) com breadcrumbs, Home `~`, Up `..`, refresh e filtro em tempo real, lado a lado com o Painel Remoto SSH.
+  - 📦 **Transferência Bidirecional Rápida:** Botões centrais dedicados de envio (`[ ➔ ] Upload`) e download (`[ ⬅ ] Download`) para transferências imediatas sem pop-ups redundantes de seleção de diretório.
+  - 🖐️ **Arrastar e Soltar (*Drag-and-Drop*):** Integração com `Gtk.DragSource` e `Gtk.DropTarget` para arrastar arquivos locais e soltá-los no remoto para upload imediato, e soltura com detecção de itens.
+  - ⚖️ **Comparação Visual de Diffs Remotos (`RemoteDiffHelper`):** Botão `[ ⇄ Diff ]` que compara arquivos locais e remotos correspondentes linha a linha via `difflib.unified_diff`, renderizando as alterações no `DiffReviewDialog`.
+  - 🎛️ **Alternância de Modo com Persistência:** Botão de alternância dinâmico na barra de ações (visível em sessões SSH) e persistência de preferências (`file_manager_dual_pane_enabled` e `file_manager_local_path`).
+- [x] **Status:** ✅ Implementado no ciclo `v0.11.0` (`src/onyxsh/filemanager/local_pane.py`, `src/onyxsh/filemanager/dual_pane.py`, `src/onyxsh/filemanager/manager.py`, `src/onyxsh/settings/config.py`, `src/onyxsh/data/styles/components.css`, `tests/test_filemanager_dual_pane.py`).
+- [x] **Prioridade:** 🟡 Média | **Esforço:** Alto | **Alvo:** `v0.11.0`
+- [x] **Módulos Afetados:** `src/onyxsh/filemanager/local_pane.py`, `src/onyxsh/filemanager/dual_pane.py`, `src/onyxsh/filemanager/manager.py`, `src/onyxsh/settings/config.py`, `src/onyxsh/data/styles/components.css`, `tests/test_filemanager_dual_pane.py`.
 
 ### 📌 5.8. Verificador Visual e Comparador de Checksums / Hash
 - [x] **Descrição:** Interface visual moderna e utilitário no terminal para cálculo assíncrono e verificação de integridade de arquivos locais e remotos.

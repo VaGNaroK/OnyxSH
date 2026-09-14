@@ -12314,3 +12314,119 @@ msgstr "restliche Ausgabe in der Vorschau abgeschnitten"
 # 
 msgid "📘 Export Session as Runbook..."
 msgstr "📘 Sitzung als Runbook exportieren..."
+
+# 
+msgid "Test Connection (Ping / Latency)"
+msgstr "Verbindung testen (Ping / Latenz)"
+
+# 
+msgid "SSH & Health Check"
+msgstr "SSH & Integritätsprüfung"
+
+# 
+msgid "Health & Latency Monitoring (RTT)"
+msgstr "Integritäts- und Latenzüberwachung (RTT)"
+
+# 
+msgid "Continuously measures latency and detects signal loss on SSH connections"
+msgstr "Misst kontinuierlich die Latenz und erkennt Signalverluste bei SSH-Verbindungen"
+
+# 
+msgid "Latency Check Interval"
+msgstr "Intervall der Latenzprüfung"
+
+# 
+msgid "Seconds between background RTT latency measurements"
+msgstr "Sekunden zwischen RTT-Latenzmessungen im Hintergrund"
+
+# 
+msgid "Smart Auto-Reconnect on Drops"
+msgstr "Intelligente automatische Wiederverbindung bei Abbrüchen"
+
+# 
+msgid "Attempts to reconnect dropped SSH sessions with countdown and on-screen alert"
+msgstr "Versucht getrennte SSH-Sitzungen mit Countdown und Bildschirminfo wiederherzustellen"
+
+# 
+msgid "Max Reconnect Attempts"
+msgstr "Maximale Wiederverbindungsversuche"
+
+# 
+msgid "Number of attempts before giving up auto-reconnect"
+msgstr "Anzahl der Versuche vor Abbruch der automatischen Wiederverbindung"
+
+# 
+msgid "SSH KeepAlive (ServerAliveInterval)"
+msgstr "SSH-KeepAlive (ServerAliveInterval)"
+
+# 
+msgid "Interval in seconds to send KeepAlive probe packets"
+msgstr "Intervall in Sekunden zum Senden von KeepAlive-Sondenpaketen"
+
+# 
+msgid "Dual-Pane Mode (Local ⇄ Remote)"
+msgstr "Zwei-Fenster-Modus (Lokal ⇄ Remote)"
+
+# 
+msgid "💻 Local"
+msgstr "💻 Lokal"
+
+# 
+msgid "Home Directory"
+msgstr "Persönlicher Ordner"
+
+# 
+msgid "Up One Level"
+msgstr "Eine Ebene nach oben"
+
+# 
+msgid "Filter local..."
+msgstr "Lokal filtern..."
+
+# 
+msgid "Upload Selected to Remote Folder (➔)"
+msgstr "Ausgewählte in Remote-Ordner hochladen (➔)"
+
+# 
+msgid "Download Selected to Local Folder (⬅)"
+msgstr "Ausgewählte in lokalen Ordner herunterladen (⬅)"
+
+# 
+msgid "Compare Files (Diff Local ⇄ Remote)"
+msgstr "Dateien vergleichen (Diff Lokal ⇄ Remote)"
+
+# 
+msgid "Please select local files to upload."
+msgstr "Bitte wählen Sie lokale Dateien zum Hochladen aus."
+
+# 
+msgid "Please select remote files to download."
+msgstr "Bitte wählen Sie Remote-Dateien zum Herunterladen aus."
+
+# 
+msgid "Please select a file to compare."
+msgstr "Bitte wählen Sie eine Datei zum Vergleichen aus."
+
+# 
+msgid "Local and remote files are identical."
+msgstr "Lokale und Remote-Dateien sind identisch."
+
+# 
+msgid "Cannot compare directories directly."
+msgstr "Verzeichnisse können nicht direkt verglichen werden."
+
+# 
+msgid "Local file is too large for text diff (> 5MB)."
+msgstr "Lokale Datei ist zu groß für Text-Diff (> 5 MB)."
+
+# 
+msgid "Remote file is too large for text diff (> 5MB)."
+msgstr "Remote-Datei ist zu groß für Text-Diff (> 5 MB)."
+
+# 
+msgid "Diff is only supported for text and code files (binary detected)."
+msgstr "Diff wird nur für Text- und Codedateien unterstützt (Binärdatei erkannt)."
+
+# 
+msgid "Failed to download remote file for comparison: {}"
+msgstr "Fehler beim Herunterladen der Remote-Datei zum Vergleich: {}"

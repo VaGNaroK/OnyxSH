@@ -661,6 +661,141 @@
     margin-bottom: 4px;
 }
 
+/* ==========================================================================
+   SSH Health & Latency Indicators
+   Used in: tabs.py, tree.py, ssh_error_banner.py
+   ========================================================================== */
 
+.latency-chip {
+    font-size: 11px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    padding: 1px 6px;
+    border-radius: 9999px;
+    border: 1px solid alpha(currentColor, 0.25);
+    background-color: alpha(currentColor, 0.08);
+}
 
+.latency-healthy {
+    color: #2ecc71;
+    background-color: alpha(#2ecc71, 0.12);
+    border-color: alpha(#2ecc71, 0.35);
+}
+
+.latency-degraded {
+    color: #f1c40f;
+    background-color: alpha(#f1c40f, 0.12);
+    border-color: alpha(#f1c40f, 0.35);
+}
+
+.latency-poor {
+    color: #e67e22;
+    background-color: alpha(#e67e22, 0.12);
+    border-color: alpha(#e67e22, 0.35);
+}
+
+.latency-unreachable {
+    color: #e74c3c;
+    background-color: alpha(#e74c3c, 0.12);
+    border-color: alpha(#e74c3c, 0.35);
+}
+
+.latency-reconnecting {
+    color: #3498db;
+    background-color: alpha(#3498db, 0.12);
+    border-color: alpha(#3498db, 0.35);
+    font-weight: 700;
+}
+
+.latency-unknown {
+    color: alpha(@window_fg_color, 0.5);
+    background-color: alpha(@window_fg_color, 0.05);
+    border-color: alpha(@window_fg_color, 0.15);
+}
+
+.reconnect-countdown-badge {
+    background-color: alpha(@warning_color, 0.15);
+    border: 1px solid alpha(@warning_color, 0.4);
+    color: @warning_color;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Dual-Pane Mode Styles (Local ⇄ Remote File Manager)
+   ========================================================================== */
+
+.dual-pane-paned {
+    background-color: transparent;
+}
+
+.dual-pane-paned separator {
+    background-color: alpha(@window_fg_color, 0.12);
+    min-width: 4px;
+    margin: 0 1px;
+    transition: background-color 200ms ease;
+}
+
+.dual-pane-paned separator:hover {
+    background-color: @accent_color;
+}
+
+.local-browser-pane {
+    background-color: alpha(@window_bg_color, 0.85);
+    border-right: 1px solid alpha(@window_fg_color, 0.08);
+}
+
+.dual-pane-header {
+    background-color: alpha(@window_bg_color, 0.5);
+    border-bottom: 1px solid alpha(@window_fg_color, 0.08);
+    border-radius: 6px 6px 0 0;
+}
+
+.pane-title-badge {
+    font-weight: 700;
+    font-size: 0.82em;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background-color: alpha(@accent_color, 0.12);
+    color: @accent_color;
+    border: 1px solid alpha(@accent_color, 0.3);
+}
+
+.dual-pane-transfer-bar {
+    padding: 8px 4px;
+    background-color: alpha(@window_bg_color, 0.4);
+    border-left: 1px solid alpha(@window_fg_color, 0.08);
+    border-right: 1px solid alpha(@window_fg_color, 0.08);
+}
+
+.transfer-action-button {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 4px;
+    border-radius: 8px;
+    transition: all 180ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.transfer-action-button:hover {
+    transform: scale(1.08);
+    background-color: alpha(@accent_color, 0.15);
+    color: @accent_color;
+}
+
+.transfer-action-button.upload-button:hover {
+    color: #2ecc71;
+    background-color: alpha(#2ecc71, 0.15);
+}
+
+.transfer-action-button.download-button:hover {
+    color: #3498db;
+    background-color: alpha(#3498db, 0.15);
+}
+
+.transfer-action-button.diff-button:hover {
+    color: #f39c12;
+    background-color: alpha(#f39c12, 0.15);
+}
 

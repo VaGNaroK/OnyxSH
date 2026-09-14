@@ -1069,10 +1069,13 @@ class ProcessSpawner:
         )
         # Get connect timeout from settings (can be temporarily increased for retries)
         connect_timeout = self.settings_manager.get("ssh_connect_timeout", 30)
+        keepalive_interval = self.settings_manager.get("ssh_keepalive_interval", 15)
+        keepalive_count_max = self.settings_manager.get("ssh_keepalive_count_max", 3)
         ssh_options = {
             "ConnectTimeout": str(connect_timeout),
-            "ServerAliveInterval": "30",
-            "ServerAliveCountMax": "3",
+            "ServerAliveInterval": str(keepalive_interval),
+            "ServerAliveCountMax": str(keepalive_count_max),
+            "TCPKeepAlive": "yes",
             "StrictHostKeyChecking": "accept-new",
             "UpdateHostKeys": "yes",
             "ControlMaster": "auto",

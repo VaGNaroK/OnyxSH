@@ -118,6 +118,15 @@ class SSHTunnelManager(GObject.Object):
                 3, self._check_tunnels_health
             )
 
+    def stop_health_monitor(self) -> None:
+        """Stops the periodic health check timer if running."""
+        if self._health_check_source_id is not None:
+            try:
+                GLib.source_remove(self._health_check_source_id)
+            except Exception as e:
+                self.logger.debug(f"Error removing health check timer: {e}")
+            self._health_check_source_id = None
+
     def _check_tunnels_health(self) -> bool:
         """Inspects running subprocesses to detect unexpected terminations."""
         with self._lock:
@@ -308,6 +317,12 @@ class SSHTunnelManager(GObject.Object):
             ids = list(self._tunnels.keys())
         for tid in ids:
             self.stop_tunnel(tid)
+
+    def shutdown(self) -> None:
+        """Stops all running tunnels and halts the health check timer."""
+        self.logger.info("Shutting down SSHTunnelManager")
+        self.stop_all_tunnels()
+        self.stop_health_monitor()
 
 
 def get_ssh_tunnel_manager() -> SSHTunnelManager:

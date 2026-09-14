@@ -260,6 +260,11 @@ def create_session_menu(
         sftp_item = Gio.MenuItem.new(_("Connect with SFTP"), "win.connect-sftp")
         sftp_item.set_icon(Gio.ThemedIcon.new("folder-remote-symbolic"))
         menu.append_item(sftp_item)
+
+        ping_item = Gio.MenuItem.new(_("Test Connection (Ping / Latency)"), "win.ping-session")
+        ping_item.set_icon(Gio.ThemedIcon.new("network-transmit-receive-symbolic"))
+        menu.append_item(ping_item)
+
         menu.append_section(None, Gio.Menu())
     menu.append(_("Edit"), "win.edit-session")
     menu.append(_("Duplicate"), "win.duplicate-session")

@@ -1923,6 +1923,20 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         if getattr(self, "ai_assistant", None):
             self.ai_assistant.unload_model()
 
+        # Clean up session tree and tab manager signals
+        if hasattr(self, "session_tree") and self.session_tree and hasattr(self.session_tree, "cleanup"):
+            self.session_tree.cleanup()
+
+        if hasattr(self, "tab_manager") and self.tab_manager and hasattr(self.tab_manager, "cleanup"):
+            self.tab_manager.cleanup()
+
+        # Stop active tunnels and health check timer
+        try:
+            from .terminal.tunnel_manager import SSHTunnelManager
+            SSHTunnelManager.get_instance().shutdown()
+        except Exception as e:
+            self.logger.debug(f"Error shutting down SSHTunnelManager: {e}")
+
         # Clean up CSS providers to prevent memory leaks
         self.settings_manager.cleanup_css_providers(self)
 

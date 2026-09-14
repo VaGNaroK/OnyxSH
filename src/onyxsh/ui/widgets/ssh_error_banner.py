@@ -15,6 +15,7 @@ from typing import Optional, Callable, TYPE_CHECKING
 from dataclasses import dataclass
 from enum import Enum, auto
 
+from onyxsh.core.signals import AppSignals
 from onyxsh.utils.logger import get_logger
 from onyxsh.utils.translation_utils import _
 
@@ -134,6 +135,7 @@ class SSHErrorBanner(Gtk.Box):
         self._on_action_callback: Optional[Callable] = None
         self._is_auth_error = is_auth_error
         self._is_host_key_error = is_host_key_error
+        self._health_signal_id: Optional[int] = None
 
         self._setup_ui()
 
@@ -188,6 +190,33 @@ class SSHErrorBanner(Gtk.Box):
         detail_inscription.set_hexpand(True)
         detail_inscription.add_css_class("dim-label")
         message_box.append(detail_inscription)
+
+        # Live auto-reconnect countdown bar
+        self._countdown_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        self._countdown_box.add_css_class("reconnect-countdown-badge")
+        self._countdown_box.set_visible(False)
+        self._countdown_box.set_valign(Gtk.Align.CENTER)
+        self._countdown_box.set_margin_top(4)
+
+        self._countdown_label = Gtk.Label(label="")
+        self._countdown_label.set_xalign(0)
+        self._countdown_label.set_hexpand(True)
+        self._countdown_box.append(self._countdown_label)
+
+        self._countdown_cancel_btn = Gtk.Button(label=_("Cancelar"))
+        self._countdown_cancel_btn.add_css_class("flat")
+        self._countdown_cancel_btn.connect("clicked", self._on_cancel_auto_reconnect_clicked)
+        self._countdown_box.append(self._countdown_cancel_btn)
+
+        message_box.append(self._countdown_box)
+
+        # Connect to global health updates for live countdown ticks
+        try:
+            self._health_signal_id = AppSignals.get().connect(
+                "ssh-health-updated", self._on_ssh_health_updated
+            )
+        except Exception:
+            self._health_signal_id = None
 
         self._main_box.append(message_box)
 
@@ -435,6 +464,35 @@ class SSHErrorBanner(Gtk.Box):
         """Update timeout config."""
         self._config.timeout_secs = int(spin.get_value())
 
+    def _on_ssh_health_updated(self, _, record) -> None:
+        """Update live countdown display when health record ticks."""
+        if not hasattr(self, "_countdown_box") or not self._countdown_box:
+            return
+        if record and getattr(record, "terminal_id", None) == self._terminal_id:
+            if getattr(record, "is_auto_reconnecting", False) and getattr(record, "countdown_seconds", 0) > 0:
+                self._countdown_label.set_label(
+                    _("⏱ Reconectando em %ds... (Tentativa %d/%d)")
+                    % (
+                        record.countdown_seconds,
+                        record.reconnect_attempt,
+                        record.max_reconnect_attempts,
+                    )
+                )
+                self._countdown_box.set_visible(True)
+            else:
+                self._countdown_box.set_visible(False)
+
+    def _on_cancel_auto_reconnect_clicked(self, _button: Gtk.Button) -> None:
+        """Cancel the ongoing auto-reconnect countdown."""
+        try:
+            from ...terminal.ssh_health_monitor import get_ssh_health_monitor
+            if self._terminal_id is not None:
+                get_ssh_health_monitor().cancel_auto_reconnect(self._terminal_id)
+        except Exception:
+            pass
+        if hasattr(self, "_countdown_box") and self._countdown_box:
+            self._countdown_box.set_visible(False)
+
     def set_action_callback(self, callback: Callable) -> None:
         """Set callback for banner actions."""
         self._on_action_callback = callback
@@ -446,6 +504,15 @@ class SSHErrorBanner(Gtk.Box):
     def get_session(self) -> Optional["SessionItem"]:
         """Get the session associated with this banner."""
         return self._session
+
+    def destroy(self) -> None:
+        """Disconnects signal handlers and releases resources."""
+        if hasattr(self, "_health_signal_id") and self._health_signal_id is not None:
+            try:
+                AppSignals.get().disconnect(self._health_signal_id)
+            except Exception:
+                pass
+            self._health_signal_id = None
 
     def update_error_message(self, message: str) -> None:
         """Update the error message displayed."""
@@ -522,6 +589,10 @@ class SSHErrorBannerManager:
         """Remove and destroy a banner."""
         if terminal_id in self._banners:
             banner = self._banners.pop(terminal_id)
+            try:
+                banner.destroy()
+            except Exception:
+                pass
             parent = banner.get_parent()
             if parent:
                 parent.remove(banner)

@@ -295,6 +295,54 @@ class TestFileManagerTransfers(unittest.TestCase):
         row.remove_button.emit("clicked")
         mock_remove.assert_called_once_with("row-1")
 
+    def test_load_history_handles_unknown_keys_and_corrupt_entries(self):
+        """Verify _load_history filters unknown keys and ignores single corrupt entries."""
+        history_file = os.path.join(self.config_dir, "transfer_history.json")
+        data = [
+            {
+                "id": "item-1",
+                "filename": "valid_extra.txt",
+                "local_path": "/tmp/valid_extra.txt",
+                "remote_path": "/remote/valid_extra.txt",
+                "file_size": 100,
+                "transfer_type": "upload",
+                "status": "completed",
+                "is_directory": False,
+                "extra_future_field": "some_value",  # Should be filtered out
+                "another_unknown_key": 42,
+            },
+            {
+                # Corrupt item: invalid status
+                "id": "item-corrupt",
+                "filename": "broken.txt",
+                "transfer_type": "upload",
+                "status": "NOT_A_VALID_STATUS",
+            },
+            {
+                # Legacy item: missing is_directory, first_stable_progress, warmup_end_time
+                "id": "item-2",
+                "filename": "legacy.txt",
+                "local_path": "/tmp/legacy.txt",
+                "remote_path": "/remote/legacy.txt",
+                "file_size": 200,
+                "transfer_type": "download",
+                "status": "completed",
+            },
+        ]
+        with open(history_file, "w", encoding="utf-8") as f:
+            json.dump(data, f)
+
+        new_tm = TransferManager(config_dir=self.config_dir)
+        # Should have loaded item-1 and item-2, skipping item-corrupt
+        self.assertEqual(len(new_tm.history), 2)
+        self.assertEqual(new_tm.history[0].id, "item-1")
+        self.assertEqual(new_tm.history[0].filename, "valid_extra.txt")
+        self.assertEqual(new_tm.history[1].id, "item-2")
+        self.assertEqual(new_tm.history[1].filename, "legacy.txt")
+        self.assertFalse(new_tm.history[1].is_directory)
+        self.assertEqual(new_tm.history[1].first_stable_progress, -1.0)
+
 
 if __name__ == "__main__":
     unittest.main()
+

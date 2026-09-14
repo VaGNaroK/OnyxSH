@@ -51,6 +51,10 @@ class AppSignals(GObject.Object):
         "terminal-created": (GObject.SignalFlags.RUN_FIRST, None, (str,)),
         "terminal-closed": (GObject.SignalFlags.RUN_FIRST, None, (str,)),
         "terminal-title-changed": (GObject.SignalFlags.RUN_FIRST, None, (str, str)),
+
+        # SSH Health & Connectivity signals
+        "ssh-health-updated": (GObject.SignalFlags.RUN_FIRST, None, (object,)),
+        "ssh-connection-lost": (GObject.SignalFlags.RUN_FIRST, None, (int, object, str)),
     }
 
     _instance = None

@@ -14,6 +14,7 @@ gi.require_version("Vte", "3.91")
 gi.require_version("Pango", "1.0")
 from gi.repository import Adw, Gdk, Gio, GLib, Gtk, Pango, Vte
 
+from ..core.signals import AppSignals
 from ..helpers import create_themed_popover_menu
 from ..sessions.models import SessionItem
 from ..settings.manager import SettingsManager as SettingsManagerType
@@ -32,6 +33,33 @@ _RGBA_COLOR_PATTERN = re.compile(r"rgba?\((\d+),\s*(\d+),\s*(\d+),?.*\)")
 # CSS for tab moving visual feedback is now loaded from:
 # data/styles/components.css (loaded by window_ui.py at startup)
 # Classes: .tab-moving, .tab-bar-move-mode, .tab-drop-target, .tab-drop-left, .tab-drop-right
+
+
+def _apply_latency_to_widget(widget: Optional[Gtk.Widget], record: Any) -> None:
+    """Updates latency chip label, CSS classes, and tooltip markup."""
+    if not widget or not record:
+        return
+    label = record.get_badge_label()
+    css_class = record.get_css_class()
+    tooltip = record.get_tooltip_text()
+
+    if isinstance(widget, Gtk.Label):
+        widget.set_label(label)
+        for cls in (
+            "latency-healthy",
+            "latency-degraded",
+            "latency-poor",
+            "latency-unreachable",
+            "latency-reconnecting",
+            "latency-unknown",
+        ):
+            widget.remove_css_class(cls)
+        widget.add_css_class(css_class)
+        try:
+            widget.set_tooltip_markup(tooltip)
+        except Exception:
+            widget.set_tooltip_text(label)
+        widget.set_visible(True)
 
 
 def _create_terminal_pane(
@@ -61,6 +89,13 @@ def _create_terminal_pane(
     title_label.set_hexpand(True)
     title_label.set_halign(Gtk.Align.START)
     header_box.append(title_label)
+
+    # Latency badge for SSH connections
+    latency_badge = Gtk.Label()
+    latency_badge.add_css_class("latency-chip")
+    latency_badge.set_valign(Gtk.Align.CENTER)
+    latency_badge.set_visible(False)
+    header_box.append(latency_badge)
 
     # Semantic command status badge & buttons
     semantic_status_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
@@ -175,6 +210,7 @@ def _create_terminal_pane(
     toolbar_view.semantic_quick_fix_btn = semantic_quick_fix_btn
     toolbar_view.semantic_ai_btn = semantic_ai_btn
     toolbar_view.semantic_copy_btn = semantic_copy_btn
+    toolbar_view.latency_badge = latency_badge
     # MODIFIED: Store a reference to the header box for live updates
     toolbar_view.header_box = header_box
 
@@ -238,7 +274,35 @@ class TabManager:
         self.terminal_manager.settings_manager.add_change_listener(
             self._on_setting_changed
         )
+        # Connect to SSH health updates to refresh latency badges
+        self._ssh_health_signal_id: Optional[int] = None
+        try:
+            self._ssh_health_signal_id = AppSignals.get().connect(
+                "ssh-health-updated", self._on_ssh_health_updated
+            )
+        except Exception as e:
+            self.logger.debug(f"Could not connect to ssh-health-updated signal: {e}")
+
         self.logger.info("Tab manager initialized with custom tab bar")
+
+    def cleanup(self) -> None:
+        """Clean up signal handlers, listeners and tab resources."""
+        if self._ssh_health_signal_id is not None:
+            try:
+                AppSignals.get().disconnect(self._ssh_health_signal_id)
+            except Exception as e:
+                self.logger.debug(f"Could not disconnect ssh-health-updated signal: {e}")
+            self._ssh_health_signal_id = None
+
+        if hasattr(self.terminal_manager, "settings_manager") and hasattr(
+            self.terminal_manager.settings_manager, "remove_change_listener"
+        ):
+            try:
+                self.terminal_manager.settings_manager.remove_change_listener(
+                    self._on_setting_changed
+                )
+            except Exception:
+                pass
 
     def _on_setting_changed(self, key: str, old_value, new_value):
         """Callback for settings changes to update UI elements live."""
@@ -270,6 +334,48 @@ class TabManager:
             return
         if hasattr(widget, "get_child") and (child := widget.get_child()):
             self._find_panes_recursive(child, panes_list)
+
+    def _on_ssh_health_updated(self, _, record) -> None:
+        """Handle real-time SSH health updates across tabs and terminal panes."""
+        if not record:
+            return
+
+        def _update_ui():
+            tid = getattr(record, "terminal_id", None)
+
+            # 1. Update tab buttons
+            for tab_widget in self.tabs:
+                session = getattr(tab_widget, "session_item", None)
+                tab_terminal = getattr(tab_widget, "terminal", None)
+                tab_tid = getattr(tab_terminal, "terminal_id", None) if tab_terminal else None
+                if (tab_tid is not None and tab_tid == tid) or (
+                    session and getattr(session, "name", "") == getattr(record, "session_name", "")
+                ):
+                    latency_label = getattr(tab_widget, "latency_label", None)
+                    if latency_label:
+                        _apply_latency_to_widget(latency_label, record)
+
+            # 2. Update single-terminal floating overlay
+            if tid is not None:
+                terminal = self.terminal_manager.registry.get_terminal(tid)
+                if terminal:
+                    latency_badge = getattr(terminal, "latency_badge", None)
+                    if latency_badge:
+                        _apply_latency_to_widget(latency_badge, record)
+
+            # 3. Update split panes
+            for page in self.pages.values():
+                panes = []
+                self._find_panes_recursive(page.get_child(), panes)
+                for pane in panes:
+                    pane_terminal = getattr(pane, "terminal", None)
+                    if pane_terminal and getattr(pane_terminal, "terminal_id", None) == tid:
+                        pane_badge = getattr(pane, "latency_badge", None)
+                        if pane_badge:
+                            _apply_latency_to_widget(pane_badge, record)
+            return GLib.SOURCE_REMOVE
+
+        GLib.idle_add(_update_ui)
 
     def _setup_tab_bar_move_handlers(self):
         """Set up event handlers on the tab bar for tab move operations."""
@@ -601,6 +707,18 @@ class TabManager:
         overlay = Gtk.Overlay()
         overlay.set_child(scrolled_window)
 
+        # Floating latency badge for single-terminal tab view (remote SSH)
+        latency_badge = Gtk.Label()
+        latency_badge.add_css_class("latency-chip")
+        latency_badge.add_css_class("semantic-floating-badge")
+        latency_badge.set_halign(Gtk.Align.START)
+        latency_badge.set_valign(Gtk.Align.START)
+        latency_badge.set_margin_start(10)
+        latency_badge.set_margin_top(6)
+        latency_badge.set_visible(False)
+        overlay.add_overlay(latency_badge)
+        terminal.latency_badge = latency_badge
+
         semantic_status_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
         semantic_status_box.add_css_class("semantic-floating-badge")
         semantic_status_box.set_halign(Gtk.Align.END)
@@ -722,6 +840,7 @@ class TabManager:
         terminal.onyxsh_parent_page = page
 
         tab_widget = self._create_tab_widget(page, session)
+        tab_widget.terminal = terminal
         self.tabs.append(tab_widget)
         self.pages[tab_widget] = page
         self.tab_bar_box.append(tab_widget)
@@ -801,6 +920,13 @@ class TabManager:
         )
         label.set_width_chars(8)
         tab_widget.append(label)
+
+        # Tab latency chip for SSH sessions
+        tab_latency_label = Gtk.Label()
+        tab_latency_label.add_css_class("latency-chip")
+        tab_latency_label.set_visible(False)
+        tab_widget.append(tab_latency_label)
+        tab_widget.latency_label = tab_latency_label
 
         tab_spinner = Gtk.Spinner()
         tab_spinner.set_size_request(12, 12)
@@ -1721,6 +1847,11 @@ class TabManager:
         self, terminal: Vte.Terminal, cmd: SemanticCommand
     ) -> None:
         """Starts live visual feedback (spinner and ticking duration timer) for an executing command."""
+        if hasattr(self, "terminal_manager") and self.terminal_manager:
+            sm = getattr(self.terminal_manager, "settings_manager", None)
+            if sm and not sm.get("show_command_running_indicator", True):
+                return
+
         page = self.get_page_for_terminal(terminal)
         if not page:
             return

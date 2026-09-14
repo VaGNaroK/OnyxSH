@@ -1410,6 +1410,17 @@ class TerminalManager:
                     session.name,
                     f"{terminal_type.upper()} to {session.get_connection_string()}",
                 )
+                if terminal_type == "ssh":
+                    try:
+                        from .ssh_health_monitor import get_ssh_health_monitor
+                        get_ssh_health_monitor(self.settings_manager).register_terminal(
+                            terminal_id,
+                            session,
+                            reconnect_callback=self.reconnect_ssh_terminal,
+                        )
+                    except Exception as e:
+                        self.logger.warning(f"Could not register terminal with SSH health monitor: {e}")
+
                 self._stats["terminals_created"] += 1
                 return terminal
             except TerminalCreationError:
@@ -1417,6 +1428,24 @@ class TerminalManager:
                 self._cleanup_highlight_proxy(terminal_id)
                 self._stats["terminals_failed"] += 1
                 raise
+
+    def reconnect_ssh_terminal(self, terminal_id: int) -> bool:
+        """Reconnect an SSH terminal using its existing registered session."""
+        terminal = self.registry.get_terminal(terminal_id)
+        if not terminal:
+            return False
+        info = self.registry.get_terminal_info(terminal_id)
+        if not info:
+            return False
+        session = info.get("identifier")
+        if not isinstance(session, SessionItem):
+            return False
+        try:
+            self._respawn_ssh_in_terminal(terminal, terminal_id, session)
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to reconnect SSH terminal {terminal_id}: {e}")
+            return False
 
     def create_ssh_terminal(
         self, session: SessionItem, initial_command: Optional[str] = None
@@ -2347,6 +2376,16 @@ class TerminalManager:
                         b"\r\n\x1b[31m[Auth error - auto-reconnect stopped]\x1b[0m\r\n"
                     )
 
+                # Notify SSH health monitor of lost connection
+                try:
+                    from .ssh_health_monitor import get_ssh_health_monitor
+                    get_ssh_health_monitor(self.settings_manager).notify_connection_lost(
+                        terminal_id,
+                        reason=f"SSH exit status {child_status}",
+                    )
+                except Exception as mon_err:
+                    self.logger.debug(f"SSH health monitor notification error: {mon_err}")
+
                 # Show banner unless auto-reconnect handles it
                 if auto_reconnect_active and not is_auth_error:
                     self.lifecycle_manager.unmark_terminal_closing(terminal_id)
@@ -2981,6 +3020,12 @@ class TerminalManager:
                     delattr(terminal, "_closed_by_user")
                 except Exception as e:
                     self.logger.debug(f"Could not delete _closed_by_user attr: {e}")
+            try:
+                from .ssh_health_monitor import get_ssh_health_monitor
+                get_ssh_health_monitor(self.settings_manager).unregister_terminal(terminal_id)
+            except Exception as e:
+                self.logger.debug(f"Error unregistering terminal from SSH health monitor: {e}")
+
             if self.registry.unregister_terminal(terminal_id):
                 self._stats["terminals_closed"] += 1
                 log_terminal_event(
@@ -3233,6 +3278,15 @@ class TerminalManager:
 
         # Clear retry flag
         terminal._retry_in_progress = False
+
+        # Notify SSH health monitor
+        try:
+            from .ssh_health_monitor import get_ssh_health_monitor
+            terminal_id = getattr(terminal, "terminal_id", None)
+            if terminal_id is not None:
+                get_ssh_health_monitor(self.settings_manager).notify_connection_restored(terminal_id)
+        except Exception as e:
+            self.logger.debug(f"Could not notify health monitor of connection success: {e}")
 
     def _execute_command_in_terminal(
         self, terminal: Vte.Terminal, command: str, close_after_execute: bool = False

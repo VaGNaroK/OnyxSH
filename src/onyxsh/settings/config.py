@@ -35,7 +35,7 @@ class AppConstants:
 
     APP_ID = "io.github.vagnarok.OnyxSH"
     APP_TITLE = "OnyxSH"
-    APP_VERSION = "0.11.0"
+    APP_VERSION = "0.12.0"
     DEVELOPER_NAME = "VaGNaroK"
     DEVELOPER_TEAM = [
         "VaGNaroK (Maintainer)",
@@ -272,6 +272,8 @@ class DefaultSettings:
             "file_manager_height": 250,  # Default file manager height in pixels
             "file_manager_bookmarks": [],  # List of bookmarked directory dicts
             "file_manager_view_mode": "list",  # Default view mode: "list" or "grid"
+            "file_manager_dual_pane_enabled": False,  # Whether dual-pane mode is active in remote sessions
+            "file_manager_local_path": "",  # Last visited local directory in dual-pane mode
             "scroll_on_output": True,  # Enables smart scrolling
             "scroll_on_keystroke": True,
             "scroll_on_insert": True,  # Scroll to bottom on paste
@@ -313,6 +315,13 @@ class DefaultSettings:
             "cjk_ambiguous_width": 1,
             "word_char_exceptions": "-_.:/~",  # For word selection on double-click
             "ssh_control_persist_duration": 60,  # Duration in seconds for SSH connection multiplexing
+            "ssh_health_check_enabled": True,  # Proactive SSH connection health monitoring and latency probing
+            "ssh_health_check_interval": 10,  # Seconds between latency RTT probes
+            "ssh_keepalive_interval": 15,  # OpenSSH ServerAliveInterval in seconds
+            "ssh_keepalive_count_max": 3,  # OpenSSH ServerAliveCountMax attempts
+            "ssh_auto_reconnect_enabled": True,  # Auto-reconnect on connection drop
+            "ssh_auto_reconnect_attempts": 5,  # Max auto-reconnect attempts
+            "ssh_auto_reconnect_delay": 5,  # Seconds between auto-reconnect countdown attempts
             # Logging Settings
             "log_to_file": True,
             "console_log_level": "INFO",

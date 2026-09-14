@@ -102,8 +102,13 @@ class FileOperations:
                         f"Process group for transfer {transfer_id} did not terminate in time, killing."
                     )
                     # Force kill if graceful shutdown fails
-                    pgid = os.getpgid(process.pid)
-                    os.killpg(pgid, signal.SIGKILL)
+                    try:
+                        pgid = os.getpgid(process.pid)
+                        os.killpg(pgid, signal.SIGKILL)
+                    except (ProcessLookupError, OSError) as kill_err:
+                        self.logger.debug(
+                            f"Process group for transfer {transfer_id} (PID: {process.pid}) already gone before SIGKILL: {kill_err}"
+                        )
                 except Exception as e:
                     self.logger.error(
                         f"Error terminating process group for transfer {transfer_id}: {e}"
@@ -269,29 +274,33 @@ class FileOperations:
         return None
 
     def download_file_sync(
-        self, remote_path: str, local_path: str, timeout: int = 30
+        self,
+        remote_path: str,
+        local_path: str,
+        timeout: int = 30,
+        session_override: Optional[SessionItem] = None,
     ) -> Tuple[bool, str]:
-        """Synchronously download a single file via SCP/SFTP for previewing."""
-        if not self.session_item or not self.session_item.is_ssh():
+        """Synchronously download a single file via SCP/SFTP for previewing or diff comparison."""
+        session = session_override or self.session_item
+        if not session or not session.is_ssh():
             return False, _("Not a remote SSH session.")
 
         try:
-            from ..terminal.spawner import get_spawner
-
-            spawner = get_spawner()
             normalized_remote = self._normalize_remote_path(
-                remote_path, self.session_item
+                remote_path, session
             )
-            scp_cmd = spawner.command_builder.build_remote_command(
-                "scp", self.session_item
-            )
-            # scp host:remote local
             user_host = (
-                f"{self.session_item.user}@{self.session_item.host}"
-                if self.session_item.user
-                else self.session_item.host
+                f"{session.user}@{session.host}"
+                if session.user
+                else session.host
             )
-            cmd = ["scp", f"{user_host}:{normalized_remote}", local_path]
+            cmd = ["scp"]
+            if getattr(session, "port", None) and int(session.port) != 22:
+                cmd.extend(["-P", str(session.port)])
+            if getattr(session, "key_path", None) and os.path.exists(session.key_path):
+                cmd.extend(["-i", str(session.key_path)])
+            cmd.extend([f"{user_host}:{normalized_remote}", local_path])
+
             result = subprocess.run(
                 cmd,
                 capture_output=True,

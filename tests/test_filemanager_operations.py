@@ -172,6 +172,34 @@ class TestFileOperations(unittest.TestCase):
             mock_killpg.assert_called_once()
             self.assertEqual(len(self.ops_local._active_processes), 0)
 
+    def test_shutdown_handles_process_lookup_error_during_timeout_kill(self):
+        """Verify that ProcessLookupError during TimeoutExpired force kill is caught and does not crash shutdown."""
+        mock_proc1 = MagicMock()
+        mock_proc1.pid = 88881
+        mock_proc1.wait.side_effect = subprocess.TimeoutExpired(cmd="test", timeout=2)
+
+        mock_proc2 = MagicMock()
+        mock_proc2.pid = 88882
+
+        self.ops_local._active_processes["t1"] = mock_proc1
+        self.ops_local._active_processes["t2"] = mock_proc2
+
+        def mock_getpgid(pid):
+            if pid == 88881:
+                # First call (SIGTERM) returns pgid, second call (SIGKILL) raises ProcessLookupError
+                if not hasattr(mock_getpgid, "called"):
+                    mock_getpgid.called = True
+                    return 88881
+                raise ProcessLookupError("Process already gone")
+            return pid
+
+        with patch("os.getpgid", side_effect=mock_getpgid), patch("os.killpg"):
+            # Should not raise ProcessLookupError and should complete clearing both processes
+            self.ops_local.shutdown()
+            self.assertEqual(len(self.ops_local._active_processes), 0)
+            mock_proc2.wait.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()
+

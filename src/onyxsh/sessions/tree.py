@@ -1,5 +1,6 @@
 # onyxsh/sessions/tree.py
 
+import weakref
 from typing import Callable, List, Optional, Set, Union
 
 import gi
@@ -105,17 +106,37 @@ class SessionTreeView:
         self.on_folder_expansion_changed: Optional[Callable[[], None]] = None
 
         # Subscribe to AppSignals for decoupled updates
+        self._signal_handler_ids: List[int] = []
         signals = AppSignals.get()
-        signals.connect("session-created", self._on_session_signal)
-        signals.connect("session-updated", self._on_session_signal)
-        signals.connect("session-deleted", self._on_session_signal)
-        signals.connect("folder-created", self._on_folder_signal)
-        signals.connect("folder-updated", self._on_folder_signal)
-        signals.connect("folder-deleted", self._on_folder_signal)
-        signals.connect("request-tree-refresh", self._on_request_tree_refresh)
+        for sig, handler in [
+            ("session-created", self._on_session_signal),
+            ("session-updated", self._on_session_signal),
+            ("session-deleted", self._on_session_signal),
+            ("folder-created", self._on_folder_signal),
+            ("folder-updated", self._on_folder_signal),
+            ("folder-deleted", self._on_folder_signal),
+            ("request-tree-refresh", self._on_request_tree_refresh),
+            ("ssh-health-updated", self._on_ssh_health_updated),
+        ]:
+            try:
+                hid = signals.connect(sig, handler)
+                self._signal_handler_ids.append(hid)
+            except Exception as e:
+                self.logger.debug(f"Could not connect to {sig} signal: {e}")
 
+        self._active_list_items = weakref.WeakSet()
         self.refresh_tree()
         self.logger.info("SessionTreeView (ColumnView) initialized")
+
+    def cleanup(self) -> None:
+        """Disconnect all registered AppSignals to avoid memory leaks and stale callbacks."""
+        signals = AppSignals.get()
+        for hid in self._signal_handler_ids:
+            try:
+                signals.disconnect(hid)
+            except Exception as e:
+                self.logger.debug(f"Could not disconnect signal handler {hid}: {e}")
+        self._signal_handler_ids.clear()
 
     def _filter_func(self, item: GObject.GObject) -> bool:
         """Filter function that determines if an item should be visible."""
@@ -351,10 +372,18 @@ class SessionTreeView:
         badge = Gtk.Label()
         badge.set_visible(False)
         badge.add_css_class("caption")
+        latency_badge = Gtk.Label()
+        latency_badge.set_visible(False)
+        latency_badge.add_css_class("latency-chip")
+
         box.append(icon)
         box.append(label)
         box.append(badge)
+        box.append(latency_badge)
         list_item.set_child(box)
+
+        list_item._latency_badge = latency_badge
+        self._active_list_items.add(list_item)
 
         right_click = Gtk.GestureClick.new()
         right_click.set_button(Gdk.BUTTON_SECONDARY)
@@ -384,9 +413,11 @@ class SessionTreeView:
         icon = spacer.get_next_sibling()
         label = icon.get_next_sibling()
         badge = label.get_next_sibling()
+        latency_badge = badge.get_next_sibling()
 
         tree_list_row = list_item.get_item()
         item = tree_list_row.get_item()
+        list_item._session_item = item
         label.set_label(item.name)
 
         # Production Badge
@@ -398,6 +429,22 @@ class SessionTreeView:
                 badge.set_visible(True)
             else:
                 badge.set_visible(False)
+
+        # Latency / Health Badge
+        if latency_badge:
+            if isinstance(item, SessionItem) and item.is_ssh():
+                try:
+                    from ..terminal.ssh_health_monitor import get_ssh_health_monitor
+                    record = get_ssh_health_monitor().get_record_by_session_name(item.name)
+                    if record:
+                        from ..terminal.tabs import _apply_latency_to_widget
+                        _apply_latency_to_widget(latency_badge, record)
+                    else:
+                        latency_badge.set_visible(False)
+                except Exception:
+                    latency_badge.set_visible(False)
+            else:
+                latency_badge.set_visible(False)
 
         # MODIFIED: Dynamic indentation using the spacer widget
         depth = tree_list_row.get_depth()
@@ -449,6 +496,7 @@ class SessionTreeView:
         self, factory: Gtk.SignalListItemFactory, list_item: Gtk.ListItem
     ) -> None:
         """Unbinds a row, disconnecting signal handlers."""
+        list_item._session_item = None
         if hasattr(list_item, "handler_ids"):
             row = list_item.get_item()
             if row:
@@ -456,6 +504,22 @@ class SessionTreeView:
                     if GObject.signal_handler_is_connected(row, handler_id):
                         row.disconnect(handler_id)
             del list_item.handler_ids
+
+    def _on_ssh_health_updated(self, _, record) -> None:
+        """Handle real-time SSH health updates in session tree rows."""
+        if not record:
+            return
+        session_name = getattr(record, "session_name", "")
+        for item in list(self._active_list_items):
+            try:
+                bound_item = getattr(item, "_session_item", None)
+                if bound_item and getattr(bound_item, "name", "") == session_name:
+                    badge = getattr(item, "_latency_badge", None)
+                    if badge:
+                        from ..terminal.tabs import _apply_latency_to_widget
+                        _apply_latency_to_widget(badge, record)
+            except Exception:
+                pass
 
     def _on_folder_expansion_changed(
         self, tree_list_row: Gtk.TreeListRow, _param

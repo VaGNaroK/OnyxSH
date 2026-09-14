@@ -33,6 +33,8 @@ from ..utils.logger import get_logger
 from ..utils.security import InputSanitizer, ensure_secure_directory_permissions
 from ..utils.tooltip_helper import get_tooltip_helper
 from ..utils.translation_utils import _
+from .dual_pane import DualPaneTransferBar, RemoteDiffHelper
+from .local_pane import LocalFileBrowserPane
 from .models import FileItem
 from .operations import FileOperations
 from .transfer_dialog import TransferManagerDialog
@@ -161,6 +163,15 @@ class FileManager(GObject.Object):
         self._context_popover: Optional[Gtk.PopoverMenu] = None
         self._context_target_items: List[FileItem] = []
         self._init_context_action_group()
+
+        # Dual-Pane layout state
+        self._dual_pane_mode_active: bool = False
+        self.local_pane: Optional[LocalFileBrowserPane] = None
+        self.transfer_bar: Optional[DualPaneTransferBar] = None
+        self.dual_paned: Optional[Gtk.Paned] = None
+        self.dual_remote_box: Optional[Gtk.Box] = None
+        self.remote_view_box: Optional[Gtk.Box] = None
+        self.content_container: Optional[Gtk.Box] = None
 
         self._build_ui()
 
@@ -536,6 +547,24 @@ class FileManager(GObject.Object):
         if hasattr(self, "scrolled_window") and self.scrolled_window:
             self.scrolled_window = None
 
+        # Clean up dual-pane components
+        if hasattr(self, "local_pane") and self.local_pane:
+            try:
+                self.local_pane.destroy()
+            except Exception:
+                pass
+            self.local_pane = None
+        if hasattr(self, "transfer_bar") and self.transfer_bar:
+            self.transfer_bar = None
+        if hasattr(self, "dual_paned") and self.dual_paned:
+            self.dual_paned = None
+        if hasattr(self, "dual_remote_box") and self.dual_remote_box:
+            self.dual_remote_box = None
+        if hasattr(self, "remote_view_box") and self.remote_view_box:
+            self.remote_view_box = None
+        if hasattr(self, "content_container") and self.content_container:
+            self.content_container = None
+
         # Nullify references to break Python-side cycles
         # Note: parent_window and terminal_manager are now weakref properties
         self._parent_window_ref = None
@@ -764,6 +793,16 @@ class FileManager(GObject.Object):
 
         self.action_bar.pack_start(self.view_mode_box)
 
+        # Dual-Pane Mode Toggle Button (Active in SSH sessions)
+        self.dual_pane_toggle = Gtk.ToggleButton()
+        self.dual_pane_toggle.set_child(icon_image("view-dual-symbolic"))
+        self.dual_pane_toggle.add_css_class("flat")
+        self.tooltip_helper.add_tooltip(
+            self.dual_pane_toggle, _("Dual-Pane Mode (Local ⇄ Remote)")
+        )
+        self.dual_pane_toggle.connect("toggled", self._on_dual_pane_toggle_clicked)
+        self.action_bar.pack_start(self.dual_pane_toggle)
+
         # Sort menu button with popover for grid mode
         self.sort_menu_button = Gtk.MenuButton()
         self.sort_menu_button.set_child(icon_image("view-sort-ascending-symbolic"))
@@ -862,10 +901,21 @@ class FileManager(GObject.Object):
         progress_widget = self.transfer_manager.create_progress_widget()
         self.main_box.append(progress_widget)
 
-        if hasattr(self, "detailed_header") and self.detailed_header:
-            self.main_box.append(self.detailed_header)
+        self.remote_view_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        self.remote_view_box.set_hexpand(True)
+        self.remote_view_box.set_vexpand(True)
 
-        self.main_box.append(self.scrolled_window)
+        if hasattr(self, "detailed_header") and self.detailed_header:
+            self.remote_view_box.append(self.detailed_header)
+
+        self.remote_view_box.append(self.scrolled_window)
+
+        self.content_container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        self.content_container.set_hexpand(True)
+        self.content_container.set_vexpand(True)
+        self.content_container.append(self.remote_view_box)
+
+        self.main_box.append(self.content_container)
         self.main_box.append(self.action_bar)
 
         # Status bar at footer
@@ -915,6 +965,200 @@ class FileManager(GObject.Object):
         """Shows or hides UI elements based on whether the session is remote."""
         is_remote = self._is_remote_session()
         self.upload_button.set_visible(is_remote)
+        if hasattr(self, "dual_pane_toggle"):
+            self.dual_pane_toggle.set_visible(is_remote)
+            if is_remote and hasattr(self, "settings_manager") and self.settings_manager:
+                should_be_active = self.settings_manager.get("file_manager_dual_pane_enabled", False)
+                if self.dual_pane_toggle.get_active() != should_be_active:
+                    self.dual_pane_toggle.set_active(should_be_active)
+            elif not is_remote:
+                if self.dual_pane_toggle.get_active():
+                    self.dual_pane_toggle.set_active(False)
+
+    def _on_dual_pane_toggle_clicked(self, button: Gtk.ToggleButton):
+        """Handles user clicking the Dual-Pane toggle button."""
+        is_active = button.get_active()
+        self._set_dual_pane_mode(is_active)
+
+    def _set_dual_pane_mode(self, enabled: bool):
+        """Switches between single-pane and dual-pane layout."""
+        if getattr(self, "_dual_pane_mode_active", False) == enabled:
+            return
+
+        self._dual_pane_mode_active = enabled
+        if hasattr(self, "settings_manager") and self.settings_manager:
+            self.settings_manager.set("file_manager_dual_pane_enabled", enabled)
+
+        if enabled:
+            self._enable_dual_pane_ui()
+        else:
+            self._disable_dual_pane_ui()
+
+    def _enable_dual_pane_ui(self):
+        """Builds and displays the dual-pane layout (Local on left, Remote on right)."""
+        if not hasattr(self, "content_container") or not self.content_container:
+            return
+
+        # 1. Instantiate local pane if not already present
+        if not hasattr(self, "local_pane") or not self.local_pane:
+            saved_local = ""
+            if hasattr(self, "settings_manager") and self.settings_manager:
+                saved_local = self.settings_manager.get("file_manager_local_path", "")
+            self.local_pane = LocalFileBrowserPane(
+                initial_path=saved_local or None,
+                show_hidden=getattr(self, "hidden_files_toggle", None) and self.hidden_files_toggle.get_active(),
+            )
+            self.local_pane.connect("files-dropped", self._on_local_pane_files_dropped)
+            self.local_pane.connect("path-changed", self._on_local_pane_path_changed)
+
+        # 2. Instantiate transfer bar
+        if not hasattr(self, "transfer_bar") or not self.transfer_bar:
+            self.transfer_bar = DualPaneTransferBar(
+                on_upload=self._on_dual_pane_upload,
+                on_download=self._on_dual_pane_download,
+                on_diff=self._on_dual_pane_diff,
+            )
+
+        # 3. Instantiate paned container
+        if not hasattr(self, "dual_paned") or not self.dual_paned:
+            self.dual_paned = Gtk.Paned.new(Gtk.Orientation.HORIZONTAL)
+            self.dual_paned.add_css_class("dual-pane-paned")
+            self.dual_paned.set_position(450)
+            self.dual_paned.set_shrink_start_child(False)
+            self.dual_paned.set_shrink_end_child(False)
+
+            self.dual_remote_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+            self.dual_remote_box.set_hexpand(True)
+            self.dual_remote_box.set_vexpand(True)
+            self.dual_remote_box.append(self.transfer_bar)
+
+            self.dual_paned.set_start_child(self.local_pane.get_widget())
+            self.dual_paned.set_end_child(self.dual_remote_box)
+
+        # 4. Move remote_view_box into dual_remote_box
+        if hasattr(self, "remote_view_box"):
+            if self.remote_view_box.get_parent() == self.content_container:
+                self.remote_view_box.unparent()
+            if self.remote_view_box.get_parent() is None:
+                self.dual_remote_box.append(self.remote_view_box)
+
+        # 5. Attach dual_paned to content_container
+        if self.dual_paned.get_parent() is None:
+            self.content_container.append(self.dual_paned)
+
+        # Refresh local pane
+        self.local_pane.refresh()
+
+    def _disable_dual_pane_ui(self):
+        """Restores the single-pane layout."""
+        if not hasattr(self, "content_container") or not self.content_container:
+            return
+
+        if hasattr(self, "dual_paned") and self.dual_paned.get_parent() == self.content_container:
+            self.dual_paned.unparent()
+
+        if hasattr(self, "remote_view_box") and hasattr(self, "dual_remote_box"):
+            if self.remote_view_box.get_parent() == self.dual_remote_box:
+                self.remote_view_box.unparent()
+
+        if hasattr(self, "remote_view_box") and self.remote_view_box.get_parent() is None:
+            self.content_container.append(self.remote_view_box)
+
+    def _on_dual_pane_upload(self):
+        """Uploads selected local files to the current remote directory."""
+        if not hasattr(self, "local_pane") or not self.local_pane:
+            return
+
+        selected_items = self.local_pane.get_selected_items()
+        if not selected_items:
+            self._show_toast(_("Please select local files to upload."))
+            return
+
+        selected_paths = self.local_pane.get_selected_paths()
+        for lp in selected_paths:
+            self._initiate_upload(lp)
+
+    def _on_dual_pane_download(self):
+        """Downloads selected remote files to the current local directory."""
+        if not hasattr(self, "local_pane") or not self.local_pane:
+            return
+
+        remote_items = self.get_selected_items()
+        if not remote_items:
+            self._show_toast(_("Please select remote files to download."))
+            return
+
+        dest_path = Path(self.local_pane.current_path)
+
+        def on_download_success(local_path, remote_path):
+            GLib.idle_add(self.local_pane.refresh)
+
+        for item in remote_items:
+            file_size = item.size
+            transfer_id = self.transfer_manager.add_transfer(
+                filename=item.name,
+                local_path=str(dest_path / item.name),
+                remote_path=f"{self.current_path.rstrip('/')}/{item.name}",
+                file_size=file_size,
+                transfer_type=TransferType.DOWNLOAD,
+                is_cancellable=True,
+                is_directory=item.is_directory_like,
+            )
+            self._start_cancellable_transfer(
+                transfer_id,
+                "Downloading",
+                self._background_download_worker,
+                on_success_callback=on_download_success,
+            )
+
+    def _on_dual_pane_diff(self):
+        """Compares selected local and remote files with diff viewer."""
+        if not hasattr(self, "local_pane") or not self.local_pane:
+            return
+
+        local_items = self.local_pane.get_selected_items()
+        remote_items = self.get_selected_items()
+
+        target_local: Optional[Path] = None
+        target_remote_name: Optional[str] = None
+
+        if len(local_items) == 1 and len(remote_items) == 1:
+            target_local = Path(os.path.join(self.local_pane.current_path, local_items[0].name.rstrip("/")))
+            target_remote_name = remote_items[0].name.rstrip("/")
+        elif len(local_items) == 1 and not remote_items:
+            target_local = Path(os.path.join(self.local_pane.current_path, local_items[0].name.rstrip("/")))
+            target_remote_name = local_items[0].name.rstrip("/")
+        elif len(remote_items) == 1 and not local_items:
+            target_remote_name = remote_items[0].name.rstrip("/")
+            target_local = Path(os.path.join(self.local_pane.current_path, target_remote_name))
+        else:
+            self._show_toast(_("Please select a file to compare."))
+            return
+
+        remote_full_path = f"{self.current_path.rstrip('/')}/{target_remote_name}"
+        RemoteDiffHelper.compare_files_async(
+            parent_window=self.parent_window,
+            local_path=target_local,
+            remote_path=remote_full_path,
+            operations=self.operations,
+            session_item=self.session_item,
+        )
+
+    def _on_local_pane_path_changed(self, pane, new_path: str):
+        """Persists the last visited local path in dual pane mode."""
+        if hasattr(self, "settings_manager") and self.settings_manager:
+            self.settings_manager.set("file_manager_local_path", new_path)
+
+    def _on_local_pane_files_dropped(self, pane, dropped_paths: List[Path]):
+        """Handles files dropped on the local pane."""
+        self.local_pane.refresh()
+
+    def _show_toast(self, message: str):
+        """Helper to show libadwaita toast notification."""
+        if self.parent_window and hasattr(self.parent_window, "toast_overlay"):
+            toast = Adw.Toast.new(message)
+            toast.set_timeout(3)
+            self.parent_window.toast_overlay.add_toast(toast)
 
     def _update_breadcrumb(self):
         """Atualiza o breadcrumb de forma incremental, reutilizando widgets existentes.

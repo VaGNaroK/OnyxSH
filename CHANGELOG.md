@@ -4,9 +4,31 @@ Todas as mudanças notáveis no projeto **OnyxSH** a partir de 13 de Agosto de 2
 
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e este projeto segue o [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
-## [Unreleased]
+## [0.12.0] - 2026-09-14
 
 ### Adicionado
+- **Modo Dual-Pane Local ⇄ Remoto para Sessões SSH no File Manager (TODO 5.7)**:
+  - 🪟 **Layout Dividido Inteligente (Dual-Pane)**: Visualização lado a lado (`Gtk.Paned`) dividindo o gerenciador de arquivos em Painel Local à esquerda e Painel Remoto SSH à direita, redimensionável suavemente pelo divisor central (`src/onyxsh/filemanager/local_pane.py`, `src/onyxsh/filemanager/dual_pane.py`, `src/onyxsh/filemanager/manager.py`).
+  - 🔄 **Navegação Local Independente e Completa (`LocalFileBrowserPane`)**: Componente local de alta velocidade com leitura assíncrona (`os.scandir`), breadcrumbs clicáveis de navegação, botões Home (`~`), Subir Nível (`..`), atualização instantânea, campo de filtro e status de disco local com espaço livre.
+  - ⚡ **Barra Central de Transferência e Ações (`DualPaneTransferBar`)**:
+    - `[ ➔ ] Upload`: Envio imediato dos itens selecionados no Painel Local diretamente para a pasta aberta no Painel Remoto, sem pop-ups redundantes de seleção de pasta.
+    - `[ ⬅ ] Download`: Download imediato dos itens selecionados no Painel Remoto diretamente para a pasta local aberta.
+    - `[ ⇄ ] Diff`: Comparação inteligente entre arquivo local e arquivo remoto correspondente com renderização no `DiffReviewDialog` (`RemoteDiffHelper`).
+  - 🖐️ **Arrastar e Soltar Bidirecional (*Drag-and-Drop*)**: Suporte completo a arrastar arquivos locais (`Gtk.DragSource` com `Gdk.FileList`) e soltá-los no Painel Remoto para upload imediato, além de recepção no Painel Local.
+  - 🎛️ **Alternância Dinâmica na Barra de Ações**: Botão de alternância com ícone `view-dual-symbolic` ativado contextualmente em conexões SSH, com persistência das preferências `file_manager_dual_pane_enabled` e `file_manager_local_path` nas configurações.
+  - 🎨 **Estilização Visual Libadwaita**: Classes CSS dedicadas (`.dual-pane-paned`, `.local-browser-pane`, `.dual-pane-header`, `.dual-pane-transfer-bar`, `.transfer-action-button`) com animações de hover e micro-interações (`src/onyxsh/data/styles/components.css`).
+  - 🌐 **Internacionalização Completa**: 17 novas chaves traduzidas e sincronizadas em todos os 28 idiomas (`scripts/sync_translations.py`).
+  - 🧪 **Cobertura de Testes Unitários**: 12 novos testes automatizados em `tests/test_filemanager_dual_pane.py` cobrindo listagem, navegação, ordenação/filtragem, transferências, diffs e ciclo de vida GTK.
+- **Health Check e Auto-Reconexão de Sessões SSH com Medição de Latência RTT (TODO 2.3)**:
+  - 📡 **Probing de Latência TCP RTT com Zero Overhead de Autenticação**: Medição precisa de latência RTT em milissegundos via handshake TCP SYN/ACK não-bloqueante (`src/onyxsh/terminal/ssh_health_monitor.py`), sem disparar logins no OpenSSH, sem sobrecarregar `auth.log` nem ativar fail2ban, funcionando com 100% de compatibilidade tanto em sandbox Flatpak quanto em ambientes nativos.
+  - 🏷️ **Chips de Latência Dinâmicos e Intuitivos**: Exibição visual de status com faixas de milissegundos e cores adaptativas (`🟢 <150ms Excelente`, `🟡 150-350ms Razoável`, `🟠 >350ms Degradado`, `🔴 Inalcançável`, `⏱ Reconectando...`) nos cabeçalhos de panes de split, no badge flutuante das abas e na árvore de sessões do painel lateral (`src/onyxsh/terminal/tabs.py`, `src/onyxsh/data/styles/components.css`).
+  - 🌲 **Indicador de Saúde na Árvore de Sessões (`SessionTreeView`)**: Badges de latência integrados às linhas da árvore de conexões salvas com rastreamento eficiente via `WeakSet` e atualização cirúrgica em tempo real via sinal `ssh-health-updated` sem recriar o modelo GTK4 (`src/onyxsh/sessions/tree.py`).
+  - 📶 **Ação Rápida de Teste de Conexão no Menu de Contexto**: Nova ação *"Testar Conexão (Ping / Latência)"* no menu de contexto das sessões SSH (`src/onyxsh/ui/menus.py`, `src/onyxsh/ui/actions.py`), executando probe instantâneo com feedback imediato via `Adw.Toast`.
+  - ⏱️ **Auto-Reconexão Inteligente com Contagem Regressiva Interativa (`SSHErrorBanner`)**: Banner integrado no topo do terminal detecta queda de conexão e inicia contagem regressiva ao vivo (`⏱ Reconectando em 5s... (1/5)`) com botões *"Reconectar Agora"* e *"Cancelar"*, preservando 100% do histórico e buffer de scrollback do terminal VTE (`src/onyxsh/ui/widgets/ssh_error_banner.py`, `src/onyxsh/terminal/manager.py`).
+  - 🛡️ **Injeção Dinâmica de KeepAlive OpenSSH (`spawner.py`)**: Aplicação transparente de `ServerAliveInterval`, `ServerAliveCountMax` e `TCPKeepAlive yes` no gerador de comandos SSH seguros (`src/onyxsh/terminal/spawner.py`), prevenindo o congelamento de conexões ociosas em firewalls e roteadores NAT.
+  - ⚙️ **Painel de Configurações Dedicado em Preferências**: Novo grupo "SSH & Health Check" em `PreferencesDialog` (`src/onyxsh/ui/dialogs/preferences_dialog.py`) com controles granulares para habilitar/desabilitar health check, intervalo de sondagem (5s a 300s), KeepAlive OpenSSH e auto-reconexão com tentativas (1 a 20) e delay (1s a 60s).
+  - 🌐 **Internacionalização Completa (28 Idiomas)**: 12 novas chaves traduzidas e compiladas em todos os 28 idiomas suportados pelo OnyxSH (`scripts/sync_translations.py`).
+  - 🧪 **Suíte de Testes Abrangente**: 11 novos testes automatizados em `tests/test_ssh_health_monitor.py` cobrindo sondagem TCP, cálculo de RTT, categorização de limites, ciclo de auto-reconexão e emissão de sinais `AppSignals`.
 - **Caderno de Bordo / Exportação de Sessão com Anotações e Narrativa (Runbook - TODO 1.9)**:
   - 📘 **Transformação de Sessões em Documentação Viva**: Extração estruturada de comandos e saídas do terminal via marcadores semânticos OSC 133 e fallback inteligente de prompt para gerar relatórios operacionais completos, playbooks técnicos, documentações pós-incidente e relatórios de auditoria (`src/onyxsh/terminal/runbook.py`, `src/onyxsh/terminal/exporter.py`, `src/onyxsh/ui/dialogs/export_dialog.py`, `src/onyxsh/window.py`, `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/menus.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `tests/test_terminal_runbook.py`).
   - 📝 **Metadados Executivos e Anotações por Passo**: Campos completos para título do procedimento, operador/autor, objetivo, status do procedimento (Concluído, Em Andamento, Incidente Investigado, Manutenção Preventiva), observações preliminares e notas finais/conclusão, com cards expansíveis e campos para comentários técnicos individuais por comando.
@@ -32,6 +54,13 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - 🎨 **Estilização e Destaque Visual**: Classe CSS `.semantic-floating-badge.running` com tonalidade baseada no `@accent_color` e ocultação automática de ações de pós-execução durante a execução.
   - 🛑 **Transição e Interrupção Limpas**: Cancelamento imediato de timers e spinners ao término do comando ou cancelamento manual (<kbd>Ctrl + C</kbd>), transicionando de volta ao badge estático de duração final (`⏱ 3.5s [copiar]`).
   - ⚙️ **Configuração Dedicada**: Nova chave `"show_command_running_indicator"` (padrão: `True`).
+
+### Corrigido e Aprimorado
+- **Tratamento de Exceção em `FileOperations.shutdown()`**: Envolvimento de `os.getpgid` e `os.killpg` sob `subprocess.TimeoutExpired` com captura de `ProcessLookupError`/`OSError`, impedindo que término concorrente de processos interrompa a finalização de outros processos gerenciados (`src/onyxsh/filemanager/operations.py`, `tests/test_filemanager_operations.py`).
+- **Gerenciamento de Ciclo de Vida e Timer em `SSHTunnelManager`**: Adicionados métodos `stop_health_monitor()` e `shutdown()` para cancelar o timer periódico do GLib e finalizar túneis SSH ativos no fechamento da janela em `window._perform_cleanup()` (`src/onyxsh/terminal/tunnel_manager.py`, `src/onyxsh/window.py`, `tests/test_tunnel_manager.py`).
+- **Desserialização Resiliente no Histórico de Transferências (`TransferManager`)**: Filtragem automática de chaves desconhecidas contra os campos do dataclass `TransferItem` e tratamento por item individual com `try/except` em `_load_history()`, prevenindo perdas de histórico em caso de registros corrompidos (`src/onyxsh/filemanager/transfer_manager.py`, `tests/test_filemanager_transfers.py`).
+- **Desconexão Limpa de Sinais Singleton (`AppSignals`)**: Armazenamento de IDs e implementação do método `cleanup()` em `TabManager` e `SessionTreeView` para desconectar listeners globais, eliminando retenção de memória e callbacks em instâncias destruídas (`src/onyxsh/terminal/tabs.py`, `src/onyxsh/sessions/tree.py`, `src/onyxsh/window.py`, `tests/test_signal_cleanup.py`).
+- **Thread-Safety na Atualização de Badges de Latência**: Atualizações de UI decorrentes do sinal `ssh-health-updated` em `tabs.py` agora utilizam `GLib.idle_add` para execução garantida na thread principal do GTK.
 
 ## [0.11.0] - 2026-09-13
 

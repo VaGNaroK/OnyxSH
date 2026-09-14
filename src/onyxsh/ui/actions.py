@@ -52,6 +52,7 @@ class WindowActions:
             "zoom-out": self.zoom_out,
             "zoom-reset": self.zoom_reset,
             "connect-sftp": self.connect_sftp,
+            "ping-session": self.ping_session,
             "edit-session": self.edit_session,
             "duplicate-session": self.duplicate_session,
             "rename-session": self.rename_session,
@@ -332,6 +333,40 @@ class WindowActions:
         else:
             self.window.toast_overlay.add_toast(
                 Adw.Toast(title=_("Please select an SSH session to connect with SFTP."))
+            )
+
+    def ping_session(self, *_args):
+        """Measures TCP latency for the currently selected SSH session."""
+        self._close_sidebar_popover_if_active()
+        selected_item = self.window.session_tree.get_selected_item()
+        if isinstance(selected_item, SessionItem) and selected_item.is_ssh():
+            from ..terminal.ssh_health_monitor import get_ssh_health_monitor
+            monitor = get_ssh_health_monitor(self.window.settings_manager)
+
+            self.window.toast_overlay.add_toast(
+                Adw.Toast(title=_("Testing latency of %s (%s)...") % (selected_item.name, selected_item.host))
+            )
+
+            def _on_ping_result(success: bool, rtt: Optional[float], err: Optional[str]):
+                if success and rtt is not None:
+                    status_text = (
+                        _("🟢 Excellent") if rtt < 150
+                        else (_("🟡 Fair") if rtt < 350 else _("🟠 High Latency"))
+                    )
+                    msg = _("Latency of %s: %.1f ms (%s)") % (selected_item.name, rtt, status_text)
+                else:
+                    msg = _("Failed to reach %s: %s") % (selected_item.name, err or _("Network error"))
+                self.window.toast_overlay.add_toast(Adw.Toast(title=msg))
+
+            monitor.probe_host_async(
+                selected_item.host,
+                selected_item.port or 22,
+                timeout=3.0,
+                callback=_on_ping_result,
+            )
+        else:
+            self.window.toast_overlay.add_toast(
+                Adw.Toast(title=_("Please select an SSH session to test connection."))
             )
 
     def edit_session(self, *_args):

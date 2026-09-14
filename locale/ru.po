@@ -12270,3 +12270,119 @@ msgstr "оставшаяся часть вывода усечена в пред�
 # 
 msgid "📘 Export Session as Runbook..."
 msgstr "📘 Экспортировать сессию как бортовой журнал..."
+
+# 
+msgid "Test Connection (Ping / Latency)"
+msgstr "Проверить соединение (Ping / Задержка)"
+
+# 
+msgid "SSH & Health Check"
+msgstr "SSH и проверка состояния"
+
+# 
+msgid "Health & Latency Monitoring (RTT)"
+msgstr "Мониторинг состояния и задержки (RTT)"
+
+# 
+msgid "Continuously measures latency and detects signal loss on SSH connections"
+msgstr "Постоянно измеряет задержку и обнаруживает потерю сигнала в SSH-соединениях"
+
+# 
+msgid "Latency Check Interval"
+msgstr "Интервал проверки задержки"
+
+# 
+msgid "Seconds between background RTT latency measurements"
+msgstr "Секунды между фоновыми измерениями задержки RTT"
+
+# 
+msgid "Smart Auto-Reconnect on Drops"
+msgstr "Умное автоподключение при обрывах"
+
+# 
+msgid "Attempts to reconnect dropped SSH sessions with countdown and on-screen alert"
+msgstr "Пытается восстановить разорванные SSH-сессии с обратным отсчетом и уведомлением"
+
+# 
+msgid "Max Reconnect Attempts"
+msgstr "Максимальное число попыток переподключения"
+
+# 
+msgid "Number of attempts before giving up auto-reconnect"
+msgstr "Количество попыток до прекращения автоподключения"
+
+# 
+msgid "SSH KeepAlive (ServerAliveInterval)"
+msgstr "SSH KeepAlive (ServerAliveInterval)"
+
+# 
+msgid "Interval in seconds to send KeepAlive probe packets"
+msgstr "Интервал в секундах для отправки пакетов KeepAlive"
+
+# 
+msgid "Dual-Pane Mode (Local ⇄ Remote)"
+msgstr "Двухпанельный режим (Локальный ⇄ Удаленный)"
+
+# 
+msgid "💻 Local"
+msgstr "💻 Локальный"
+
+# 
+msgid "Home Directory"
+msgstr "Домашний каталог"
+
+# 
+msgid "Up One Level"
+msgstr "На уровень вверх"
+
+# 
+msgid "Filter local..."
+msgstr "Фильтр локально..."
+
+# 
+msgid "Upload Selected to Remote Folder (➔)"
+msgstr "Загрузить выбранное в удаленную папку (➔)"
+
+# 
+msgid "Download Selected to Local Folder (⬅)"
+msgstr "Скачать выбранное в локальную папку (⬅)"
+
+# 
+msgid "Compare Files (Diff Local ⇄ Remote)"
+msgstr "Сравнить файлы (Diff Локальный ⇄ Удаленный)"
+
+# 
+msgid "Please select local files to upload."
+msgstr "Пожалуйста, выберите локальные файлы для отправки."
+
+# 
+msgid "Please select remote files to download."
+msgstr "Пожалуйста, выберите удаленные файлы для скачивания."
+
+# 
+msgid "Please select a file to compare."
+msgstr "Пожалуйста, выберите файл для сравнения."
+
+# 
+msgid "Local and remote files are identical."
+msgstr "Локальный и удаленный файлы идентичны."
+
+# 
+msgid "Cannot compare directories directly."
+msgstr "Невозможно сравнить каталоги напрямую."
+
+# 
+msgid "Local file is too large for text diff (> 5MB)."
+msgstr "Локальный файл слишком велик для текстового diff (> 5 МБ)."
+
+# 
+msgid "Remote file is too large for text diff (> 5MB)."
+msgstr "Удаленный файл слишком велик для текстового diff (> 5 МБ)."
+
+# 
+msgid "Diff is only supported for text and code files (binary detected)."
+msgstr "Сравнение diff поддерживается только для текстовых файлов и файлов кода (обнаружен бинарный файл)."
+
+# 
+msgid "Failed to download remote file for comparison: {}"
+msgstr "Не удалось загрузить удаленный файл для сравнения: {}"

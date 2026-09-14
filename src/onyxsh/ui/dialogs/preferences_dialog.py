@@ -638,8 +638,71 @@ class PreferencesDialog(Adw.PreferencesWindow):
         )
         remote_edit_group.add(clear_on_exit_row)
 
-        ssh_group = Adw.PreferencesGroup()
+        ssh_group = Adw.PreferencesGroup(title=_("SSH & Health Check"))
         page.add(ssh_group)
+
+        # Health check switch
+        health_check_row = self._create_switch_row(
+            _("Health & Latency Monitoring (RTT)"),
+            _("Continuously measures latency and detects signal loss on SSH connections"),
+            "ssh_health_check_enabled",
+            default_value=True,
+        )
+        ssh_group.add(health_check_row)
+
+        # Health check interval
+        health_interval_row = Adw.ActionRow(
+            title=_("Latency Check Interval"),
+            subtitle=_("Seconds between background RTT latency measurements"),
+        )
+        health_interval_spin = Gtk.SpinButton.new_with_range(3, 60, 1)
+        health_interval_spin.set_valign(Gtk.Align.CENTER)
+        health_interval_spin.set_value(
+            self.settings_manager.get("ssh_health_check_interval", 10)
+        )
+        health_interval_spin.connect("value-changed", lambda s: self._on_setting_changed("ssh_health_check_interval", int(s.get_value())))
+        health_interval_row.add_suffix(health_interval_spin)
+        health_interval_row.set_activatable_widget(health_interval_spin)
+        ssh_group.add(health_interval_row)
+
+        # Auto-reconnect switch
+        auto_reconnect_row = self._create_switch_row(
+            _("Smart Auto-Reconnect on Drops"),
+            _("Attempts to reconnect dropped SSH sessions with countdown and on-screen alert"),
+            "ssh_auto_reconnect_enabled",
+            default_value=True,
+        )
+        ssh_group.add(auto_reconnect_row)
+
+        # Max reconnect attempts
+        reconnect_attempts_row = Adw.ActionRow(
+            title=_("Max Reconnect Attempts"),
+            subtitle=_("Number of attempts before giving up auto-reconnect"),
+        )
+        reconnect_attempts_spin = Gtk.SpinButton.new_with_range(1, 20, 1)
+        reconnect_attempts_spin.set_valign(Gtk.Align.CENTER)
+        reconnect_attempts_spin.set_value(
+            self.settings_manager.get("ssh_auto_reconnect_attempts", 5)
+        )
+        reconnect_attempts_spin.connect("value-changed", lambda s: self._on_setting_changed("ssh_auto_reconnect_attempts", int(s.get_value())))
+        reconnect_attempts_row.add_suffix(reconnect_attempts_spin)
+        reconnect_attempts_row.set_activatable_widget(reconnect_attempts_spin)
+        ssh_group.add(reconnect_attempts_row)
+
+        # Keepalive interval
+        keepalive_row = Adw.ActionRow(
+            title=_("SSH KeepAlive (ServerAliveInterval)"),
+            subtitle=_("Interval in seconds to send KeepAlive probe packets"),
+        )
+        keepalive_spin = Gtk.SpinButton.new_with_range(5, 120, 5)
+        keepalive_spin.set_valign(Gtk.Align.CENTER)
+        keepalive_spin.set_value(
+            self.settings_manager.get("ssh_keepalive_interval", 15)
+        )
+        keepalive_spin.connect("value-changed", lambda s: self._on_setting_changed("ssh_keepalive_interval", int(s.get_value())))
+        keepalive_row.add_suffix(keepalive_spin)
+        keepalive_row.set_activatable_widget(keepalive_spin)
+        ssh_group.add(keepalive_row)
 
         persist_row = Adw.ActionRow(
             title=_("SSH Connection Persistence"),

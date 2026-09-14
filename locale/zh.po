@@ -12229,3 +12229,119 @@ msgstr "预览中截断了其余输出"
 # 
 msgid "📘 Export Session as Runbook..."
 msgstr "📘 将会话导出为运行手册..."
+
+# 
+msgid "Test Connection (Ping / Latency)"
+msgstr "测试连接 (Ping / 延迟)"
+
+# 
+msgid "SSH & Health Check"
+msgstr "SSH 和运行状况检查"
+
+# 
+msgid "Health & Latency Monitoring (RTT)"
+msgstr "运行状况和延迟监控 (RTT)"
+
+# 
+msgid "Continuously measures latency and detects signal loss on SSH connections"
+msgstr "持续测量延迟并检测 SSH 连接上的信号丢失"
+
+# 
+msgid "Latency Check Interval"
+msgstr "延迟检查间隔"
+
+# 
+msgid "Seconds between background RTT latency measurements"
+msgstr "后台 RTT 延迟测量之间的秒数"
+
+# 
+msgid "Smart Auto-Reconnect on Drops"
+msgstr "掉线智能自动重连"
+
+# 
+msgid "Attempts to reconnect dropped SSH sessions with countdown and on-screen alert"
+msgstr "尝试通过倒计时和屏幕提示重新连接掉线的 SSH 会话"
+
+# 
+msgid "Max Reconnect Attempts"
+msgstr "最大重连尝试次数"
+
+# 
+msgid "Number of attempts before giving up auto-reconnect"
+msgstr "放弃自动重连前的尝试次数"
+
+# 
+msgid "SSH KeepAlive (ServerAliveInterval)"
+msgstr "SSH 保活 (ServerAliveInterval)"
+
+# 
+msgid "Interval in seconds to send KeepAlive probe packets"
+msgstr "发送保活探测数据包的间隔秒数"
+
+# 
+msgid "Dual-Pane Mode (Local ⇄ Remote)"
+msgstr "双窗格模式 (本地 ⇄ 远程)"
+
+# 
+msgid "💻 Local"
+msgstr "💻 本地"
+
+# 
+msgid "Home Directory"
+msgstr "主目录"
+
+# 
+msgid "Up One Level"
+msgstr "向上一级"
+
+# 
+msgid "Filter local..."
+msgstr "过滤本地..."
+
+# 
+msgid "Upload Selected to Remote Folder (➔)"
+msgstr "上传选中项至远程目录 (➔)"
+
+# 
+msgid "Download Selected to Local Folder (⬅)"
+msgstr "下载选中项至本地目录 (⬅)"
+
+# 
+msgid "Compare Files (Diff Local ⇄ Remote)"
+msgstr "比较文件 (Diff 本地 ⇄ 远程)"
+
+# 
+msgid "Please select local files to upload."
+msgstr "请选择要上传的本地文件。"
+
+# 
+msgid "Please select remote files to download."
+msgstr "请选择要下载的远程文件。"
+
+# 
+msgid "Please select a file to compare."
+msgstr "请选择要比较的文件。"
+
+# 
+msgid "Local and remote files are identical."
+msgstr "本地文件与远程文件完全相同。"
+
+# 
+msgid "Cannot compare directories directly."
+msgstr "无法直接比较目录。"
+
+# 
+msgid "Local file is too large for text diff (> 5MB)."
+msgstr "本地文件过大，无法进行文本比较 (> 5MB)。"
+
+# 
+msgid "Remote file is too large for text diff (> 5MB)."
+msgstr "远程文件过大，无法进行文本比较 (> 5MB)。"
+
+# 
+msgid "Diff is only supported for text and code files (binary detected)."
+msgstr "仅支持文本和代码文件的比较 (检测到二进制文件)。"
+
+# 
+msgid "Failed to download remote file for comparison: {}"
+msgstr "无法下载远程文件进行比较: {}"
