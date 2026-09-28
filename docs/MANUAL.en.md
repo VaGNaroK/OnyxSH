@@ -177,10 +177,17 @@ OnyxSH features a real-time, cursor-anchored autocomplete engine:
 
 ### Built-in Command Specs Catalog
 Declarative specifications for 50+ essential tools:
-- **System:** `apt`, `systemctl`, `journalctl`, `ufw`.
+- **System:** `apt`, `dnf` (Fedora/RHEL, aliases `yum`/`microdnf`), `systemctl`, `journalctl`, `ufw`.
 - **Containers & Network:** `docker`, `ssh`, `curl`, `ping`, `ip`, `ss`, `rsync`.
 - **Files & Utilities:** `tar`, `chmod`, `chown`, `find`, `grep`, `mkdir`, `rm`, `ls`, `cp`, `mv`, `cat`.
 - **Performance:** `htop`, `top`, `ps`, `df`, `du`, `free`, `kill`.
+
+### Your System Commands (PATH)
+Beyond the curated catalog, the engine detects executables from your machine's `PATH` (own scripts, installed programs, shortcuts) with a 60s cache. Disable with `autocomplete_system_enabled: false`.
+
+### Browse Mode (Ctrl + Space)
+- With an empty prompt, press <kbd>Ctrl</kbd> + <kbd>Space</kbd> to list all possible commands.
+- With a command typed (e.g. `dnf `), lists all its subcommands and flags.
 
 ### Keyboard Navigation and Insertion
 - **Navigate:** Use <kbd>↑</kbd> and <kbd>↓</kbd> arrows.
@@ -310,6 +317,7 @@ Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> for the search bar:
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Split Terminal Vertically | Panes |
 | <kbd>Alt</kbd> + <kbd>↑</kbd> | Jump to Previous Prompt (OSC 133) | Terminal |
 | <kbd>Alt</kbd> + <kbd>↓</kbd> | Jump to Next Prompt (OSC 133) | Terminal |
+| <kbd>Ctrl</kbd> + <kbd>Space</kbd> | Browse commands/subcommands (autocomplete browse) | Terminal |
 | <kbd>Ctrl</kbd> + <kbd>+</kbd> | Zoom In Font Size | Terminal |
 | <kbd>Ctrl</kbd> + <kbd>-</kbd> | Zoom Out Font Size | Terminal |
 | <kbd>Ctrl</kbd> + <kbd>0</kbd> | Reset Font Zoom | Terminal |

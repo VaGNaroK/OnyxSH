@@ -57,7 +57,8 @@ class CompletionPopup(Gtk.Popover):
         main_box.set_can_focus(False)
         main_box.set_size_request(320, -1)
 
-        # Scrolled list
+        # Scrolled list (scrolls when items exceed max visible height,
+        # keeps natural height for short lists like typing suggestions)
         self.list_box = Gtk.ListBox()
         self.list_box.add_css_class("boxed-list")
         self.list_box.add_css_class("rich-list")
@@ -66,7 +67,15 @@ class CompletionPopup(Gtk.Popover):
         self.list_box.set_selection_mode(Gtk.SelectionMode.SINGLE)
         self.list_box.connect("row-activated", self._on_row_activated)
 
-        main_box.append(self.list_box)
+        scrolled = Gtk.ScrolledWindow()
+        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scrolled.set_propagate_natural_height(True)
+        scrolled.set_max_content_height(420)
+        scrolled.set_focusable(False)
+        scrolled.set_can_focus(False)
+        scrolled.set_child(self.list_box)
+
+        main_box.append(scrolled)
 
         # Bottom Hint Bar
         hint_box = Gtk.Box(

@@ -299,6 +299,8 @@ class DefaultSettings:
             "autocomplete_specs_enabled": True,
             "autocomplete_history_enabled": True,
             "autocomplete_snippets_enabled": True,
+            "autocomplete_system_enabled": True,
+            "autocomplete_system_ttl": 60,
             # VTE Features
             "scrollback_lines": 5000,
             "mouse_scroll_sensitivity": 30.0,

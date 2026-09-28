@@ -179,10 +179,17 @@ O OnyxSH inclui um sistema de sugestão preditiva inteligente que opera em tempo
 
 ### Catálogo de Comandos Nativos
 Inclui especificações ricas para mais de 50 utilitários essenciais:
-- **Pacotes e Serviços:** `apt`, `systemctl`, `journalctl`, `ufw`.
+- **Pacotes e Serviços:** `apt`, `dnf` (Fedora/RHEL, aliases `yum`/`microdnf`), `systemctl`, `journalctl`, `ufw`.
 - **Containers e Redes:** `docker`, `ssh`, `curl`, `ping`, `ip`, `ss`, `rsync`.
 - **Arquivos e Navegação:** `tar`, `chmod`, `chown`, `find`, `grep`, `mkdir`, `rm`, `ls`, `cp`, `mv`, `cat`.
 - **Monitoramento:** `htop`, `top`, `ps`, `df`, `du`, `free`, `kill`.
+
+### Comandos do Seu Sistema (PATH)
+Além do catálogo curado, o engine detecta executáveis do `PATH` da sua máquina (scripts próprios, programas instalados, atalhos) com cache de 60s. Desative com `autocomplete_system_enabled: false`.
+
+### Modo Explorar (Ctrl + Espaço)
+- Com o prompt vazio, pressione <kbd>Ctrl</kbd> + <kbd>Espaço</kbd> para listar todos os comandos possíveis.
+- Com um comando digitado (ex: `dnf `), lista todos os subcomandos e flags.
 
 ### Navegação e Inserção por Teclado
 - **Navegar:** Use as setas <kbd>↑</kbd> e <kbd>↓</kbd> para selecionar a opção desejada.
@@ -324,6 +331,7 @@ O OnyxSH implementa nativamente as sequências de escape do padrão **OSC 133** 
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Dividir Terminal Verticalmente | Painéis |
 | <kbd>Alt</kbd> + <kbd>↑</kbd> | Pular para o Prompt Anterior (OSC 133) | Terminal |
 | <kbd>Alt</kbd> + <kbd>↓</kbd> | Pular para o Próximo Prompt (OSC 133) | Terminal |
+| <kbd>Ctrl</kbd> + <kbd>Espaço</kbd> | Explorar comandos/subcomandos (autocomplete browse) | Terminal |
 | <kbd>Ctrl</kbd> + <kbd>+</kbd> | Aumentar Tamanho da Fonte (Zoom In) | Terminal |
 | <kbd>Ctrl</kbd> + <kbd>-</kbd> | Diminuir Tamanho da Fonte (Zoom Out) | Terminal |
 | <kbd>Ctrl</kbd> + <kbd>0</kbd> | Restaurar Tamanho Padrão da Fonte | Terminal |

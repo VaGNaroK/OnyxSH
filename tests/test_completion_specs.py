@@ -9,6 +9,7 @@ from onyxsh.terminal.completion.models import (
     CompletionType,
 )
 from onyxsh.terminal.completion.specs.apt import get_apt_spec
+from onyxsh.terminal.completion.specs.dnf import get_dnf_spec
 from onyxsh.terminal.completion.specs.docker import get_docker_spec
 from onyxsh.terminal.completion.specs.git import get_git_spec
 from onyxsh.terminal.completion.specs.registry import get_spec_registry
@@ -27,6 +28,8 @@ class TestCompletionSpecs(unittest.TestCase):
     def test_registry_registration(self):
         """Test that core commands are registered."""
         self.assertIsNotNone(self.registry.get_spec("apt"))
+        self.assertIsNotNone(self.registry.get_spec("dnf"))
+        self.assertIsNotNone(self.registry.get_spec("yum"))
         self.assertIsNotNone(self.registry.get_spec("systemctl"))
         self.assertIsNotNone(self.registry.get_spec("journalctl"))
         self.assertIsNotNone(self.registry.get_spec("docker"))
@@ -86,6 +89,33 @@ class TestCompletionSpecs(unittest.TestCase):
         items = spec.get_completions(ctx)
         texts = [i.text for i in items]
         self.assertIn("commit", texts)
+
+    def test_dnf_subcommands(self):
+        """Test dnf spec subcommand resolution."""
+        spec = get_dnf_spec()
+        ctx = CompletionContext(
+            full_line="dnf ins",
+            line_before_cursor="dnf ins",
+            tokens=["dnf", "ins"],
+            current_word="ins",
+        )
+        items = spec.get_completions(ctx)
+        texts = [i.text for i in items]
+        self.assertIn("install", texts)
+
+    def test_dnf_repolist(self):
+        """Test dnf repolist/group availability."""
+        spec = get_dnf_spec()
+        ctx = CompletionContext(
+            full_line="dnf ",
+            line_before_cursor="dnf ",
+            tokens=["dnf"],
+            current_word="",
+        )
+        items = spec.get_completions(ctx)
+        texts = [i.text for i in items]
+        self.assertIn("repolist", texts)
+        self.assertIn("group", texts)
 
 
 if __name__ == "__main__":

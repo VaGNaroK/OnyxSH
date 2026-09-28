@@ -3851,6 +3851,16 @@ class TerminalManager:
                     self.parent_window.action_handler.jump_next_prompt(terminal)
                     return Gdk.EVENT_STOP
 
+            # Ctrl+Space: open browse-all completion popup (all commands / subcommands).
+            # Must run BEFORE the generic Ctrl/Alt dismiss block below.
+            if keyval in (Gdk.KEY_space, Gdk.KEY_KP_Space):
+                if (effective_state & Gdk.ModifierType.CONTROL_MASK) and not (
+                    effective_state & Gdk.ModifierType.ALT_MASK
+                ):
+                    if self.settings_manager.get("autocomplete_enabled", True):
+                        self._open_browse_completions(terminal, terminal_id)
+                        return Gdk.EVENT_STOP
+
             # If Ctrl or Alt is held (e.g. Ctrl+L, Ctrl+C, Ctrl+U, Ctrl+D, Alt+...): dismiss popup immediately and do not autocomplete
             if state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.ALT_MASK):
                 if popup and popup.get_visible():
@@ -4429,6 +4439,78 @@ class TerminalManager:
                 terminal.feed_child(text_to_feed.encode("utf-8"))
         except Exception as e:
             self.logger.error(f"Failed to feed completion into terminal: {e}")
+
+    def _extract_prompt_line(self, terminal: Vte.Terminal, terminal_id: int) -> str:
+        cursor_col, cursor_row = terminal.get_cursor_position()
+        col_count = terminal.get_column_count()
+        text_result = terminal.get_text_range_format(
+            Vte.Format.TEXT, cursor_row, 0, cursor_row, col_count
+        )
+        full_line = text_result[0] if text_result and text_result[0] else ""
+        prompt_match = re.search(r"[$#%>]\s*(.*)$", full_line)
+        if prompt_match:
+            full_line = prompt_match.group(1)
+        return full_line.strip("\r\n")
+
+    def _show_popup_at_cursor(
+        self, terminal: Vte.Terminal, items: list
+    ) -> bool:
+        popup = getattr(terminal, "_completion_popup", None)
+        if not popup:
+            self.logger.debug("Browse completion: no popup attached to terminal")
+            return False
+        if not items:
+            self.logger.debug("Browse completion: empty item list, hiding popup")
+            if popup.get_visible():
+                popup.popdown()
+            return False
+        if not terminal.get_realized() or not terminal.get_mapped():
+            self.logger.debug("Browse completion: terminal not realized/mapped")
+            return False
+        term_w = terminal.get_width()
+        term_h = terminal.get_height()
+        if term_w <= 0 or term_h <= 0:
+            return False
+        cursor_col, cursor_row = terminal.get_cursor_position()
+        char_w = max(1, terminal.get_char_width())
+        char_h = max(1, terminal.get_char_height())
+        v_adj = terminal.get_vadjustment() if hasattr(terminal, "get_vadjustment") else None
+        scroll_offset = v_adj.get_value() if v_adj else 0.0
+        visible_row = max(0.0, cursor_row - scroll_offset)
+        cur_x = min(max(0, int(cursor_col * char_w)), max(0, term_w - int(char_w)))
+        cur_y = min(max(0, int(visible_row * char_h)), max(0, term_h - int(char_h)))
+        rect = Gdk.Rectangle()
+        rect.x = cur_x
+        rect.y = cur_y
+        rect.width = max(1, int(char_w))
+        rect.height = max(1, int(char_h))
+        popup.show_completions(items, rect)
+        self.logger.debug(
+            f"Browse completion: popup shown with {len(items)} items at ({rect.x},{rect.y}) cursor=({cursor_col},{cursor_row}) scroll={scroll_offset}"
+        )
+        return True
+
+    def _open_browse_completions(
+        self, terminal: Vte.Terminal, terminal_id: int
+    ) -> bool:
+        try:
+            clean_command_line = self._extract_prompt_line(terminal, terminal_id)
+            info = self.registry.get_terminal_info(terminal_id)
+            cwd = info.get("cwd", "") if info else ""
+            host = info.get("host", "localhost") if info else "localhost"
+            items = self.completion_engine.get_browse_completions(
+                clean_command_line,
+                cwd=cwd,
+                host=host,
+                limit=200,
+            )
+            self.logger.debug(
+                f"Browse completion: line={clean_command_line!r} items={len(items)}"
+            )
+            return self._show_popup_at_cursor(terminal, items)
+        except Exception as exc:
+            self.logger.debug(f"Browse completion error: {exc}")
+            return False
 
     def _schedule_autocomplete_lookup(self, terminal: Vte.Terminal, terminal_id: int) -> None:
         """Schedules debounced autocomplete suggestion extraction for the active prompt line."""

@@ -7,6 +7,7 @@ Orchestrates Command Specs, SQLite Command History, and Snippet Manager.
 import os
 import re
 import shlex
+import time
 from typing import Any, Dict, List, Optional, Tuple
 
 from ...settings.manager import SettingsManager
@@ -35,6 +36,10 @@ class CompletionEngine:
         self.logger = get_logger("onyxsh.terminal.completion.engine")
         self.settings_manager = settings_manager
         self.spec_registry = spec_registry or get_spec_registry()
+        # Cache for PATH executable scan (Flatpak-safe: directory listing only).
+        self._system_cache_names: List[str] = []
+        self._system_cache_key: str = ""
+        self._system_cache_ts: float = 0.0
 
     def parse_context(
         self,
@@ -157,6 +162,15 @@ class CompletionEngine:
         )
         if snippets_enabled:
             all_items.extend(self._get_snippet_completions(context))
+
+        # 4. Query system executables from PATH (user scripts, other programs)
+        system_enabled = (
+            self.settings_manager.get("autocomplete_system_enabled", True)
+            if self.settings_manager
+            else True
+        )
+        if system_enabled:
+            all_items.extend(self._get_system_completions(context))
 
         # Deduplicate and sort by score descending
         seen_texts = set()
@@ -328,6 +342,161 @@ class CompletionEngine:
             self.logger.debug(f"Snippet completion query error: {e}")
 
         return items
+
+    def get_all_commands(self, limit: int = 30) -> List[CompletionItem]:
+        items: List[CompletionItem] = []
+        for cmd_name in self.spec_registry.get_all_command_names():
+            spec = self.spec_registry.get_spec(cmd_name)
+            items.append(
+                CompletionItem(
+                    text=cmd_name,
+                    description=spec.description if spec else "",
+                    completion_type=CompletionType.COMMAND,
+                    source=CompletionSource.SPEC,
+                    score=2.0,
+                    prefix_to_replace="",
+                )
+            )
+        for name in self._scan_path_executables():
+            if name not in self.spec_registry.get_all_command_names():
+                items.append(
+                    CompletionItem(
+                        text=name,
+                        description=_("System executable"),
+                        completion_type=CompletionType.COMMAND,
+                        source=CompletionSource.SPEC,
+                        score=1.0,
+                        prefix_to_replace="",
+                    )
+                )
+            if len(items) >= limit:
+                break
+        return items[:limit]
+
+    def get_browse_completions(
+        self,
+        full_line: str,
+        cursor_pos: Optional[int] = None,
+        cwd: str = "",
+        host: str = "localhost",
+        limit: int = 30,
+    ) -> List[CompletionItem]:
+        context = self.parse_context(full_line, cursor_pos, cwd, host)
+        line_clean = context.line_before_cursor.strip()
+        if not line_clean and not context.tokens:
+            return self.get_all_commands(limit=limit)
+        tokens = context.tokens
+        if len(tokens) >= 1 and (
+            context.line_before_cursor.endswith(" ") or len(tokens) == 1
+        ):
+            target = tokens[0].lower()
+            if target == "sudo" and len(tokens) >= 2:
+                target = tokens[1].lower()
+            spec = self.spec_registry.get_spec(target)
+            if spec:
+                browse_ctx = CompletionContext(
+                    full_line=full_line,
+                    cursor_position=context.cursor_position,
+                    line_before_cursor=context.line_before_cursor,
+                    tokens=tokens,
+                    current_word="",
+                    token_index=context.token_index,
+                    command_root=target,
+                    is_sudo=context.is_sudo,
+                    cwd=cwd,
+                    host=host,
+                )
+                spec_items = spec.get_completions(browse_ctx)
+                return spec_items[:limit]
+            return self.get_all_commands(limit=limit)
+        items = self.get_completions(full_line, cursor_pos, cwd, host, limit=limit)
+        if not items:
+            return self.get_all_commands(limit=limit)
+        return items
+
+    def _get_system_completions(
+        self, context: CompletionContext
+    ) -> List[CompletionItem]:
+        items: List[CompletionItem] = []
+        tokens = context.tokens
+        if len(tokens) > 1:
+            return items
+        prefix = context.current_word.lower()
+        if not prefix and tokens:
+            return items
+        if not prefix and not tokens:
+            return items
+        known = set(self.spec_registry.get_all_command_names())
+        try:
+            for name in self._scan_path_executables():
+                if name in known:
+                    continue
+                if prefix and not name.lower().startswith(prefix):
+                    continue
+                items.append(
+                    CompletionItem(
+                        text=name,
+                        description=_("System executable"),
+                        completion_type=CompletionType.COMMAND,
+                        source=CompletionSource.SPEC,
+                        score=1.0,
+                        prefix_to_replace=context.current_word,
+                    )
+                )
+                if len(items) >= 20:
+                    break
+        except Exception as e:
+            self.logger.debug(f"System completion query error: {e}")
+        return items
+
+    def _scan_path_executables(self) -> List[str]:
+        path_value = os.environ.get("PATH", "")
+        ttl = 60
+        try:
+            if self.settings_manager:
+                ttl = int(self.settings_manager.get("autocomplete_system_ttl", 60))
+        except Exception:
+            ttl = 60
+        cache_key = path_value
+        now = time.monotonic()
+        if self._system_cache_names and self._system_cache_key == cache_key:
+            if (now - self._system_cache_ts) < max(5, ttl):
+                return self._system_cache_names
+        names: List[str] = []
+        seen = set()
+        try:
+            for directory in path_value.split(os.pathsep):
+                if not directory:
+                    continue
+                try:
+                    with os.scandir(directory) as entries:
+                        for entry in entries:
+                            try:
+                                if not entry.is_file(follow_symlinks=False):
+                                    continue
+                                if entry.name in seen:
+                                    continue
+                                full = os.path.join(directory, entry.name)
+                                if not os.access(full, os.X_OK):
+                                    continue
+                                seen.add(entry.name)
+                                names.append(entry.name)
+                                if len(names) >= 2000:
+                                    break
+                            except OSError:
+                                continue
+                except (FileNotFoundError, NotADirectoryError, PermissionError, OSError):
+                    continue
+                if len(names) >= 2000:
+                    break
+        except Exception as e:
+            self.logger.debug(f"PATH scan error: {e}")
+            return self._system_cache_names
+        names.sort()
+        self._system_cache_names = names
+        self._system_cache_key = cache_key
+        self._system_cache_ts = now
+        return names
 
 
 _engine_instance: Optional[CompletionEngine] = None
