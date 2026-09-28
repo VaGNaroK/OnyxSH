@@ -3640,6 +3640,25 @@ class FileManager(GObject.Object):
 
     def _on_selection_changed_update_status(self, _model, _position, _n_items):
         self._update_status_bar()
+        if (
+            hasattr(self, "quick_look_dialog")
+            and self.quick_look_dialog
+            and self.quick_look_dialog.is_visible()
+            and not getattr(self.quick_look_dialog, "is_dirty", False)
+        ):
+            selected_items = self.get_selected_items()
+            if len(selected_items) == 1 and selected_items[0].name != ".." and not selected_items[0].is_directory:
+                item = selected_items[0]
+                if item != self.quick_look_dialog.current_item:
+                    full_p = self.get_item_full_path(item)
+                    folder = (
+                        str(PurePosixPath(full_p).parent)
+                        if full_p
+                        else (self.current_path or "/")
+                    )
+                    self.quick_look_dialog.preview_item(
+                        item, folder, self.operations
+                    )
 
     def _update_status_bar(self):
         """Update bottom status bar with total items, selected items & size, and free space."""
@@ -4258,20 +4277,33 @@ class FileManager(GObject.Object):
 
     def _toggle_quick_look(self, item: Optional[FileItem] = None) -> None:
         """Open or toggle the Quick Look preview dialog for a file."""
-        if (
-            hasattr(self, "quick_look_dialog")
-            and self.quick_look_dialog
-            and self.quick_look_dialog.is_visible()
-        ):
-            self.quick_look_dialog.close()
-            return
-
-        if not item:
+        target_item = item
+        if not target_item:
             selected_items = self.get_selected_items()
             if selected_items and selected_items[0].name != "..":
-                item = selected_items[0]
+                target_item = selected_items[0]
 
-        if not item:
+        if not target_item:
+            return
+
+        dialog_exists = hasattr(self, "quick_look_dialog") and bool(self.quick_look_dialog)
+
+        # If already open and visible:
+        if dialog_exists and self.quick_look_dialog.is_visible():
+            # If triggered on the same item, toggle/close it.
+            if self.quick_look_dialog.current_item == target_item:
+                self.quick_look_dialog.close()
+                return
+            # If triggered on a different item, switch preview without closing!
+            full_p = self.get_item_full_path(target_item)
+            folder = (
+                str(PurePosixPath(full_p).parent)
+                if full_p
+                else (self.current_path or "/")
+            )
+            self.quick_look_dialog.preview_item(
+                target_item, folder, self.operations
+            )
             return
 
         if not hasattr(self, "quick_look_dialog") or not self.quick_look_dialog:

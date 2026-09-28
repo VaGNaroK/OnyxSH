@@ -4,6 +4,23 @@ Todas as mudanças notáveis no projeto **OnyxSH** a partir de 13 de Agosto de 2
 
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e este projeto segue o [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [0.13.0] - 2026-09-28
+
+### Adicionado
+- **Quick Look Não-Modal & Multitarefa no File Manager e Terminal**:
+  - 🪟 **Modo Não-Modal (`modal=False`)**: O `QuickLookDialog` agora opera como uma janela flutuante independente (*utility window*), eliminando o bloqueio de ponteiro e teclado que impedia a interação com a janela principal (`src/onyxsh/filemanager/quick_look.py`).
+  - ⚡ **Terminal e File Manager 100% Funcionais**: Permite navegar entre pastas, executar comandos no terminal, criar e alternar abas, utilizar painéis divididos (*splits*) e editar arquivos enquanto visualiza imagens, scripts ou logs no Quick Look simultaneamente.
+  - 🔄 **Live Preview Dinâmico na Seleção**: Ao clicar ou navegar com o teclado em outros arquivos no File Manager com a janela de Quick Look aberta, o preview atualiza instantaneamente para o arquivo selecionado (comportamento nativo estilo macOS Finder e GNOME Sushi) (`src/onyxsh/filemanager/manager.py`).
+  - 🛡️ **Salvaguarda de Edição Pendente**: Proteção preventiva que detecta alterações não salvas (`is_dirty`) e exibe diálogo de confirmação antes de descartar alterações ao alternar de arquivo no preview.
+  - ⌨️ **Alternância Fluida com Barra de Espaço**: Pressionar `Espaço` em um arquivo diferente com o visualizador já aberto atualiza o preview para o novo item sem fechar a janela; pressionar `Espaço` no mesmo arquivo fecha a janela normalmente.
+- **Planejamento Técnico e Arquitetura do OpenCode CLI (TODO 3.10)**:
+  - 📑 **Documento de Viabilidade Técnica (`PLANO_VIABILIDADE_OPENCODE.md`)**: Estudo detalhado de integração do assistente de código open-source OpenCode CLI ao ecossistema do OnyxSH dividido em 3 fases (TUI em Abas/Splits, Backend Headless no Chat da UI e Ações Contextuais de Terminal).
+  - 📋 **Roadmap Atualizado (`TODO.md`)**: Inclusão do item 3.10 e planejamento na matriz de lançamentos do projeto.
+- **Material de Apresentação e Divulgação (`ROTEIRO_APRESENTACAO.md`)**:
+  - 🎬 **Roteiro Audiovisual de Demonstração**: Roteiro estruturado cena a cena com tabelas de tempo/vídeo/áudio destacando os principais diferenciais do OnyxSH (Production Guard, Túneis SSH, IA Integrada, Autocomplete com Specs Linux, Histórico SQLite e Runbook).
+- **Testes Unitários Automatizados**:
+  - 🧪 **Cobertura de Não-Modalidade e Live Preview**: Novos testes em `tests/test_quick_look.py` validando que `dialog.get_modal()` é `False`, teste de alternância contínua entre múltiplos arquivos e teste de bloqueio de descarte acidental quando o buffer está sujo (`Ran 508 tests - OK`).
+
 ## [0.12.0] - 2026-09-14
 
 ### Adicionado

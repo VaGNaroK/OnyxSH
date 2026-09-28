@@ -69,6 +69,7 @@ class QuickLookDialog(BaseDialog):
             auto_setup_toolbar=True,
             default_width=820,
             default_height=600,
+            modal=False,
         )
         self.logger = get_logger("onyxsh.filemanager.quick_look")
         self.on_open_editor = on_open_editor
@@ -530,6 +531,21 @@ class QuickLookDialog(BaseDialog):
         operations=None,
     ) -> None:
         """Update and present preview for a given FileItem."""
+        if self.is_dirty and self.current_item and self.current_item != item:
+            self._show_discard_changes_dialog(
+                lambda: self._do_preview_item(item, current_folder, operations)
+            )
+            return
+
+        self._do_preview_item(item, current_folder, operations)
+
+    def _do_preview_item(
+        self,
+        item: FileItem,
+        current_folder: str,
+        operations=None,
+    ) -> None:
+        """Internal worker to update and present preview for a given FileItem."""
         self.current_item = item
         if getattr(item, "full_path", ""):
             self.current_folder = str(PurePosixPath(item.full_path).parent)

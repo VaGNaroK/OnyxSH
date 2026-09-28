@@ -293,6 +293,17 @@
 - [ ] **Prioridade:** 🟢 Média | **Esforço:** Alto | **Alvo:** `v1.1.0`
 - [ ] **Módulos Afetados:** `src/onyxsh/agent/planner.py`, `src/onyxsh/data/snippet_resolver.py`.
 
+### 🤖 3.10. Integração com OpenCode CLI (Motor Externo de Engenharia de Software & Refatoração Multi-Arquivo)
+- [ ] **Descrição:** Integrar o assistente de código open-source **OpenCode CLI** ao ecossistema do OnyxSH para refatoração multi-arquivo, raciocínio em projetos complexos e suporte a servidores MCP (Model Context Protocol).
+- [ ] **Documento de Arquitetura e Viabilidade:** [`PLANO_VIABILIDADE_OPENCODE.md`](PLANO_VIABILIDADE_OPENCODE.md).
+- [ ] **Fases Planejadas:**
+  - 🖥️ **Fase 1 (TUI & Launcher em Abas/Splits):** Abertura instantânea do OpenCode via atalho (`Ctrl + Shift + O`), Command Palette (`Ctrl + Shift + P`) ou split vertical/horizontal no `$PWD` atual, com suporte nativo a Flatpak sandbox (`flatpak-spawn --host`).
+  - 🤖 **Fase 2 (Provedor Headless no Chat da UI):** Inclusão do OpenCode como provedor em `src/onyxsh/agent/providers/opencode.py` via `opencode run --format json`, exibindo alterações no visualizador de Diff nativo com aprovação granular.
+  - ⚡ **Fase 3 (Ações de Contexto & Diagnóstico Semântico):** Opção no menu de contexto da VTE ("Refatorar com OpenCode") e botão de correção no badge de erro do `SemanticTracker` para falhas de compilação/testes.
+  - 🛡️ **Salvaguardas de Segurança:** Bloqueio de execuções cegas quando `ProductionGuard` estiver ativo em servidores de produção.
+- [ ] **Prioridade:** 🟡 Alta | **Esforço:** Médio (Modular) | **Alvo:** `v1.0.0`
+- [ ] **Módulos Afetados:** `src/onyxsh/utils/opencode_utils.py` (novo), `src/onyxsh/agent/providers/opencode.py` (novo), `src/onyxsh/ui/actions.py`, `src/onyxsh/ui/dialogs/command_palette_dialog.py`, `src/onyxsh/terminal/tabs.py`, `src/onyxsh/agent/error_matcher.py`.
+
 ---
 
 ## 4. Qualidade, Testes & Diagnóstico do Sistema
@@ -450,7 +461,7 @@
 | **`v0.9.0`** | **Produtividade & Core UX** | • Command Palette (`Ctrl+Shift+P`)<br>• Restauração Automática de Sessões<br>• Integração Semântica OSC 133<br>• Histórico Inteligente e Snippets de Comandos<br>• Autocomplete e Notificações Desktop<br>• Novo Logo Vetorial Oficial OnyxSH |
 | **`v0.10.1`** | **File Manager 2.0 & In-Place Editor** | • **Editor Embutido no Quick Look (com Sudo / Root / SSH)**<br>• **Quick Look (Preview com Tecla `Espaço`)**<br>• **Ações Rápidas de Terminal & IA no File Manager**<br>• **Atalhos Rápidos (Bookmarks) e Barra de Status com Espaço Livre**<br>• **Badges Visuais de Permissões (+x)**<br>• **Verificador & Comparador de Checksums / Hash**<br>• Production Guard & Roteamento Inteligente de IA<br>• Modo Estritamente Offline & Diagnóstico (`--diagnose`) |
 | **`v0.11.0`** | **DevOps, Observabilidade & Remoto** | • Modo Dual-Pane Local ⇄ Remoto no File Manager<br>• **Tree View Hierárquica com Métricas de Disco (Implementado)**<br>• **Zoom & Pan em Imagens no Quick Look (Implementado)**<br>• Dashboard de Recursos em Tempo Real (CPU/RAM/Rede)<br>• Gráficos & Imagens no Terminal (Protocolo Sixel)<br>• Health Check e Auto-Reconexão SSH<br>• Execução em Múltiplos Hosts (Multi-Host Exec)<br>• SFTP com Comparação de Diffs<br>• Auto-Correção Proativa de Erros de Terminal<br>• Exportação com Anotações & Relatório HTML de Saúde |
-| **`v1.0.0`** | **Maturidade, Extensibilidade & Cofres** | • API de Plugins (Onyx Bridge)<br>• Ferramentas Customizadas para o Agente & Catálogo de Receitas<br>• Integração com Gerenciadores de Segredos (Bitwarden, 1Password)<br>• Compartilhamento Instantâneo de Snippets via Link<br>• Estabilização Completa de Pacotes Flatpak, Debian e AUR |
+| **`v1.0.0`** | **Maturidade, Extensibilidade & Cofres** | • API de Plugins (Onyx Bridge)<br>• Integração com OpenCode CLI (TUI em Abas/Splits & Backend Headless)<br>• Ferramentas Customizadas para o Agente & Catálogo de Receitas<br>• Integração com Gerenciadores de Segredos (Bitwarden, 1Password)<br>• Compartilhamento Instantâneo de Snippets via Link<br>• Estabilização Completa de Pacotes Flatpak, Debian e AUR |
 | **`v1.1.0`** | **Colaboração & Proteção Avançada** | • Sessões Compartilhadas & Terminal Multiplayer (Pair Programming)<br>• Modo "Sombra" (Dry-Run Sandbox com visualização de diff)<br>• Detecção Proativa de Comportamento Anômalo<br>• Aprendizado por Demonstração (Demonstration Learning) |
 
 ---
