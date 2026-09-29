@@ -171,47 +171,38 @@ Arquitetura de segurança estrita para execução assistida por IA:
 
 ## 📥 Instalação & Empacotamento
 
-### 📦 Flatpak (Recomendado para Qualquer Distribuição Linux)
+### 📦 Flatpak (Recomendado — Universal para Qualquer Distribuição Linux)
 
-O Flatpak é o formato recomendado para executar o OnyxSH em qualquer distribuição Linux (Ubuntu, Debian, Fedora, Arch Linux, Manjaro, openSUSE, etc.) com isolamento seguro.
+O Flatpak é o formato universal recomendado para executar o OnyxSH em qualquer distribuição Linux (Ubuntu, Debian, Fedora, Arch Linux, Manjaro, openSUSE, etc.) com isolamento seguro e integração completa ao shell do host via `host-spawn`.
 
-#### 1. Pré-requisitos (Configuração do Flathub e Runtime GNOME):
-Se você estiver em uma distribuição recém-instalada (como Manjaro/Arch) ou nunca configurou o Flathub no escopo do usuário, certifique-se de adicionar o repositório e baixar o runtime **GNOME 46**:
-
+#### 1. Pré-requisitos (Runtime GNOME 46):
 ```bash
-# Adicionar o repositório oficial Flathub:
+# Adicionar o repositório Flathub (se ainda não configurado):
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-# Instalar o runtime GNOME 46 necessário:
-flatpak install --user flathub org.gnome.Platform//46 -y
+# Instalar o runtime GNOME 46:
+flatpak install --user flathub org.gnome.Platform//46 org.gnome.Sdk//46 -y
 ```
 
-#### 2. Instalação e Execução do Bundle:
+#### 2. Compilar e Instalar o Bundle Flatpak:
 ```bash
-# Instalar o pacote .flatpak gerado:
-flatpak install --user -y --reinstall dist/onyxsh_0.9.0.flatpak
+# Gerar e instalar o pacote Flatpak bundle localmente:
+./scripts/build_flatpak.sh --clean-cache --install
 
 # Executar:
 flatpak run io.github.vagnarok.OnyxSH
 ```
 
-### 📦 Pacote Debian (.deb - Ubuntu, Linux Mint, Debian)
+### 📦 Pacote Debian (.deb — Debian, Ubuntu, Linux Mint, Pop!_OS)
+
+Para distribuições baseadas em Debian, você pode compilar e instalar o pacote `.deb` nativo com resolução automática de dependências:
 
 ```bash
-sudo apt install ./dist/onyxsh_0.9.0_all.deb
-```
-
-### ⚡ Instalador Universal & Empacotamento Híbrido (`install.sh`)
-
-```bash
-# Instalar no sistema:
-./install.sh install
-
-# Gerar pacote Flatpak:
-./scripts/build_flatpak.sh --clean-cache
-
-# Gerar pacote .deb:
+# Gerar o pacote .deb:
 ./scripts/build_deb.sh --clean-cache
+
+# Instalar o pacote gerado via apt:
+sudo apt install ./dist/*.deb
 ```
 
 ---

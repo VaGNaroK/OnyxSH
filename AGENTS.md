@@ -8,3 +8,9 @@ Sempre que qualquer modificação ou nova funcionalidade for implementada no có
    PYTHONPATH=src python3 -m unittest discover -s tests
    ```
 3. **Validar antes de Commit:** Apenas prosseguir após confirmação de que todos os testes passaram com 100% de sucesso.
+
+---
+
+## 🏛️ Arquitetura Completa do Projeto:
+Para entender em detalhes a arquitetura de software, subsistemas de emulação VTE, bypass Flatpak via host-spawn, motor de IA Zero-Trust, gerenciamento de arquivos dual-pane e padrões do sistema, consulte:
+- [`ARCHITECTURE.md`](file:///home/vagnarok/OnyxSH/ARCHITECTURE.md) — Documentação técnica completa da arquitetura atual.
