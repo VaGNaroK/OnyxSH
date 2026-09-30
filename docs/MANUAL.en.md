@@ -175,9 +175,9 @@ OnyxSH features a real-time, cursor-anchored autocomplete engine:
 ### Cursor-Anchored Floating Popup
 - Displays completions directly beneath the prompt cursor with icons, flags, and natural language descriptions.
 
-### Built-in Command Specs Catalog
-Declarative specifications for 50+ essential tools:
-- **System:** `apt`, `systemctl`, `journalctl`, `ufw`.
+### Built-in Command Specs Catalog (Multi-Distro)
+Declarative specifications for 58 essential tools across distributions:
+- **System:** `apt`, `dnf`, `yum`, `pacman`, `systemctl`, `journalctl`, `ufw`.
 - **Containers & Network:** `docker`, `ssh`, `curl`, `ping`, `ip`, `ss`, `rsync`.
 - **Files & Utilities:** `tar`, `chmod`, `chown`, `find`, `grep`, `mkdir`, `rm`, `ls`, `cp`, `mv`, `cat`.
 - **Performance:** `htop`, `top`, `ps`, `df`, `du`, `free`, `kill`.

@@ -29,7 +29,7 @@
 - **Integrated & Privacy-First AI**: 1-click error diagnostics, multiple providers (Local Ollama, Gemini, Groq, OpenRouter), background VRAM preloading and auto-unload.
 - **Visual SSH Tunnel Manager & Port Forwarding**: Real-time management of Local (`-L`), Remote (`-R`), and Dynamic SOCKS5 (`-D`) SSH tunnels with 1-click activation switches.
 - **Production Guard Security Mode**: Persistent high-visibility banner, secret redaction, and automatic interception of destructive commands on production servers.
-- **Intelligent Autocomplete with Linux Specs**: Rich cursor-anchored completion with declarative specifications for 50+ Linux commands, SQLite history, and snippet templates.
+- **Intelligent Autocomplete with Linux Specs**: Rich cursor-anchored completion with declarative specifications for 58 essential Linux commands (including APT, DNF, Yum, and Pacman), SQLite history, and snippet templates.
 - **Semantic Shell Integration (OSC 133 / OSC 6)**: Tracks command lifecycle, measures execution time (`⏱ 1.4s`), enables quick prompt jumping (`Alt + Up` / `Alt + Down`), and surgical output extraction.
 - **Enriched SQLite History (`Ctrl + H`)**: Instant fuzzy search with contextual filters (current directory, remote host, ⭐ pinned favorites), execution counters, clear options, and prompt injection (`Tab`).
 - **Spotlight Command Palette (`Ctrl + Shift + P`)**: Fast keyboard-driven discovery and execution of all terminal actions, SSH tunnels, sessions, tabs, and preferences.
@@ -83,7 +83,7 @@
 ---
 
 ### ⚡ Intelligent Autocomplete & Linux Command Specs
-* **Cursor-Anchored Floating Popup**: Declarative explanations and flags for 50+ standard Linux commands (`apt`, `docker`, `git`, `systemctl`, `curl`, `rsync`, `chmod`, etc.).
+* **Cursor-Anchored Floating Popup**: Declarative explanations and flags for 58 standard Linux commands (`apt`, `dnf`, `pacman`, `docker`, `git`, `systemctl`, `curl`, `rsync`, `chmod`, etc.).
 * **Contextual Suggestions**: Intelligent scoring combining command specs, frequent commands from SQLite in the current directory, and snippets.
 * **Seamless Navigation**: Navigate with `↑`/`↓` and complete with `Tab` or `Enter`.
 

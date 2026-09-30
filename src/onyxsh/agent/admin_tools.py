@@ -69,6 +69,13 @@ class AdminTools:
 
         pkg = get_package_manager()
 
+        # Pacman uses flag syntax (-Sc, -Rns) instead of subcommands (clean, autoremove)
+        if pkg == "pacman":
+            if action_id == "pkg.clean_cache":
+                return True, "", ["pacman", "-Sc", "--noconfirm"], ["pacman", "-Sc"]
+            elif action_id == "pkg.autoremove":
+                return True, "", ["pacman", "-Rns", "--noconfirm"], ["pacman", "-Rns", "--dryrun"]
+
         # Build final argv
         final_argv: list[str] = []
         for token in action_def.get("argv", []):

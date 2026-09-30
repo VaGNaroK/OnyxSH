@@ -4,7 +4,7 @@ Todas as mudanças notáveis no projeto **OnyxSH** a partir de 13 de Agosto de 2
 
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e este projeto segue o [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
-## [0.13.0] - 2026-09-28
+## [0.13.0] - 2026-09-30
 
 ### Adicionado
 - **Quick Look Não-Modal & Multitarefa no File Manager e Terminal**:
@@ -16,10 +16,32 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 - **Planejamento Técnico e Arquitetura do OpenCode CLI (TODO 3.10)**:
   - 📑 **Documento de Viabilidade Técnica (`PLANO_VIABILIDADE_OPENCODE.md`)**: Estudo detalhado de integração do assistente de código open-source OpenCode CLI ao ecossistema do OnyxSH dividido em 3 fases (TUI em Abas/Splits, Backend Headless no Chat da UI e Ações Contextuais de Terminal).
   - 📋 **Roadmap Atualizado (`TODO.md`)**: Inclusão do item 3.10 e planejamento na matriz de lançamentos do projeto.
-- **Material de Apresentação e Divulgação (`ROTEIRO_APRESENTACAO.md`)**:
-  - 🎬 **Roteiro Audiovisual de Demonstração**: Roteiro estruturado cena a cena com tabelas de tempo/vídeo/áudio destacando os principais diferenciais do OnyxSH (Production Guard, Túneis SSH, IA Integrada, Autocomplete com Specs Linux, Histórico SQLite e Runbook).
+- **Suporte Multi-Distro & Expansão do Catálogo de Specs Linux (TODO 1.6 / Multi-Distro)**:
+  - 📦 **Kit de Specs Declarativas para Fedora e Arch Linux (`dnf`, `yum`, `pacman`)**:
+    - Criação de especificação declarativa para `dnf` (`src/onyxsh/terminal/completion/specs/dnf.py`) e alias `yum`, cobrindo subcomandos essenciais (`install`, `remove`, `upgrade`, `check-update`, `autoremove`, `clean`, etc.) e opções globais (`-y`, `--assumeyes`, `--refresh`, `--enablerepo`).
+    - Criação de especificação declarativa para `pacman` (`src/onyxsh/terminal/completion/specs/pacman.py`), cobrindo as principais operações do Arch Linux (`-S`, `-Syu`, `-Syyu`, `-R`, `-Rns`, `-Ss`, `-Si`, `-Q`, `-Qdt`, `-Sc`, `-U`) e flags (`--noconfirm`, `--needed`).
+    - Catálogo nativo do `SpecRegistry` expandido de 55 para **58 comandos essenciais** (`src/onyxsh/terminal/completion/specs/registry.py`).
+  - 🔍 **Quick-Fixes Dinâmicos por Distribuição no Terminal**:
+    - Resolução automática em tempo de execução do gerenciador de pacotes da distribuição ativa em `TerminalErrorMatcher._check_command_not_found` (`src/onyxsh/agent/error_matcher.py`): sugere `dnf search <cmd>` no Fedora/RHEL, `pacman -Ss <cmd>` no Arch Linux, `zypper search <cmd>` no openSUSE e `apt search <cmd>` no Debian/Ubuntu.
+  - 🎛️ **Paridade no Command Manager (Botões e Diálogos Gráficos)**:
+    - Inclusão dos botões `builtin_apt` e `builtin_dnf` com seletores interativos de ações e campos de pacotes em `get_builtin_commands()` (`src/onyxsh/data/command_manager_models.py`), em paridade com o `builtin_pacman`.
+    - Handlers de construção dedicados `_build_apt_command()` e `_build_dnf_command()` no `CommandFormDialog` (`src/onyxsh/ui/dialogs/command_manager_dialog.py`) para tratamento inteligente de ações que não exigem parâmetros.
+  - 🛡️ **Compatibilidade de Sintaxe em Ações Polkit (Zero-Trust)**:
+    - Mapeamento transparente de sintaxe para o `pacman` em `AdminTools.validate_action()` (`src/onyxsh/agent/admin_tools.py`) e no helper Polkit (`src/onyxsh/admin/helper.py`), convertendo `pkg.clean_cache` para `pacman -Sc --noconfirm` e `pkg.autoremove` para remoção com flags adequadas.
+- **Internacionalização Completa do Autocomplete em 28 Idiomas**:
+  - 🌐 **Sincronização de 359 Especificações de Comandos e Opções**: Cobertura integral das descrições de subcomandos e flags de `apt`, `dnf`, `pacman`, `docker`, `git`, `devops`, `systemd`, `common`, `engine` e `CommandManager` em todos os 28 idiomas suportados.
+  - 📦 **Nova Arquitetura de Tradução Modular (`scripts/translations/`)**: Módulos técnicos específicos com terminologia nativa de CLI Linux (`common_trans.py`, `devops_trans.py`, `docker_trans.py`, `dnf_trans.py`, `git_trans.py`, `pacman_trans.py`, `command_manager_trans.py`) e catálogo consolidado em `scripts/spec_translations_data.py`.
+  - ⚡ **Compilação e Propagação Automática**: Integração com `scripts/sync_translations.py` adicionando 9.968 novas traduções nos 28 catálogos `.po` e recompilando os arquivos binários `.mo` para o runtime do Flatpak (com suporte nativo a `pt` e `pt_BR`).
 - **Testes Unitários Automatizados**:
-  - 🧪 **Cobertura de Não-Modalidade e Live Preview**: Novos testes em `tests/test_quick_look.py` validando que `dialog.get_modal()` é `False`, teste de alternância contínua entre múltiplos arquivos e teste de bloqueio de descarte acidental quando o buffer está sujo (`Ran 508 tests - OK`).
+  - 🧪 **Cobertura Multi-Distro, Não-Modalidade, Tecla de Espaço e Traduções**: Novos testes em `tests/test_multidistro_specs.py`, testes de atalho de teclado e rolagem adaptativa em `tests/test_filemanager_tree_view.py`, testes de navegação em `tests/test_quick_look.py` e validação do autocomplete em `tests/test_translations_sync.py`, elevando a suíte para **529 testes unitários** com 100% de sucesso (`Ran 529 tests in 19.403s - OK`).
+
+### Corrigido
+- **Navegação Segura e Rolagem no Quick Look e File Manager**:
+  - 🐛 **Compatibilidade com Assinaturas do `Gtk.ListView.scroll_to`**: Correção de exceção não tratada (`TypeError: Gtk.ListView.scroll_to() takes exactly 4 arguments (5 given)`) ao navegar entre itens via teclado no Quick Look através da introdução do helper `_scroll_view_to_index()` com detecção adaptativa de parâmetros (`src/onyxsh/filemanager/manager.py`).
+  - 🛡️ **Tolerância a Falhas na Navegação do Preview**: Proteção `try/except` em `_on_prev_clicked`, `_on_next_clicked` e `_on_key_pressed` no `QuickLookDialog` (`src/onyxsh/filemanager/quick_look.py`), garantindo que o diálogo permaneça estável mesmo em nós não selecionáveis ou no topo/rodapé da lista.
+- **Intercepção e Toggle da Tecla de Espaço no Quick Look do File Manager**:
+  - ⌨️ **Fase de Captura (`Gtk.PropagationPhase.CAPTURE`) nos Controladores de Teclado**: Correção do comportamento onde a tecla `Espaço` era consumida internamente pelo `Gtk.MultiSelection` como alternância de seleção de arquivos. Ao configurar a fase de captura nas visualizações de Lista, Grade e Árvore, a tecla `Espaço` agora abre e fecha (toggle) a janela flutuante do Quick Look no arquivo focado/selecionado com precisão instantânea (`src/onyxsh/filemanager/manager.py`).
+  - 🛡️ **Correção de Parâmetros e Fallback em `_toggle_quick_look()`**: Resolução correta de `target_item` quando o atalho de teclado é disparado sem parâmetros explícitos, garantindo que o diálogo receba o item selecionado e que a barra de busca continue aceitando espaços durante a digitação de termos de pesquisa.
 
 ## [0.12.0] - 2026-09-14
 

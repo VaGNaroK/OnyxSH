@@ -14804,6 +14804,17 @@ NEW_TRANSLATIONS: Dict[str, Dict[str, str]] = {
     },
 }
 
+# Incorporate completion specs and command manager translations across all 28 languages
+try:
+    from scripts.spec_translations_data import SPEC_TRANSLATIONS
+    NEW_TRANSLATIONS.update(SPEC_TRANSLATIONS)
+except ImportError:
+    try:
+        from spec_translations_data import SPEC_TRANSLATIONS
+        NEW_TRANSLATIONS.update(SPEC_TRANSLATIONS)
+    except ImportError:
+        pass
+
 
 def _format_po_str(s: str) -> str:
     escaped = s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")

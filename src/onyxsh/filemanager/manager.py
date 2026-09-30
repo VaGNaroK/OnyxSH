@@ -2136,6 +2136,7 @@ class FileManager(GObject.Object):
         list_view.connect("activate", self._on_row_activated)
 
         key_controller = Gtk.EventControllerKey.new()
+        key_controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
         key_controller.connect("key-pressed", self._on_column_view_key_pressed)
         key_controller.connect("key-released", self._on_column_view_key_released)
         list_view.add_controller(key_controller)
@@ -2539,6 +2540,7 @@ class FileManager(GObject.Object):
         grid_view.set_factory(factory)
 
         key_controller = Gtk.EventControllerKey.new()
+        key_controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
         key_controller.connect("key-pressed", self._on_column_view_key_pressed)
         key_controller.connect("key-released", self._on_column_view_key_released)
         grid_view.add_controller(key_controller)
@@ -2692,6 +2694,7 @@ class FileManager(GObject.Object):
         tree_view.connect("activate", self._on_row_activated)
 
         key_controller = Gtk.EventControllerKey.new()
+        key_controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
         key_controller.connect("key-pressed", self._on_column_view_key_pressed)
         key_controller.connect("key-released", self._on_column_view_key_released)
         tree_view.add_controller(key_controller)
@@ -4145,10 +4148,7 @@ class FileManager(GObject.Object):
             if 0 <= new_pos < self.sorted_store.get_n_items():
                 self.selection_model.select_item(new_pos, True)
                 active_view = self._get_active_view()
-                if active_view and hasattr(active_view, "scroll_to"):
-                    active_view.scroll_to(
-                        new_pos, None, Gtk.ListScrollFlags.NONE, None
-                    )
+                self._scroll_view_to_index(active_view, new_pos)
 
             return Gdk.EVENT_STOP
 
@@ -4179,6 +4179,24 @@ class FileManager(GObject.Object):
             else:
                 self._close_or_hide_filemanager()
                 return Gdk.EVENT_STOP
+
+        if keyval == Gdk.KEY_space:
+            # If search entry has focus, allow Space to be typed into the search box
+            if (
+                hasattr(self, "search_entry")
+                and self.search_entry
+                and self.search_entry.has_focus()
+            ):
+                return Gdk.EVENT_PROPAGATE
+            modifiers = state & (
+                Gdk.ModifierType.CONTROL_MASK
+                | Gdk.ModifierType.ALT_MASK
+                | Gdk.ModifierType.SUPER_MASK
+            )
+            if modifiers == 0:
+                self._toggle_quick_look()
+                return Gdk.EVENT_STOP
+
         return Gdk.EVENT_PROPAGATE
 
     def _close_or_hide_filemanager(self) -> None:
@@ -4201,6 +4219,17 @@ class FileManager(GObject.Object):
 
     def _on_column_view_key_pressed(self, controller, keyval, _keycode, state):
         """Handle key presses on the column view for instant filtering and shortcuts."""
+        # 1. Handle Space for Quick Look preview toggle
+        if keyval == Gdk.KEY_space:
+            modifiers = state & (
+                Gdk.ModifierType.CONTROL_MASK
+                | Gdk.ModifierType.ALT_MASK
+                | Gdk.ModifierType.SUPER_MASK
+            )
+            if modifiers == 0:
+                self._toggle_quick_look()
+                return Gdk.EVENT_STOP
+
         unicode_val = Gdk.keyval_to_unicode(keyval)
         if unicode_val != 0:
             char = chr(unicode_val)
@@ -4284,6 +4313,26 @@ class FileManager(GObject.Object):
                 target_item = selected_items[0]
 
         if not target_item:
+            # Fallback: check active selection model for current selected/focused item
+            active_sel = self._get_active_selection_model()
+            if active_sel:
+                sel = active_sel.get_selection()
+                if sel and sel.get_size() > 0:
+                    pos = sel.get_nth(0)
+                    if getattr(self, "_current_view_mode", "list") == "tree":
+                        if hasattr(self, "tree_model") and self.tree_model:
+                            row = self.tree_model.get_item(pos)
+                            if row:
+                                it = row.get_item() if isinstance(row, Gtk.TreeListRow) else row
+                                if isinstance(it, FileItem) and it.name != "..":
+                                    target_item = it
+                    else:
+                        if hasattr(self, "sorted_store") and self.sorted_store:
+                            it = self.sorted_store.get_item(pos)
+                            if isinstance(it, FileItem) and it.name != "..":
+                                target_item = it
+
+        if not target_item:
             return
 
         dialog_exists = hasattr(self, "quick_look_dialog") and bool(self.quick_look_dialog)
@@ -4327,15 +4376,47 @@ class FileManager(GObject.Object):
                 ),
             )
 
-        full_p = self.get_item_full_path(item)
+        full_p = self.get_item_full_path(target_item)
         folder = (
             str(PurePosixPath(full_p).parent)
             if full_p
             else (self.current_path or "/")
         )
         self.quick_look_dialog.preview_item(
-            item, folder, self.operations
+            target_item, folder, self.operations
         )
+
+    def _scroll_view_to_index(self, view: Any, pos: int) -> None:
+        """Safely scrolls ColumnView, ListView, or GridView to the specified item index."""
+        if not view or not hasattr(view, "scroll_to"):
+            return
+        if hasattr(view, "get_model"):
+            try:
+                model = view.get_model()
+                if model is None:
+                    return
+                if hasattr(model, "get_n_items") and (pos < 0 or pos >= model.get_n_items()):
+                    return
+            except Exception:
+                pass
+        try:
+            if isinstance(view, Gtk.ColumnView):
+                # Gtk.ColumnView.scroll_to(pos, column, flags, scroll)
+                view.scroll_to(pos, None, Gtk.ListScrollFlags.NONE, None)
+            else:
+                # Gtk.ListView and Gtk.GridView.scroll_to(pos, flags, scroll)
+                view.scroll_to(pos, Gtk.ListScrollFlags.NONE, None)
+        except TypeError:
+            # Fallback for PyGObject binding signature variations
+            try:
+                view.scroll_to(pos, Gtk.ListScrollFlags.NONE, None)
+            except Exception:
+                try:
+                    view.scroll_to(pos, None, Gtk.ListScrollFlags.NONE, None)
+                except Exception:
+                    pass
+        except Exception:
+            pass
 
     def _navigate_quick_look(self, delta: int) -> Optional[Tuple[FileItem, str]]:
         """Move the selection up/down in the file manager and return the newly selected item."""
@@ -4355,10 +4436,7 @@ class FileManager(GObject.Object):
             if 0 <= new_pos < self.tree_model.get_n_items():
                 self.tree_selection_model.select_item(new_pos, True)
                 active_view = self._get_active_view()
-                if active_view and hasattr(active_view, "scroll_to"):
-                    active_view.scroll_to(
-                        new_pos, None, Gtk.ListScrollFlags.NONE, None
-                    )
+                self._scroll_view_to_index(active_view, new_pos)
                 row = self.tree_model.get_item(new_pos)
                 if row:
                     item = row.get_item() if isinstance(row, Gtk.TreeListRow) else row
@@ -4385,10 +4463,7 @@ class FileManager(GObject.Object):
         if 0 <= new_pos < self.sorted_store.get_n_items():
             self.selection_model.select_item(new_pos, True)
             active_view = self._get_active_view()
-            if active_view and hasattr(active_view, "scroll_to"):
-                active_view.scroll_to(
-                    new_pos, None, Gtk.ListScrollFlags.NONE, None
-                )
+            self._scroll_view_to_index(active_view, new_pos)
             item = self.sorted_store.get_item(new_pos)
             if item and item.name != "..":
                 full_p = self.get_item_full_path(item)

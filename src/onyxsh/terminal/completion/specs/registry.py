@@ -9,8 +9,10 @@ from .apt import get_apt_spec
 from .base import CommandSpec
 from .common import get_common_specs
 from .devops import get_devops_specs
+from .dnf import get_dnf_spec
 from .docker import get_docker_spec
 from .git import get_git_spec
+from .pacman import get_pacman_spec
 from .systemd import get_journalctl_spec, get_systemctl_spec
 
 
@@ -25,6 +27,8 @@ class SpecRegistry:
         """Initializes and registers all built-in command specifications."""
         specs: List[CommandSpec] = [
             get_apt_spec(),
+            get_dnf_spec(),
+            get_pacman_spec(),
             get_systemctl_spec(),
             get_journalctl_spec(),
             get_docker_spec(),

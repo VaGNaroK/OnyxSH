@@ -452,18 +452,24 @@ class QuickLookDialog(BaseDialog):
 
         if keyval in (Gdk.KEY_Up, Gdk.KEY_k):
             if self.on_navigate:
-                res = self.on_navigate(-1)
-                if res:
-                    item, folder = res
-                    self.preview_item(item, folder, self.operations)
+                try:
+                    res = self.on_navigate(-1)
+                    if res:
+                        item, folder = res
+                        self.preview_item(item, folder, self.operations)
+                except Exception as e:
+                    self.logger.warning("Erro ao navegar para item anterior no Quick Look: %s", e)
                 return Gdk.EVENT_STOP
 
         elif keyval in (Gdk.KEY_Down, Gdk.KEY_j):
             if self.on_navigate:
-                res = self.on_navigate(1)
-                if res:
-                    item, folder = res
-                    self.preview_item(item, folder, self.operations)
+                try:
+                    res = self.on_navigate(1)
+                    if res:
+                        item, folder = res
+                        self.preview_item(item, folder, self.operations)
+                except Exception as e:
+                    self.logger.warning("Erro ao navegar para próximo item no Quick Look: %s", e)
                 return Gdk.EVENT_STOP
 
         return Gdk.EVENT_PROPAGATE

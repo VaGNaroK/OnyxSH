@@ -12347,3 +12347,1427 @@ msgstr "Diff is only supported for text and code files (binary detected)."
 # 
 msgid "Failed to download remote file for comparison: {}"
 msgstr "Failed to download remote file for comparison: {}"
+
+# 
+msgid "APT"
+msgstr "적절한"
+
+# 
+msgid "Abort the current conflict resolution process"
+msgstr "Abort the current conflict resolution process"
+
+# 
+msgid "Abort the rebase operation and reset HEAD to the original branch"
+msgstr "Abort the rebase operation and reset HEAD to the original branch"
+
+# 
+msgid "Add all files in current directory"
+msgstr "Add all files in current directory"
+
+# 
+msgid "Allocate a pseudo-TTY and keep stdin open"
+msgstr "Allocate a pseudo-TTY and keep stdin open"
+
+# 
+msgid "Allocate a pseudo-TTY connected to the container's stdin"
+msgstr "Allocate a pseudo-TTY connected to the container's stdin"
+
+# 
+msgid "Allow erasing of installed packages to resolve dependencies"
+msgstr "종속성을 해결하기 위해 설치된 패키지 삭제 허용"
+
+# 
+msgid "Allow insecure server connections when using SSL"
+msgstr "Allow insecure server connections when using SSL"
+
+# 
+msgid "Also remove configuration files of orphaned packages"
+msgstr "고아 패키지의 구성 파일도 제거합니다."
+
+# 
+msgid "Amend the tip of the current branch instead of creating a new commit"
+msgstr "Amend the tip of the current branch instead of creating a new commit"
+
+# 
+msgid "Apply the stashed state and remove from stash list"
+msgstr "Apply the stashed state and remove from stash list"
+
+# 
+msgid "Apply the stashed state but keep in stash list"
+msgstr "Apply the stashed state but keep in stash list"
+
+# 
+msgid "Arch Linux package manager utility"
+msgstr "Arch Linux 패키지 관리자 유틸리티"
+
+# 
+msgid "Archive mode; equals -rlptgoD (preserves permissions, times, symlinks)"
+msgstr "Archive mode; equals -rlptgoD (preserves permissions, times, symlinks)"
+
+# 
+msgid "Assign a custom name to the container"
+msgstr "Assign a custom name to the container"
+
+# 
+msgid "Assume yes to all queries"
+msgstr "모든 쿼리에 대해 예라고 가정"
+
+# 
+msgid "Auto Clean Cache"
+msgstr "Auto Clean Cache"
+
+# 
+msgid "Automatic yes to all prompts"
+msgstr "모든 프롬프트에 자동으로 예"
+
+# 
+msgid "Automatic yes to prompts"
+msgstr "프롬프트에 자동으로 동의"
+
+# 
+msgid "Automatically remove the container when it exits"
+msgstr "Automatically remove the container when it exits"
+
+# 
+msgid "Automatically stage modified and deleted files"
+msgstr "Automatically stage modified and deleted files"
+
+# 
+msgid "Automatically stash before rebase and pop after"
+msgstr "Automatically stash before rebase and pop after"
+
+# 
+msgid "Before fetching, remove any remote-tracking references that no longer exist on the remote"
+msgstr "Before fetching, remove any remote-tracking references that no longer exist on the remote"
+
+# 
+msgid "Bind mount a volume"
+msgstr "Bind mount a volume"
+
+# 
+msgid "Build images before starting containers"
+msgstr "Build images before starting containers"
+
+# 
+msgid "Bypass any and all 'Are you sure?' prompts"
+msgstr "Bypass any and all 'Are you sure?' prompts"
+
+# 
+msgid "Bypass any and all confirmation prompts"
+msgstr "Bypass any and all confirmation prompts"
+
+# 
+msgid "Bypass any and all confirmation questions"
+msgstr "Bypass any and all confirmation questions"
+
+# 
+msgid "Bypass any confirmation prompts"
+msgstr "Bypass any confirmation prompts"
+
+# 
+msgid "Bypass confirmation prompt"
+msgstr "Bypass confirmation prompt"
+
+# 
+msgid "Bypass pre-commit and commit-msg hooks"
+msgstr "Bypass pre-commit and commit-msg hooks"
+
+# 
+msgid "Change device attributes (up, down, mtu)"
+msgstr "Change device attributes (up, down, mtu)"
+
+# 
+msgid "Change files and directories recursively"
+msgstr "파일과 디렉터리를 재귀적으로 변경"
+
+# 
+msgid "Change to directory before performing any operations"
+msgstr "Change to directory before performing any operations"
+
+# 
+msgid "Check for Updates"
+msgstr "Check for Updates"
+
+# 
+msgid "Check for available package upgrades without installing them"
+msgstr "설치하지 않고 사용 가능한 패키지 업그레이드를 확인하세요."
+
+# 
+msgid "Check only for security updates"
+msgstr "보안 업데이트만 확인하세요"
+
+# 
+msgid "Clean all cached metadata and packages"
+msgstr "Clean all cached metadata and packages"
+
+# 
+msgid "Clean all cached packages including uninstalled"
+msgstr "제거된 패키지를 포함하여 캐시된 모든 패키지를 정리합니다."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages from cache)"
+msgstr "Clean all package cache (remove all downloaded packages from cache)"
+
+# 
+msgid "Clean cached RPM packages"
+msgstr "Clean cached RPM packages"
+
+# 
+msgid "Clean cached data (all, packages, metadata)"
+msgstr "캐시된 데이터 정리(전체, 패키지, 메타데이터)"
+
+# 
+msgid "Clean cached metadata databases"
+msgstr "Clean cached metadata databases"
+
+# 
+msgid "Clean cached repository metadata"
+msgstr "Clean cached repository metadata"
+
+# 
+msgid "Clean package cache (remove old downloaded packages from /var/cache/pacman/pkg)"
+msgstr "Clean package cache (remove old downloaded packages from /var/cache/pacman/pkg)"
+
+# 
+msgid "Clean package cache from /var/cache/pacman/pkg"
+msgstr "/var/cache/pacman/pkg에서 패키지 캐시 정리"
+
+# 
+msgid "Cleanly remove package with all unused dependencies and config files"
+msgstr "Cleanly remove package with all unused dependencies and config files"
+
+# 
+msgid "Colorize output (auto, always, never)"
+msgstr "Colorize output (auto, always, never)"
+
+# 
+msgid "Common combination: long format, all files, human sizes"
+msgstr "일반적인 조합: 긴 형식, 모든 파일, 사람 크기"
+
+# 
+msgid "Compress file data during the transfer"
+msgstr "Compress file data during the transfer"
+
+# 
+msgid "Connect a container to a network"
+msgstr "Connect a container to a network"
+
+# 
+msgid "Containers & Docker"
+msgstr "Containers & Docker"
+
+# 
+msgid "Control colored output (auto, never, always)"
+msgstr "Control colored output (auto, never, always)"
+
+# 
+msgid "Create a merge commit even when the merge resolves as a fast-forward"
+msgstr "Create a merge commit even when the merge resolves as a fast-forward"
+
+# 
+msgid "Create a new archive"
+msgstr "Create a new archive"
+
+# 
+msgid "Create a shallow clone with a history truncated to the specified number of commits"
+msgstr "Create a shallow clone with a history truncated to the specified number of commits"
+
+# 
+msgid "Create and switch to a new branch"
+msgstr "Create and switch to a new branch"
+
+# 
+msgid "Create/reset and checkout a branch"
+msgstr "Create/reset and checkout a branch"
+
+# 
+msgid "DNF"
+msgstr "DNF"
+
+# 
+msgid "Debian/Ubuntu package manager operations"
+msgstr "Debian/Ubuntu 패키지 관리자 작업"
+
+# 
+msgid "Delete a branch"
+msgstr "Delete a branch"
+
+# 
+msgid "Delete extraneous files from destination dirs"
+msgstr "Delete extraneous files from destination dirs"
+
+# 
+msgid "Delete found files"
+msgstr "Delete found files"
+
+# 
+msgid "Detached mode: Run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Detached mode: run command in the background"
+msgstr "Detached mode: run command in the background"
+
+# 
+msgid "Directory to download packages into"
+msgstr "Directory to download packages into"
+
+# 
+msgid "Disable and stop unit immediately"
+msgstr "장치를 즉시 비활성화하고 중지하십시오."
+
+# 
+msgid "Disable specified repository"
+msgstr "Disable specified repository"
+
+# 
+msgid "Display TCP sockets"
+msgstr "Display TCP sockets"
+
+# 
+msgid "Display UDP sockets"
+msgstr "Display UDP sockets"
+
+# 
+msgid "Display all packages in specified group"
+msgstr "Display all packages in specified group"
+
+# 
+msgid "Display both listening and non-listening sockets"
+msgstr "Display both listening and non-listening sockets"
+
+# 
+msgid "Display detailed information about a locally installed package"
+msgstr "Display detailed information about a locally installed package"
+
+# 
+msgid "Display detailed information about a remote package"
+msgstr "Display detailed information about a remote package"
+
+# 
+msgid "Display detailed information about packages"
+msgstr "패키지에 대한 자세한 정보 표시"
+
+# 
+msgid "Display detailed package information and metadata"
+msgstr "Display detailed package information and metadata"
+
+# 
+msgid "Display only listening sockets"
+msgstr "Display only listening sockets"
+
+# 
+msgid "Display syntax and options"
+msgstr "Display syntax and options"
+
+# 
+msgid "Display version information"
+msgstr "Display version information"
+
+# 
+msgid "Do not ask for any confirmation (non-interactive)"
+msgstr "확인을 요청하지 않음(비대화형)"
+
+# 
+msgid "Do not ellipsize output"
+msgstr "출력을 생략하지 않음"
+
+# 
+msgid "Do not execute a remote command (useful for port forwarding only)"
+msgstr "Do not execute a remote command (useful for port forwarding only)"
+
+# 
+msgid "Do not ignore entries starting with ."
+msgstr "로 시작하는 항목을 무시하지 마십시오."
+
+# 
+msgid "Do not install new packages during upgrade"
+msgstr "업그레이드하는 동안 새 패키지를 설치하지 마십시오"
+
+# 
+msgid "Do not install recommended packages"
+msgstr "권장 패키지를 설치하지 마세요"
+
+# 
+msgid "Do not limit transaction to best available package versions"
+msgstr "사용 가능한 최상의 패키지 버전으로 트랜잭션을 제한하지 마십시오."
+
+# 
+msgid "Do not pipe output into a pager"
+msgstr "출력을 호출기로 파이프하지 마십시오."
+
+# 
+msgid "Do not reinstall up-to-date packages"
+msgstr "최신 패키지를 다시 설치하지 마십시오"
+
+# 
+msgid "Do not reinstall up-to-date targets"
+msgstr "Do not reinstall up-to-date targets"
+
+# 
+msgid "Do not try to resolve service names or addresses"
+msgstr "Do not try to resolve service names or addresses"
+
+# 
+msgid "Do not use cache when building the image"
+msgstr "Do not use cache when building the image"
+
+# 
+msgid "Docker Exec Shell"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Download fresh copy of package databases from servers"
+msgstr "Download fresh copy of package databases from servers"
+
+# 
+msgid "Download needed dependencies as well"
+msgstr "Download needed dependencies as well"
+
+# 
+msgid "Download package RPMs without installing them"
+msgstr "Download package RPMs without installing them"
+
+# 
+msgid "Download packages only, do not install or unpack"
+msgstr "Download packages only, do not install or unpack"
+
+# 
+msgid "Download packages to local directory without installing"
+msgstr "설치하지 않고 로컬 디렉터리에 패키지 다운로드"
+
+# 
+msgid "Download source RPM (SRPM)"
+msgstr "Download source RPM (SRPM)"
+
+# 
+msgid "Draw a text-based graphical representation of the commit history"
+msgstr "Draw a text-based graphical representation of the commit history"
+
+# 
+msgid "Dynamic SOCKS proxy port forwarding"
+msgstr "Dynamic SOCKS proxy port forwarding"
+
+# 
+msgid "Enable additional repository"
+msgstr "Enable additional repository"
+
+# 
+msgid "Enable and start unit immediately"
+msgstr "즉시 장치 활성화 및 시작"
+
+# 
+msgid "Enables X11 forwarding"
+msgstr "Enables X11 forwarding"
+
+# 
+msgid "Exclude files matching pattern"
+msgstr "Exclude files matching pattern"
+
+# 
+msgid "Execute command on matched files"
+msgstr "Execute command on matched files"
+
+# 
+msgid "Extract files from an archive"
+msgstr "Extract files from an archive"
+
+# 
+msgid "Fedora/RHEL package manager operations"
+msgstr "Fedora/RHEL package manager operations"
+
+# 
+msgid "Fedora/RHEL package manager utility"
+msgstr "Fedora/RHEL 패키지 관리자 유틸리티"
+
+# 
+msgid "Fetch HTTP response headers only"
+msgstr "Fetch HTTP response headers only"
+
+# 
+msgid "Fetch all remotes"
+msgstr "Fetch all remotes"
+
+# 
+msgid "File data was last modified n*24 hours ago"
+msgstr "File data was last modified n*24 hours ago"
+
+# 
+msgid "File type (f for regular file, d for directory, l for symlink)"
+msgstr "File type (f for regular file, d for directory, l for symlink)"
+
+# 
+msgid "File uses n units of space (e.g. +100M)"
+msgstr "File uses n units of space (e.g. +100M)"
+
+# 
+msgid "Filter by message priority (err, warning, info, debug)"
+msgstr "메시지 우선순위별로 필터링(오류, 경고, 정보, 디버그)"
+
+# 
+msgid "Filter by unit state (active, failed, inactive)"
+msgstr "장치 상태별 필터링(활성, 실패, 비활성)"
+
+# 
+msgid "Filter by unit type (service, socket, timer)"
+msgstr "장치 유형별 필터링(서비스, 소켓, 타이머)"
+
+# 
+msgid "Filter entries since date/time or relative timestamp"
+msgstr "날짜/시간 또는 상대 타임스탬프 이후 항목 필터링"
+
+# 
+msgid "Filter entries until date/time or relative timestamp"
+msgstr "날짜/시간 또는 상대 타임스탬프까지 항목 필터링"
+
+# 
+msgid "Filter output based on conditions provided"
+msgstr "Filter output based on conditions provided"
+
+# 
+msgid "Filter the archive through bzip2 (.tar.bz2)"
+msgstr "Filter the archive through bzip2 (.tar.bz2)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz / .tgz)"
+msgstr "Filter the archive through gzip (.tar.gz / .tgz)"
+
+# 
+msgid "Filter the archive through xz (.tar.xz)"
+msgstr "Filter the archive through xz (.tar.xz)"
+
+# 
+msgid "Follow HTTP redirects"
+msgstr "Follow HTTP redirects"
+
+# 
+msgid "Follow journal output live (real-time stream)"
+msgstr "저널 출력을 실시간으로 팔로우하세요(실시간 스트림)."
+
+# 
+msgid "Follow log output"
+msgstr "Follow log output"
+
+# 
+msgid "Follow log output in real time"
+msgstr "Follow log output in real time"
+
+# 
+msgid "For every branch that is up to date or successfully pushed, add upstream (tracking) reference"
+msgstr "For every branch that is up to date or successfully pushed, add upstream (tracking) reference"
+
+# 
+msgid "Force delete a branch"
+msgstr "Force delete a branch"
+
+# 
+msgid "Force metadata refresh before checking"
+msgstr "확인하기 전에 메타데이터 강제 새로 고침"
+
+# 
+msgid "Force metadata refresh before upgrade"
+msgstr "업그레이드 전에 메타데이터 강제 새로 고침"
+
+# 
+msgid "Force refresh all package databases and full system upgrade"
+msgstr "Force refresh all package databases and full system upgrade"
+
+# 
+msgid "Force refresh package databases and upgrade system"
+msgstr "패키지 데이터베이스 강제 새로 고침 및 시스템 업그레이드"
+
+# 
+msgid "Force removal of the image"
+msgstr "Force removal of the image"
+
+# 
+msgid "Force the removal of a running container"
+msgstr "Force the removal of a running container"
+
+# 
+msgid "Force updates on the remote repository"
+msgstr "Force updates on the remote repository"
+
+# 
+msgid "Full system upgrade (refresh repositories and update all packages)"
+msgstr "Full system upgrade (refresh repositories and update all packages)"
+
+# 
+msgid "Generate a diffstat"
+msgstr "Generate a diffstat"
+
+# 
+msgid "Git & Version Control"
+msgstr "Git & Version Control"
+
+# 
+msgid "Git New Branch"
+msgstr "Git New Branch"
+
+# 
+msgid "Give the output in the short-format"
+msgstr "Give the output in the short-format"
+
+# 
+msgid "HTTP POST data"
+msgstr "HTTP POST data"
+
+# 
+msgid "History"
+msgstr "History"
+
+# 
+msgid "Identity file (private key) for public key authentication"
+msgstr "Identity file (private key) for public key authentication"
+
+# 
+msgid "Ignore a package upgrade"
+msgstr "Ignore a package upgrade"
+
+# 
+msgid "Ignore case distinctions in patterns and input data"
+msgstr "패턴 및 입력 데이터에서 대소문자 구분을 무시합니다."
+
+# 
+msgid "Ignore file backup designates (remove config files)"
+msgstr "Ignore file backup designates (remove config files)"
+
+# 
+msgid "Ignore nonexistent files and arguments, never prompt"
+msgstr "존재하지 않는 파일과 인수를 무시하고 메시지를 표시하지 않음"
+
+# 
+msgid "Include only packages providing security fixes"
+msgstr "보안 수정 사항을 제공하는 패키지만 포함"
+
+# 
+msgid "Include optional packages in the group"
+msgstr "Include optional packages in the group"
+
+# 
+msgid "Include protocol response headers in the output"
+msgstr "Include protocol response headers in the output"
+
+# 
+msgid "Increase verbosity"
+msgstr "Increase verbosity"
+
+# 
+msgid "Install a software group by name"
+msgstr "Install a software group by name"
+
+# 
+msgid "Install groups of packages"
+msgstr "패키지 그룹 설치"
+
+# 
+msgid "Install local package file (.pkg.tar.zst)"
+msgstr "로컬 패키지 파일(.pkg.tar.zst) 설치"
+
+# 
+msgid "Install or synchronize packages from remote repositories"
+msgstr "Install or synchronize packages from remote repositories"
+
+# 
+msgid "Install packages as explicitly requested"
+msgstr "Install packages as explicitly requested"
+
+# 
+msgid "Install packages as non-explicit dependencies"
+msgstr "Install packages as non-explicit dependencies"
+
+# 
+msgid "Interactively choose hunks of patch between the index and the work tree"
+msgstr "Interactively choose hunks of patch between the index and the work tree"
+
+# 
+msgid "Interpret PATTERNS as extended regular expressions"
+msgstr "Interpret PATTERNS as extended regular expressions"
+
+# 
+msgid "Invalidate user's cached credentials"
+msgstr "사용자의 캐시된 자격 증명 무효화"
+
+# 
+msgid "Invert the sense of matching, to select non-matching lines"
+msgstr "Invert the sense of matching, to select non-matching lines"
+
+# 
+msgid "Jump to the end of the journal immediately"
+msgstr "즉시 일지 끝으로 이동"
+
+# 
+msgid "Like -name, but match is case insensitive"
+msgstr "Like -name, but match is case insensitive"
+
+# 
+msgid "Limit the number of commits to output"
+msgstr "Limit the number of commits to output"
+
+# 
+msgid "List all available versions"
+msgstr "사용 가능한 모든 버전 나열"
+
+# 
+msgid "List all files belonging to package"
+msgstr "패키지에 속한 모든 파일 나열"
+
+# 
+msgid "List all files owned by a given package"
+msgstr "List all files owned by a given package"
+
+# 
+msgid "List all files owned by a locally installed package"
+msgstr "List all files owned by a locally installed package"
+
+# 
+msgid "List all signal names"
+msgstr "List all signal names"
+
+# 
+msgid "List both remote-tracking and local branches"
+msgstr "List both remote-tracking and local branches"
+
+# 
+msgid "List only installed packages"
+msgstr "설치된 패키지만 나열"
+
+# 
+msgid "List orphaned packages (dependencies no longer required by any package)"
+msgstr "List orphaned packages (dependencies no longer required by any package)"
+
+# 
+msgid "List packages not found in sync database (e.g. from AUR)"
+msgstr "List packages not found in sync database (e.g. from AUR)"
+
+# 
+msgid "List packages not required by any installed package"
+msgstr "List packages not required by any installed package"
+
+# 
+msgid "List packages required by the specified package"
+msgstr "List packages required by the specified package"
+
+# 
+msgid "List packages that were explicitly installed"
+msgstr "List packages that were explicitly installed"
+
+# 
+msgid "List packages that were installed as dependencies"
+msgstr "List packages that were installed as dependencies"
+
+# 
+msgid "List packages with available updates"
+msgstr "사용 가능한 업데이트가 있는 패키지 나열"
+
+# 
+msgid "List recent transactions"
+msgstr "List recent transactions"
+
+# 
+msgid "List the stashes currently saved"
+msgstr "List the stashes currently saved"
+
+# 
+msgid "List unrequired packages (orphans)"
+msgstr "불필요한 패키지 나열(고아)"
+
+# 
+msgid "Local port forwarding [bind_address:]port:host:hostport"
+msgstr "Local port forwarding [bind_address:]port:host:hostport"
+
+# 
+msgid "Make a list of the commits which are about to be rebased"
+msgstr "Make a list of the commits which are about to be rebased"
+
+# 
+msgid "Make file executable"
+msgstr "파일을 실행 가능하게 만들기"
+
+# 
+msgid "Make parent directories as needed, no error if existing"
+msgstr "필요에 따라 상위 디렉터리를 만듭니다. 존재하는 경우 오류가 발생하지 않습니다."
+
+# 
+msgid "Match base of file name against shell pattern"
+msgstr "Match base of file name against shell pattern"
+
+# 
+msgid "Name and optionally a tag in the 'name:tag' format"
+msgstr "Name and optionally a tag in the 'name:tag' format"
+
+# 
+msgid "Name of the Dockerfile"
+msgstr "Name of the Dockerfile"
+
+# 
+msgid "Network & SSH"
+msgstr "Network & SSH"
+
+# 
+msgid "Number of journal entries to show"
+msgstr "표시할 저널 항목 수"
+
+# 
+msgid "Number of lines to show from the end of the logs"
+msgstr "Number of lines to show from the end of the logs"
+
+# 
+msgid "Only display numeric container IDs"
+msgstr "Only display numeric container IDs"
+
+# 
+msgid "Only show numeric image IDs"
+msgstr "Only show numeric image IDs"
+
+# 
+msgid "Operate on files and directories recursively"
+msgstr "파일 및 디렉터리에 대해 재귀적으로 작업"
+
+# 
+msgid "Output a diagnostic for every file processed"
+msgstr "처리된 모든 파일에 대한 진단 출력"
+
+# 
+msgid "Output more detailed diagnostic information"
+msgstr "Output more detailed diagnostic information"
+
+# 
+msgid "Output numbers in a human-readable format"
+msgstr "Output numbers in a human-readable format"
+
+# 
+msgid "Output package names only (suitable for piping)"
+msgstr "Output package names only (suitable for piping)"
+
+# 
+msgid "Override repository or DNF configuration options"
+msgstr "저장소 또는 DNF 구성 옵션 재정의"
+
+# 
+msgid "Pass custom header line to server"
+msgstr "Pass custom header line to server"
+
+# 
+msgid "Perform full system upgrade and refresh database"
+msgstr "전체 시스템 업그레이드 수행 및 데이터베이스 새로 고침"
+
+# 
+msgid "Prefix each line of output with the 1-based line number"
+msgstr "Prefix each line of output with the 1-based line number"
+
+# 
+msgid "Preserve existing environment variables"
+msgstr "기존 환경 변수 유지"
+
+# 
+msgid "Print a message for each created directory"
+msgstr "생성된 각 디렉터리에 대한 메시지를 인쇄합니다."
+
+# 
+msgid "Print version information"
+msgstr "Print version information"
+
+# 
+msgid "Prints the Git suite version"
+msgstr "Prints the Git suite version"
+
+# 
+msgid "Prints the synopsis and a list of the most commonly used commands"
+msgstr "Prints the synopsis and a list of the most commonly used commands"
+
+# 
+msgid "Produce quiet log output"
+msgstr "조용한 로그 출력 생성"
+
+# 
+msgid "Produce quiet output"
+msgstr "Produce quiet output"
+
+# 
+msgid "Produce verbose output"
+msgstr "Produce verbose output"
+
+# 
+msgid "Prompt before every removal"
+msgstr "제거할 때마다 메시지 표시"
+
+# 
+msgid "Prune anonymous volumes as well"
+msgstr "Prune anonymous volumes as well"
+
+# 
+msgid "Publish container port(s) to the host"
+msgstr "Publish container port(s) to the host"
+
+# 
+msgid "Purge (remove with configs)"
+msgstr "제거(구성으로 제거)"
+
+# 
+msgid "Push all tags"
+msgstr "Push all tags"
+
+# 
+msgid "Query and display information on local package"
+msgstr "로컬 패키지에 대한 정보 쿼리 및 표시"
+
+# 
+msgid "Query and display information on remote package"
+msgstr "원격 패키지에 대한 정보 쿼리 및 표시"
+
+# 
+msgid "Query installed packages only"
+msgstr "Query installed packages only"
+
+# 
+msgid "Query locally installed package database"
+msgstr "로컬에 설치된 패키지 데이터베이스 쿼리"
+
+# 
+msgid "Query packages providing the specified capability"
+msgstr "Query packages providing the specified capability"
+
+# 
+msgid "Query packages requiring the specified capability"
+msgstr "Query packages requiring the specified capability"
+
+# 
+msgid "Query the local package database"
+msgstr "Query the local package database"
+
+# 
+msgid "Query which package owns a specific file on the filesystem"
+msgstr "Query which package owns a specific file on the filesystem"
+
+# 
+msgid "Quiet mode"
+msgstr "정숙 모드"
+
+# 
+msgid "Quiet mode (turn off output)"
+msgstr "Quiet mode (turn off output)"
+
+# 
+msgid "Read all files under each directory, recursively"
+msgstr "Read all files under each directory, recursively"
+
+# 
+msgid "Rebase the current branch on top of the upstream branch after fetching"
+msgstr "Rebase the current branch on top of the upstream branch after fetching"
+
+# 
+msgid "Redo a specific transaction"
+msgstr "Redo a specific transaction"
+
+# 
+msgid "Refresh files database (for searching which package provides a file)"
+msgstr "Refresh files database (for searching which package provides a file)"
+
+# 
+msgid "Refuse to update a remote ref unless its current value is what we expect"
+msgstr "Refuse to update a remote ref unless its current value is what we expect"
+
+# 
+msgid "Reinstall one or more packages"
+msgstr "Reinstall one or more packages"
+
+# 
+msgid "Reinstall packages even if up to date"
+msgstr "최신 버전이더라도 패키지를 다시 설치하세요."
+
+# 
+msgid "Reinstall specified packages"
+msgstr "지정된 패키지 다시 설치"
+
+# 
+msgid "Remote port forwarding [bind_address:]port:host:hostport"
+msgstr "Remote port forwarding [bind_address:]port:host:hostport"
+
+# 
+msgid "Remove Unused Packages"
+msgstr "Remove Unused Packages"
+
+# 
+msgid "Remove a single stash state from the stash list"
+msgstr "Remove a single stash state from the stash list"
+
+# 
+msgid "Remove all target packages and all packages that depend on them"
+msgstr "Remove all target packages and all packages that depend on them"
+
+# 
+msgid "Remove all the stash entries"
+msgstr "Remove all the stash entries"
+
+# 
+msgid "Remove all unused images, not just dangling ones"
+msgstr "Remove all unused images, not just dangling ones"
+
+# 
+msgid "Remove anonymous volumes associated with container"
+msgstr "Remove anonymous volumes associated with container"
+
+# 
+msgid "Remove cached metadata and downloaded packages"
+msgstr "Remove cached metadata and downloaded packages"
+
+# 
+msgid "Remove configuration files along with packages"
+msgstr "패키지와 함께 구성 파일 제거"
+
+# 
+msgid "Remove dependencies not required by other packages"
+msgstr "Remove dependencies not required by other packages"
+
+# 
+msgid "Remove directories and their contents recursively"
+msgstr "디렉터리와 그 내용을 재귀적으로 제거"
+
+# 
+msgid "Remove named volumes"
+msgstr "Remove named volumes"
+
+# 
+msgid "Remove old packages from cache directory"
+msgstr "Remove old packages from cache directory"
+
+# 
+msgid "Remove older duplicates of packages"
+msgstr "오래된 패키지 중복 제거"
+
+# 
+msgid "Remove one or more packages and their unused dependencies"
+msgstr "하나 이상의 패키지와 사용되지 않는 종속성을 제거합니다."
+
+# 
+msgid "Remove one or more packages from the system"
+msgstr "Remove one or more packages from the system"
+
+# 
+msgid "Remove packages and their unneeded dependencies"
+msgstr "패키지 및 불필요한 종속성을 제거합니다."
+
+# 
+msgid "Remove packages originally installed as dependencies that are no longer needed"
+msgstr "Remove packages originally installed as dependencies that are no longer needed"
+
+# 
+msgid "Remove packages, dependencies, and configuration files"
+msgstr "패키지, 종속성 및 구성 파일 제거"
+
+# 
+msgid "Remove specified packages from system"
+msgstr "시스템에서 지정된 패키지 제거"
+
+# 
+msgid "Remove unneeded packages"
+msgstr "Remove unneeded packages"
+
+# 
+msgid "Remove unused dependencies installed with packages"
+msgstr "패키지와 함께 설치된 사용되지 않는 종속성을 제거합니다."
+
+# 
+msgid "Rename a branch"
+msgstr "Rename a branch"
+
+# 
+msgid "Requests compression of all data"
+msgstr "Requests compression of all data"
+
+# 
+msgid "Restart policy to apply when container exits"
+msgstr "Restart policy to apply when container exits"
+
+# 
+msgid "Restart the rebasing process after resolving conflicts"
+msgstr "Restart the rebasing process after resolving conflicts"
+
+# 
+msgid "Restore the working tree and the index"
+msgstr "Restore the working tree and the index"
+
+# 
+msgid "Reverse order while sorting"
+msgstr "정렬하는 동안 역순으로 정렬"
+
+# 
+msgid "Roll back to a specific transaction state"
+msgstr "Roll back to a specific transaction state"
+
+# 
+msgid "Rsync Sync Files"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Run as if git was started in <path> instead of the current working directory"
+msgstr "Run as if git was started in <path> instead of the current working directory"
+
+# 
+msgid "Run command as specified user instead of root"
+msgstr "루트 대신 지정된 사용자로 명령 실행"
+
+# 
+msgid "Run container in background and print container ID"
+msgstr "Run container in background and print container ID"
+
+# 
+msgid "Run login shell as the target user (root)"
+msgstr "대상 사용자(루트)로 로그인 셸을 실행합니다."
+
+# 
+msgid "Run shell as the target user"
+msgstr "대상 사용자로 쉘을 실행하십시오."
+
+# 
+msgid "SIGHUP: Hangup / reload configuration"
+msgstr "SIGHUP: Hangup / reload configuration"
+
+# 
+msgid "SIGKILL: Force kill immediately (uninterceptable)"
+msgstr "SIGKILL: Force kill immediately (uninterceptable)"
+
+# 
+msgid "SIGTERM: Graceful termination request (default)"
+msgstr "SIGTERM: Graceful termination request (default)"
+
+# 
+msgid "Search descriptions as well as names and summaries"
+msgstr "Search descriptions as well as names and summaries"
+
+# 
+msgid "Search file owners across all repositories"
+msgstr "모든 저장소에서 파일 소유자 검색"
+
+# 
+msgid "Search files database for a filename"
+msgstr "Search files database for a filename"
+
+# 
+msgid "Search for package that owns the specified file"
+msgstr "Search for package that owns the specified file"
+
+# 
+msgid "Search for packages matching various repository criteria"
+msgstr "Search for packages matching various repository criteria"
+
+# 
+msgid "Search locally-installed packages for matching strings"
+msgstr "Search locally-installed packages for matching strings"
+
+# 
+msgid "Search package names and summaries for keywords"
+msgstr "키워드에 대한 패키지 이름 및 요약 검색"
+
+# 
+msgid "Search remote repositories for matching packages"
+msgstr "일치하는 패키지에 대한 원격 저장소 검색"
+
+# 
+msgid "Search remote repositories for matching regex"
+msgstr "Search remote repositories for matching regex"
+
+# 
+msgid "Search remote repositories for packages matching keyword"
+msgstr "Search remote repositories for packages matching keyword"
+
+# 
+msgid "Seconds to wait before killing the container"
+msgstr "Seconds to wait before killing the container"
+
+# 
+msgid "Server user and password"
+msgstr "Server user and password"
+
+# 
+msgid "Set an alternate configuration file"
+msgstr "Set an alternate configuration file"
+
+# 
+msgid "Set an alternate installation root"
+msgstr "Set an alternate installation root"
+
+# 
+msgid "Set an alternate package cache location"
+msgstr "Set an alternate package cache location"
+
+# 
+msgid "Set environment variables"
+msgstr "Set environment variables"
+
+# 
+msgid "Set metadata as expired before running the command"
+msgstr "Set metadata as expired before running the command"
+
+# 
+msgid "Shorthand for '--pretty=oneline --abbrev-commit'"
+msgstr "Shorthand for '--pretty=oneline --abbrev-commit'"
+
+# 
+msgid "Show IP addresses of all interfaces"
+msgstr "Show IP addresses of all interfaces"
+
+# 
+msgid "Show Package Info"
+msgstr "Show Package Info"
+
+# 
+msgid "Show all containers (default shows just running)"
+msgstr "Show all containers (default shows just running)"
+
+# 
+msgid "Show all images"
+msgstr "Show all images"
+
+# 
+msgid "Show details of a specific transaction"
+msgstr "Show details of a specific transaction"
+
+# 
+msgid "Show explanatory help texts from message catalog"
+msgstr "메시지 카탈로그의 설명 도움말 텍스트 표시"
+
+# 
+msgid "Show firewall rules with rule numbers"
+msgstr "Show firewall rules with rule numbers"
+
+# 
+msgid "Show help information"
+msgstr "도움말 정보 표시"
+
+# 
+msgid "Show information for available packages only"
+msgstr "Show information for available packages only"
+
+# 
+msgid "Show information for installed packages only"
+msgstr "Show information for installed packages only"
+
+# 
+msgid "Show interface state"
+msgstr "Show interface state"
+
+# 
+msgid "Show kernel messages only (like dmesg)"
+msgstr "커널 메시지만 표시(예: dmesg)"
+
+# 
+msgid "Show less information for query and search outputs"
+msgstr "Show less information for query and search outputs"
+
+# 
+msgid "Show less information for query output"
+msgstr "Show less information for query output"
+
+# 
+msgid "Show logs for the specified service unit"
+msgstr "지정된 서비스 단위에 대한 로그 표시"
+
+# 
+msgid "Show messages from the current or specified boot"
+msgstr "현재 또는 지정된 부팅의 메시지 표시"
+
+# 
+msgid "Show newest entries first"
+msgstr "최신 항목을 먼저 표시"
+
+# 
+msgid "Show process using socket"
+msgstr "Show process using socket"
+
+# 
+msgid "Show progress during transfer and keep partially transferred files"
+msgstr "Show progress during transfer and keep partially transferred files"
+
+# 
+msgid "Show routing table"
+msgstr "Show routing table"
+
+# 
+msgid "Show the branch and tracking info"
+msgstr "Show the branch and tracking info"
+
+# 
+msgid "Show timestamps"
+msgstr "Show timestamps"
+
+# 
+msgid "Show verbose firewall rules"
+msgstr "Show verbose firewall rules"
+
+# 
+msgid "Show version number"
+msgstr "버전 번호 표시"
+
+# 
+msgid "Silent mode (don't show progress meter or error messages)"
+msgstr "Silent mode (don't show progress meter or error messages)"
+
+# 
+msgid "Simulate installation"
+msgstr "설치 시뮬레이션"
+
+# 
+msgid "Skip packages with broken dependencies"
+msgstr "종속성이 손상된 패키지 건너뛰기"
+
+# 
+msgid "Snippet template"
+msgstr "Snippet template"
+
+# 
+msgid "Sort by modification time, newest first"
+msgstr "수정 시간을 기준으로 최신 항목부터 정렬"
+
+# 
+msgid "Specify request method (GET, POST, PUT, DELETE, PATCH)"
+msgstr "Specify request method (GET, POST, PUT, DELETE, PATCH)"
+
+# 
+msgid "Specify the remote shell to use (e.g. 'ssh -p 2222')"
+msgstr "Specify the remote shell to use (e.g. 'ssh -p 2222')"
+
+# 
+msgid "Stage all changes (new, modified, deleted)"
+msgstr "Stage all changes (new, modified, deleted)"
+
+# 
+msgid "Suppress normal output; instead print a count of matching lines"
+msgstr "Suppress normal output; instead print a count of matching lines"
+
+# 
+msgid "Suppress normal output; instead print the name of each input file"
+msgstr "Suppress normal output; instead print the name of each input file"
+
+# 
+msgid "Synchronize and install packages from repositories"
+msgstr "리포지토리에서 패키지 동기화 및 설치"
+
+# 
+msgid "Systemd Service Logs"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Talk to the service manager of the calling user"
+msgstr "전화를 건 사용자의 서비스 관리자와 대화하세요"
+
+# 
+msgid "Talk to the system service manager (default)"
+msgstr "시스템 서비스 관리자와 대화(기본)"
+
+# 
+msgid "Undo a specific transaction"
+msgstr "Undo a specific transaction"
+
+# 
+msgid "Update Package Lists"
+msgstr "Update Package Lists"
+
+# 
+msgid "Update tracked files only"
+msgstr "Update tracked files only"
+
+# 
+msgid "Update user's cached credentials without running a command"
+msgstr "명령을 실행하지 않고 사용자의 캐시된 자격 증명 업데이트"
+
+# 
+msgid "Upgrade Packages"
+msgstr "Upgrade Packages"
+
+# 
+msgid "Upgrade System"
+msgstr "Upgrade System"
+
+# 
+msgid "Upgrade all packages that are out of date"
+msgstr "Upgrade all packages that are out of date"
+
+# 
+msgid "Upgrade only to the lowest version containing fixes"
+msgstr "수정 사항이 포함된 가장 낮은 버전으로만 업그레이드하세요."
+
+# 
+msgid "Upgrade or install local or remote package file (.pkg.tar.zst)"
+msgstr "Upgrade or install local or remote package file (.pkg.tar.zst)"
+
+# 
+msgid "Use a long listing format with permissions, owner, size and date"
+msgstr "권한, 소유자, 크기 및 날짜가 포함된 긴 목록 형식을 사용하세요."
+
+# 
+msgid "Use archive file or device ARCHIVE"
+msgstr "Use archive file or device ARCHIVE"
+
+# 
+msgid "Use the given commit message"
+msgstr "Use the given commit message"
+
+# 
+msgid "Username or UID"
+msgstr "Username or UID"
+
+# 
+msgid "Verbose mode (debugging)"
+msgstr "Verbose mode (debugging)"
+
+# 
+msgid "Verbosely list files processed"
+msgstr "Verbosely list files processed"
+
+# 
+msgid "View and manage DNF transaction history"
+msgstr "View and manage DNF transaction history"
+
+# 
+msgid "View information about a locally-installed package"
+msgstr "View information about a locally-installed package"
+
+# 
+msgid "View information about a remote package"
+msgstr "View information about a remote package"
+
+# 
+msgid "View or alter DNF transaction history"
+msgstr "DNF 거래 내역 보기 또는 변경"
+
+# 
+msgid "View the changes you staged for the next commit"
+msgstr "View the changes you staged for the next commit"
+
+# 
+msgid "When used with -s, show error message on failure"
+msgstr "When used with -s, show error message on failure"
+
+# 
+msgid "With -l, print sizes in human readable format (e.g., 1K 234M 2G)"
+msgstr "-l을 사용하면 사람이 읽을 수 있는 형식(예: 1K 234M 2G)으로 크기를 인쇄합니다."
+
+# 
+msgid "Write output to <file> instead of stdout"
+msgstr "Write output to <file> instead of stdout"
+
+# 
+msgid "Write output to a local file named like the remote file"
+msgstr "Write output to a local file named like the remote file"
+
+# 
+msgid "e.g., curl, git (optional for updates)"
+msgstr "e.g., curl, git (optional for updates)"
+
+# 
+msgid "e.g., htop, neovim (optional for updates)"
+msgstr "e.g., htop, neovim (optional for updates)"
+
+# 
+msgid "rw------- (secure private key permissions)"
+msgstr "rw------(보안 개인 키 권한)"
+
+# 
+msgid "rw-r--r-- (standard file permissions)"
+msgstr "rw-r--r-- (표준 파일 권한)"
+
+# 
+msgid "rwxr-xr-x (standard directory / executable permissions)"
+msgstr "rwxr-xr-x(표준 디렉터리/실행 권한)"

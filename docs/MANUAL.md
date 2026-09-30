@@ -177,9 +177,9 @@ O OnyxSH inclui um sistema de sugestão preditiva inteligente que opera em tempo
 - Conforme você digita no prompt, um popup flutuante moderno aparece diretamente abaixo da posição atual do cursor.
 - Apresenta ícones identificadores, sintaxe, flags e descrições claras em português.
 
-### Catálogo de Comandos Nativos
-Inclui especificações ricas para mais de 50 utilitários essenciais:
-- **Pacotes e Serviços:** `apt`, `systemctl`, `journalctl`, `ufw`.
+### Catálogo de Comandos Nativos (Multi-Distro)
+Inclui especificações ricas para 58 utilitários essenciais com suporte multi-distro:
+- **Pacotes e Serviços:** `apt`, `dnf`, `yum`, `pacman`, `systemctl`, `journalctl`, `ufw`.
 - **Containers e Redes:** `docker`, `ssh`, `curl`, `ping`, `ip`, `ss`, `rsync`.
 - **Arquivos e Navegação:** `tar`, `chmod`, `chown`, `find`, `grep`, `mkdir`, `rm`, `ls`, `cp`, `mv`, `cat`.
 - **Monitoramento:** `htop`, `top`, `ps`, `df`, `du`, `free`, `kill`.

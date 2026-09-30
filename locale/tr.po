@@ -12390,3 +12390,1427 @@ msgstr "Diff is only supported for text and code files (binary detected)."
 # 
 msgid "Failed to download remote file for comparison: {}"
 msgstr "Failed to download remote file for comparison: {}"
+
+# 
+msgid "APT"
+msgstr "UYGUN"
+
+# 
+msgid "Abort the current conflict resolution process"
+msgstr "Abort the current conflict resolution process"
+
+# 
+msgid "Abort the rebase operation and reset HEAD to the original branch"
+msgstr "Abort the rebase operation and reset HEAD to the original branch"
+
+# 
+msgid "Add all files in current directory"
+msgstr "Add all files in current directory"
+
+# 
+msgid "Allocate a pseudo-TTY and keep stdin open"
+msgstr "Allocate a pseudo-TTY and keep stdin open"
+
+# 
+msgid "Allocate a pseudo-TTY connected to the container's stdin"
+msgstr "Allocate a pseudo-TTY connected to the container's stdin"
+
+# 
+msgid "Allow erasing of installed packages to resolve dependencies"
+msgstr "Bağımlılıkları çözmek için yüklü paketlerin silinmesine izin ver"
+
+# 
+msgid "Allow insecure server connections when using SSL"
+msgstr "Allow insecure server connections when using SSL"
+
+# 
+msgid "Also remove configuration files of orphaned packages"
+msgstr "Artık paketlerin yapılandırma dosyalarını da kaldırın"
+
+# 
+msgid "Amend the tip of the current branch instead of creating a new commit"
+msgstr "Amend the tip of the current branch instead of creating a new commit"
+
+# 
+msgid "Apply the stashed state and remove from stash list"
+msgstr "Apply the stashed state and remove from stash list"
+
+# 
+msgid "Apply the stashed state but keep in stash list"
+msgstr "Apply the stashed state but keep in stash list"
+
+# 
+msgid "Arch Linux package manager utility"
+msgstr "Arch Linux paket yöneticisi yardımcı programı"
+
+# 
+msgid "Archive mode; equals -rlptgoD (preserves permissions, times, symlinks)"
+msgstr "Archive mode; equals -rlptgoD (preserves permissions, times, symlinks)"
+
+# 
+msgid "Assign a custom name to the container"
+msgstr "Assign a custom name to the container"
+
+# 
+msgid "Assume yes to all queries"
+msgstr "Tüm sorgulara evet olduğunu varsayalım"
+
+# 
+msgid "Auto Clean Cache"
+msgstr "Auto Clean Cache"
+
+# 
+msgid "Automatic yes to all prompts"
+msgstr "Tüm istemlere otomatik evet"
+
+# 
+msgid "Automatic yes to prompts"
+msgstr "İstemlere otomatik evet"
+
+# 
+msgid "Automatically remove the container when it exits"
+msgstr "Automatically remove the container when it exits"
+
+# 
+msgid "Automatically stage modified and deleted files"
+msgstr "Automatically stage modified and deleted files"
+
+# 
+msgid "Automatically stash before rebase and pop after"
+msgstr "Automatically stash before rebase and pop after"
+
+# 
+msgid "Before fetching, remove any remote-tracking references that no longer exist on the remote"
+msgstr "Before fetching, remove any remote-tracking references that no longer exist on the remote"
+
+# 
+msgid "Bind mount a volume"
+msgstr "Bind mount a volume"
+
+# 
+msgid "Build images before starting containers"
+msgstr "Build images before starting containers"
+
+# 
+msgid "Bypass any and all 'Are you sure?' prompts"
+msgstr "Bypass any and all 'Are you sure?' prompts"
+
+# 
+msgid "Bypass any and all confirmation prompts"
+msgstr "Bypass any and all confirmation prompts"
+
+# 
+msgid "Bypass any and all confirmation questions"
+msgstr "Bypass any and all confirmation questions"
+
+# 
+msgid "Bypass any confirmation prompts"
+msgstr "Bypass any confirmation prompts"
+
+# 
+msgid "Bypass confirmation prompt"
+msgstr "Bypass confirmation prompt"
+
+# 
+msgid "Bypass pre-commit and commit-msg hooks"
+msgstr "Bypass pre-commit and commit-msg hooks"
+
+# 
+msgid "Change device attributes (up, down, mtu)"
+msgstr "Change device attributes (up, down, mtu)"
+
+# 
+msgid "Change files and directories recursively"
+msgstr "Dosyaları ve dizinleri yinelemeli olarak değiştirme"
+
+# 
+msgid "Change to directory before performing any operations"
+msgstr "Change to directory before performing any operations"
+
+# 
+msgid "Check for Updates"
+msgstr "Check for Updates"
+
+# 
+msgid "Check for available package upgrades without installing them"
+msgstr "Mevcut paket yükseltmelerini yüklemeden kontrol edin"
+
+# 
+msgid "Check only for security updates"
+msgstr "Yalnızca güvenlik güncellemelerini kontrol et"
+
+# 
+msgid "Clean all cached metadata and packages"
+msgstr "Clean all cached metadata and packages"
+
+# 
+msgid "Clean all cached packages including uninstalled"
+msgstr "Kaldırılanlar da dahil olmak üzere önbelleğe alınmış tüm paketleri temizleyin"
+
+# 
+msgid "Clean all package cache (remove all downloaded packages from cache)"
+msgstr "Clean all package cache (remove all downloaded packages from cache)"
+
+# 
+msgid "Clean cached RPM packages"
+msgstr "Clean cached RPM packages"
+
+# 
+msgid "Clean cached data (all, packages, metadata)"
+msgstr "Önbelleğe alınmış verileri temizleyin (tümü, paketler, meta veriler)"
+
+# 
+msgid "Clean cached metadata databases"
+msgstr "Clean cached metadata databases"
+
+# 
+msgid "Clean cached repository metadata"
+msgstr "Clean cached repository metadata"
+
+# 
+msgid "Clean package cache (remove old downloaded packages from /var/cache/pacman/pkg)"
+msgstr "Clean package cache (remove old downloaded packages from /var/cache/pacman/pkg)"
+
+# 
+msgid "Clean package cache from /var/cache/pacman/pkg"
+msgstr "Paket önbelleğini /var/cache/pacman/pkg adresinden temizleyin"
+
+# 
+msgid "Cleanly remove package with all unused dependencies and config files"
+msgstr "Cleanly remove package with all unused dependencies and config files"
+
+# 
+msgid "Colorize output (auto, always, never)"
+msgstr "Colorize output (auto, always, never)"
+
+# 
+msgid "Common combination: long format, all files, human sizes"
+msgstr "Ortak kombinasyon: uzun format, tüm dosyalar, insan boyutları"
+
+# 
+msgid "Compress file data during the transfer"
+msgstr "Compress file data during the transfer"
+
+# 
+msgid "Connect a container to a network"
+msgstr "Connect a container to a network"
+
+# 
+msgid "Containers & Docker"
+msgstr "Containers & Docker"
+
+# 
+msgid "Control colored output (auto, never, always)"
+msgstr "Control colored output (auto, never, always)"
+
+# 
+msgid "Create a merge commit even when the merge resolves as a fast-forward"
+msgstr "Create a merge commit even when the merge resolves as a fast-forward"
+
+# 
+msgid "Create a new archive"
+msgstr "Create a new archive"
+
+# 
+msgid "Create a shallow clone with a history truncated to the specified number of commits"
+msgstr "Create a shallow clone with a history truncated to the specified number of commits"
+
+# 
+msgid "Create and switch to a new branch"
+msgstr "Create and switch to a new branch"
+
+# 
+msgid "Create/reset and checkout a branch"
+msgstr "Create/reset and checkout a branch"
+
+# 
+msgid "DNF"
+msgstr "DNF"
+
+# 
+msgid "Debian/Ubuntu package manager operations"
+msgstr "Debian/Ubuntu paket yöneticisi işlemleri"
+
+# 
+msgid "Delete a branch"
+msgstr "Delete a branch"
+
+# 
+msgid "Delete extraneous files from destination dirs"
+msgstr "Delete extraneous files from destination dirs"
+
+# 
+msgid "Delete found files"
+msgstr "Delete found files"
+
+# 
+msgid "Detached mode: Run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Detached mode: run command in the background"
+msgstr "Detached mode: run command in the background"
+
+# 
+msgid "Directory to download packages into"
+msgstr "Directory to download packages into"
+
+# 
+msgid "Disable and stop unit immediately"
+msgstr "Üniteyi derhal devre dışı bırakın ve durdurun"
+
+# 
+msgid "Disable specified repository"
+msgstr "Disable specified repository"
+
+# 
+msgid "Display TCP sockets"
+msgstr "Display TCP sockets"
+
+# 
+msgid "Display UDP sockets"
+msgstr "Display UDP sockets"
+
+# 
+msgid "Display all packages in specified group"
+msgstr "Display all packages in specified group"
+
+# 
+msgid "Display both listening and non-listening sockets"
+msgstr "Display both listening and non-listening sockets"
+
+# 
+msgid "Display detailed information about a locally installed package"
+msgstr "Display detailed information about a locally installed package"
+
+# 
+msgid "Display detailed information about a remote package"
+msgstr "Display detailed information about a remote package"
+
+# 
+msgid "Display detailed information about packages"
+msgstr "Paketler hakkında ayrıntılı bilgi görüntüle"
+
+# 
+msgid "Display detailed package information and metadata"
+msgstr "Display detailed package information and metadata"
+
+# 
+msgid "Display only listening sockets"
+msgstr "Display only listening sockets"
+
+# 
+msgid "Display syntax and options"
+msgstr "Display syntax and options"
+
+# 
+msgid "Display version information"
+msgstr "Display version information"
+
+# 
+msgid "Do not ask for any confirmation (non-interactive)"
+msgstr "Herhangi bir onay istemeyin (etkileşimli olmayan)"
+
+# 
+msgid "Do not ellipsize output"
+msgstr "Çıktıyı elips boyutlandırma"
+
+# 
+msgid "Do not execute a remote command (useful for port forwarding only)"
+msgstr "Do not execute a remote command (useful for port forwarding only)"
+
+# 
+msgid "Do not ignore entries starting with ."
+msgstr "ile başlayan girişleri dikkate almayın."
+
+# 
+msgid "Do not install new packages during upgrade"
+msgstr "Yükseltme sırasında yeni paketler kurmayın"
+
+# 
+msgid "Do not install recommended packages"
+msgstr "Önerilen paketleri yüklemeyin"
+
+# 
+msgid "Do not limit transaction to best available package versions"
+msgstr "İşlemi mevcut en iyi paket sürümleriyle sınırlamayın"
+
+# 
+msgid "Do not pipe output into a pager"
+msgstr "Çıktıyı çağrı cihazına aktarmayın"
+
+# 
+msgid "Do not reinstall up-to-date packages"
+msgstr "Güncel paketleri yeniden yüklemeyin"
+
+# 
+msgid "Do not reinstall up-to-date targets"
+msgstr "Do not reinstall up-to-date targets"
+
+# 
+msgid "Do not try to resolve service names or addresses"
+msgstr "Do not try to resolve service names or addresses"
+
+# 
+msgid "Do not use cache when building the image"
+msgstr "Do not use cache when building the image"
+
+# 
+msgid "Docker Exec Shell"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Download fresh copy of package databases from servers"
+msgstr "Download fresh copy of package databases from servers"
+
+# 
+msgid "Download needed dependencies as well"
+msgstr "Download needed dependencies as well"
+
+# 
+msgid "Download package RPMs without installing them"
+msgstr "Download package RPMs without installing them"
+
+# 
+msgid "Download packages only, do not install or unpack"
+msgstr "Download packages only, do not install or unpack"
+
+# 
+msgid "Download packages to local directory without installing"
+msgstr "Paketleri kurmadan yerel dizine indirin"
+
+# 
+msgid "Download source RPM (SRPM)"
+msgstr "Download source RPM (SRPM)"
+
+# 
+msgid "Draw a text-based graphical representation of the commit history"
+msgstr "Draw a text-based graphical representation of the commit history"
+
+# 
+msgid "Dynamic SOCKS proxy port forwarding"
+msgstr "Dynamic SOCKS proxy port forwarding"
+
+# 
+msgid "Enable additional repository"
+msgstr "Enable additional repository"
+
+# 
+msgid "Enable and start unit immediately"
+msgstr "Üniteyi hemen etkinleştirin ve başlatın"
+
+# 
+msgid "Enables X11 forwarding"
+msgstr "Enables X11 forwarding"
+
+# 
+msgid "Exclude files matching pattern"
+msgstr "Exclude files matching pattern"
+
+# 
+msgid "Execute command on matched files"
+msgstr "Execute command on matched files"
+
+# 
+msgid "Extract files from an archive"
+msgstr "Extract files from an archive"
+
+# 
+msgid "Fedora/RHEL package manager operations"
+msgstr "Fedora/RHEL package manager operations"
+
+# 
+msgid "Fedora/RHEL package manager utility"
+msgstr "Fedora/RHEL paket yöneticisi yardımcı programı"
+
+# 
+msgid "Fetch HTTP response headers only"
+msgstr "Fetch HTTP response headers only"
+
+# 
+msgid "Fetch all remotes"
+msgstr "Fetch all remotes"
+
+# 
+msgid "File data was last modified n*24 hours ago"
+msgstr "File data was last modified n*24 hours ago"
+
+# 
+msgid "File type (f for regular file, d for directory, l for symlink)"
+msgstr "File type (f for regular file, d for directory, l for symlink)"
+
+# 
+msgid "File uses n units of space (e.g. +100M)"
+msgstr "File uses n units of space (e.g. +100M)"
+
+# 
+msgid "Filter by message priority (err, warning, info, debug)"
+msgstr "İleti önceliğine göre filtrele (hata, uyarı, bilgi, hata ayıklama)"
+
+# 
+msgid "Filter by unit state (active, failed, inactive)"
+msgstr "Ünite durumuna göre filtrele (etkin, başarısız, etkin değil)"
+
+# 
+msgid "Filter by unit type (service, socket, timer)"
+msgstr "Ünite türüne göre filtrele (servis, soket, zamanlayıcı)"
+
+# 
+msgid "Filter entries since date/time or relative timestamp"
+msgstr "Tarih/saat veya göreceli zaman damgasından bu yana girişleri filtreleyin"
+
+# 
+msgid "Filter entries until date/time or relative timestamp"
+msgstr "Girişleri tarih/saat veya ilgili zaman damgasına kadar filtreleyin"
+
+# 
+msgid "Filter output based on conditions provided"
+msgstr "Filter output based on conditions provided"
+
+# 
+msgid "Filter the archive through bzip2 (.tar.bz2)"
+msgstr "Filter the archive through bzip2 (.tar.bz2)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz / .tgz)"
+msgstr "Filter the archive through gzip (.tar.gz / .tgz)"
+
+# 
+msgid "Filter the archive through xz (.tar.xz)"
+msgstr "Filter the archive through xz (.tar.xz)"
+
+# 
+msgid "Follow HTTP redirects"
+msgstr "Follow HTTP redirects"
+
+# 
+msgid "Follow journal output live (real-time stream)"
+msgstr "Günlük çıktılarını canlı olarak takip edin (gerçek zamanlı akış)"
+
+# 
+msgid "Follow log output"
+msgstr "Follow log output"
+
+# 
+msgid "Follow log output in real time"
+msgstr "Follow log output in real time"
+
+# 
+msgid "For every branch that is up to date or successfully pushed, add upstream (tracking) reference"
+msgstr "For every branch that is up to date or successfully pushed, add upstream (tracking) reference"
+
+# 
+msgid "Force delete a branch"
+msgstr "Force delete a branch"
+
+# 
+msgid "Force metadata refresh before checking"
+msgstr "Kontrol etmeden önce meta veri yenilemeyi zorla"
+
+# 
+msgid "Force metadata refresh before upgrade"
+msgstr "Yükseltmeden önce meta veri yenilemeyi zorla"
+
+# 
+msgid "Force refresh all package databases and full system upgrade"
+msgstr "Force refresh all package databases and full system upgrade"
+
+# 
+msgid "Force refresh package databases and upgrade system"
+msgstr "Paket veritabanlarını yenilemeye ve sistemi yükseltmeye zorlayın"
+
+# 
+msgid "Force removal of the image"
+msgstr "Force removal of the image"
+
+# 
+msgid "Force the removal of a running container"
+msgstr "Force the removal of a running container"
+
+# 
+msgid "Force updates on the remote repository"
+msgstr "Force updates on the remote repository"
+
+# 
+msgid "Full system upgrade (refresh repositories and update all packages)"
+msgstr "Full system upgrade (refresh repositories and update all packages)"
+
+# 
+msgid "Generate a diffstat"
+msgstr "Generate a diffstat"
+
+# 
+msgid "Git & Version Control"
+msgstr "Git & Version Control"
+
+# 
+msgid "Git New Branch"
+msgstr "Git New Branch"
+
+# 
+msgid "Give the output in the short-format"
+msgstr "Give the output in the short-format"
+
+# 
+msgid "HTTP POST data"
+msgstr "HTTP POST data"
+
+# 
+msgid "History"
+msgstr "History"
+
+# 
+msgid "Identity file (private key) for public key authentication"
+msgstr "Identity file (private key) for public key authentication"
+
+# 
+msgid "Ignore a package upgrade"
+msgstr "Ignore a package upgrade"
+
+# 
+msgid "Ignore case distinctions in patterns and input data"
+msgstr "Desenlerdeki ve giriş verilerindeki büyük/küçük harf ayrımlarını göz ardı edin"
+
+# 
+msgid "Ignore file backup designates (remove config files)"
+msgstr "Ignore file backup designates (remove config files)"
+
+# 
+msgid "Ignore nonexistent files and arguments, never prompt"
+msgstr "Var olmayan dosyaları ve argümanları göz ardı edin, asla istemeyin"
+
+# 
+msgid "Include only packages providing security fixes"
+msgstr "Yalnızca güvenlik düzeltmeleri sağlayan paketleri dahil et"
+
+# 
+msgid "Include optional packages in the group"
+msgstr "Include optional packages in the group"
+
+# 
+msgid "Include protocol response headers in the output"
+msgstr "Include protocol response headers in the output"
+
+# 
+msgid "Increase verbosity"
+msgstr "Increase verbosity"
+
+# 
+msgid "Install a software group by name"
+msgstr "Install a software group by name"
+
+# 
+msgid "Install groups of packages"
+msgstr "Paket gruplarını yükleyin"
+
+# 
+msgid "Install local package file (.pkg.tar.zst)"
+msgstr "Yerel paket dosyasını (.pkg.tar.zst) yükleyin"
+
+# 
+msgid "Install or synchronize packages from remote repositories"
+msgstr "Install or synchronize packages from remote repositories"
+
+# 
+msgid "Install packages as explicitly requested"
+msgstr "Install packages as explicitly requested"
+
+# 
+msgid "Install packages as non-explicit dependencies"
+msgstr "Install packages as non-explicit dependencies"
+
+# 
+msgid "Interactively choose hunks of patch between the index and the work tree"
+msgstr "Interactively choose hunks of patch between the index and the work tree"
+
+# 
+msgid "Interpret PATTERNS as extended regular expressions"
+msgstr "Interpret PATTERNS as extended regular expressions"
+
+# 
+msgid "Invalidate user's cached credentials"
+msgstr "Kullanıcının önbelleğe alınmış kimlik bilgilerini geçersiz kıl"
+
+# 
+msgid "Invert the sense of matching, to select non-matching lines"
+msgstr "Invert the sense of matching, to select non-matching lines"
+
+# 
+msgid "Jump to the end of the journal immediately"
+msgstr "Hemen günlüğün sonuna geçin"
+
+# 
+msgid "Like -name, but match is case insensitive"
+msgstr "Like -name, but match is case insensitive"
+
+# 
+msgid "Limit the number of commits to output"
+msgstr "Limit the number of commits to output"
+
+# 
+msgid "List all available versions"
+msgstr "Mevcut tüm sürümleri listele"
+
+# 
+msgid "List all files belonging to package"
+msgstr "Pakete ait tüm dosyaları listele"
+
+# 
+msgid "List all files owned by a given package"
+msgstr "List all files owned by a given package"
+
+# 
+msgid "List all files owned by a locally installed package"
+msgstr "List all files owned by a locally installed package"
+
+# 
+msgid "List all signal names"
+msgstr "List all signal names"
+
+# 
+msgid "List both remote-tracking and local branches"
+msgstr "List both remote-tracking and local branches"
+
+# 
+msgid "List only installed packages"
+msgstr "Yalnızca kurulu paketleri listele"
+
+# 
+msgid "List orphaned packages (dependencies no longer required by any package)"
+msgstr "List orphaned packages (dependencies no longer required by any package)"
+
+# 
+msgid "List packages not found in sync database (e.g. from AUR)"
+msgstr "List packages not found in sync database (e.g. from AUR)"
+
+# 
+msgid "List packages not required by any installed package"
+msgstr "List packages not required by any installed package"
+
+# 
+msgid "List packages required by the specified package"
+msgstr "List packages required by the specified package"
+
+# 
+msgid "List packages that were explicitly installed"
+msgstr "List packages that were explicitly installed"
+
+# 
+msgid "List packages that were installed as dependencies"
+msgstr "List packages that were installed as dependencies"
+
+# 
+msgid "List packages with available updates"
+msgstr "Mevcut güncellemeleri içeren paketleri listeleyin"
+
+# 
+msgid "List recent transactions"
+msgstr "List recent transactions"
+
+# 
+msgid "List the stashes currently saved"
+msgstr "List the stashes currently saved"
+
+# 
+msgid "List unrequired packages (orphans)"
+msgstr "Gereksiz paketleri (yetim) listeleyin"
+
+# 
+msgid "Local port forwarding [bind_address:]port:host:hostport"
+msgstr "Local port forwarding [bind_address:]port:host:hostport"
+
+# 
+msgid "Make a list of the commits which are about to be rebased"
+msgstr "Make a list of the commits which are about to be rebased"
+
+# 
+msgid "Make file executable"
+msgstr "Dosyayı çalıştırılabilir yap"
+
+# 
+msgid "Make parent directories as needed, no error if existing"
+msgstr "Ana dizinleri gerektiği gibi yapın, mevcutsa hata yok"
+
+# 
+msgid "Match base of file name against shell pattern"
+msgstr "Match base of file name against shell pattern"
+
+# 
+msgid "Name and optionally a tag in the 'name:tag' format"
+msgstr "Name and optionally a tag in the 'name:tag' format"
+
+# 
+msgid "Name of the Dockerfile"
+msgstr "Name of the Dockerfile"
+
+# 
+msgid "Network & SSH"
+msgstr "Network & SSH"
+
+# 
+msgid "Number of journal entries to show"
+msgstr "Gösterilecek yevmiye kaydı sayısı"
+
+# 
+msgid "Number of lines to show from the end of the logs"
+msgstr "Number of lines to show from the end of the logs"
+
+# 
+msgid "Only display numeric container IDs"
+msgstr "Only display numeric container IDs"
+
+# 
+msgid "Only show numeric image IDs"
+msgstr "Only show numeric image IDs"
+
+# 
+msgid "Operate on files and directories recursively"
+msgstr "Dosyalar ve dizinler üzerinde yinelemeli olarak çalışma"
+
+# 
+msgid "Output a diagnostic for every file processed"
+msgstr "İşlenen her dosya için bir teşhis çıktısı alın"
+
+# 
+msgid "Output more detailed diagnostic information"
+msgstr "Output more detailed diagnostic information"
+
+# 
+msgid "Output numbers in a human-readable format"
+msgstr "Output numbers in a human-readable format"
+
+# 
+msgid "Output package names only (suitable for piping)"
+msgstr "Output package names only (suitable for piping)"
+
+# 
+msgid "Override repository or DNF configuration options"
+msgstr "Depoyu veya DNF yapılandırma seçeneklerini geçersiz kıl"
+
+# 
+msgid "Pass custom header line to server"
+msgstr "Pass custom header line to server"
+
+# 
+msgid "Perform full system upgrade and refresh database"
+msgstr "Tam sistem yükseltmesi gerçekleştirin ve veritabanını yenileyin"
+
+# 
+msgid "Prefix each line of output with the 1-based line number"
+msgstr "Prefix each line of output with the 1-based line number"
+
+# 
+msgid "Preserve existing environment variables"
+msgstr "Mevcut ortam değişkenlerini koruyun"
+
+# 
+msgid "Print a message for each created directory"
+msgstr "Oluşturulan her dizin için bir mesaj yazdırın"
+
+# 
+msgid "Print version information"
+msgstr "Print version information"
+
+# 
+msgid "Prints the Git suite version"
+msgstr "Prints the Git suite version"
+
+# 
+msgid "Prints the synopsis and a list of the most commonly used commands"
+msgstr "Prints the synopsis and a list of the most commonly used commands"
+
+# 
+msgid "Produce quiet log output"
+msgstr "Sessiz günlük çıktısı üretin"
+
+# 
+msgid "Produce quiet output"
+msgstr "Produce quiet output"
+
+# 
+msgid "Produce verbose output"
+msgstr "Produce verbose output"
+
+# 
+msgid "Prompt before every removal"
+msgstr "Her çıkarmadan önce sor"
+
+# 
+msgid "Prune anonymous volumes as well"
+msgstr "Prune anonymous volumes as well"
+
+# 
+msgid "Publish container port(s) to the host"
+msgstr "Publish container port(s) to the host"
+
+# 
+msgid "Purge (remove with configs)"
+msgstr "Temizleme (yapılandırmalarla kaldırma)"
+
+# 
+msgid "Push all tags"
+msgstr "Push all tags"
+
+# 
+msgid "Query and display information on local package"
+msgstr "Yerel pakete ilişkin bilgileri sorgulama ve görüntüleme"
+
+# 
+msgid "Query and display information on remote package"
+msgstr "Uzak paketteki bilgileri sorgulama ve görüntüleme"
+
+# 
+msgid "Query installed packages only"
+msgstr "Query installed packages only"
+
+# 
+msgid "Query locally installed package database"
+msgstr "Yerel olarak kurulu paket veritabanını sorgula"
+
+# 
+msgid "Query packages providing the specified capability"
+msgstr "Query packages providing the specified capability"
+
+# 
+msgid "Query packages requiring the specified capability"
+msgstr "Query packages requiring the specified capability"
+
+# 
+msgid "Query the local package database"
+msgstr "Query the local package database"
+
+# 
+msgid "Query which package owns a specific file on the filesystem"
+msgstr "Query which package owns a specific file on the filesystem"
+
+# 
+msgid "Quiet mode"
+msgstr "Sessiz mod"
+
+# 
+msgid "Quiet mode (turn off output)"
+msgstr "Quiet mode (turn off output)"
+
+# 
+msgid "Read all files under each directory, recursively"
+msgstr "Read all files under each directory, recursively"
+
+# 
+msgid "Rebase the current branch on top of the upstream branch after fetching"
+msgstr "Rebase the current branch on top of the upstream branch after fetching"
+
+# 
+msgid "Redo a specific transaction"
+msgstr "Redo a specific transaction"
+
+# 
+msgid "Refresh files database (for searching which package provides a file)"
+msgstr "Refresh files database (for searching which package provides a file)"
+
+# 
+msgid "Refuse to update a remote ref unless its current value is what we expect"
+msgstr "Refuse to update a remote ref unless its current value is what we expect"
+
+# 
+msgid "Reinstall one or more packages"
+msgstr "Reinstall one or more packages"
+
+# 
+msgid "Reinstall packages even if up to date"
+msgstr "Güncel olsa bile paketleri yeniden yükleyin"
+
+# 
+msgid "Reinstall specified packages"
+msgstr "Belirtilen paketleri yeniden yükleyin"
+
+# 
+msgid "Remote port forwarding [bind_address:]port:host:hostport"
+msgstr "Remote port forwarding [bind_address:]port:host:hostport"
+
+# 
+msgid "Remove Unused Packages"
+msgstr "Remove Unused Packages"
+
+# 
+msgid "Remove a single stash state from the stash list"
+msgstr "Remove a single stash state from the stash list"
+
+# 
+msgid "Remove all target packages and all packages that depend on them"
+msgstr "Remove all target packages and all packages that depend on them"
+
+# 
+msgid "Remove all the stash entries"
+msgstr "Remove all the stash entries"
+
+# 
+msgid "Remove all unused images, not just dangling ones"
+msgstr "Remove all unused images, not just dangling ones"
+
+# 
+msgid "Remove anonymous volumes associated with container"
+msgstr "Remove anonymous volumes associated with container"
+
+# 
+msgid "Remove cached metadata and downloaded packages"
+msgstr "Remove cached metadata and downloaded packages"
+
+# 
+msgid "Remove configuration files along with packages"
+msgstr "Yapılandırma dosyalarını paketlerle birlikte kaldırın"
+
+# 
+msgid "Remove dependencies not required by other packages"
+msgstr "Remove dependencies not required by other packages"
+
+# 
+msgid "Remove directories and their contents recursively"
+msgstr "Dizinleri ve içeriklerini yinelemeli olarak kaldırın"
+
+# 
+msgid "Remove named volumes"
+msgstr "Remove named volumes"
+
+# 
+msgid "Remove old packages from cache directory"
+msgstr "Remove old packages from cache directory"
+
+# 
+msgid "Remove older duplicates of packages"
+msgstr "Paketlerin eski kopyalarını kaldırın"
+
+# 
+msgid "Remove one or more packages and their unused dependencies"
+msgstr "Bir veya daha fazla paketi ve bunların kullanılmayan bağımlılıklarını kaldırın"
+
+# 
+msgid "Remove one or more packages from the system"
+msgstr "Remove one or more packages from the system"
+
+# 
+msgid "Remove packages and their unneeded dependencies"
+msgstr "Paketleri ve gereksiz bağımlılıklarını kaldırın"
+
+# 
+msgid "Remove packages originally installed as dependencies that are no longer needed"
+msgstr "Remove packages originally installed as dependencies that are no longer needed"
+
+# 
+msgid "Remove packages, dependencies, and configuration files"
+msgstr "Paketleri, bağımlılıkları ve yapılandırma dosyalarını kaldırın"
+
+# 
+msgid "Remove specified packages from system"
+msgstr "Belirtilen paketleri sistemden kaldır"
+
+# 
+msgid "Remove unneeded packages"
+msgstr "Remove unneeded packages"
+
+# 
+msgid "Remove unused dependencies installed with packages"
+msgstr "Paketlerle birlikte yüklenen kullanılmayan bağımlılıkları kaldırın"
+
+# 
+msgid "Rename a branch"
+msgstr "Rename a branch"
+
+# 
+msgid "Requests compression of all data"
+msgstr "Requests compression of all data"
+
+# 
+msgid "Restart policy to apply when container exits"
+msgstr "Restart policy to apply when container exits"
+
+# 
+msgid "Restart the rebasing process after resolving conflicts"
+msgstr "Restart the rebasing process after resolving conflicts"
+
+# 
+msgid "Restore the working tree and the index"
+msgstr "Restore the working tree and the index"
+
+# 
+msgid "Reverse order while sorting"
+msgstr "Sıralama sırasında sırayı ters çevir"
+
+# 
+msgid "Roll back to a specific transaction state"
+msgstr "Roll back to a specific transaction state"
+
+# 
+msgid "Rsync Sync Files"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Run as if git was started in <path> instead of the current working directory"
+msgstr "Run as if git was started in <path> instead of the current working directory"
+
+# 
+msgid "Run command as specified user instead of root"
+msgstr "Komutu root yerine belirtilen kullanıcı olarak çalıştır"
+
+# 
+msgid "Run container in background and print container ID"
+msgstr "Run container in background and print container ID"
+
+# 
+msgid "Run login shell as the target user (root)"
+msgstr "Oturum açma kabuğunu hedef kullanıcı (kök) olarak çalıştırın"
+
+# 
+msgid "Run shell as the target user"
+msgstr "Kabuğu hedef kullanıcı olarak çalıştır"
+
+# 
+msgid "SIGHUP: Hangup / reload configuration"
+msgstr "SIGHUP: Hangup / reload configuration"
+
+# 
+msgid "SIGKILL: Force kill immediately (uninterceptable)"
+msgstr "SIGKILL: Force kill immediately (uninterceptable)"
+
+# 
+msgid "SIGTERM: Graceful termination request (default)"
+msgstr "SIGTERM: Graceful termination request (default)"
+
+# 
+msgid "Search descriptions as well as names and summaries"
+msgstr "Search descriptions as well as names and summaries"
+
+# 
+msgid "Search file owners across all repositories"
+msgstr "Tüm veri havuzlarında dosya sahiplerini arayın"
+
+# 
+msgid "Search files database for a filename"
+msgstr "Search files database for a filename"
+
+# 
+msgid "Search for package that owns the specified file"
+msgstr "Search for package that owns the specified file"
+
+# 
+msgid "Search for packages matching various repository criteria"
+msgstr "Search for packages matching various repository criteria"
+
+# 
+msgid "Search locally-installed packages for matching strings"
+msgstr "Search locally-installed packages for matching strings"
+
+# 
+msgid "Search package names and summaries for keywords"
+msgstr "Anahtar kelimeler için paket adlarını ve özetlerini arayın"
+
+# 
+msgid "Search remote repositories for matching packages"
+msgstr "Eşleşen paketler için uzak depolarda arama yapın"
+
+# 
+msgid "Search remote repositories for matching regex"
+msgstr "Search remote repositories for matching regex"
+
+# 
+msgid "Search remote repositories for packages matching keyword"
+msgstr "Search remote repositories for packages matching keyword"
+
+# 
+msgid "Seconds to wait before killing the container"
+msgstr "Seconds to wait before killing the container"
+
+# 
+msgid "Server user and password"
+msgstr "Server user and password"
+
+# 
+msgid "Set an alternate configuration file"
+msgstr "Set an alternate configuration file"
+
+# 
+msgid "Set an alternate installation root"
+msgstr "Set an alternate installation root"
+
+# 
+msgid "Set an alternate package cache location"
+msgstr "Set an alternate package cache location"
+
+# 
+msgid "Set environment variables"
+msgstr "Set environment variables"
+
+# 
+msgid "Set metadata as expired before running the command"
+msgstr "Set metadata as expired before running the command"
+
+# 
+msgid "Shorthand for '--pretty=oneline --abbrev-commit'"
+msgstr "Shorthand for '--pretty=oneline --abbrev-commit'"
+
+# 
+msgid "Show IP addresses of all interfaces"
+msgstr "Show IP addresses of all interfaces"
+
+# 
+msgid "Show Package Info"
+msgstr "Show Package Info"
+
+# 
+msgid "Show all containers (default shows just running)"
+msgstr "Show all containers (default shows just running)"
+
+# 
+msgid "Show all images"
+msgstr "Show all images"
+
+# 
+msgid "Show details of a specific transaction"
+msgstr "Show details of a specific transaction"
+
+# 
+msgid "Show explanatory help texts from message catalog"
+msgstr "Mesaj kataloğundan açıklayıcı yardım metinlerini göster"
+
+# 
+msgid "Show firewall rules with rule numbers"
+msgstr "Show firewall rules with rule numbers"
+
+# 
+msgid "Show help information"
+msgstr "Yardım bilgilerini göster"
+
+# 
+msgid "Show information for available packages only"
+msgstr "Show information for available packages only"
+
+# 
+msgid "Show information for installed packages only"
+msgstr "Show information for installed packages only"
+
+# 
+msgid "Show interface state"
+msgstr "Show interface state"
+
+# 
+msgid "Show kernel messages only (like dmesg)"
+msgstr "Yalnızca çekirdek mesajlarını göster (dmesg gibi)"
+
+# 
+msgid "Show less information for query and search outputs"
+msgstr "Show less information for query and search outputs"
+
+# 
+msgid "Show less information for query output"
+msgstr "Show less information for query output"
+
+# 
+msgid "Show logs for the specified service unit"
+msgstr "Belirtilen hizmet biriminin günlüklerini göster"
+
+# 
+msgid "Show messages from the current or specified boot"
+msgstr "Geçerli veya belirtilen önyüklemeden gelen mesajları göster"
+
+# 
+msgid "Show newest entries first"
+msgstr "En yeni girişleri ilk önce göster"
+
+# 
+msgid "Show process using socket"
+msgstr "Show process using socket"
+
+# 
+msgid "Show progress during transfer and keep partially transferred files"
+msgstr "Show progress during transfer and keep partially transferred files"
+
+# 
+msgid "Show routing table"
+msgstr "Show routing table"
+
+# 
+msgid "Show the branch and tracking info"
+msgstr "Show the branch and tracking info"
+
+# 
+msgid "Show timestamps"
+msgstr "Show timestamps"
+
+# 
+msgid "Show verbose firewall rules"
+msgstr "Show verbose firewall rules"
+
+# 
+msgid "Show version number"
+msgstr "Sürüm numarasını göster"
+
+# 
+msgid "Silent mode (don't show progress meter or error messages)"
+msgstr "Silent mode (don't show progress meter or error messages)"
+
+# 
+msgid "Simulate installation"
+msgstr "Kurulumu simüle edin"
+
+# 
+msgid "Skip packages with broken dependencies"
+msgstr "Bozuk bağımlılıklara sahip paketleri atla"
+
+# 
+msgid "Snippet template"
+msgstr "Snippet template"
+
+# 
+msgid "Sort by modification time, newest first"
+msgstr "Değişiklik zamanına göre sırala, en yenisi önce gelecek"
+
+# 
+msgid "Specify request method (GET, POST, PUT, DELETE, PATCH)"
+msgstr "Specify request method (GET, POST, PUT, DELETE, PATCH)"
+
+# 
+msgid "Specify the remote shell to use (e.g. 'ssh -p 2222')"
+msgstr "Specify the remote shell to use (e.g. 'ssh -p 2222')"
+
+# 
+msgid "Stage all changes (new, modified, deleted)"
+msgstr "Stage all changes (new, modified, deleted)"
+
+# 
+msgid "Suppress normal output; instead print a count of matching lines"
+msgstr "Suppress normal output; instead print a count of matching lines"
+
+# 
+msgid "Suppress normal output; instead print the name of each input file"
+msgstr "Suppress normal output; instead print the name of each input file"
+
+# 
+msgid "Synchronize and install packages from repositories"
+msgstr "Depolardaki paketleri senkronize edin ve yükleyin"
+
+# 
+msgid "Systemd Service Logs"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Talk to the service manager of the calling user"
+msgstr "Arayan kullanıcının servis yöneticisiyle konuşun"
+
+# 
+msgid "Talk to the system service manager (default)"
+msgstr "Sistem servis yöneticisiyle konuşun (varsayılan)"
+
+# 
+msgid "Undo a specific transaction"
+msgstr "Undo a specific transaction"
+
+# 
+msgid "Update Package Lists"
+msgstr "Update Package Lists"
+
+# 
+msgid "Update tracked files only"
+msgstr "Update tracked files only"
+
+# 
+msgid "Update user's cached credentials without running a command"
+msgstr "Kullanıcının önbelleğe alınmış kimlik bilgilerini bir komut çalıştırmadan güncelleyin"
+
+# 
+msgid "Upgrade Packages"
+msgstr "Upgrade Packages"
+
+# 
+msgid "Upgrade System"
+msgstr "Upgrade System"
+
+# 
+msgid "Upgrade all packages that are out of date"
+msgstr "Upgrade all packages that are out of date"
+
+# 
+msgid "Upgrade only to the lowest version containing fixes"
+msgstr "Yalnızca düzeltmeler içeren en düşük sürüme yükseltin"
+
+# 
+msgid "Upgrade or install local or remote package file (.pkg.tar.zst)"
+msgstr "Upgrade or install local or remote package file (.pkg.tar.zst)"
+
+# 
+msgid "Use a long listing format with permissions, owner, size and date"
+msgstr "İzinleri, sahibi, boyutu ve tarihi içeren uzun bir listeleme biçimi kullanın"
+
+# 
+msgid "Use archive file or device ARCHIVE"
+msgstr "Use archive file or device ARCHIVE"
+
+# 
+msgid "Use the given commit message"
+msgstr "Use the given commit message"
+
+# 
+msgid "Username or UID"
+msgstr "Username or UID"
+
+# 
+msgid "Verbose mode (debugging)"
+msgstr "Verbose mode (debugging)"
+
+# 
+msgid "Verbosely list files processed"
+msgstr "Verbosely list files processed"
+
+# 
+msgid "View and manage DNF transaction history"
+msgstr "View and manage DNF transaction history"
+
+# 
+msgid "View information about a locally-installed package"
+msgstr "View information about a locally-installed package"
+
+# 
+msgid "View information about a remote package"
+msgstr "View information about a remote package"
+
+# 
+msgid "View or alter DNF transaction history"
+msgstr "DNF işlem geçmişini görüntüleyin veya değiştirin"
+
+# 
+msgid "View the changes you staged for the next commit"
+msgstr "View the changes you staged for the next commit"
+
+# 
+msgid "When used with -s, show error message on failure"
+msgstr "When used with -s, show error message on failure"
+
+# 
+msgid "With -l, print sizes in human readable format (e.g., 1K 234M 2G)"
+msgstr "-l ile, boyutları insan tarafından okunabilir biçimde yazdırın (ör. 1K 234M 2G)"
+
+# 
+msgid "Write output to <file> instead of stdout"
+msgstr "Write output to <file> instead of stdout"
+
+# 
+msgid "Write output to a local file named like the remote file"
+msgstr "Write output to a local file named like the remote file"
+
+# 
+msgid "e.g., curl, git (optional for updates)"
+msgstr "e.g., curl, git (optional for updates)"
+
+# 
+msgid "e.g., htop, neovim (optional for updates)"
+msgstr "e.g., htop, neovim (optional for updates)"
+
+# 
+msgid "rw------- (secure private key permissions)"
+msgstr "rw------(güvenli özel anahtar izinleri)"
+
+# 
+msgid "rw-r--r-- (standard file permissions)"
+msgstr "rw-r--r-- (standart dosya izinleri)"
+
+# 
+msgid "rwxr-xr-x (standard directory / executable permissions)"
+msgstr "rwxr-xr-x (standart dizin / yürütülebilir izinler)"

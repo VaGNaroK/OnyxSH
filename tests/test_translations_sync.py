@@ -144,6 +144,35 @@ class TestTranslationsSync(unittest.TestCase):
                     f"Translation for {repr(key)} in '{lang}' returned empty or None",
                 )
 
+    def test_autocomplete_specs_translations(self) -> None:
+        """Verify that autocomplete specs descriptions are translated properly."""
+        trans_pt = gettext.translation(
+            "onyxsh",
+            localedir=str(INTERNAL_LOCALE_DIR),
+            languages=["pt_BR", "pt"],
+            fallback=False,
+        )
+        self.assertEqual(
+            trans_pt.gettext("Quiet mode"),
+            "Modo silencioso",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Delete found files"),
+            "Excluir arquivos encontrados",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Arch Linux package manager utility"),
+            "Utilitário de gerenciamento de pacotes do Arch Linux",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Containers & Docker"),
+            "Contêineres e Docker",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Git & Version Control"),
+            "Git e Controle de Versão",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -69,6 +69,33 @@ class TestTerminalErrorMatcher(unittest.TestCase):
         self.assertEqual(match.extracted_target, "ripgrep")
         self.assertEqual(match.quick_fix_command, "apt search ripgrep")
 
+    @patch("onyxsh.agent.error_matcher.get_package_manager", return_value="dnf")
+    def test_command_not_found_dnf(self, mock_pm):
+        output = "bash: htop: command not found"
+        match = self.matcher.match("htop", 127, output)
+        self.assertIsNotNone(match)
+        self.assertEqual(match.category, ErrorCategory.COMMAND_NOT_FOUND)
+        self.assertEqual(match.extracted_target, "htop")
+        self.assertEqual(match.quick_fix_command, "dnf search htop")
+
+    @patch("onyxsh.agent.error_matcher.get_package_manager", return_value="pacman")
+    def test_command_not_found_pacman(self, mock_pm):
+        output = "bash: htop: command not found"
+        match = self.matcher.match("htop", 127, output)
+        self.assertIsNotNone(match)
+        self.assertEqual(match.category, ErrorCategory.COMMAND_NOT_FOUND)
+        self.assertEqual(match.extracted_target, "htop")
+        self.assertEqual(match.quick_fix_command, "pacman -Ss htop")
+
+    @patch("onyxsh.agent.error_matcher.get_package_manager", return_value="zypper")
+    def test_command_not_found_zypper(self, mock_pm):
+        output = "bash: htop: command not found"
+        match = self.matcher.match("htop", 127, output)
+        self.assertIsNotNone(match)
+        self.assertEqual(match.category, ErrorCategory.COMMAND_NOT_FOUND)
+        self.assertEqual(match.extracted_target, "htop")
+        self.assertEqual(match.quick_fix_command, "zypper search htop")
+
     def test_port_already_in_use_extraction(self):
         output = "listen tcp :8080: bind: address already in use"
         match = self.matcher.match("docker run -p 8080:80 nginx", 1, output)

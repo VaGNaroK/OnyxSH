@@ -560,6 +560,19 @@ class TestQuickLook(unittest.TestCase):
             self.dialog.preview_item(item2, str(self.test_dir))
             mock_discard.assert_called_once()
 
+    def test_on_navigate_keyboard_safe_from_exceptions(self):
+        """Verify Up/Down keys safely catch any exception from on_navigate callback."""
+        self.dialog.is_editing = False
+        self.mock_nav_cb.side_effect = TypeError("Gtk.ListView.scroll_to() takes exactly 4 arguments (5 given)")
+
+        # Press Down key (j / Down)
+        res_down = self.dialog._on_key_pressed(None, Gdk.KEY_Down, 0, 0)
+        self.assertEqual(res_down, Gdk.EVENT_STOP)
+
+        # Press Up key (k / Up)
+        res_up = self.dialog._on_key_pressed(None, Gdk.KEY_Up, 0, 0)
+        self.assertEqual(res_up, Gdk.EVENT_STOP)
+
 
 if __name__ == "__main__":
     unittest.main()

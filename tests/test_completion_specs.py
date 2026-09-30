@@ -9,8 +9,10 @@ from onyxsh.terminal.completion.models import (
     CompletionType,
 )
 from onyxsh.terminal.completion.specs.apt import get_apt_spec
+from onyxsh.terminal.completion.specs.dnf import get_dnf_spec
 from onyxsh.terminal.completion.specs.docker import get_docker_spec
 from onyxsh.terminal.completion.specs.git import get_git_spec
+from onyxsh.terminal.completion.specs.pacman import get_pacman_spec
 from onyxsh.terminal.completion.specs.registry import get_spec_registry
 from onyxsh.terminal.completion.specs.systemd import (
     get_journalctl_spec,
@@ -27,6 +29,9 @@ class TestCompletionSpecs(unittest.TestCase):
     def test_registry_registration(self):
         """Test that core commands are registered."""
         self.assertIsNotNone(self.registry.get_spec("apt"))
+        self.assertIsNotNone(self.registry.get_spec("dnf"))
+        self.assertIsNotNone(self.registry.get_spec("yum"))
+        self.assertIsNotNone(self.registry.get_spec("pacman"))
         self.assertIsNotNone(self.registry.get_spec("systemctl"))
         self.assertIsNotNone(self.registry.get_spec("journalctl"))
         self.assertIsNotNone(self.registry.get_spec("docker"))
@@ -86,6 +91,32 @@ class TestCompletionSpecs(unittest.TestCase):
         items = spec.get_completions(ctx)
         texts = [i.text for i in items]
         self.assertIn("commit", texts)
+
+    def test_dnf_subcommands(self):
+        """Test dnf spec resolution."""
+        spec = get_dnf_spec()
+        ctx = CompletionContext(
+            full_line="dnf in",
+            line_before_cursor="dnf in",
+            tokens=["dnf", "in"],
+            current_word="in",
+        )
+        items = spec.get_completions(ctx)
+        texts = [i.text for i in items]
+        self.assertIn("install", texts)
+
+    def test_pacman_subcommands(self):
+        """Test pacman spec resolution."""
+        spec = get_pacman_spec()
+        ctx = CompletionContext(
+            full_line="pacman -Sy",
+            line_before_cursor="pacman -Sy",
+            tokens=["pacman", "-Sy"],
+            current_word="-Sy",
+        )
+        items = spec.get_completions(ctx)
+        texts = [i.text for i in items]
+        self.assertIn("-Syu", texts)
 
 
 if __name__ == "__main__":

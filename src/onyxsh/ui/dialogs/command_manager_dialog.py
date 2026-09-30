@@ -410,6 +410,10 @@ class CommandFormDialog(Adw.Window):
             return self._build_journalctl_command(values)
         elif self.command.id == "builtin_pacman":
             return self._build_pacman_command(values)
+        elif self.command.id == "builtin_apt":
+            return self._build_apt_command(values)
+        elif self.command.id == "builtin_dnf":
+            return self._build_dnf_command(values)
 
         # Generic handling for other commands
         return self.command.build_command(values)
@@ -621,6 +625,30 @@ class CommandFormDialog(Adw.Window):
         else:
             # Show command template even without package
             return f"sudo pacman {action}"
+
+    def _build_apt_command(self, values: Dict[str, Any]) -> str:
+        """Build apt command with proper handling of package name."""
+        action = values.get("action", "install").strip()
+        package = values.get("package", "").strip()
+
+        # Actions that don't require a package name
+        no_pkg_actions = ["update", "upgrade", "upgrade -y", "autoremove", "clean", "autoclean"]
+
+        if action in no_pkg_actions or not package:
+            return f"sudo apt {action}".strip()
+        return f"sudo apt {action} {package}".strip()
+
+    def _build_dnf_command(self, values: Dict[str, Any]) -> str:
+        """Build dnf command with proper handling of package name."""
+        action = values.get("action", "install").strip()
+        package = values.get("package", "").strip()
+
+        # Actions that don't require a package name
+        no_pkg_actions = ["upgrade", "upgrade -y", "check-update", "autoremove", "clean all", "clean"]
+
+        if action in no_pkg_actions or not package:
+            return f"sudo dnf {action}".strip()
+        return f"sudo dnf {action} {package}".strip()
 
     def _on_insert_clicked(self, button):
         """Insert command without executing."""

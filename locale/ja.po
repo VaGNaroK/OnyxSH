@@ -12350,3 +12350,1427 @@ msgstr "差分比較はテキストおよびコードファイルのみ対応し
 # 
 msgid "Failed to download remote file for comparison: {}"
 msgstr "比較用のリモートファイルのダウンロードに失敗しました: {}"
+
+# 
+msgid "APT"
+msgstr "APT"
+
+# 
+msgid "Abort the current conflict resolution process"
+msgstr "現在の競合解決プロセスを中止"
+
+# 
+msgid "Abort the rebase operation and reset HEAD to the original branch"
+msgstr "リベース操作を中止し、HEAD を元のブランチにリセット"
+
+# 
+msgid "Add all files in current directory"
+msgstr "現在のディレクトリ内のすべてのファイルを追加"
+
+# 
+msgid "Allocate a pseudo-TTY and keep stdin open"
+msgstr "疑似 TTY を割り当て、標準入力を開いたままにする"
+
+# 
+msgid "Allocate a pseudo-TTY connected to the container's stdin"
+msgstr "コンテナの標準入力に接続された疑似 TTY を割り当てる"
+
+# 
+msgid "Allow erasing of installed packages to resolve dependencies"
+msgstr "依存関係解決のためにインストール済みパッケージの削除を許可"
+
+# 
+msgid "Allow insecure server connections when using SSL"
+msgstr "SSL 使用時に安全でないサーバー接続を許可"
+
+# 
+msgid "Also remove configuration files of orphaned packages"
+msgstr "孤立したパッケージの設定ファイルも削除"
+
+# 
+msgid "Amend the tip of the current branch instead of creating a new commit"
+msgstr "新しいコミットを作成する代わりに現在のブランチの先端を修正"
+
+# 
+msgid "Apply the stashed state and remove from stash list"
+msgstr "スタッシュされた状態を適用し、スタッシュリストから削除"
+
+# 
+msgid "Apply the stashed state but keep in stash list"
+msgstr "スタッシュされた状態を適用するが、スタッシュリストには保持"
+
+# 
+msgid "Arch Linux package manager utility"
+msgstr "Arch Linux パッケージ管理ユーティリティ"
+
+# 
+msgid "Archive mode; equals -rlptgoD (preserves permissions, times, symlinks)"
+msgstr "アーカイブモード。-rlptgoD と同等 (権限、時刻、シンボリックリンクを保持)"
+
+# 
+msgid "Assign a custom name to the container"
+msgstr "コンテナにカスタム名を割り当てる"
+
+# 
+msgid "Assume yes to all queries"
+msgstr "すべての問い合わせに自動的に「はい」と応答"
+
+# 
+msgid "Auto Clean Cache"
+msgstr "キャッシュを自動クリーンアップ"
+
+# 
+msgid "Automatic yes to all prompts"
+msgstr "すべてのプロンプトに自動的に「はい」と応答"
+
+# 
+msgid "Automatic yes to prompts"
+msgstr "すべてのプロンプトに自動的に「はい」と応答"
+
+# 
+msgid "Automatically remove the container when it exits"
+msgstr "コンテナ終了時に自動的に削除する"
+
+# 
+msgid "Automatically stage modified and deleted files"
+msgstr "変更および削除されたファイルを自動的にステージング"
+
+# 
+msgid "Automatically stash before rebase and pop after"
+msgstr "リベース前に自動的にスタッシュし、完了後にポップする"
+
+# 
+msgid "Before fetching, remove any remote-tracking references that no longer exist on the remote"
+msgstr "フェッチ前にリモートに存在しなくなったリモート追跡参照を削除"
+
+# 
+msgid "Bind mount a volume"
+msgstr "ボリュームをバインドマウントする"
+
+# 
+msgid "Build images before starting containers"
+msgstr "コンテナを起動する前にイメージをビルドする"
+
+# 
+msgid "Bypass any and all 'Are you sure?' prompts"
+msgstr "すべての「本当によろしいですか？」プロンプトをスキップ"
+
+# 
+msgid "Bypass any and all confirmation prompts"
+msgstr "すべての確認プロンプトをスキップ"
+
+# 
+msgid "Bypass any and all confirmation questions"
+msgstr "すべての確認質問をスキップ"
+
+# 
+msgid "Bypass any confirmation prompts"
+msgstr "確認プロンプトをスキップ"
+
+# 
+msgid "Bypass confirmation prompt"
+msgstr "確認プロンプトをスキップ"
+
+# 
+msgid "Bypass pre-commit and commit-msg hooks"
+msgstr "pre-commit および commit-msg フックをバイパス"
+
+# 
+msgid "Change device attributes (up, down, mtu)"
+msgstr "デバイス属性を変更 (up, down, mtu)"
+
+# 
+msgid "Change files and directories recursively"
+msgstr "ファイルとディレクトリを再帰的に変更"
+
+# 
+msgid "Change to directory before performing any operations"
+msgstr "操作を実行する前に指定ディレクトリへ移動"
+
+# 
+msgid "Check for Updates"
+msgstr "更新を確認"
+
+# 
+msgid "Check for available package upgrades without installing them"
+msgstr "インストールせずに利用可能なパッケージの更新を確認"
+
+# 
+msgid "Check only for security updates"
+msgstr "セキュリティ更新のみを確認"
+
+# 
+msgid "Clean all cached metadata and packages"
+msgstr "キャッシュされたすべてのメタデータとパッケージを消去"
+
+# 
+msgid "Clean all cached packages including uninstalled"
+msgstr "アンインストール済みを含むすべてのキャッシュパッケージを削除"
+
+# 
+msgid "Clean all package cache (remove all downloaded packages from cache)"
+msgstr "すべてのパッケージキャッシュを消去 (ダウンロードしたすべてのパッケージを削除)"
+
+# 
+msgid "Clean cached RPM packages"
+msgstr "キャッシュされた RPM パッケージを消去"
+
+# 
+msgid "Clean cached data (all, packages, metadata)"
+msgstr "キャッシュデータをクリーンアップ (すべて、パッケージ、メタデータ)"
+
+# 
+msgid "Clean cached metadata databases"
+msgstr "キャッシュされたメタデータデータベースを消去"
+
+# 
+msgid "Clean cached repository metadata"
+msgstr "キャッシュされたリポジトリのメタデータを消去"
+
+# 
+msgid "Clean package cache (remove old downloaded packages from /var/cache/pacman/pkg)"
+msgstr "パッケージキャッシュを消去 (/var/cache/pacman/pkg から古いパッケージを削除)"
+
+# 
+msgid "Clean package cache from /var/cache/pacman/pkg"
+msgstr "/var/cache/pacman/pkg からパッケージキャッシュをクリーンアップ"
+
+# 
+msgid "Cleanly remove package with all unused dependencies and config files"
+msgstr "未使用の依存関係と設定ファイルを含めてパッケージを完全に削除 (-Rns)"
+
+# 
+msgid "Colorize output (auto, always, never)"
+msgstr "出力を色付け (auto, always, never)"
+
+# 
+msgid "Common combination: long format, all files, human sizes"
+msgstr "一般的な組み合わせ: 詳細形式、全ファイル、読みやすいサイズ"
+
+# 
+msgid "Compress file data during the transfer"
+msgstr "転送中にファイルデータを圧縮"
+
+# 
+msgid "Connect a container to a network"
+msgstr "コンテナをネットワークに接続する"
+
+# 
+msgid "Containers & Docker"
+msgstr "コンテナと Docker"
+
+# 
+msgid "Control colored output (auto, never, always)"
+msgstr "カラー出力を制御 (auto, never, always)"
+
+# 
+msgid "Create a merge commit even when the merge resolves as a fast-forward"
+msgstr "ファストフォワードで解決できる場合でもマージコミットを作成"
+
+# 
+msgid "Create a new archive"
+msgstr "新しいアーカイブを作成"
+
+# 
+msgid "Create a shallow clone with a history truncated to the specified number of commits"
+msgstr "指定したコミット数に履歴を切り詰めた浅いクローンを作成"
+
+# 
+msgid "Create and switch to a new branch"
+msgstr "新しいブランチを作成して切り替える"
+
+# 
+msgid "Create/reset and checkout a branch"
+msgstr "ブランチを作成/リセットしてチェックアウト"
+
+# 
+msgid "DNF"
+msgstr "DNF"
+
+# 
+msgid "Debian/Ubuntu package manager operations"
+msgstr "Debian/Ubuntu パッケージマネージャーの操作"
+
+# 
+msgid "Delete a branch"
+msgstr "ブランチを削除"
+
+# 
+msgid "Delete extraneous files from destination dirs"
+msgstr "転送先ディレクトリから不要なファイルを削除"
+
+# 
+msgid "Delete found files"
+msgstr "見つかったファイルを削除"
+
+# 
+msgid "Detached mode: Run containers in background"
+msgstr "デタッチドモード: コンテナをバックグラウンドで実行"
+
+# 
+msgid "Detached mode: run command in the background"
+msgstr "デタッチドモード: コマンドをバックグラウンドで実行"
+
+# 
+msgid "Directory to download packages into"
+msgstr "パッケージをダウンロードするディレクトリ"
+
+# 
+msgid "Disable and stop unit immediately"
+msgstr "ユニットを即座に無効化して停止"
+
+# 
+msgid "Disable specified repository"
+msgstr "指定されたリポジトリを無効化"
+
+# 
+msgid "Display TCP sockets"
+msgstr "TCP ソケットを表示"
+
+# 
+msgid "Display UDP sockets"
+msgstr "UDP ソケットを表示"
+
+# 
+msgid "Display all packages in specified group"
+msgstr "指定されたグループ内のすべてのパッケージを表示"
+
+# 
+msgid "Display both listening and non-listening sockets"
+msgstr "リスニングソケットと非リスニングソケットの両方を表示"
+
+# 
+msgid "Display detailed information about a locally installed package"
+msgstr "ローカルにインストールされたパッケージの詳細情報を表示"
+
+# 
+msgid "Display detailed information about a remote package"
+msgstr "リモートパッケージの詳細情報を表示"
+
+# 
+msgid "Display detailed information about packages"
+msgstr "パッケージに関する詳細情報を表示"
+
+# 
+msgid "Display detailed package information and metadata"
+msgstr "詳細なパッケージ情報とメタデータを表示"
+
+# 
+msgid "Display only listening sockets"
+msgstr "リスニングソケットのみを表示"
+
+# 
+msgid "Display syntax and options"
+msgstr "構文とオプションを表示"
+
+# 
+msgid "Display version information"
+msgstr "バージョン情報を表示"
+
+# 
+msgid "Do not ask for any confirmation (non-interactive)"
+msgstr "確認を求めない (非対話モード)"
+
+# 
+msgid "Do not ellipsize output"
+msgstr "出力を省略記号で切り捨てない"
+
+# 
+msgid "Do not execute a remote command (useful for port forwarding only)"
+msgstr "リモートコマンドを実行しない (ポート転送のみに便利)"
+
+# 
+msgid "Do not ignore entries starting with ."
+msgstr ". で始まるエントリ (隠しファイル) を含めて表示 (-a)"
+
+# 
+msgid "Do not install new packages during upgrade"
+msgstr "アップグレード中に新しいパッケージをインストールしない"
+
+# 
+msgid "Do not install recommended packages"
+msgstr "推奨パッケージをインストールしない"
+
+# 
+msgid "Do not limit transaction to best available package versions"
+msgstr "トランザクションを利用可能な最良のバージョンに限定しない"
+
+# 
+msgid "Do not pipe output into a pager"
+msgstr "出力をページャーにパイプしない"
+
+# 
+msgid "Do not reinstall up-to-date packages"
+msgstr "既に最新のパッケージを再インストールしない"
+
+# 
+msgid "Do not reinstall up-to-date targets"
+msgstr "最新のターゲットを再インストールしない"
+
+# 
+msgid "Do not try to resolve service names or addresses"
+msgstr "サービス名やアドレスの名前解決を試みない"
+
+# 
+msgid "Do not use cache when building the image"
+msgstr "イメージのビルド時にキャッシュを使用しない"
+
+# 
+msgid "Docker Exec Shell"
+msgstr "Docker 対話型シェル (Exec)"
+
+# 
+msgid "Download fresh copy of package databases from servers"
+msgstr "サーバーからパッケージデータベースの最新コピーをダウンロード (-Sy)"
+
+# 
+msgid "Download needed dependencies as well"
+msgstr "必要な依存関係も併せてダウンロード"
+
+# 
+msgid "Download package RPMs without installing them"
+msgstr "パッケージの RPM をインストールせずにダウンロード"
+
+# 
+msgid "Download packages only, do not install or unpack"
+msgstr "パッケージのダウンロードのみを行い、インストールや展開はしない (-Sw)"
+
+# 
+msgid "Download packages to local directory without installing"
+msgstr "インストールせずにパッケージをローカルディレクトリにダウンロード"
+
+# 
+msgid "Download source RPM (SRPM)"
+msgstr "ソース RPM (SRPM) をダウンロード"
+
+# 
+msgid "Draw a text-based graphical representation of the commit history"
+msgstr "コミット履歴をテキストベースのグラフ形式で描画"
+
+# 
+msgid "Dynamic SOCKS proxy port forwarding"
+msgstr "動的 SOCKS プロキシポート転送"
+
+# 
+msgid "Enable additional repository"
+msgstr "追加のリポジトリを有効化"
+
+# 
+msgid "Enable and start unit immediately"
+msgstr "ユニットを即座に有効化して起動"
+
+# 
+msgid "Enables X11 forwarding"
+msgstr "X11 転送を有効化"
+
+# 
+msgid "Exclude files matching pattern"
+msgstr "パターンに一致するファイルを除外"
+
+# 
+msgid "Execute command on matched files"
+msgstr "一致したファイルに対してコマンドを実行"
+
+# 
+msgid "Extract files from an archive"
+msgstr "アーカイブからファイルを展開"
+
+# 
+msgid "Fedora/RHEL package manager operations"
+msgstr "Fedora/RHEL パッケージマネージャーの操作"
+
+# 
+msgid "Fedora/RHEL package manager utility"
+msgstr "Fedora/RHEL パッケージ管理ユーティリティ"
+
+# 
+msgid "Fetch HTTP response headers only"
+msgstr "HTTP レスポンスヘッダーのみを取得"
+
+# 
+msgid "Fetch all remotes"
+msgstr "すべてのリモートからフェッチ"
+
+# 
+msgid "File data was last modified n*24 hours ago"
+msgstr "ファイルデータが最後に変更されたのは n*24 時間前"
+
+# 
+msgid "File type (f for regular file, d for directory, l for symlink)"
+msgstr "ファイルタイプ (f: 通常ファイル, d: ディレクトリ, l: シンボリックリンク)"
+
+# 
+msgid "File uses n units of space (e.g. +100M)"
+msgstr "ファイルが n 単位の容量を占有 (例: +100M)"
+
+# 
+msgid "Filter by message priority (err, warning, info, debug)"
+msgstr "メッセージ優先度でフィルター (err, warning, info, debug)"
+
+# 
+msgid "Filter by unit state (active, failed, inactive)"
+msgstr "ユニット状態でフィルター (active, failed, inactive)"
+
+# 
+msgid "Filter by unit type (service, socket, timer)"
+msgstr "ユニットタイプでフィルター (service, socket, timer)"
+
+# 
+msgid "Filter entries since date/time or relative timestamp"
+msgstr "指定した日時または相対タイムスタンプ以降のエントリをフィルター"
+
+# 
+msgid "Filter entries until date/time or relative timestamp"
+msgstr "指定した日時または相対タイムスタンプまでのエントリをフィルター"
+
+# 
+msgid "Filter output based on conditions provided"
+msgstr "指定された条件に基づいて出力をフィルタリング"
+
+# 
+msgid "Filter the archive through bzip2 (.tar.bz2)"
+msgstr "bzip2 でアーカイブを処理 (.tar.bz2)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz / .tgz)"
+msgstr "gzip でアーカイブを処理 (.tar.gz / .tgz)"
+
+# 
+msgid "Filter the archive through xz (.tar.xz)"
+msgstr "xz でアーカイブを処理 (.tar.xz)"
+
+# 
+msgid "Follow HTTP redirects"
+msgstr "HTTP リダイレクトに従う"
+
+# 
+msgid "Follow journal output live (real-time stream)"
+msgstr "ジャーナル出力をリアルタイムで追跡"
+
+# 
+msgid "Follow log output"
+msgstr "ログ出力を継続的に追跡"
+
+# 
+msgid "Follow log output in real time"
+msgstr "ログ出力をリアルタイムで追跡"
+
+# 
+msgid "For every branch that is up to date or successfully pushed, add upstream (tracking) reference"
+msgstr "プッシュ成功時にアップストリーム追跡参照を追加"
+
+# 
+msgid "Force delete a branch"
+msgstr "ブランチの強制削除"
+
+# 
+msgid "Force metadata refresh before checking"
+msgstr "確認前にメタデータを強制リフレッシュ"
+
+# 
+msgid "Force metadata refresh before upgrade"
+msgstr "アップグレード前にメタデータを強制リフレッシュ"
+
+# 
+msgid "Force refresh all package databases and full system upgrade"
+msgstr "すべてのパッケージデータベースを強制更新してシステム全体をアップグレード (-Syyu)"
+
+# 
+msgid "Force refresh package databases and upgrade system"
+msgstr "パッケージデータベースを強制更新してシステムをアップグレード"
+
+# 
+msgid "Force removal of the image"
+msgstr "イメージの削除を強制"
+
+# 
+msgid "Force the removal of a running container"
+msgstr "実行中のコンテナの削除を強制"
+
+# 
+msgid "Force updates on the remote repository"
+msgstr "リモートリポジトリへの強制更新 (force push)"
+
+# 
+msgid "Full system upgrade (refresh repositories and update all packages)"
+msgstr "システム全体のアップグレード (リポジトリの更新と全パッケージ更新) (-Syu)"
+
+# 
+msgid "Generate a diffstat"
+msgstr "差分統計情報 (diffstat) を生成"
+
+# 
+msgid "Git & Version Control"
+msgstr "Git とバージョン管理"
+
+# 
+msgid "Git New Branch"
+msgstr "新しい Git ブランチを作成"
+
+# 
+msgid "Give the output in the short-format"
+msgstr "短い形式で出力"
+
+# 
+msgid "HTTP POST data"
+msgstr "HTTP POST データ"
+
+# 
+msgid "History"
+msgstr "履歴"
+
+# 
+msgid "Identity file (private key) for public key authentication"
+msgstr "公開鍵認証用の識別ファイル (秘密鍵)"
+
+# 
+msgid "Ignore a package upgrade"
+msgstr "特定パッケージのアップグレードを無視"
+
+# 
+msgid "Ignore case distinctions in patterns and input data"
+msgstr "大文字と小文字の区別を無視 (-i)"
+
+# 
+msgid "Ignore file backup designates (remove config files)"
+msgstr "バックアップ設定を無視 (設定ファイルを削除) (-n)"
+
+# 
+msgid "Ignore nonexistent files and arguments, never prompt"
+msgstr "存在しないファイルを無視し、確認を求めない (-f)"
+
+# 
+msgid "Include only packages providing security fixes"
+msgstr "セキュリティ修正を提供するパッケージのみを含める"
+
+# 
+msgid "Include optional packages in the group"
+msgstr "グループにオプションのパッケージを含める"
+
+# 
+msgid "Include protocol response headers in the output"
+msgstr "出力にプロトコルレスポンスヘッダーを含める"
+
+# 
+msgid "Increase verbosity"
+msgstr "詳細度を上げる"
+
+# 
+msgid "Install a software group by name"
+msgstr "名前でソフトウェアグループをインストール"
+
+# 
+msgid "Install groups of packages"
+msgstr "パッケージグループをインストール"
+
+# 
+msgid "Install local package file (.pkg.tar.zst)"
+msgstr "ローカルパッケージファイル (.pkg.tar.zst) をインストール"
+
+# 
+msgid "Install or synchronize packages from remote repositories"
+msgstr "リモートリポジトリからパッケージをインストールまたは同期 (-S)"
+
+# 
+msgid "Install packages as explicitly requested"
+msgstr "明示的に要求されたものとしてパッケージをインストール (--asexplicit)"
+
+# 
+msgid "Install packages as non-explicit dependencies"
+msgstr "非明示的な依存関係としてパッケージをインストール (--asdeps)"
+
+# 
+msgid "Interactively choose hunks of patch between the index and the work tree"
+msgstr "インデックスと作業ツリーの間でパッチの塊を対話形式で選択"
+
+# 
+msgid "Interpret PATTERNS as extended regular expressions"
+msgstr "パターンを拡張正規表現として解釈"
+
+# 
+msgid "Invalidate user's cached credentials"
+msgstr "ユーザーのキャッシュされた認証情報を無効化"
+
+# 
+msgid "Invert the sense of matching, to select non-matching lines"
+msgstr "一致の判定を反転し、一致しない行を選択"
+
+# 
+msgid "Jump to the end of the journal immediately"
+msgstr "ジャーナルの末尾に即座に移動"
+
+# 
+msgid "Like -name, but match is case insensitive"
+msgstr "-name と同様だが、大文字・小文字を区別しない"
+
+# 
+msgid "Limit the number of commits to output"
+msgstr "出力するコミット数を制限"
+
+# 
+msgid "List all available versions"
+msgstr "利用可能なすべてのバージョンを一覧表示"
+
+# 
+msgid "List all files belonging to package"
+msgstr "パッケージに属するすべてのファイルを一覧表示"
+
+# 
+msgid "List all files owned by a given package"
+msgstr "指定されたパッケージに含まれるすべてのファイルを一覧表示"
+
+# 
+msgid "List all files owned by a locally installed package"
+msgstr "ローカルにインストールされたパッケージが所有するすべてのファイルを一覧表示 (-Ql)"
+
+# 
+msgid "List all signal names"
+msgstr "すべてのシグナル名を一覧表示"
+
+# 
+msgid "List both remote-tracking and local branches"
+msgstr "ローカルブランチとリモート追跡ブランチの両方を一覧表示"
+
+# 
+msgid "List only installed packages"
+msgstr "インストール済みパッケージのみを一覧表示"
+
+# 
+msgid "List orphaned packages (dependencies no longer required by any package)"
+msgstr "孤立したパッケージを一覧表示 (どのパッケージからも要求されていない依存関係) (-Qdt)"
+
+# 
+msgid "List packages not found in sync database (e.g. from AUR)"
+msgstr "公式データベースに見つからないパッケージを一覧表示 (AUR などからインストール) (-Qm)"
+
+# 
+msgid "List packages not required by any installed package"
+msgstr "インストール済みパッケージから必要とされていないパッケージを一覧表示 (-Qt)"
+
+# 
+msgid "List packages required by the specified package"
+msgstr "指定されたパッケージに必要なパッケージを一覧表示"
+
+# 
+msgid "List packages that were explicitly installed"
+msgstr "明示的にインストールされたパッケージを一覧表示 (-Qe)"
+
+# 
+msgid "List packages that were installed as dependencies"
+msgstr "依存関係としてインストールされたパッケージを一覧表示 (-Qd)"
+
+# 
+msgid "List packages with available updates"
+msgstr "更新が利用可能なパッケージを一覧表示"
+
+# 
+msgid "List recent transactions"
+msgstr "最近のトランザクションを一覧表示"
+
+# 
+msgid "List the stashes currently saved"
+msgstr "現在保存されているスタッシュを一覧表示"
+
+# 
+msgid "List unrequired packages (orphans)"
+msgstr "不要なパッケージ (孤立パッケージ) を一覧表示"
+
+# 
+msgid "Local port forwarding [bind_address:]port:host:hostport"
+msgstr "ローカルポート転送 [bind_address:]port:host:hostport"
+
+# 
+msgid "Make a list of the commits which are about to be rebased"
+msgstr "リベース対象となるコミットの一覧を作成"
+
+# 
+msgid "Make file executable"
+msgstr "ファイルを実行可能にする (+x)"
+
+# 
+msgid "Make parent directories as needed, no error if existing"
+msgstr "必要に応じて親ディレクトリを作成、存在してもエラーにしない (-p)"
+
+# 
+msgid "Match base of file name against shell pattern"
+msgstr "ファイル名をシェルパターンと照合"
+
+# 
+msgid "Name and optionally a tag in the 'name:tag' format"
+msgstr "'名前:タグ' 形式の名前およびオプションのタグ"
+
+# 
+msgid "Name of the Dockerfile"
+msgstr "Dockerfile の名前"
+
+# 
+msgid "Network & SSH"
+msgstr "ネットワークと SSH"
+
+# 
+msgid "Number of journal entries to show"
+msgstr "表示するジャーナルエントリの数"
+
+# 
+msgid "Number of lines to show from the end of the logs"
+msgstr "ログの末尾から表示する行数"
+
+# 
+msgid "Only display numeric container IDs"
+msgstr "コンテナの数値 ID のみを表示"
+
+# 
+msgid "Only show numeric image IDs"
+msgstr "イメージの数値 ID のみを表示"
+
+# 
+msgid "Operate on files and directories recursively"
+msgstr "ファイルとディレクトリを再帰的に操作"
+
+# 
+msgid "Output a diagnostic for every file processed"
+msgstr "処理されたファイルごとに診断を出力"
+
+# 
+msgid "Output more detailed diagnostic information"
+msgstr "より詳細な診断情報を出力"
+
+# 
+msgid "Output numbers in a human-readable format"
+msgstr "人間が読みやすい形式で数値を出力"
+
+# 
+msgid "Output package names only (suitable for piping)"
+msgstr "パッケージ名のみを出力 (パイプ処理向け) (-q)"
+
+# 
+msgid "Override repository or DNF configuration options"
+msgstr "リポジトリまたは DNF 設定オプションをオーバーライド"
+
+# 
+msgid "Pass custom header line to server"
+msgstr "カスタムヘッダー行をサーバーに渡す"
+
+# 
+msgid "Perform full system upgrade and refresh database"
+msgstr "完全なシステムアップグレードを実行しデータベースをリフレッシュ"
+
+# 
+msgid "Prefix each line of output with the 1-based line number"
+msgstr "各出力行の先頭に1から始まる行番号を付加"
+
+# 
+msgid "Preserve existing environment variables"
+msgstr "既存の環境変数を保持"
+
+# 
+msgid "Print a message for each created directory"
+msgstr "作成されたディレクトリごとにメッセージを出力"
+
+# 
+msgid "Print version information"
+msgstr "バージョン情報を表示"
+
+# 
+msgid "Prints the Git suite version"
+msgstr "Git のバージョンを表示"
+
+# 
+msgid "Prints the synopsis and a list of the most commonly used commands"
+msgstr "概要と最もよく使われるコマンドの一覧を表示"
+
+# 
+msgid "Produce quiet log output"
+msgstr "出力を抑制したログを生成"
+
+# 
+msgid "Produce quiet output"
+msgstr "出力を抑制して表示"
+
+# 
+msgid "Produce verbose output"
+msgstr "詳細な出力を生成 (verbose)"
+
+# 
+msgid "Prompt before every removal"
+msgstr "削除ごとに確認を要求 (-i)"
+
+# 
+msgid "Prune anonymous volumes as well"
+msgstr "匿名ボリュームも削除"
+
+# 
+msgid "Publish container port(s) to the host"
+msgstr "コンテナのポートをホストに公開"
+
+# 
+msgid "Purge (remove with configs)"
+msgstr "パージ (設定ファイルを含めて削除)"
+
+# 
+msgid "Push all tags"
+msgstr "すべてのタグをリモートにプッシュ"
+
+# 
+msgid "Query and display information on local package"
+msgstr "ローカルパッケージの情報を照会して表示"
+
+# 
+msgid "Query and display information on remote package"
+msgstr "リモートパッケージの情報を照会して表示"
+
+# 
+msgid "Query installed packages only"
+msgstr "インストール済みパッケージのみを照会"
+
+# 
+msgid "Query locally installed package database"
+msgstr "ローカルにインストールされたパッケージデータベースを照会"
+
+# 
+msgid "Query packages providing the specified capability"
+msgstr "指定された機能を提供するパッケージを照会"
+
+# 
+msgid "Query packages requiring the specified capability"
+msgstr "指定された機能を必要とするパッケージを照会"
+
+# 
+msgid "Query the local package database"
+msgstr "ローカルのパッケージデータベースを照会 (-Q)"
+
+# 
+msgid "Query which package owns a specific file on the filesystem"
+msgstr "ファイルシステム上の特定のファイルを所有するパッケージを照会 (-Qo)"
+
+# 
+msgid "Quiet mode"
+msgstr "サイレントモード"
+
+# 
+msgid "Quiet mode (turn off output)"
+msgstr "静音モード (出力を無効化)"
+
+# 
+msgid "Read all files under each directory, recursively"
+msgstr "各ディレクトリ配下のすべてのファイルを再帰的に読み込む"
+
+# 
+msgid "Rebase the current branch on top of the upstream branch after fetching"
+msgstr "フェッチ後、現在のブランチをアップストリームブランチの上にリベース"
+
+# 
+msgid "Redo a specific transaction"
+msgstr "特定のトランザクションを再実行"
+
+# 
+msgid "Refresh files database (for searching which package provides a file)"
+msgstr "ファイルデータベースを更新 (どのパッケージがファイルを提供するか検索用) (-Fy)"
+
+# 
+msgid "Refuse to update a remote ref unless its current value is what we expect"
+msgstr "リモート参照の現在値が予期されたものでない限り更新を拒否 (force-with-lease)"
+
+# 
+msgid "Reinstall one or more packages"
+msgstr "1つ以上のパッケージを再インストール"
+
+# 
+msgid "Reinstall packages even if up to date"
+msgstr "最新であってもパッケージを再インストール"
+
+# 
+msgid "Reinstall specified packages"
+msgstr "指定したパッケージを再インストール"
+
+# 
+msgid "Remote port forwarding [bind_address:]port:host:hostport"
+msgstr "リモートポート転送 [bind_address:]port:host:hostport"
+
+# 
+msgid "Remove Unused Packages"
+msgstr "未使用のパッケージを削除"
+
+# 
+msgid "Remove a single stash state from the stash list"
+msgstr "スタッシュリストから単一のスタッシュを削除"
+
+# 
+msgid "Remove all target packages and all packages that depend on them"
+msgstr "すべての対象パッケージとそれに依存するすべてのパッケージを削除 (-Rc)"
+
+# 
+msgid "Remove all the stash entries"
+msgstr "すべてのスタッシュエントリを削除"
+
+# 
+msgid "Remove all unused images, not just dangling ones"
+msgstr "ぶら下がりイメージだけでなく、未使用のすべてのイメージを削除"
+
+# 
+msgid "Remove anonymous volumes associated with container"
+msgstr "コンテナに関連付けられた匿名ボリュームを削除"
+
+# 
+msgid "Remove cached metadata and downloaded packages"
+msgstr "キャッシュされたメタデータとダウンロード済みパッケージを削除"
+
+# 
+msgid "Remove configuration files along with packages"
+msgstr "パッケージと共に設定ファイルも削除"
+
+# 
+msgid "Remove dependencies not required by other packages"
+msgstr "他のパッケージで必要とされていない依存関係を削除 (-s)"
+
+# 
+msgid "Remove directories and their contents recursively"
+msgstr "ディレクトリとその内容を再帰的に削除 (-r)"
+
+# 
+msgid "Remove named volumes"
+msgstr "名前付きボリュームを削除"
+
+# 
+msgid "Remove old packages from cache directory"
+msgstr "キャッシュディレクトリから古いパッケージを削除 (-Sc)"
+
+# 
+msgid "Remove older duplicates of packages"
+msgstr "パッケージの古い重複バージョンを削除"
+
+# 
+msgid "Remove one or more packages and their unused dependencies"
+msgstr "1つ以上のパッケージと未使用の依存関係を削除"
+
+# 
+msgid "Remove one or more packages from the system"
+msgstr "システムから1つ以上のパッケージを削除 (-R)"
+
+# 
+msgid "Remove packages and their unneeded dependencies"
+msgstr "パッケージと不要な依存関係を削除"
+
+# 
+msgid "Remove packages originally installed as dependencies that are no longer needed"
+msgstr "依存関係としてインストールされ不要になったパッケージを削除"
+
+# 
+msgid "Remove packages, dependencies, and configuration files"
+msgstr "パッケージ、依存関係、設定ファイルをすべて削除"
+
+# 
+msgid "Remove specified packages from system"
+msgstr "指定したパッケージをシステムから削除"
+
+# 
+msgid "Remove unneeded packages"
+msgstr "不要なパッケージを削除"
+
+# 
+msgid "Remove unused dependencies installed with packages"
+msgstr "パッケージと共にインストールされた未使用の依存関係を削除"
+
+# 
+msgid "Rename a branch"
+msgstr "ブランチ名を変更"
+
+# 
+msgid "Requests compression of all data"
+msgstr "すべてのデータの圧縮を要求"
+
+# 
+msgid "Restart policy to apply when container exits"
+msgstr "コンテナ終了時に適用する再起動ポリシー"
+
+# 
+msgid "Restart the rebasing process after resolving conflicts"
+msgstr "競合を解決した後にリベース処理を再開"
+
+# 
+msgid "Restore the working tree and the index"
+msgstr "作業ツリーとインデックスを復元"
+
+# 
+msgid "Reverse order while sorting"
+msgstr "ソート順を反転 (-r)"
+
+# 
+msgid "Roll back to a specific transaction state"
+msgstr "特定のトランザクション状態にロールバック"
+
+# 
+msgid "Rsync Sync Files"
+msgstr "Rsync でファイルを同期"
+
+# 
+msgid "Run as if git was started in <path> instead of the current working directory"
+msgstr "現在の作業ディレクトリではなく <path> で起動したかのように実行"
+
+# 
+msgid "Run command as specified user instead of root"
+msgstr "root ではなく指定したユーザーとしてコマンドを実行"
+
+# 
+msgid "Run container in background and print container ID"
+msgstr "コンテナをバックグラウンドで実行し、コンテナ ID を出力"
+
+# 
+msgid "Run login shell as the target user (root)"
+msgstr "ターゲットユーザー (root) としてログインシェルを実行"
+
+# 
+msgid "Run shell as the target user"
+msgstr "ターゲットユーザーとしてシェルを実行"
+
+# 
+msgid "SIGHUP: Hangup / reload configuration"
+msgstr "SIGHUP: ハングアップ / 設定のリロード"
+
+# 
+msgid "SIGKILL: Force kill immediately (uninterceptable)"
+msgstr "SIGKILL: 即時強制終了 (割り込み不可)"
+
+# 
+msgid "SIGTERM: Graceful termination request (default)"
+msgstr "SIGTERM: 通常の終了要求 (デフォルト)"
+
+# 
+msgid "Search descriptions as well as names and summaries"
+msgstr "名前と概要だけでなく説明も検索"
+
+# 
+msgid "Search file owners across all repositories"
+msgstr "すべてのリポジトリを横断してファイルの所有者を検索"
+
+# 
+msgid "Search files database for a filename"
+msgstr "ファイルデータベースからファイル名を検索 (-F)"
+
+# 
+msgid "Search for package that owns the specified file"
+msgstr "指定されたファイルを所有するパッケージを検索"
+
+# 
+msgid "Search for packages matching various repository criteria"
+msgstr "さまざまなリポジトリ条件に一致するパッケージを検索"
+
+# 
+msgid "Search locally-installed packages for matching strings"
+msgstr "ローカルにインストールされたパッケージから文字列を検索 (-Qs)"
+
+# 
+msgid "Search package names and summaries for keywords"
+msgstr "パッケージ名と概要からキーワードを検索"
+
+# 
+msgid "Search remote repositories for matching packages"
+msgstr "リモートリポジトリから一致するパッケージを検索"
+
+# 
+msgid "Search remote repositories for matching regex"
+msgstr "リモートリポジトリから正規表現に一致するものを検索"
+
+# 
+msgid "Search remote repositories for packages matching keyword"
+msgstr "リモートリポジトリからキーワードに一致するパッケージを検索 (-Ss)"
+
+# 
+msgid "Seconds to wait before killing the container"
+msgstr "コンテナを強制終了するまでの待機秒数"
+
+# 
+msgid "Server user and password"
+msgstr "サーバーのユーザー名とパスワード"
+
+# 
+msgid "Set an alternate configuration file"
+msgstr "代替設定ファイルを指定 (--config)"
+
+# 
+msgid "Set an alternate installation root"
+msgstr "代替インストールルートディレクトリを指定 (--root)"
+
+# 
+msgid "Set an alternate package cache location"
+msgstr "パッケージキャッシュの代替場所を指定 (--cachedir)"
+
+# 
+msgid "Set environment variables"
+msgstr "環境変数を設定"
+
+# 
+msgid "Set metadata as expired before running the command"
+msgstr "コマンド実行前にメタデータを期限切れとして設定"
+
+# 
+msgid "Shorthand for '--pretty=oneline --abbrev-commit'"
+msgstr "'--pretty=oneline --abbrev-commit' の短縮形"
+
+# 
+msgid "Show IP addresses of all interfaces"
+msgstr "すべてのインターフェースの IP アドレスを表示"
+
+# 
+msgid "Show Package Info"
+msgstr "パッケージ情報を表示"
+
+# 
+msgid "Show all containers (default shows just running)"
+msgstr "すべてのコンテナを表示 (デフォルトは実行中のみ)"
+
+# 
+msgid "Show all images"
+msgstr "すべてのイメージを表示"
+
+# 
+msgid "Show details of a specific transaction"
+msgstr "特定のトランザクションの詳細を表示"
+
+# 
+msgid "Show explanatory help texts from message catalog"
+msgstr "メッセージカタログから説明的なヘルプテキストを表示"
+
+# 
+msgid "Show firewall rules with rule numbers"
+msgstr "ルール番号付きでファイアウォールルールを表示"
+
+# 
+msgid "Show help information"
+msgstr "ヘルプ情報を表示"
+
+# 
+msgid "Show information for available packages only"
+msgstr "利用可能なパッケージの情報のみを表示"
+
+# 
+msgid "Show information for installed packages only"
+msgstr "インストール済みパッケージの情報のみを表示"
+
+# 
+msgid "Show interface state"
+msgstr "インターフェースの状態を表示"
+
+# 
+msgid "Show kernel messages only (like dmesg)"
+msgstr "カーネルメッセージのみを表示 (dmesgと同様)"
+
+# 
+msgid "Show less information for query and search outputs"
+msgstr "照会および検索出力の情報量を削減して表示"
+
+# 
+msgid "Show less information for query output"
+msgstr "照会出力の情報量を削減して表示"
+
+# 
+msgid "Show logs for the specified service unit"
+msgstr "指定したサービスユニットのログを表示"
+
+# 
+msgid "Show messages from the current or specified boot"
+msgstr "現在または指定した起動セッションのメッセージを表示"
+
+# 
+msgid "Show newest entries first"
+msgstr "最新のエントリを最初に表示"
+
+# 
+msgid "Show process using socket"
+msgstr "ソケットを使用しているプロセスを表示"
+
+# 
+msgid "Show progress during transfer and keep partially transferred files"
+msgstr "転送中の進捗を表示し、一部転送されたファイルを保持"
+
+# 
+msgid "Show routing table"
+msgstr "ルーティングテーブルを表示"
+
+# 
+msgid "Show the branch and tracking info"
+msgstr "ブランチと追跡情報を表示"
+
+# 
+msgid "Show timestamps"
+msgstr "タイムスタンプを表示"
+
+# 
+msgid "Show verbose firewall rules"
+msgstr "詳細なファイアウォールルールを表示"
+
+# 
+msgid "Show version number"
+msgstr "バージョン番号を表示"
+
+# 
+msgid "Silent mode (don't show progress meter or error messages)"
+msgstr "サイレントモード (進捗メーターやエラーメッセージを表示しない)"
+
+# 
+msgid "Simulate installation"
+msgstr "変更を適用せずにインストールをシミュレート"
+
+# 
+msgid "Skip packages with broken dependencies"
+msgstr "壊れた依存関係を持つパッケージをスキップ"
+
+# 
+msgid "Snippet template"
+msgstr "スニペットテンプレート"
+
+# 
+msgid "Sort by modification time, newest first"
+msgstr "更新日時順にソート、最新を先頭に (-t)"
+
+# 
+msgid "Specify request method (GET, POST, PUT, DELETE, PATCH)"
+msgstr "リクエストメソッドを指定 (GET, POST, PUT, DELETE, PATCH)"
+
+# 
+msgid "Specify the remote shell to use (e.g. 'ssh -p 2222')"
+msgstr "使用するリモートシェルを指定 (例: 'ssh -p 2222')"
+
+# 
+msgid "Stage all changes (new, modified, deleted)"
+msgstr "すべての変更をステージング (新規、変更、削除)"
+
+# 
+msgid "Suppress normal output; instead print a count of matching lines"
+msgstr "通常の出力を抑制し、一致した行数のみを出力"
+
+# 
+msgid "Suppress normal output; instead print the name of each input file"
+msgstr "通常の出力を抑制し、一致した各ファイルのファイル名のみを出力"
+
+# 
+msgid "Synchronize and install packages from repositories"
+msgstr "リポジトリからパッケージを同期してインストール"
+
+# 
+msgid "Systemd Service Logs"
+msgstr "Systemd サービスログ"
+
+# 
+msgid "Talk to the service manager of the calling user"
+msgstr "呼び出し元ユーザーのサービスマネージャーと通信"
+
+# 
+msgid "Talk to the system service manager (default)"
+msgstr "システムサービスマネージャーと通信 (デフォルト)"
+
+# 
+msgid "Undo a specific transaction"
+msgstr "特定のトランザクションを取り消す"
+
+# 
+msgid "Update Package Lists"
+msgstr "パッケージリストを更新"
+
+# 
+msgid "Update tracked files only"
+msgstr "追跡対象のファイルのみを更新"
+
+# 
+msgid "Update user's cached credentials without running a command"
+msgstr "コマンドを実行せずにユーザーのキャッシュされた認証情報を更新"
+
+# 
+msgid "Upgrade Packages"
+msgstr "パッケージをアップグレード"
+
+# 
+msgid "Upgrade System"
+msgstr "システムをアップグレード"
+
+# 
+msgid "Upgrade all packages that are out of date"
+msgstr "古いすべてのパッケージをアップグレード (-u)"
+
+# 
+msgid "Upgrade only to the lowest version containing fixes"
+msgstr "修正を含む最小のバージョンにのみアップグレード"
+
+# 
+msgid "Upgrade or install local or remote package file (.pkg.tar.zst)"
+msgstr "ローカルまたはリモートのパッケージファイル (.pkg.tar.zst) をインストールまたは更新 (-U)"
+
+# 
+msgid "Use a long listing format with permissions, owner, size and date"
+msgstr "権限、所有者、サイズ、日付を含む詳細形式で一覧表示 (-l)"
+
+# 
+msgid "Use archive file or device ARCHIVE"
+msgstr "アーカイブファイルまたはデバイスを使用"
+
+# 
+msgid "Use the given commit message"
+msgstr "指定されたコミットメッセージを使用"
+
+# 
+msgid "Username or UID"
+msgstr "ユーザー名または UID"
+
+# 
+msgid "Verbose mode (debugging)"
+msgstr "詳細モード (デバッグ用)"
+
+# 
+msgid "Verbosely list files processed"
+msgstr "処理されたファイルを詳細に一覧表示"
+
+# 
+msgid "View and manage DNF transaction history"
+msgstr "DNF トランザクション履歴の表示と管理"
+
+# 
+msgid "View information about a locally-installed package"
+msgstr "ローカルにインストールされたパッケージの情報を表示 (-Qi)"
+
+# 
+msgid "View information about a remote package"
+msgstr "リモートパッケージの情報を表示 (-Si)"
+
+# 
+msgid "View or alter DNF transaction history"
+msgstr "DNF トランザクション履歴の表示または変更"
+
+# 
+msgid "View the changes you staged for the next commit"
+msgstr "次のコミット用にステージングされた変更を表示"
+
+# 
+msgid "When used with -s, show error message on failure"
+msgstr "-s と併用時、失敗した際にエラーメッセージを表示"
+
+# 
+msgid "With -l, print sizes in human readable format (e.g., 1K 234M 2G)"
+msgstr "サイズを人間が読みやすい形式 (1K 234M 2G 等) で表示 (-h)"
+
+# 
+msgid "Write output to <file> instead of stdout"
+msgstr "出力を stdout ではなく <file> に書き込む"
+
+# 
+msgid "Write output to a local file named like the remote file"
+msgstr "リモートファイルと同じ名前のローカルファイルに出力を保存"
+
+# 
+msgid "e.g., curl, git (optional for updates)"
+msgstr "例: curl, git (更新時は省略可能)"
+
+# 
+msgid "e.g., htop, neovim (optional for updates)"
+msgstr "例: htop, neovim (更新時は省略可能)"
+
+# 
+msgid "rw------- (secure private key permissions)"
+msgstr "rw------- (安全な秘密鍵権限)"
+
+# 
+msgid "rw-r--r-- (standard file permissions)"
+msgstr "rw-r--r-- (標準ファイル権限)"
+
+# 
+msgid "rwxr-xr-x (standard directory / executable permissions)"
+msgstr "rwxr-xr-x (標準ディレクトリ / 実行権限)"
