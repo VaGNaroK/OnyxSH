@@ -212,3 +212,6 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Local planning and private specs
+PLANO_VIABILIDADE_OPENCODE.md
