@@ -7,6 +7,10 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 ## [0.13.0] - 2026-09-30
 
 ### Adicionado
+- **Instalador Universal e Atualizações Multi-Formato (Flatpak & .deb)**:
+  - 📦 **Atualização Nativa no Flatpak**: Quem utiliza o pacote Flatpak conta com suporte nativo de update no aplicativo: o `updater.py` detecta o ambiente sandbox (`is_flatpak_sandbox()`) e, ao clicar em "Atualizar", executa diretamente no host `flatpak update -y io.github.vagnarok.OnyxSH`, além de sincronizar automaticamente com GNOME Software e KDE Discover.
+  - 🐧 **Atualização Nativa Debian/Ubuntu (.deb)**: Gera e instala o pacote `.deb` oficial de forma limpa via `scripts/build_deb.sh`.
+  - 🔄 **Ponte de Compatibilidade (`install.sh`)**: Script restaurado na raiz do repositório para compatibilidade retroativa com auto-atualizadores legados (`v0.12.0` e anteriores), suportando compilação e instalação tanto em `.deb` quanto em Flatpak (`./install.sh flatpak`), migrando wrappers obsoletos de `/usr/local/bin/onyxsh` sem quebras.
 - **Quick Look Não-Modal & Multitarefa no File Manager e Terminal**:
   - 🪟 **Modo Não-Modal (`modal=False`)**: O `QuickLookDialog` agora opera como uma janela flutuante independente (*utility window*), eliminando o bloqueio de ponteiro e teclado que impedia a interação com a janela principal (`src/onyxsh/filemanager/quick_look.py`).
   - ⚡ **Terminal e File Manager 100% Funcionais**: Permite navegar entre pastas, executar comandos no terminal, criar e alternar abas, utilizar painéis divididos (*splits*) e editar arquivos enquanto visualiza imagens, scripts ou logs no Quick Look simultaneamente.
