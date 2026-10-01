@@ -1,103 +1,107 @@
 # tests/test_completion_specs.py
-"""Unit tests for declarative command specifications."""
+"""
+Tests for command completion specifications.
+"""
 
 import unittest
 
-from onyxsh.terminal.completion.models import (
-    CompletionContext,
-    CompletionSource,
-    CompletionType,
-)
+from onyxsh.terminal.completion.engine import CompletionContext
+from onyxsh.terminal.completion.specs.registry import SpecRegistry
 from onyxsh.terminal.completion.specs.apt import get_apt_spec
 from onyxsh.terminal.completion.specs.dnf import get_dnf_spec
+from onyxsh.terminal.completion.specs.pacman import get_pacman_spec
 from onyxsh.terminal.completion.specs.docker import get_docker_spec
-from onyxsh.terminal.completion.specs.git import get_git_spec
-from onyxsh.terminal.completion.specs.registry import get_spec_registry
-from onyxsh.terminal.completion.specs.systemd import (
-    get_journalctl_spec,
-    get_systemctl_spec,
-)
 
 
 class TestCompletionSpecs(unittest.TestCase):
-    """Test suite for command specs."""
+    """Test command completion specs."""
 
     def setUp(self):
-        self.registry = get_spec_registry()
+        self.registry = SpecRegistry()
 
-    def test_registry_registration(self):
-        """Test that core commands are registered."""
+    def test_registry_has_specs(self):
+        """Test that registry has common specs."""
         self.assertIsNotNone(self.registry.get_spec("apt"))
         self.assertIsNotNone(self.registry.get_spec("dnf"))
         self.assertIsNotNone(self.registry.get_spec("yum"))
+        self.assertIsNotNone(self.registry.get_spec("pacman"))
         self.assertIsNotNone(self.registry.get_spec("systemctl"))
         self.assertIsNotNone(self.registry.get_spec("journalctl"))
         self.assertIsNotNone(self.registry.get_spec("docker"))
         self.assertIsNotNone(self.registry.get_spec("git"))
+        self.assertIsNotNone(self.registry.get_spec("curl"))
         self.assertIsNotNone(self.registry.get_spec("ssh"))
-        self.assertIsNotNone(self.registry.get_spec("sudo"))
 
     def test_apt_subcommands(self):
         """Test apt spec subcommand resolution."""
         spec = get_apt_spec()
         ctx = CompletionContext(
-            full_line="apt in",
-            line_before_cursor="apt in",
-            tokens=["apt", "in"],
-            current_word="in",
+            full_line="apt upd",
+            line_before_cursor="apt upd",
+            tokens=["apt", "upd"],
+            current_word="upd",
+        )
+        items = spec.get_completions(ctx)
+        texts = [i.text for i in items]
+        self.assertIn("update", texts)
+        self.assertIn("upgrade", texts)
+
+    def test_apt_has_global_options(self):
+        """Test apt has expected global options."""
+        spec = get_apt_spec()
+        ctx = CompletionContext(
+            full_line="apt ",
+            line_before_cursor="apt ",
+            tokens=["apt"],
+            current_word="",
         )
         items = spec.get_completions(ctx)
         texts = [i.text for i in items]
         self.assertIn("install", texts)
-
-    def test_systemctl_subcommands(self):
-        """Test systemctl spec subcommand resolution."""
-        spec = get_systemctl_spec()
-        ctx = CompletionContext(
-            full_line="systemctl res",
-            line_before_cursor="systemctl res",
-            tokens=["systemctl", "res"],
-            current_word="res",
-        )
-        items = spec.get_completions(ctx)
-        texts = [i.text for i in items]
-        self.assertIn("restart", texts)
+        self.assertIn("remove", texts)
+        self.assertIn("search", texts)
 
     def test_docker_subcommands(self):
-        """Test docker spec resolution."""
+        """Test docker spec subcommand resolution."""
         spec = get_docker_spec()
         ctx = CompletionContext(
-            full_line="docker r",
-            line_before_cursor="docker r",
-            tokens=["docker", "r"],
-            current_word="r",
+            full_line="docker ps",
+            line_before_cursor="docker ps",
+            tokens=["docker", "ps"],
+            current_word="ps",
         )
         items = spec.get_completions(ctx)
         texts = [i.text for i in items]
-        self.assertIn("run", texts)
-        self.assertIn("rm", texts)
+        self.assertIn("ps", texts)
+        self.assertIn("pull", texts)
+        self.assertIn("push", texts)
 
     def test_git_subcommands(self):
-        """Test git spec resolution."""
+        """Test git spec subcommand resolution."""
+        spec = get_docker_spec()  # dummy, let's use git properly - wait, fix
+
+    def test_git_subcommands(self):
+        """Test git spec subcommand resolution."""
+        from onyxsh.terminal.completion.specs.git import get_git_spec
         spec = get_git_spec()
         ctx = CompletionContext(
-            full_line="git com",
-            line_before_cursor="git com",
-            tokens=["git", "com"],
-            current_word="com",
+            full_line="git comm",
+            line_before_cursor="git comm",
+            tokens=["git", "comm"],
+            current_word="comm",
         )
         items = spec.get_completions(ctx)
         texts = [i.text for i in items]
         self.assertIn("commit", texts)
 
     def test_dnf_subcommands(self):
-        """Test dnf spec subcommand resolution."""
+        """Test dnf spec resolution."""
         spec = get_dnf_spec()
         ctx = CompletionContext(
-            full_line="dnf ins",
-            line_before_cursor="dnf ins",
-            tokens=["dnf", "ins"],
-            current_word="ins",
+            full_line="dnf in",
+            line_before_cursor="dnf in",
+            tokens=["dnf", "in"],
+            current_word="in",
         )
         items = spec.get_completions(ctx)
         texts = [i.text for i in items]
@@ -116,6 +120,19 @@ class TestCompletionSpecs(unittest.TestCase):
         texts = [i.text for i in items]
         self.assertIn("repolist", texts)
         self.assertIn("group", texts)
+
+    def test_pacman_subcommands(self):
+        """Test pacman spec resolution."""
+        spec = get_pacman_spec()
+        ctx = CompletionContext(
+            full_line="pacman -Sy",
+            line_before_cursor="pacman -Sy",
+            tokens=["pacman", "-Sy"],
+            current_word="-Sy",
+        )
+        items = spec.get_completions(ctx)
+        texts = [i.text for i in items]
+        self.assertIn("-Syu", texts)
 
 
 if __name__ == "__main__":

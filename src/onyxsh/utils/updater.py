@@ -193,20 +193,31 @@ class UpdateManager:
         return info.get("ID", "").strip().lower()
 
     def build_update_command(self, remote_ref: str) -> str:
-        distro_id = self._detect_distro_id()
         safe_ref = remote_ref.strip() or "main"
 
-        if distro_id == "nixos":
+        try:
+            from .platform import is_flatpak_sandbox
+            if is_flatpak_sandbox():
+                return "flatpak update -y io.github.vagnarok.OnyxSH"
+        except Exception:
+            pass
+
+        distro_id = self._detect_distro_id()
+        if distro_id in ("debian", "ubuntu", "linuxmint", "pop"):
             return (
-                'nix --extra-experimental-features "nix-command flakes" '
-                f'profile add --refresh "github:{GITHUB_OWNER}/{GITHUB_REPO}/{safe_ref}#onyxsh"'
+                'TMP_DIR="$(mktemp -d)" && '
+                f'(git clone --depth 1 --branch "{safe_ref}" '
+                f'https://github.com/{GITHUB_OWNER}/{GITHUB_REPO}.git "$TMP_DIR/{GITHUB_REPO}" '
+                f'|| git clone --depth 1 https://github.com/{GITHUB_OWNER}/{GITHUB_REPO}.git "$TMP_DIR/{GITHUB_REPO}") && '
+                f'cd "$TMP_DIR/{GITHUB_REPO}" && ./scripts/build_deb.sh --clean-cache && '
+                'sudo apt install -y ./dist/*.deb'
             )
 
-        # Distros with install.sh flow.
+        # Universal Flatpak build & install
         return (
             'TMP_DIR="$(mktemp -d)" && '
             f'(git clone --depth 1 --branch "{safe_ref}" '
             f'https://github.com/{GITHUB_OWNER}/{GITHUB_REPO}.git "$TMP_DIR/{GITHUB_REPO}" '
             f'|| git clone --depth 1 https://github.com/{GITHUB_OWNER}/{GITHUB_REPO}.git "$TMP_DIR/{GITHUB_REPO}") && '
-            f'cd "$TMP_DIR/{GITHUB_REPO}" && INSTALL_MODE=local bash ./install.sh'
+            f'cd "$TMP_DIR/{GITHUB_REPO}" && ./scripts/build_flatpak.sh --clean-cache --install'
         )

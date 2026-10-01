@@ -110,6 +110,13 @@ def validate_and_build_command(
     if "pkg" not in validated_params:
         validated_params["pkg"] = _detect_package_manager()
 
+    pkg = validated_params.get("pkg")
+    if pkg == "pacman":
+        if action_id == "pkg.clean_cache":
+            return ["pacman", "-Sc", "--noconfirm"], action_def.get("description", action_id)
+        elif action_id == "pkg.autoremove":
+            return ["pacman", "-Rns", "--noconfirm"], action_def.get("description", action_id)
+
     # Build argv template
     argv_template = action_def.get("argv", action_def.get("argv_template", []))
     built_argv: list[str] = []

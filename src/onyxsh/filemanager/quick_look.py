@@ -69,6 +69,7 @@ class QuickLookDialog(BaseDialog):
             auto_setup_toolbar=True,
             default_width=820,
             default_height=600,
+            modal=False,
         )
         self.logger = get_logger("onyxsh.filemanager.quick_look")
         self.on_open_editor = on_open_editor
@@ -451,18 +452,24 @@ class QuickLookDialog(BaseDialog):
 
         if keyval in (Gdk.KEY_Up, Gdk.KEY_k):
             if self.on_navigate:
-                res = self.on_navigate(-1)
-                if res:
-                    item, folder = res
-                    self.preview_item(item, folder, self.operations)
+                try:
+                    res = self.on_navigate(-1)
+                    if res:
+                        item, folder = res
+                        self.preview_item(item, folder, self.operations)
+                except Exception as e:
+                    self.logger.warning("Erro ao navegar para item anterior no Quick Look: %s", e)
                 return Gdk.EVENT_STOP
 
         elif keyval in (Gdk.KEY_Down, Gdk.KEY_j):
             if self.on_navigate:
-                res = self.on_navigate(1)
-                if res:
-                    item, folder = res
-                    self.preview_item(item, folder, self.operations)
+                try:
+                    res = self.on_navigate(1)
+                    if res:
+                        item, folder = res
+                        self.preview_item(item, folder, self.operations)
+                except Exception as e:
+                    self.logger.warning("Erro ao navegar para próximo item no Quick Look: %s", e)
                 return Gdk.EVENT_STOP
 
         return Gdk.EVENT_PROPAGATE
@@ -530,6 +537,21 @@ class QuickLookDialog(BaseDialog):
         operations=None,
     ) -> None:
         """Update and present preview for a given FileItem."""
+        if self.is_dirty and self.current_item and self.current_item != item:
+            self._show_discard_changes_dialog(
+                lambda: self._do_preview_item(item, current_folder, operations)
+            )
+            return
+
+        self._do_preview_item(item, current_folder, operations)
+
+    def _do_preview_item(
+        self,
+        item: FileItem,
+        current_folder: str,
+        operations=None,
+    ) -> None:
+        """Internal worker to update and present preview for a given FileItem."""
         self.current_item = item
         if getattr(item, "full_path", ""):
             self.current_folder = str(PurePosixPath(item.full_path).parent)

@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
 from ..utils.logger import get_logger
+from ..utils.platform import get_package_manager
 from ..utils.translation_utils import _
 
 logger = get_logger("onyxsh.agent.error_matcher")
@@ -245,7 +246,15 @@ class TerminalErrorMatcher:
         quick_fix = None
         quick_fix_label = None
         if missing_cmd:
-            quick_fix = f"apt search {missing_cmd}"
+            pm = get_package_manager()
+            if pm in ("dnf", "yum"):
+                quick_fix = f"dnf search {missing_cmd}"
+            elif pm == "pacman":
+                quick_fix = f"pacman -Ss {missing_cmd}"
+            elif pm == "zypper":
+                quick_fix = f"zypper search {missing_cmd}"
+            else:
+                quick_fix = f"apt search {missing_cmd}"
             quick_fix_label = _("🔍 Buscar Pacote")
         else:
             quick_fix_label = _("🤖 Diagnosticar com IA")

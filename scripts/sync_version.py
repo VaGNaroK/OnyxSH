@@ -17,8 +17,6 @@ TARGETS = (
         "group3",
     ),
     ("pyproject.toml", r'^(version\s*=\s*")([^"]+)(")\s*$', "group3"),
-    ("default.nix", r'^(  version\s*=\s*")([^"]+)(";\s*)$', "group3"),
-    ("PKGBUILD", r"^(pkgver=)([^\n]+)$", "group2"),
 )
 
 

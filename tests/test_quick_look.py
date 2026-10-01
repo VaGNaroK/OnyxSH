@@ -517,6 +517,63 @@ class TestQuickLook(unittest.TestCase):
             self.assertIn("Disk I/O failure", args[1])
 
 
+    def test_quick_look_dialog_is_non_modal(self):
+        """Verify QuickLookDialog is non-modal to allow multitasking."""
+        self.assertFalse(
+            self.dialog.get_modal(),
+            "QuickLookDialog should be non-modal (modal=False) so terminal and file manager remain functional.",
+        )
+
+    def test_quick_look_live_preview_switching(self):
+        """Verify preview_item seamlessly switches between items."""
+        item1 = FileItem("test1.txt", "-rw-r--r--", 20, datetime.now(), "u", "g")
+        item2 = FileItem("test2.py", "-rw-r--r--", 50, datetime.now(), "u", "g")
+        p1 = self.test_dir / "test1.txt"
+        p2 = self.test_dir / "test2.py"
+        p1.write_text("Hello text 1")
+        p2.write_text("print('Hello python 2')")
+
+        self.dialog.preview_item(item1, str(self.test_dir))
+        self._flush_glib()
+        self.assertEqual(self.dialog.current_item.name, "test1.txt")
+
+        # Switch to item2 without closing
+        self.dialog.preview_item(item2, str(self.test_dir))
+        self._flush_glib()
+        self.assertEqual(self.dialog.current_item.name, "test2.py")
+        self.assertIn("test2.py", self.dialog.title_label.get_text())
+
+    def test_quick_look_dirty_safeguard_on_switch(self):
+        """Verify switching items prompts discard dialog if buffer is dirty."""
+        item1 = FileItem("dirty.txt", "-rw-r--r--", 10, datetime.now(), "u", "g")
+        item2 = FileItem("next.txt", "-rw-r--r--", 10, datetime.now(), "u", "g")
+        p1 = self.test_dir / "dirty.txt"
+        p2 = self.test_dir / "next.txt"
+        p1.write_text("Original")
+        p2.write_text("Next")
+
+        self.dialog.preview_item(item1, str(self.test_dir))
+        self._flush_glib()
+
+        self.dialog.is_dirty = True
+        with patch.object(self.dialog, "_show_discard_changes_dialog") as mock_discard:
+            self.dialog.preview_item(item2, str(self.test_dir))
+            mock_discard.assert_called_once()
+
+    def test_on_navigate_keyboard_safe_from_exceptions(self):
+        """Verify Up/Down keys safely catch any exception from on_navigate callback."""
+        self.dialog.is_editing = False
+        self.mock_nav_cb.side_effect = TypeError("Gtk.ListView.scroll_to() takes exactly 4 arguments (5 given)")
+
+        # Press Down key (j / Down)
+        res_down = self.dialog._on_key_pressed(None, Gdk.KEY_Down, 0, 0)
+        self.assertEqual(res_down, Gdk.EVENT_STOP)
+
+        # Press Up key (k / Up)
+        res_up = self.dialog._on_key_pressed(None, Gdk.KEY_Up, 0, 0)
+        self.assertEqual(res_up, Gdk.EVENT_STOP)
+
+
 if __name__ == "__main__":
     unittest.main()
 

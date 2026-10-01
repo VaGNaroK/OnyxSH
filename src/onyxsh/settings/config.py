@@ -35,7 +35,7 @@ class AppConstants:
 
     APP_ID = "io.github.vagnarok.OnyxSH"
     APP_TITLE = "OnyxSH"
-    APP_VERSION = "0.12.0"
+    APP_VERSION = "0.13.0"
     DEVELOPER_NAME = "VaGNaroK"
     DEVELOPER_TEAM = [
         "VaGNaroK (Maintainer)",

@@ -12708,3 +12708,1427 @@ msgstr "A comparação de diff é suportada apenas para arquivos de texto e cód
 # 
 msgid "Failed to download remote file for comparison: {}"
 msgstr "Falha ao baixar arquivo remoto para comparação: {}"
+
+# 
+msgid "APT"
+msgstr "APT"
+
+# 
+msgid "Abort the current conflict resolution process"
+msgstr "Abortar o processo atual de resolução de conflitos"
+
+# 
+msgid "Abort the rebase operation and reset HEAD to the original branch"
+msgstr "Abortar a operação de rebase e redefinir o HEAD para a branch original"
+
+# 
+msgid "Add all files in current directory"
+msgstr "Adicionar todos os arquivos do diretório atual"
+
+# 
+msgid "Allocate a pseudo-TTY and keep stdin open"
+msgstr "Alocar um pseudo-TTY e manter a entrada padrão (stdin) aberta"
+
+# 
+msgid "Allocate a pseudo-TTY connected to the container's stdin"
+msgstr "Alocar um pseudo-TTY conectado à entrada padrão (stdin) do contêiner"
+
+# 
+msgid "Allow erasing of installed packages to resolve dependencies"
+msgstr "Permitir remoção de pacotes instalados para resolver dependências"
+
+# 
+msgid "Allow insecure server connections when using SSL"
+msgstr "Permitir conexões de servidor inseguras ao usar SSL"
+
+# 
+msgid "Also remove configuration files of orphaned packages"
+msgstr "Remover também arquivos de configuração de pacotes órfãos"
+
+# 
+msgid "Amend the tip of the current branch instead of creating a new commit"
+msgstr "Alterar o último commit da branch atual em vez de criar um novo"
+
+# 
+msgid "Apply the stashed state and remove from stash list"
+msgstr "Aplicar o estado guardado no stash e removê-lo da lista"
+
+# 
+msgid "Apply the stashed state but keep in stash list"
+msgstr "Aplicar o estado guardado no stash mas mantê-lo na lista"
+
+# 
+msgid "Arch Linux package manager utility"
+msgstr "Utilitário de gerenciamento de pacotes do Arch Linux"
+
+# 
+msgid "Archive mode; equals -rlptgoD (preserves permissions, times, symlinks)"
+msgstr "Modo arquivo; equivalente a -rlptgoD (preserva permissões, datas, links simbólicos)"
+
+# 
+msgid "Assign a custom name to the container"
+msgstr "Atribuir um nome personalizado ao contêiner"
+
+# 
+msgid "Assume yes to all queries"
+msgstr "Assumir resposta 'sim' para todas as perguntas"
+
+# 
+msgid "Auto Clean Cache"
+msgstr "Limpeza Automática de Cache"
+
+# 
+msgid "Automatic yes to all prompts"
+msgstr "Confirmar automaticamente 'sim' para todas as perguntas"
+
+# 
+msgid "Automatic yes to prompts"
+msgstr "Confirmar automaticamente 'sim' para todas as perguntas"
+
+# 
+msgid "Automatically remove the container when it exits"
+msgstr "Remover o contêiner automaticamente quando ele finalizar"
+
+# 
+msgid "Automatically stage modified and deleted files"
+msgstr "Adicionar automaticamente à stage arquivos modificados e excluídos"
+
+# 
+msgid "Automatically stash before rebase and pop after"
+msgstr "Fazer stash automaticamente antes do rebase e restaurar após"
+
+# 
+msgid "Before fetching, remove any remote-tracking references that no longer exist on the remote"
+msgstr "Antes de buscar, remover referências de rastreamento remoto que não existem mais"
+
+# 
+msgid "Bind mount a volume"
+msgstr "Montar um volume (bind mount)"
+
+# 
+msgid "Build images before starting containers"
+msgstr "Construir imagens antes de iniciar os contêineres"
+
+# 
+msgid "Bypass any and all 'Are you sure?' prompts"
+msgstr "Ignorar todas as perguntas de confirmação ('Tem certeza?')"
+
+# 
+msgid "Bypass any and all confirmation prompts"
+msgstr "Ignorar todas e quaisquer solicitações de confirmação"
+
+# 
+msgid "Bypass any and all confirmation questions"
+msgstr "Ignorar todas as perguntas de confirmação do sistema"
+
+# 
+msgid "Bypass any confirmation prompts"
+msgstr "Ignorar quaisquer solicitações de confirmação"
+
+# 
+msgid "Bypass confirmation prompt"
+msgstr "Ignorar pergunta de confirmação"
+
+# 
+msgid "Bypass pre-commit and commit-msg hooks"
+msgstr "Ignorar ganchos (hooks) pre-commit e commit-msg"
+
+# 
+msgid "Change device attributes (up, down, mtu)"
+msgstr "Alterar atributos do dispositivo de rede (up, down, mtu)"
+
+# 
+msgid "Change files and directories recursively"
+msgstr "Alterar arquivos e diretórios recursivamente"
+
+# 
+msgid "Change to directory before performing any operations"
+msgstr "Mudar para o diretório antes de executar qualquer operação"
+
+# 
+msgid "Check for Updates"
+msgstr "Verificar Atualizações"
+
+# 
+msgid "Check for available package upgrades without installing them"
+msgstr "Verificar atualizações de pacotes disponíveis sem instalá-las"
+
+# 
+msgid "Check only for security updates"
+msgstr "Verificar apenas atualizações de segurança"
+
+# 
+msgid "Clean all cached metadata and packages"
+msgstr "Limpar todos os metadados e pacotes armazenados em cache"
+
+# 
+msgid "Clean all cached packages including uninstalled"
+msgstr "Limpar todos os pacotes em cache, incluindo desinstalados"
+
+# 
+msgid "Clean all package cache (remove all downloaded packages from cache)"
+msgstr "Limpar todo o cache de pacotes (remover todos os pacotes baixados)"
+
+# 
+msgid "Clean cached RPM packages"
+msgstr "Limpar arquivos RPM armazenados em cache"
+
+# 
+msgid "Clean cached data (all, packages, metadata)"
+msgstr "Limpar dados em cache (todos, pacotes, metadados)"
+
+# 
+msgid "Clean cached metadata databases"
+msgstr "Limpar bancos de dados de metadados em cache"
+
+# 
+msgid "Clean cached repository metadata"
+msgstr "Limpar metadados de repositórios em cache"
+
+# 
+msgid "Clean package cache (remove old downloaded packages from /var/cache/pacman/pkg)"
+msgstr "Limpar cache de pacotes (remover versões antigas de /var/cache/pacman/pkg)"
+
+# 
+msgid "Clean package cache from /var/cache/pacman/pkg"
+msgstr "Limpar cache de pacotes em /var/cache/pacman/pkg"
+
+# 
+msgid "Cleanly remove package with all unused dependencies and config files"
+msgstr "Remover pacote de forma limpa com dependências não utilizadas e arquivos de configuração (-Rns)"
+
+# 
+msgid "Colorize output (auto, always, never)"
+msgstr "Colorir saída (auto, always, never)"
+
+# 
+msgid "Common combination: long format, all files, human sizes"
+msgstr "Combinação comum: formato detalhado, todos os arquivos e tamanhos legíveis (-la / -lh)"
+
+# 
+msgid "Compress file data during the transfer"
+msgstr "Comprimir dados dos arquivos durante a transferência"
+
+# 
+msgid "Connect a container to a network"
+msgstr "Conectar um contêiner a uma rede"
+
+# 
+msgid "Containers & Docker"
+msgstr "Contêineres e Docker"
+
+# 
+msgid "Control colored output (auto, never, always)"
+msgstr "Controlar saída colorida (auto, never, always)"
+
+# 
+msgid "Create a merge commit even when the merge resolves as a fast-forward"
+msgstr "Criar um commit de mesclagem mesmo quando a mesclagem for um fast-forward"
+
+# 
+msgid "Create a new archive"
+msgstr "Criar um novo arquivo compactado (archive)"
+
+# 
+msgid "Create a shallow clone with a history truncated to the specified number of commits"
+msgstr "Criar um clone raso com o histórico truncado ao número especificado de commits"
+
+# 
+msgid "Create and switch to a new branch"
+msgstr "Criar e alternar para uma nova branch"
+
+# 
+msgid "Create/reset and checkout a branch"
+msgstr "Criar/redefinir e alternar para uma branch"
+
+# 
+msgid "DNF"
+msgstr "DNF"
+
+# 
+msgid "Debian/Ubuntu package manager operations"
+msgstr "Operações do gerenciador de pacotes do Debian/Ubuntu"
+
+# 
+msgid "Delete a branch"
+msgstr "Excluir uma branch"
+
+# 
+msgid "Delete extraneous files from destination dirs"
+msgstr "Excluir arquivos excedentes dos diretórios de destino"
+
+# 
+msgid "Delete found files"
+msgstr "Excluir arquivos encontrados"
+
+# 
+msgid "Detached mode: Run containers in background"
+msgstr "Modo desacoplado: Executar contêineres em segundo plano"
+
+# 
+msgid "Detached mode: run command in the background"
+msgstr "Modo desacoplado: executar comando em segundo plano"
+
+# 
+msgid "Directory to download packages into"
+msgstr "Diretório para onde baixar os pacotes"
+
+# 
+msgid "Disable and stop unit immediately"
+msgstr "Desabilitar e parar a unidade imediatamente"
+
+# 
+msgid "Disable specified repository"
+msgstr "Desativar repositório especificado"
+
+# 
+msgid "Display TCP sockets"
+msgstr "Exibir sockets TCP"
+
+# 
+msgid "Display UDP sockets"
+msgstr "Exibir sockets UDP"
+
+# 
+msgid "Display all packages in specified group"
+msgstr "Exibir todos os pacotes do grupo especificado"
+
+# 
+msgid "Display both listening and non-listening sockets"
+msgstr "Exibir tanto sockets em escuta quanto os que não estão em escuta"
+
+# 
+msgid "Display detailed information about a locally installed package"
+msgstr "Exibir informações detalhadas sobre um pacote instalado localmente"
+
+# 
+msgid "Display detailed information about a remote package"
+msgstr "Exibir informações detalhadas sobre um pacote remoto"
+
+# 
+msgid "Display detailed information about packages"
+msgstr "Exibir informações detalhadas sobre pacotes"
+
+# 
+msgid "Display detailed package information and metadata"
+msgstr "Exibir informações detalhadas e metadados do pacote"
+
+# 
+msgid "Display only listening sockets"
+msgstr "Exibir apenas sockets em modo de escuta"
+
+# 
+msgid "Display syntax and options"
+msgstr "Exibir sintaxe e opções de uso"
+
+# 
+msgid "Display version information"
+msgstr "Exibir informações de versão do Pacman"
+
+# 
+msgid "Do not ask for any confirmation (non-interactive)"
+msgstr "Não pedir nenhuma confirmação (não-interativo)"
+
+# 
+msgid "Do not ellipsize output"
+msgstr "Não truncar a saída com reticências"
+
+# 
+msgid "Do not execute a remote command (useful for port forwarding only)"
+msgstr "Não executar comando remoto (útil apenas para encaminhamento de portas)"
+
+# 
+msgid "Do not ignore entries starting with ."
+msgstr "Não ignorar arquivos ocultos iniciados por ponto (-a)"
+
+# 
+msgid "Do not install new packages during upgrade"
+msgstr "Não instalar novos pacotes durante a atualização"
+
+# 
+msgid "Do not install recommended packages"
+msgstr "Não instalar pacotes recomendados"
+
+# 
+msgid "Do not limit transaction to best available package versions"
+msgstr "Não limitar transação às melhores versões de pacotes disponíveis"
+
+# 
+msgid "Do not pipe output into a pager"
+msgstr "Não canalizar saída para um paginador (pager)"
+
+# 
+msgid "Do not reinstall up-to-date packages"
+msgstr "Não reinstalar pacotes já atualizados"
+
+# 
+msgid "Do not reinstall up-to-date targets"
+msgstr "Não reinstalar alvos que já estejam atualizados"
+
+# 
+msgid "Do not try to resolve service names or addresses"
+msgstr "Não tentar resolver nomes de serviços ou endereços numéricos"
+
+# 
+msgid "Do not use cache when building the image"
+msgstr "Não utilizar cache ao construir a imagem"
+
+# 
+msgid "Docker Exec Shell"
+msgstr "Shell Interativo no Docker (Exec)"
+
+# 
+msgid "Download fresh copy of package databases from servers"
+msgstr "Baixar cópias atualizadas dos bancos de dados dos repositórios (-Sy)"
+
+# 
+msgid "Download needed dependencies as well"
+msgstr "Baixar também dependências necessárias"
+
+# 
+msgid "Download package RPMs without installing them"
+msgstr "Baixar arquivos RPM de pacotes sem instalá-los"
+
+# 
+msgid "Download packages only, do not install or unpack"
+msgstr "Apenas baixar os pacotes, sem instalá-los ou descompactá-los (-Sw)"
+
+# 
+msgid "Download packages to local directory without installing"
+msgstr "Baixar pacotes para o diretório local sem instalar"
+
+# 
+msgid "Download source RPM (SRPM)"
+msgstr "Baixar código-fonte RPM (SRPM)"
+
+# 
+msgid "Draw a text-based graphical representation of the commit history"
+msgstr "Desenhar representação gráfica em texto do histórico de commits"
+
+# 
+msgid "Dynamic SOCKS proxy port forwarding"
+msgstr "Encaminhamento dinâmico de portas via proxy SOCKS"
+
+# 
+msgid "Enable additional repository"
+msgstr "Ativar repositório adicional"
+
+# 
+msgid "Enable and start unit immediately"
+msgstr "Habilitar e iniciar a unidade imediatamente"
+
+# 
+msgid "Enables X11 forwarding"
+msgstr "Habilitar encaminhamento do X11"
+
+# 
+msgid "Exclude files matching pattern"
+msgstr "Excluir arquivos correspondentes ao padrão"
+
+# 
+msgid "Execute command on matched files"
+msgstr "Executar comando nos arquivos encontrados"
+
+# 
+msgid "Extract files from an archive"
+msgstr "Extrair arquivos de um pacote compactado"
+
+# 
+msgid "Fedora/RHEL package manager operations"
+msgstr "Operações do gerenciador de pacotes do Fedora/RHEL"
+
+# 
+msgid "Fedora/RHEL package manager utility"
+msgstr "Utilitário de gerenciamento de pacotes do Fedora/RHEL"
+
+# 
+msgid "Fetch HTTP response headers only"
+msgstr "Obter apenas os cabeçalhos de resposta HTTP"
+
+# 
+msgid "Fetch all remotes"
+msgstr "Buscar alterações de todos os repositórios remotos"
+
+# 
+msgid "File data was last modified n*24 hours ago"
+msgstr "Dados do arquivo foram modificados pela última vez há n*24 horas"
+
+# 
+msgid "File type (f for regular file, d for directory, l for symlink)"
+msgstr "Tipo de arquivo (f para arquivo regular, d para diretório, l para link simbólico)"
+
+# 
+msgid "File uses n units of space (e.g. +100M)"
+msgstr "Arquivo ocupa n unidades de espaço (ex: +100M)"
+
+# 
+msgid "Filter by message priority (err, warning, info, debug)"
+msgstr "Filtrar por prioridade da mensagem (err, warning, info, debug)"
+
+# 
+msgid "Filter by unit state (active, failed, inactive)"
+msgstr "Filtrar por estado da unidade (active, failed, inactive)"
+
+# 
+msgid "Filter by unit type (service, socket, timer)"
+msgstr "Filtrar por tipo de unidade (service, socket, timer)"
+
+# 
+msgid "Filter entries since date/time or relative timestamp"
+msgstr "Filtrar entradas a partir de data/hora ou timestamp relativo"
+
+# 
+msgid "Filter entries until date/time or relative timestamp"
+msgstr "Filtrar entradas até data/hora ou timestamp relativo"
+
+# 
+msgid "Filter output based on conditions provided"
+msgstr "Filtrar a saída com base nas condições fornecidas"
+
+# 
+msgid "Filter the archive through bzip2 (.tar.bz2)"
+msgstr "Filtrar o arquivo através do bzip2 (.tar.bz2)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz / .tgz)"
+msgstr "Filtrar o arquivo através do gzip (.tar.gz / .tgz)"
+
+# 
+msgid "Filter the archive through xz (.tar.xz)"
+msgstr "Filtrar o arquivo através do xz (.tar.xz)"
+
+# 
+msgid "Follow HTTP redirects"
+msgstr "Seguir redirecionamentos HTTP (Location)"
+
+# 
+msgid "Follow journal output live (real-time stream)"
+msgstr "Acompanhar saída do journal em tempo real"
+
+# 
+msgid "Follow log output"
+msgstr "Acompanhar a saída de logs continuamente"
+
+# 
+msgid "Follow log output in real time"
+msgstr "Acompanhar a saída de logs em tempo real"
+
+# 
+msgid "For every branch that is up to date or successfully pushed, add upstream (tracking) reference"
+msgstr "Definir referência de rastreamento upstream para a branch enviada"
+
+# 
+msgid "Force delete a branch"
+msgstr "Forçar a exclusão de uma branch"
+
+# 
+msgid "Force metadata refresh before checking"
+msgstr "Forçar atualização de metadados antes de verificar"
+
+# 
+msgid "Force metadata refresh before upgrade"
+msgstr "Forçar atualização de metadados antes de atualizar"
+
+# 
+msgid "Force refresh all package databases and full system upgrade"
+msgstr "Forçar atualização de todos os bancos de dados e upgrade completo do sistema (-Syyu)"
+
+# 
+msgid "Force refresh package databases and upgrade system"
+msgstr "Forçar atualização dos bancos de dados e atualizar o sistema"
+
+# 
+msgid "Force removal of the image"
+msgstr "Forçar a remoção da imagem"
+
+# 
+msgid "Force the removal of a running container"
+msgstr "Forçar a remoção de um contêiner em execução"
+
+# 
+msgid "Force updates on the remote repository"
+msgstr "Forçar atualizações no repositório remoto (force push)"
+
+# 
+msgid "Full system upgrade (refresh repositories and update all packages)"
+msgstr "Atualização completa do sistema (atualizar repositórios e todos os pacotes) (-Syu)"
+
+# 
+msgid "Generate a diffstat"
+msgstr "Gerar estatísticas resumidas das alterações (diffstat)"
+
+# 
+msgid "Git & Version Control"
+msgstr "Git e Controle de Versão"
+
+# 
+msgid "Git New Branch"
+msgstr "Criar Nova Branch no Git"
+
+# 
+msgid "Give the output in the short-format"
+msgstr "Apresentar a saída em formato abreviado (curto)"
+
+# 
+msgid "HTTP POST data"
+msgstr "Dados da requisição HTTP POST"
+
+# 
+msgid "History"
+msgstr "Histórico"
+
+# 
+msgid "Identity file (private key) for public key authentication"
+msgstr "Arquivo de identidade (chave privada) para autenticação por chave pública"
+
+# 
+msgid "Ignore a package upgrade"
+msgstr "Ignorar a atualização de um pacote específico"
+
+# 
+msgid "Ignore case distinctions in patterns and input data"
+msgstr "Ignorar distinção entre maiúsculas e minúsculas (-i)"
+
+# 
+msgid "Ignore file backup designates (remove config files)"
+msgstr "Ignorar proteção de arquivos de backup (remover arquivos de configuração) (-n)"
+
+# 
+msgid "Ignore nonexistent files and arguments, never prompt"
+msgstr "Ignorar arquivos inexistentes e nunca solicitar confirmação (-f)"
+
+# 
+msgid "Include only packages providing security fixes"
+msgstr "Incluir apenas pacotes que forneçam correções de segurança"
+
+# 
+msgid "Include optional packages in the group"
+msgstr "Incluir pacotes opcionais no grupo"
+
+# 
+msgid "Include protocol response headers in the output"
+msgstr "Incluir cabeçalhos de resposta do protocolo na saída"
+
+# 
+msgid "Increase verbosity"
+msgstr "Aumentar nível de detalhamento (verbosidade)"
+
+# 
+msgid "Install a software group by name"
+msgstr "Instalar um grupo de programas pelo nome"
+
+# 
+msgid "Install groups of packages"
+msgstr "Instalar grupos de pacotes"
+
+# 
+msgid "Install local package file (.pkg.tar.zst)"
+msgstr "Instalar arquivo de pacote local (.pkg.tar.zst)"
+
+# 
+msgid "Install or synchronize packages from remote repositories"
+msgstr "Instalar ou sincronizar pacotes a partir de repositórios remotos (-S)"
+
+# 
+msgid "Install packages as explicitly requested"
+msgstr "Instalar pacotes como explicitamente solicitados (--asexplicit)"
+
+# 
+msgid "Install packages as non-explicit dependencies"
+msgstr "Instalar pacotes como dependências não explícitas (--asdeps)"
+
+# 
+msgid "Interactively choose hunks of patch between the index and the work tree"
+msgstr "Escolher blocos de código (hunks) interativamente entre o índice e a árvore de trabalho"
+
+# 
+msgid "Interpret PATTERNS as extended regular expressions"
+msgstr "Interpretar PADRÕES como expressões regulares estendidas (ERE)"
+
+# 
+msgid "Invalidate user's cached credentials"
+msgstr "Invalidar credenciais em cache do usuário"
+
+# 
+msgid "Invert the sense of matching, to select non-matching lines"
+msgstr "Inverter o critério de correspondência para selecionar linhas não coincidentes"
+
+# 
+msgid "Jump to the end of the journal immediately"
+msgstr "Ir para o final do journal imediatamente"
+
+# 
+msgid "Like -name, but match is case insensitive"
+msgstr "Semelhante a -name, mas insensível a maiúsculas/minúsculas"
+
+# 
+msgid "Limit the number of commits to output"
+msgstr "Limitar o número de commits exibidos"
+
+# 
+msgid "List all available versions"
+msgstr "Listar todas as versões disponíveis"
+
+# 
+msgid "List all files belonging to package"
+msgstr "Listar todos os arquivos pertencentes ao pacote"
+
+# 
+msgid "List all files owned by a given package"
+msgstr "Listar todos os arquivos pertencentes a um determinado pacote"
+
+# 
+msgid "List all files owned by a locally installed package"
+msgstr "Listar todos os arquivos pertencentes a um pacote instalado localmente (-Ql)"
+
+# 
+msgid "List all signal names"
+msgstr "Listar todos os nomes de sinais do sistema"
+
+# 
+msgid "List both remote-tracking and local branches"
+msgstr "Listar branches locais e de rastreamento remoto"
+
+# 
+msgid "List only installed packages"
+msgstr "Listar apenas pacotes instalados"
+
+# 
+msgid "List orphaned packages (dependencies no longer required by any package)"
+msgstr "Listar pacotes órfãos (dependências não requeridas por nenhum pacote instalado) (-Qdt)"
+
+# 
+msgid "List packages not found in sync database (e.g. from AUR)"
+msgstr "Listar pacotes não encontrados no banco oficial (ex: instalados via AUR) (-Qm)"
+
+# 
+msgid "List packages not required by any installed package"
+msgstr "Listar pacotes não requeridos por nenhum outro pacote instalado (-Qt)"
+
+# 
+msgid "List packages required by the specified package"
+msgstr "Listar pacotes exigidos pelo pacote especificado"
+
+# 
+msgid "List packages that were explicitly installed"
+msgstr "Listar pacotes que foram explicitamente instalados (-Qe)"
+
+# 
+msgid "List packages that were installed as dependencies"
+msgstr "Listar pacotes que foram instalados como dependências (-Qd)"
+
+# 
+msgid "List packages with available updates"
+msgstr "Listar pacotes com atualizações disponíveis"
+
+# 
+msgid "List recent transactions"
+msgstr "Listar transações recentes"
+
+# 
+msgid "List the stashes currently saved"
+msgstr "Listar os estados atualmente salvos no stash"
+
+# 
+msgid "List unrequired packages (orphans)"
+msgstr "Listar pacotes desnecessários (órfãos)"
+
+# 
+msgid "Local port forwarding [bind_address:]port:host:hostport"
+msgstr "Encaminhamento de porta local [endereço_vinculado:]porta:host:porta_host"
+
+# 
+msgid "Make a list of the commits which are about to be rebased"
+msgstr "Criar lista de commits que estão prestes a ser rebaseados"
+
+# 
+msgid "Make file executable"
+msgstr "Tornar arquivo executável (+x)"
+
+# 
+msgid "Make parent directories as needed, no error if existing"
+msgstr "Criar diretórios pais conforme necessário, sem erro se já existirem (-p)"
+
+# 
+msgid "Match base of file name against shell pattern"
+msgstr "Comparar o nome do arquivo contra o padrão de shell"
+
+# 
+msgid "Name and optionally a tag in the 'name:tag' format"
+msgstr "Nome e opcionalmente uma tag no formato 'nome:tag'"
+
+# 
+msgid "Name of the Dockerfile"
+msgstr "Nome do Dockerfile"
+
+# 
+msgid "Network & SSH"
+msgstr "Rede e SSH"
+
+# 
+msgid "Number of journal entries to show"
+msgstr "Número de entradas do journal a exibir"
+
+# 
+msgid "Number of lines to show from the end of the logs"
+msgstr "Número de linhas para exibir a partir do final dos logs"
+
+# 
+msgid "Only display numeric container IDs"
+msgstr "Exibir apenas IDs numéricos dos contêineres"
+
+# 
+msgid "Only show numeric image IDs"
+msgstr "Exibir apenas IDs numéricos das imagens"
+
+# 
+msgid "Operate on files and directories recursively"
+msgstr "Operar em arquivos e diretórios recursivamente"
+
+# 
+msgid "Output a diagnostic for every file processed"
+msgstr "Exibir diagnóstico para cada arquivo processado"
+
+# 
+msgid "Output more detailed diagnostic information"
+msgstr "Exibir informações de diagnóstico mais detalhadas"
+
+# 
+msgid "Output numbers in a human-readable format"
+msgstr "Exibir números em formato legível para humanos (ex: K, M, G)"
+
+# 
+msgid "Output package names only (suitable for piping)"
+msgstr "Exibir apenas os nomes dos pacotes (ideal para pipes) (-q)"
+
+# 
+msgid "Override repository or DNF configuration options"
+msgstr "Substituir opções de configuração do repositório ou DNF"
+
+# 
+msgid "Pass custom header line to server"
+msgstr "Enviar linha de cabeçalho personalizada para o servidor"
+
+# 
+msgid "Perform full system upgrade and refresh database"
+msgstr "Realizar atualização completa do sistema e sincronizar banco de dados"
+
+# 
+msgid "Prefix each line of output with the 1-based line number"
+msgstr "Prefixar cada linha de saída com o número da linha (iniciando em 1)"
+
+# 
+msgid "Preserve existing environment variables"
+msgstr "Preservar variáveis de ambiente existentes"
+
+# 
+msgid "Print a message for each created directory"
+msgstr "Exibir uma mensagem para cada diretório criado"
+
+# 
+msgid "Print version information"
+msgstr "Exibir informações de versão"
+
+# 
+msgid "Prints the Git suite version"
+msgstr "Exibe a versão do Git instalada"
+
+# 
+msgid "Prints the synopsis and a list of the most commonly used commands"
+msgstr "Exibe a sinopse e lista dos comandos Git mais comuns"
+
+# 
+msgid "Produce quiet log output"
+msgstr "Produzir saída de log silenciosa"
+
+# 
+msgid "Produce quiet output"
+msgstr "Produzir saída silenciosa"
+
+# 
+msgid "Produce verbose output"
+msgstr "Produzir saída detalhada (verbose)"
+
+# 
+msgid "Prompt before every removal"
+msgstr "Solicitar confirmação antes de cada remoção (-i)"
+
+# 
+msgid "Prune anonymous volumes as well"
+msgstr "Remover também volumes anônimos não utilizados"
+
+# 
+msgid "Publish container port(s) to the host"
+msgstr "Publicar porta(s) do contêiner para o host"
+
+# 
+msgid "Purge (remove with configs)"
+msgstr "Purgar (remover junto com arquivos de configuração)"
+
+# 
+msgid "Push all tags"
+msgstr "Enviar todas as tags para o repositório remoto"
+
+# 
+msgid "Query and display information on local package"
+msgstr "Consultar e exibir informações sobre pacote local"
+
+# 
+msgid "Query and display information on remote package"
+msgstr "Consultar e exibir informações sobre pacote remoto"
+
+# 
+msgid "Query installed packages only"
+msgstr "Consultar apenas pacotes instalados"
+
+# 
+msgid "Query locally installed package database"
+msgstr "Consultar banco de dados de pacotes instalados localmente"
+
+# 
+msgid "Query packages providing the specified capability"
+msgstr "Consultar pacotes que fornecem o recurso/capacidade especificado"
+
+# 
+msgid "Query packages requiring the specified capability"
+msgstr "Consultar pacotes que requerem o recurso/capacidade especificado"
+
+# 
+msgid "Query the local package database"
+msgstr "Consultar o banco de dados local de pacotes instalados (-Q)"
+
+# 
+msgid "Query which package owns a specific file on the filesystem"
+msgstr "Consultar qual pacote é proprietário de um arquivo no sistema (-Qo)"
+
+# 
+msgid "Quiet mode"
+msgstr "Modo silencioso"
+
+# 
+msgid "Quiet mode (turn off output)"
+msgstr "Modo silencioso (desativar saída)"
+
+# 
+msgid "Read all files under each directory, recursively"
+msgstr "Ler todos os arquivos sob cada diretório, recursivamente"
+
+# 
+msgid "Rebase the current branch on top of the upstream branch after fetching"
+msgstr "Rebasear a branch atual sobre a branch upstream após o fetch"
+
+# 
+msgid "Redo a specific transaction"
+msgstr "Refazer uma transação específica"
+
+# 
+msgid "Refresh files database (for searching which package provides a file)"
+msgstr "Atualizar banco de arquivos para pesquisa (-Fy)"
+
+# 
+msgid "Refuse to update a remote ref unless its current value is what we expect"
+msgstr "Recusar atualizar referência remota a menos que coincida com o esperado (force-with-lease)"
+
+# 
+msgid "Reinstall one or more packages"
+msgstr "Reinstalar um ou mais pacotes"
+
+# 
+msgid "Reinstall packages even if up to date"
+msgstr "Reinstalar pacotes mesmo se já atualizados"
+
+# 
+msgid "Reinstall specified packages"
+msgstr "Reinstalar os pacotes especificados"
+
+# 
+msgid "Remote port forwarding [bind_address:]port:host:hostport"
+msgstr "Encaminhamento de porta remota [endereço_vinculado:]porta:host:porta_host"
+
+# 
+msgid "Remove Unused Packages"
+msgstr "Remover Pacotes Não Utilizados"
+
+# 
+msgid "Remove a single stash state from the stash list"
+msgstr "Remover uma entrada individual da lista de stash"
+
+# 
+msgid "Remove all target packages and all packages that depend on them"
+msgstr "Remover todos os pacotes-alvo e todos os que dependem deles (-Rc)"
+
+# 
+msgid "Remove all the stash entries"
+msgstr "Remover todas as entradas do stash"
+
+# 
+msgid "Remove all unused images, not just dangling ones"
+msgstr "Remover todas as imagens não utilizadas, não apenas as pendentes"
+
+# 
+msgid "Remove anonymous volumes associated with container"
+msgstr "Remover volumes anônimos associados ao contêiner"
+
+# 
+msgid "Remove cached metadata and downloaded packages"
+msgstr "Remover metadados em cache e pacotes baixados"
+
+# 
+msgid "Remove configuration files along with packages"
+msgstr "Remover arquivos de configuração junto com os pacotes"
+
+# 
+msgid "Remove dependencies not required by other packages"
+msgstr "Remover dependências não requeridas por outros pacotes (-s)"
+
+# 
+msgid "Remove directories and their contents recursively"
+msgstr "Remover diretórios e seus conteúdos recursivamente (-r)"
+
+# 
+msgid "Remove named volumes"
+msgstr "Remover volumes nomeados"
+
+# 
+msgid "Remove old packages from cache directory"
+msgstr "Remover pacotes antigos do diretório de cache (-Sc)"
+
+# 
+msgid "Remove older duplicates of packages"
+msgstr "Remover duplicatas antigas de pacotes"
+
+# 
+msgid "Remove one or more packages and their unused dependencies"
+msgstr "Remover um ou mais pacotes e suas dependências não utilizadas"
+
+# 
+msgid "Remove one or more packages from the system"
+msgstr "Remover um ou mais pacotes do sistema (-R)"
+
+# 
+msgid "Remove packages and their unneeded dependencies"
+msgstr "Remover pacotes e suas dependências desnecessárias"
+
+# 
+msgid "Remove packages originally installed as dependencies that are no longer needed"
+msgstr "Remover pacotes instalados como dependências que não são mais necessários"
+
+# 
+msgid "Remove packages, dependencies, and configuration files"
+msgstr "Remover pacotes, dependências e arquivos de configuração"
+
+# 
+msgid "Remove specified packages from system"
+msgstr "Remover os pacotes especificados do sistema"
+
+# 
+msgid "Remove unneeded packages"
+msgstr "Remover pacotes desnecessários"
+
+# 
+msgid "Remove unused dependencies installed with packages"
+msgstr "Remover dependências não utilizadas instaladas com pacotes"
+
+# 
+msgid "Rename a branch"
+msgstr "Renomear uma branch"
+
+# 
+msgid "Requests compression of all data"
+msgstr "Solicitar compressão de todos os dados transmitidos"
+
+# 
+msgid "Restart policy to apply when container exits"
+msgstr "Política de reinício a aplicar quando o contêiner finalizar"
+
+# 
+msgid "Restart the rebasing process after resolving conflicts"
+msgstr "Continuar o processo de rebase após resolver os conflitos"
+
+# 
+msgid "Restore the working tree and the index"
+msgstr "Restaurar a árvore de trabalho e o índice"
+
+# 
+msgid "Reverse order while sorting"
+msgstr "Inverter a ordem da classificação (-r)"
+
+# 
+msgid "Roll back to a specific transaction state"
+msgstr "Reverter para o estado de uma transação específica (rollback)"
+
+# 
+msgid "Rsync Sync Files"
+msgstr "Sincronizar Arquivos com Rsync"
+
+# 
+msgid "Run as if git was started in <path> instead of the current working directory"
+msgstr "Executar como se o Git tivesse sido iniciado em <caminho> em vez do diretório atual"
+
+# 
+msgid "Run command as specified user instead of root"
+msgstr "Executar comando como o usuário especificado em vez de root"
+
+# 
+msgid "Run container in background and print container ID"
+msgstr "Executar contêiner em segundo plano e exibir o ID do contêiner"
+
+# 
+msgid "Run login shell as the target user (root)"
+msgstr "Executar shell de login como usuário destino (root)"
+
+# 
+msgid "Run shell as the target user"
+msgstr "Executar shell como usuário destino"
+
+# 
+msgid "SIGHUP: Hangup / reload configuration"
+msgstr "SIGHUP: Desconexão / recarregar configurações"
+
+# 
+msgid "SIGKILL: Force kill immediately (uninterceptable)"
+msgstr "SIGKILL: Encerrar forçadamente de imediato (ininterceptável)"
+
+# 
+msgid "SIGTERM: Graceful termination request (default)"
+msgstr "SIGTERM: Solicitação de encerramento gracioso (padrão)"
+
+# 
+msgid "Search descriptions as well as names and summaries"
+msgstr "Pesquisar também nas descrições, além de nomes e resumos"
+
+# 
+msgid "Search file owners across all repositories"
+msgstr "Pesquisar proprietários de arquivos em todos os repositórios"
+
+# 
+msgid "Search files database for a filename"
+msgstr "Pesquisar um nome de arquivo no banco de dados de arquivos (-F)"
+
+# 
+msgid "Search for package that owns the specified file"
+msgstr "Pesquisar pacote proprietário do arquivo especificado"
+
+# 
+msgid "Search for packages matching various repository criteria"
+msgstr "Pesquisar pacotes correspondentes a critérios de repositório"
+
+# 
+msgid "Search locally-installed packages for matching strings"
+msgstr "Pesquisar termos nos pacotes instalados localmente (-Qs)"
+
+# 
+msgid "Search package names and summaries for keywords"
+msgstr "Pesquisar palavras-chave em nomes e resumos de pacotes"
+
+# 
+msgid "Search remote repositories for matching packages"
+msgstr "Pesquisar pacotes correspondentes nos repositórios remotos"
+
+# 
+msgid "Search remote repositories for matching regex"
+msgstr "Pesquisar expressão regular nos repositórios remotos"
+
+# 
+msgid "Search remote repositories for packages matching keyword"
+msgstr "Pesquisar pacotes por palavra-chave nos repositórios remotos (-Ss)"
+
+# 
+msgid "Seconds to wait before killing the container"
+msgstr "Segundos de espera antes de encerrar o contêiner forçadamente"
+
+# 
+msgid "Server user and password"
+msgstr "Usuário e senha do servidor"
+
+# 
+msgid "Set an alternate configuration file"
+msgstr "Definir um arquivo de configuração alternativo (--config)"
+
+# 
+msgid "Set an alternate installation root"
+msgstr "Definir raiz de instalação alternativa (--root)"
+
+# 
+msgid "Set an alternate package cache location"
+msgstr "Definir local alternativo para o cache de pacotes (--cachedir)"
+
+# 
+msgid "Set environment variables"
+msgstr "Definir variáveis de ambiente"
+
+# 
+msgid "Set metadata as expired before running the command"
+msgstr "Marcar metadados como expirados antes de executar o comando"
+
+# 
+msgid "Shorthand for '--pretty=oneline --abbrev-commit'"
+msgstr "Atalho para '--pretty=oneline --abbrev-commit'"
+
+# 
+msgid "Show IP addresses of all interfaces"
+msgstr "Exibir endereços IP de todas as interfaces de rede"
+
+# 
+msgid "Show Package Info"
+msgstr "Exibir Informações do Pacote"
+
+# 
+msgid "Show all containers (default shows just running)"
+msgstr "Exibir todos os contêineres (padrão exibe apenas em execução)"
+
+# 
+msgid "Show all images"
+msgstr "Exibir todas as imagens"
+
+# 
+msgid "Show details of a specific transaction"
+msgstr "Exibir detalhes de uma transação específica"
+
+# 
+msgid "Show explanatory help texts from message catalog"
+msgstr "Exibir textos explicativos de ajuda do catálogo de mensagens"
+
+# 
+msgid "Show firewall rules with rule numbers"
+msgstr "Exibir regras de firewall com números de linha"
+
+# 
+msgid "Show help information"
+msgstr "Exibir informações de ajuda"
+
+# 
+msgid "Show information for available packages only"
+msgstr "Exibir informações apenas para pacotes disponíveis"
+
+# 
+msgid "Show information for installed packages only"
+msgstr "Exibir informações apenas para pacotes instalados"
+
+# 
+msgid "Show interface state"
+msgstr "Exibir o estado da interface de rede"
+
+# 
+msgid "Show kernel messages only (like dmesg)"
+msgstr "Exibir apenas mensagens do kernel (como dmesg)"
+
+# 
+msgid "Show less information for query and search outputs"
+msgstr "Exibir saída simplificada para consultas e buscas"
+
+# 
+msgid "Show less information for query output"
+msgstr "Exibir saída simplificada para consultas"
+
+# 
+msgid "Show logs for the specified service unit"
+msgstr "Exibir logs da unidade de serviço especificada"
+
+# 
+msgid "Show messages from the current or specified boot"
+msgstr "Exibir mensagens do boot atual ou especificado"
+
+# 
+msgid "Show newest entries first"
+msgstr "Exibir entradas mais recentes primeiro"
+
+# 
+msgid "Show process using socket"
+msgstr "Exibir o processo que está utilizando o socket"
+
+# 
+msgid "Show progress during transfer and keep partially transferred files"
+msgstr "Exibir progresso durante a transferência e manter arquivos parciais"
+
+# 
+msgid "Show routing table"
+msgstr "Exibir tabela de roteamento de rede"
+
+# 
+msgid "Show the branch and tracking info"
+msgstr "Exibir informações da branch e do rastreamento remoto"
+
+# 
+msgid "Show timestamps"
+msgstr "Exibir carimbos de data/hora (timestamps)"
+
+# 
+msgid "Show verbose firewall rules"
+msgstr "Exibir regras detalhadas de firewall"
+
+# 
+msgid "Show version number"
+msgstr "Exibir número da versão"
+
+# 
+msgid "Silent mode (don't show progress meter or error messages)"
+msgstr "Modo silencioso (não exibir barra de progresso ou erros)"
+
+# 
+msgid "Simulate installation"
+msgstr "Simular instalação sem aplicar alterações"
+
+# 
+msgid "Skip packages with broken dependencies"
+msgstr "Ignorar pacotes com dependências quebradas"
+
+# 
+msgid "Snippet template"
+msgstr "Modelo de snippet"
+
+# 
+msgid "Sort by modification time, newest first"
+msgstr "Ordenar por data de modificação, mais recentes primeiro (-t)"
+
+# 
+msgid "Specify request method (GET, POST, PUT, DELETE, PATCH)"
+msgstr "Especificar método de requisição HTTP (GET, POST, PUT, DELETE, PATCH)"
+
+# 
+msgid "Specify the remote shell to use (e.g. 'ssh -p 2222')"
+msgstr "Especificar o shell remoto a usar (ex: 'ssh -p 2222')"
+
+# 
+msgid "Stage all changes (new, modified, deleted)"
+msgstr "Adicionar todas as alterações à stage (novas, modificadas, excluídas)"
+
+# 
+msgid "Suppress normal output; instead print a count of matching lines"
+msgstr "Ocultar a saída normal; exibir apenas a contagem de linhas correspondentes"
+
+# 
+msgid "Suppress normal output; instead print the name of each input file"
+msgstr "Ocultar a saída normal; exibir apenas o nome de cada arquivo correspondente"
+
+# 
+msgid "Synchronize and install packages from repositories"
+msgstr "Sincronizar e instalar pacotes dos repositórios"
+
+# 
+msgid "Systemd Service Logs"
+msgstr "Logs de Serviço do Systemd"
+
+# 
+msgid "Talk to the service manager of the calling user"
+msgstr "Comunicar com o gerenciador de serviços do usuário atual"
+
+# 
+msgid "Talk to the system service manager (default)"
+msgstr "Comunicar com o gerenciador de serviços do sistema (padrão)"
+
+# 
+msgid "Undo a specific transaction"
+msgstr "Desfazer uma transação específica"
+
+# 
+msgid "Update Package Lists"
+msgstr "Atualizar Listas de Pacotes"
+
+# 
+msgid "Update tracked files only"
+msgstr "Atualizar apenas arquivos já rastreados"
+
+# 
+msgid "Update user's cached credentials without running a command"
+msgstr "Atualizar credenciais em cache do usuário sem executar um comando"
+
+# 
+msgid "Upgrade Packages"
+msgstr "Atualizar Pacotes"
+
+# 
+msgid "Upgrade System"
+msgstr "Atualizar Sistema"
+
+# 
+msgid "Upgrade all packages that are out of date"
+msgstr "Atualizar todos os pacotes desatualizados (-u)"
+
+# 
+msgid "Upgrade only to the lowest version containing fixes"
+msgstr "Atualizar apenas para a versão mais baixa que contenha correções"
+
+# 
+msgid "Upgrade or install local or remote package file (.pkg.tar.zst)"
+msgstr "Instalar ou atualizar pacote a partir de arquivo local ou URL (-U)"
+
+# 
+msgid "Use a long listing format with permissions, owner, size and date"
+msgstr "Usar formato de listagem detalhado com permissões, proprietário, tamanho e data (-l)"
+
+# 
+msgid "Use archive file or device ARCHIVE"
+msgstr "Usar arquivo de pacote ou dispositivo especificado"
+
+# 
+msgid "Use the given commit message"
+msgstr "Usar a mensagem de commit fornecida"
+
+# 
+msgid "Username or UID"
+msgstr "Nome de usuário ou UID"
+
+# 
+msgid "Verbose mode (debugging)"
+msgstr "Modo detalhado para depuração (verbose)"
+
+# 
+msgid "Verbosely list files processed"
+msgstr "Listar detalhadamente os arquivos processados"
+
+# 
+msgid "View and manage DNF transaction history"
+msgstr "Visualizar e gerenciar o histórico de transações do DNF"
+
+# 
+msgid "View information about a locally-installed package"
+msgstr "Visualizar informações de um pacote instalado localmente (-Qi)"
+
+# 
+msgid "View information about a remote package"
+msgstr "Visualizar informações sobre um pacote remoto (-Si)"
+
+# 
+msgid "View or alter DNF transaction history"
+msgstr "Visualizar ou alterar histórico de transações do DNF"
+
+# 
+msgid "View the changes you staged for the next commit"
+msgstr "Visualizar as alterações adicionadas à stage para o próximo commit"
+
+# 
+msgid "When used with -s, show error message on failure"
+msgstr "Quando usado com -s, exibe mensagem de erro em caso de falha"
+
+# 
+msgid "With -l, print sizes in human readable format (e.g., 1K 234M 2G)"
+msgstr "Exibir tamanhos em formato legível para humanos (ex: 1K, 234M, 2G) (-h)"
+
+# 
+msgid "Write output to <file> instead of stdout"
+msgstr "Gravar saída em <arquivo> em vez da saída padrão (stdout)"
+
+# 
+msgid "Write output to a local file named like the remote file"
+msgstr "Gravar saída em arquivo local com o mesmo nome do arquivo remoto"
+
+# 
+msgid "e.g., curl, git (optional for updates)"
+msgstr "ex: curl, git (opcional para atualizações)"
+
+# 
+msgid "e.g., htop, neovim (optional for updates)"
+msgstr "ex: htop, neovim (opcional para atualizações)"
+
+# 
+msgid "rw------- (secure private key permissions)"
+msgstr "rw------- (permissão segura para chave privada)"
+
+# 
+msgid "rw-r--r-- (standard file permissions)"
+msgstr "rw-r--r-- (permissão padrão de arquivo)"
+
+# 
+msgid "rwxr-xr-x (standard directory / executable permissions)"
+msgstr "rwxr-xr-x (permissão padrão de diretório / executável)"

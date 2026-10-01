@@ -252,6 +252,59 @@ class TestFileManagerTreeView(unittest.TestCase):
         self.fm._on_row_activated(self.fm.tree_view, 0)
         self.assertFalse(tree_row.get_expanded())
 
+    def test_scroll_view_to_index_safe_for_all_view_types(self):
+        """Verify _scroll_view_to_index handles ListView, ColumnView, and widgets without raising TypeError."""
+        list_view = Gtk.ListView()
+        self.fm._scroll_view_to_index(list_view, 0)
+
+        col_view = Gtk.ColumnView()
+        self.fm._scroll_view_to_index(col_view, 0)
+
+        self.fm._scroll_view_to_index(None, 0)
+        self.fm._scroll_view_to_index(Gtk.Box(), 0)
+
+    def test_space_key_triggers_quick_look(self):
+        """Verify pressing Space on a file in the view invokes _toggle_quick_look and stops propagation."""
+        item = FileItem("document.pdf", "-rw-r--r--", 2048, datetime.now(), "u", "g", full_path="/home/user/document.pdf")
+        self.fm.store.append(item)
+        self.fm.tree_selection_model.select_item(0, True)
+
+        with patch.object(self.fm, "_toggle_quick_look") as mock_toggle:
+            # Press Space with no modifiers
+            res = self.fm._on_column_view_key_pressed(None, gi.repository.Gdk.KEY_space, 0, 0)
+            self.assertEqual(res, gi.repository.Gdk.EVENT_STOP)
+            mock_toggle.assert_called_once()
+
+    def test_space_key_in_main_box_and_search_entry(self):
+        """Verify Space in main_box triggers Quick Look unless search_entry is focused."""
+        with patch.object(self.fm, "_toggle_quick_look") as mock_toggle:
+            # Search entry not focused
+            self.fm.search_entry = Gtk.SearchEntry()
+            res = self.fm._on_main_box_key_pressed(None, gi.repository.Gdk.KEY_space, 0, 0)
+            self.assertEqual(res, gi.repository.Gdk.EVENT_STOP)
+            mock_toggle.assert_called_once()
+
+        # If search entry has focus, it should propagate to allow typing spaces
+        with patch.object(self.fm.search_entry, "has_focus", return_value=True):
+            with patch.object(self.fm, "_toggle_quick_look") as mock_toggle2:
+                res = self.fm._on_main_box_key_pressed(None, gi.repository.Gdk.KEY_space, 0, 0)
+                self.assertEqual(res, gi.repository.Gdk.EVENT_PROPAGATE)
+                mock_toggle2.assert_not_called()
+
+    def test_toggle_quick_look_with_target_item_fallback(self):
+        """Verify _toggle_quick_look correctly resolves target_item and previews without raising exceptions."""
+        item = FileItem("notes.txt", "-rw-r--r--", 512, datetime.now(), "u", "g", full_path="/home/user/notes.txt")
+        self.fm.store.append(item)
+        self.fm.tree_selection_model.select_item(0, True)
+
+        mock_dialog = MagicMock()
+        mock_dialog.is_visible.return_value = False
+        self.fm.quick_look_dialog = mock_dialog
+
+        # Call with item=None (as triggered by Space key)
+        self.fm._toggle_quick_look(None)
+        mock_dialog.preview_item.assert_called_once_with(item, "/home/user", None)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -11,6 +11,7 @@ from onyxsh.terminal.runbook import (
     RunbookStep,
     get_runbook_generator,
 )
+from onyxsh.utils.translation_utils import _
 
 
 class TestTerminalRunbook(unittest.TestCase):
@@ -110,17 +111,17 @@ class TestTerminalRunbook(unittest.TestCase):
 
         # Header and meta
         self.assertIn("# 📘 Deploy de Produção v1.2", md)
-        self.assertIn("**Status:** `Concluído`", md)
-        self.assertIn("**Operador / Autor:** `DevOps Team`", md)
-        self.assertIn("**Host:** `srv-prod-01`", md)
+        self.assertIn(f"**{_('Status:')}** `{meta.status}`", md)
+        self.assertIn(f"**{_('Operador / Autor:')}** `DevOps Team`", md)
+        self.assertIn(f"**{_('Host:')}** `srv-prod-01`", md)
         self.assertIn("Atualizar serviços e migrar banco de dados.", md)
         self.assertIn("Backup realizado antes do início.", md)
 
         # Steps
         self.assertIn("1. `git pull origin main` 🟢", md)
-        self.assertIn("💬 **Anotação:** Código atualizado com a última versão estável.", md)
+        self.assertIn(f"💬 **{_('Anotação:')}** Código atualizado com a última versão estável.", md)
         self.assertIn("2. `python3 manage.py migrate` 🟢", md)
-        self.assertIn("💬 **Anotação:** Migrações de esquema aplicadas com sucesso.", md)
+        self.assertIn(f"💬 **{_('Anotação:')}** Migrações de esquema aplicadas com sucesso.", md)
 
         # Excluded step must NOT appear
         self.assertNotIn("skip this typo", md)
@@ -147,7 +148,7 @@ class TestTerminalRunbook(unittest.TestCase):
         )
         self.assertIn("<details>", md_collapsed)
         self.assertIn("</details>", md_collapsed)
-        self.assertIn("30 linhas", md_collapsed)
+        self.assertIn(f"30 {_('linhas')}", md_collapsed)
 
         # With collapse disabled
         md_expanded = self.generator.render_markdown(
@@ -212,7 +213,7 @@ class TestTerminalRunbook(unittest.TestCase):
 
         self.assertIn("Log de Manutenção [OK]", log_out)
         self.assertIn("$ uptime [exit 0] (50ms)", log_out)
-        self.assertIn("Nota: Sistema estável.", log_out)
+        self.assertIn(f"{_('Nota:')} Sistema estável.", log_out)
         self.assertIn("up 4 days, 2 users", log_out)
 
     def test_exporter_runbook_integration(self) -> None:

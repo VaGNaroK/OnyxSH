@@ -9,6 +9,8 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, GLib, Gtk
 
+Adw.init()
+
 from onyxsh.ui.window_ui import WindowUIBuilder
 
 
@@ -33,6 +35,22 @@ class TestWindowUIBuilder(unittest.TestCase):
         ):
             res = self.builder._prewarm_ai_panel()
             self.assertFalse(res)
+
+    def test_wm_settings_handled_when_schema_missing(self):
+        """Verify WindowUIBuilder handles absent GNOME WM schema without raising or aborting."""
+        with patch("gi.repository.Gio.SettingsSchemaSource.get_default") as mock_get_default:
+            mock_source = MagicMock()
+            mock_source.lookup.return_value = None
+            mock_get_default.return_value = mock_source
+
+            builder = WindowUIBuilder(self.mock_window)
+            self.assertIsNone(builder.wm_settings)
+
+    def test_wm_settings_handled_when_schema_source_is_none(self):
+        """Verify WindowUIBuilder handles None schema source without errors."""
+        with patch("gi.repository.Gio.SettingsSchemaSource.get_default", return_value=None):
+            builder = WindowUIBuilder(self.mock_window)
+            self.assertIsNone(builder.wm_settings)
 
     def test_header_bar_toggle_buttons_types_and_flat_classes(self):
         """Verify all 5 header bar buttons are ToggleButtons and have the 'flat' CSS class."""

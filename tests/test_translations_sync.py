@@ -51,6 +51,14 @@ TODAY_SAMPLE_KEYS = [
 class TestTranslationsSync(unittest.TestCase):
     """Verifies that all language catalogs are present, compiled, and contain updated strings."""
 
+    @classmethod
+    def setUpClass(cls) -> None:
+        """Ensure all .mo catalogs are compiled before tests run."""
+        sync_script = REPO_ROOT / "scripts" / "sync_translations.py"
+        if sync_script.exists():
+            import subprocess
+            subprocess.run(["python3", str(sync_script)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
     def test_po_files_exist_for_all_languages(self) -> None:
         """Ensure each of the 28 languages has a corresponding .po file in locale/."""
         for lang in SUPPORTED_LANGUAGES:
@@ -143,6 +151,35 @@ class TestTranslationsSync(unittest.TestCase):
                     val,
                     f"Translation for {repr(key)} in '{lang}' returned empty or None",
                 )
+
+    def test_autocomplete_specs_translations(self) -> None:
+        """Verify that autocomplete specs descriptions are translated properly."""
+        trans_pt = gettext.translation(
+            "onyxsh",
+            localedir=str(INTERNAL_LOCALE_DIR),
+            languages=["pt_BR", "pt"],
+            fallback=False,
+        )
+        self.assertEqual(
+            trans_pt.gettext("Quiet mode"),
+            "Modo silencioso",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Delete found files"),
+            "Excluir arquivos encontrados",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Arch Linux package manager utility"),
+            "Utilitário de gerenciamento de pacotes do Arch Linux",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Containers & Docker"),
+            "Contêineres e Docker",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Git & Version Control"),
+            "Git e Controle de Versão",
+        )
 
 
 if __name__ == "__main__":

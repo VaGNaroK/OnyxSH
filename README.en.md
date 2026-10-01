@@ -29,7 +29,7 @@
 - **Integrated & Privacy-First AI**: 1-click error diagnostics, multiple providers (Local Ollama, Gemini, Groq, OpenRouter), background VRAM preloading and auto-unload.
 - **Visual SSH Tunnel Manager & Port Forwarding**: Real-time management of Local (`-L`), Remote (`-R`), and Dynamic SOCKS5 (`-D`) SSH tunnels with 1-click activation switches.
 - **Production Guard Security Mode**: Persistent high-visibility banner, secret redaction, and automatic interception of destructive commands on production servers.
-- **Intelligent Autocomplete with Linux Specs**: Rich cursor-anchored completion with declarative specifications for 50+ Linux commands, SQLite history, and snippet templates.
+- **Intelligent Autocomplete with Linux Specs**: Rich cursor-anchored completion with declarative specifications for 58 essential Linux commands (including APT, DNF, Yum, and Pacman), SQLite history, and snippet templates.
 - **Semantic Shell Integration (OSC 133 / OSC 6)**: Tracks command lifecycle, measures execution time (`⏱ 1.4s`), enables quick prompt jumping (`Alt + Up` / `Alt + Down`), and surgical output extraction.
 - **Enriched SQLite History (`Ctrl + H`)**: Instant fuzzy search with contextual filters (current directory, remote host, ⭐ pinned favorites), execution counters, clear options, and prompt injection (`Tab`).
 - **Spotlight Command Palette (`Ctrl + Shift + P`)**: Fast keyboard-driven discovery and execution of all terminal actions, SSH tunnels, sessions, tabs, and preferences.
@@ -83,7 +83,7 @@
 ---
 
 ### ⚡ Intelligent Autocomplete & Linux Command Specs
-* **Cursor-Anchored Floating Popup**: Declarative explanations and flags for 50+ standard Linux commands (`apt`, `docker`, `git`, `systemctl`, `curl`, `rsync`, `chmod`, etc.).
+* **Cursor-Anchored Floating Popup**: Declarative explanations and flags for 58 standard Linux commands (`apt`, `dnf`, `pacman`, `docker`, `git`, `systemctl`, `curl`, `rsync`, `chmod`, etc.).
 * **Contextual Suggestions**: Intelligent scoring combining command specs, frequent commands from SQLite in the current directory, and snippets.
 * **Seamless Navigation**: Navigate with `↑`/`↓` and complete with `Tab` or `Enter`.
 
@@ -171,47 +171,38 @@ Strict security architecture for AI-assisted operations:
 
 ## 📥 Installation & Packaging
 
-### 📦 Flatpak (Recommended for Any Linux Distribution)
+### 📦 Flatpak (Recommended — Universal for Any Linux Distribution)
 
-Flatpak is the recommended format to run OnyxSH on any Linux distribution (Ubuntu, Debian, Fedora, Arch Linux, Manjaro, openSUSE, etc.) with sandboxing.
+Flatpak is the universal format recommended to run OnyxSH on any Linux distribution (Ubuntu, Debian, Fedora, Arch Linux, Manjaro, openSUSE, etc.) with secure sandboxing and full host shell access via `host-spawn`.
 
-#### 1. Prerequisites (Flathub Repository and GNOME Runtime):
-If you are on a fresh system (such as Manjaro or Arch) or haven't configured Flathub for user scope yet, ensure Flathub is added and the **GNOME 46** runtime is installed:
-
+#### 1. Prerequisites (GNOME 46 Runtime):
 ```bash
-# Add official Flathub repository:
+# Add Flathub repository (if not already configured):
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Install required GNOME 46 runtime:
-flatpak install --user flathub org.gnome.Platform//46 -y
+flatpak install --user flathub org.gnome.Platform//46 org.gnome.Sdk//46 -y
 ```
 
-#### 2. Installing and Running the Bundle:
+#### 2. Build and Install Flatpak Bundle:
 ```bash
-# Install Flatpak bundle:
-flatpak install --user -y --reinstall dist/onyxsh_0.9.0.flatpak
+# Build and install Flatpak bundle locally:
+./scripts/build_flatpak.sh --clean-cache --install
 
 # Run:
 flatpak run io.github.vagnarok.OnyxSH
 ```
 
-### 📦 Debian Package (.deb - Ubuntu, Linux Mint, Debian)
+### 📦 Debian Package (.deb — Debian, Ubuntu, Linux Mint, Pop!_OS)
+
+For Debian-based distributions, you can build and install the native `.deb` package with automatic dependency resolution:
 
 ```bash
-sudo apt install ./dist/onyxsh_0.9.0_all.deb
-```
-
-### ⚡ Universal Installer (`install.sh`)
-
-```bash
-# Install on system:
-./install.sh install
-
-# Build Flatpak bundle:
-./scripts/build_flatpak.sh --clean-cache
-
 # Build .deb package:
 ./scripts/build_deb.sh --clean-cache
+
+# Install generated package via apt:
+sudo apt install ./dist/*.deb
 ```
 
 ---
