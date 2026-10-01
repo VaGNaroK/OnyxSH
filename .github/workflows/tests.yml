@@ -29,6 +29,7 @@ jobs:
           gir1.2-gtk-4.0 \
           gir1.2-adw-1 \
           gir1.2-vte-3.91 \
+          gsettings-desktop-schemas \
           gettext \
           xvfb
 

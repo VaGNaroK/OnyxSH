@@ -56,15 +56,21 @@ class WindowUIBuilder:
 
         # Try to read GNOME WM settings (works on GNOME and some GTK-based DEs)
         try:
-            self.wm_settings = Gio.Settings.new("org.gnome.desktop.wm.preferences")
-            self._wm_button_layout = self.wm_settings.get_string("button-layout")
-            self.wm_settings.connect(
-                "changed::button-layout", self._on_button_layout_changed
-            )
-        except Exception:
-            # Schema not available (e.g., on KDE without GNOME settings)
+            schema_source = Gio.SettingsSchemaSource.get_default()
+            if schema_source and schema_source.lookup("org.gnome.desktop.wm.preferences", True):
+                self.wm_settings = Gio.Settings.new("org.gnome.desktop.wm.preferences")
+                self._wm_button_layout = self.wm_settings.get_string("button-layout")
+                self.wm_settings.connect(
+                    "changed::button-layout", self._on_button_layout_changed
+                )
+            else:
+                self.logger.debug(
+                    "org.gnome.desktop.wm.preferences not installed, "
+                    "using default button behavior"
+                )
+        except Exception as e:
             self.logger.debug(
-                "org.gnome.desktop.wm.preferences not available, "
+                f"Could not initialize GNOME WM settings ({e}), "
                 "using default button behavior"
             )
 
