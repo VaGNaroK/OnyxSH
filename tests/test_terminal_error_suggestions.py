@@ -19,6 +19,7 @@ from onyxsh.agent.error_matcher import (
 )
 from onyxsh.terminal.manager import TerminalManager
 from onyxsh.terminal.semantic_tracker import SemanticCommand
+from onyxsh.utils.translation_utils import _
 
 
 class TestTerminalErrorMatcher(unittest.TestCase):
@@ -185,7 +186,7 @@ class TestTerminalErrorMatcher(unittest.TestCase):
         match = self.matcher.match("curl localhost:9000", 7, output)
         self.assertIsNotNone(match)
         self.assertEqual(match.category, ErrorCategory.CONNECTION_REFUSED)
-        self.assertIn("Connection refused", match.ai_prompt_hint)
+        self.assertIn("connection refused", match.ai_prompt_hint.lower())
 
     def test_git_error(self):
         output = "error: Your local changes to the following files would be overwritten by merge:\n  file.py"
@@ -261,7 +262,7 @@ class TestTerminalActionsAndIntegration(unittest.TestCase):
         prompt_sent = ai_panel.send_message.call_args[0][0]
         self.assertIn("chmod 777 /etc", prompt_sent)
         self.assertIn("Operation not permitted", prompt_sent)
-        self.assertIn("Permissão Negada", prompt_sent)
+        self.assertIn(_("Permissão Negada"), prompt_sent)
 
 
 class TestTerminalManagerProactiveToast(unittest.TestCase):
