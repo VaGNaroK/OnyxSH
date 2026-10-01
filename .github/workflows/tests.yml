@@ -29,6 +29,7 @@ jobs:
           gir1.2-gtk-4.0 \
           gir1.2-adw-1 \
           gir1.2-vte-3.91 \
+          gettext \
           xvfb
 
     - name: Set up Python ${{ matrix.python-version }}
@@ -39,8 +40,12 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install "PyGObject>=3.44.0,<3.52.0" pycairo requests pyyaml setproctitle psutil pycryptodomex pytest pytest-asyncio
+        pip install "PyGObject>=3.44.0,<3.52.0" pycairo requests pyyaml setproctitle psutil pycryptodomex py7zr regex Pygments
+
+    - name: Compile translation catalogs
+      run: |
+        python3 scripts/sync_translations.py
 
     - name: Run Test Suite
       run: |
-        xvfb-run -a env PYTHONPATH=src pytest -v tests/
+        xvfb-run -a env PYTHONPATH=src python3 -m unittest discover -s tests

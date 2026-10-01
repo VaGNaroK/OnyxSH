@@ -51,6 +51,14 @@ TODAY_SAMPLE_KEYS = [
 class TestTranslationsSync(unittest.TestCase):
     """Verifies that all language catalogs are present, compiled, and contain updated strings."""
 
+    @classmethod
+    def setUpClass(cls) -> None:
+        """Ensure all .mo catalogs are compiled before tests run."""
+        sync_script = REPO_ROOT / "scripts" / "sync_translations.py"
+        if sync_script.exists():
+            import subprocess
+            subprocess.run(["python3", str(sync_script)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
     def test_po_files_exist_for_all_languages(self) -> None:
         """Ensure each of the 28 languages has a corresponding .po file in locale/."""
         for lang in SUPPORTED_LANGUAGES:

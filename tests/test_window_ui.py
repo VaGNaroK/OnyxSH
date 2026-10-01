@@ -9,6 +9,8 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, GLib, Gtk
 
+Adw.init()
+
 from onyxsh.ui.window_ui import WindowUIBuilder
 
 
