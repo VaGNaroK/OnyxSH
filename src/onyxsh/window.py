@@ -822,6 +822,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
                 "model": _("Model"),
                 "api_key": _("API key"),
                 "base_url": _("Base URL"),
+                "opencode_binary": _("OpenCode CLI (não instalado)"),
             }
             readable = ", ".join(labels.get(item, item) for item in missing)
             self.toast_overlay.add_toast(

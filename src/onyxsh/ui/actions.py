@@ -39,6 +39,9 @@ class WindowActions:
             "configure-ai": self.configure_ai,
             "highlight-settings": self.highlight_settings,
             "ask-ai-selection": self.ask_ai_selection,
+            "opencode-launcher": self.opencode_launcher,
+            "opencode-selection": self.opencode_selection,
+            "resolve-error-opencode": self.resolve_error_with_opencode,
             "split-horizontal": self.split_horizontal,
             "split-vertical": self.split_vertical,
             "close-pane": self.close_pane,
@@ -248,6 +251,79 @@ class WindowActions:
         dialog = HighlightDialog(self.window)
         dialog.present()
 
+    def opencode_launcher(self, *_args, mode: str = "split"):
+        """
+        Open OpenCode CLI in a vertical split or dedicated tab,
+        preserving active terminal's current working directory via OSC 7.
+        """
+        self._hide_tooltip()
+        from ..utils.opencode_utils import (
+            get_opencode_binary_path,
+            get_opencode_install_command,
+            is_opencode_available,
+        )
+
+        settings = getattr(self.window, "settings_manager", None)
+        if not is_opencode_available(settings):
+            install_cmd = get_opencode_install_command()
+            msg = _("OpenCode CLI não encontrado. Instale com: {cmd}").format(
+                cmd=install_cmd
+            )
+            if hasattr(self.window, "toast_overlay"):
+                self.window.toast_overlay.add_toast(Adw.Toast(title=msg))
+            self.logger.warning(
+                "OpenCode launcher requested but OpenCode is not available."
+            )
+            return
+
+        target_cmd = get_opencode_binary_path(settings) or "opencode"
+
+        working_dir = None
+        active_terminal = None
+        if hasattr(self.window, "tab_manager"):
+            active_terminal = self.window.tab_manager.get_selected_terminal()
+
+        if active_terminal and hasattr(active_terminal, "get_current_directory_uri"):
+            uri = active_terminal.get_current_directory_uri()
+            if uri:
+                parsed_uri = urlparse(uri)
+                if parsed_uri.scheme == "file":
+                    working_dir = unquote(parsed_uri.path)
+
+        if not working_dir and active_terminal:
+            try:
+                from ..utils.osc7_tracker import get_osc7_tracker
+
+                tracker = get_osc7_tracker()
+                if active_terminal in tracker._terminals:
+                    working_dir = tracker._terminals[active_terminal].get("current_dir")
+            except Exception:
+                pass
+
+        effective_mode = mode
+        if settings and hasattr(settings, "get"):
+            setting_mode = settings.get("opencode.launch_mode", "split")
+            if setting_mode in ("split", "tab"):
+                effective_mode = setting_mode
+
+        if (
+            active_terminal
+            and effective_mode == "split"
+            and hasattr(self.window.tab_manager, "split_vertical")
+        ):
+            self.window.tab_manager.split_vertical(
+                active_terminal,
+                working_directory=working_dir,
+                execute_command=target_cmd,
+                title="OpenCode",
+            )
+        elif hasattr(self.window, "tab_manager"):
+            self.window.tab_manager.create_local_tab(
+                title="OpenCode",
+                working_directory=working_dir,
+                execute_command=target_cmd,
+            )
+
     def ask_ai_selection(self, *_args):
         """Ask AI about the selected text in the terminal."""
         terminal = self.window.tab_manager.get_selected_terminal()
@@ -291,6 +367,165 @@ class WindowActions:
                 "Explain this code or command:\n\n```\n{text}\n```"
             ).format(text=selected_text.strip())
             self.window.ui_builder.ai_chat_panel.set_initial_text(initial_text)
+
+    def opencode_selection(self, *_args):
+        """Refactor selected terminal text with OpenCode using Zero-Trust prompt sanitization."""
+        terminal = self.window.tab_manager.get_selected_terminal()
+        if not terminal:
+            return
+
+        selected_text = None
+        has_selection = (
+            terminal.get_has_selection()
+            if hasattr(terminal, "get_has_selection")
+            else False
+        )
+        if has_selection:
+            try:
+                import gi
+
+                gi.require_version("Vte", "3.91")
+                from gi.repository import Vte
+
+                if hasattr(terminal, "get_text_selected"):
+                    selected_text = terminal.get_text_selected(Vte.Format.TEXT)
+            except Exception as e:
+                self.logger.debug(f"Error getting selected text: {e}")
+
+        if not selected_text or not selected_text.strip():
+            return
+
+        # 1. Zero-Trust secret redaction
+        from ..agent.redactor import redact_secrets
+
+        redacted_text, _redact_cnt = redact_secrets(selected_text.strip())
+
+        # 2. Encapsulate untrusted terminal content
+        untrusted_payload = f"<untrusted>\n{redacted_text}\n</untrusted>"
+        formatted_prompt = _(
+            "Por favor, analise e refatore o seguinte trecho de código:\n\n{content}"
+        ).format(content=untrusted_payload)
+
+        # 3. Audit log entry
+        try:
+            from ..agent.audit import AuditLogger
+            from ..agent.models import AuditRecord, RiskLevel
+
+            AuditLogger.get_default().append(
+                AuditRecord(
+                    plan_id="opencode_selection_context",
+                    step_id="context_0",
+                    tool="opencode.refactor_selection",
+                    argv=["refactor"],
+                    risk=RiskLevel.READ_ONLY,
+                    user_decision="approved",
+                    result_status="ok",
+                )
+            )
+        except Exception:
+            pass
+
+        # 4. Show AI panel or set initial text
+        if hasattr(self.window, "ui_builder") and self.window.ui_builder:
+            self.window.ui_builder.show_ai_panel(initial_text=formatted_prompt)
+            ai_panel = getattr(self.window.ui_builder, "ai_chat_panel", None)
+            if ai_panel and hasattr(ai_panel, "set_initial_text"):
+                ai_panel.set_initial_text(formatted_prompt)
+
+    def resolve_error_with_opencode(self, terminal=None, *args):
+        """Analyze last terminal error and request OpenCode project resolution."""
+        try:
+            if not terminal or isinstance(terminal, Gio.SimpleAction):
+                terminal = (
+                    self.window.tab_manager.get_active_terminal()
+                    if self.window.tab_manager
+                    else None
+                )
+            if not terminal:
+                return
+
+            tracker = getattr(self.window.terminal_manager, "semantic_tracker", None)
+            cmd = tracker.get_last_command(terminal) if tracker else None
+            output = (tracker.get_last_output_text(terminal) or "") if tracker else ""
+            exit_code = cmd.exit_code if cmd and cmd.exit_code is not None else 1
+            cmd_text = cmd.command_text if cmd and cmd.command_text else ""
+
+            # Fallback buffer extraction if tracker was empty
+            if (not output or not cmd_text) and hasattr(terminal, "get_text_format"):
+                try:
+                    import gi
+
+                    gi.require_version("Vte", "3.91")
+                    from gi.repository import Vte
+
+                    full_buf = terminal.get_text_format(Vte.Format.TEXT) or ""
+                    non_empty = [l for l in full_buf.splitlines() if l.strip()]
+                    if non_empty:
+                        if not output:
+                            output = "\n".join(non_empty[-30:])
+                        if not cmd_text:
+                            for line in reversed(non_empty[:-1]):
+                                for prompt_char in ("$ ", "# ", "❯ ", "➜ ", "> "):
+                                    if prompt_char in line:
+                                        cmd_text = line.split(prompt_char, 1)[-1].strip()
+                                        break
+                                if cmd_text:
+                                    break
+                except Exception:
+                    pass
+
+            # 1. Zero-Trust secret redaction
+            from ..agent.redactor import redact_secrets
+
+            redacted_cmd, _cmd_cnt = redact_secrets(cmd_text)
+            max_chars = 3000
+            trimmed_output = output[-max_chars:] if len(output) > max_chars else output
+            redacted_output, _out_cnt = redact_secrets(trimmed_output)
+
+            # 2. Encapsulate untrusted terminal data
+            untrusted_context = (
+                f"<untrusted>\n"
+                f"Comando executado: {redacted_cmd}\n"
+                f"Código de saída: {exit_code}\n"
+                f"Saída do terminal:\n{redacted_output}\n"
+                f"</untrusted>"
+            )
+
+            prompt = _(
+                "O comando executado no terminal falhou com código {code}. "
+                "Analise os arquivos do projeto e elabore as correções necessárias:\n\n{context}"
+            ).format(code=exit_code, context=untrusted_context)
+
+            # 3. Audit log entry
+            try:
+                from ..agent.audit import AuditLogger
+                from ..agent.models import AuditRecord, RiskLevel
+
+                AuditLogger.get_default().append(
+                    AuditRecord(
+                        plan_id="opencode_error_resolution",
+                        step_id="error_0",
+                        tool="opencode.resolve_error",
+                        argv=[cmd_text],
+                        risk=RiskLevel.USER_WRITE,
+                        user_decision="approved",
+                        result_status="ok",
+                    )
+                )
+            except Exception:
+                pass
+
+            # 4. Open AI panel with prepared prompt
+            if hasattr(self.window, "ui_builder") and self.window.ui_builder:
+                self.window.ui_builder.show_ai_panel(initial_text=prompt)
+                ai_panel = getattr(self.window.ui_builder, "ai_chat_panel", None)
+                if ai_panel:
+                    if hasattr(ai_panel, "set_initial_text"):
+                        ai_panel.set_initial_text(prompt)
+                    if hasattr(ai_panel, "send_message"):
+                        ai_panel.send_message(prompt)
+        except Exception as e:
+            self.logger.error(f"Erro ao resolver falha com OpenCode: {e}")
 
     def open_url(self, *_args):
         if terminal := self.window.tab_manager.get_selected_terminal():

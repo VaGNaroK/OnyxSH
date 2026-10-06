@@ -61,11 +61,17 @@ class TestLLMLifecycle(unittest.TestCase):
         result = provider.preload()
         self.assertFalse(result)
 
+    @patch("requests.get")
     @patch("requests.post")
-    def test_ollama_unload_success(self, mock_post):
+    def test_ollama_unload_success(self, mock_post, mock_get):
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_post.return_value = mock_response
+
+        mock_get_resp = MagicMock()
+        mock_get_resp.status_code = 200
+        mock_get_resp.json.return_value = {"models": []}
+        mock_get.return_value = mock_get_resp
 
         provider = OllamaProvider({
             "model": "qwen2.5-coder:3b",

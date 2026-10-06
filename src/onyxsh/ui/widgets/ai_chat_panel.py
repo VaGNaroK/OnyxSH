@@ -146,9 +146,21 @@ def _extract_reply_from_json(text: str) -> str:
     try:
         data = json.loads(clean_content, strict=False)
         if isinstance(data, dict):
-            for k in ("summary", "reply", "content", "message"):
-                if k in data and isinstance(data[k], str):
+            for k in ("summary", "reply", "content", "message", "explanation"):
+                if k in data and isinstance(data[k], str) and data[k].strip():
                     return data[k]
+            if "name" in data and "arguments" in data:
+                args_obj = data.get("arguments", {})
+                cmd_val = (
+                    args_obj.get("command")
+                    or args_obj.get("cmd")
+                    if isinstance(args_obj, dict)
+                    else str(args_obj)
+                )
+                if cmd_val:
+                    return f"Comando sugerido ({data.get('name', 'shell')}):\n\n```bash\n{cmd_val}\n```"
+            if "command" in data and isinstance(data["command"], str):
+                return f"Comando sugerido:\n\n```bash\n{data['command']}\n```"
     except Exception:
         pass
 
@@ -2260,6 +2272,14 @@ class AIChatPanel(Gtk.Box):
         self._add_tooltip(close_btn, _("Close panel"))
         header.pack_end(close_btn)
 
+        # AI Preferences button
+        self._config_btn = Gtk.Button()
+        self._config_btn.set_icon_name("emblem-system-symbolic")
+        self._config_btn.add_css_class("flat")
+        self._config_btn.connect("clicked", self._on_open_ai_config)
+        self._add_tooltip(self._config_btn, _("Configurações da IA (Modelos e Provedores)"))
+        header.pack_end(self._config_btn)
+
         # Offline Mode Toggle Button / Badge
         self._offline_btn = Gtk.Button()
         self._offline_btn.add_css_class("flat")
@@ -2538,8 +2558,30 @@ class AIChatPanel(Gtk.Box):
         btn_adv.connect("clicked", lambda _: self._select_routing_profile("advanced", popover))
         box.append(btn_adv)
 
+        box.append(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
+
+        # 4. Open AI Configuration Dialog
+        btn_cfg = Gtk.Button()
+        b_cfg = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        b_cfg.append(Gtk.Image.new_from_icon_name("emblem-system-symbolic"))
+        b_cfg.append(Gtk.Label(label=_("⚙️ Configurar Modelos e Provedores...")))
+        btn_cfg.set_child(b_cfg)
+        btn_cfg.add_css_class("flat")
+        btn_cfg.connect("clicked", lambda _: (popover.popdown(), self._on_open_ai_config(None)))
+        box.append(btn_cfg)
+
         popover.set_child(box)
         self._routing_btn.set_popover(popover)
+
+    def _on_open_ai_config(self, _btn=None) -> None:
+        """Opens the AI Configuration Dialog."""
+        root = self.get_root()
+        try:
+            from ..dialogs.ai_config_dialog import AIConfigDialog
+            dialog = AIConfigDialog(root, self._settings_manager)
+            dialog.present()
+        except Exception as e:
+            logger.error(f"Failed to open AI config dialog: {e}")
 
     def _select_routing_profile(self, profile: str, popover: Gtk.Popover) -> None:
         popover.popdown()

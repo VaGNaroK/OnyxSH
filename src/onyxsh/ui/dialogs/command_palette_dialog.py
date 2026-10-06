@@ -490,6 +490,17 @@ class CommandPaletteDialog(BaseDialog):
         )
         self._items.append(
             CommandPaletteItem(
+                "opencode-launcher",
+                _("OpenCode: Abrir Assistente de Código"),
+                _("Assistente de IA"),
+                "utilities-terminal-symbolic",
+                action_name="opencode-launcher",
+                shortcut=get_accel_label("opencode-launcher"),
+                keywords=["opencode", "codigo", "code", "ia", "ai", "agente", "tui", "split", "refatorar"],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
                 "configure-ai",
                 _("Configurar Provedores e Modelos de IA"),
                 _("Assistente de IA"),
@@ -1046,6 +1057,10 @@ class CommandPaletteDialog(BaseDialog):
             if item.action_name == "ai-assistant":
                 if hasattr(self.parent_window, "_on_ai_assistant_requested"):
                     self.parent_window._on_ai_assistant_requested()
+                    return False
+            elif item.action_name == "opencode-launcher":
+                if handler and hasattr(handler, "opencode_launcher"):
+                    handler.opencode_launcher()
                     return False
             elif item.action_name == "next-tab":
                 if hasattr(self.parent_window, "tab_manager"):

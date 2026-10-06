@@ -137,6 +137,5 @@ class TestSmartRouter(unittest.TestCase):
         self.assertIsInstance(candidates, list)
         self.assertIn("gemini-2.5-flash", candidates)
 
-
 if __name__ == "__main__":
     unittest.main()

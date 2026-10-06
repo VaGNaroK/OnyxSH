@@ -375,6 +375,12 @@ class DefaultSettings:
             "ai_api_key_gemini": "",
             "ai_api_key_groq": "",
             "ai_api_key_openrouter": "",
+            # OpenCode CLI Integration Settings
+            "opencode": {
+                "enabled": True,
+                "binary_path": "",
+                "launch_mode": "split",
+            },
             # Search Settings
             "search_case_sensitive": False,
             "search_use_regex": False,
@@ -468,6 +474,7 @@ class DefaultSettings:
                 "show-command-history": "<Control>h",
                 "jump-previous-prompt": "<Alt>Up",
                 "jump-next-prompt": "<Alt>Down",
+                "opencode-launcher": "<Control><Shift>o",
             },
         }
 

@@ -290,6 +290,7 @@ class CommTerminalApp(Adw.Application):
                 "previous-tab",
                 "toggle-broadcast",
                 "ai-assistant",
+                "opencode-launcher",
                 "command-palette",
                 "show-command-history",
                 "jump-previous-prompt",

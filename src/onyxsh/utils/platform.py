@@ -112,6 +112,42 @@ class CommandBuilder:
         cmd.append(target)
         return cmd
 
+    def wrap_host_command(
+        self,
+        command: List[str],
+        working_directory: Optional[str] = None,
+        env: Optional[Dict[str, str]] = None,
+    ) -> List[str]:
+        """
+        Wrap command with host-spawn or flatpak-spawn when running inside Flatpak sandbox.
+        Returns the command unmodified if running on a native host.
+        """
+        if not is_flatpak_sandbox():
+            return list(command)
+
+        host_spawn_bin = shutil.which("host-spawn") or "/app/bin/host-spawn"
+        if os.path.exists(host_spawn_bin):
+            cmd = [host_spawn_bin]
+            if working_directory:
+                cmd.extend(["-cwd", str(working_directory)])
+            if env:
+                for k, v in env.items():
+                    cmd.extend(["--env", f"{k}={v}"])
+            cmd.extend(command)
+            return cmd
+
+        if shutil.which("flatpak-spawn"):
+            cmd = ["flatpak-spawn", "--host", "--watch-bus"]
+            if working_directory:
+                cmd.append(f"--directory={working_directory}")
+            if env:
+                for k, v in env.items():
+                    cmd.append(f"--env={k}={v}")
+            cmd.extend(command)
+            return cmd
+
+        return list(command)
+
 
 class EnvironmentManager:
     """Manage environment variables for terminal sessions."""

@@ -520,6 +520,63 @@ class AIConfigDialog(Adw.PreferencesWindow):
 
         agent_group.add(levels_expander)
 
+        # OpenCode CLI Preferences Group
+        opencode_group = Adw.PreferencesGroup(
+            title=_("Integração OpenCode CLI (Terminal)"),
+            description=_(
+                "Assistente de código agêntico executado via terminal VTE (Ctrl + Shift + O) no sistema host."
+            ),
+        )
+        page.add(opencode_group)
+
+        # Status row
+        self.opencode_status_row = Adw.ActionRow(
+            title=_("Status do Binário OpenCode"),
+        )
+        self.opencode_check_btn = Gtk.Button(label=_("Verificar"))
+        self.opencode_check_btn.set_valign(Gtk.Align.CENTER)
+        self.opencode_check_btn.connect("clicked", self._on_check_opencode_clicked)
+        self.opencode_status_row.add_suffix(self.opencode_check_btn)
+        self.opencode_status_row.set_activatable_widget(self.opencode_check_btn)
+        opencode_group.add(self.opencode_status_row)
+        self._refresh_opencode_status()
+
+        # OpenCode Enabled switch
+        self.opencode_enabled_switch = Adw.SwitchRow(
+            title=_("Habilitar Lançador OpenCode"),
+            subtitle=_(
+                "Permite iniciar o OpenCode em divisão de tela (Ctrl + Shift + O) ou nova aba preservando o diretório ativo."
+            ),
+        )
+        self.opencode_enabled_switch.set_active(
+            self.settings_manager.get("opencode.enabled", True)
+        )
+        self.opencode_enabled_switch.connect(
+            "notify::active",
+            lambda r, _: self._on_agent_setting_changed("opencode.enabled", r.get_active()),
+        )
+        opencode_group.add(self.opencode_enabled_switch)
+
+        # Launch Mode Combo
+        self.opencode_launch_mode_row = Adw.ComboRow(
+            title=_("Modo de Abertura no Terminal"),
+            subtitle=_("Escolha se o atalho abre em divisão vertical ao lado do terminal ou em nova aba."),
+        )
+        mode_options = [
+            _("Divisão Vertical (Split Pane)"),
+            _("Nova Aba Dedicada"),
+        ]
+        self.opencode_launch_mode_row.set_model(Gtk.StringList.new(mode_options))
+        curr_mode = self.settings_manager.get("opencode.launch_mode", "split")
+        self.opencode_launch_mode_row.set_selected(1 if curr_mode == "tab" else 0)
+        self.opencode_launch_mode_row.connect(
+            "notify::selected",
+            lambda r, _: self._on_agent_setting_changed(
+                "opencode.launch_mode", "tab" if r.get_selected() == 1 else "split"
+            ),
+        )
+        opencode_group.add(self.opencode_launch_mode_row)
+
         # Update UI based on current provider
         self._update_ui_for_provider(current_provider)
 
@@ -552,25 +609,57 @@ class AIConfigDialog(Adw.PreferencesWindow):
             return self.PROVIDERS[index][0]
         return "groq"
 
+    def _refresh_opencode_status(self) -> None:
+        """Checks and displays OpenCode binary path and version."""
+        if not hasattr(self, "opencode_status_row"):
+            return
+        from ...utils.opencode_utils import (
+            get_opencode_binary_path,
+            get_opencode_version,
+            is_opencode_available,
+        )
+        bin_path = get_opencode_binary_path(self.settings_manager)
+        if bin_path:
+            version = get_opencode_version(bin_path, self.settings_manager) or ""
+            ver_text = f"v{version} " if version else ""
+            self.opencode_status_row.set_subtitle(
+                _("🟢 Detectado ({ver})em: {path}").format(ver=ver_text, path=bin_path)
+            )
+        else:
+            self.opencode_status_row.set_subtitle(
+                _("⚠️ Binário não encontrado. Instale com: curl -fsSL https://opencode.ai/v2/install | bash")
+            )
+
+    def _on_check_opencode_clicked(self, _btn) -> None:
+        """Re-check OpenCode presence by clearing cache."""
+        from ...utils.opencode_utils import clear_opencode_cache
+        clear_opencode_cache()
+        self._refresh_opencode_status()
+
     def _update_ui_for_provider(self, provider_id: str) -> None:
         """Update UI elements based on the selected provider and offline mode."""
         is_offline = self.settings_manager.get("ai_assistant_offline_mode", False)
         is_local = provider_id == "local"
         is_openrouter = provider_id == "openrouter"
 
-        # If offline mode is active, provider is strictly local and combo is restricted
+        # If offline mode is active, provider is strictly local
         if is_offline:
-            self.provider_row.set_subtitle(
-                _("🔒 Restrito ao provedor Local pelo Modo Estritamente Offline.")
-            )
-            self.provider_row.set_sensitive(False)
+            if is_local:
+                self.provider_row.set_subtitle(
+                    _("Modo Offline Ativo: executando com modelo local.")
+                )
+            else:
+                self.provider_row.set_subtitle(
+                    _("🔒 Provedores de nuvem bloqueados pelo Modo Estritamente Offline.")
+                )
+            self.provider_row.set_sensitive(True)
             self.api_key_row.set_sensitive(False)
         else:
             self.provider_row.set_subtitle(
                 _("Choose between cloud providers or local models.")
             )
             self.provider_row.set_sensitive(True)
-            self.api_key_row.set_sensitive(not is_local or False)
+            self.api_key_row.set_sensitive(not is_local)
 
         # Show/hide base URL and VRAM switches for local provider
         self.base_url_row.set_visible(is_local)

@@ -2662,11 +2662,35 @@ class TabManager:
         self._create_tab_for_terminal(terminal, session)
         self.logger.info(f"Terminal {terminal_id} successfully moved to a new tab.")
 
-    def split_horizontal(self, focused_terminal: Vte.Terminal) -> None:
-        self._split_terminal(focused_terminal, Gtk.Orientation.HORIZONTAL)
+    def split_horizontal(
+        self,
+        focused_terminal: Vte.Terminal,
+        working_directory: Optional[str] = None,
+        execute_command: Optional[str] = None,
+        title: Optional[str] = None,
+    ) -> Optional[Vte.Terminal]:
+        return self._split_terminal(
+            focused_terminal,
+            Gtk.Orientation.HORIZONTAL,
+            working_directory=working_directory,
+            execute_command=execute_command,
+            title=title,
+        )
 
-    def split_vertical(self, focused_terminal: Vte.Terminal) -> None:
-        self._split_terminal(focused_terminal, Gtk.Orientation.VERTICAL)
+    def split_vertical(
+        self,
+        focused_terminal: Vte.Terminal,
+        working_directory: Optional[str] = None,
+        execute_command: Optional[str] = None,
+        title: Optional[str] = None,
+    ) -> Optional[Vte.Terminal]:
+        return self._split_terminal(
+            focused_terminal,
+            Gtk.Orientation.VERTICAL,
+            working_directory=working_directory,
+            execute_command=execute_command,
+            title=title,
+        )
 
     def _set_paned_position_from_ratio(self, paned: Gtk.Paned, ratio: float) -> bool:
         alloc = paned.get_allocation()
@@ -2680,21 +2704,33 @@ class TabManager:
         return False
 
     def _split_terminal(
-        self, focused_terminal: Vte.Terminal, orientation: Gtk.Orientation
-    ) -> None:
+        self,
+        focused_terminal: Vte.Terminal,
+        orientation: Gtk.Orientation,
+        working_directory: Optional[str] = None,
+        execute_command: Optional[str] = None,
+        title: Optional[str] = None,
+    ) -> Optional[Vte.Terminal]:
         with self._creation_lock:
             page = self.get_page_for_terminal(focused_terminal)
             if not page:
                 self.logger.error("Cannot split: could not find parent page.")
-                return
+                return None
 
             terminal_id = getattr(focused_terminal, "terminal_id", None)
             info = self.terminal_manager.registry.get_terminal_info(terminal_id)
             identifier = info.get("identifier") if info else "Local"
 
             new_terminal = None
-            new_pane_title = "Terminal"
-            if isinstance(identifier, SessionItem):
+            new_pane_title = title or "Terminal"
+            if execute_command is not None or working_directory is not None:
+                new_pane_title = title or "OpenCode"
+                new_terminal = self.terminal_manager.create_local_terminal(
+                    title=new_pane_title,
+                    working_directory=working_directory,
+                    execute_command=execute_command,
+                )
+            elif isinstance(identifier, SessionItem):
                 new_pane_title = identifier.name
                 if identifier.is_ssh():
                     new_terminal = self.terminal_manager.create_ssh_terminal(identifier)
@@ -2719,7 +2755,7 @@ class TabManager:
 
             if not new_terminal:
                 self.logger.error("Failed to create new terminal for split.")
-                return
+                return None
 
             new_terminal.onyxsh_parent_page = page
             new_pane = _create_terminal_pane(
@@ -2804,6 +2840,7 @@ class TabManager:
             GLib.idle_add(self._set_paned_position_from_ratio, new_split_paned, 0.5)
             self._schedule_terminal_focus(new_terminal)
             self.update_all_tab_titles()
+            return new_terminal
 
     def re_attach_detached_page(
         self,

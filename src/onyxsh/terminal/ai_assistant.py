@@ -244,15 +244,17 @@ class TerminalAiAssistant(GObject.Object):
 
     def missing_configuration(self, prompt: str = "") -> List[str]:
         missing = []
+        route = self.router.resolve_route(
+            prompt=prompt, is_offline_mode=self.is_offline_mode()
+        )
+        if not route.provider:
+            missing.append("provider")
+            return missing
+
         if self.is_offline_mode():
             base_url = self.settings_manager.get("ai_local_base_url", "").strip()
             if not base_url:
                 missing.append("base_url")
-            return missing
-
-        route = self.router.resolve_route(prompt=prompt, is_offline_mode=False)
-        if not route.provider:
-            missing.append("provider")
             return missing
 
         if route.provider in {"groq", "gemini", "openrouter"}:
@@ -479,6 +481,10 @@ class TerminalAiAssistant(GObject.Object):
         try:
             messages = self._build_messages(terminal_id, prompt)
             config = self._load_configuration(prompt)
+            cwd = self.get_current_working_directory(terminal_id)
+            if cwd:
+                import os
+                config["working_directory"] = os.path.expanduser(cwd)
             primary_provider = config.get("provider", "local")
             self.logger.info(
                 f"[AIAssistant] Dispatching to provider='{primary_provider}', model='{config.get('model')}', "
@@ -662,6 +668,7 @@ class TerminalAiAssistant(GObject.Object):
                 "ai_local_base_url", "http://localhost:11434/v1"
             ).strip(),
             "route_decision": route,
+            "offline_mode": self.is_offline_mode(),
         }
 
         if not config["provider"]:
@@ -1249,6 +1256,7 @@ class TerminalAiAssistant(GObject.Object):
                     or payload.get("reply")
                     or payload.get("content")
                     or payload.get("message")
+                    or payload.get("explanation")
                     or ""
                 )
                 commands_field = (
@@ -1256,15 +1264,35 @@ class TerminalAiAssistant(GObject.Object):
                     if "steps" in payload
                     else payload.get("commands", [])
                 )
+                # Check tool invocation dictionary (e.g. {"name": "shell", "arguments": {"command": "..."}})
+                if not reply_text:
+                    if "name" in payload and "arguments" in payload:
+                        args_obj = payload.get("arguments", {})
+                        cmd_val = (
+                            args_obj.get("command")
+                            or args_obj.get("cmd")
+                            if isinstance(args_obj, dict)
+                            else str(args_obj)
+                        )
+                        if cmd_val:
+                            tool_name = payload.get("name", "shell")
+                            commands_field = [{"command": cmd_val, "description": f"Executar ({tool_name}): {cmd_val}"}]
+                            reply_text = f"Comando sugerido ({tool_name}):\n\n```bash\n{cmd_val}\n```"
+                    elif "command" in payload:
+                        cmd_val = payload["command"]
+                        commands_field = [{"command": cmd_val, "description": f"Executar: {cmd_val}"}]
+                        reply_text = f"Comando sugerido:\n\n```bash\n{cmd_val}\n```"
+
                 commands = self._normalize_commands(commands_field)
-                parsed = True
+                if reply_text or commands:
+                    parsed = True
         except Exception:
             pass
 
         # Strategy 2: Structural Key-to-Key extraction for malformed JSON from local models
         if not parsed:
             match_reply = re.search(
-                r'["\'](?:summary|reply|content|message)["\']\s*:\s*["\']', clean_content
+                r'["\'](?:summary|reply|content|message|explanation)["\']\s*:\s*["\']', clean_content
             )
             if match_reply:
                 val_start = match_reply.end()
@@ -1295,9 +1323,9 @@ class TerminalAiAssistant(GObject.Object):
                     reply_text = self._unescape_json_string(raw_reply)
                     parsed = True
 
-        # Strategy 3: Pure Markdown Fallback
-        if not parsed:
-            reply_text = content
+        # Strategy 3: Pure Markdown / Text Fallback (guarantees non-blank reply if content exists)
+        if not parsed or not reply_text.strip():
+            reply_text = content.strip() if content else ""
 
         # Auto-wrap raw unwrapped scripts in markdown code fences and repair escaped variables
         reply_text = self._auto_wrap_raw_scripts_in_markdown(reply_text)

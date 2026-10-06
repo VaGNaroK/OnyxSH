@@ -367,20 +367,94 @@ def create_terminal_menu(
     nav_section.append_item(next_prompt_item)
     menu.append_section(None, nav_section)
 
-    # AI Assistant section - only show if enabled and text is selected
-    if settings_manager and settings_manager.get("ai_assistant_enabled", False):
-        # Check if there's selected text
-        has_selection = (
-            terminal.get_has_selection()
-            if hasattr(terminal, "get_has_selection")
-            else False
-        )
-        if has_selection:
-            ai_section = Gio.Menu()
+    # AI / OpenCode Assistant section
+    from ..utils.opencode_utils import is_opencode_available
+
+    opencode_available = is_opencode_available(settings_manager)
+    ai_assistant_enabled = (
+        settings_manager.get("ai_assistant_enabled", False)
+        if settings_manager
+        else False
+    )
+
+    has_selection = (
+        terminal.get_has_selection()
+        if hasattr(terminal, "get_has_selection")
+        else False
+    )
+
+    ai_section = Gio.Menu()
+
+    if has_selection:
+        if ai_assistant_enabled:
             ai_item = Gio.MenuItem.new(_("Ask AI"), "win.ask-ai-selection")
             ai_item.set_icon(Gio.ThemedIcon.new("avatar-default-symbolic"))
             ai_section.append_item(ai_item)
-            menu.append_section(None, ai_section)
+
+        if opencode_available:
+            opencode_sel_item = Gio.MenuItem.new(
+                _("Refatorar seleção com OpenCode"), "win.opencode-selection"
+            )
+            opencode_sel_item.set_icon(
+                Gio.ThemedIcon.new("utilities-terminal-symbolic")
+            )
+            ai_section.append_item(opencode_sel_item)
+    elif opencode_available:
+        # Check if last command had an error via semantic tracker or buffer
+        has_error = False
+        error_code = None
+        try:
+            from ..terminal.semantic_tracker import get_semantic_tracker
+
+            tracker = get_semantic_tracker()
+            last_cmd = tracker.get_last_command(terminal)
+            if last_cmd and last_cmd.exit_code is not None and last_cmd.exit_code != 0:
+                has_error = True
+                error_code = last_cmd.exit_code
+        except Exception:
+            pass
+
+        if not has_error and hasattr(terminal, "get_text_format"):
+            try:
+                import gi
+
+                gi.require_version("Vte", "3.91")
+                from gi.repository import Vte
+
+                buf = terminal.get_text_format(Vte.Format.TEXT) or ""
+                last_lines = "\n".join(buf.strip().splitlines()[-5:]).lower()
+                if any(
+                    err_kw in last_lines
+                    for err_kw in (
+                        "error",
+                        "erro",
+                        "failed",
+                        "falha",
+                        "command not found",
+                        "não encontrada",
+                        "não reconhecida",
+                        "no such file",
+                    )
+                ):
+                    has_error = True
+            except Exception:
+                pass
+
+        label = _("Resolver erro com OpenCode")
+        if error_code:
+            label = _("Resolver erro (código {code}) com OpenCode").format(
+                code=error_code
+            )
+        error_item = Gio.MenuItem.new(label, "win.resolve-error-opencode")
+        error_item.set_icon(
+            Gio.ThemedIcon.new(
+                "dialog-warning-symbolic" if has_error else "utilities-terminal-symbolic"
+            )
+        )
+        ai_section.append_item(error_item)
+
+    if ai_section.get_n_items() > 0:
+        menu.append_section(None, ai_section)
 
     split_section = Gio.Menu()
     split_h_item = Gio.MenuItem.new(_("Split Left/Right"), "win.split-horizontal")
