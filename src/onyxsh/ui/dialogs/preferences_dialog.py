@@ -542,6 +542,16 @@ class PreferencesDialog(Adw.PreferencesWindow):
         )
         selection_group.add(selection_toolbar_row)
 
+        osc52_row = self._create_switch_row(
+            _("Ponte de Clipboard OSC 52"),
+            _(
+                "Permitir que aplicações de terminal e TUIs (OpenCode, Neovim, Tmux) copiem texto para o clipboard do sistema"
+            ),
+            "enable_osc52",
+            default_value=True,
+        )
+        selection_group.add(osc52_row)
+
     def _setup_profiles_page(self) -> None:
         page = Adw.PreferencesPage(
             title=_("Profiles and Data"), icon_name="folder-saved-search-symbolic"

@@ -308,6 +308,7 @@ class DefaultSettings:
             "bidi_enabled": False,
             "enable_shaping": False,  # For Arabic text shaping
             "sixel_enabled": True,
+            "enable_osc52": True,
             "text_blink_mode": 0,
             "accessibility_enabled": True,
             # Compatibility & Advanced

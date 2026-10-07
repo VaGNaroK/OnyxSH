@@ -224,6 +224,10 @@ class HighlightedTerminalProxy:
             return False
 
         data_len = len(data)
+        # Safety guard against infinite buffer accumulation
+        if data_len > 10 * 1024 * 1024:
+            return False
+
         pos = last_esc + 1
         if pos >= data_len:
             return True  # ESC at end with nothing after
@@ -673,6 +677,20 @@ class HighlightedTerminalProxy:
         except Exception as e:
             self.logger.debug(f"PTY stream parsing error: {e}")
 
+    def _handle_osc52_stream_bytes(self, data: bytes) -> bytes:
+        """Processes OSC 52 clipboard sequences and returns sanitized bytes."""
+        try:
+            from .osc52_bridge import process_osc52_bytes
+
+            term = self._terminal
+            enabled = True
+            if self._settings_manager and hasattr(self._settings_manager, "get"):
+                enabled = self._settings_manager.get("enable_osc52", True)
+            return process_osc52_bytes(data, terminal=term, enabled=enabled)
+        except Exception as e:
+            self.logger.debug(f"OSC 52 stream processing error: {e}")
+            return data
+
     def _on_pty_readable(self, fd: int, condition: GLib.IOCondition) -> bool:
         # 1. Fail fast if stopped or destroyed
         if not self._running or self._widget_destroyed:
@@ -737,6 +755,10 @@ class HighlightedTerminalProxy:
             # Intercept semantic command lifecycle sequences directly from PTY stream
             if b"\x1b]133;" in data or b"__zt_sem__" in data:
                 self._handle_semantic_stream_bytes(data)
+
+            # Intercept OSC 52 clipboard sequences directly from PTY stream
+            if b"\x1b]52;" in data:
+                data = self._handle_osc52_stream_bytes(data)
 
             try:
                 if self._is_alt_screen:

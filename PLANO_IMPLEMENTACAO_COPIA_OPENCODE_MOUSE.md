@@ -1,9 +1,9 @@
 # 📋 Plano de Implementação: Cópia de Código e Interação com Mouse no OpenCode (OnyxSH)
 
 > **Documento Técnico de Arquitetura e Engenharia de Implementação**  
-> **Status:** Concluído e Validado (Fases 1, 2, 3 e 4 Implementadas com 100% de Testes)  
+> **Status:** Concluído e Validado (Fases 1, 2, 3, 4 e 5 Implementadas com 100% de Testes - 603 Testes Passando)  
 > **Base de Estudo:** `viabilidade_copy.txt` & `ARQUITETURA_E_POSTMORTEM_OPENCODE.md`  
-> **Módulos Afetados:** `src/onyxsh/terminal/`, `src/onyxsh/ui/`, `src/onyxsh/settings/`, `tests/`  
+> **Módulos Afetados:** `src/onyxsh/terminal/`, `src/onyxsh/ui/`, `src/onyxsh/settings/`, `manifests/`, `tests/`  
 
 ---
 
@@ -180,7 +180,27 @@ Este plano **respeita rigorosamente** o [ARQUITETURA_E_POSTMORTEM_OPENCODE.md](f
      ```bash
      PYTHONPATH=src python3 -m unittest discover -s tests
      ```
-     Garantir 100% de aprovação (566+ testes passando).
+     Garantir 100% de aprovação (583 testes passando).
+
+### Fase 5: Validação e Ponte OSC 52 (Clipboard Integrado TUI ➔ Desktop)
+- **Diagnóstico:** O VTE upstream intencionalmente não repassa comandos OSC 52 para a área de transferência do desktop por design do GNOME.
+- **Implementação Realizada:**
+  1. Criado módulo [`src/onyxsh/terminal/osc52_bridge.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/terminal/osc52_bridge.py):
+     - Parser com suporte a terminadores BEL (`\x07`) e ST (`\x1b\\`).
+     - Decodificação Base64 e suporte a clipboard (`c`) e seleção primária (`p`).
+     - Conformidade Zero-Trust: Rejeição de consultas de leitura (`?`) para evitar exfiltração não autorizada do clipboard.
+     - Limite de segurança rígido (10MB) contra ataques de exaustão de memória/DoS.
+     - Tratamento defensivo e tolerante a falhas na API de clipboard do GTK4.
+  2. Integração no fluxo de PTY em [`src/onyxsh/terminal/_highlighter_impl.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/terminal/_highlighter_impl.py):
+     - Detecção de sequências `\x1b]52;` na stream de bytes e escrita direta no `GdkClipboard`.
+     - Sanitização dos dados enviados para o VTE.
+  3. Configurações e Preferências:
+     - Adicionada opção `"enable_osc52": True` em [`src/onyxsh/settings/config.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/settings/config.py).
+     - Switch row adicionado em [`src/onyxsh/ui/dialogs/preferences_dialog.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/ui/dialogs/preferences_dialog.py).
+  4. Manifest Flatpak:
+     - Adicionado `--talk-name=org.freedesktop.portal.Desktop` em [`manifests/io.github.vagnarok.OnyxSH.yaml`](file:///home/vagnarok/OnyxSH/manifests/io.github.vagnarok.OnyxSH.yaml).
+  5. Testes Unitários:
+     - Criado [`tests/test_osc52_bridge.py`](file:///home/vagnarok/OnyxSH/tests/test_osc52_bridge.py) com 20 testes dedicados. Suíte completa aprovada: **603 testes (100% OK)**.
 
 ---
 
