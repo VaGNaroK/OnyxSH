@@ -1,4 +1,5 @@
 # onyxsh/settings/manager.py
+import copy
 import json
 import os
 import re
@@ -82,15 +83,20 @@ class SettingsValidator:
         if not isinstance(shortcuts, dict):
             errors.append("Shortcuts must be a dictionary")
             return errors
-        shortcut_values = [v for v in shortcuts.values() if v]
-        if len(shortcut_values) != len(set(shortcut_values)):
-            errors.append("Duplicate keyboard shortcuts detected")
+        seen_shortcuts: Dict[str, str] = {}
         for action, shortcut in shortcuts.items():
             if not isinstance(action, str):
                 errors.append(f"Invalid action name: {action}")
                 continue
             if not self.validate_shortcut(shortcut):
                 errors.append(f"Invalid shortcut for action '{action}': {shortcut}")
+            if shortcut:
+                if shortcut in seen_shortcuts:
+                    errors.append(
+                        f"Duplicate keyboard shortcuts detected: '{shortcut}' for actions '{seen_shortcuts[shortcut]}' and '{action}'"
+                    )
+                else:
+                    seen_shortcuts[shortcut] = action
         return errors
 
     def validate_settings_structure(
@@ -262,8 +268,8 @@ class SettingsManager:
             with self._lock:
                 self._settings = self._load_settings_safe()
                 self.custom_schemes = self._load_custom_schemes()
-                self._validate_and_repair()
                 self._merge_with_defaults()
+                self._validate_and_repair()
                 self._apply_log_settings()
                 # If we loaded a legacy settings file or performed repairs/default merges,
                 # persist the canonical wrapper format proactively.
@@ -324,7 +330,7 @@ class SettingsManager:
     def _load_settings_safe(self) -> Dict[str, Any]:
         if not self.settings_file.exists():
             self.logger.info("Settings file not found, using defaults")
-            return self._defaults.copy()
+            return copy.deepcopy(self._defaults)
         try:
             validate_file_path(str(self.settings_file))
             with open(self.settings_file, "r", encoding="utf-8") as f:
@@ -356,14 +362,14 @@ class SettingsManager:
             return settings
         except json.JSONDecodeError as e:
             self.logger.error(f"Settings file is corrupted: {e}")
-            return self._defaults.copy()
+            return copy.deepcopy(self._defaults)
         except ValueError as e:
             self.logger.error(f"Settings file has invalid structure: {e}")
-            return self._defaults.copy()
+            return copy.deepcopy(self._defaults)
         except Exception as e:
             self.logger.error(f"Failed to load settings: {e}")
             log_error_with_context(e, "settings loading", "onyxsh.settings")
-            return self._defaults.copy()
+            return copy.deepcopy(self._defaults)
 
     def _verify_settings_integrity(self, settings: Dict[str, Any]):
         try:
@@ -394,19 +400,92 @@ class SettingsManager:
         except Exception as e:
             self.logger.error(f"Settings validation failed: {e}")
 
+    def _repair_shortcuts(self) -> int:
+        """
+        Validate and repair keyboard shortcuts:
+        1. Remove obsolete actions no longer present in default shortcuts.
+        2. Replace invalid accelerator syntax with default or empty string.
+        3. Deduplicate shortcut accelerators by keeping primary/default owner and unbinding duplicates.
+        """
+        repairs = 0
+        shortcuts = self._settings.get("shortcuts")
+        if not isinstance(shortcuts, dict):
+            self._settings["shortcuts"] = copy.deepcopy(
+                self._defaults.get("shortcuts", {})
+            )
+            return 1
+
+        default_shortcuts = self._defaults.get("shortcuts", {})
+        valid_actions = set(default_shortcuts.keys())
+
+        # 1. Remove obsolete actions not recognized by the application
+        obsolete_actions = [act for act in list(shortcuts.keys()) if act not in valid_actions]
+        for act in obsolete_actions:
+            self.logger.info(f"Removing obsolete shortcut action '{act}'")
+            del shortcuts[act]
+            repairs += 1
+
+        # 2. Fix invalid accelerator syntax
+        for act, accel in list(shortcuts.items()):
+            if not isinstance(act, str) or not isinstance(accel, str):
+                continue
+            if accel and not self.validator.validate_shortcut(accel):
+                default_accel = default_shortcuts.get(act, "")
+                self.logger.warning(
+                    f"Resetting invalid shortcut for '{act}' from '{accel}' to '{default_accel}'"
+                )
+                shortcuts[act] = default_accel
+                repairs += 1
+
+        # 3. Deduplicate shortcut accelerators
+        accel_to_actions: Dict[str, List[str]] = {}
+        for act, accel in list(shortcuts.items()):
+            if accel:
+                accel_to_actions.setdefault(accel, []).append(act)
+
+        for accel, actions in accel_to_actions.items():
+            if len(actions) > 1:
+                # Prioritize the action whose default shortcut matches this accelerator
+                keeper = None
+                for act in actions:
+                    if default_shortcuts.get(act) == accel:
+                        keeper = act
+                        break
+                if not keeper:
+                    keeper = actions[0]
+
+                for act in actions:
+                    if act != keeper:
+                        cand = default_shortcuts.get(act, "")
+                        # If candidate default is different and free, restore it
+                        if cand and cand not in shortcuts.values() and cand != accel:
+                            shortcuts[act] = cand
+                            self.logger.info(
+                                f"Resolved duplicate shortcut '{accel}' for '{act}': restored default '{cand}'"
+                            )
+                        else:
+                            shortcuts[act] = ""
+                            self.logger.info(
+                                f"Resolved duplicate shortcut '{accel}' for '{act}': unassigned"
+                            )
+                        repairs += 1
+
+        return repairs
+
     def _repair_settings(self, errors: List[str]) -> bool:
         repairs_made = 0
+        has_shortcut_error = False
         for error in errors:
             if "Missing required setting:" in error:
                 key = error.split(": ")[1]
                 if key in self._defaults:
-                    self._settings[key] = self._defaults[key]
+                    self._settings[key] = copy.deepcopy(self._defaults[key])
                     repairs_made += 1
             elif "Invalid value for setting" in error:
                 try:
                     key = error.split("'")[1]
                     if key in self._defaults:
-                        self._settings[key] = self._defaults[key]
+                        self._settings[key] = copy.deepcopy(self._defaults[key])
                         repairs_made += 1
                 except (IndexError, KeyError):
                     continue
@@ -418,6 +497,12 @@ class SettingsManager:
                         repairs_made += 1
                 except (IndexError, KeyError):
                     continue
+            elif "shortcut" in error.lower():
+                has_shortcut_error = True
+
+        if has_shortcut_error:
+            repairs_made += self._repair_shortcuts()
+
         return repairs_made > 0
 
     def _merge_with_defaults(self):
@@ -425,13 +510,38 @@ class SettingsManager:
             updated = False
             for key, default_value in self._defaults.items():
                 if key not in self._settings:
-                    self._settings[key] = default_value
+                    self._settings[key] = copy.deepcopy(default_value)
                     updated = True
                 elif isinstance(default_value, dict) and isinstance(
                     self._settings[key], dict
                 ):
                     for sub_key, sub_default in default_value.items():
                         if sub_key not in self._settings[key]:
+                            # If merging shortcuts, resolve potential collisions with existing or obsolete keys
+                            if key == "shortcuts" and sub_default:
+                                existing_values = set(
+                                    v for v in self._settings[key].values() if v
+                                )
+                                if sub_default in existing_values:
+                                    obsolete_owners = [
+                                        k
+                                        for k, v in self._settings[key].items()
+                                        if v == sub_default
+                                        and k not in default_value
+                                    ]
+                                    if obsolete_owners:
+                                        for obs in obsolete_owners:
+                                            self.logger.info(
+                                                f"Purging obsolete shortcut key '{obs}' conflicting with '{sub_key}'"
+                                            )
+                                            del self._settings[key][obs]
+                                        self._settings[key][sub_key] = sub_default
+                                        updated = True
+                                        continue
+                                    else:
+                                        self._settings[key][sub_key] = ""
+                                        updated = True
+                                        continue
                             self._settings[key][sub_key] = sub_default
                             updated = True
             if updated:
@@ -443,7 +553,7 @@ class SettingsManager:
         with self._lock:
             if not self._dirty and not force:
                 return
-            settings_to_save = self._settings.copy()
+            settings_to_save = copy.deepcopy(self._settings)
             self._dirty = False
 
         def save_task():
@@ -453,6 +563,18 @@ class SettingsManager:
                     errors = self.validator.validate_settings_structure(
                         settings_to_save, num_schemes
                     )
+                    if errors:
+                        self.logger.warning(
+                            f"Settings validation found issues before saving: {errors}. Attempting auto-repair..."
+                        )
+                        if self._repair_settings(errors):
+                            settings_to_save_repaired = copy.deepcopy(self._settings)
+                            errors = self.validator.validate_settings_structure(
+                                settings_to_save_repaired, num_schemes
+                            )
+                            if not errors:
+                                settings_to_save.clear()
+                                settings_to_save.update(settings_to_save_repaired)
                     if errors:
                         self.logger.error(
                             f"Cannot save invalid settings asynchronously: {errors}"
@@ -2092,18 +2214,26 @@ class SettingsManager:
         return self.get(f"shortcuts.{action_name}", "")
 
     def set_shortcut(self, action_name: str, shortcut: str) -> None:
+        with self._lock:
+            if shortcut and "shortcuts" in self._settings and isinstance(self._settings["shortcuts"], dict):
+                for act, accel in list(self._settings["shortcuts"].items()):
+                    if act != action_name and accel == shortcut:
+                        self._settings["shortcuts"][act] = ""
+                        self.logger.info(
+                            f"Unassigned duplicate shortcut '{shortcut}' from '{act}'"
+                        )
         self.set(f"shortcuts.{action_name}", shortcut)
 
     def reset_to_defaults(self, keys: Optional[List[str]] = None) -> None:
         with self._lock:
             try:
                 if keys is None:
-                    self._settings = self._defaults.copy()
+                    self._settings = copy.deepcopy(self._defaults)
                     self.logger.info("All settings reset to defaults")
                 else:
                     for key in keys:
                         if key in self._defaults:
-                            self.set(key, self._defaults[key], save_immediately=False)
+                            self.set(key, copy.deepcopy(self._defaults[key]), save_immediately=False)
                     self.logger.info(f"Reset {len(keys)} settings to defaults")
                 self._dirty = True
                 self.save_settings()

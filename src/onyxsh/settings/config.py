@@ -1,5 +1,6 @@
 # onyxsh/settings/config.py
 
+import copy
 import os
 import re
 from functools import lru_cache
@@ -244,7 +245,7 @@ class DefaultSettings:
 
     @staticmethod
     @lru_cache(maxsize=1)
-    def get_defaults() -> Dict[str, Any]:
+    def _get_base_defaults() -> Dict[str, Any]:
         return {
             # General Appearance
             "gtk_theme": "terminal",
@@ -481,6 +482,10 @@ class DefaultSettings:
                 "toggle-keyboard-copy-mode": "<Control><Shift>space",
             },
         }
+
+    @staticmethod
+    def get_defaults() -> Dict[str, Any]:
+        return copy.deepcopy(DefaultSettings._get_base_defaults())
 
 
 class ColorSchemes:
