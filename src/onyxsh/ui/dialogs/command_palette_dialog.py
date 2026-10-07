@@ -501,6 +501,17 @@ class CommandPaletteDialog(BaseDialog):
         )
         self._items.append(
             CommandPaletteItem(
+                "toggle-selection-mode",
+                _("Terminal: Alternar Modo Seleção de Texto"),
+                _("Terminal"),
+                "edit-select-all-symbolic",
+                action_name="toggle-selection-mode",
+                shortcut=get_accel_label("toggle-selection-mode"),
+                keywords=["selecao", "modo", "mouse", "opencode", "copiar", "texto", "tui", "tracking"],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
                 "configure-ai",
                 _("Configurar Provedores e Modelos de IA"),
                 _("Assistente de IA"),

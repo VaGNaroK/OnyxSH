@@ -45,6 +45,7 @@ SHORTCUT_DATA = [
             ("toggle-broadcast", _("Send Command to All Tabs")),
             ("ai-assistant", _("Ask AI Assistant")),
             ("opencode-launcher", _("OpenCode Code Assistant")),
+            ("toggle-selection-mode", _("Modo Seleção de Texto")),
             ("show-command-history", _("Command History")),
             ("jump-previous-prompt", _("Jump to Previous Prompt")),
             ("jump-next-prompt", _("Jump to Next Prompt")),

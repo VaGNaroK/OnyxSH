@@ -1671,6 +1671,14 @@ class TerminalManager:
             terminal.add_controller(click_controller)
             terminal.onyxsh_controllers.append(click_controller)
 
+            motion_controller = Gtk.EventControllerMotion()
+            motion_controller.connect(
+                "motion",
+                lambda _c, x, y: setattr(terminal, "_last_pointer_pos", (x, y)),
+            )
+            terminal.add_controller(motion_controller)
+            terminal.onyxsh_controllers.append(motion_controller)
+
             right_click_controller = Gtk.GestureClick()
             right_click_controller.set_button(3)
             right_click_controller.set_propagation_phase(Gtk.PropagationPhase.BUBBLE)
@@ -3009,6 +3017,16 @@ class TerminalManager:
                     terminal.remove_controller(controller)
                 terminal.onyxsh_controllers.clear()
 
+            if hasattr(terminal, "_selection_popover"):
+                try:
+                    popover = terminal._selection_popover
+                    if popover:
+                        popover.popdown()
+                        popover.unparent()
+                    delattr(terminal, "_selection_popover")
+                except Exception as e:
+                    self.logger.debug(f"Could not unparent selection popover: {e}")
+
             if hasattr(terminal, "_osc8_hovered_uri"):
                 try:
                     delattr(terminal, "_osc8_hovered_uri")
@@ -3560,7 +3578,49 @@ class TerminalManager:
             self.logger.debug(
                 f"Selection auto-copy failed for terminal {terminal_id}: {e}"
             )
+
+        try:
+            if self.settings_manager.get("show_selection_toolbar", True):
+                self._update_selection_popover(terminal)
+        except Exception as e:
+            self.logger.debug(f"Failed to update selection popover: {e}")
+
         return GLib.SOURCE_REMOVE
+
+    def _update_selection_popover(self, terminal: Vte.Terminal) -> None:
+        """Shows or hides the floating selection action popover."""
+        has_selection = (
+            terminal.get_has_selection()
+            if hasattr(terminal, "get_has_selection")
+            else False
+        )
+        popover = getattr(terminal, "_selection_popover", None)
+
+        if not has_selection:
+            if popover and hasattr(popover, "popdown"):
+                popover.popdown()
+            return
+
+        selected_text = None
+        if hasattr(terminal, "get_text_selected"):
+            try:
+                selected_text = terminal.get_text_selected(Vte.Format.TEXT)
+            except Exception:
+                pass
+
+        if not selected_text or not selected_text.strip():
+            if popover and hasattr(popover, "popdown"):
+                popover.popdown()
+            return
+
+        if not popover:
+            from ..ui.widgets.selection_popover import SelectionActionPopover
+
+            popover = SelectionActionPopover(terminal, parent_window=self.parent_window)
+            terminal._selection_popover = popover
+
+        pointer_pos = getattr(terminal, "_last_pointer_pos", None)
+        popover.show_for_selection(selected_text, pointer_pos)
 
     def _copy_terminal_selection_to_clipboard(self, terminal: Vte.Terminal) -> bool:
         if terminal.get_has_selection():
@@ -3587,6 +3647,69 @@ class TerminalManager:
 
     def select_all(self, terminal: Vte.Terminal):
         terminal.select_all()
+
+    def set_terminal_selection_mode(
+        self, terminal: Vte.Terminal, enabled: bool
+    ) -> bool:
+        """
+        Enables or disables Selection Mode on a terminal.
+        When enabled, sends escape sequences to pause application mouse tracking in VTE,
+        allowing direct mouse text selection without holding Shift.
+        When disabled, restores application mouse tracking.
+        """
+        if not terminal:
+            return False
+
+        current_state = bool(getattr(terminal, "_selection_mode_active", False))
+        if current_state == enabled:
+            return enabled
+
+        terminal._selection_mode_active = enabled
+        try:
+            if enabled:
+                # Disable DECSET 1000, 1002, 1003, 1006
+                terminal.feed(b"\033[?1000l\033[?1002l\033[?1003l\033[?1006l")
+            else:
+                # Restore DECSET 1000, 1002, 1006
+                terminal.feed(b"\033[?1000h\033[?1002h\033[?1006h")
+        except Exception as e:
+            self.logger.debug(f"Failed to feed selection mode escape sequences: {e}")
+
+        # Update pane UI if this terminal is wrapped in a split pane
+        pane = getattr(terminal, "onyxsh_pane", None)
+        if not pane and hasattr(self, "parent_window") and hasattr(self.parent_window, "tab_manager"):
+            page = self.parent_window.tab_manager.get_page_for_terminal(terminal)
+            if page:
+                pane = self.parent_window.tab_manager._find_pane_for_terminal(page, terminal)
+
+        if pane:
+            if enabled:
+                pane.add_css_class("selection-mode-active")
+            else:
+                pane.remove_css_class("selection-mode-active")
+
+            toggle_btn = getattr(pane, "selection_mode_btn", None)
+            if toggle_btn and toggle_btn.get_active() != enabled:
+                toggle_btn.set_active(enabled)
+
+        # Notify via toast if in a single tab (no split header to indicate mode)
+        if hasattr(self, "parent_window") and hasattr(self.parent_window, "toast_overlay"):
+            if not pane:
+                msg = (
+                    _("Modo Seleção ativo (Pressione Esc para sair)")
+                    if enabled
+                    else _("Modo Seleção desativado")
+                )
+                self.parent_window.toast_overlay.add_toast(
+                    Adw.Toast(title=msg, timeout=2)
+                )
+
+        return enabled
+
+    def toggle_terminal_selection_mode(self, terminal: Vte.Terminal) -> bool:
+        """Toggles Selection Mode on the given terminal."""
+        current = bool(getattr(terminal, "_selection_mode_active", False))
+        return self.set_terminal_selection_mode(terminal, not current)
 
     def clear_terminal(self, terminal: Vte.Terminal):
         try:
@@ -3808,10 +3931,13 @@ class TerminalManager:
                         pass
                     return Gdk.EVENT_STOP
 
-            # Handle Escape to dismiss popup
+            # Handle Escape to dismiss popup or exit selection mode
             if keyval == Gdk.KEY_Escape:
                 if popup and popup.get_visible():
                     popup.popdown()
+                    return Gdk.EVENT_STOP
+                if getattr(terminal, "_selection_mode_active", False):
+                    self.set_terminal_selection_mode(terminal, False)
                     return Gdk.EVENT_STOP
 
             # Handle Semantic Prompt Jump (Alt+Up / Alt+Down)

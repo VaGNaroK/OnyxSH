@@ -40,6 +40,7 @@ class WindowActions:
             "highlight-settings": self.highlight_settings,
             "ask-ai-selection": self.ask_ai_selection,
             "opencode-launcher": self.opencode_launcher,
+            "toggle-selection-mode": self.toggle_selection_mode,
             "opencode-selection": self.opencode_selection,
             "resolve-error-opencode": self.resolve_error_with_opencode,
             "split-horizontal": self.split_horizontal,
@@ -311,18 +312,36 @@ class WindowActions:
             and effective_mode == "split"
             and hasattr(self.window.tab_manager, "split_vertical")
         ):
-            self.window.tab_manager.split_vertical(
+            new_term = self.window.tab_manager.split_vertical(
                 active_terminal,
                 working_directory=working_dir,
                 execute_command=target_cmd,
                 title="OpenCode",
             )
+            if new_term:
+                new_term._is_opencode = True
         elif hasattr(self.window, "tab_manager"):
-            self.window.tab_manager.create_local_tab(
+            new_term = self.window.tab_manager.create_local_tab(
                 title="OpenCode",
                 working_directory=working_dir,
                 execute_command=target_cmd,
             )
+            if new_term:
+                new_term._is_opencode = True
+
+    def toggle_selection_mode(self, *_args):
+        """Toggle text selection mode on active terminal (pauses TUI mouse tracking)."""
+        active_terminal = None
+        if hasattr(self.window, "tab_manager"):
+            active_terminal = self.window.tab_manager.get_selected_terminal()
+        if not active_terminal:
+            return
+
+        tm = getattr(active_terminal, "terminal_manager", None)
+        if not tm and hasattr(self.window, "terminal_manager"):
+            tm = self.window.terminal_manager
+        if tm and hasattr(tm, "toggle_terminal_selection_mode"):
+            tm.toggle_terminal_selection_mode(active_terminal)
 
     def ask_ai_selection(self, *_args):
         """Ask AI about the selected text in the terminal."""

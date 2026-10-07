@@ -1,0 +1,98 @@
+Por que o mouse não funciona no OpenCode?
+O OpenCode (assim como vim, tmux, htop) é uma TUI que ativa o mouse tracking do terminal via sequências DECSET (1000, 1002, 1003, 1006). Quando isso acontece:
+Aplicação TUI:  "Terminal, me envie todos os eventos de mouse!"  →  \033[?1002h
+Terminal VTE:   "Ok, cada clique/drag vira escape sequence pra você"
+Resultado:      O arraste do mouse vira dado pro OpenCode, não vira seleção de texto
+
+Ou seja: não é limitação do OpenCode, é o comportamento padrão de qualquer TUI com suporte a mouse. O terminal é quem decide se obedece a aplicação ou faz seleção nativa — e é exatamente aí que o OnyxSH pode atuar, pois ele é dono do widget VTE.
+Soluções viáveis no OnyxSH (em ordem de esforço)
+🟢 1. Shift + arraste (custo quase zero)
+O VTE já tem esse comportamento nativamente: quando a aplicação capturou o mouse, segurar Shift faz o terminal ignorar o repasse e fazer seleção nativa. É como GNOME Terminal, kitty e Alacritty resolvem.
+Ação no OnyxSH:
+Verificar se está funcionando (deve vir "de graça" do VTE).
+Exibir uma dica visual quando o OpenCode ativar mouse tracking (o VTE sabe internamente quando os modos DECSET 1000/1002/1003 estão ativos):
+
+┌─────────────────────────────────────────────────┐
+│ 🖱️ Mouse capturado pelo OpenCode                │
+│ Segure Shift para selecionar texto              │
+└─────────────────────────────────────────────────┘
+
+Esse indicador pode ser um pequeno GtkInscription ou badge na headerbar do split — puro UX, zero parsing de conteúdo.
+🟡 2. "Modo Seleção" — botão/atalho que pausa a captura do mouse
+Um toggle no OnyxSH (Ctrl+Shift+S ou botão na headerbar do split) que temporariamente impede o repasse de eventos de mouse para o PTY:
+
+# Esboço conceitual — controller em fase de captura
+class SelectionModeController(Gtk.EventController):
+    def __init__(self, terminal_view):
+        self.selection_mode = False
+        # Fase CAPTURE roda ANTES dos handlers internos do VTE
+        self.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+
+    def on_motion(self, x, y):
+        if self.selection_mode:
+            # Reivindica a sequência: VTE não repassa mouse ao PTY
+            self.set_state(Gtk.EventSequenceState.CLAIMED)
+            # VTE passa a tratar como seleção nativa
+
+Comportamento esperado:
+Ctrl+Shift+S → entra em modo seleção (cursor vira texto, borda do split muda de cor).
+Usuário arrasta, copia com Ctrl+Shift+C.
+Esc ou novo toggle → volta ao modo normal, mouse retorna ao OpenCode.
+⚠️ Nota de implementação: validar a semântica exata de CLAIMED vs. controllers internos do VTE no GTK4. Se houver conflito, alternativa é engolir os eventos e reimplementar a seleção via APIs de coordenadas do VTE (vte_terminal_match_check / extração por range).
+🟡 3. Ponte OSC 52 (clipboard da aplicação → desktop)
+Muitas TUIs modernas (e frameworks como Bubble Tea, no qual o OpenCode se baseia) podem escrever no clipboard via OSC 52. O fluxo:
+
+OpenCode (host) ──OSC 52──▶ PTY ──▶ VTE (sandbox) ──▶ GdkClipboard ──▶ Desktop
+
+Esse caminho é especialmente relevante no OnyxSH por causa do Flatpak: o OpenCode roda no host, mas o clipboard é mediado pela sandbox. O OnyxSH precisa garantir que:
+O VTE trate OSC 52 de escrita (verificar versão do VTE ≥ 0.6x).
+Se não tratar nativamente, registrar handler custom e escrever via GdkClipboard.set_text().
+Confirmar permissão de clipboard no manifest Flatpak (--talk-name=org.freedesktop.portal.Desktop ou permissão adequada).
+Se o OpenCode emitir OSC 52 ao copiar algo internamente (ex: yank de código num viewer interno), o usuário nem perceberia a fronteira Flatpak.
+🟠 4. Barra flutuante pós-seleção (o diferencial do OnyxSH)
+Depois de qualquer seleção bem-sucedida no split do OpenCode, exibir um popover flutuante:
+
+        ┌──────────────────────────────────────┐
+        │ 📋 Copiar  │  🤖 Perguntar à IA  │ ⤴ │
+        └──────────────────────────────────────┘
+
+Copiar → GdkClipboard.
+Perguntar à IA → abre o AIChatPanel com o trecho selecionado como contexto pré-preenchido.
+Isso é 100% compatível com o ADR: o painel de IA continua usando REST direto (Groq/Gemini/Ollama), e o texto selecionado é apenas contexto de entrada do usuário — não há parsing de output do OpenCode, nem comunicação headless com ele.
+
+def on_selection_done(self, terminal):
+    selected = terminal.get_selected_text()  # VTE API
+    if selected:
+        self.show_floating_toolbar(
+            text=selected,
+            actions=["copy", "ask_ai"]
+        )
+
+def ask_ai_with_selection(self, text):
+    cwd = self.semantic_tracker.get_current_dir()  # OSC 7
+    context = f"Contexto: diretório {cwd}\n\n```\n{text}\n```"
+    self.ai_chat_panel.set_draft_input(context)  # não envia automaticamente
+
+
+Detalhe importante de UX: não enviar automaticamente — apenas pré-preencher o input, deixando o usuário formular a pergunta. Evita consumo indesejado de tokens/API.
+🟠 5. Modo de seleção por teclado (acessibilidade)
+Para usuários que preferem teclado (ou quando o mouse é problemático):
+Ctrl+Shift+Space → entra em modo de seleção com cursor visual.
+Setas movem, Shift+setas estende, Enter copia.
+É o equivalente ao copy-mode do tmux, mas integrado ao VTE.
+O que NÃO fazer (respeitando o ADR)
+❌ Evitar
+✅ Preferir
+Interceptar o stream do PTY para "adivinhar" qual arquivo o OpenCode está mostrando
+Usar OSC 7 (CWD) como contexto genérico
+Parsear a UI do OpenCode para extrair código
+Usar get_selected_text() do VTE — o que o usuário selecionou, ponto
+Criar canal IPC entre OnyxSH e OpenCode
+Tudo via terminal: eventos de mouse, clipboard, escape sequences
+
+MVP sugerido (para implementar primeiro)
+Verificar/documentar o Shift+arraste + badge de "mouse capturado". (1-2 dias)
+Barra flutuante com "Copiar" e "Perguntar à IA" sobre seleção nativa do VTE. (2-3 dias)
+Testar OSC 52 com uma TUI que emita, e implementar ponte se o VTE não cobrir. (1 dia)
+Modo Seleção com toggle (Ctrl+Shift+S). (investigar viabilidade GTK4 primeiro)
+Com esses quatro itens, o OnyxSH se torna um dos poucos terminais onde copiar código de uma TUI agêntica e levá-lo para o assistente de IA é um gesto de dois cliques — sem violar nenhuma das diretrizes do post-mortem.

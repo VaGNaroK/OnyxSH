@@ -108,6 +108,37 @@ paned separator {
     box-shadow: inset 0 0 0 1px alpha(@accent_bg_color, 0.10);
 }
 
+.terminal-pane.selection-mode-active {
+    border-color: @accent_bg_color;
+    box-shadow: 0 0 0 1px @accent_bg_color, inset 0 0 0 1px alpha(@accent_bg_color, 0.20);
+}
+
+.mouse-capture-badge {
+    padding: 1px 6px;
+    border-radius: 9999px;
+    background-color: alpha(@accent_bg_color, 0.12);
+    color: @accent_color;
+}
+
+.mouse-capture-badge:hover {
+    background-color: alpha(@accent_bg_color, 0.22);
+}
+
+/* Selection Action Popover */
+.selection-action-popover > contents {
+    padding: 2px 4px;
+    border-radius: 9999px;
+    background-color: alpha(@window_bg_color, 0.95);
+    border: 1px solid alpha(@borders, 0.5);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.selection-action-popover button {
+    border-radius: 9999px;
+    padding: 4px 8px;
+    margin: 1px 2px;
+}
+
 popover.menu separator {
     background-color: alpha(@borders, 0.35);
 }

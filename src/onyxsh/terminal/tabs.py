@@ -172,6 +172,63 @@ def _create_terminal_pane(
 
     header_box.append(semantic_status_box)
 
+    # Phase 1: Mouse hint badge (shows Shift+Drag hint when OpenCode or TUI is active)
+    mouse_hint_badge = Gtk.Button()
+    mouse_hint_badge.add_css_class("flat")
+    mouse_hint_badge.add_css_class("mouse-capture-badge")
+    mouse_hint_badge.set_valign(Gtk.Align.CENTER)
+    mouse_hint_badge.set_tooltip_text(
+        _(
+            "Mouse capturado pelo aplicativo (OpenCode/TUI). Segure Shift para selecionar texto ou clique aqui para ativar o Modo Seleção."
+        )
+    )
+    badge_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+    mouse_icon = icon_image("input-mouse-symbolic", size=12)
+    badge_label = Gtk.Label(label=_("Shift+Arrastar"))
+    badge_label.add_css_class("caption")
+    badge_box.append(mouse_icon)
+    badge_box.append(badge_label)
+    mouse_hint_badge.set_child(badge_box)
+
+    # Phase 2: Selection Mode toggle button (pauses TUI mouse tracking so user can drag to select)
+    selection_mode_btn = Gtk.ToggleButton()
+    selection_mode_btn.set_icon_name("edit-select-all-symbolic")
+    selection_mode_btn.add_css_class("flat")
+    selection_mode_btn.set_size_request(26, 26)
+    selection_mode_btn.set_valign(Gtk.Align.CENTER)
+    selection_mode_btn.set_tooltip_text(
+        _(
+            "Modo Seleção (Ctrl+Shift+S) - Pausa o mouse do aplicativo para seleção direta"
+        )
+    )
+
+    def _on_selection_mode_toggled(btn):
+        tm = getattr(terminal, "terminal_manager", None)
+        if not tm:
+            root = terminal.get_root() if hasattr(terminal, "get_root") else None
+            if root and hasattr(root, "terminal_manager"):
+                tm = root.terminal_manager
+        if tm and hasattr(tm, "set_terminal_selection_mode"):
+            tm.set_terminal_selection_mode(terminal, btn.get_active())
+
+    selection_mode_btn.connect("toggled", _on_selection_mode_toggled)
+    mouse_hint_badge.connect(
+        "clicked",
+        lambda _: selection_mode_btn.set_active(
+            not selection_mode_btn.get_active()
+        ),
+    )
+
+    is_opencode = (
+        (title == "OpenCode")
+        or ("opencode" in (title or "").lower())
+        or bool(getattr(terminal, "_is_opencode", False))
+    )
+    mouse_hint_badge.set_visible(is_opencode)
+
+    header_box.append(mouse_hint_badge)
+    header_box.append(selection_mode_btn)
+
     # Action buttons (using bundled icons)
     move_to_tab_button = icon_button(
         "go-next-symbolic", size=14, tooltip=_("Move to New Tab")
@@ -211,6 +268,9 @@ def _create_terminal_pane(
     toolbar_view.semantic_ai_btn = semantic_ai_btn
     toolbar_view.semantic_copy_btn = semantic_copy_btn
     toolbar_view.latency_badge = latency_badge
+    toolbar_view.mouse_hint_badge = mouse_hint_badge
+    toolbar_view.selection_mode_btn = selection_mode_btn
+    terminal.onyxsh_pane = toolbar_view
     # MODIFIED: Store a reference to the header box for live updates
     toolbar_view.header_box = header_box
 
@@ -1718,6 +1778,12 @@ class TabManager:
         pane = self._find_pane_for_terminal(page, terminal)
         if pane and hasattr(pane, "title_label"):
             pane.title_label.set_label(new_title)
+            if hasattr(pane, "mouse_hint_badge"):
+                is_opencode = (
+                    ("opencode" in (new_title or "").lower())
+                    or bool(getattr(terminal, "_is_opencode", False))
+                )
+                pane.mouse_hint_badge.set_visible(is_opencode)
 
     def _get_tab_for_page(self, page: Adw.ViewStackPage) -> Optional[Gtk.Box]:
         """Finds the tab widget corresponding to a view stack page."""

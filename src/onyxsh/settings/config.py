@@ -290,6 +290,7 @@ class DefaultSettings:
             "notify_long_commands_condition": "unfocused",
             "notify_long_commands_sound": True,
             "show_command_running_indicator": True,
+            "show_selection_toolbar": True,
             # Resource Monitor Dashboard Settings
             "resource_monitor_refresh_interval": 2,
             "resource_monitor_history_points": 30,
@@ -475,6 +476,7 @@ class DefaultSettings:
                 "jump-previous-prompt": "<Alt>Up",
                 "jump-next-prompt": "<Alt>Down",
                 "opencode-launcher": "<Control><Shift>o",
+                "toggle-selection-mode": "<Control><Shift>s",
             },
         }
 

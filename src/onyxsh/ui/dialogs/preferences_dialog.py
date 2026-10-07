@@ -527,6 +527,21 @@ class PreferencesDialog(Adw.PreferencesWindow):
         )
         autocomplete_group.add(autocomplete_snippets_row)
 
+        # Selection Toolbar Group
+        selection_group = Adw.PreferencesGroup(
+            title=_("Seleção de Texto"),
+            description=_("Ações rápidas flutuantes ao selecionar texto no terminal"),
+        )
+        page.add(selection_group)
+
+        selection_toolbar_row = self._create_switch_row(
+            _("Barra Flutuante de Ações na Seleção"),
+            _("Exibir menu rápido com Copiar, Perguntar à IA e Refatorar ao selecionar texto"),
+            "show_selection_toolbar",
+            default_value=True,
+        )
+        selection_group.add(selection_toolbar_row)
+
     def _setup_profiles_page(self) -> None:
         page = Adw.PreferencesPage(
             title=_("Profiles and Data"), icon_name="folder-saved-search-symbolic"

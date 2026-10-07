@@ -291,6 +291,7 @@ class CommTerminalApp(Adw.Application):
                 "toggle-broadcast",
                 "ai-assistant",
                 "opencode-launcher",
+                "toggle-selection-mode",
                 "command-palette",
                 "show-command-history",
                 "jump-previous-prompt",
