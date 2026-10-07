@@ -229,6 +229,30 @@ def _create_terminal_pane(
     header_box.append(mouse_hint_badge)
     header_box.append(selection_mode_btn)
 
+    # Phase 6: Keyboard Copy Mode toggle button (navigates & selects text via keyboard like tmux)
+    copy_mode_btn = Gtk.ToggleButton()
+    copy_mode_btn.set_icon_name("input-keyboard-symbolic")
+    copy_mode_btn.add_css_class("flat")
+    copy_mode_btn.set_size_request(26, 26)
+    copy_mode_btn.set_valign(Gtk.Align.CENTER)
+    copy_mode_btn.set_tooltip_text(
+        _(
+            "Modo Cópia por Teclado (Ctrl+Shift+Espaço) - Navegue e copie sem usar o mouse"
+        )
+    )
+
+    def _on_copy_mode_toggled(btn):
+        tm = getattr(terminal, "terminal_manager", None)
+        if not tm:
+            root = terminal.get_root() if hasattr(terminal, "get_root") else None
+            if root and hasattr(root, "terminal_manager"):
+                tm = root.terminal_manager
+        if tm and hasattr(tm, "set_terminal_keyboard_copy_mode"):
+            tm.set_terminal_keyboard_copy_mode(terminal, btn.get_active())
+
+    copy_mode_btn.connect("toggled", _on_copy_mode_toggled)
+    header_box.append(copy_mode_btn)
+
     # Action buttons (using bundled icons)
     move_to_tab_button = icon_button(
         "go-next-symbolic", size=14, tooltip=_("Move to New Tab")
@@ -270,6 +294,7 @@ def _create_terminal_pane(
     toolbar_view.latency_badge = latency_badge
     toolbar_view.mouse_hint_badge = mouse_hint_badge
     toolbar_view.selection_mode_btn = selection_mode_btn
+    toolbar_view.copy_mode_btn = copy_mode_btn
     terminal.onyxsh_pane = toolbar_view
     # MODIFIED: Store a reference to the header box for live updates
     toolbar_view.header_box = header_box

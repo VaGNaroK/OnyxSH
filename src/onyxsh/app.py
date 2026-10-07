@@ -292,6 +292,7 @@ class CommTerminalApp(Adw.Application):
                 "ai-assistant",
                 "opencode-launcher",
                 "toggle-selection-mode",
+                "toggle-keyboard-copy-mode",
                 "command-palette",
                 "show-command-history",
                 "jump-previous-prompt",

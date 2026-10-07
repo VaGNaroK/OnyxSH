@@ -512,6 +512,17 @@ class CommandPaletteDialog(BaseDialog):
         )
         self._items.append(
             CommandPaletteItem(
+                "toggle-keyboard-copy-mode",
+                _("Terminal: Modo Cópia por Teclado (Copy-Mode)"),
+                _("Terminal"),
+                "input-keyboard-symbolic",
+                action_name="toggle-keyboard-copy-mode",
+                shortcut=get_accel_label("toggle-keyboard-copy-mode"),
+                keywords=["copiar", "teclado", "copy-mode", "tmux", "selecao", "cursor", "acessibilidade"],
+            )
+        )
+        self._items.append(
+            CommandPaletteItem(
                 "configure-ai",
                 _("Configurar Provedores e Modelos de IA"),
                 _("Assistente de IA"),

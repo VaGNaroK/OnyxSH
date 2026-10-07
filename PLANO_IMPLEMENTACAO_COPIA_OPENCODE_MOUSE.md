@@ -1,7 +1,7 @@
 # 📋 Plano de Implementação: Cópia de Código e Interação com Mouse no OpenCode (OnyxSH)
 
 > **Documento Técnico de Arquitetura e Engenharia de Implementação**  
-> **Status:** Concluído e Validado (Fases 1, 2, 3, 4 e 5 Implementadas com 100% de Testes - 603 Testes Passando)  
+> **Status:** Concluído e Validado (Todas as Fases 1 a 6 Implementadas com 100% de Testes - 618 Testes Passando)  
 > **Base de Estudo:** `viabilidade_copy.txt` & `ARQUITETURA_E_POSTMORTEM_OPENCODE.md`  
 > **Módulos Afetados:** `src/onyxsh/terminal/`, `src/onyxsh/ui/`, `src/onyxsh/settings/`, `manifests/`, `tests/`  
 
@@ -201,6 +201,29 @@ Este plano **respeita rigorosamente** o [ARQUITETURA_E_POSTMORTEM_OPENCODE.md](f
      - Adicionado `--talk-name=org.freedesktop.portal.Desktop` em [`manifests/io.github.vagnarok.OnyxSH.yaml`](file:///home/vagnarok/OnyxSH/manifests/io.github.vagnarok.OnyxSH.yaml).
   5. Testes Unitários:
      - Criado [`tests/test_osc52_bridge.py`](file:///home/vagnarok/OnyxSH/tests/test_osc52_bridge.py) com 20 testes dedicados. Suíte completa aprovada: **603 testes (100% OK)**.
+
+### Fase 6: Modo de Seleção por Teclado (Copy-Mode acessível estilo Tmux)
+- **Problema resolvido:** Acessibilidade total e produtividade sem dependência de mouse, permitindo navegar, inspecionar o histórico e copiar trechos de código do terminal ou de TUIs (OpenCode, Vim, etc.).
+- **Implementação Realizada:**
+  1. Criado módulo [`src/onyxsh/terminal/copy_mode.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/terminal/copy_mode.py):
+     - Classe `KeyboardCopyModeController` com interceptação `Gtk.EventControllerKey` em fase `CAPTURE`.
+     - Navegação com Setas e teclas Vi (`h`, `j`, `k`, `l`), `Home`/`0`, `End`/`$`, `Page Up`/`Page Down`.
+     - Início e extensão de seleção visual com `v`, `Espaço` ou `Shift + Setas`.
+     - Normalização de limites `(start_row, start_col)` a `(end_row, end_col)` e extração via `terminal.get_text_range_format()`.
+     - Cópia para `GdkClipboard` com `Enter`, `y` ou `c`.
+     - Cancelamento de seleção ou saída com `Escape` ou `q`.
+     - Pílula/banner flutuante com status, instruções e contagem de caracteres selecionados.
+     - Auto-scroll vertical mantendo a linha do cursor virtual em foco.
+  2. Borda Visual e Estilização:
+     - Classes CSS `.terminal-pane.copy-mode-active`, `.terminal-copy-mode-active` e `.copy-mode-pill` em [`src/onyxsh/data/styles/window.css`](file:///home/vagnarok/OnyxSH/src/onyxsh/data/styles/window.css).
+  3. Header do Painel e Atalhos:
+     - Botão `copy_mode_btn` adicionado no cabeçalho do split em [`src/onyxsh/terminal/tabs.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/terminal/tabs.py).
+     - Atalho `Ctrl + Shift + Espaço` registrado em [`src/onyxsh/settings/config.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/settings/config.py) e [`src/onyxsh/app.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/app.py).
+     - Ação `win.toggle-keyboard-copy-mode` registrada em [`src/onyxsh/ui/actions.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/ui/actions.py).
+     - Itens adicionados na paleta de comandos ([`command_palette_dialog.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/ui/dialogs/command_palette_dialog.py)) e diálogo de atalhos ([`shortcuts_dialog.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/ui/dialogs/shortcuts_dialog.py)).
+  4. Testes Unitários:
+     - Criado [`tests/test_terminal_keyboard_copy_mode.py`](file:///home/vagnarok/OnyxSH/tests/test_terminal_keyboard_copy_mode.py) com 15 testes dedicados cobrindo navegação, seleção, cancelamento, cópia de linha/bloco e integração.
+     - Suíte completa de testes unitários aprovada: **618 testes (100% OK)**.
 
 ---
 

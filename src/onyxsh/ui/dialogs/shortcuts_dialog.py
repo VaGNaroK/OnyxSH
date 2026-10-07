@@ -46,6 +46,7 @@ SHORTCUT_DATA = [
             ("ai-assistant", _("Ask AI Assistant")),
             ("opencode-launcher", _("OpenCode Code Assistant")),
             ("toggle-selection-mode", _("Modo Seleção de Texto")),
+            ("toggle-keyboard-copy-mode", _("Modo Cópia por Teclado (Copy-Mode)")),
             ("show-command-history", _("Command History")),
             ("jump-previous-prompt", _("Jump to Previous Prompt")),
             ("jump-next-prompt", _("Jump to Next Prompt")),
