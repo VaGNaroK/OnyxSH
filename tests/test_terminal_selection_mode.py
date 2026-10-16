@@ -55,7 +55,9 @@ class TestTerminalSelectionMode(unittest.TestCase):
         mock_pane = MagicMock()
         mock_toggle_btn = MagicMock()
         mock_toggle_btn.get_active.return_value = False
+        mock_hint_badge = MagicMock()
         mock_pane.selection_mode_btn = mock_toggle_btn
+        mock_pane.mouse_hint_badge = mock_hint_badge
         mock_terminal.onyxsh_pane = mock_pane
 
         result = tm.set_terminal_selection_mode(mock_terminal, True)
@@ -68,6 +70,7 @@ class TestTerminalSelectionMode(unittest.TestCase):
         # Verify UI styling and toggle button state
         mock_pane.add_css_class.assert_called_once_with("selection-mode-active")
         mock_toggle_btn.set_active.assert_called_once_with(True)
+        mock_hint_badge.set_visible.assert_called_with(True)
 
     def test_set_terminal_selection_mode_disable(self):
         """Test disabling selection mode restores DEC mouse tracking and cleans UI."""
@@ -173,6 +176,18 @@ class TestTerminalSelectionMode(unittest.TestCase):
             settings_manager=mock_settings,
         )
         self.assertFalse(pane_regular.mouse_hint_badge.get_visible())
+
+        # 3. Regular terminal with selection mode pre-activated: mouse hint badge is visible
+        real_terminal_3 = Vte.Terminal()
+        real_terminal_3._selection_mode_active = True
+        pane_active = _create_terminal_pane(
+            terminal=real_terminal_3,
+            title="Terminal",
+            on_close_callback=MagicMock(),
+            on_move_to_tab_callback=MagicMock(),
+            settings_manager=mock_settings,
+        )
+        self.assertTrue(pane_active.mouse_hint_badge.get_visible())
 
     def test_command_palette_includes_selection_mode(self):
         """Test command palette registers the selection mode item."""

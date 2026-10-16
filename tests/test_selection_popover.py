@@ -50,11 +50,26 @@ class TestSelectionActionPopover(unittest.TestCase):
         popover = SelectionActionPopover(self.real_terminal, parent_window=self.mock_window)
         try:
             self.assertEqual(popover.get_parent(), self.real_terminal)
-            self.assertTrue(popover.get_autohide())
+            self.assertFalse(popover.get_autohide())
             self.assertTrue(popover.get_has_arrow())
             self.assertTrue(hasattr(popover, "copy_btn"))
             self.assertTrue(hasattr(popover, "ask_ai_btn"))
             self.assertTrue(hasattr(popover, "refactor_btn"))
+        finally:
+            popover.unparent()
+
+    def test_show_for_selection_clamps_coordinates(self):
+        """Test show_for_selection clamps pointing coordinates safely within terminal allocation."""
+        popover = SelectionActionPopover(self.real_terminal, parent_window=self.mock_window)
+        try:
+            with patch.object(popover, "popup") as mock_popup, \
+                 patch.object(popover, "set_pointing_to") as mock_pointing:
+                popover.show_for_selection("ls -la", pointer_pos=(-100, 99999))
+                mock_popup.assert_called_once()
+                mock_pointing.assert_called_once()
+                rect = mock_pointing.call_args[0][0]
+                self.assertGreaterEqual(rect.x, 0)
+                self.assertGreaterEqual(rect.y, 0)
         finally:
             popover.unparent()
 

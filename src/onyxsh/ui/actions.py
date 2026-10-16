@@ -320,6 +320,14 @@ class WindowActions:
             )
             if new_term:
                 new_term._is_opencode = True
+                if hasattr(self.window, "tab_manager"):
+                    pane = getattr(new_term, "onyxsh_pane", None)
+                    if not pane:
+                        page = self.window.tab_manager.get_page_for_terminal(new_term)
+                        if page:
+                            pane = self.window.tab_manager._find_pane_for_terminal(page, new_term)
+                    if pane and hasattr(pane, "mouse_hint_badge"):
+                        pane.mouse_hint_badge.set_visible(True)
         elif hasattr(self.window, "tab_manager"):
             new_term = self.window.tab_manager.create_local_tab(
                 title="OpenCode",

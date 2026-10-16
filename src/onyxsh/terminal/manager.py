@@ -1476,6 +1476,7 @@ class TerminalManager:
     ) -> Optional[Vte.Terminal]:
         try:
             terminal = Vte.Terminal()
+            terminal.terminal_manager = self
             terminal.set_vexpand(True)
             terminal.set_hexpand(True)
             terminal.set_mouse_autohide(True)
@@ -1672,9 +1673,14 @@ class TerminalManager:
             terminal.onyxsh_controllers.append(click_controller)
 
             motion_controller = Gtk.EventControllerMotion()
+            motion_controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
             motion_controller.connect(
                 "motion",
                 lambda _c, x, y: setattr(terminal, "_last_pointer_pos", (x, y)),
+            )
+            motion_controller.connect(
+                "leave",
+                lambda _c: setattr(terminal, "_last_pointer_pos", None),
             )
             terminal.add_controller(motion_controller)
             terminal.onyxsh_controllers.append(motion_controller)
@@ -3562,8 +3568,12 @@ class TerminalManager:
     def _on_terminal_selection_changed(
         self, terminal: Vte.Terminal, terminal_id: int
     ) -> None:
-        if terminal_id in self._selection_copy_timers:
-            GLib.source_remove(self._selection_copy_timers.pop(terminal_id))
+        timer_id = self._selection_copy_timers.pop(terminal_id, None)
+        if timer_id:
+            try:
+                GLib.source_remove(timer_id)
+            except Exception:
+                pass
         self._selection_copy_timers[terminal_id] = GLib.timeout_add(
             80, self._copy_selection_after_change, terminal, terminal_id
         )
@@ -3691,6 +3701,19 @@ class TerminalManager:
             toggle_btn = getattr(pane, "selection_mode_btn", None)
             if toggle_btn and toggle_btn.get_active() != enabled:
                 toggle_btn.set_active(enabled)
+
+            hint_badge = getattr(pane, "mouse_hint_badge", None)
+            if hint_badge:
+                is_opencode = (
+                    bool(getattr(terminal, "_is_opencode", False))
+                    or "opencode"
+                    in (
+                        getattr(pane, "title_label", None)
+                        and pane.title_label.get_label()
+                        or ""
+                    ).lower()
+                )
+                hint_badge.set_visible(is_opencode or enabled)
 
         # Notify via toast if in a single tab (no split header to indicate mode)
         if hasattr(self, "parent_window") and hasattr(self.parent_window, "toast_overlay"):
@@ -3932,10 +3955,14 @@ class TerminalManager:
                         pass
                     return Gdk.EVENT_STOP
 
-            # Handle Escape to dismiss popup or exit selection mode
+            # Handle Escape to dismiss popup, popover, or exit selection mode
             if keyval == Gdk.KEY_Escape:
                 if popup and popup.get_visible():
                     popup.popdown()
+                    return Gdk.EVENT_STOP
+                popover = getattr(terminal, "_selection_popover", None)
+                if popover and hasattr(popover, "get_visible") and popover.get_visible():
+                    popover.popdown()
                     return Gdk.EVENT_STOP
                 if getattr(terminal, "_selection_mode_active", False):
                     self.set_terminal_selection_mode(terminal, False)

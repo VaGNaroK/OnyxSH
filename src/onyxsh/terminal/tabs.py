@@ -212,6 +212,19 @@ def _create_terminal_pane(
                 tm = root.terminal_manager
         if tm and hasattr(tm, "set_terminal_selection_mode"):
             tm.set_terminal_selection_mode(terminal, btn.get_active())
+        else:
+            is_active = btn.get_active()
+            terminal._selection_mode_active = is_active
+            is_opencode = (
+                (title == "OpenCode")
+                or ("opencode" in (title or "").lower())
+                or bool(getattr(terminal, "_is_opencode", False))
+            )
+            mouse_hint_badge.set_visible(is_opencode or is_active)
+            if is_active:
+                toolbar_view.add_css_class("selection-mode-active")
+            else:
+                toolbar_view.remove_css_class("selection-mode-active")
 
     selection_mode_btn.connect("toggled", _on_selection_mode_toggled)
     mouse_hint_badge.connect(
@@ -226,7 +239,8 @@ def _create_terminal_pane(
         or ("opencode" in (title or "").lower())
         or bool(getattr(terminal, "_is_opencode", False))
     )
-    mouse_hint_badge.set_visible(is_opencode)
+    is_selection_mode = bool(getattr(terminal, "_selection_mode_active", False))
+    mouse_hint_badge.set_visible(is_opencode or is_selection_mode)
 
     header_box.append(mouse_hint_badge)
     header_box.append(selection_mode_btn)
@@ -1786,7 +1800,8 @@ class TabManager:
                     ("opencode" in (new_title or "").lower())
                     or bool(getattr(terminal, "_is_opencode", False))
                 )
-                pane.mouse_hint_badge.set_visible(is_opencode)
+                is_selection_mode = bool(getattr(terminal, "_selection_mode_active", False))
+                pane.mouse_hint_badge.set_visible(is_opencode or is_selection_mode)
 
     def _get_tab_for_page(self, page: Adw.ViewStackPage) -> Optional[Gtk.Box]:
         """Finds the tab widget corresponding to a view stack page."""
@@ -2817,7 +2832,7 @@ class TabManager:
                         execute_command=effective_command,
                     )
             else:
-                new_pane_title = "Local"
+                new_pane_title = title or "Local"
                 new_terminal = self.terminal_manager.create_local_terminal(
                     title=new_pane_title
                 )
@@ -2825,6 +2840,9 @@ class TabManager:
             if not new_terminal:
                 self.logger.error("Failed to create new terminal for split.")
                 return None
+
+            if title and "opencode" in title.lower():
+                new_terminal._is_opencode = True
 
             new_terminal.onyxsh_parent_page = page
             new_pane = _create_terminal_pane(

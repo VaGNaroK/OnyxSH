@@ -31,7 +31,7 @@ class SelectionActionPopover(Gtk.Popover):
         self._current_text = ""
 
         self.set_parent(terminal)
-        self.set_autohide(True)
+        self.set_autohide(False)
         self.set_has_arrow(True)
         self.add_css_class("selection-action-popover")
 
@@ -95,21 +95,21 @@ class SelectionActionPopover(Gtk.Popover):
 
         self._current_text = selected_text
 
-        # Position rectangle
+        # Clamp pointing rect strictly to terminal allocation
+        term_w = max(20, self.terminal.get_width())
+        term_h = max(20, self.terminal.get_height())
+
         rect = Gdk.Rectangle()
+        rect.width = min(40, term_w)
+        rect.height = min(20, term_h)
+
         if pointer_pos and len(pointer_pos) == 2:
             x, y = pointer_pos
-            rect.x = max(0, int(x) - 20)
-            rect.y = max(0, int(y) - 10)
-            rect.width = 40
-            rect.height = 20
+            rect.x = max(0, min(int(x) - 20, term_w - rect.width))
+            rect.y = max(0, min(int(y) - 10, term_h - rect.height))
         else:
-            term_w = self.terminal.get_width()
-            term_h = self.terminal.get_height()
-            rect.x = max(0, int(term_w / 2) - 50)
-            rect.y = max(0, int(term_h - 60))
-            rect.width = 100
-            rect.height = 20
+            rect.x = max(0, int((term_w - rect.width) / 2))
+            rect.y = max(0, min(max(0, int(term_h - 60)), term_h - rect.height))
 
         self.set_pointing_to(rect)
         self.popup()
