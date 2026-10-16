@@ -130,6 +130,18 @@ class AgentOrchestrator:
             # Extract action_id and params if available
             action_id = step.argv[0] if step.argv else ""
             params = {"action_id": action_id, "dry_run": ctx.dry_run}
+        elif step.tool.startswith("fs."):
+            target_path = step.argv[0] if step.argv else (step.working_directory or ".")
+            params = {"path": target_path}
+            if step.tool == "fs.search_text" and len(step.argv) > 1:
+                params["pattern"] = step.argv[1]
+            elif step.tool in {"fs.propose_edit", "fs.write_staged_file"} and len(step.argv) > 1:
+                content_key = "new_content" if step.tool == "fs.propose_edit" else "content"
+                params[content_key] = step.argv[1]
+            elif step.tool == "fs.apply_staged":
+                params["target_path"] = target_path
+                if len(step.argv) > 1:
+                    params["staged_path"] = step.argv[1]
         else:
             params = {"path": step.working_directory or "."}
 

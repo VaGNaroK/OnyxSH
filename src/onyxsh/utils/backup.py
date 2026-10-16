@@ -11,7 +11,7 @@ from gi.repository import Gio
 
 from .exceptions import StorageReadError, StorageWriteError
 from .logger import get_logger
-from .platform import get_config_directory
+from .platform import get_config_directory, get_data_directory
 
 
 def _get_py7zr():
@@ -227,7 +227,7 @@ def create_file_backup(
     from datetime import datetime, timezone
 
     target = Path(target_file).resolve()
-    base_backup_dir = Path.home() / ".local" / "share" / "onyxsh" / "backups"
+    base_backup_dir = get_data_directory() / "backups"
     ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     backup_id = f"backup_{ts}_{uuid.uuid4().hex[:8]}"
     backup_folder = base_backup_dir / backup_id
@@ -270,7 +270,7 @@ def rollback_file_backup(backup_id: str) -> bool:
     Returns:
         True if successfully restored and verified byte-identical.
     """
-    base_backup_dir = Path.home() / ".local" / "share" / "onyxsh" / "backups"
+    base_backup_dir = get_data_directory() / "backups"
     backup_folder = base_backup_dir / backup_id
     manifest_file = backup_folder / "manifest.json"
 
@@ -308,7 +308,7 @@ def rollback_file_backup(backup_id: str) -> bool:
 
 def list_file_backups() -> list[dict]:
     """List all available file backup manifests ordered newest first."""
-    base_backup_dir = Path.home() / ".local" / "share" / "onyxsh" / "backups"
+    base_backup_dir = get_data_directory() / "backups"
     if not base_backup_dir.exists():
         return []
 

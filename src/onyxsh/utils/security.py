@@ -273,7 +273,7 @@ def validate_ssh_hostname(hostname: str) -> None:
 
 
 def validate_ssh_key_file(key_path: str) -> None:
-    is_valid, error, _ = SSHKeyValidator.read_and_validate_ssh_key(key_path)
+    is_valid, error, _key_type = SSHKeyValidator.read_and_validate_ssh_key(key_path)
     if not is_valid:
         raise SSHKeyError(key_path, error or _("Unknown validation error"))
 

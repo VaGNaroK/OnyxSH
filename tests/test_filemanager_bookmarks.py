@@ -48,8 +48,11 @@ class TestFileManagerBookmarks(unittest.TestCase):
         from gi.repository import Gdk, Gtk
 
         fm = FileManager.__new__(FileManager)
-        fm.search_entry = Gtk.SearchEntry()
-        fm.search_entry.set_text("query")
+        search_mock = MagicMock()
+        text_state = ["query"]
+        search_mock.get_text.side_effect = lambda: text_state[0]
+        search_mock.set_text.side_effect = lambda t: text_state.__setitem__(0, t)
+        fm.search_entry = search_mock
         fm.selection_model = None
 
         mock_parent = MagicMock()

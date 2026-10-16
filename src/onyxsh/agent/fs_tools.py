@@ -19,14 +19,34 @@ from .redactor import redact_secrets
 
 
 DEFAULT_MAX_READ_BYTES = 20000
-STAGING_BASE_DIR = Path.home() / ".cache" / "onyxsh" / "ai-staging"
-BACKUP_BASE_DIR = Path.home() / ".local" / "share" / "onyxsh" / "backups"
+
+
+def _get_staging_base_dir() -> Path:
+    if xdg_cache := os.environ.get("XDG_CACHE_HOME"):
+        return Path(xdg_cache) / "onyxsh" / "ai-staging"
+    return Path.home() / ".cache" / "onyxsh" / "ai-staging"
+
+
+def _get_backup_base_dir() -> Path:
+    if xdg_data := os.environ.get("XDG_DATA_HOME"):
+        return Path(xdg_data) / "onyxsh" / "backups"
+    return Path.home() / ".local" / "share" / "onyxsh" / "backups"
+
+
+def _get_trash_files_dir() -> Path:
+    if xdg_data := os.environ.get("XDG_DATA_HOME"):
+        return Path(xdg_data) / "Trash" / "files"
+    return Path.home() / ".local" / "share" / "Trash" / "files"
+
+
+STAGING_BASE_DIR = _get_staging_base_dir()
+BACKUP_BASE_DIR = _get_backup_base_dir()
 
 
 def _get_staging_path(target_path: Path, plan_id: str = "default") -> Path:
     """Generate a unique staging path for a target file within a plan."""
     sanitized_name = target_path.name or "file"
-    staging_dir = STAGING_BASE_DIR / plan_id
+    staging_dir = _get_staging_base_dir() / plan_id
     staging_dir.mkdir(parents=True, exist_ok=True)
     return staging_dir / f"{sanitized_name}.staged"
 
@@ -39,7 +59,7 @@ def create_file_backup(target_path: Path) -> Optional[Path]:
     try:
         from datetime import timezone
         ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-        backup_dir = BACKUP_BASE_DIR / ts
+        backup_dir = _get_backup_base_dir() / ts
         backup_dir.mkdir(parents=True, exist_ok=True)
         backup_file = backup_dir / target_path.name
         shutil.copy2(target_path, backup_file)
@@ -369,7 +389,7 @@ class FSTools:
             )
 
         try:
-            trash_files_dir = Path.home() / ".local" / "share" / "Trash" / "files"
+            trash_files_dir = _get_trash_files_dir()
             trash_files_dir.mkdir(parents=True, exist_ok=True)
             dest = trash_files_dir / f"{p.name}_{int(time.time())}"
             shutil.move(str(p), str(dest))

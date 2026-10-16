@@ -619,7 +619,7 @@ class SessionTreeView:
             item_type, name, source_path = data_string.split("|", 2)
             result = None
             if item_type == "session":
-                session, _ = self.operations.find_session_by_name_and_path(
+                session, _idx = self.operations.find_session_by_name_and_path(
                     name, source_path
                 )
                 if session:
@@ -627,7 +627,7 @@ class SessionTreeView:
                         session, target_folder_path
                     )
             elif item_type == "folder":
-                folder, _ = self.operations.find_folder_by_path(source_path)
+                folder, _idx = self.operations.find_folder_by_path(source_path)
                 if folder:
                     result = self.operations.move_folder(folder, target_folder_path)
             elif item_type == "layout":

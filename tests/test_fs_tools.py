@@ -8,14 +8,27 @@ from onyxsh.agent.fs_tools import FSTools
 from onyxsh.agent.path_guard import PathGuard
 
 
+from unittest.mock import patch
+
+
 class TestFSTools(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         self.tmpdir = tempfile.TemporaryDirectory()
         self.tmp_path = Path(self.tmpdir.name)
+        self.cache_dir = self.tmp_path / "cache"
+        self.data_dir = self.tmp_path / "data"
+        self.cache_dir.mkdir()
+        self.data_dir.mkdir()
+        self._env_patch = patch.dict("os.environ", {
+            "XDG_CACHE_HOME": str(self.cache_dir),
+            "XDG_DATA_HOME": str(self.data_dir),
+        })
+        self._env_patch.start()
         self.pg = PathGuard(allowed_roots=[self.tmpdir.name])
         self.tools = FSTools(path_guard=self.pg)
 
     def tearDown(self):
+        self._env_patch.stop()
         self.tmpdir.cleanup()
 
     async def test_fs_read_and_search(self):
@@ -45,7 +58,7 @@ class TestFSTools(unittest.IsolatedAsyncioTestCase):
         self.assertIn("+timeout = 60", prop_res.stdout)
 
         # Locate staged file
-        staging_dir = Path.home() / ".cache" / "onyxsh" / "ai-staging" / "plan_test_1"
+        staging_dir = self.cache_dir / "onyxsh" / "ai-staging" / "plan_test_1"
         staged_files = list(staging_dir.glob("*.staged"))
         self.assertGreaterEqual(len(staged_files), 1)
         staged_path = str(staged_files[0])

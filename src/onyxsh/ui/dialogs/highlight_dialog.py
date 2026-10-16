@@ -622,7 +622,7 @@ class RuleEditDialog(Adw.Window):
         # Suggest number of color rows based on capture groups
         pattern = self._pattern_text_view.get_text().strip()
         if pattern:
-            is_valid, _ = self._manager.validate_pattern(pattern)
+            is_valid, _pattern_err = self._manager.validate_pattern(pattern)
             if is_valid:
                 try:
                     compiled = re.compile(pattern)

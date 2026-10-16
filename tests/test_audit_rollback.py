@@ -88,35 +88,39 @@ class TestAuditRollback(unittest.TestCase):
             self.assertEqual(logger.rotate(retention_days=30), 0)
 
     def test_file_backup_manifest_and_rollback(self):
+        import os
+        from unittest.mock import patch
+
         with tempfile.TemporaryDirectory() as tmpdir:
-            tmp_path = Path(tmpdir)
-            test_file = tmp_path / "config.json"
-            test_file.write_text('{"version": 1, "name": "initial"}', encoding="utf-8")
+            with patch.dict(os.environ, {"XDG_DATA_HOME": tmpdir}):
+                tmp_path = Path(tmpdir)
+                test_file = tmp_path / "config.json"
+                test_file.write_text('{"version": 1, "name": "initial"}', encoding="utf-8")
 
-            staged_file = tmp_path / "staged.json"
-            staged_file.write_text('{"version": 2, "name": "updated"}', encoding="utf-8")
+                staged_file = tmp_path / "staged.json"
+                staged_file.write_text('{"version": 2, "name": "updated"}', encoding="utf-8")
 
-            # Create backup
-            manifest = create_file_backup(
-                target_file=test_file,
-                staged_file=staged_file,
-                plan_id="plan_test_rb",
-                step_id="step_rb",
-            )
-            self.assertTrue(manifest["backup_id"].startswith("backup_"))
-            self.assertNotEqual(manifest["sha256_original"], "")
+                # Create backup
+                manifest = create_file_backup(
+                    target_file=test_file,
+                    staged_file=staged_file,
+                    plan_id="plan_test_rb",
+                    step_id="step_rb",
+                )
+                self.assertTrue(manifest["backup_id"].startswith("backup_"))
+                self.assertNotEqual(manifest["sha256_original"], "")
 
-            # Overwrite target with staged content
-            test_file.write_text('{"version": 2, "name": "updated"}', encoding="utf-8")
-            self.assertIn('"version": 2', test_file.read_text(encoding="utf-8"))
+                # Overwrite target with staged content
+                test_file.write_text('{"version": 2, "name": "updated"}', encoding="utf-8")
+                self.assertIn('"version": 2', test_file.read_text(encoding="utf-8"))
 
-            # Rollback from backup
-            success = rollback_file_backup(manifest["backup_id"])
-            self.assertTrue(success)
+                # Rollback from backup
+                success = rollback_file_backup(manifest["backup_id"])
+                self.assertTrue(success)
 
-            # Verify restored byte-identical content
-            restored_content = test_file.read_text(encoding="utf-8")
-            self.assertEqual(restored_content, '{"version": 1, "name": "initial"}')
+                # Verify restored byte-identical content
+                restored_content = test_file.read_text(encoding="utf-8")
+                self.assertEqual(restored_content, '{"version": 1, "name": "initial"}')
 
 
 if __name__ == "__main__":

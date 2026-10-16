@@ -15,11 +15,21 @@ class PlatformInfo:
     def __init__(self):
         self.logger = get_logger("onyxsh.platform")
         self.home_dir = Path.home()
-        self.config_dir = self._get_config_directory()
-        self.cache_dir = self._get_cache_directory()
         self.ssh_dir = self.home_dir / ".ssh"
         self.architecture = self._detect_architecture()
         self._detect_commands()
+
+    @property
+    def config_dir(self) -> Path:
+        return self._get_config_directory()
+
+    @property
+    def data_dir(self) -> Path:
+        return self._get_data_directory()
+
+    @property
+    def cache_dir(self) -> Path:
+        return self._get_cache_directory()
 
     def _detect_architecture(self) -> str:
         """Detect the system architecture."""
@@ -32,6 +42,12 @@ class PlatformInfo:
         if xdg_config := os.environ.get("XDG_CONFIG_HOME"):
             return Path(xdg_config) / "onyxsh"
         return self.home_dir / ".config" / "onyxsh"
+
+    def _get_data_directory(self) -> Path:
+        """Get the data directory for Linux."""
+        if xdg_data := os.environ.get("XDG_DATA_HOME"):
+            return Path(xdg_data) / "onyxsh"
+        return self.home_dir / ".local" / "share" / "onyxsh"
 
     def _get_cache_directory(self) -> Path:
         """Get the cache directory for Linux."""
@@ -393,6 +409,14 @@ def should_use_native_tooltips() -> bool:
 
 def get_config_directory() -> Path:
     return get_platform_info().config_dir
+
+
+def get_data_directory() -> Path:
+    return get_platform_info().data_dir
+
+
+def get_cache_directory() -> Path:
+    return get_platform_info().cache_dir
 
 
 def get_ssh_directory() -> Path:
