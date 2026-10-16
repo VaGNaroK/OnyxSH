@@ -1128,6 +1128,8 @@ class CommTerminalApp(Adw.Application):
             self._unload_ai_model_on_exit()
             if self.settings_manager:
                 self.settings_manager.save_settings()
+                if not self.settings_manager.wait_for_pending_saves(timeout=3.0):
+                    self.logger.warning("Settings save did not finish before shutdown timeout")
             log_app_shutdown()
             self.logger.info("Graceful shutdown completed")
         except Exception as e:

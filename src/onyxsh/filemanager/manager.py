@@ -379,6 +379,8 @@ class FileManager(GObject.Object):
 
         GLib.idle_add(_focus_entry)
 
+    _prompt_for_new_item = _show_create_named_item_dialog
+
     def _show_rsync_missing_notification(self):
         """Inform the user that rsync is required for optimized transfers."""
         message = _(
@@ -4624,7 +4626,7 @@ class FileManager(GObject.Object):
             self._execute_verified_command(command, command_type="mkdir")
             self._show_toast(_("Create folder command sent to terminal"))
 
-        self._prompt_for_new_item(
+        self._show_create_named_item_dialog(
             heading=_("Create Folder"),
             body=_("Enter a name for the new folder:"),
             default_name=_("New Folder"),
@@ -4641,7 +4643,7 @@ class FileManager(GObject.Object):
             self._execute_verified_command(command, command_type="touch")
             self._show_toast(_("Create file command sent to terminal"))
 
-        self._prompt_for_new_item(
+        self._show_create_named_item_dialog(
             heading=_("Create File"),
             body=_("Enter a name for the new file:"),
             default_name=_("New File"),
@@ -5428,10 +5430,11 @@ class FileManager(GObject.Object):
 
                     except Exception as e:
                         self.logger.error(f"Error preparing downloads: {e}")
+                        error_msg = str(e)
 
                         def show_error():
                             self.parent_window._show_error_dialog(
-                                _("Download Error"), str(e)
+                                _("Download Error"), error_msg
                             )
                             return False
 
@@ -5512,10 +5515,11 @@ class FileManager(GObject.Object):
 
                     except Exception as e:
                         self.logger.error(f"Error preparing uploads: {e}")
+                        error_msg = str(e)
 
                         def show_error():
                             self.parent_window._show_error_dialog(
-                                _("Upload Error"), str(e)
+                                _("Upload Error"), error_msg
                             )
                             return False
 

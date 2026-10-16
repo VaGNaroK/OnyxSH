@@ -80,7 +80,7 @@ class GitCommitAssistant:
                 return
 
             # Redact secrets before sending to AI model for absolute safety
-            safe_diff, _ = redact_secrets(diff_text)
+            safe_diff, _redactions = redact_secrets(diff_text)
 
             # Build file summaries
             staged_summary = (

@@ -12,9 +12,10 @@ from typing import Any, Callable, Dict, List, Optional
 import gi
 
 gi.require_version("Gtk", "4.0")
+gi.require_version("Gdk", "4.0")
 gi.require_version("Adw", "1")
 gi.require_version("Vte", "3.91")
-from gi.repository import Adw, Gdk, GLib, Gtk, Pango, Vte
+from gi.repository import Gdk, GLib, Gtk, Pango, Vte
 
 from ..utils.exceptions import ConfigValidationError
 from ..utils.logger import get_logger, log_error_with_context
@@ -153,6 +154,12 @@ class SettingsManager:
         self._metadata: Optional[SettingsMetadata] = None
         self._dirty = False
         self._lock = threading.RLock()
+        # Async save bookkeeping: monotonically increasing snapshot sequence so an
+        # older snapshot can never overwrite a newer one, plus a handle to the last
+        # writer thread so callers (shutdown, tests) can flush pending writes.
+        self._save_seq = 0
+        self._last_written_seq = 0
+        self._save_thread: Optional[threading.Thread] = None
         self._change_listeners: List[Callable[[str, Any, Any], None]] = []
         self.custom_schemes: Dict[str, Any] = {}
         self._app_css_provider = Gtk.CssProvider()
@@ -555,9 +562,14 @@ class SettingsManager:
                 return
             settings_to_save = copy.deepcopy(self._settings)
             self._dirty = False
+            self._save_seq += 1
+            seq = self._save_seq
 
         def save_task():
             with self._lock:
+                if seq < self._last_written_seq:
+                    # A newer snapshot was already written; skip the stale one.
+                    return
                 try:
                     num_schemes = len(self.get_scheme_order())
                     errors = self.validator.validate_settings_structure(
@@ -607,6 +619,7 @@ class SettingsManager:
                     with open(temp_file, "w", encoding="utf-8") as f:
                         json.dump(save_data, f, indent=2, ensure_ascii=False)
                     temp_file.replace(self.settings_file)
+                    self._last_written_seq = seq
                     try:
                         ensure_secure_file_permissions(str(self.settings_file))
                     except Exception as e:
@@ -618,7 +631,24 @@ class SettingsManager:
                     )
                     self._dirty = True
 
-        threading.Thread(target=save_task, daemon=True).start()
+        thread = threading.Thread(target=save_task, daemon=True)
+        with self._lock:
+            self._save_thread = thread
+        thread.start()
+
+    def wait_for_pending_saves(self, timeout: Optional[float] = 5.0) -> bool:
+        """Block until the most recent async save finishes.
+
+        Returns True if no write is pending afterwards. Because writes are
+        serialized by ``_lock`` and stale snapshots are skipped, joining the
+        latest thread is enough to guarantee the newest state hit disk.
+        """
+        with self._lock:
+            thread = self._save_thread
+        if thread is None or thread is threading.current_thread():
+            return True
+        thread.join(timeout)
+        return not thread.is_alive()
 
     def set(self, key: str, value: Any, save_immediately: bool = True) -> None:
         with self._lock:
@@ -901,88 +931,6 @@ class SettingsManager:
         )
 
         terminal.set_cjk_ambiguous_width(self.get("cjk_ambiguous_width", 1))
-
-    def apply_headerbar_transparency(self, headerbar) -> None:
-        """Apply headerbar transparency to a headerbar widget."""
-        try:
-            user_transparency = self.get("headerbar_transparency", 0)
-            self.logger.info(
-                f"Applying headerbar transparency with user_transparency: {user_transparency}"
-            )
-            if user_transparency > 0:
-                # Determine base color based on theme
-                if self.get("gtk_theme") == "terminal":
-                    # Use terminal scheme headerbar background for consistent transparency
-                    scheme = self.get_color_scheme_data()
-                    base_color_hex = scheme.get(
-                        "headerbar_background", scheme.get("background", "#000000")
-                    )
-                    self.logger.info(
-                        f"Terminal theme: using headerbar background {base_color_hex} as base color"
-                    )
-                else:
-                    # Use default theme colors
-                    style_manager = Adw.StyleManager.get_default()
-                    is_dark = style_manager.get_dark()
-                    base_color_hex = "#303030" if is_dark else "#f0f0f0"
-                    self.logger.info(
-                        f"Non-terminal theme: using default base color {base_color_hex}"
-                    )
-
-                # Convert user_transparency (0-100) to percentage for color-mix
-                # Higher transparency = more transparent, so we use (100 - transparency)% solid color
-                opacity_percent = 100 - user_transparency
-                color_mix_css = f"color-mix(in srgb, {base_color_hex} {opacity_percent}%, transparent)"
-                self.logger.info(f"Calculated color_mix_css: {color_mix_css}")
-
-                css = f"""
-                .header-bar, .header-bar:backdrop,
-                .main-header-bar, .main-header-bar:backdrop,
-                .terminal-pane .header-bar, .terminal-pane .header-bar, .terminal-pane .top-bar:backdrop,
-                searchbar, searchbar > box,
-                searchbar.broadcast-bar, searchbar.broadcast-bar > box,
-                .command-toolbar {{
-                    background-color: {color_mix_css};
-                }}
-                searchbar > revealer,
-                searchbar > revealer > box,
-                searchbar.broadcast-bar > revealer,
-                searchbar.broadcast-bar > revealer > box {{
-                    background-color: transparent;
-                }}
-                """
-                # Remove existing provider if any
-                if hasattr(headerbar, "_transparency_provider"):
-                    Gtk.StyleContext.remove_provider_for_display(
-                        Gdk.Display.get_default(), headerbar._transparency_provider
-                    )
-                    self.logger.info("Removed existing transparency provider")
-                provider = Gtk.CssProvider()
-                provider.load_from_data(
-                    self._normalize_css_for_compat(css, self._modern_css_supported).encode("utf-8")
-                )
-                Gtk.StyleContext.add_provider_for_display(
-                    Gdk.Display.get_default(),
-                    provider,
-                    Gtk.STYLE_PROVIDER_PRIORITY_USER,
-                )
-                headerbar._transparency_provider = provider
-                self.logger.info(
-                    f"Headerbar transparency applied with color {color_mix_css}"
-                )
-            else:
-                # Reset to full opacity when transparency is 0
-                if hasattr(headerbar, "_transparency_provider"):
-                    Gtk.StyleContext.remove_provider_for_display(
-                        Gdk.Display.get_default(), headerbar._transparency_provider
-                    )
-                    del headerbar._transparency_provider
-                    self.logger.info(
-                        "Removed transparency provider (transparency set to 0)"
-                    )
-                self.logger.info("Headerbar transparency is 0, no provider applied")
-        except Exception as e:
-            self.logger.warning(f"Failed to apply headerbar transparency: {e}")
 
     def _apply_gtk_terminal_theme_full(self, window) -> None:
         """
@@ -2180,35 +2128,6 @@ class SettingsManager:
         """
 
         return self._normalize_css_for_compat(css, self._modern_css_supported)
-
-    def remove_gtk_terminal_theme(self, window) -> None:
-        """Removes the custom CSS provider for the terminal theme."""
-        try:
-            if hasattr(window, "_terminal_theme_provider"):
-                Gtk.StyleContext.remove_provider_for_display(
-                    Gdk.Display.get_default(), window._terminal_theme_provider
-                )
-                delattr(window, "_terminal_theme_provider")
-                self.logger.info("Removed terminal theme provider.")
-
-            # Also clean up old-style providers if they exist
-            if hasattr(window, "_terminal_theme_header_provider"):
-                Gtk.StyleContext.remove_provider_for_display(
-                    Gdk.Display.get_default(), window._terminal_theme_header_provider
-                )
-                delattr(window, "_terminal_theme_header_provider")
-
-            if hasattr(window, "_terminal_theme_tabs_provider"):
-                Gtk.StyleContext.remove_provider_for_display(
-                    Gdk.Display.get_default(), window._terminal_theme_tabs_provider
-                )
-                delattr(window, "_terminal_theme_tabs_provider")
-
-            # Re-apply headerbar transparency to restore default appearance
-            if hasattr(window, "header_bar"):
-                self.apply_headerbar_transparency(window.header_bar)
-        except Exception as e:
-            self.logger.warning(f"Failed to remove GTK terminal theme: {e}")
 
     def get_shortcut(self, action_name: str) -> str:
         return self.get(f"shortcuts.{action_name}", "")

@@ -1,6 +1,8 @@
 # onyxsh/terminal/tabs.py
 
+import os
 import re
+import shlex
 import threading
 import time
 import weakref
@@ -3076,13 +3078,13 @@ class TabManager:
         if node_type == "terminal":
             terminal = None
             working_dir = node.get("working_dir")
+            session_type = node.get("session_type", "local")
             initial_command = (
-                f'cd "{working_dir}"'
-                if working_dir and node["session_type"] == "ssh"
+                f"cd {shlex.quote(working_dir)}"
+                if working_dir and session_type == "ssh"
                 else None
             )
             title = node.get("session_name", "Terminal")
-            session_type = node.get("session_type", "local")
 
             if session_type == "ssh":
                 session = None

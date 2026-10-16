@@ -151,6 +151,7 @@ class TestSettingsShortcutsRepair(unittest.TestCase):
             self.assertEqual(errors, [])
             self.assertNotIn("export-terminal-buffer", manager._settings["shortcuts"])
             self.assertEqual(manager._settings["shortcuts"]["toggle-selection-mode"], "<Control><Shift>s")
+            self.assertTrue(manager.wait_for_pending_saves())
 
     def test_set_shortcut_unbinds_previous_action(self):
         """Test that set_shortcut unassigns any duplicate from another action."""
@@ -167,8 +168,7 @@ class TestSettingsShortcutsRepair(unittest.TestCase):
 
             errors = manager.validator.validate_shortcuts(manager._settings["shortcuts"])
             self.assertEqual(errors, [])
-            import time
-            time.sleep(0.05)
+            self.assertTrue(manager.wait_for_pending_saves())
 
 
 if __name__ == "__main__":
