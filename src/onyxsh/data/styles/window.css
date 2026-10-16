@@ -113,18 +113,6 @@ paned separator {
     box-shadow: 0 0 0 1px @accent_bg_color, inset 0 0 0 1px alpha(@accent_bg_color, 0.20);
 }
 
-.terminal-pane.copy-mode-active,
-.terminal-copy-mode-active {
-    border-color: #26a269;
-    box-shadow: 0 0 0 1px #26a269, inset 0 0 0 1px alpha(#26a269, 0.25);
-}
-
-.copy-mode-pill {
-    padding: 3px 10px;
-    border-radius: 9999px;
-    background-color: alpha(@window_bg_color, 0.95);
-    border: 1px solid alpha(#26a269, 0.50);
-}
 
 .mouse-capture-badge {
     padding: 1px 6px;

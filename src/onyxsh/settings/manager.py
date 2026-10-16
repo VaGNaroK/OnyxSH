@@ -551,6 +551,15 @@ class SettingsManager:
                                         continue
                             self._settings[key][sub_key] = sub_default
                             updated = True
+            if "shortcuts" in self._settings and isinstance(self._settings["shortcuts"], dict):
+                default_shortcuts = self._defaults.get("shortcuts", {})
+                valid_actions = set(default_shortcuts.keys())
+                for obsolete_action in [
+                    k for k in list(self._settings["shortcuts"].keys()) if k not in valid_actions
+                ]:
+                    self.logger.info(f"Removing obsolete shortcut action '{obsolete_action}'")
+                    del self._settings["shortcuts"][obsolete_action]
+                    updated = True
             if updated:
                 self._dirty = True
         except Exception as e:

@@ -3711,43 +3711,6 @@ class TerminalManager:
         current = bool(getattr(terminal, "_selection_mode_active", False))
         return self.set_terminal_selection_mode(terminal, not current)
 
-    def get_terminal_copy_mode_controller(self, terminal: Vte.Terminal):
-        """Returns or creates the KeyboardCopyModeController for the terminal."""
-        if not terminal:
-            return None
-        from .copy_mode import KeyboardCopyModeController
-
-        controller = getattr(terminal, "_keyboard_copy_controller", None)
-        if not isinstance(controller, KeyboardCopyModeController):
-            controller = KeyboardCopyModeController(
-                terminal, parent_window=self.parent_window
-            )
-            terminal._keyboard_copy_controller = controller
-        return controller
-
-    def set_terminal_keyboard_copy_mode(
-        self, terminal: Vte.Terminal, enabled: bool
-    ) -> bool:
-        """Enables or disables Keyboard Copy-Mode on a terminal."""
-        if not terminal:
-            return False
-        controller = self.get_terminal_copy_mode_controller(terminal)
-        if not controller:
-            return False
-        if enabled:
-            controller.activate()
-        else:
-            controller.deactivate()
-        return controller.is_active
-
-    def toggle_terminal_keyboard_copy_mode(self, terminal: Vte.Terminal) -> bool:
-        """Toggles Keyboard Copy-Mode on the given terminal."""
-        if not terminal:
-            return False
-        controller = self.get_terminal_copy_mode_controller(terminal)
-        if not controller:
-            return False
-        return controller.toggle()
 
     def clear_terminal(self, terminal: Vte.Terminal):
         try:

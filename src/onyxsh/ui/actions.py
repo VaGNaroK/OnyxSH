@@ -41,7 +41,6 @@ class WindowActions:
             "ask-ai-selection": self.ask_ai_selection,
             "opencode-launcher": self.opencode_launcher,
             "toggle-selection-mode": self.toggle_selection_mode,
-            "toggle-keyboard-copy-mode": self.toggle_keyboard_copy_mode,
             "opencode-selection": self.opencode_selection,
             "resolve-error-opencode": self.resolve_error_with_opencode,
             "split-horizontal": self.split_horizontal,
@@ -343,20 +342,6 @@ class WindowActions:
             tm = self.window.terminal_manager
         if tm and hasattr(tm, "toggle_terminal_selection_mode"):
             tm.toggle_terminal_selection_mode(active_terminal)
-
-    def toggle_keyboard_copy_mode(self, *_args):
-        """Toggle keyboard copy mode (Tmux-style navigation/selection) on active terminal."""
-        active_terminal = None
-        if hasattr(self.window, "tab_manager"):
-            active_terminal = self.window.tab_manager.get_selected_terminal()
-        if not active_terminal:
-            return
-
-        tm = getattr(active_terminal, "terminal_manager", None)
-        if not tm and hasattr(self.window, "terminal_manager"):
-            tm = self.window.terminal_manager
-        if tm and hasattr(tm, "toggle_terminal_keyboard_copy_mode"):
-            tm.toggle_terminal_keyboard_copy_mode(active_terminal)
 
     def ask_ai_selection(self, *_args):
         """Ask AI about the selected text in the terminal."""

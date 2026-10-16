@@ -41,7 +41,7 @@ Este plano **respeita rigorosamente** o [ARQUITETURA_E_POSTMORTEM_OPENCODE.md](f
 | **2. "Modo Seleção" Toggle (`Ctrl+Shift+S`)** | Baixo | Alto | 100% Viável via DEC Reset | **P0 (Imediato)** |
 | **3. Barra Flutuante Pós-Seleção (Popover)** | Médio | Muito Alto | 100% Viável (GTK4 Popover) | **P1 (Core)** |
 | **4. Validação da Ponte OSC 52 (Clipboard)** | Baixo | Médio | Suportado nativamente no VTE 0.76 | **P1 (Core)** |
-| **5. Modo de Seleção via Teclado (Copy-Mode)** | Alto | Médio | Requer motor de cursor virtual | **P2 (Futuro)** |
+| **5. Modo de Seleção via Teclado (Copy-Mode)** | Alto | Baixo | Incompatível com o modelo de buffer do VTE / eventos | **[REMOVIDA]** |
 
 ---
 
@@ -202,28 +202,9 @@ Este plano **respeita rigorosamente** o [ARQUITETURA_E_POSTMORTEM_OPENCODE.md](f
   5. Testes Unitários:
      - Criado [`tests/test_osc52_bridge.py`](file:///home/vagnarok/OnyxSH/tests/test_osc52_bridge.py) com 20 testes dedicados. Suíte completa aprovada: **603 testes (100% OK)**.
 
-### Fase 6: Modo de Seleção por Teclado (Copy-Mode acessível estilo Tmux)
-- **Problema resolvido:** Acessibilidade total e produtividade sem dependência de mouse, permitindo navegar, inspecionar o histórico e copiar trechos de código do terminal ou de TUIs (OpenCode, Vim, etc.).
-- **Implementação Realizada:**
-  1. Criado módulo [`src/onyxsh/terminal/copy_mode.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/terminal/copy_mode.py):
-     - Classe `KeyboardCopyModeController` com interceptação `Gtk.EventControllerKey` em fase `CAPTURE`.
-     - Navegação com Setas e teclas Vi (`h`, `j`, `k`, `l`), `Home`/`0`, `End`/`$`, `Page Up`/`Page Down`.
-     - Início e extensão de seleção visual com `v`, `Espaço` ou `Shift + Setas`.
-     - Normalização de limites `(start_row, start_col)` a `(end_row, end_col)` e extração via `terminal.get_text_range_format()`.
-     - Cópia para `GdkClipboard` com `Enter`, `y` ou `c`.
-     - Cancelamento de seleção ou saída com `Escape` ou `q`.
-     - Pílula/banner flutuante com status, instruções e contagem de caracteres selecionados.
-     - Auto-scroll vertical mantendo a linha do cursor virtual em foco.
-  2. Borda Visual e Estilização:
-     - Classes CSS `.terminal-pane.copy-mode-active`, `.terminal-copy-mode-active` e `.copy-mode-pill` em [`src/onyxsh/data/styles/window.css`](file:///home/vagnarok/OnyxSH/src/onyxsh/data/styles/window.css).
-  3. Header do Painel e Atalhos:
-     - Botão `copy_mode_btn` adicionado no cabeçalho do split em [`src/onyxsh/terminal/tabs.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/terminal/tabs.py).
-     - Atalho `Ctrl + Shift + Espaço` registrado em [`src/onyxsh/settings/config.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/settings/config.py) e [`src/onyxsh/app.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/app.py).
-     - Ação `win.toggle-keyboard-copy-mode` registrada em [`src/onyxsh/ui/actions.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/ui/actions.py).
-     - Itens adicionados na paleta de comandos ([`command_palette_dialog.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/ui/dialogs/command_palette_dialog.py)) e diálogo de atalhos ([`shortcuts_dialog.py`](file:///home/vagnarok/OnyxSH/src/onyxsh/ui/dialogs/shortcuts_dialog.py)).
-  4. Testes Unitários:
-     - Criado [`tests/test_terminal_keyboard_copy_mode.py`](file:///home/vagnarok/OnyxSH/tests/test_terminal_keyboard_copy_mode.py) com 15 testes dedicados cobrindo navegação, seleção, cancelamento, cópia de linha/bloco e integração.
-     - Suíte completa de testes unitários aprovada: **618 testes (100% OK)**.
+### Fase 6: Modo de Seleção por Teclado (Copy-Mode acessível estilo Tmux) — [REMOVIDA]
+> [!NOTE]
+> **Status: REMOVIDA.** Esta funcionalidade foi descontinuada e removida integralmente do codebase. A tentativa de emular navegação de cursor virtual via `Gtk.EventControllerKey` em fase de captura gerava colisões com o loop de eventos do VTE e com atalhos de janela, além de instabilidade visual no buffer de scrollback. As soluções nativas recomendadas permanecem as Fases 1 a 4 (Shift+Drag, Modo Seleção `Ctrl+Shift+S`, Toolbar Flutuante e OSC 52).
 
 ---
 

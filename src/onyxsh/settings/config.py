@@ -479,7 +479,6 @@ class DefaultSettings:
                 "jump-next-prompt": "<Alt>Down",
                 "opencode-launcher": "<Control><Shift>o",
                 "toggle-selection-mode": "<Control><Shift>s",
-                "toggle-keyboard-copy-mode": "<Control><Shift>space",
             },
         }
 
