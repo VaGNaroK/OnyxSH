@@ -32,7 +32,7 @@ Gera o pacote Flatpak bundle (.flatpak) para o OnyxSH.
 Opções:
   -c, --clean-cache      Remove as pastas de cache temporárias (.flatpak-builder, .flatpak-build, .flatpak-repo) após a compilação.
   -o, --output-dir DIR   Define o diretório de saída do .flatpak (padrão: dist/).
-  --install-sdk          Instala automaticamente o GNOME SDK/Platform (46) via Flathub caso não estejam presentes.
+  --install-sdk          Instala automaticamente o GNOME SDK/Platform requerido via Flathub caso não estejam presentes.
   -i, --install, --reinstall
                          Instala/reinstala o bundle localmente após a compilação (flatpak install).
   -h, --help             Exibe esta mensagem de ajuda.
@@ -101,22 +101,31 @@ if [ -f "${REPO_ROOT}/scripts/sync_translations.py" ]; then
   python3 "${REPO_ROOT}/scripts/sync_translations.py" >/dev/null 2>&1 || true
 fi
 
-# Check if GNOME Sdk / Platform 46 are installed
+# Detect runtime version from manifest
+RUNTIME_VERSION=""
+if [ -f "${MANIFEST_FILE}" ]; then
+  RUNTIME_VERSION="$(grep -E "^runtime-version:" "${MANIFEST_FILE}" | sed -E "s/runtime-version:[[:space:]]*['\"]?([^'\"]+)['\"]?/\1/")"
+fi
+if [ -z "${RUNTIME_VERSION}" ]; then
+  RUNTIME_VERSION="51"
+fi
+
+# Check if GNOME Sdk / Platform are installed
 has_sdk=false
 has_platform=false
 
-if flatpak list | grep -q "org.gnome.Sdk.*46"; then
+if flatpak list | grep -q "org.gnome.Sdk.*${RUNTIME_VERSION}"; then
   has_sdk=true
 fi
-if flatpak list | grep -q "org.gnome.Platform.*46"; then
+if flatpak list | grep -q "org.gnome.Platform.*${RUNTIME_VERSION}"; then
   has_platform=true
 fi
 
 if [ "$has_sdk" = false ] || [ "$has_platform" = false ]; then
-  log "O SDK ou Runtime do GNOME 46 (org.gnome.Sdk//46 / org.gnome.Platform//46) não está instalado no sistema."
+  log "O SDK ou Runtime do GNOME ${RUNTIME_VERSION} (org.gnome.Sdk//${RUNTIME_VERSION} / org.gnome.Platform//${RUNTIME_VERSION}) não está instalado no sistema."
   should_install=true
   if [ -t 0 ] && [ "${INSTALL_SDK}" = false ]; then
-    read -rp "Deseja baixar e instalar o GNOME Sdk/Platform 46 do Flathub agora? [S/n]: " ans
+    read -rp "Deseja baixar e instalar o GNOME Sdk/Platform ${RUNTIME_VERSION} do Flathub agora? [S/n]: " ans
     ans="$(echo "$ans" | tr '[:upper:]' '[:lower:]')"
     if [ "$ans" = "n" ] || [ "$ans" = "nao" ] || [ "$ans" = "não" ]; then
       should_install=false
@@ -124,11 +133,11 @@ if [ "$has_sdk" = false ] || [ "$has_platform" = false ]; then
   fi
 
   if [ "$should_install" = true ]; then
-    log "Configurando repositório Flathub e instalando GNOME Sdk e Platform 46..."
+    log "Configurando repositório Flathub e instalando GNOME Sdk e Platform ${RUNTIME_VERSION}..."
     flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo || true
-    flatpak install --user -y flathub org.gnome.Sdk//46 org.gnome.Platform//46
+    flatpak install --user -y flathub "org.gnome.Sdk//${RUNTIME_VERSION}" "org.gnome.Platform//${RUNTIME_VERSION}"
   else
-    die "Compilação cancelada: org.gnome.Sdk//46 é obrigatório para compilar o Flatpak."
+    die "Compilação cancelada: org.gnome.Sdk//${RUNTIME_VERSION} é obrigatório para compilar o Flatpak."
   fi
 fi
 

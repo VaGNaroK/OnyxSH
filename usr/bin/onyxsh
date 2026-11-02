@@ -6,16 +6,20 @@ CALLER_CWD="${PWD:-$HOME}"
 # Search onyxsh parent folders and add to PYTHONPATH
 SEARCH_DIRS=(
     "/app/lib"
+    "/app/lib64"
     "/app/share"
     "/usr/lib"
+    "/usr/lib64"
     "/usr/share"
     "/opt"
     "/usr/local/lib"
 )
 
 for py_site in /usr/lib/python3*/site-packages \
+               /usr/lib64/python3*/site-packages \
                /usr/local/lib/python3*/site-packages \
-               /app/lib/python3*/site-packages; do
+               /app/lib/python3*/site-packages \
+               /app/lib64/python3*/site-packages; do
     if [ -d "$py_site" ]; then
         SEARCH_DIRS+=("$py_site")
     fi
@@ -25,6 +29,19 @@ for dir in "${SEARCH_DIRS[@]}"; do
     if [[ -d "$dir/onyxsh" && -f "$dir/onyxsh/__init__.py" ]]; then
         export PYTHONPATH="${dir}:${PYTHONPATH}"
         break
+    fi
+done
+
+# Ensure GObject Introspection typelib and library paths for VTE / GTK4
+for gi_dir in /app/lib/girepository-1.0 /app/lib64/girepository-1.0 /usr/lib/girepository-1.0 /usr/lib64/girepository-1.0; do
+    if [ -d "$gi_dir" ]; then
+        export GI_TYPELIB_PATH="${gi_dir}${GI_TYPELIB_PATH:+:${GI_TYPELIB_PATH}}"
+    fi
+done
+
+for lib_dir in /app/lib /app/lib64; do
+    if [ -d "$lib_dir" ]; then
+        export LD_LIBRARY_PATH="${lib_dir}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
     fi
 done
 

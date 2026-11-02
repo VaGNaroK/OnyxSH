@@ -20,6 +20,12 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - ⚡ **Modo Seleção (`Ctrl+Shift+S`) & Indicador de Mouse Capturado**: Desativa temporariamente o mouse tracking de aplicações TUI para seleção nativa com botão esquerdo, acompanhado de badge informativo no cabeçalho de divisões (*splits*).
 
 ### Corrigido
+- **Resolução de Carregamento do VTE no Flatpak e Migração para GNOME 51**:
+  - 🚀 **Atualização de Runtime & SDK**: Migração do `org.gnome.Platform` e `org.gnome.Sdk` do ramo 46 (EOL no Flathub) para a versão estável **GNOME 51** (`org.gnome.Platform//51` e `org.gnome.Sdk//51`).
+  - 🛠️ **Compilação do VTE 0.84.1**: Atualização do módulo VTE para a versão `0.84.1` com checksum SHA-256 verificado, compatível com a toolchain GCC 16, Meson e Python 3.14 do GNOME 51.
+  - 📁 **Correção de `Namespace Vte not available` (`--libdir=/app/lib`)**: Configuração explícita de `--libdir=/app/lib` no Meson e mapeamento preventivo de `GI_TYPELIB_PATH`, `LD_LIBRARY_PATH` e `PYTHONPATH` no inicializador `usr/bin/onyxsh` cobrindo tanto `/app/lib` quanto `/app/lib64`.
+  - 🔄 **Script de Build Dinâmico (`scripts/build_flatpak.sh`)**: Extração dinâmica da versão de runtime diretamente do manifesto Flatpak, eliminando dependências estáticas de versões antigas.
+  - 🧪 **Testes de Manifesto (`tests/test_flatpak_manifest.py`)**: Validação contínua da sintaxe, permissões sandbox, ausência de runtimes EOL e caminhos de biblioteca, elevando a suíte para **657 testes unitários** com 100% de sucesso.
 - **Persistência do Popover e Visibilidade de Badges em Splits**:
   - Correção na visibilidade do badge informativo de captura de mouse (`Shift + arrastar`) nos cabeçalhos de divisão e persistência do popover durante interações.
 - **Saneamento de Configurações e Restauração de Abas**:
