@@ -13,6 +13,7 @@ from gi.repository import Gdk, Gtk, Vte
 from onyxsh.settings.config import DefaultSettings
 from onyxsh.terminal.manager import TerminalManager
 from onyxsh.ui.widgets.selection_popover import SelectionActionPopover
+from onyxsh.utils.translation_utils import _
 
 
 class TestSelectionActionPopover(unittest.TestCase):
@@ -103,7 +104,7 @@ class TestSelectionActionPopover(unittest.TestCase):
             with patch.object(self.real_terminal, "get_clipboard", return_value=mock_clipboard):
                 popover._on_copy_clicked(popover.copy_btn)
                 mock_clipboard.set.assert_called_once_with("def hello(): pass")
-                self.assertEqual(popover.copy_label.get_label(), "Copiado!")
+                self.assertIn(popover.copy_label.get_label(), ["Copiado!", "Copied!", _("Copiado!")])
         finally:
             popover.unparent()
 
