@@ -5,15 +5,7 @@
 #
 #, fuzzy
 msgid ""
-msgstr ""
-"Project-Id-Version: zashterminal\n"
-"Report-Msgid-Bugs-To: \n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+msgstr "Project-Id-Version: zashterminal\nReport-Msgid-Bugs-To: \nLast-Translator: FULL NAME <EMAIL@ADDRESS>\nLanguage-Team: LANGUAGE <LL@li.org>\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding: 8bit\n"
 
 #
 # File: usr/share/nautilus-python/extensions/zashterminal.py, line: 128
@@ -561,12 +553,8 @@ msgstr "Maximum attempts reached."
 #
 # File: src/zashterminal/terminal/manager.py, line: 1728
 #, python-brace-format
-msgid ""
-"Starting auto-reconnect: {attempts} attempts over {mins} minute(s), every "
-"{secs}s"
-msgstr ""
-"Starting auto-reconnect: {attempts} attempts over {mins} minute(s), every "
-"{secs}s"
+msgid "Starting auto-reconnect: {attempts} attempts over {mins} minute(s), every {secs}s"
+msgstr "Starting auto-reconnect: {attempts} attempts over {mins} minute(s), every {secs}s"
 
 #
 # File: src/zashterminal/terminal/manager.py, line: 1735
@@ -949,12 +937,8 @@ msgstr "16-Color Palette"
 
 #
 # File: src/zashterminal/ui/color_scheme_dialog.py, line: 214
-msgid ""
-"user@host:~$ ls -l\n"
-"<span weight='bold'>Bold Text</span>"
-msgstr ""
-"user@host:~$ ls -l\n"
-"<span weight='bold'>Bold Text</span>"
+msgid "user@host:~$ ls -l\n<span weight='bold'>Bold Text</span>"
+msgstr "user@host:~$ ls -l\n<span weight='bold'>Bold Text</span>"
 
 #
 # #-#-#-#-#  zashterminal.pot (zashterminal)  #-#-#-#-#
@@ -1006,22 +990,14 @@ msgstr "Name Conflict"
 #
 # File: src/zashterminal/ui/color_scheme_dialog.py, line: 249
 #, python-brace-format
-msgid ""
-"A color scheme with the name '{name}' already exists. Please choose a "
-"different name."
-msgstr ""
-"A color scheme with the name '{name}' already exists. Please choose a "
-"different name."
+msgid "A color scheme with the name '{name}' already exists. Please choose a different name."
+msgstr "A color scheme with the name '{name}' already exists. Please choose a different name."
 
 #
 # File: src/zashterminal/ui/color_scheme_dialog.py, line: 259
 #, python-brace-format
-msgid ""
-"A scheme with a similar internal name ('{key}') already exists. Please "
-"choose a slightly different name."
-msgstr ""
-"A scheme with a similar internal name ('{key}') already exists. Please "
-"choose a slightly different name."
+msgid "A scheme with a similar internal name ('{key}') already exists. Please choose a slightly different name."
+msgstr "A scheme with a similar internal name ('{key}') already exists. Please choose a slightly different name."
 
 #
 # File: src/zashterminal/ui/color_scheme_dialog.py, line: 274
@@ -1155,10 +1131,8 @@ msgstr "Delete Scheme?"
 #
 # File: src/zashterminal/ui/color_scheme_dialog.py, line: 619
 #, python-brace-format
-msgid ""
-"Are you sure you want to delete the scheme '{name}'? This cannot be undone."
-msgstr ""
-"Are you sure you want to delete the scheme '{name}'? This cannot be undone."
+msgid "Are you sure you want to delete the scheme '{name}'? This cannot be undone."
+msgstr "Are you sure you want to delete the scheme '{name}'? This cannot be undone."
 
 #
 # File: src/zashterminal/ui/colors.py, line: 80
@@ -2690,12 +2664,8 @@ msgstr "Delete All Conversations?"
 #
 # File: src/zashterminal/ui/widgets/conversation_history.py, line: 383
 #, python-brace-format
-msgid ""
-"This will permanently delete all {} conversations. This action cannot be "
-"undone."
-msgstr ""
-"This will permanently delete all {} conversations. This action cannot be "
-"undone."
+msgid "This will permanently delete all {} conversations. This action cannot be undone."
+msgstr "This will permanently delete all {} conversations. This action cannot be undone."
 
 #
 # File: src/zashterminal/ui/widgets/conversation_history.py, line: 386
@@ -2957,18 +2927,8 @@ msgstr "No active terminal to clear."
 #
 # File: src/zashterminal/ui/actions.py, line: 238
 #, python-brace-format
-msgid ""
-"Explain this code or command:\n"
-"\n"
-"```\n"
-"{text}\n"
-"```"
-msgstr ""
-"Explain this code or command:\n"
-"\n"
-"```\n"
-"{text}\n"
-"```"
+msgid "Explain this code or command:\n\n```\n{text}\n```"
+msgstr "Explain this code or command:\n\n```\n{text}\n```"
 
 #
 # File: src/zashterminal/ui/actions.py, line: 282
@@ -3046,12 +3006,8 @@ msgstr "Delete {type}"
 #
 # File: src/zashterminal/ui/actions.py, line: 558
 #, python-brace-format
-msgid ""
-"The folder \"{name}\" is not empty. Are you sure you want to permanently "
-"delete it and all its contents?"
-msgstr ""
-"The folder \"{name}\" is not empty. Are you sure you want to permanently "
-"delete it and all its contents?"
+msgid "The folder \"{name}\" is not empty. Are you sure you want to permanently delete it and all its contents?"
+msgstr "The folder \"{name}\" is not empty. Are you sure you want to permanently delete it and all its contents?"
 
 #
 # File: src/zashterminal/ui/actions.py, line: 561
@@ -3092,10 +3048,8 @@ msgstr "SSH command was used incorrectly."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 21
-msgid ""
-"Username or password is incorrect, or the user is not allowed to connect."
-msgstr ""
-"Username or password is incorrect, or the user is not allowed to connect."
+msgid "Username or password is incorrect, or the user is not allowed to connect."
+msgstr "Username or password is incorrect, or the user is not allowed to connect."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 26
@@ -3115,12 +3069,8 @@ msgstr "The server's host key is not recognized or has changed."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 37
-msgid ""
-"Could not establish connection to the server. Check if the host is reachable "
-"and the port is correct."
-msgstr ""
-"Could not establish connection to the server. Check if the host is reachable "
-"and the port is correct."
+msgid "Could not establish connection to the server. Check if the host is reachable and the port is correct."
+msgstr "Could not establish connection to the server. Check if the host is reachable and the port is correct."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 49
@@ -3156,10 +3106,8 @@ msgstr "Multiple Auth Methods Failed"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 87
-msgid ""
-"Both public key and password authentication failed. Check your credentials."
-msgstr ""
-"Both public key and password authentication failed. Check your credentials."
+msgid "Both public key and password authentication failed. Check your credentials."
+msgstr "Both public key and password authentication failed. Check your credentials."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 92
@@ -3168,12 +3116,8 @@ msgstr "SSH Key Rejected"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 94
-msgid ""
-"The server rejected your SSH key. The key may not be authorized on the "
-"server."
-msgstr ""
-"The server rejected your SSH key. The key may not be authorized on the "
-"server."
+msgid "The server rejected your SSH key. The key may not be authorized on the server."
+msgstr "The server rejected your SSH key. The key may not be authorized on the server."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 100
@@ -3182,10 +3126,8 @@ msgstr "SSH Agent Error"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 101
-msgid ""
-"SSH agent refused the operation. Check if your key is loaded with ssh-add."
-msgstr ""
-"SSH agent refused the operation. Check if your key is loaded with ssh-add."
+msgid "SSH agent refused the operation. Check if your key is loaded with ssh-add."
+msgstr "SSH agent refused the operation. Check if your key is loaded with ssh-add."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 105
@@ -3194,19 +3136,13 @@ msgstr "SSH Agent Not Running"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 107
-msgid ""
-"SSH agent is not running. Start it with eval $(ssh-agent) and add your key."
-msgstr ""
-"SSH agent is not running. Start it with eval $(ssh-agent) and add your key."
+msgid "SSH agent is not running. Start it with eval $(ssh-agent) and add your key."
+msgstr "SSH agent is not running. Start it with eval $(ssh-agent) and add your key."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 115
-msgid ""
-"The server's host key has changed or is not trusted. This could indicate a "
-"security issue."
-msgstr ""
-"The server's host key has changed or is not trusted. This could indicate a "
-"security issue."
+msgid "The server's host key has changed or is not trusted. This could indicate a security issue."
+msgstr "The server's host key has changed or is not trusted. This could indicate a security issue."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 120
@@ -3216,21 +3152,13 @@ msgstr "Host Key Changed"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 122
-msgid ""
-"The server's host key has changed. Remove the old key from known_hosts if "
-"this is expected."
-msgstr ""
-"The server's host key has changed. Remove the old key from known_hosts if "
-"this is expected."
+msgid "The server's host key has changed. Remove the old key from known_hosts if this is expected."
+msgstr "The server's host key has changed. Remove the old key from known_hosts if this is expected."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 129
-msgid ""
-"The server's identification has changed. This could indicate a security "
-"issue or server reinstall."
-msgstr ""
-"The server's identification has changed. This could indicate a security "
-"issue or server reinstall."
+msgid "The server's identification has changed. This could indicate a security issue or server reinstall."
+msgstr "The server's identification has changed. This could indicate a security issue or server reinstall."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 135
@@ -3271,10 +3199,8 @@ msgstr "Connection Refused"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 157
-msgid ""
-"The server refused the connection. Check if SSH is running on the server."
-msgstr ""
-"The server refused the connection. Check if SSH is running on the server."
+msgid "The server refused the connection. Check if SSH is running on the server."
+msgstr "The server refused the connection. Check if SSH is running on the server."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 161
@@ -3284,12 +3210,8 @@ msgstr "Connection Timeout"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 163
-msgid ""
-"Connection attempt timed out. The server may be unreachable or behind a "
-"firewall."
-msgstr ""
-"Connection attempt timed out. The server may be unreachable or behind a "
-"firewall."
+msgid "Connection attempt timed out. The server may be unreachable or behind a firewall."
+msgstr "Connection attempt timed out. The server may be unreachable or behind a firewall."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 169
@@ -3303,10 +3225,8 @@ msgstr "No Route to Host"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 175
-msgid ""
-"Network path to the server could not be found. Check your network connection."
-msgstr ""
-"Network path to the server could not be found. Check your network connection."
+msgid "Network path to the server could not be found. Check your network connection."
+msgstr "Network path to the server could not be found. Check your network connection."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 180
@@ -3471,12 +3391,8 @@ msgstr "SFTP Not Available"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 278
-msgid ""
-"SFTP subsystem is not available on the server. Contact the server "
-"administrator."
-msgstr ""
-"SFTP subsystem is not available on the server. Contact the server "
-"administrator."
+msgid "SFTP subsystem is not available on the server. Contact the server administrator."
+msgstr "SFTP subsystem is not available on the server. Contact the server administrator."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 283
@@ -3485,10 +3401,8 @@ msgstr "SSH Channel Failed"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 284
-msgid ""
-"Failed to open SSH channel. The server may be overloaded or misconfigured."
-msgstr ""
-"Failed to open SSH channel. The server may be overloaded or misconfigured."
+msgid "Failed to open SSH channel. The server may be overloaded or misconfigured."
+msgstr "Failed to open SSH channel. The server may be overloaded or misconfigured."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 289
@@ -3497,10 +3411,8 @@ msgstr "Password Authentication Denied"
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 291
-msgid ""
-"Password authentication was denied. The server may not allow password login."
-msgstr ""
-"Password authentication was denied. The server may not allow password login."
+msgid "Password authentication was denied. The server may not allow password login."
+msgstr "Password authentication was denied. The server may not allow password login."
 
 #
 # File: src/zashterminal/ui/ssh_dialogs.py, line: 318
@@ -3968,12 +3880,8 @@ msgstr "Triggers"
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 949
-msgid ""
-"Command names or patterns that activate this rule set. When a command "
-"starting with a trigger is detected, these highlighting rules are applied."
-msgstr ""
-"Command names or patterns that activate this rule set. When a command "
-"starting with a trigger is detected, these highlighting rules are applied."
+msgid "Command names or patterns that activate this rule set. When a command starting with a trigger is detected, these highlighting rules are applied."
+msgstr "Command names or patterns that activate this rule set. When a command starting with a trigger is detected, these highlighting rules are applied."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 957
@@ -4060,10 +3968,8 @@ msgstr "Reset to System Default?"
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 1258
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 3427
 #, python-brace-format
-msgid ""
-"This will remove your customizations for \"{}\" and revert to system rules."
-msgstr ""
-"This will remove your customizations for \"{}\" and revert to system rules."
+msgid "This will remove your customizations for \"{}\" and revert to system rules."
+msgstr "This will remove your customizations for \"{}\" and revert to system rules."
 
 #
 # #-#-#-#-#  zashterminal.pot (zashterminal)  #-#-#-#-#
@@ -4165,12 +4071,8 @@ msgstr "Scheme saved"
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 1879
-msgid ""
-"Colorizes terminal output patterns like errors, warnings, and IPs. Many "
-"rules can slow down large outputs."
-msgstr ""
-"Colorizes terminal output patterns like errors, warnings, and IPs. Many "
-"rules can slow down large outputs."
+msgid "Colorizes terminal output patterns like errors, warnings, and IPs. Many rules can slow down large outputs."
+msgstr "Colorizes terminal output patterns like errors, warnings, and IPs. Many rules can slow down large outputs."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 1888
@@ -4179,14 +4081,8 @@ msgstr "Activation"
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 1890
-msgid ""
-"⚠️ On slower computers, enabling output highlighting may slightly reduce "
-"terminal responsiveness, as all displayed content is processed for color "
-"patterns."
-msgstr ""
-"⚠️ On slower computers, enabling output highlighting may slightly reduce "
-"terminal responsiveness, as all displayed content is processed for color "
-"patterns."
+msgid "⚠️ On slower computers, enabling output highlighting may slightly reduce terminal responsiveness, as all displayed content is processed for color patterns."
+msgstr "⚠️ On slower computers, enabling output highlighting may slightly reduce terminal responsiveness, as all displayed content is processed for color patterns."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 1898
@@ -4238,12 +4134,8 @@ msgstr "⚠️ Experimental Feature"
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 1939
 #, python-brace-format
-msgid ""
-"This feature colorizes output for the '{}' command. It may not work "
-"perfectly with every shell/prompt or when output is fragmented."
-msgstr ""
-"This feature colorizes output for the '{}' command. It may not work "
-"perfectly with every shell/prompt or when output is fragmented."
+msgid "This feature colorizes output for the '{}' command. It may not work perfectly with every shell/prompt or when output is fragmented."
+msgstr "This feature colorizes output for the '{}' command. It may not work perfectly with every shell/prompt or when output is fragmented."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 1948
@@ -4348,12 +4240,8 @@ msgstr "Pygments is not installed - shell input highlighting unavailable"
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 2179
-msgid ""
-"This feature applies highlighting to echoed shell input. It may not work "
-"perfectly with all prompts or shells."
-msgstr ""
-"This feature applies highlighting to echoed shell input. It may not work "
-"perfectly with all prompts or shells."
+msgid "This feature applies highlighting to echoed shell input. It may not work perfectly with all prompts or shells."
+msgstr "This feature applies highlighting to echoed shell input. It may not work perfectly with all prompts or shells."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 2188
@@ -4362,12 +4250,8 @@ msgstr "Enable Shell Input Highlighting"
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 2190
-msgid ""
-"Color shell commands as you type them. Useful for SSH sessions and Docker "
-"containers where shell configuration cannot be changed."
-msgstr ""
-"Color shell commands as you type them. Useful for SSH sessions and Docker "
-"containers where shell configuration cannot be changed."
+msgid "Color shell commands as you type them. Useful for SSH sessions and Docker containers where shell configuration cannot be changed."
+msgstr "Color shell commands as you type them. Useful for SSH sessions and Docker containers where shell configuration cannot be changed."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 2207
@@ -4415,12 +4299,8 @@ msgstr "Remove Ignored Command?"
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 2649
 #, python-brace-format
-msgid ""
-"Remove \"{}\" from the ignored commands list? Highlighting will be applied "
-"to this command's output."
-msgstr ""
-"Remove \"{}\" from the ignored commands list? Highlighting will be applied "
-"to this command's output."
+msgid "Remove \"{}\" from the ignored commands list? Highlighting will be applied to this command's output."
+msgstr "Remove \"{}\" from the ignored commands list? Highlighting will be applied to this command's output."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 2678
@@ -4435,12 +4315,8 @@ msgstr "Restore Default Ignored Commands?"
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 2686
-msgid ""
-"This will replace your current ignored commands list with the system "
-"defaults. Custom additions will be lost."
-msgstr ""
-"This will replace your current ignored commands list with the system "
-"defaults. Custom additions will be lost."
+msgid "This will replace your current ignored commands list with the system defaults. Custom additions will be lost."
+msgstr "This will replace your current ignored commands list with the system defaults. Custom additions will be lost."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 2711
@@ -4598,12 +4474,8 @@ msgstr "Delete Command?"
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 3053
 #, python-brace-format
-msgid ""
-"Are you sure you want to delete \"{}\"? This will remove all custom rules "
-"for this command."
-msgstr ""
-"Are you sure you want to delete \"{}\"? This will remove all custom rules "
-"for this command."
+msgid "Are you sure you want to delete \"{}\"? This will remove all custom rules for this command."
+msgstr "Are you sure you want to delete \"{}\"? This will remove all custom rules for this command."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 3070
@@ -4665,8 +4537,7 @@ msgstr "Actions"
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 3370
 #, python-brace-format
 msgid "{total} command(s), {enabled} enabled. Click to toggle, select to edit."
-msgstr ""
-"{total} command(s), {enabled} enabled. Click to toggle, select to edit."
+msgstr "{total} command(s), {enabled} enabled. Click to toggle, select to edit."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 3414
@@ -4763,12 +4634,8 @@ msgstr "Reset Global Rules?"
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 3853
-msgid ""
-"This will restore global rules to system defaults. Context customizations "
-"will be preserved."
-msgstr ""
-"This will restore global rules to system defaults. Context customizations "
-"will be preserved."
+msgid "This will restore global rules to system defaults. Context customizations will be preserved."
+msgstr "This will restore global rules to system defaults. Context customizations will be preserved."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 3873
@@ -4782,12 +4649,8 @@ msgstr "Reset All Commands?"
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 3881
-msgid ""
-"This will restore all commands to system defaults. Global rules will be "
-"preserved."
-msgstr ""
-"This will restore all commands to system defaults. Global rules will be "
-"preserved."
+msgid "This will restore all commands to system defaults. Global rules will be preserved."
+msgstr "This will restore all commands to system defaults. Global rules will be preserved."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 3901
@@ -4889,10 +4752,8 @@ msgstr "Add Ignored Command"
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 4195
-msgid ""
-"Commands with native coloring (grep, ls, git, etc.) should be added here."
-msgstr ""
-"Commands with native coloring (grep, ls, git, etc.) should be added here."
+msgid "Commands with native coloring (grep, ls, git, etc.) should be added here."
+msgstr "Commands with native coloring (grep, ls, git, etc.) should be added here."
 
 #
 # File: src/zashterminal/ui/dialogs/highlight_dialog.py, line: 4222
@@ -5021,12 +4882,8 @@ msgstr "Highlighting"
 
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py, line: 378
-msgid ""
-"Highlighting adds colors to make terminal text easier to read. You can "
-"override global preferences per session."
-msgstr ""
-"Highlighting adds colors to make terminal text easier to read. You can "
-"override global preferences per session."
+msgid "Highlighting adds colors to make terminal text easier to read. You can override global preferences per session."
+msgstr "Highlighting adds colors to make terminal text easier to read. You can override global preferences per session."
 
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py, line: 383
@@ -5105,12 +4962,8 @@ msgstr "Startup Commands"
 
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py, line: 501
-msgid ""
-"Commands executed when the terminal starts (one per line). You can write "
-"multiple commands like a small script."
-msgstr ""
-"Commands executed when the terminal starts (one per line). You can write "
-"multiple commands like a small script."
+msgid "Commands executed when the terminal starts (one per line). You can write multiple commands like a small script."
+msgstr "Commands executed when the terminal starts (one per line). You can write multiple commands like a small script."
 
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py, line: 552
@@ -5359,12 +5212,8 @@ msgstr "Port on the remote host (1-65535)"
 
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py, line: 1049
-msgid ""
-"Local port must be between 1025 and 65535 (ports below 1024 require "
-"administrator privileges)."
-msgstr ""
-"Local port must be between 1025 and 65535 (ports below 1024 require "
-"administrator privileges)."
+msgid "Local port must be between 1025 and 65535 (ports below 1024 require administrator privileges)."
+msgstr "Local port must be between 1025 and 65535 (ports below 1024 require administrator privileges)."
 
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py, line: 1053
@@ -5522,12 +5371,8 @@ msgstr "An unexpected error occurred while saving."
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py, line: 1650
 #, python-brace-format
-msgid ""
-"Session validation failed:\n"
-"{}"
-msgstr ""
-"Session validation failed:\n"
-"{}"
+msgid "Session validation failed:\n{}"
+msgstr "Session validation failed:\n{}"
 
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py, line: 1657
@@ -5570,12 +5415,8 @@ msgstr "SSH Validation Error"
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py, line: 1746
 #, python-brace-format
-msgid ""
-"SSH configuration errors:\n"
-"{}"
-msgstr ""
-"SSH configuration errors:\n"
-"{}"
+msgid "SSH configuration errors:\n{}"
+msgstr "SSH configuration errors:\n{}"
 
 #
 # File: src/zashterminal/ui/dialogs/session_edit_dialog.py
@@ -5789,32 +5630,20 @@ msgstr "Press the new key combination for '{}', or Esc to cancel."
 #
 # File: src/zashterminal/ui/dialogs/shortcuts_dialog.py, line: 179
 #, python-brace-format
-msgid ""
-"Current: {}\n"
-"New: (press keys)"
-msgstr ""
-"Current: {}\n"
-"New: (press keys)"
+msgid "Current: {}\nNew: (press keys)"
+msgstr "Current: {}\nNew: (press keys)"
 
 #
 # File: src/zashterminal/ui/dialogs/shortcuts_dialog.py, line: 221
 #, python-brace-format
-msgid ""
-"Current: {}\n"
-"New: {} (Conflicts with {})"
-msgstr ""
-"Current: {}\n"
-"New: {} (Conflicts with {})"
+msgid "Current: {}\nNew: {} (Conflicts with {})"
+msgstr "Current: {}\nNew: {} (Conflicts with {})"
 
 #
 # File: src/zashterminal/ui/dialogs/shortcuts_dialog.py, line: 227
 #, python-brace-format
-msgid ""
-"Current: {}\n"
-"New: {}"
-msgstr ""
-"Current: {}\n"
-"New: {}"
+msgid "Current: {}\nNew: {}"
+msgstr "Current: {}\nNew: {}"
 
 #
 # #-#-#-#-#  zashterminal.pot (zashterminal)  #-#-#-#-#
@@ -5836,10 +5665,8 @@ msgstr "Reset All Shortcuts"
 
 #
 # File: src/zashterminal/ui/dialogs/shortcuts_dialog.py, line: 271
-msgid ""
-"This will reset all keyboard shortcuts to their default values. Continue?"
-msgstr ""
-"This will reset all keyboard shortcuts to their default values. Continue?"
+msgid "This will reset all keyboard shortcuts to their default values. Continue?"
+msgstr "This will reset all keyboard shortcuts to their default values. Continue?"
 
 #
 # File: src/zashterminal/ui/dialogs/command_manager_dialog.py, line: 166
@@ -6343,12 +6170,8 @@ msgstr "Confirm sending of command"
 # File: src/zashterminal/ui/dialogs/command_manager_dialog.py, line: 2780
 # File: src/zashterminal/window.py, line: 1087
 #, python-brace-format
-msgid ""
-"Select which of the <b>{count}</b> open terminals should receive the command "
-"below."
-msgstr ""
-"Select which of the <b>{count}</b> open terminals should receive the command "
-"below."
+msgid "Select which of the <b>{count}</b> open terminals should receive the command below."
+msgstr "Select which of the <b>{count}</b> open terminals should receive the command below."
 
 #
 # #-#-#-#-#  zashterminal.pot (zashterminal)  #-#-#-#-#
@@ -6393,12 +6216,8 @@ msgstr "Restore Default?"
 #
 # File: src/zashterminal/ui/dialogs/command_manager_dialog.py, line: 2972
 #, python-brace-format
-msgid ""
-"This will restore '{name}' to its original default configuration. Your "
-"customizations will be lost."
-msgstr ""
-"This will restore '{name}' to its original default configuration. Your "
-"customizations will be lost."
+msgid "This will restore '{name}' to its original default configuration. Your customizations will be lost."
+msgstr "This will restore '{name}' to its original default configuration. Your customizations will be lost."
 
 #
 # File: src/zashterminal/ui/dialogs/command_manager_dialog.py, line: 3007
@@ -6408,10 +6227,8 @@ msgstr "Hide Command?"
 #
 # File: src/zashterminal/ui/dialogs/command_manager_dialog.py, line: 3008
 #, python-brace-format
-msgid ""
-"Hide '{name}' from the command list? You can restore it later from settings."
-msgstr ""
-"Hide '{name}' from the command list? You can restore it later from settings."
+msgid "Hide '{name}' from the command list? You can restore it later from settings."
+msgstr "Hide '{name}' from the command list? You can restore it later from settings."
 
 #
 # File: src/zashterminal/ui/dialogs/command_manager_dialog.py, line: 3040
@@ -6803,10 +6620,8 @@ msgstr "Icon Theme Changed"
 
 #
 # File: src/zashterminal/ui/dialogs/preferences_dialog.py, line: 639
-msgid ""
-"The icon theme change will take effect after restarting the application."
-msgstr ""
-"The icon theme change will take effect after restarting the application."
+msgid "The icon theme change will take effect after restarting the application."
+msgstr "The icon theme change will take effect after restarting the application."
 
 #
 # File: src/zashterminal/ui/dialogs/preferences_dialog.py, line: 693
@@ -6815,23 +6630,13 @@ msgstr "Sessions Panel Visibility"
 
 #
 # File: src/zashterminal/ui/dialogs/preferences_dialog.py, line: 695
-msgid ""
-"The sessions panel visibility change will take effect when you close and "
-"reopen the application. You can also toggle the sessions panel manually "
-"using Ctrl+Shift+H."
-msgstr ""
-"The sessions panel visibility change will take effect when you close and "
-"reopen the application. You can also toggle the sessions panel manually "
-"using Ctrl+Shift+H."
+msgid "The sessions panel visibility change will take effect when you close and reopen the application. You can also toggle the sessions panel manually using Ctrl+Shift+H."
+msgstr "The sessions panel visibility change will take effect when you close and reopen the application. You can also toggle the sessions panel manually using Ctrl+Shift+H."
 
 #
 # File: src/zashterminal/ui/dialogs/preferences_dialog.py, line: 708
-msgid ""
-"Are you sure you want to reset all settings to their default values? This "
-"action cannot be undone."
-msgstr ""
-"Are you sure you want to reset all settings to their default values? This "
-"action cannot be undone."
+msgid "Are you sure you want to reset all settings to their default values? This action cannot be undone."
+msgstr "Are you sure you want to reset all settings to their default values? This action cannot be undone."
 
 #
 # File: src/zashterminal/ui/dialogs/preferences_dialog.py, line: 721
@@ -6840,12 +6645,8 @@ msgstr "Settings Reset"
 
 #
 # File: src/zashterminal/ui/dialogs/preferences_dialog.py, line: 723
-msgid ""
-"All settings have been reset to their default values. Please restart the "
-"application for all changes to take effect."
-msgstr ""
-"All settings have been reset to their default values. Please restart the "
-"application for all changes to take effect."
+msgid "All settings have been reset to their default values. Please restart the application for all changes to take effect."
+msgstr "All settings have been reset to their default values. Please restart the application for all changes to take effect."
 
 #
 # File: src/zashterminal/ui/dialogs/preferences_dialog.py, line: 733
@@ -7817,12 +7618,8 @@ msgstr "Port must be between 1 and 65535."
 #
 # File: src/zashterminal/sessions/models.py, line: 530
 #, python-brace-format
-msgid ""
-"Port forward '{name}' has an invalid local port (must be between 1025 and "
-"65535)."
-msgstr ""
-"Port forward '{name}' has an invalid local port (must be between 1025 and "
-"65535)."
+msgid "Port forward '{name}' has an invalid local port (must be between 1025 and 65535)."
+msgstr "Port forward '{name}' has an invalid local port (must be between 1025 and 65535)."
 
 #
 # File: src/zashterminal/sessions/models.py, line: 535
@@ -7944,12 +7741,8 @@ msgstr "Name cannot be empty."
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 296
-msgid ""
-"rsync is not installed on the remote host. Install the rsync package or use "
-"SFTP for transfers."
-msgstr ""
-"rsync is not installed on the remote host. Install the rsync package or use "
-"SFTP for transfers."
+msgid "rsync is not installed on the remote host. Install the rsync package or use SFTP for transfers."
+msgstr "rsync is not installed on the remote host. Install the rsync package or use SFTP for transfers."
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 595
@@ -8158,14 +7951,8 @@ msgstr "Delete File"
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2343
 #, python-brace-format
-msgid ""
-"Are you sure you want to permanently delete '{name}'?\n"
-"\n"
-"This action cannot be undone."
-msgstr ""
-"Are you sure you want to permanently delete '{name}'?\n"
-"\n"
-"This action cannot be undone."
+msgid "Are you sure you want to permanently delete '{name}'?\n\nThis action cannot be undone."
+msgstr "Are you sure you want to permanently delete '{name}'?\n\nThis action cannot be undone."
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2346
@@ -8175,14 +7962,8 @@ msgstr "Delete Multiple Items"
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2348
 #, python-brace-format
-msgid ""
-"Are you sure you want to permanently delete these {count} items?\n"
-"\n"
-"This action cannot be undone."
-msgstr ""
-"Are you sure you want to permanently delete these {count} items?\n"
-"\n"
-"This action cannot be undone."
+msgid "Are you sure you want to permanently delete these {count} items?\n\nThis action cannot be undone."
+msgstr "Are you sure you want to permanently delete these {count} items?\n\nThis action cannot be undone."
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2366
@@ -8209,12 +7990,8 @@ msgstr "Set new file permissions."
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2383
 #, python-brace-format
-msgid ""
-"Set file permissions for: {name}\n"
-"Current: {perms}"
-msgstr ""
-"Set file permissions for: {name}\n"
-"Current: {perms}"
+msgid "Set file permissions for: {name}\nCurrent: {perms}"
+msgstr "Set file permissions for: {name}\nCurrent: {perms}"
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2395
@@ -8284,16 +8061,8 @@ msgstr "Confirm Upload"
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2788
 #, python-brace-format
-msgid ""
-"You are about to upload {count} item(s) to:\n"
-"<b>{dest}</b>\n"
-"\n"
-"Do you want to proceed?"
-msgstr ""
-"You are about to upload {count} item(s) to:\n"
-"<b>{dest}</b>\n"
-"\n"
-"Do you want to proceed?"
+msgid "You are about to upload {count} item(s) to:\n<b>{dest}</b>\n\nDo you want to proceed?"
+msgstr "You are about to upload {count} item(s) to:\n<b>{dest}</b>\n\nDo you want to proceed?"
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2913
@@ -8303,12 +8072,8 @@ msgstr "File Has Changed on Server"
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2915
 #, python-brace-format
-msgid ""
-"The file '{filename}' has been modified on the server since you last opened "
-"it. Your local changes will be lost if you download the new version."
-msgstr ""
-"The file '{filename}' has been modified on the server since you last opened "
-"it. Your local changes will be lost if you download the new version."
+msgid "The file '{filename}' has been modified on the server since you last opened it. Your local changes will be lost if you download the new version."
+msgstr "The file '{filename}' has been modified on the server since you last opened it. Your local changes will be lost if you download the new version."
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 2920
@@ -8342,22 +8107,14 @@ msgstr "Insufficient Disk Space"
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 3090
-msgid ""
-"There is not enough free space at the destination to complete this transfer."
-msgstr ""
-"There is not enough free space at the destination to complete this transfer."
+msgid "There is not enough free space at the destination to complete this transfer."
+msgstr "There is not enough free space at the destination to complete this transfer."
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 3096
 #, python-brace-format
-msgid ""
-"Required space: <b>{required}</b>\n"
-"Available space: <b>{available}</b>\n"
-"Destination: <b>{path}</b>"
-msgstr ""
-"Required space: <b>{required}</b>\n"
-"Available space: <b>{available}</b>\n"
-"Destination: <b>{path}</b>"
+msgid "Required space: <b>{required}</b>\nAvailable space: <b>{available}</b>\nDestination: <b>{path}</b>"
+msgstr "Required space: <b>{required}</b>\nAvailable space: <b>{available}</b>\nDestination: <b>{path}</b>"
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 3120
@@ -8373,16 +8130,8 @@ msgstr "Could not complete the transfer of '{filename}'."
 #
 # File: src/zashterminal/filemanager/manager.py, line: 3127
 #, python-brace-format
-msgid ""
-"Please check if you have the necessary write permissions in the destination "
-"directory:\n"
-"\n"
-"<b>{path}</b>"
-msgstr ""
-"Please check if you have the necessary write permissions in the destination "
-"directory:\n"
-"\n"
-"<b>{path}</b>"
+msgid "Please check if you have the necessary write permissions in the destination directory:\n\n<b>{path}</b>"
+msgstr "Please check if you have the necessary write permissions in the destination directory:\n\n<b>{path}</b>"
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 3192
@@ -8407,12 +8156,8 @@ msgstr "File Conflict"
 #
 # File: src/zashterminal/filemanager/manager.py, line: 3292
 #, python-brace-format
-msgid ""
-"The file '{filename}' has been modified on the server since you started "
-"editing it. How would you like to proceed?"
-msgstr ""
-"The file '{filename}' has been modified on the server since you started "
-"editing it. How would you like to proceed?"
+msgid "The file '{filename}' has been modified on the server since you started editing it. How would you like to proceed?"
+msgstr "The file '{filename}' has been modified on the server since you started editing it. How would you like to proceed?"
 
 #
 # File: src/zashterminal/filemanager/manager.py, line: 3296
@@ -8536,10 +8281,8 @@ msgstr "Data Loading Error"
 
 #
 # File: src/zashterminal/window.py, line: 487
-msgid ""
-"Failed to load saved sessions and folders. Starting with empty configuration."
-msgstr ""
-"Failed to load saved sessions and folders. Starting with empty configuration."
+msgid "Failed to load saved sessions and folders. Starting with empty configuration."
+msgstr "Failed to load saved sessions and folders. Starting with empty configuration."
 
 #
 # File: src/zashterminal/window.py, line: 576
@@ -8600,12 +8343,8 @@ msgstr "Session Validation Error"
 #
 # File: src/zashterminal/window.py, line: 883
 #, python-brace-format
-msgid ""
-"Session validation failed:\n"
-"{errors}"
-msgstr ""
-"Session validation failed:\n"
-"{errors}"
+msgid "Session validation failed:\n{errors}"
+msgstr "Session validation failed:\n{errors}"
 
 #
 # File: src/zashterminal/window.py, line: 939
@@ -8664,8 +8403,7 @@ msgstr "Save Current Session?"
 #
 # File: src/zashterminal/window.py, line: 1514
 msgid "Do you want to restore these tabs the next time you open Zashterminal?"
-msgstr ""
-"Do you want to restore these tabs the next time you open Zashterminal?"
+msgstr "Do you want to restore these tabs the next time you open Zashterminal?"
 
 #
 # File: src/zashterminal/window.py, line: 1518
@@ -8685,12 +8423,8 @@ msgstr "Close Window"
 
 #
 # File: src/zashterminal/window.py, line: 1553
-msgid ""
-"This window has active SSH connections. Closing will disconnect them. Are "
-"you sure?"
-msgstr ""
-"This window has active SSH connections. Closing will disconnect them. Are "
-"you sure?"
+msgid "This window has active SSH connections. Closing will disconnect them. Are you sure?"
+msgstr "This window has active SSH connections. Closing will disconnect them. Are you sure?"
 
 #
 # File: src/zashterminal/window.py, line: 1644
@@ -8724,12 +8458,8 @@ msgstr "Clear All Temporary Files?"
 
 #
 # File: src/zashterminal/window.py, line: 2014
-msgid ""
-"This will remove all locally downloaded files for remote editing. Any "
-"unsaved changes in your editor will be lost. This action cannot be undone."
-msgstr ""
-"This will remove all locally downloaded files for remote editing. Any "
-"unsaved changes in your editor will be lost. This action cannot be undone."
+msgid "This will remove all locally downloaded files for remote editing. Any unsaved changes in your editor will be lost. This action cannot be undone."
+msgstr "This will remove all locally downloaded files for remote editing. Any unsaved changes in your editor will be lost. This action cannot be undone."
 
 #
 # File: src/zashterminal/window.py, line: 2020
@@ -8813,12 +8543,8 @@ msgstr "Backup Complete"
 #
 # File: src/zashterminal/app.py, line: 538
 #, python-brace-format
-msgid ""
-"Backup saved successfully to:\n"
-"{}"
-msgstr ""
-"Backup saved successfully to:\n"
-"{}"
+msgid "Backup saved successfully to:\n{}"
+msgstr "Backup saved successfully to:\n{}"
 
 #
 # File: src/zashterminal/app.py, line: 544
@@ -8838,16 +8564,8 @@ msgstr "Restore from Backup?"
 
 #
 # File: src/zashterminal/app.py, line: 558
-msgid ""
-"Restoring from a backup will overwrite all your current sessions, settings, "
-"and layouts. This action cannot be undone.\n"
-"\n"
-"<b>The application will need to be restarted after restoring.</b>"
-msgstr ""
-"Restoring from a backup will overwrite all your current sessions, settings, "
-"and layouts. This action cannot be undone.\n"
-"\n"
-"<b>The application will need to be restarted after restoring.</b>"
+msgid "Restoring from a backup will overwrite all your current sessions, settings, and layouts. This action cannot be undone.\n\n<b>The application will need to be restarted after restoring.</b>"
+msgstr "Restoring from a backup will overwrite all your current sessions, settings, and layouts. This action cannot be undone.\n\n<b>The application will need to be restarted after restoring.</b>"
 
 #
 # File: src/zashterminal/app.py, line: 564
@@ -8907,12 +8625,8 @@ msgstr "Restore Complete"
 
 #
 # File: src/zashterminal/app.py, line: 649
-msgid ""
-"Data has been restored successfully. Please restart Zashterminal for the "
-"changes to take effect."
-msgstr ""
-"Data has been restored successfully. Please restart Zashterminal for the "
-"changes to take effect."
+msgid "Data has been restored successfully. Please restart Zashterminal for the changes to take effect."
+msgstr "Data has been restored successfully. Please restart Zashterminal for the changes to take effect."
 
 #
 # File: src/zashterminal/app.py, line: 682
@@ -8921,14 +8635,8 @@ msgstr "Close Application"
 
 #
 # File: src/zashterminal/app.py, line: 684
-msgid ""
-"There are active SSH connections. Closing will disconnect all sessions.\n"
-"\n"
-"Are you sure you want to close the application?"
-msgstr ""
-"There are active SSH connections. Closing will disconnect all sessions.\n"
-"\n"
-"Are you sure you want to close the application?"
+msgid "There are active SSH connections. Closing will disconnect all sessions.\n\nAre you sure you want to close the application?"
+msgstr "There are active SSH connections. Closing will disconnect all sessions.\n\nAre you sure you want to close the application?"
 
 #
 # File: src/zashterminal/app.py, line: 688
@@ -9026,14 +8734,8 @@ msgstr "Fatal Application Error"
 #
 # File: src/zashterminal/__init__.py, line: 197
 #, python-brace-format
-msgid ""
-"Could not start Zashterminal.\n"
-"\n"
-"Error: {}"
-msgstr ""
-"Could not start Zashterminal.\n"
-"\n"
-"Error: {}"
+msgid "Could not start Zashterminal.\n\nError: {}"
+msgstr "Could not start Zashterminal.\n\nError: {}"
 
 #
 # File: src/zashterminal/state/window_state.py, line: 91
@@ -9078,12 +8780,8 @@ msgstr "Restore Saved Layout?"
 #
 # File: src/zashterminal/state/window_state.py, line: 160
 #, python-brace-format
-msgid ""
-"This will close all current tabs and restore the '{name}' layout. Are you "
-"sure?"
-msgstr ""
-"This will close all current tabs and restore the '{name}' layout. Are you "
-"sure?"
+msgid "This will close all current tabs and restore the '{name}' layout. Are you sure?"
+msgstr "This will close all current tabs and restore the '{name}' layout. Are you sure?"
 
 #
 # File: src/zashterminal/state/window_state.py, line: 182
@@ -9123,14 +8821,8 @@ msgstr "Gateway Authentication"
 
 #
 # File: src/zashterminal/terminal/manager.py, line: 1456
-msgid ""
-"This SSH gateway requested keyboard-interactive authentication. Enter the "
-"gateway user and password to send them to the terminal session. If your "
-"gateway expects blank values, leave the fields empty and click Send."
-msgstr ""
-"This SSH gateway requested keyboard-interactive authentication. Enter the "
-"gateway user and password to send them to the terminal session. If your "
-"gateway expects blank values, leave the fields empty and click Send."
+msgid "This SSH gateway requested keyboard-interactive authentication. Enter the gateway user and password to send them to the terminal session. If your gateway expects blank values, leave the fields empty and click Send."
+msgstr "This SSH gateway requested keyboard-interactive authentication. Enter the gateway user and password to send them to the terminal session. If your gateway expects blank values, leave the fields empty and click Send."
 
 #
 # File: src/zashterminal/terminal/manager.py, line: 1477
@@ -9144,12 +8836,8 @@ msgstr "Gateway Password"
 
 #
 # File: src/zashterminal/terminal/manager.py, line: 1515
-msgid ""
-"Some gateways hide the prompt text, so the terminal can appear stuck until "
-"the credentials are sent."
-msgstr ""
-"Some gateways hide the prompt text, so the terminal can appear stuck until "
-"the credentials are sent."
+msgid "Some gateways hide the prompt text, so the terminal can appear stuck until the credentials are sent."
+msgstr "Some gateways hide the prompt text, so the terminal can appear stuck until the credentials are sent."
 
 #
 # File: src/zashterminal/terminal/manager.py, line: 1579
@@ -9158,12 +8846,8 @@ msgstr "Server Password"
 
 #
 # File: src/zashterminal/terminal/manager.py, line: 1608
-msgid ""
-"The target server password is not saved for this session. Enter it to "
-"continue this SSH login."
-msgstr ""
-"The target server password is not saved for this session. Enter it to "
-"continue this SSH login."
+msgid "The target server password is not saved for this session. Enter it to continue this SSH login."
+msgstr "The target server password is not saved for this session. Enter it to continue this SSH login."
 
 #
 # File: src/zashterminal/ui/menus.py, line: 163
@@ -14581,3 +14265,1752 @@ msgstr "rw-r--r-- (standard file permissions)"
 # 
 msgid "rwxr-xr-x (standard directory / executable permissions)"
 msgstr "rwxr-xr-x (standard directory / executable permissions)"
+
+# 
+msgid "Add a remote repository"
+msgstr "Add a remote repository"
+
+# 
+msgid "Add remote to system-wide storage"
+msgstr "Add remote to system-wide storage"
+
+# 
+msgid "Add remote to user storage"
+msgstr "Add remote to user storage"
+
+# 
+msgid "Application sandboxing and package distribution utility"
+msgstr "Application sandboxing and package distribution utility"
+
+# 
+msgid "Apply override for current user"
+msgstr "Apply override for current user"
+
+# 
+msgid "Apply override system-wide"
+msgstr "Apply override system-wide"
+
+# 
+msgid "Automatically answer yes to all questions"
+msgstr "Automatically answer yes to all questions"
+
+# 
+msgid "Delete a remote repository"
+msgstr "Delete a remote repository"
+
+# 
+msgid "Delete application data in ~/.var/app"
+msgstr "Delete application data in ~/.var/app"
+
+# 
+msgid "Delete from system-wide storage"
+msgstr "Delete from system-wide storage"
+
+# 
+msgid "Delete from user storage"
+msgstr "Delete from user storage"
+
+# 
+msgid "Disable GPG verification"
+msgstr "Disable GPG verification"
+
+# 
+msgid "Disable the remote repository"
+msgstr "Disable the remote repository"
+
+# 
+msgid "Do nothing if remote with same name already exists"
+msgstr "Do nothing if remote with same name already exists"
+
+# 
+msgid "Enable file forwarding for arguments"
+msgstr "Enable file forwarding for arguments"
+
+# 
+msgid "Enable the remote repository"
+msgstr "Enable the remote repository"
+
+# 
+msgid "Execute alternative command instead of default binary"
+msgstr "Execute alternative command instead of default binary"
+
+# 
+msgid "Filter by architecture"
+msgstr "Filter by architecture"
+
+# 
+msgid "Flatpak application and runtime management"
+msgstr "Flatpak application and runtime management"
+
+# 
+msgid "Force deletion even if apps or runtimes depend on it"
+msgstr "Force deletion even if apps or runtimes depend on it"
+
+# 
+msgid "Grant access to well-known socket"
+msgstr "Grant access to well-known socket"
+
+# 
+msgid "Grant device access permission"
+msgstr "Grant device access permission"
+
+# 
+msgid "Grant filesystem access permission"
+msgstr "Grant filesystem access permission"
+
+# 
+msgid "Import remote configuration from .flatpakrepo file or URL"
+msgstr "Import remote configuration from .flatpakrepo file or URL"
+
+# 
+msgid "Install an application or runtime from a remote or bundle"
+msgstr "Install an application or runtime from a remote or bundle"
+
+# 
+msgid "Install from a .flatpak bundle file"
+msgstr "Install from a .flatpak bundle file"
+
+# 
+msgid "Install from a .flatpakref file or URL"
+msgstr "Install from a .flatpakref file or URL"
+
+# 
+msgid "Install in system-wide storage"
+msgstr "Install in system-wide storage"
+
+# 
+msgid "Install in user storage"
+msgstr "Install in user storage"
+
+# 
+msgid "Install only a specific subpath"
+msgstr "Install only a specific subpath"
+
+# 
+msgid "List all configuration keys and values"
+msgstr "List all configuration keys and values"
+
+# 
+msgid "List all installed apps and runtimes"
+msgstr "List all installed apps and runtimes"
+
+# 
+msgid "List applications and runtimes available in a remote repository"
+msgstr "List applications and runtimes available in a remote repository"
+
+# 
+msgid "List configured remote repositories"
+msgstr "List configured remote repositories"
+
+# 
+msgid "List from system remotes"
+msgstr "List from system remotes"
+
+# 
+msgid "List from user remotes"
+msgstr "List from user remotes"
+
+# 
+msgid "List installed applications and/or runtimes"
+msgstr "List installed applications and/or runtimes"
+
+# 
+msgid "List only applications"
+msgstr "List only applications"
+
+# 
+msgid "List only runtimes"
+msgstr "List only runtimes"
+
+# 
+msgid "List only system-installed applications"
+msgstr "List only system-installed applications"
+
+# 
+msgid "List only user-installed applications"
+msgstr "List only user-installed applications"
+
+# 
+msgid "List running Flatpak application instances"
+msgstr "List running Flatpak application instances"
+
+# 
+msgid "List system-wide repositories"
+msgstr "List system-wide repositories"
+
+# 
+msgid "List user repositories"
+msgstr "List user repositories"
+
+# 
+msgid "Manage Flatpak configuration settings"
+msgstr "Manage Flatpak configuration settings"
+
+# 
+msgid "Manage sandbox application permissions and overrides"
+msgstr "Manage sandbox application permissions and overrides"
+
+# 
+msgid "Modify properties of a remote repository"
+msgstr "Modify properties of a remote repository"
+
+# 
+msgid "Modify system-wide storage remote"
+msgstr "Modify system-wide storage remote"
+
+# 
+msgid "Modify user storage remote"
+msgstr "Modify user storage remote"
+
+# 
+msgid "Only print issues without modifying repository"
+msgstr "Only print issues without modifying repository"
+
+# 
+msgid "Operate on specific named installation"
+msgstr "Operate on specific named installation"
+
+# 
+msgid "Operate on system-wide installation"
+msgstr "Operate on system-wide installation"
+
+# 
+msgid "Operate on user installation"
+msgstr "Operate on user installation"
+
+# 
+msgid "Print debug information"
+msgstr "Print debug information"
+
+# 
+msgid "Print debug logging while launching"
+msgstr "Print debug logging while launching"
+
+# 
+msgid "Produce minimal output and never ask questions"
+msgstr "Produce minimal output and never ask questions"
+
+# 
+msgid "Query system-wide installation"
+msgstr "Query system-wide installation"
+
+# 
+msgid "Query user installation"
+msgstr "Query user installation"
+
+# 
+msgid "Reinstall even if already installed"
+msgstr "Reinstall even if already installed"
+
+# 
+msgid "Remove all matching applications/runtimes"
+msgstr "Remove all matching applications/runtimes"
+
+# 
+msgid "Remove unused runtimes and extensions"
+msgstr "Remove unused runtimes and extensions"
+
+# 
+msgid "Repair flatpak installations and ostree repositories"
+msgstr "Repair flatpak installations and ostree repositories"
+
+# 
+msgid "Repair system installation"
+msgstr "Repair system installation"
+
+# 
+msgid "Repair user installation"
+msgstr "Repair user installation"
+
+# 
+msgid "Reset all overrides for the application"
+msgstr "Reset all overrides for the application"
+
+# 
+msgid "Reset all permissions granted to an application"
+msgstr "Reset all permissions granted to an application"
+
+# 
+msgid "Revoke access to well-known socket"
+msgstr "Revoke access to well-known socket"
+
+# 
+msgid "Revoke filesystem access permission"
+msgstr "Revoke filesystem access permission"
+
+# 
+msgid "Run an application in an isolated sandbox"
+msgstr "Run an application in an isolated sandbox"
+
+# 
+msgid "Search for applications and runtimes in remote repositories"
+msgstr "Search for applications and runtimes in remote repositories"
+
+# 
+msgid "Search system-wide repositories"
+msgstr "Search system-wide repositories"
+
+# 
+msgid "Search user repositories"
+msgstr "Search user repositories"
+
+# 
+msgid "Select specific branch"
+msgstr "Select specific branch"
+
+# 
+msgid "Set configuration key"
+msgstr "Set configuration key"
+
+# 
+msgid "Set new repository URL"
+msgstr "Set new repository URL"
+
+# 
+msgid "Set remote priority"
+msgstr "Set remote priority"
+
+# 
+msgid "Set repository priority"
+msgstr "Set repository priority"
+
+# 
+msgid "Share system subsystem (network, ipc)"
+msgstr "Share system subsystem (network, ipc)"
+
+# 
+msgid "Show application metadata"
+msgstr "Show application metadata"
+
+# 
+msgid "Show configured extensions"
+msgstr "Show configured extensions"
+
+# 
+msgid "Show current overrides"
+msgstr "Show current overrides"
+
+# 
+msgid "Show detailed information about an installed application or runtime"
+msgstr "Show detailed information about an installed application or runtime"
+
+# 
+msgid "Show disabled remote repositories as well"
+msgstr "Show disabled remote repositories as well"
+
+# 
+msgid "Show full details for remote repositories"
+msgstr "Show full details for remote repositories"
+
+# 
+msgid "Show full details including commit and runtime"
+msgstr "Show full details including commit and runtime"
+
+# 
+msgid "Show permissions for a specific file access"
+msgstr "Show permissions for a specific file access"
+
+# 
+msgid "Show permissions granted to an application"
+msgstr "Show permissions granted to an application"
+
+# 
+msgid "Show sandbox permissions"
+msgstr "Show sandbox permissions"
+
+# 
+msgid "Show system history"
+msgstr "Show system history"
+
+# 
+msgid "Show transaction history of installations and changes"
+msgstr "Show transaction history of installations and changes"
+
+# 
+msgid "Show user history"
+msgstr "Show user history"
+
+# 
+msgid "Specify architecture to run"
+msgstr "Specify architecture to run"
+
+# 
+msgid "Specify columns to display"
+msgstr "Specify columns to display"
+
+# 
+msgid "Specify target architecture"
+msgstr "Specify target architecture"
+
+# 
+msgid "Specify the architecture to install"
+msgstr "Specify the architecture to install"
+
+# 
+msgid "Stop a running Flatpak application instance"
+msgstr "Stop a running Flatpak application instance"
+
+# 
+msgid "Uninstall an installed application or runtime"
+msgstr "Uninstall an installed application or runtime"
+
+# 
+msgid "Uninstall from system-wide storage"
+msgstr "Uninstall from system-wide storage"
+
+# 
+msgid "Uninstall from user storage"
+msgstr "Uninstall from user storage"
+
+# 
+msgid "Unset configuration key"
+msgstr "Unset configuration key"
+
+# 
+msgid "Unshare system subsystem"
+msgstr "Unshare system subsystem"
+
+# 
+msgid "Update installed applications and runtimes"
+msgstr "Update installed applications and runtimes"
+
+# 
+msgid "Update only a specific subpath"
+msgstr "Update only a specific subpath"
+
+# 
+msgid "Update only applications"
+msgstr "Update only applications"
+
+# 
+msgid "Update only runtimes"
+msgstr "Update only runtimes"
+
+# 
+msgid "Update only system-wide installations"
+msgstr "Update only system-wide installations"
+
+# 
+msgid "Update only user installations"
+msgstr "Update only user installations"
+
+# 
+msgid "Update the app/runtime if it is already installed"
+msgstr "Update the app/runtime if it is already installed"
+
+# 
+msgid "Use development SDK instead of runtime"
+msgstr "Use development SDK instead of runtime"
+
+# 
+msgid "Verbose output"
+msgstr "Verbose output"
+
+# 
+msgid "Work on system-wide configuration"
+msgstr "Work on system-wide configuration"
+
+# 
+msgid "Work on user configuration"
+msgstr "Work on user configuration"
+
+# 
+msgid "A new OnyxSH version is available.\n\nCurrent: {local}\nLatest: {remote}\n\nDo you want to update now?"
+msgstr "A new OnyxSH version is available.\n\nCurrent: {local}\nLatest: {remote}\n\nDo you want to update now?"
+
+# 
+msgid "Aguardando verificação"
+msgstr "Awaiting verification"
+
+# 
+msgid "Alerta Sonoro"
+msgstr "Sound Alert"
+
+# 
+msgid "Aloca automaticamente entre modelos rápidos e modelos avançados com base na complexidade da tarefa."
+msgstr "Automatically allocates between quick templates and advanced templates based on task complexity."
+
+# 
+msgid "Alta Latência"
+msgstr "High Latency"
+
+# 
+msgid "Alternar entre formato Markdown e JSON"
+msgstr "Alternar entre formato Markdown e JSON"
+
+# 
+msgid "Aplicar Alterações"
+msgstr "Apply Changes"
+
+# 
+msgid "App Info & Permissions"
+msgstr "App Info & Permissions"
+
+# 
+msgid "Application / Ref"
+msgstr "Application / Ref"
+
+# 
+msgid "Application ID, runtime name or remote"
+msgstr "Application ID, runtime name or remote"
+
+# 
+msgid "Arquivo"
+msgstr "Archive"
+
+# 
+msgid "Arquivo de Destino: {}"
+msgstr "Target File: {}"
+
+# 
+msgid "As ações executadas pelo agente serão registradas aqui automaticamente."
+msgstr "The actions performed by the agent will be recorded here automatically."
+
+# 
+msgid "Assistente de IA"
+msgstr "Assistente de IA"
+
+# 
+msgid "Assistente de código agêntico executado via terminal VTE (Ctrl + Shift + O) no sistema host."
+msgstr "Agentic code wizard run via VTE terminal (Ctrl + Shift + O) on the host system."
+
+# 
+msgid "Ativar Roteamento Inteligente"
+msgstr "Ativar Roteamento Inteligente"
+
+# 
+msgid "Auto-Reconexão:"
+msgstr "Auto-Reconnection:"
+
+# 
+msgid "Auto-executar Comandos Seguros (Nível 0)"
+msgstr "Auto-execute Safe Commands (Level 0)"
+
+# 
+msgid "Automático (Classifica complexidade do prompt)"
+msgstr "Automatic (Rates prompt complexity)"
+
+# 
+msgid "Ações rápidas flutuantes ao selecionar texto no terminal"
+msgstr "Floating quick actions when selecting text in terminal"
+
+# 
+msgid "Barra Flutuante de Ações na Seleção"
+msgstr "Floating Stock Bar in Selection"
+
+# 
+msgid "Bloqueio de Chaves e Credenciais"
+msgstr "Bloqueio de Chaves e Credenciais"
+
+# 
+msgid "Calculating hashes in progress..."
+msgstr "Calculating hashes in progress..."
+
+# 
+msgid "Cancelar"
+msgstr "Cancel"
+
+# 
+msgid "Carrega o modelo na GPU em segundo plano ao abrir o terminal para respostas imediatas."
+msgstr "Carrega o modelo na GPU em segundo plano ao abrir o terminal para respostas imediatas."
+
+# 
+msgid "Chave de API do provedor em nuvem inválida ou expirada"
+msgstr "Chave de API do provedor em nuvem inválida ou expirada"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe."
+msgstr "Click to understand what each permission level authorizes or restricts."
+
+# 
+msgid "Coleta ambiente, GPU, bibliotecas e logs mascarando dados pessoais"
+msgstr "Coleta ambiente, GPU, bibliotecas e logs mascarando dados pessoais"
+
+# 
+msgid "Colors and Effects"
+msgstr "Colors and Effects"
+
+# 
+msgid "Comando bloqueado pelas políticas de segurança."
+msgstr "Command blocked by security policies."
+
+# 
+msgid "Comandos perigosos (rm -rf /, mkfs, dd). Permanentemente bloqueados pelo motor de segurança."
+msgstr "Dangerous commands (rm -rf /, mkfs, dd). Permanently blocked by the safety motor."
+
+# 
+msgid "Comandos puramente informativos (lshw, df, free, ps, ls, cat). Risco zero."
+msgstr "Purely informative commands (lshw, df, free, ps, ls, cat). Zero risk."
+
+# 
+msgid "Command History"
+msgstr "Command History"
+
+# 
+msgid "Command Snippet"
+msgstr "Command Snippet"
+
+# 
+msgid "Conexão Estável"
+msgstr "Stable Connection"
+
+# 
+msgid "Conexão Perdida"
+msgstr "Lost Connection"
+
+# 
+msgid "Conexão SSH interrompida"
+msgstr "SSH connection interrupted"
+
+# 
+msgid "Conexão recusada na porta %d"
+msgstr "Connection refused on port %d"
+
+# 
+msgid "Configurar Escopo"
+msgstr "Configurar Escopo"
+
+# 
+msgid "Configurar pastas autorizadas e proteções de sistema."
+msgstr "Configure authorized folders and system protections."
+
+# 
+msgid "Configuração de Escopo e Segurança do Agente"
+msgstr "Agent Scope and Security Configuration"
+
+# 
+msgid "Configurações"
+msgstr "Settings"
+
+# 
+msgid "Configurações da IA (Modelos e Provedores)"
+msgstr "AI Settings (Models and Providers)"
+
+# 
+msgid "Configure as chaves individuais para alternar entre provedores sem reconfigurar."
+msgstr "Configure as chaves individuais para alternar entre provedores sem reconfigurar."
+
+# 
+msgid "Copiar"
+msgstr "Copiar"
+
+# 
+msgid "Copiar Relatório Markdown"
+msgstr "Copy Markdown Report"
+
+# 
+msgid "Copiar bloco de código"
+msgstr "Copy code block"
+
+# 
+msgid "Copiar resposta completa"
+msgstr "Copiar resposta completa"
+
+# 
+msgid "Copiar seleção (Ctrl+Shift+C)"
+msgstr "Copy selection (Ctrl+Shift+C)"
+
+# 
+msgid "Could not restart automatically. Please close and open OnyxSH again."
+msgstr "Could not restart automatically. Please close and open OnyxSH again."
+
+# 
+msgid "Could not start OnyxSH.\n\nError: {}"
+msgstr "Could not start OnyxSH.\n\nError: {}"
+
+# 
+msgid "Criar backup automático antes de aplicar"
+msgstr "Create automatic backup before applying"
+
+# 
+msgid "Criação de scripts, edição de arquivos e git na pasta home. Requer 1 clique de aprovação."
+msgstr "Creating scripts, editing files and git in the home folder. Requires 1 click approval."
+
+# 
+msgid "Ctrl+Shift+Del Limpar"
+msgstr "Ctrl+Shift+Del Clear"
+
+# 
+msgid "Data has been restored successfully. Please restart OnyxSH for the changes to take effect."
+msgstr "Data has been restored successfully. Please restart OnyxSH for the changes to take effect."
+
+# 
+msgid "Define o limite máximo de risco para comandos propostos pela IA."
+msgstr "Defines the maximum risk limit for commands proposed by the AI."
+
+# 
+msgid "Descarrega o modelo da memória GPU imediatamente ao fechar a aplicação."
+msgstr "Unloads the model from GPU memory immediately when closing the application."
+
+# 
+msgid "Desconhecido"
+msgstr "Desconhecido"
+
+# 
+msgid "Desfazer"
+msgstr "Desfazer"
+
+# 
+msgid "Destino:"
+msgstr "Destino:"
+
+# 
+msgid "Diagnóstico Seguro do Sistema (Telemetria & Suporte)"
+msgstr "Secure System Diagnostics (Telemetry & Support)"
+
+# 
+msgid "Diagnóstico do Sistema"
+msgstr "System Diagnostics"
+
+# 
+msgid "Diagnóstico e Suporte Técnico"
+msgstr "Diagnostics and Technical Support"
+
+# 
+msgid "Diff Comparison Error"
+msgstr "Diff Comparison Error"
+
+# 
+msgid "Digite a chave da Groq antes de testar."
+msgstr "Digite a chave da Groq antes de testar."
+
+# 
+msgid "Digite a chave do Gemini antes de testar."
+msgstr "Digite a chave do Gemini antes de testar."
+
+# 
+msgid "Direciona consultas simples para o perfil rápido e planos/scripts complexos para o perfil avançado."
+msgstr "Directs simple queries to the quick profile and complex plans/scripts to the advanced profile."
+
+# 
+msgid "Diretórios Permitidos para Ações do Agente"
+msgstr "Allowed Directories for Agent Actions"
+
+# 
+msgid "Divisão Vertical (Split Pane)"
+msgstr "Divisão Vertical (Split Pane)"
+
+# 
+msgid "Do you want to restore these tabs the next time you open OnyxSH?"
+msgstr "Do you want to restore these tabs the next time you open OnyxSH?"
+
+# 
+msgid "Download Directory"
+msgstr "Download Directory"
+
+# 
+msgid "Emitir uma notificação de teste agora para verificar o sistema"
+msgstr "Issue a test notification now to check the system"
+
+# 
+msgid "Erro ao salvar relatório: {}"
+msgstr "Error saving report: {}"
+
+# 
+msgid "Error calculating hash"
+msgstr "Error calculating hash"
+
+# 
+msgid "Error reading local file: {}"
+msgstr "Error reading local file: {}"
+
+# 
+msgid "Esc Fechar"
+msgstr "Esc Close"
+
+# 
+msgid "Escolha a opção de limpeza desejada para o histórico de comandos:"
+msgstr "Choose the desired cleaning option for the command history:"
+
+# 
+msgid "Escolha se a IA deve alternar automaticamente ou fixar um perfil."
+msgstr "Escolha se a IA deve alternar automaticamente ou fixar um perfil."
+
+# 
+msgid "Escolha se o atalho abre em divisão vertical ao lado do terminal ou em nova aba."
+msgstr "Choose whether the shortcut opens in a vertical split next to the terminal or in a new tab."
+
+# 
+msgid "Escopo de Diretórios e Políticas"
+msgstr "Escopo de Diretórios e Políticas"
+
+# 
+msgid "Executa automaticamente diagnósticos somente-leitura sem exigir confirmação."
+msgstr "Automatically runs read-only diagnostics without requiring confirmation."
+
+# 
+msgid "Executar ação administrativa autenticada via Polkit"
+msgstr "Perform authenticated administrative action via Polkit"
+
+# 
+msgid "Exibir menu rápido com Copiar, Perguntar à IA e Refatorar ao selecionar texto"
+msgstr "Show quick menu with Copy, Ask AI and Refactor when selecting text"
+
+# 
+msgid "Exportar Saída do Terminal (TXT, Markdown, HTML, Cast)..."
+msgstr "Exportar Saída do Terminal (TXT, Markdown, HTML, Cast)..."
+
+# 
+msgid "Failed to build SSH command."
+msgstr "Failed to build SSH command."
+
+# 
+msgid "Failed to calculate checksums: {error}"
+msgstr "Failed to calculate checksums: {error}"
+
+# 
+msgid "Failed to fetch remote image."
+msgstr "Failed to fetch remote image."
+
+# 
+msgid "Failed to reach %s: %s"
+msgstr "Failed to reach %s: %s"
+
+# 
+msgid "Failed to read remote file"
+msgstr "Failed to read remote file"
+
+# 
+msgid "Falha de conexão"
+msgstr "Connection failure"
+
+# 
+msgid "Ferramentas"
+msgstr "Ferramentas"
+
+# 
+msgid "Files requested by TFTP clients are read from this directory"
+msgstr "Files requested by TFTP clients are read from this directory"
+
+# 
+msgid "Files sent by TFTP clients are written to this directory"
+msgstr "Files sent by TFTP clients are written to this directory"
+
+# 
+msgid "Filtra chaves de API, senhas e tokens antes de qualquer envio ao LLM"
+msgstr "Filtra chaves de API, senhas e tokens antes de qualquer envio ao LLM"
+
+# 
+msgid "Fit to Window (Ctrl+0)"
+msgstr "Fit to Window (Ctrl+0)"
+
+# 
+msgid "Flatpak"
+msgstr "Flatpak"
+
+# 
+msgid "Flatpak action to perform"
+msgstr "Flatpak action to perform"
+
+# 
+msgid "For more information, visit: https://github.com/VaGNaroK/OnyxSH/"
+msgstr "For more information, visit: https://github.com/VaGNaroK/OnyxSH/"
+
+# 
+msgid "Format diagnostic output as structured JSON"
+msgstr "Format diagnostic output as structured JSON"
+
+# 
+msgid "Generate and print a sanitized technical system diagnostic report"
+msgstr "Generate and print a sanitized technical system diagnostic report"
+
+# 
+msgid "Gerar Diagnóstico Seguro do Sistema"
+msgstr "Generate Secure System Diagnostics"
+
+# 
+msgid "Gerar..."
+msgstr "Gerar..."
+
+# 
+msgid "Gere um relatório técnico sanitizado do sistema para envio ao suporte e abertura de issues."
+msgstr "Generate a sanitized technical report of the system to send to support and open issues."
+
+# 
+msgid "Google Gemini API Key"
+msgstr "Google Gemini API Key"
+
+# 
+msgid "Groups and Alternatives"
+msgstr "Groups and Alternatives"
+
+# 
+msgid "Habilitar Lançador OpenCode"
+msgstr "Habilitar Lançador OpenCode"
+
+# 
+msgid "Hardware: {desc}"
+msgstr "Hardware: {desc}"
+
+# 
+msgid "Histórico de Ações"
+msgstr "Stock History"
+
+# 
+msgid "Host não configurado"
+msgstr "Host não configurado"
+
+# 
+msgid "Idioma:"
+msgstr "Idioma:"
+
+# 
+msgid "Incluir Contexto do Sistema e Hardware"
+msgstr "Incluir Contexto do Sistema e Hardware"
+
+# 
+msgid "Incluir Diretório Atual (PWD) no Contexto"
+msgstr "Incluir Diretório Atual (PWD) no Contexto"
+
+# 
+msgid "Informa à IA a distribuição Linux, arquitetura e dados do sistema para comandos exatos."
+msgstr "Tells AI the Linux distribution, architecture, and system data for exact commands."
+
+# 
+msgid "Inserir no terminal"
+msgstr "Inserir no terminal"
+
+# 
+msgid "Instalação/remoção de pacotes e arquivos em /etc (apt, dpkg). Exige confirmação explícita."
+msgstr "Installation/removal of packages and files in /etc (apt, dpkg). Requires explicit confirmation."
+
+# 
+msgid "Integração OpenCode CLI (Terminal)"
+msgstr "OpenCode CLI integration (Terminal)"
+
+# 
+msgid "Latency of %s: %.1f ms (%s)"
+msgstr "Latency of %s: %.1f ms (%s)"
+
+# 
+msgid "Latência Moderada"
+msgstr "Moderate Latency"
+
+# 
+msgid "Latência de Rede (RTT):"
+msgstr "Network Latency (RTT):"
+
+# 
+msgid "Launch a completely independent application instance"
+msgstr "Launch a completely independent application instance"
+
+# 
+msgid "Liberar VRAM ao Fechar o Terminal"
+msgstr "Free VRAM when Closing the Terminal"
+
+# 
+msgid "Limite de cota de requisições excedido"
+msgstr "Request quota limit exceeded"
+
+# 
+msgid "Limpar Histórico de Comandos..."
+msgstr "Clear Command History..."
+
+# 
+msgid "Limpar Tudo"
+msgstr "Clear All"
+
+# 
+msgid "Limpar com Falha"
+msgstr "Clear Failed"
+
+# 
+msgid "List Installed Apps"
+msgstr "List Installed Apps"
+
+# 
+msgid "List Remotes"
+msgstr "List Remotes"
+
+# 
+msgid "Local file not found: {}"
+msgstr "Local file not found: {}"
+
+# 
+msgid "Local {local_host}:{local_port} → Remote {remote_host}:{remote_port}"
+msgstr "Local {local_host}:{local_port} → Remote {remote_host}:{remote_port}"
+
+# 
+msgid "MD5"
+msgstr "MD5"
+
+# 
+msgid "Modelo Avançado"
+msgstr "Modelo Avançado"
+
+# 
+msgid "Modelo Rápido"
+msgstr "Quick Template"
+
+# 
+msgid "Modelo e provedor de alto raciocínio para orquestração de múltiplos passos."
+msgstr "High-reasoning model and provider for multi-step orchestration."
+
+# 
+msgid "Modelo e provedor de baixa latência para dúvidas do dia a dia."
+msgstr "Low latency model and provider for everyday questions."
+
+# 
+msgid "Modelo em nuvem não disponível"
+msgstr "Cloud model not available"
+
+# 
+msgid "Modo Agente Seguro e Contexto"
+msgstr "Secure Agent Mode and Context"
+
+# 
+msgid "Modo Estritamente Offline ativo (execução restrita a modelo local Ollama/LM Studio)."
+msgstr "Strictly Offline Mode active (execution restricted to local Ollama/LM Studio model)."
+
+# 
+msgid "Modo Offline Ativo: executando com modelo local."
+msgstr "Active Offline Mode: running with local model."
+
+# 
+msgid "Modo Seleção (Ctrl+Shift+S) - Pausa o mouse do aplicativo para seleção direta"
+msgstr "Selection Mode (Ctrl+Shift+S) - Pauses the application mouse for direct selection"
+
+# 
+msgid "Modo Seleção ativo (Pressione Esc para sair)"
+msgstr "Selection mode active (Press Esc to exit)"
+
+# 
+msgid "Modo Seleção de Texto"
+msgstr "Text Selection Mode"
+
+# 
+msgid "Modo Seleção desativado"
+msgstr "Selection mode disabled"
+
+# 
+msgid "Modo de Abertura no Terminal"
+msgstr "Terminal Opening Mode"
+
+# 
+msgid "Modo de Contingência (Fallback Automático Ativado)"
+msgstr "Contingency Mode (Automatic Fallback Activated)"
+
+# 
+msgid "Modo de Roteamento Padrão"
+msgstr "Default Routing Mode"
+
+# 
+msgid "Mouse capturado pelo aplicativo (OpenCode/TUI). Segure Shift para selecionar texto ou clique aqui para ativar o Modo Seleção."
+msgstr "Mouse captured by the application (OpenCode/TUI). Hold Shift to select text or click here to activate Selection Mode."
+
+# 
+msgid "Nenhum registro de auditoria encontrado"
+msgstr "No audit records found"
+
+# 
+msgid "Nenhum registro gravado"
+msgstr "Nenhum registro gravado"
+
+# 
+msgid "Network error"
+msgstr "Network error"
+
+# 
+msgid "No active terminal to export."
+msgstr "No active terminal to export."
+
+# 
+msgid "Not a remote SSH session."
+msgstr "Not a remote SSH session."
+
+# 
+msgid "Nova Aba"
+msgstr "New Tab"
+
+# 
+msgid "Nova Aba Dedicada"
+msgstr "New Dedicated Tab"
+
+# 
+msgid "Nova Janela"
+msgstr "New Window"
+
+# 
+msgid "Number of recent error log lines to include in diagnostics (default: 30)"
+msgstr "Number of recent error log lines to include in diagnostics (default: 30)"
+
+# 
+msgid "Não especificado"
+msgstr "Não especificado"
+
+# 
+msgid "Não foi possível conectar ao **{provider}** ({reason}). A resposta foi gerada localmente através do **{model}**."
+msgstr "Não foi possível conectar ao **{provider}** ({reason}). A resposta foi gerada localmente através do **{model}**."
+
+# 
+msgid "Nível Máximo de Autonomia Permitido"
+msgstr "Maximum Level of Autonomy Allowed"
+
+# 
+msgid "O agente tem permissão de leitura/escrita restrita apenas aos diretórios listados abaixo."
+msgstr "The agent has read/write permissions restricted to only the directories listed below."
+
+# 
+msgid "O comando executado no terminal falhou com código {code}. Analise os arquivos do projeto e elabore as correções necessárias:\n\n{context}"
+msgstr "The command executed in the terminal failed with code {code} . Analyze the project files and make the necessary corrections:\n\n {context}"
+
+# 
+msgid "O que esta etapa faz?"
+msgstr "O que esta etapa faz?"
+
+# 
+msgid "Ofuscação Automática de Segredos"
+msgstr "Automatic Secret Obfuscation"
+
+# 
+msgid "OnyxSH"
+msgstr "OnyxSH"
+
+# 
+msgid "OnyxSH - A modern terminal emulator with session management"
+msgstr "OnyxSH - A modern terminal emulator with session management"
+
+# 
+msgid "OnyxSH Icons (Bundled)"
+msgstr "OnyxSH Icons (Bundled)"
+
+# 
+msgid "OnyxSH was updated to version {version}. You need to restart the application to apply all changes."
+msgstr "OnyxSH was updated to version {version}. You need to restart the application to apply all changes."
+
+# 
+msgid "Open Directory"
+msgstr "Open Directory"
+
+# 
+msgid "OpenCode CLI (não instalado)"
+msgstr "OpenCode CLI (não instalado)"
+
+# 
+msgid "OpenCode CLI não encontrado. Instale com: {cmd}"
+msgstr "OpenCode CLI not found. Install with: {cmd}"
+
+# 
+msgid "OpenCode Code Assistant"
+msgstr "OpenCode Code Assistant"
+
+# 
+msgid "OpenCode: Abrir Assistente de Código"
+msgstr "OpenCode: Open Code Wizard"
+
+# 
+msgid "Padrão:"
+msgstr "Pattern:"
+
+# 
+msgid "Parâmetros de proteção, níveis de autonomia e contexto do sistema."
+msgstr "Protection parameters, autonomy levels and system context."
+
+# 
+msgid "Pasta"
+msgstr "Folder"
+
+# 
+msgid "Perfil Avançado Ativo: prioriza raciocínio profundo e planos multi-passo (Gemini / Claude)."
+msgstr "Perfil Avançado Ativo: prioriza raciocínio profundo e planos multi-passo (Gemini / Claude)."
+
+# 
+msgid "Perfil Avançado selecionado manualmente."
+msgstr "Perfil Avançado selecionado manualmente."
+
+# 
+msgid "Perfil Rápido Ativo: prioriza baixa latência e respostas imediatas (Groq / Local)."
+msgstr "Active Fast Profile: prioritizes low latency and immediate responses (Groq / Local)."
+
+# 
+msgid "Perfil Rápido selecionado manualmente."
+msgstr "Manually selected Quick Profile."
+
+# 
+msgid "Perfil de Roteamento"
+msgstr "Perfil de Roteamento"
+
+# 
+msgid "Perguntar à IA"
+msgstr "Perguntar à IA"
+
+# 
+msgid "Perguntar à IA (abrir no chat com rascunho)"
+msgstr "Perguntar à IA (abrir no chat com rascunho)"
+
+# 
+msgid "Permite iniciar o OpenCode em divisão de tela (Ctrl + Shift + O) ou nova aba preservando o diretório ativo."
+msgstr "Allows you to start OpenCode in split screen (Ctrl + Shift + O) or new tab while preserving the active directory."
+
+# 
+msgid "Permite que a IA use caminhos relativos ao diretório em que você está navegando."
+msgstr "Permite que a IA use caminhos relativos ao diretório em que você está navegando."
+
+# 
+msgid "Permitir que aplicações de terminal e TUIs (OpenCode, Neovim, Tmux) copiem texto para o clipboard do sistema"
+msgstr "Allow terminal applications and TUIs (OpenCode, Neovim, Tmux) to copy text to the system clipboard"
+
+# 
+msgid "Please select an SSH session to test connection."
+msgstr "Please select an SSH session to test connection."
+
+# 
+msgid "Ponte de Clipboard OSC 52"
+msgstr "Ponte de Clipboard OSC 52"
+
+# 
+msgid "Por favor, analise e refatore o seguinte trecho de código:\n\n{content}"
+msgstr "Please review and refactor the following code snippet:\n\n {content}"
+
+# 
+msgid "Port forward '{name}' requires a remote host."
+msgstr "Port forward '{name}' requires a remote host."
+
+# 
+msgid "Process exited with code {code}"
+msgstr "Process exited with code {code}"
+
+# 
+msgid "Proteção de Inicialização de Shell"
+msgstr "Shell Boot Protection"
+
+# 
+msgid "Proteções Ativas (Default-Deny)"
+msgstr "Active Protections (Default-Deny)"
+
+# 
+msgid "Provedor Avançado"
+msgstr "Provedor Avançado"
+
+# 
+msgid "Provedor Rápido"
+msgstr "Fast Provider"
+
+# 
+msgid "Pré-carregar Modelo na VRAM ao Iniciar"
+msgstr "Pré-carregar Modelo na VRAM ao Iniciar"
+
+# 
+msgid "Próxima Aba"
+msgstr "Next Tab"
+
+# 
+msgid "Refatorar"
+msgstr "Refatorar"
+
+# 
+msgid "Refatorar com OpenCode (Zero-Trust)"
+msgstr "Refatorar com OpenCode (Zero-Trust)"
+
+# 
+msgid "Refatorar seleção com OpenCode"
+msgstr "Refactor selection with OpenCode"
+
+# 
+msgid "Registro de Auditoria de Ações"
+msgstr "Stock Audit Log"
+
+# 
+msgid "Registro de Auditoria do Agente"
+msgstr "Agent Audit Log"
+
+# 
+msgid "Relatório copiado para a área de transferência!"
+msgstr "Report copied to clipboard!"
+
+# 
+msgid "Relatório salvo com sucesso em: {}"
+msgstr "Report successfully saved to: {}"
+
+# 
+msgid "Relatório técnico sanitizado: senhas, caminhos e IPs foram mascarados automaticamente."
+msgstr "Sanitized technical report: passwords, paths and IPs were automatically masked."
+
+# 
+msgid "Remote :{remote_port} → Local {local_host}:{local_port}"
+msgstr "Remote :{remote_port} → Local {local_host}:{local_port}"
+
+# 
+msgid "Repair Installations"
+msgstr "Repair Installations"
+
+# 
+msgid "Report an Issue"
+msgstr "Report an Issue"
+
+# 
+msgid "Resolver erro (código {code}) com OpenCode"
+msgstr "Resolve error (code {code} ) with OpenCode"
+
+# 
+msgid "Resolver erro com OpenCode"
+msgstr "Resolver erro com OpenCode"
+
+# 
+msgid "Restart Failed"
+msgstr "Restart Failed"
+
+# 
+msgid "Restaurado ✓"
+msgstr "Restaurado ✓"
+
+# 
+msgid "Revisar diff unificado antes de aplicar com backup"
+msgstr "Revisar diff unificado antes de aplicar com backup"
+
+# 
+msgid "Revisão de Alterações — Diff"
+msgstr "Change Review — Diff"
+
+# 
+msgid "Roteado para modelo avançado (tarefa complexa / planejamento multi-passo)."
+msgstr "Roteado para modelo avançado (tarefa complexa / planejamento multi-passo)."
+
+# 
+msgid "Roteado para modelo avançado com foco em segurança/diagnóstico."
+msgstr "Routed to advanced model with a focus on security/diagnostics."
+
+# 
+msgid "Roteado para perfil Rápido (consulta simples / baixa latência)."
+msgstr "Routed to Fast profile (simple query / low latency)."
+
+# 
+msgid "Roteamento Inteligente Ativo: a IA escolhe o modelo ideal automaticamente conforme a pergunta."
+msgstr "Roteamento Inteligente Ativo: a IA escolhe o modelo ideal automaticamente conforme a pergunta."
+
+# 
+msgid "Roteamento Inteligente de Modelos (Smart Routing)"
+msgstr "Roteamento Inteligente de Modelos (Smart Routing)"
+
+# 
+msgid "Roteamento Inteligente desativado: utilizando provedor padrão das configurações."
+msgstr "Intelligent Routing disabled: using default provider settings."
+
+# 
+msgid "Run Application"
+msgstr "Run Application"
+
+# 
+msgid "SHA-1"
+msgstr "SHA-1"
+
+# 
+msgid "SHA-256"
+msgstr "SHA-256"
+
+# 
+msgid "SHA-512"
+msgstr "SHA-512"
+
+# 
+msgid "SOCKS5 Proxy on {host}:{port}"
+msgstr "SOCKS5 Proxy on {host}:{port}"
+
+# 
+msgid "Salvar Relatório de Diagnóstico"
+msgstr "Save Diagnostic Report"
+
+# 
+msgid "Salvar Relatório em Arquivo..."
+msgstr "Save Report to File..."
+
+# 
+msgid "Save diagnostic report to a file"
+msgstr "Save diagnostic report to a file"
+
+# 
+msgid "Selecionar Tudo"
+msgstr "Selecionar Tudo"
+
+# 
+msgid "Select a provider in Preferences > Terminal > AI Assistant."
+msgstr "Select a provider in Preferences > Terminal > AI Assistant."
+
+# 
+msgid "Seleção de Texto"
+msgstr "Text Selection"
+
+# 
+msgid "Sempre Avançado (Raciocínio profundo / Gemini / Claude)"
+msgstr "Sempre Avançado (Raciocínio profundo / Gemini / Claude)"
+
+# 
+msgid "Sempre Rápido (Baixa latência / Groq / Local)"
+msgstr "Always Fast (Low latency / Groq / Local)"
+
+# 
+msgid "Sempre notificar"
+msgstr "Sempre notificar"
+
+# 
+msgid "Send"
+msgstr "Send"
+
+# 
+msgid "Serviços e configurações do sistema (systemctl, journalctl). Requer autenticação segura."
+msgstr "System services and settings (systemctl, journalctl). Requires secure authentication."
+
+# 
+msgid "Sessão SSH:"
+msgstr "Sessão SSH:"
+
+# 
+msgid "Sessões SSH"
+msgstr "Sessões SSH"
+
+# 
+msgid "Shift+Arrastar"
+msgstr "Shift+Arrastar"
+
+# 
+msgid "Simular execução (Dry-run)"
+msgstr "Simulate execution (Dry-run)"
+
+# 
+msgid "Source Code"
+msgstr "Source Code"
+
+# 
+msgid "Start TFTP Server"
+msgstr "Start TFTP Server"
+
+# 
+msgid "Status do Binário OpenCode"
+msgstr "OpenCode Binary Status"
+
+# 
+msgid "Stop TFTP Server"
+msgstr "Stop TFTP Server"
+
+# 
+msgid "TFTP Port"
+msgstr "TFTP Port"
+
+# 
+msgid "TFTP Server"
+msgstr "TFTP Server"
+
+# 
+msgid "TFTP server bind error!"
+msgstr "TFTP server bind error!"
+
+# 
+msgid "TFTP server error!"
+msgstr "TFTP server error!"
+
+# 
+msgid "TFTP server file error!"
+msgstr "TFTP server file error!"
+
+# 
+msgid "TFTP server network error!"
+msgstr "TFTP server network error!"
+
+# 
+msgid "TFTP server started."
+msgstr "TFTP server started."
+
+# 
+msgid "TFTP server stopped."
+msgstr "TFTP server stopped."
+
+# 
+msgid "Tamanho da Janela de Contexto (Tokens)"
+msgstr "Context Window Size (Tokens)"
+
+# 
+msgid "Tempo limite de conexão esgotado (timeout)"
+msgstr "Connection timed out (timeout)"
+
+# 
+msgid "Tentativa"
+msgstr "Attempt"
+
+# 
+msgid "Terminal emulator for local and remote workflows on Linux."
+msgstr "Terminal emulator for local and remote workflows on Linux."
+
+# 
+msgid "Terminal: Alternar Modo Seleção de Texto"
+msgstr "Terminal: Toggle Text Selection Mode"
+
+# 
+msgid "Testando..."
+msgstr "Testando..."
+
+# 
+msgid "Testar"
+msgstr "Testar"
+
+# 
+msgid "Testar Notificação"
+msgstr "Test Notification"
+
+# 
+msgid "Testar Notificação Agora"
+msgstr "Test Notification Now"
+
+# 
+msgid "Testing latency of %s (%s)..."
+msgstr "Testing latency of %s (%s)..."
+
+# 
+msgid "The TFTP server uses local directories for uploading and downloading files."
+msgstr "The TFTP server uses local directories for uploading and downloading files."
+
+# 
+msgid "The update command finished with an error (exit code: {code}). Please check the update tab output."
+msgstr "The update command finished with an error (exit code: {code}). Please check the update tab output."
+
+# 
+msgid "Todos"
+msgstr "Todos"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos avaliados e ações executadas pelo <b>Modo Agente Seguro</b>."
+msgstr "Continuous audit trail of decisions, evaluated commands and actions performed by <b> Secure Agent Mode </b> ."
+
+# 
+msgid "Uninstall"
+msgstr "Uninstall"
+
+# 
+msgid "Unknown size"
+msgstr "Unknown size"
+
+# 
+msgid "Update All Apps & Runtimes"
+msgstr "Update All Apps & Runtimes"
+
+# 
+msgid "Verificar"
+msgstr "Verificar"
+
+# 
+msgid "Warning"
+msgstr "Warning"
+
+# 
+msgid "Zoom In (Ctrl++)"
+msgstr "Zoom In (Ctrl++)"
+
+# 
+msgid "Zoom Out (Ctrl+-)"
+msgstr "Zoom Out (Ctrl+-)"
+
+# 
+msgid "e.g., org.gnome.Calculator, flathub (optional for update/list)"
+msgstr "e.g., org.gnome.Calculator, flathub (optional for update/list)"
+
+# 
+msgid "itens"
+msgstr "itens"
+
+# 
+msgid "total"
+msgstr "total"
+
+# 
+msgid "{context}```\n{text}\n```\n\nExplique ou analise este código:"
+msgstr "{context} ```\n {text} \n```\n\nExplain or analyze this code:"
+
+# 
+msgid "{selected} of {total} items selected • {free} free"
+msgstr "{selected} of {total} items selected • {free} free"
+
+# 
+msgid "{total} items • {free} free"
+msgstr "{total} items • {free} free"
+
+# 
+msgid "~/.bashrc, ~/.zshrc, ~/.profile e diretórios de sistema"
+msgstr "~/.bashrc, ~/.zshrc, ~/.profile e diretórios de sistema"
+
+# 
+msgid "~/.ssh, ~/.gnupg, ~/.aws, ~/.docker, arquivos .env e históricos"
+msgstr "~/.ssh, ~/.gnupg, ~/.aws, ~/.docker, .env and history files"
+
+# 
+msgid "ℹ️ Guia dos Níveis de Risco do Contexto"
+msgstr "ℹ️ Guia dos Níveis de Risco do Contexto"
+
+# 
+msgid "⏱ Reconectando em %ds... (Tentativa %d/%d)"
+msgstr "⏱ Reconnecting on %d s... (Try %d / %d )"
+
+# 
+msgid "⚙️ Configurar Modelos e Provedores..."
+msgstr "⚙️ Configurar Modelos e Provedores..."
+
+# 
+msgid "⚠️ Alerta de Segurança: Possíveis segredos detectados no diff: {secrets}"
+msgstr "⚠️ Security Alert: Possible secrets detected in diff: {secrets}"
+
+# 
+msgid "⚠️ Binário não encontrado. Instale com: curl -fsSL https://opencode.ai/v2/install | bash"
+msgstr "⚠️ Binary not found. Install with: curl -fsSL https://opencode.ai/v2/install | bash"
+
+# 
+msgid "⚡ Perfil Rápido (Consultas Pontuais / Sintaxe)"
+msgstr "⚡ Quick Profile (Particular Queries / Syntax)"
+
+# 
+msgid "⚡ Rápido"
+msgstr "⚡ Fast"
+
+# 
+msgid "⚡ Sempre Rápido (Baixa Latência)"
+msgstr "⚡ Always Fast (Low Latency)"
+
+# 
+msgid "⚪ Verificando..."
+msgstr "⚪ Verificando..."
+
+# 
+msgid "⛔ Bloqueado"
+msgstr "⛔ Bloqueado"
+
+# 
+msgid "⛔ Nível 4 (Bloqueado)"
+msgstr "⛔ Level 4 (Blocked)"
+
+# 
+msgid "⛔ Nível 4: Ações Destrutivas (Bloqueado)"
+msgstr "⛔ Level 4: Destructive Actions (Blocked)"
+
+# 
+msgid "✅ Gemini conectado! Modelos: {models}"
+msgstr "✅ Gemini conectado! Modelos: {models}"
+
+# 
+msgid "✅ Groq conectado! Modelos: {models}"
+msgstr "✅ Groq conectado! Modelos: {models}"
+
+# 
+msgid "✓ Copiado!"
+msgstr "✓ Copiado!"
+
+# 
+msgid "❌ Falha na autenticação com a Groq (Chave inválida)."
+msgstr "❌ Authentication with Groq failed (Invalid Key)."
+
+# 
+msgid "❌ Falha na autenticação do Google Gemini (Chave inválida)."
+msgstr "❌ Google Gemini Authentication Failed (Invalid Key)."
+
+# 
+msgid "🌐 Modo Nuvem Ativo.\nClique para ativar o Modo Estritamente Offline (Local-Only)."
+msgstr "🌐 Active Cloud Mode.\nClick to activate Strictly Offline Mode (Local-Only)."
+
+# 
+msgid "👁 Ver Alterações"
+msgstr "👁 View Changes"
+
+# 
+msgid "🔄 Auto"
+msgstr "🔄 Auto"
+
+# 
+msgid "🔄 Automático (Inteligente)"
+msgstr "🔄 Automatic (Smart)"
+
+# 
+msgid "🔄 Reconectando..."
+msgstr "🔄 Reconectando..."
+
+# 
+msgid "🔑 Chaves de API por Provedor"
+msgstr "🔑 Chaves de API por Provedor"
+
+# 
+msgid "🔒 Provedores de nuvem bloqueados pelo Modo Estritamente Offline."
+msgstr "🔒 Cloud providers blocked by Strictly Offline Mode."
+
+# 
+msgid "🔴 Inalcançável"
+msgstr "🔴 Inalcançável"
+
+# 
+msgid "🔴 Nível 3 (Crítico)"
+msgstr "🔴 Level 3 (Critical)"
+
+# 
+msgid "🔴 Nível 3: Operações Críticas (Pacotes e Sistema Global)"
+msgstr "🔴 Level 3: Critical Operations (Packages and Global System)"
+
+# 
+msgid "🔴 Nível 3: Operações Críticas Globais"
+msgstr "🔴 Level 3: Global Critical Operations"
+
+# 
+msgid "🔵 Nível 1 (Escrita)"
+msgstr "🔵 Level 1 (Writing)"
+
+# 
+msgid "🔵 Nível 1: Escrita no Espaço do Usuário"
+msgstr "🔵 Level 1: User Space Writing"
+
+# 
+msgid "🔵 Nível 1: Escrita no Usuário (Criar/Editar Scripts e Arquivos)"
+msgstr "🔵 Level 1: User Writing (Create/Edit Scripts and Files)"
+
+# 
+msgid "🛡 Executar como Admin"
+msgstr "🛡 Run as Admin"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nTodo o processamento ocorre localmente no Ollama/LM Studio.\nClique para alternar."
+msgstr "🛡️ Active Strictly Offline Mode (Zero Cloud).\nAll processing occurs locally in Ollama/LM Studio.\nClick to toggle."
+
+# 
+msgid "🟠 High Latency"
+msgstr "🟠 High Latency"
+
+# 
+msgid "🟠 Nível 2 (Admin Polkit)"
+msgstr "🟠 Level 2 (Admin Polkit)"
+
+# 
+msgid "🟠 Nível 2: Administração Polkit"
+msgstr "🟠 Level 2: Polkit Administration"
+
+# 
+msgid "🟠 Nível 2: Administração Polkit (Serviços e Manutenção)"
+msgstr "🟠 Level 2: Polkit Administration (Services and Maintenance)"
+
+# 
+msgid "🟡 Fair"
+msgstr "🟡 Fair"
+
+# 
+msgid "🟢 Detectado ({ver})em: {path}"
+msgstr "🟢 Detectado ({ver})em: {path}"
+
+# 
+msgid "🟢 Excellent"
+msgstr "🟢 Excellent"
+
+# 
+msgid "🟢 Nível 0 (Leitura)"
+msgstr "🟢 Level 0 (Reading)"
+
+# 
+msgid "🟢 Nível 0: Somente Leitura (Diagnóstico e Inspeção)"
+msgstr "🟢 Level 0: Read Only (Diagnosis and Inspection)"
+
+# 
+msgid "🟢 Nível 0: Somente Leitura (Diagnóstico)"
+msgstr "🟢 Level 0: Read Only (Diagnostic)"
+
+# 
+msgid "🧠 Avançado"
+msgstr "🧠 Avançado"
+
+# 
+msgid "🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"
+msgstr "🧠 Advanced Profile (Complex Plans / Scripts / Diagnostics)"
+
+# 
+msgid "🧠 Sempre Avançado (Raciocínio)"
+msgstr "🧠 Sempre Avançado (Raciocínio)"
+

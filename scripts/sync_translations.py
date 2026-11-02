@@ -14815,32 +14815,134 @@ except ImportError:
     except ImportError:
         pass
 
+# Import modular translations from scripts/translations/
+trans_modules = [
+    ("flatpak_trans", "FLATPAK_TRANSLATIONS"),
+    ("ui_extra_trans", "UI_EXTRA_TRANSLATIONS"),
+    ("command_manager_trans", "COMMAND_MANAGER_TRANSLATIONS"),
+    ("common_trans", "COMMON_TRANSLATIONS"),
+    ("devops_trans", "DEVOPS_TRANSLATIONS"),
+    ("dnf_trans", "DNF_TRANSLATIONS"),
+    ("docker_trans", "DOCKER_TRANSLATIONS"),
+    ("git_trans", "GIT_TRANSLATIONS"),
+    ("pacman_trans", "PACMAN_TRANSLATIONS"),
+]
+
+for mod_name, dict_name in trans_modules:
+    try:
+        mod = __import__(f"scripts.translations.{mod_name}", fromlist=[dict_name])
+        NEW_TRANSLATIONS.update(getattr(mod, dict_name))
+    except ImportError:
+        try:
+            mod = __import__(f"translations.{mod_name}", fromlist=[dict_name])
+            NEW_TRANSLATIONS.update(getattr(mod, dict_name))
+        except ImportError:
+            pass
+
+
+import ast
 
 def _format_po_str(s: str) -> str:
     escaped = s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
     return f'"{escaped}"'
 
 
-def sync_language_po(po_file: Path) -> int:
-    """Synchronize missing entries in a .po file."""
-    lang_code = po_file.stem
-    content = po_file.read_text(encoding="utf-8")
+def _parse_po_content(path: Path) -> Tuple[List[str], List[Tuple[List[str], str, str]]]:
+    """Parse a .po file into (header_lines, list of (comments, msgid, msgstr))."""
+    header = []
+    entries = []
+    current_comments: List[str] = []
+    current_msgid: List[str] = []
+    current_msgstr: List[str] = []
+    state = "init"
 
-    entries_to_add: List[str] = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            stripped = line.strip()
+            if state == "init":
+                if stripped.startswith("msgid "):
+                    state = "id"
+                    content = stripped[6:].strip()
+                    if content.startswith('"') and content.endswith('"'):
+                        current_msgid.append(content[1:-1])
+                else:
+                    header.append(line)
+            elif stripped.startswith("#"):
+                if state == "str":
+                    mid = ast.literal_eval('"' + "".join(current_msgid) + '"') if current_msgid else ""
+                    mstr = ast.literal_eval('"' + "".join(current_msgstr) + '"') if current_msgstr else ""
+                    entries.append((current_comments, mid, mstr))
+                    current_comments = [line]
+                    current_msgid = []
+                    current_msgstr = []
+                    state = "comments"
+                else:
+                    current_comments.append(line)
+            elif stripped.startswith("msgid "):
+                if state == "str":
+                    mid = ast.literal_eval('"' + "".join(current_msgid) + '"') if current_msgid else ""
+                    mstr = ast.literal_eval('"' + "".join(current_msgstr) + '"') if current_msgstr else ""
+                    entries.append((current_comments, mid, mstr))
+                    current_comments = []
+                    current_msgid = []
+                    current_msgstr = []
+                state = "id"
+                content = stripped[6:].strip()
+                if content.startswith('"') and content.endswith('"'):
+                    current_msgid.append(content[1:-1])
+            elif stripped.startswith("msgstr "):
+                state = "str"
+                content = stripped[7:].strip()
+                if content.startswith('"') and content.endswith('"'):
+                    current_msgstr.append(content[1:-1])
+            elif stripped.startswith('"') and stripped.endswith('"'):
+                if state == "id":
+                    current_msgid.append(stripped[1:-1])
+                elif state == "str":
+                    current_msgstr.append(stripped[1:-1])
+
+    if state == "str":
+        mid = ast.literal_eval('"' + "".join(current_msgid) + '"') if current_msgid else ""
+        mstr = ast.literal_eval('"' + "".join(current_msgstr) + '"') if current_msgstr else ""
+        entries.append((current_comments, mid, mstr))
+
+    return header, entries
+
+
+def sync_language_po(po_file: Path) -> int:
+    """Synchronize missing entries in a .po file and fill empty msgstrs robustly without duplicates."""
+    lang_code = po_file.stem
+    header, entries = _parse_po_content(po_file)
+    existing_index = {mid: i for i, (c, mid, mstr) in enumerate(entries)}
+
+    updated_count = 0
 
     for msgid, lang_dict in NEW_TRANSLATIONS.items():
-        formatted_msgid = _format_po_str(msgid)
-        if f"msgid {formatted_msgid}" not in content:
-            # Pick best translation: specific language -> en -> msgid
-            msgstr = lang_dict.get(lang_code, lang_dict.get("en", msgid))
-            formatted_msgstr = _format_po_str(msgstr)
-            entry = f"\n# \nmsgid {formatted_msgid}\nmsgstr {formatted_msgstr}\n"
-            entries_to_add.append(entry)
+        if not msgid or not isinstance(msgid, str):
+            continue
+        msgstr = lang_dict.get(lang_code, lang_dict.get("en", msgid))
+        if not msgstr:
+            continue
 
-    if entries_to_add:
-        updated_content = content.rstrip() + "\n" + "".join(entries_to_add)
-        po_file.write_text(updated_content, encoding="utf-8")
-        return len(entries_to_add)
+        if msgid in existing_index:
+            idx = existing_index[msgid]
+            curr_c, curr_mid, curr_mstr = entries[idx]
+            if not curr_mstr:
+                entries[idx] = (curr_c, curr_mid, msgstr)
+                updated_count += 1
+        else:
+            entries.append((["# \n"], msgid, msgstr))
+            existing_index[msgid] = len(entries) - 1
+            updated_count += 1
+
+    if updated_count > 0:
+        out_lines = list(header)
+        for c, mid, mstr in entries:
+            out_lines.extend(c)
+            out_lines.append(f"msgid {_format_po_str(mid)}\n")
+            out_lines.append(f"msgstr {_format_po_str(mstr)}\n\n")
+        po_file.write_text("".join(out_lines), encoding="utf-8")
+        return updated_count
     return 0
 
 
@@ -14848,7 +14950,7 @@ def compile_mo_files() -> int:
     """Compile all .po files to .mo files in internal locale directory."""
     count = 0
     INTERNAL_LOCALE_DIR.mkdir(parents=True, exist_ok=True)
-    for po_file in LOCALE_DIR.glob("*.po"):
+    for po_file in sorted(LOCALE_DIR.glob("*.po")):
         lang = po_file.stem
         target_dir = INTERNAL_LOCALE_DIR / lang / "LC_MESSAGES"
         target_dir.mkdir(parents=True, exist_ok=True)
@@ -14856,7 +14958,7 @@ def compile_mo_files() -> int:
 
         try:
             cmd = ["msgfmt", str(po_file), "-o", str(mo_file)]
-            subprocess.run(cmd, check=True, capture_output=True)
+            res = subprocess.run(cmd, check=True, capture_output=True, text=True)
             count += 1
             # Special case for pt -> pt_BR
             if lang == "pt":
@@ -14867,8 +14969,8 @@ def compile_mo_files() -> int:
                     check=True,
                     capture_output=True,
                 )
-        except Exception:
-            pass
+        except subprocess.CalledProcessError as e:
+            print(f"  ❌ Error compiling {po_file.name}: {e.stderr.strip()}")
     return count
 
 

@@ -181,6 +181,82 @@ class TestTranslationsSync(unittest.TestCase):
             "Git e Controle de Versão",
         )
 
+    def test_flatpak_autocomplete_specs_translations(self) -> None:
+        """Verify that Flatpak autocomplete subcommands and options are translated across languages."""
+        test_cases = {
+            "pt": {
+                "Application sandboxing and package distribution utility": "Utilitário de sandbox e distribuição de pacotes de aplicativos",
+                "Install an application or runtime from a remote or bundle": "Instalar aplicativo ou runtime de um repositório remoto ou pacote",
+                "Uninstall an installed application or runtime": "Desinstalar um aplicativo ou runtime instalado",
+                "Update installed applications and runtimes": "Atualizar aplicativos e runtimes instalados",
+                "Automatically answer yes to all questions": "Responder 'sim' automaticamente a todas as perguntas",
+                "Produce minimal output and never ask questions": "Produzir saída mínima e nunca fazer perguntas",
+                "Install in user storage": "Instalar no armazenamento do usuário",
+                "Install in system-wide storage": "Instalar no armazenamento do sistema",
+            },
+            "es": {
+                "Application sandboxing and package distribution utility": "Utilidad de aislamiento (sandbox) y distribución de paquetes de aplicaciones",
+                "Install an application or runtime from a remote or bundle": "Instalar una aplicación o runtime desde un repositorio remoto o paquete",
+                "Automatically answer yes to all questions": "Responder automáticamente 'sí' a todas las preguntas",
+            },
+            "fr": {
+                "Application sandboxing and package distribution utility": "Utilitaire d'isolation (sandbox) et de distribution d'applications",
+                "Install an application or runtime from a remote or bundle": "Installer une application ou un runtime depuis un dépôt distant ou un paquet",
+                "Automatically answer yes to all questions": "Répondre automatiquement oui à toutes les questions",
+            },
+            "de": {
+                "Application sandboxing and package distribution utility": "Dienstprogramm für Anwendungs-Sandboxing und Paketverteilung",
+                "Install an application or runtime from a remote or bundle": "Anwendung oder Runtime aus einem Remote-Repository oder Paket installieren",
+                "Automatically answer yes to all questions": "Automatisch alle Fragen mit Ja beantworten",
+            },
+            "zh": {
+                "Application sandboxing and package distribution utility": "应用程序沙盒化与软件包分发工具",
+                "Install an application or runtime from a remote or bundle": "从远程仓库或离线包安装应用程序或运行时",
+                "Automatically answer yes to all questions": "自动对所有问题回答“是”",
+            },
+            "ja": {
+                "Application sandboxing and package distribution utility": "アプリケーションサンドボックスとパッケージ配布ユーティリティ",
+                "Install an application or runtime from a remote or bundle": "リモートリポジトリまたはバンドルからアプリまたはランタイムをインストール",
+                "Automatically answer yes to all questions": "すべての質問に自動的に「はい」と答える",
+            },
+        }
+
+        for lang, expected_dict in test_cases.items():
+            trans = gettext.translation(
+                "onyxsh",
+                localedir=str(INTERNAL_LOCALE_DIR),
+                languages=[lang],
+                fallback=False,
+            )
+            for key, expected_val in expected_dict.items():
+                translated = trans.gettext(key)
+                self.assertEqual(
+                    translated,
+                    expected_val,
+                    f"Language '{lang}' translated {repr(key)} as {repr(translated)}, expected {repr(expected_val)}",
+                )
+
+    def test_new_ui_strings_translated(self) -> None:
+        """Verify that newly integrated UI strings are present in catalogs."""
+        trans_pt = gettext.translation(
+            "onyxsh",
+            localedir=str(INTERNAL_LOCALE_DIR),
+            languages=["pt_BR", "pt"],
+            fallback=False,
+        )
+        self.assertEqual(
+            trans_pt.gettext("Copiar seleção (Ctrl+Shift+C)"),
+            "Copiar seleção (Ctrl+Shift+C)",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Automático (Classifica complexidade do prompt)"),
+            "Automático (Classifica complexidade do prompt)",
+        )
+        self.assertEqual(
+            trans_pt.gettext("Diagnóstico do Sistema"),
+            "Diagnóstico do Sistema",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

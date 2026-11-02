@@ -11,8 +11,11 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - 📦 **Especificação Declarativa Completa (`flatpak.py`)**: Autocomplete inteligente para 20 subcomandos do utilitário `flatpak` (`install`, `uninstall`/`remove`, `update`, `list`, `search`, `info`, `run`, `remotes`, `remote-add`, `remote-delete`, `remote-modify`, `remote-ls`, `ps`, `kill`, `override`, `permission-show`, `permission-reset`, `repair`, `history`, `config`) e opções globais (`-y`, `--assumeyes`, `--user`, `--system`, `--noninteractive`, `-v`, `--arch=`).
   - 🎛️ **Integração no Command Manager (`builtin_flatpak`)**: Botão embutido com diálogo gráfico interativo para disparar operações de instalação, desinstalação, atualização geral, listagem de aplicativos e reparo de repositórios OSTree, com tratamento dinâmico de comandos com e sem parâmetros de AppID.
   - 🛡️ **Verificação Pós-Execução no Agente IA (`PostVerifier`)**: Inferência automática de testes de sanidade pós-execução para comandos Flatpak (`flatpak info <app_id>` com validação de status de sucesso ou remoção completa e checagem de atualizações).
-  - 🌐 **Internacionalização Multi-Idioma**: Criação do módulo `scripts/translations/flatpak_trans.py` com tradução das descrições e flags de Flatpak para todos os idiomas suportados.
-  - 🧪 **Suíte de Testes Automatizados**: Novos testes em `tests/test_flatpak_completion.py`, elevando a suíte para **650 testes unitários** com 100% de sucesso.
+  - 🌐 **Internacionalização Multi-Idioma Integral (28 Idiomas)**:
+    - Autocomplete Flatpak 100% traduzido: expansão de `scripts/translations/flatpak_trans.py` cobrindo todas as 113 especificações de comandos, subcomandos e opções do Flatpak para os 28 idiomas oficiais.
+    - Sincronização completa de interface (`scripts/translations/ui_extra_trans.py`): localização das novas funcionalidades de Selection Popover, atalhos OSC 52, indicador de Modo Seleção, Monitor de Conexão SSH, Diálogos de IA/Agente, TFTP Server e Diagnóstico de Sistema.
+    - Sincronização automatizada e compilação de 13.380 chaves nos 28 catálogos `.po` e binários `.mo`.
+  - 🧪 **Suíte de Testes Automatizados**: Novos testes em `tests/test_translations_sync.py` e `tests/test_flatpak_completion.py`, elevando a suíte para **660 testes unitários** com 100% de sucesso.
 - **Ponte de Área de Transferência OSC 52 (Clipboard Bridge)**:
   - 📋 Suporte para sequências de controle OSC 52 no terminal VTE, permitindo que ferramentas em execução no host ou em TUIs remotas (Vim, Neovim, Tmux) copiem texto diretamente para o clipboard do sistema operacional de forma transparente.
 - **Barra de Ações Flutuante (Selection Popover) e Modo de Seleção**:

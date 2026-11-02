@@ -47,6 +47,20 @@ class TestFlatpakCompletionSpec(unittest.TestCase):
         for subcmd in expected_subcmds:
             self.assertIn(subcmd, subcmds, f"Subcommand '{subcmd}' missing in Flatpak spec")
 
+    def test_flatpak_subcommand_descriptions_present(self):
+        """Ensure all Flatpak subcommands and their options have descriptive text."""
+        spec = self.registry.get_spec("flatpak")
+        self.assertIsNotNone(spec)
+        self.assertTrue(spec.description, "Command description should not be empty")
+
+        for subcmd in spec.subcommands:
+            self.assertTrue(subcmd.description, f"Subcommand '{subcmd.name}' has empty description")
+            for opt in subcmd.options:
+                self.assertTrue(opt.description, f"Option '{opt.names}' under '{subcmd.name}' has empty description")
+
+        for opt in spec.global_options:
+            self.assertTrue(opt.description, f"Global option '{opt.names}' has empty description")
+
     def test_flatpak_global_options(self):
         spec = self.registry.get_spec("flatpak")
         self.assertIsNotNone(spec)
