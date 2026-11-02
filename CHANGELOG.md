@@ -4,6 +4,30 @@ Todas as mudanças notáveis no projeto **OnyxSH** a partir de 13 de Agosto de 2
 
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e este projeto segue o [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [0.14.0] - 2026-11-02
+
+### Adicionado
+- **Suporte Nativo a Autocomplete e Gerenciamento de Pacotes Flatpak**:
+  - 📦 **Especificação Declarativa Completa (`flatpak.py`)**: Autocomplete inteligente para 20 subcomandos do utilitário `flatpak` (`install`, `uninstall`/`remove`, `update`, `list`, `search`, `info`, `run`, `remotes`, `remote-add`, `remote-delete`, `remote-modify`, `remote-ls`, `ps`, `kill`, `override`, `permission-show`, `permission-reset`, `repair`, `history`, `config`) e opções globais (`-y`, `--assumeyes`, `--user`, `--system`, `--noninteractive`, `-v`, `--arch=`).
+  - 🎛️ **Integração no Command Manager (`builtin_flatpak`)**: Botão embutido com diálogo gráfico interativo para disparar operações de instalação, desinstalação, atualização geral, listagem de aplicativos e reparo de repositórios OSTree, com tratamento dinâmico de comandos com e sem parâmetros de AppID.
+  - 🛡️ **Verificação Pós-Execução no Agente IA (`PostVerifier`)**: Inferência automática de testes de sanidade pós-execução para comandos Flatpak (`flatpak info <app_id>` com validação de status de sucesso ou remoção completa e checagem de atualizações).
+  - 🌐 **Internacionalização Multi-Idioma**: Criação do módulo `scripts/translations/flatpak_trans.py` com tradução das descrições e flags de Flatpak para todos os idiomas suportados.
+  - 🧪 **Suíte de Testes Automatizados**: Novos testes em `tests/test_flatpak_completion.py`, elevando a suíte para **650 testes unitários** com 100% de sucesso.
+- **Ponte de Área de Transferência OSC 52 (Clipboard Bridge)**:
+  - 📋 Suporte para sequências de controle OSC 52 no terminal VTE, permitindo que ferramentas em execução no host ou em TUIs remotas (Vim, Neovim, Tmux) copiem texto diretamente para o clipboard do sistema operacional de forma transparente.
+- **Barra de Ações Flutuante (Selection Popover) e Modo de Seleção**:
+  - 🖱️ **Selection Popover**: Barra flutuante não-intrusiva que surge ao selecionar texto no terminal com atalhos rápidos para Copiar para o clipboard, Perguntar ao Chat de IA ou Refatorar Código.
+  - ⚡ **Modo Seleção (`Ctrl+Shift+S`) & Indicador de Mouse Capturado**: Desativa temporariamente o mouse tracking de aplicações TUI para seleção nativa com botão esquerdo, acompanhado de badge informativo no cabeçalho de divisões (*splits*).
+
+### Corrigido
+- **Persistência do Popover e Visibilidade de Badges em Splits**:
+  - Correção na visibilidade do badge informativo de captura de mouse (`Shift + arrastar`) nos cabeçalhos de divisão e persistência do popover durante interações.
+- **Saneamento de Configurações e Restauração de Abas**:
+  - Resolução de conflitos de atalhos duplicados no `SettingsManager` com purga automática de ações obsoletas.
+  - Saneamento na gravação sequencial de arquivos de configuração assíncronos e estabilização na restauração de estado e layout de abas.
+- **Conformidade com Diretórios XDG e Rotas do Agente**:
+  - Adequação completa com a especificação XDG Base Directory em ambientes sandbox e saneamento de rotas de filesystem nas ferramentas do agente Zero-Trust.
+
 ## [0.13.0] - 2026-09-30
 
 ### Adicionado
