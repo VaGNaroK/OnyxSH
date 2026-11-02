@@ -423,6 +423,63 @@ class PostVerifier:
                     )
             return checks
 
+        # Flatpak Application Actions (install, uninstall, update)
+        flatpak_install_match = re.match(
+            r"^flatpak\s+install\s+(?:-[a-zA-Z0-9-]+\s+|--[a-zA-Z0-9-]+\s+|--[a-zA-Z0-9-]+=[^\s]+\s+)*(.+)$",
+            clean_cmd,
+        )
+        if flatpak_install_match:
+            args = flatpak_install_match.group(1).split()
+            valid_tokens = [t.strip("\"'") for t in args if not t.startswith("-")]
+            if valid_tokens:
+                app_target = valid_tokens[-1]
+                chk_cmd = f"flatpak info {shlex.quote(app_target)}"
+                checks.append(
+                    VerificationCheck(
+                        target_command=raw_cmd,
+                        check_command=chk_cmd,
+                        check_type="package_installed",
+                        description=f"Verificar instalação do Flatpak '{app_target}'",
+                        expected_exit_code=0,
+                        failure_diagnostic_command="flatpak list --app",
+                    )
+                )
+            return checks
+
+        flatpak_uninstall_match = re.match(
+            r"^flatpak\s+(?:uninstall|remove)\s+(?:-[a-zA-Z0-9-]+\s+|--[a-zA-Z0-9-]+\s+)*(.+)$",
+            clean_cmd,
+        )
+        if flatpak_uninstall_match:
+            args = flatpak_uninstall_match.group(1).split()
+            valid_tokens = [t.strip("\"'") for t in args if not t.startswith("-")]
+            if valid_tokens:
+                app_target = valid_tokens[-1]
+                checks.append(
+                    VerificationCheck(
+                        target_command=raw_cmd,
+                        check_command=f"flatpak info {shlex.quote(app_target)}",
+                        check_type="package_absent",
+                        description=f"Verificar desinstalação do Flatpak '{app_target}'",
+                        expected_exit_code=1,
+                        failure_diagnostic_command=f"flatpak list --app | grep {shlex.quote(app_target)}",
+                    )
+                )
+            return checks
+
+        flatpak_update_match = re.match(r"^flatpak\s+update\b", clean_cmd)
+        if flatpak_update_match:
+            checks.append(
+                VerificationCheck(
+                    target_command=raw_cmd,
+                    check_command="flatpak list --app",
+                    check_type="package_installed",
+                    description="Verificar integridade dos aplicativos Flatpak após atualização",
+                    expected_exit_code=0,
+                )
+            )
+            return checks
+
         # 9. Docker & Podman Container Actions
         docker_match = re.match(
             r"^(docker|podman)\s+(run|start|restart)\s+(?:-[a-zA-Z0-9\-]+\s+)*(?:--name\s+([^\s]+)\s+)?([^\s]+)",

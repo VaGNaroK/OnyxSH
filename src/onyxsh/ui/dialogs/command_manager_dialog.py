@@ -414,6 +414,8 @@ class CommandFormDialog(Adw.Window):
             return self._build_apt_command(values)
         elif self.command.id == "builtin_dnf":
             return self._build_dnf_command(values)
+        elif self.command.id == "builtin_flatpak":
+            return self._build_flatpak_command(values)
 
         # Generic handling for other commands
         return self.command.build_command(values)
@@ -649,6 +651,18 @@ class CommandFormDialog(Adw.Window):
         if action in no_pkg_actions or not package:
             return f"sudo dnf {action}".strip()
         return f"sudo dnf {action} {package}".strip()
+
+    def _build_flatpak_command(self, values: Dict[str, Any]) -> str:
+        """Build flatpak command with proper handling of action and package/app_id."""
+        action = values.get("action", "install").strip()
+        package = values.get("package", "").strip()
+
+        # Actions that don't require an app_id/package name
+        no_pkg_actions = ["update", "list --app", "list", "repair", "remotes", "ps", "history"]
+
+        if action in no_pkg_actions or not package:
+            return f"flatpak {action}".strip()
+        return f"flatpak {action} {package}".strip()
 
     def _on_insert_clicked(self, button):
         """Insert command without executing."""

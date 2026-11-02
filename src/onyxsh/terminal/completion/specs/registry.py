@@ -11,6 +11,7 @@ from .common import get_common_specs
 from .devops import get_devops_specs
 from .dnf import get_dnf_spec
 from .docker import get_docker_spec
+from .flatpak import get_flatpak_spec
 from .git import get_git_spec
 from .pacman import get_pacman_spec
 from .systemd import get_journalctl_spec, get_systemctl_spec
@@ -29,6 +30,7 @@ class SpecRegistry:
             get_apt_spec(),
             get_dnf_spec(),
             get_pacman_spec(),
+            get_flatpak_spec(),
             get_systemctl_spec(),
             get_journalctl_spec(),
             get_docker_spec(),
