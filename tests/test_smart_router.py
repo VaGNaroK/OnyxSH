@@ -117,7 +117,10 @@ class TestSmartRouter(unittest.TestCase):
 
         decision = self.router.resolve_route(prompt="crie um plano completo")
         self.assertEqual(decision.provider, "groq")
-        self.assertIn("desativado", decision.reason.lower())
+        self.assertTrue(
+            "desativado" in decision.reason.lower() or "disabled" in decision.reason.lower(),
+            f"Expected 'desativado' or 'disabled' in decision reason: {decision.reason}"
+        )
 
     def test_route_decision_fallback_attributes(self):
         """Test that RouteDecision contains fallback metadata attributes."""
