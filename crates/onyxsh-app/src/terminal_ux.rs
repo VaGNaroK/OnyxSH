@@ -10,6 +10,7 @@
 
 use crate::command_manager_ui::CommandButton;
 use gtk4::gdk;
+use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
@@ -17,7 +18,9 @@ use onyxsh_core::platform;
 use onyxsh_core::sessions::{SessionItem, SessionsStorageData};
 use onyxsh_terminal::completion::{CompletionEngine, CompletionItem};
 use onyxsh_terminal::production_guard::{GuardViolation, ProductionGuard};
+use std::cell::RefCell;
 use std::rc::Rc;
+use std::time::Duration;
 use vte4::prelude::*;
 
 /// Entry in the unified Command Palette (`Ctrl+Shift+P`).
@@ -27,6 +30,24 @@ pub struct PaletteItem {
     pub title: String,
     pub subtitle: String,
     pub action_key: String,
+}
+
+/// Extracts the active command line typed after the shell prompt marker (`$ `, `# `, `% `, `❯ `, `> `).
+pub fn extract_prompt_command_line(full_line: &str) -> String {
+    let trimmed = full_line.trim_end_matches(['\r', '\n']);
+    let markers = ["$ ", "# ", "% ", "❯ ", "> "];
+    let mut best_pos: Option<usize> = None;
+    for marker in markers {
+        if let Some(idx) = trimmed.rfind(marker) {
+            let end = idx + marker.len();
+            best_pos = Some(best_pos.map_or(end, |prev| prev.max(end)));
+        }
+    }
+    if let Some(pos) = best_pos {
+        trimmed[pos..].to_string()
+    } else {
+        trimmed.to_string()
+    }
 }
 
 /// Filters [`PaletteItem`]s by a case-insensitive query across category, title, and subtitle.
@@ -222,14 +243,14 @@ pub fn show_autocomplete_assistant_dialog(
     content.set_vexpand(true);
 
     let hint = gtk4::Label::new(Some(
-        "Digite um comando (ex: 'git ', 'docker run ', 'sudo systemctl ', 'cargo ', 'flatpak '):",
+        "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):",
     ));
     hint.add_css_class("caption");
     hint.set_halign(gtk4::Align::Start);
     content.append(&hint);
 
     let entry = gtk4::Entry::builder()
-        .text("sudo systemctl ")
+        .text("sudo dnf ")
         .hexpand(true)
         .build();
     entry.add_css_class("monospace");
@@ -423,6 +444,267 @@ pub fn attach_vte_ux_controllers(
         });
     }
     term.add_controller(click_ctrl);
+
+    // 2. Live Floating Autocomplete Popover (`src/onyxsh/terminal/completion/popup.py` & `manager.py`)
+    let comp_popover = gtk4::Popover::new();
+    comp_popover.set_parent(term);
+    comp_popover.set_autohide(false);
+    comp_popover.set_focusable(false);
+    comp_popover.set_can_focus(false);
+    comp_popover.set_has_arrow(false);
+    comp_popover.set_position(gtk4::PositionType::Bottom);
+
+    let comp_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+    comp_vbox.set_margin_start(4);
+    comp_vbox.set_margin_end(4);
+    comp_vbox.set_margin_top(4);
+    comp_vbox.set_margin_bottom(4);
+    comp_vbox.set_size_request(340, -1);
+    comp_vbox.set_can_focus(false);
+
+    let comp_list = gtk4::ListBox::new();
+    comp_list.add_css_class("boxed-list");
+    comp_list.set_selection_mode(gtk4::SelectionMode::Single);
+    comp_list.set_can_focus(false);
+    comp_vbox.append(&comp_list);
+
+    let comp_hint = gtk4::Label::new(Some("Tab ou → aplicar • ↑/↓ navegar • Esc fechar"));
+    comp_hint.add_css_class("dim-label");
+    comp_hint.add_css_class("caption");
+    comp_hint.set_halign(gtk4::Align::Start);
+    comp_hint.set_margin_start(6);
+    comp_vbox.append(&comp_hint);
+
+    comp_popover.set_child(Some(&comp_vbox));
+
+    let comp_items: Rc<RefCell<Vec<CompletionItem>>> = Rc::new(RefCell::new(Vec::new()));
+    let comp_selected_idx: Rc<RefCell<usize>> = Rc::new(RefCell::new(0));
+    let comp_rows: Rc<RefCell<Vec<gtk4::ListBoxRow>>> = Rc::new(RefCell::new(Vec::new()));
+
+    let accept_completion: Rc<dyn Fn(usize)> = {
+        let t = term.clone();
+        let pop = comp_popover.clone();
+        let items_rc = Rc::clone(&comp_items);
+        let st = status_lbl.clone();
+
+        Rc::new(move |idx: usize| {
+            let maybe_item = items_rc.borrow().get(idx).cloned();
+            pop.popdown();
+            if let Some(item) = maybe_item {
+                if !item.suffix_to_insert.is_empty() {
+                    let mut feed = item.suffix_to_insert.clone();
+                    if !feed.ends_with(' ') {
+                        feed.push(' ');
+                    }
+                    t.feed_child(feed.as_bytes());
+                } else if !item.prefix_to_replace.is_empty() {
+                    let backspaces = "\x08".repeat(item.prefix_to_replace.chars().count());
+                    let mut feed = format!("{backspaces}{}", item.text);
+                    if !feed.ends_with(' ') {
+                        feed.push(' ');
+                    }
+                    t.feed_child(feed.as_bytes());
+                } else {
+                    let mut feed = item.text.clone();
+                    if !feed.ends_with(' ') {
+                        feed.push(' ');
+                    }
+                    t.feed_child(feed.as_bytes());
+                }
+                st.set_text(&format!("Autocompletar aplicado: {}", item.text));
+            }
+        })
+    };
+
+    {
+        let acc = Rc::clone(&accept_completion);
+        comp_list.connect_row_activated(move |_, row| {
+            let idx = row.index();
+            if idx >= 0 {
+                acc(idx as usize);
+            }
+        });
+    }
+
+    let key_ctrl = gtk4::EventControllerKey::new();
+    key_ctrl.set_propagation_phase(gtk4::PropagationPhase::Capture);
+    {
+        let t = term.clone();
+        let pop = comp_popover;
+        let lb = comp_list;
+        let items_rc = Rc::clone(&comp_items);
+        let sel_rc = Rc::clone(&comp_selected_idx);
+        let rows_rc = Rc::clone(&comp_rows);
+        let acc = Rc::clone(&accept_completion);
+
+        key_ctrl.connect_key_pressed(move |_, keyval, _, state| {
+            let has_mod = state.intersects(
+                gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::ALT_MASK,
+            );
+
+            // Handle navigation and acceptance when floating CompletionPopup is visible
+            if pop.is_visible() && !items_rc.borrow().is_empty() && !has_mod {
+                let len = items_rc.borrow().len();
+                if keyval == gdk::Key::Down || keyval == gdk::Key::KP_Down {
+                    let next = (*sel_rc.borrow() + 1) % len;
+                    *sel_rc.borrow_mut() = next;
+                    if let Some(r) = rows_rc.borrow().get(next) {
+                        lb.select_row(Some(r));
+                    }
+                    return glib::Propagation::Stop;
+                }
+                if keyval == gdk::Key::Up || keyval == gdk::Key::KP_Up {
+                    let prev = if *sel_rc.borrow() == 0 {
+                        len - 1
+                    } else {
+                        *sel_rc.borrow() - 1
+                    };
+                    *sel_rc.borrow_mut() = prev;
+                    if let Some(r) = rows_rc.borrow().get(prev) {
+                        lb.select_row(Some(r));
+                    }
+                    return glib::Propagation::Stop;
+                }
+                if keyval == gdk::Key::Tab
+                    || keyval == gdk::Key::Right
+                    || keyval == gdk::Key::KP_Right
+                {
+                    let idx = *sel_rc.borrow();
+                    acc(idx);
+                    return glib::Propagation::Stop;
+                }
+                if keyval == gdk::Key::Escape {
+                    pop.popdown();
+                    return glib::Propagation::Stop;
+                }
+                if keyval == gdk::Key::Return || keyval == gdk::Key::KP_Enter {
+                    pop.popdown();
+                    return glib::Propagation::Proceed;
+                }
+            }
+
+            // Trigger debounced autocomplete lookup on printable keys or Backspace
+            let is_printable = keyval.to_unicode().is_some_and(|c| !c.is_control());
+            if !has_mod && (is_printable || keyval == gdk::Key::BackSpace) {
+                let t_ref = t.clone();
+                let pop_ref = pop.clone();
+                let lb_ref = lb.clone();
+                let items_ref = Rc::clone(&items_rc);
+                let sel_ref = Rc::clone(&sel_rc);
+                let rows_ref = Rc::clone(&rows_rc);
+
+                glib::timeout_add_local_once(Duration::from_millis(140), move || {
+                    if !t_ref.is_realized() || !t_ref.is_mapped() {
+                        pop_ref.popdown();
+                        return;
+                    }
+                    let (cursor_col, cursor_row) = t_ref.cursor_position();
+                    let col_count = t_ref.column_count();
+                    let (text_opt, _) = t_ref.text_range_format(
+                        vte4::Format::Text,
+                        cursor_row,
+                        0,
+                        cursor_row,
+                        col_count,
+                    );
+                    let raw_line = text_opt.map(|g| g.to_string()).unwrap_or_default();
+                    let cmd_line = extract_prompt_command_line(&raw_line);
+
+                    if cmd_line.trim().is_empty() {
+                        pop_ref.popdown();
+                        return;
+                    }
+
+                    let engine = CompletionEngine::new();
+                    let suggestions =
+                        engine.get_completions(&cmd_line, Some(cmd_line.len()), &[], 6);
+
+                    while let Some(c) = lb_ref.first_child() {
+                        lb_ref.remove(&c);
+                    }
+                    rows_ref.borrow_mut().clear();
+
+                    if suggestions.is_empty() {
+                        items_ref.borrow_mut().clear();
+                        pop_ref.popdown();
+                        return;
+                    }
+
+                    for item in &suggestions {
+                        let row = gtk4::ListBoxRow::new();
+                        row.set_can_focus(false);
+                        row.set_focusable(false);
+
+                        let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+                        hbox.set_margin_start(8);
+                        hbox.set_margin_end(8);
+                        hbox.set_margin_top(5);
+                        hbox.set_margin_bottom(5);
+
+                        let icon = gtk4::Image::from_icon_name(item.completion_type.icon_name());
+                        icon.add_css_class("dim-label");
+                        hbox.append(&icon);
+
+                        let vbox_txt = gtk4::Box::new(gtk4::Orientation::Vertical, 1);
+                        vbox_txt.set_hexpand(true);
+
+                        let title = gtk4::Label::new(Some(&item.text));
+                        title.add_css_class("monospace");
+                        title.add_css_class("heading");
+                        title.set_halign(gtk4::Align::Start);
+                        vbox_txt.append(&title);
+
+                        if !item.description.is_empty() {
+                            let desc = gtk4::Label::new(Some(&item.description));
+                            desc.add_css_class("caption");
+                            desc.add_css_class("dim-label");
+                            desc.set_halign(gtk4::Align::Start);
+                            desc.set_ellipsize(gtk4::pango::EllipsizeMode::End);
+                            vbox_txt.append(&desc);
+                        }
+                        hbox.append(&vbox_txt);
+
+                        let badge = gtk4::Label::new(Some(item.completion_type.badge_label()));
+                        badge.add_css_class("caption");
+                        badge.add_css_class("dim-label");
+                        hbox.append(&badge);
+
+                        row.set_child(Some(&hbox));
+                        lb_ref.append(&row);
+                        rows_ref.borrow_mut().push(row);
+                    }
+
+                    *items_ref.borrow_mut() = suggestions;
+                    *sel_ref.borrow_mut() = 0;
+                    if let Some(first_row) = rows_ref.borrow().first() {
+                        lb_ref.select_row(Some(first_row));
+                    }
+
+                    let term_w = t_ref.width().max(1);
+                    let term_h = t_ref.height().max(1);
+                    let char_w = (t_ref.char_width() as i32).max(8);
+                    let char_h = (t_ref.char_height() as i32).max(16);
+
+                    let scroll_offset = t_ref
+                        .vadjustment()
+                        .map(|adj| adj.value())
+                        .unwrap_or(0.0);
+                    let visible_row = ((cursor_row as f64) - scroll_offset).max(0.0) as i32;
+
+                    let cur_x = ((cursor_col as i32) * char_w).clamp(0, (term_w - char_w).max(0));
+                    let cur_y = (visible_row * char_h).clamp(0, (term_h - char_h).max(0));
+
+                    pop_ref.set_pointing_to(Some(&gdk::Rectangle::new(
+                        cur_x, cur_y, char_w, char_h,
+                    )));
+                    pop_ref.popup();
+                });
+            }
+
+            glib::Propagation::Proceed
+        });
+    }
+    term.add_controller(key_ctrl);
 }
 
 /// Opens the Unified Command Palette (`ui/dialogs/command_palette.py` — `Ctrl+Shift+P`).
@@ -653,5 +935,16 @@ mod tests {
         let completions = query_terminal_completions("sudo systemctl ", 10);
         assert!(!completions.is_empty());
         assert!(completions.iter().any(|c| c.text == "restart" || c.text == "status"));
+
+        assert_eq!(
+            extract_prompt_command_line("vagnarok@host:~/OnyxSH$ sudo dnf in\n"),
+            "sudo dnf in"
+        );
+        assert_eq!(
+            extract_prompt_command_line("root@prod:/etc# rpm -ivh --no"),
+            "rpm -ivh --no"
+        );
+        let rpm_comps = query_terminal_completions("rpm -ivh --no", 6);
+        assert!(rpm_comps.iter().any(|c| c.text == "--nodeps"));
     }
 }
