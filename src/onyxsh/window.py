@@ -62,7 +62,10 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         # Search state tracking
         self.current_search_terminal = None
         self.search_current_occurrence = 0
+        self.search_total_occurrences = 0
+        self.search_occurrences_overflow = False
         self.search_active = False
+        self._search_debounce_source_id: Optional[int] = None
 
         # Initial state from command line or other windows
         self.initial_working_directory = kwargs.get("initial_working_directory")
@@ -1252,7 +1255,10 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             if current_terminal:
                 self.current_search_terminal = current_terminal
                 self.search_active = True
+                if text := self.terminal_search_entry.get_text():
+                    self._perform_search(text)
         else:
+            self._cancel_search_debounce()
             self._on_search_stop(self.terminal_search_entry)
 
     def _on_broadcast_mode_changed(self, broadcast_bar, param):
@@ -1478,22 +1484,28 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         """Handle case sensitive switch/toggle changes."""
         case_sensitive = switch.get_active()
         self.settings_manager.set("search_case_sensitive", case_sensitive)
-        if self.terminal_search_entry.get_text():
-            self._on_search_text_changed(self.terminal_search_entry)
+        text = self.terminal_search_entry.get_text()
+        if text:
+            self._cancel_search_debounce()
+            self._perform_search(text)
 
     def _on_regex_changed(self, switch, param):
         """Handle regex switch/toggle changes."""
         use_regex = switch.get_active()
         self.settings_manager.set("search_use_regex", use_regex)
-        if self.terminal_search_entry.get_text():
-            self._on_search_text_changed(self.terminal_search_entry)
+        text = self.terminal_search_entry.get_text()
+        if text:
+            self._cancel_search_debounce()
+            self._perform_search(text)
 
     def _on_whole_word_changed(self, switch, param):
         """Handle whole word switch/toggle changes."""
         whole_word = switch.get_active()
         self.settings_manager.set("search_whole_word", whole_word)
-        if self.terminal_search_entry.get_text():
-            self._on_search_text_changed(self.terminal_search_entry)
+        text = self.terminal_search_entry.get_text()
+        if text:
+            self._cancel_search_debounce()
+            self._perform_search(text)
 
     def _on_search_entry_key_pressed(self, controller, keyval, keycode, state):
         """Handle keyboard shortcuts inside the search entry (Shift+Enter, Escape)."""
@@ -1505,6 +1517,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
                 self._on_search_next()
                 return True
         elif keyval == Gdk.KEY_Escape:
+            self._cancel_search_debounce()
             self._on_search_stop(self.terminal_search_entry)
             self.search_bar.set_search_mode(False)
             return True
@@ -1533,15 +1546,51 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         )
         dialog.present()
 
+    def _cancel_search_debounce(self) -> None:
+        """Cancels any pending debounced search timer."""
+        if getattr(self, "_search_debounce_source_id", None) is not None:
+            try:
+                GLib.source_remove(self._search_debounce_source_id)
+            except Exception:
+                pass
+            self._search_debounce_source_id = None
+
+    def _flush_pending_search(self) -> None:
+        """If a debounced search is scheduled, cancel timer and execute immediately."""
+        if getattr(self, "_search_debounce_source_id", None) is not None:
+            self._cancel_search_debounce()
+            text = self.terminal_search_entry.get_text()
+            if text:
+                self._perform_search(text)
+
+    def _clear_occurrence_counts(self) -> None:
+        """Resets the search occurrence counters and updates display."""
+        self.search_total_occurrences = 0
+        self.search_current_occurrence = 0
+        self.search_occurrences_overflow = False
+        self._update_search_occurrence_display()
+
+    def _clear_search_state(self) -> None:
+        """Clears regex from terminal and resets all search states."""
+        self._cancel_search_debounce()
+        terminal = self.tab_manager.get_selected_terminal()
+        if terminal:
+            terminal.search_set_regex(None, 0)
+        self.search_active = False
+        self.current_search_terminal = None
+        self._clear_occurrence_counts()
+
     def _update_search_occurrence_display(self):
         """Update the search occurrence counter display."""
         if self.search_active:
             total = getattr(self, "search_total_occurrences", 0)
             curr = getattr(self, "search_current_occurrence", 0)
+            overflow = getattr(self, "search_occurrences_overflow", False)
+            total_str = f"{total}+" if overflow else str(total)
             if total > 0 and curr > 0:
-                text = f"{curr}/{total}"
+                text = f"{curr}/{total_str}"
             elif total > 0:
-                text = f"{total}"
+                text = f"{total_str}"
             else:
                 text = _("No matches")
         else:
@@ -1552,47 +1601,70 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         """Hide search if the current terminal is different from when search was started."""
         current_terminal = self.tab_manager.get_selected_terminal()
         if self.search_active and current_terminal != self.current_search_terminal:
+            self._cancel_search_debounce()
             self.search_bar.set_search_mode(False)
             self.search_active = False
             self.current_search_terminal = None
-            self.search_total_occurrences = 0
-            self.search_current_occurrence = 0
-            self._update_search_occurrence_display()
+            self._clear_occurrence_counts()
 
     def _on_search_text_changed(self, search_entry):
-        """Handle search text changes immediately."""
+        """Handle search text changes with debouncing to prevent UI lag while typing."""
+        self._cancel_search_debounce()
         text = search_entry.get_text()
 
         # If text is empty, clear search immediately
         if not text:
-            terminal = self.tab_manager.get_selected_terminal()
-            if terminal:
-                terminal.search_set_regex(None, 0)
-            self.search_active = False
-            self.current_search_terminal = None
-            self.search_current_occurrence = 0
-            self.search_total_occurrences = 0
-            self._update_search_occurrence_display()
+            self._clear_search_state()
             return
 
-        # Perform the search immediately
+        # Debounce search by 200ms to avoid freezing the UI thread while the user types
+        self._search_debounce_source_id = GLib.timeout_add(
+            200, self._perform_debounced_search, text
+        )
+
+    def _perform_debounced_search(self, text: str) -> bool:
+        """Executes the search after the debounce delay."""
+        self._search_debounce_source_id = None
         self._perform_search(text)
+        return False  # GLib.SOURCE_REMOVE
 
-    def _search_from_beginning(self, terminal, regex):
-        """Search from the beginning of the terminal content."""
+    def _count_occurrences_safe(
+        self,
+        terminal: Vte.Terminal,
+        pattern: str,
+        case_sensitive: bool,
+        found_in_vte: bool,
+    ) -> None:
+        """Safely count occurrences in the terminal buffer without UI freezes or memory leaks."""
+        MAX_COUNT_CEILING = 1000
         try:
-            found = terminal.search_find_next()
-            if found:
-                v_adjustment = terminal.get_vadjustment()
-                if v_adjustment:
-                    match_col, match_row = terminal.get_cursor_position()
-                    v_adjustment.set_value(max(0, match_row - 5))
-            return found
-        except Exception as e:
-            self.logger.debug(f"Error searching from beginning: {e}")
-            return False
+            raw_text = terminal.get_text_format(Vte.Format.TEXT) or ""
+            if not raw_text:
+                self.search_total_occurrences = 1 if found_in_vte else 0
+                self.search_occurrences_overflow = False
+                return
 
-    def _perform_search(self, text):
+            re_flags = re.MULTILINE
+            if not case_sensitive:
+                re_flags |= re.IGNORECASE
+
+            compiled = re.compile(pattern, re_flags)
+            count = 0
+            overflow = False
+            for _ in compiled.finditer(raw_text):
+                count += 1
+                if count >= MAX_COUNT_CEILING:
+                    overflow = True
+                    break
+
+            self.search_total_occurrences = count
+            self.search_occurrences_overflow = overflow
+        except Exception as e:
+            self.logger.debug(f"Error calculating occurrences: {e}")
+            self.search_total_occurrences = 1 if found_in_vte else 0
+            self.search_occurrences_overflow = False
+
+    def _perform_search(self, text: str):
         """Perform search immediately for the given text."""
         terminal = self.tab_manager.get_selected_terminal()
         if not terminal:
@@ -1604,9 +1676,6 @@ class CommTerminalWindow(Adw.ApplicationWindow):
 
         self.current_search_terminal = terminal
         self.search_active = True
-
-        # First, clear any existing search to reset the state completely
-        terminal.search_set_regex(None, 0)
 
         try:
             case_sensitive = self.settings_manager.get("search_case_sensitive", False)
@@ -1636,33 +1705,20 @@ class CommTerminalWindow(Adw.ApplicationWindow):
                 self.toast_overlay.add_toast(
                     Adw.Toast(title=_("Invalid search pattern."))
                 )
+                terminal.search_set_regex(None, 0)
+                self._clear_occurrence_counts()
                 return
 
-            terminal.search_set_regex(None, 0)
-            terminal.search_set_regex(regex, 0)
+            if hasattr(terminal, "search_set_wrap_around"):
+                terminal.search_set_wrap_around(True)
 
+            terminal.search_set_regex(regex, 0)
             found = terminal.search_find_next()
 
-            if not found:
-                try:
-                    v_adjustment = terminal.get_vadjustment()
-                    if v_adjustment:
-                        v_adjustment.set_value(0.0)
-                        found = self._search_from_beginning(terminal, regex)
-                except Exception as e:
-                    self.logger.debug(f"Error during scroll-based search: {e}")
-                    found = terminal.search_find_next()
-
-            # Calculate total occurrences in the buffer
-            try:
-                raw_text = terminal.get_text_format(Vte.Format.TEXT) or ""
-                re_flags = re.MULTILINE
-                if not case_sensitive:
-                    re_flags |= re.IGNORECASE
-                matches = list(re.finditer(search_pattern, raw_text, re_flags))
-                self.search_total_occurrences = len(matches)
-            except Exception:
-                self.search_total_occurrences = 1 if found else 0
+            # Safely count occurrences without memory spikes
+            self._count_occurrences_safe(
+                terminal, search_pattern, case_sensitive, found
+            )
 
             if found:
                 self.search_current_occurrence = 1
@@ -1677,74 +1733,66 @@ class CommTerminalWindow(Adw.ApplicationWindow):
             )
             self.toast_overlay.add_toast(Adw.Toast(title=_("Invalid search pattern.")))
             terminal.search_set_regex(None, 0)
-            self.search_total_occurrences = 0
-            self.search_current_occurrence = 0
-            self._update_search_occurrence_display()
+            self._clear_occurrence_counts()
 
     def _on_search_next(self, button=None):
+        self._flush_pending_search()
         terminal = self.tab_manager.get_selected_terminal()
-        if terminal and self.search_active:
-            found = terminal.search_find_next()
+        if not terminal:
+            return
 
-            if not found:
-                try:
-                    v_adjustment = terminal.get_vadjustment()
-                    if v_adjustment:
-                        v_adjustment.set_value(0.0)
-                        found = terminal.search_find_next()
-                        if found:
-                            self.search_current_occurrence = 1
-                except Exception as e:
-                    self.logger.debug(f"Error during next search: {e}")
-            elif found:
-                total = getattr(self, "search_total_occurrences", 0)
-                if total > 0:
-                    self.search_current_occurrence = (
-                        (self.search_current_occurrence % total) + 1
-                    )
-                else:
-                    self.search_current_occurrence += 1
+        text = self.terminal_search_entry.get_text()
+        if not text:
+            return
 
-            if not found:
-                self.toast_overlay.add_toast(
-                    Adw.Toast(title=_("No more matches found."))
+        if not self.search_active:
+            self._perform_search(text)
+            return
+
+        found = terminal.search_find_next()
+        if found:
+            total = getattr(self, "search_total_occurrences", 0)
+            if total > 0:
+                self.search_current_occurrence = (
+                    (self.search_current_occurrence % total) + 1
                 )
             else:
-                self._update_search_occurrence_display()
+                self.search_current_occurrence += 1
+            self._update_search_occurrence_display()
+        else:
+            self.toast_overlay.add_toast(
+                Adw.Toast(title=_("No more matches found."))
+            )
 
     def _on_search_previous(self, button=None):
+        self._flush_pending_search()
         terminal = self.tab_manager.get_selected_terminal()
-        if terminal and self.search_active:
-            found = terminal.search_find_previous()
+        if not terminal:
+            return
 
-            if not found:
-                try:
-                    v_adjustment = terminal.get_vadjustment()
-                    if v_adjustment:
-                        v_adjustment.set_value(
-                            v_adjustment.get_upper() - v_adjustment.get_page_size()
-                        )
-                        found = terminal.search_find_previous()
-                        if found:
-                            total = getattr(self, "search_total_occurrences", 0)
-                            self.search_current_occurrence = max(1, total)
-                except Exception as e:
-                    self.logger.debug(f"Error during previous search: {e}")
-            elif found:
-                total = getattr(self, "search_total_occurrences", 0)
-                if self.search_current_occurrence > 1:
-                    self.search_current_occurrence -= 1
-                elif total > 0:
-                    self.search_current_occurrence = total
+        text = self.terminal_search_entry.get_text()
+        if not text:
+            return
 
-            if not found:
-                self.toast_overlay.add_toast(
-                    Adw.Toast(title=_("No more matches found."))
-                )
-            else:
-                self._update_search_occurrence_display()
+        if not self.search_active:
+            self._perform_search(text)
+            return
+
+        found = terminal.search_find_previous()
+        if found:
+            total = getattr(self, "search_total_occurrences", 0)
+            if self.search_current_occurrence > 1:
+                self.search_current_occurrence -= 1
+            elif total > 0:
+                self.search_current_occurrence = total
+            self._update_search_occurrence_display()
+        else:
+            self.toast_overlay.add_toast(
+                Adw.Toast(title=_("No more matches found."))
+            )
 
     def _on_search_stop(self, search_entry):
+        self._cancel_search_debounce()
         terminal = self.tab_manager.get_selected_terminal()
         if terminal:
             terminal.search_set_regex(None, 0)
@@ -1753,9 +1801,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         # Reset search state
         self.search_active = False
         self.current_search_terminal = None
-        self.search_current_occurrence = 0
-        self.search_total_occurrences = 0
-        self._update_search_occurrence_display()
+        self._clear_occurrence_counts()
 
     # --- Window Lifecycle and State ---
 
@@ -1907,6 +1953,7 @@ class CommTerminalWindow(Adw.ApplicationWindow):
         if self._cleanup_performed:
             return
         self._cleanup_performed = True
+        self._cancel_search_debounce()
         self.logger.info("Performing window cleanup")
         self.terminal_manager.cleanup_all_terminals()
 

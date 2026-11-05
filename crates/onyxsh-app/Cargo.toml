@@ -1,0 +1,25 @@
+[package]
+name = "onyxsh-app"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "onyxsh"
+path = "src/main.rs"
+
+[dependencies]
+onyxsh-core.workspace = true
+onyxsh-terminal.workspace = true
+onyxsh-filemanager.workspace = true
+onyxsh-agent.workspace = true
+onyxsh-system.workspace = true
+regex.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+tracing.workspace = true
+gtk4.workspace = true
+libadwaita.workspace = true
+vte4.workspace = true

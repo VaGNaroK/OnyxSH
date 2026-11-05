@@ -1486,6 +1486,8 @@ class TerminalManager:
             terminal.set_scroll_unit_is_pixels(True)
             if hasattr(terminal, "set_search_highlight_enabled"):
                 terminal.set_search_highlight_enabled(True)
+            if hasattr(terminal, "search_set_wrap_around"):
+                terminal.search_set_wrap_around(True)
             if apply_settings:
                 self.settings_manager.apply_terminal_settings(
                     terminal, self.parent_window

@@ -1,0 +1,86 @@
+app-id: io.github.vagnarok.OnyxSH
+runtime: org.gnome.Platform
+runtime-version: '51'
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+command: onyxsh
+
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --filesystem=host
+  - --filesystem=home
+  - --talk-name=org.freedesktop.Secret
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.freedesktop.Flatpak
+  - --talk-name=org.freedesktop.IBus
+  - --talk-name=org.freedesktop.portal.Fcitx
+  - --talk-name=org.freedesktop.portal.Desktop
+
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin
+  env:
+    CARGO_HOME: /run/build/onyxsh/cargo
+
+modules:
+  - name: vte
+    buildsystem: meson
+    config-opts:
+      - --libdir=/app/lib
+      - -Dgtk4=true
+      - -Dgtk3=false
+      - -Ddocs=false
+      - -Dgir=true
+      - -Dvapi=false
+      - -D_systemd=false
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/vte/0.84/vte-0.84.1.tar.xz
+        sha256: aca1caa8478aebcdbb1d67897fb3511eb7601debae6810e16a15b6fa25f31ac8
+
+  - name: host-spawn
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 host-spawn /app/bin/host-spawn
+    sources:
+      - type: file
+        url: https://github.com/1player/host-spawn/releases/download/v1.6.2/host-spawn-x86_64
+        sha256: 077bc09a087292447ba17cfe2156a93f71bf56c4c6be8e38d3abe65c1240f34c
+        dest-filename: host-spawn
+
+  - name: onyxsh
+    buildsystem: simple
+    build-options:
+      build-args:
+        - --share=network
+    build-commands:
+      - cargo build --release --workspace
+      - install -Dm755 target/release/onyxsh /app/bin/onyxsh
+      - install -Dm755 target/release/onyxsh-admin-helper /app/bin/onyxsh-admin-helper
+      - mkdir -p /app/share/applications /app/share/icons/hicolor/scalable/apps /app/share/icons/hicolor/scalable/actions /app/share/pixmaps /app/share/locale
+      - cp src/onyxsh/icons/*.svg /app/share/icons/hicolor/scalable/actions/
+      - cp usr/share/applications/io.github.vagnarok.OnyxSH.desktop /app/share/applications/
+      - sed -i 's/^Icon=.*/Icon=io.github.vagnarok.OnyxSH/' /app/share/applications/io.github.vagnarok.OnyxSH.desktop
+      - cp usr/share/icons/hicolor/scalable/apps/onyxsh.svg /app/share/icons/hicolor/scalable/apps/io.github.vagnarok.OnyxSH.svg
+      - cp usr/share/icons/hicolor/scalable/apps/onyxsh.svg /app/share/icons/hicolor/scalable/apps/onyxsh.svg
+      - cp usr/share/icons/hicolor/scalable/apps/onyxsh.svg /app/share/pixmaps/onyxsh.svg
+      - |
+        for po_file in locale/*.po; do
+          if [ -f "$po_file" ]; then
+            lang="$(basename "$po_file" .po)"
+            mkdir -p "/app/share/locale/${lang}/LC_MESSAGES"
+            msgfmt "$po_file" -o "/app/share/locale/${lang}/LC_MESSAGES/onyxsh.mo" 2>/dev/null || true
+            if [ "$lang" = "pt" ]; then
+              mkdir -p "/app/share/locale/pt_BR/LC_MESSAGES"
+              msgfmt "$po_file" -o "/app/share/locale/pt_BR/LC_MESSAGES/onyxsh.mo" 2>/dev/null || true
+            fi
+          fi
+        done
+    sources:
+      - type: dir
+        path: ..
