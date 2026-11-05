@@ -746,52 +746,154 @@ pub fn show_command_palette_dialog(
     scroll.set_child(Some(&list_box));
     content.append(&scroll);
 
-    // Build unified catalog of PaletteItems
+    // Build unified catalog of PaletteItems (Port of `src/onyxsh/ui/dialogs/command_palette_dialog.py`)
     let mut catalog = vec![
         PaletteItem {
-            category: "Ação".to_string(),
+            category: "Busca".to_string(),
+            title: "Busca Global Multi-Abas / Sessões / Histórico".to_string(),
+            subtitle: "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)".to_string(),
+            action_key: "act:global-search".to_string(),
+        },
+        PaletteItem {
+            category: "Busca".to_string(),
+            title: "Buscar no Terminal Atual".to_string(),
+            subtitle: "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)".to_string(),
+            action_key: "act:toggle-search".to_string(),
+        },
+        PaletteItem {
+            category: "Terminal".to_string(),
+            title: "Histórico Enriquecido de Comandos".to_string(),
+            subtitle: "Busca fuzzy por diretório, host e favoritos (Ctrl+H)".to_string(),
+            action_key: "act:show-command-history".to_string(),
+        },
+        PaletteItem {
+            category: "Abas e Janelas".to_string(),
             title: "Nova Aba de Terminal".to_string(),
             subtitle: "Abre um novo terminal local (Ctrl+Shift+T)".to_string(),
             action_key: "act:new-tab".to_string(),
         },
         PaletteItem {
-            category: "Ação".to_string(),
-            title: "Dividir Terminal (Split Pane)".to_string(),
-            subtitle: "Divide a aba atual em 2 terminais lado a lado".to_string(),
+            category: "Abas e Janelas".to_string(),
+            title: "Fechar Aba Atual".to_string(),
+            subtitle: "Encerra a aba ativa (Ctrl+Shift+W)".to_string(),
+            action_key: "act:close-tab".to_string(),
+        },
+        PaletteItem {
+            category: "Abas e Janelas".to_string(),
+            title: "Próxima Aba".to_string(),
+            subtitle: "Avança para a próxima aba (Alt+Page Down)".to_string(),
+            action_key: "act:next-tab".to_string(),
+        },
+        PaletteItem {
+            category: "Abas e Janelas".to_string(),
+            title: "Aba Anterior".to_string(),
+            subtitle: "Volta para a aba anterior (Alt+Page Up)".to_string(),
+            action_key: "act:previous-tab".to_string(),
+        },
+        PaletteItem {
+            category: "Divisão de Telas".to_string(),
+            title: "Dividir Painel Horizontalmente".to_string(),
+            subtitle: "Divide a aba atual lado a lado (Ctrl+Shift+()".to_string(),
             action_key: "act:split".to_string(),
         },
         PaletteItem {
-            category: "Ação".to_string(),
+            category: "Divisão de Telas".to_string(),
+            title: "Dividir Painel Verticalmente".to_string(),
+            subtitle: "Divide a aba atual acima/abaixo (Ctrl+Shift+))".to_string(),
+            action_key: "act:split-vertical".to_string(),
+        },
+        PaletteItem {
+            category: "Terminal".to_string(),
+            title: "Limpar Sessão do Terminal".to_string(),
+            subtitle: "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)".to_string(),
+            action_key: "act:clear-session".to_string(),
+        },
+        PaletteItem {
+            category: "Terminal".to_string(),
+            title: "Modo Transmissão (Broadcast p/ Todas as Abas)".to_string(),
+            subtitle: "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)".to_string(),
+            action_key: "act:toggle-broadcast".to_string(),
+        },
+        PaletteItem {
+            category: "Terminal".to_string(),
+            title: "Aumentar Zoom / Tamanho da Fonte".to_string(),
+            subtitle: "Incrementa o tamanho da fonte do terminal (Ctrl++)".to_string(),
+            action_key: "act:zoom-in".to_string(),
+        },
+        PaletteItem {
+            category: "Terminal".to_string(),
+            title: "Diminuir Zoom / Tamanho da Fonte".to_string(),
+            subtitle: "Reduz o tamanho da fonte do terminal (Ctrl+-)".to_string(),
+            action_key: "act:zoom-out".to_string(),
+        },
+        PaletteItem {
+            category: "Terminal".to_string(),
+            title: "Resetar Zoom".to_string(),
+            subtitle: "Restaura a fonte padrão Monospace 11 (Ctrl+0)".to_string(),
+            action_key: "act:zoom-reset".to_string(),
+        },
+        PaletteItem {
+            category: "Sessões & SSH".to_string(),
+            title: "Alternar Painel Lateral de Sessões SSH".to_string(),
+            subtitle: "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)".to_string(),
+            action_key: "act:toggle-sidebar".to_string(),
+        },
+        PaletteItem {
+            category: "Sessões & SSH".to_string(),
             title: "Alternar Gerenciador de Arquivos Dual-Pane".to_string(),
-            subtitle: "Lista, Grade de Miniaturas, Árvore & Quick Look".to_string(),
+            subtitle: "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)".to_string(),
             action_key: "act:toggle-fm".to_string(),
         },
         PaletteItem {
-            category: "Ação".to_string(),
+            category: "Ferramentas".to_string(),
+            title: "Gerenciador de Comandos e Snippets".to_string(),
+            subtitle: "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)".to_string(),
+            action_key: "act:show-command-manager".to_string(),
+        },
+        PaletteItem {
+            category: "Assistente de IA".to_string(),
             title: "Alternar Assistente de IA Zero-Trust".to_string(),
-            subtitle: "SmartRouter, Planos de Ação e Rollback Atômico".to_string(),
+            subtitle: "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)".to_string(),
             action_key: "act:toggle-ai".to_string(),
         },
         PaletteItem {
-            category: "Ação".to_string(),
+            category: "Ferramentas".to_string(),
             title: "Abrir Monitor de Recursos (Sparklines Cairo)".to_string(),
             subtitle: "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU".to_string(),
             action_key: "act:resource-monitor".to_string(),
         },
         PaletteItem {
-            category: "Ação".to_string(),
+            category: "Ferramentas".to_string(),
             title: "Autocompletar Inteligente (CompletionEngine)".to_string(),
-            subtitle: "Sugestões contextuais para git, docker, systemctl, cargo, apt".to_string(),
+            subtitle: "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git".to_string(),
             action_key: "act:autocomplete".to_string(),
         },
         PaletteItem {
-            category: "Ação".to_string(),
+            category: "Assistente de IA".to_string(),
             title: "Git Assistant — Sugerir Conventional Commit".to_string(),
             subtitle: "Inspeciona repositório Git atual e sugere mensagem de commit".to_string(),
             action_key: "act:git-assistant".to_string(),
         },
         PaletteItem {
-            category: "Ação".to_string(),
+            category: "Ferramentas".to_string(),
+            title: "Diagnóstico Seguro do Sistema (Telemetria & Suporte)".to_string(),
+            subtitle: "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak".to_string(),
+            action_key: "act:system-diagnostics".to_string(),
+        },
+        PaletteItem {
+            category: "Configurações".to_string(),
+            title: "Atalhos de Teclado (34 Ações Configuráveis)".to_string(),
+            subtitle: "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH".to_string(),
+            action_key: "act:shortcuts".to_string(),
+        },
+        PaletteItem {
+            category: "Configurações".to_string(),
+            title: "Preferências do OnyxSH".to_string(),
+            subtitle: "Fonte, paleta de cores, transparência e IA (F2)".to_string(),
+            action_key: "act:preferences".to_string(),
+        },
+        PaletteItem {
+            category: "Configurações".to_string(),
             title: "Criar Backup de Configurações (Bundle SHA-256)".to_string(),
             subtitle: "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
                 .to_string(),
@@ -899,6 +1001,31 @@ pub fn show_command_palette_dialog(
     {
         let pop = Rc::clone(&populate);
         search_entry.connect_search_changed(move |_| pop());
+    }
+    {
+        let key_ctrl = gtk4::EventControllerKey::new();
+        let d_close = dlg.clone();
+        let lb = list_box.clone();
+        key_ctrl.connect_key_pressed(move |_, keyval, _, _| {
+            if keyval == gdk::Key::Escape {
+                d_close.close();
+                return glib::Propagation::Stop;
+            }
+            if keyval == gdk::Key::Down || keyval == gdk::Key::Up {
+                let curr = lb.selected_row().map(|r| r.index()).unwrap_or(0);
+                let next = if keyval == gdk::Key::Down {
+                    curr + 1
+                } else {
+                    (curr - 1).max(0)
+                };
+                if let Some(r) = lb.row_at_index(next) {
+                    lb.select_row(Some(&r));
+                }
+                return glib::Propagation::Stop;
+            }
+            glib::Propagation::Proceed
+        });
+        dlg.add_controller(key_ctrl);
     }
 
     vbox.append(&content);

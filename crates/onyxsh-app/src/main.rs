@@ -5,6 +5,7 @@ pub mod ai_assistant_ui;
 pub mod command_manager_ui;
 pub mod dialogs;
 pub mod filemanager_ui;
+pub mod global_search_and_shortcuts;
 pub mod main_menu;
 pub mod resource_dashboard;
 pub mod session_sidebar;
