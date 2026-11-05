@@ -146,6 +146,51 @@ impl SshTunnelRegistry {
     pub fn get(&self, tunnel_id: &str) -> Option<&SshTunnel> {
         self.tunnels.get(tunnel_id)
     }
+
+    pub fn get_mut(&mut self, tunnel_id: &str) -> Option<&mut SshTunnel> {
+        self.tunnels.get_mut(tunnel_id)
+    }
+
+    pub fn all(&self) -> Vec<SshTunnel> {
+        let mut list: Vec<SshTunnel> = self.tunnels.values().cloned().collect();
+        list.sort_by(|a, b| a.name.cmp(&b.name));
+        list
+    }
+
+    pub fn stop_all(&mut self) {
+        for t in self.tunnels.values_mut() {
+            t.status = "stopped".to_string();
+        }
+    }
+
+    pub fn set_status(&mut self, tunnel_id: &str, status: &str, error_msg: &str) {
+        if let Some(t) = self.tunnels.get_mut(tunnel_id) {
+            t.status = status.to_string();
+            t.error_message = error_msg.to_string();
+        }
+    }
+
+    pub fn load_from_file(&mut self, path: &std::path::Path) -> std::io::Result<()> {
+        if path.exists() {
+            let data = std::fs::read_to_string(path)?;
+            if let Ok(list) = serde_json::from_str::<Vec<SshTunnel>>(&data) {
+                for t in list {
+                    self.register(t);
+                }
+            }
+        }
+        Ok(())
+    }
+
+    pub fn save_to_file(&self, path: &std::path::Path) -> std::io::Result<()> {
+        if let Some(parent) = path.parent() {
+            std::fs::create_dir_all(parent)?;
+        }
+        let list = self.all();
+        let json = serde_json::to_string_pretty(&list)
+            .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
+        std::fs::write(path, json)
+    }
 }
 
 #[cfg(test)]

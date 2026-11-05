@@ -94,43 +94,8 @@ fn get_active_vte_terminal(tab_view: &adw::TabView) -> Option<vte4::Terminal> {
 }
 
 /// Opens the SSH Tunnel Manager dialog (`win.show-tunnel-manager`).
-fn show_tunnel_manager_dialog(parent: &adw::ApplicationWindow) {
-    let dlg = adw::Window::builder()
-        .transient_for(parent)
-        .modal(true)
-        .title("Gerenciador de Túneis SSH (-L / -R / -D)")
-        .default_width(580)
-        .default_height(380)
-        .build();
-
-    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
-    vbox.append(&adw::HeaderBar::new());
-
-    let info = gtk4::Label::new(Some(
-        "Túneis SSH Ativos e Encaminhamento de Portas (Local -L, Remoto -R, SOCKS5 -D)",
-    ));
-    info.set_margin_top(12);
-    vbox.append(&info);
-
-    let list = gtk4::ListBox::new();
-    list.add_css_class("boxed-list");
-    list.set_margin_start(16);
-    list.set_margin_end(16);
-    let sample_tunnel = onyxsh_terminal::tunnel_manager::SshTunnel::default();
-    let row_lbl = gtk4::Label::new(Some(&format!(
-        "Exemplo: [{}] {} -> {} (Status: {})",
-        sample_tunnel.type_label(),
-        sample_tunnel.display_source(),
-        sample_tunnel.display_target(),
-        sample_tunnel.status
-    )));
-    row_lbl.set_margin_top(10);
-    row_lbl.set_margin_bottom(10);
-    list.append(&row_lbl);
-    vbox.append(&list);
-
-    dlg.set_content(Some(&vbox));
-    dlg.present();
+fn show_tunnel_manager_dialog(parent: &adw::ApplicationWindow, status_label: &gtk4::Label) {
+    crate::tunnel_ui::show_tunnel_manager_window(parent, status_label);
 }
 
 /// Builds and presents the main `adw::ApplicationWindow`.
@@ -964,6 +929,23 @@ pub fn build_main_window(
         }
         menu_vbox.append(&mi_ai);
 
+        // 5b. Configurar Assistente de IA
+        let mi_ai_cfg = make_menu_btn(
+            "Configurar Assistente de IA...",
+            Some("preferences-system-symbolic"),
+        );
+        {
+            let win_clone = window.clone();
+            let st_rc = Rc::clone(&settings_rc);
+            let status = status_lbl.clone();
+            let pop = menu_popover.clone();
+            mi_ai_cfg.connect_clicked(move |_| {
+                pop.popdown();
+                crate::ai_config_ui::show_ai_config_window(&win_clone, Rc::clone(&st_rc), &status);
+            });
+        }
+        menu_vbox.append(&mi_ai_cfg);
+
         // 6. Atalhos de Teclado (Editável — 34 Ações)
         let mi_shortcuts = make_menu_btn(
             "Atalhos de Teclado",
@@ -1011,10 +993,11 @@ pub fn build_main_window(
         );
         {
             let win_clone = window.clone();
+            let status = status_lbl.clone();
             let pop = menu_popover.clone();
             mi_tunnels.connect_clicked(move |_| {
                 pop.popdown();
-                show_tunnel_manager_dialog(&win_clone);
+                show_tunnel_manager_dialog(&win_clone, &status);
             });
         }
         menu_vbox.append(&mi_tunnels);
@@ -1405,6 +1388,12 @@ pub fn build_main_window(
                         )),
                         Err(e) => st_act.set_text(&format!("Erro ao criar backup: {e}")),
                     }
+                }
+                "show-tunnel-manager" => {
+                    crate::tunnel_ui::show_tunnel_manager_window(&win_c, &st_act);
+                }
+                "configure-ai" => {
+                    crate::ai_config_ui::show_ai_config_window(&win_c, Rc::clone(&st_c), &st_act);
                 }
                 _ => {}
             });

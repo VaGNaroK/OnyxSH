@@ -2,6 +2,7 @@
 //! Ports `src/onyxsh/main.py` and `src/onyxsh/window.py`.
 
 pub mod ai_assistant_ui;
+pub mod ai_config_ui;
 pub mod command_manager_ui;
 pub mod dialogs;
 pub mod export_dialog;
@@ -15,6 +16,7 @@ pub mod state;
 pub mod terminal_search;
 pub mod terminal_ux;
 pub mod theme_engine;
+pub mod tunnel_ui;
 pub mod window;
 
 use gtk4::glib;

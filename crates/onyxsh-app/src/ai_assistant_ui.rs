@@ -572,8 +572,23 @@ pub fn build_complete_ai_assistant_panel(
         .build();
     btn_history.add_css_class("flat");
 
+    let btn_settings = gtk4::Button::builder()
+        .icon_name("emblem-system-symbolic")
+        .tooltip_text("Configurações do Assistente de IA")
+        .build();
+    btn_settings.add_css_class("flat");
+    {
+        let win_c = parent_window.clone();
+        let st_c = Rc::clone(settings);
+        let status_c = status_lbl.clone();
+        btn_settings.connect_clicked(move |_| {
+            crate::ai_config_ui::show_ai_config_window(&win_c, Rc::clone(&st_c), &status_c);
+        });
+    }
+
     header_hbox.append(&btn_audit_diff);
     header_hbox.append(&btn_history);
+    header_hbox.append(&btn_settings);
     vbox.append(&header_hbox);
 
     // SmartRouter Profile Dropdown + Offline Toggle + Attach File (`PathGuard`)
