@@ -10,7 +10,6 @@ use crate::theme_engine::{generate_theme_css, get_palette, is_light_hex_color};
 use gtk4::gdk;
 use gtk4::gio;
 use gtk4::glib;
-use gtk4::pango;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
@@ -22,31 +21,13 @@ use onyxsh_filemanager::backend::UdpTftpServer;
 use onyxsh_system::{
     calculate_cpu_usage_percent, parse_proc_meminfo, parse_proc_net_dev, parse_proc_stat,
 };
-use onyxsh_terminal::exporter::{export_markdown, ExportMetadata};
 use std::cell::RefCell;
 use std::rc::Rc;
 use vte4::prelude::*;
 
-/// Helper to parse `#RRGGBB` into `gdk::RGBA`.
-fn parse_rgba(hex: &str) -> gdk::RGBA {
-    gdk::RGBA::parse(hex).unwrap_or_else(|_| gdk::RGBA::new(0.06, 0.07, 0.09, 1.0))
-}
-
-/// Applies the palette and font from `AppSettings` to an existing `vte4::Terminal`.
+/// Applies the palette, font, cursor, and VTE options from `AppSettings` to an existing `vte4::Terminal`.
 fn apply_terminal_appearance(term: &vte4::Terminal, settings: &AppSettings) {
-    let font_desc = pango::FontDescription::from_string(&settings.font);
-    term.set_font(Some(&font_desc));
-    term.set_scrollback_lines(settings.scrollback_lines as i64);
-
-    let palette = get_palette(&settings.color_scheme);
-    let fg = parse_rgba(palette.foreground);
-    let bg = parse_rgba(palette.background);
-    let cursor = parse_rgba(palette.cursor);
-    let ansi_colors: Vec<gdk::RGBA> = palette.ansi.iter().map(|c| parse_rgba(c)).collect();
-    let ansi_refs: Vec<&gdk::RGBA> = ansi_colors.iter().collect();
-
-    term.set_colors(Some(&fg), Some(&bg), &ansi_refs);
-    term.set_color_cursor(Some(&cursor));
+    crate::preferences_ui::apply_all_settings_to_terminal(term, settings);
 }
 
 /// Creates and configures a live `vte4::Terminal` widget and spawns `argv` inside a PTY.
@@ -110,107 +91,6 @@ fn get_active_vte_terminal(tab_view: &adw::TabView) -> Option<vte4::Terminal> {
         }
     }
     None
-}
-
-/// Opens the Preferences modal window (`win.preferences`).
-fn show_preferences_dialog(
-    parent: &adw::ApplicationWindow,
-    settings: Rc<RefCell<AppSettings>>,
-    terminals: Rc<RefCell<Vec<vte4::Terminal>>>,
-    css_provider: gtk4::CssProvider,
-) {
-    let dlg = adw::Window::builder()
-        .transient_for(parent)
-        .modal(true)
-        .title("Preferências — OnyxSH")
-        .default_width(560)
-        .default_height(440)
-        .build();
-
-    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 12);
-    vbox.append(&adw::HeaderBar::new());
-
-    let content = gtk4::Box::new(gtk4::Orientation::Vertical, 12);
-    content.set_margin_start(18);
-    content.set_margin_end(18);
-    content.set_margin_top(12);
-    content.set_margin_bottom(18);
-
-    // Color Scheme selector row
-    let scheme_row = gtk4::Box::new(gtk4::Orientation::Horizontal, 12);
-    let scheme_lbl = gtk4::Label::new(Some("Esquema de Cores do Terminal:"));
-    scheme_lbl.set_hexpand(true);
-    scheme_lbl.set_halign(gtk4::Align::Start);
-    let scheme_list = gtk4::StringList::new(&["onyx_dark", "dracula", "solarized_light"]);
-    let scheme_dd = gtk4::DropDown::new(Some(scheme_list), gtk4::Expression::NONE);
-    let curr_scheme = settings.borrow().color_scheme.clone();
-    scheme_dd.set_selected(match curr_scheme.as_str() {
-        "dracula" => 1,
-        "solarized_light" => 2,
-        _ => 0,
-    });
-    scheme_row.append(&scheme_lbl);
-    scheme_row.append(&scheme_dd);
-    content.append(&scheme_row);
-
-    // Scrollback row
-    let sb_row = gtk4::Box::new(gtk4::Orientation::Horizontal, 12);
-    let sb_lbl = gtk4::Label::new(Some("Linhas de Histórico (Scrollback):"));
-    sb_lbl.set_hexpand(true);
-    sb_lbl.set_halign(gtk4::Align::Start);
-    let sb_spin = gtk4::SpinButton::with_range(500.0, 100_000.0, 500.0);
-    sb_spin.set_value(settings.borrow().scrollback_lines as f64);
-    sb_row.append(&sb_lbl);
-    sb_row.append(&sb_spin);
-    content.append(&sb_row);
-
-    // OSC 52 Clipboard Switch
-    let osc_row = gtk4::Box::new(gtk4::Orientation::Horizontal, 12);
-    let osc_lbl = gtk4::Label::new(Some("Permitir Clipboard Remoto (OSC 52 Zero-Trust):"));
-    osc_lbl.set_hexpand(true);
-    osc_lbl.set_halign(gtk4::Align::Start);
-    let osc_sw = gtk4::Switch::new();
-    osc_sw.set_active(settings.borrow().enable_osc52_clipboard);
-    osc_row.append(&osc_lbl);
-    osc_row.append(&osc_sw);
-    content.append(&osc_row);
-
-    // Save & Apply button
-    let save_btn = gtk4::Button::with_label("Salvar e Aplicar");
-    save_btn.add_css_class("suggested-action");
-    let dlg_clone = dlg.clone();
-    save_btn.connect_clicked(move |_| {
-        {
-            let mut st = settings.borrow_mut();
-            st.color_scheme = match scheme_dd.selected() {
-                1 => "dracula".to_string(),
-                2 => "solarized_light".to_string(),
-                _ => "onyx_dark".to_string(),
-            };
-            st.scrollback_lines = sb_spin.value() as u32;
-            st.enable_osc52_clipboard = osc_sw.is_active();
-            let cfg_path = platform::config_dir().join("settings.json");
-            let _ = st.save_to_path(&cfg_path);
-
-            let opacity_pct = 100u8.saturating_sub(st.transparency.min(100));
-            let css = format!(
-                "{}\n{}",
-                generate_theme_css(&st.color_scheme, opacity_pct),
-                menu_custom_css()
-            );
-            css_provider.load_from_string(&css);
-
-            for term in terminals.borrow().iter() {
-                apply_terminal_appearance(term, &st);
-            }
-        }
-        dlg_clone.close();
-    });
-    content.append(&save_btn);
-
-    vbox.append(&content);
-    dlg.set_content(Some(&vbox));
-    dlg.present();
 }
 
 /// Opens the SSH Tunnel Manager dialog (`win.show-tunnel-manager`).
@@ -967,50 +847,74 @@ pub fn build_main_window(
         }
         menu_vbox.append(&mi_new_win);
 
-        // 2. Exportar Saída do Terminal
+        // 2. Exportar Saída do Terminal & Caderno de Bordo (Runbook)
         let mi_export = make_menu_btn(
             "Exportar Saída do Terminal...",
             Some("document-save-symbolic"),
         );
         {
+            let win_clone = window.clone();
             let tv = tab_view.clone();
             let status = status_lbl.clone();
             let pop = menu_popover.clone();
             mi_export.connect_clicked(move |_| {
                 pop.popdown();
                 if let Some(term) = get_active_vte_terminal(&tv) {
-                    let raw = term
-                        .text_format(vte4::Format::Text)
-                        .map(|s| s.to_string())
-                        .unwrap_or_default();
-                    let exported = export_markdown(&raw, &ExportMetadata::default());
-                    let out_path = platform::home_dir().join("onyxsh_terminal_export.md");
-                    if std::fs::write(&out_path, exported).is_ok() {
-                        status.set_text(&format!(
-                            "Saída do terminal exportada para: {}",
-                            out_path.display()
-                        ));
-                    }
+                    let tab_title = tv.selected_page().map(|p| p.title().to_string());
+                    crate::export_dialog::show_export_terminal_dialog(
+                        &win_clone,
+                        &term,
+                        tab_title.as_deref(),
+                        false,
+                        &status,
+                    );
                 }
             });
         }
         menu_vbox.append(&mi_export);
 
-        // 3. Preferências
+        let mi_runbook = make_menu_btn(
+            "Exportar Sessão como Caderno de Bordo (Runbook)...",
+            Some("document-edit-symbolic"),
+        );
+        {
+            let win_clone = window.clone();
+            let tv = tab_view.clone();
+            let status = status_lbl.clone();
+            let pop = menu_popover.clone();
+            mi_runbook.connect_clicked(move |_| {
+                pop.popdown();
+                if let Some(term) = get_active_vte_terminal(&tv) {
+                    let tab_title = tv.selected_page().map(|p| p.title().to_string());
+                    crate::export_dialog::show_export_terminal_dialog(
+                        &win_clone,
+                        &term,
+                        tab_title.as_deref(),
+                        true,
+                        &status,
+                    );
+                }
+            });
+        }
+        menu_vbox.append(&mi_runbook);
+
+        // 3. Preferências (4 Abas Completas — `adw::PreferencesWindow`)
         let mi_prefs = make_menu_btn("Preferências", Some("preferences-system-symbolic"));
         {
             let win_clone = window.clone();
             let st_rc = Rc::clone(&settings_rc);
             let terms_rc = Rc::clone(&terminals_rc);
             let css_prov = css_provider.clone();
+            let status = status_lbl.clone();
             let pop = menu_popover.clone();
             mi_prefs.connect_clicked(move |_| {
                 pop.popdown();
-                show_preferences_dialog(
+                crate::preferences_ui::show_preferences_window(
                     &win_clone,
                     Rc::clone(&st_rc),
                     Rc::clone(&terms_rc),
                     css_prov.clone(),
+                    &status,
                 );
             });
         }
@@ -1405,6 +1309,30 @@ pub fn build_main_window(
                     tv_c.select_previous_page();
                 }
                 "split" | "split-vertical" => b_sp_c.emit_clicked(),
+                "export-terminal-buffer" => {
+                    if let Some(term) = at_act() {
+                        let tab_title = tv_c.selected_page().map(|p| p.title().to_string());
+                        crate::export_dialog::show_export_terminal_dialog(
+                            &win_c,
+                            &term,
+                            tab_title.as_deref(),
+                            false,
+                            &st_act,
+                        );
+                    }
+                }
+                "export-terminal-runbook" => {
+                    if let Some(term) = at_act() {
+                        let tab_title = tv_c.selected_page().map(|p| p.title().to_string());
+                        crate::export_dialog::show_export_terminal_dialog(
+                            &win_c,
+                            &term,
+                            tab_title.as_deref(),
+                            true,
+                            &st_act,
+                        );
+                    }
+                }
                 "clear-session" => {
                     if let Some(term) = at_act() {
                         term.reset(true, true);
@@ -1442,11 +1370,12 @@ pub fn build_main_window(
                     );
                 }
                 "preferences" => {
-                    show_preferences_dialog(
+                    crate::preferences_ui::show_preferences_window(
                         &win_c,
                         Rc::clone(&st_c),
                         Rc::clone(&terms_c),
                         css_c.clone(),
+                        &st_act,
                     );
                 }
                 "git-assistant" => {
@@ -1711,11 +1640,12 @@ pub fn build_main_window(
 
             // 7. Preferences (`F2`)
             if keyval == gdk::Key::F2 {
-                show_preferences_dialog(
+                crate::preferences_ui::show_preferences_window(
                     &win_k,
                     Rc::clone(&st_k),
                     Rc::clone(&terms_k),
                     css_k.clone(),
+                    &status_k,
                 );
                 return glib::Propagation::Stop;
             }

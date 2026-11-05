@@ -101,28 +101,160 @@ pub fn export_markdown(raw_text: &str, meta: &ExportMetadata) -> String {
     )
 }
 
-/// Exports terminal content as a standalone dark-themed HTML document.
+/// Exports terminal content as a standalone dark-themed HTML document with copy button and metadata grid.
 pub fn export_html(raw_text: &str, meta: &ExportMetadata) -> String {
     let escaped = escape_html(&export_plain_text(raw_text));
+    let session_esc = escape_html(&meta.session_name);
+    let host_esc = escape_html(&meta.host);
+    let cwd_esc = escape_html(&meta.cwd);
+    let date_esc = escape_html(&meta.timestamp);
+
     format!(
-        "<!DOCTYPE html>\n\
-         <html lang=\"pt-BR\">\n\
-         <head>\n\
-         <meta charset=\"UTF-8\">\n\
-         <title>OnyxSH Terminal Export - {}</title>\n\
-         <style>body {{ background: #121216; color: #e5e5ea; font-family: monospace; padding: 24px; }} pre {{ background: #1a1b26; padding: 16px; border-radius: 8px; overflow-x: auto; }}</style>\n\
-         </head>\n\
-         <body>\n\
-         <h2>{} ({}) — {}</h2>\n\
-         <pre id=\"terminal-output\">{}</pre>\n\
-         </body>\n\
-         </html>\n",
-        escape_html(&meta.session_name),
-        escape_html(&meta.session_name),
-        escape_html(&meta.host),
-        escape_html(&meta.cwd),
-        escaped
+        r#"<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exportação de Terminal OnyxSH - {session_esc}</title>
+  <style>
+    :root {{
+      --bg-color: #121418;
+      --card-bg: #1c1f26;
+      --border-color: #2e3440;
+      --text-color: #e5e9f0;
+      --text-dim: #8892b0;
+      --accent: #5e81ac;
+      --accent-hover: #81a1c1;
+    }}
+    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    body {{
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 24px;
+      line-height: 1.5;
+    }}
+    .container {{ max-width: 1200px; margin: 0 auto; }}
+    .header-card {{
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 18px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }}
+    .header-title {{ font-size: 1.25rem; font-weight: 600; }}
+    .metadata-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 0.875rem;
+      color: var(--text-dim);
+    }}
+    .metadata-item span {{ color: var(--text-color); font-weight: 500; }}
+    .copy-btn {{
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+    }}
+    .copy-btn:hover {{ background-color: var(--accent-hover); }}
+    .terminal-container {{
+      background-color: #0b0c10;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }}
+    .terminal-header {{
+      background-color: #1a1c23;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }}
+    .circle {{ width: 12px; height: 12px; border-radius: 50%; display: inline-block; }}
+    .circle.red {{ background-color: #ff5f56; }}
+    .circle.yellow {{ background-color: #ffbd2e; }}
+    .circle.green {{ background-color: #27c93f; }}
+    .terminal-title {{ color: var(--text-dim); font-size: 0.8rem; font-family: monospace; margin-left: 8px; }}
+    pre.terminal-content {{
+      padding: 20px;
+      overflow-x: auto;
+      font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+      font-size: 13.5px;
+      line-height: 1.45;
+      white-space: pre;
+    }}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-card">
+      <div class="header-title">⚡ Exportação de Terminal OnyxSH</div>
+      <button class="copy-btn" onclick="copyTerminalText()">📋 Copiar Saída</button>
+      <div class="metadata-grid">
+        <div class="metadata-item">Sessão: <span>{session_esc}</span></div>
+        <div class="metadata-item">Host: <span>{host_esc}</span></div>
+        <div class="metadata-item">Diretório: <span>{cwd_esc}</span></div>
+        <div class="metadata-item">Data: <span>{date_esc}</span></div>
+        <div class="metadata-item">Dimensões: <span>{cols} x {rows}</span></div>
+      </div>
+    </div>
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <span class="circle red"></span>
+        <span class="circle yellow"></span>
+        <span class="circle green"></span>
+        <span class="terminal-title">{host_esc} — {cwd_esc}</span>
+      </div>
+      <pre id="terminal-output" class="terminal-content">{escaped}</pre>
+    </div>
+  </div>
+  <script>
+    function copyTerminalText() {{
+      const el = document.getElementById('terminal-output');
+      navigator.clipboard.writeText(el.innerText).then(() => {{
+        const btn = document.querySelector('.copy-btn');
+        btn.innerText = '✅ Copiado!';
+        setTimeout(() => {{ btn.innerText = '📋 Copiar Saída'; }}, 2000);
+      }});
+    }}
+  </script>
+</body>
+</html>
+"#,
+        cols = meta.cols,
+        rows = meta.rows
     )
+}
+
+/// Formats direct terminal export content by format ID (`txt`, `log`, `md`, `html`, `cast`)
+/// and returns `(formatted_content, extension, mime_type)`.
+pub fn format_direct_export(
+    raw_text: &str,
+    format_id: &str,
+    meta: &ExportMetadata,
+) -> (String, &'static str, &'static str) {
+    match format_id.trim().to_lowercase().trim_start_matches('.') {
+        "txt" => (export_plain_text(raw_text), ".txt", "text/plain"),
+        "log" => (export_log(raw_text, meta), ".log", "text/plain"),
+        "md" | "markdown" => (export_markdown(raw_text, meta), ".md", "text/markdown"),
+        "html" => (export_html(raw_text, meta), ".html", "text/html"),
+        "cast" | "asciinema" => (export_asciinema_v2(raw_text, meta), ".cast", "application/json"),
+        _ => (export_plain_text(raw_text), ".txt", "text/plain"),
+    }
 }
 
 /// Exports terminal content in Asciinema v2 (`.cast`) JSONL format.

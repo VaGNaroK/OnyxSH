@@ -363,6 +363,12 @@ pub fn attach_vte_ux_controllers(
     btn_copy.add_css_class("flat");
     let btn_paste = gtk4::Button::with_label("📥 Colar");
     btn_paste.add_css_class("flat");
+    let btn_select_all = gtk4::Button::with_label("🔲 Selecionar Tudo");
+    btn_select_all.add_css_class("flat");
+    let btn_export_direct = gtk4::Button::with_label("📜 Exportar Saída do Terminal...");
+    btn_export_direct.add_css_class("flat");
+    let btn_export_runbook = gtk4::Button::with_label("📘 Exportar Sessão como Caderno de Bordo (Runbook)...");
+    btn_export_runbook.add_css_class("flat");
     let btn_explain_ai = gtk4::Button::with_label("🤖 Explicar / Diagnosticar com IA");
     btn_explain_ai.add_css_class("flat");
     let btn_autocomplete = gtk4::Button::with_label("⌨️ Autocompletar (CompletionEngine)");
@@ -370,6 +376,10 @@ pub fn attach_vte_ux_controllers(
 
     pop_vbox.append(&btn_copy);
     pop_vbox.append(&btn_paste);
+    pop_vbox.append(&btn_select_all);
+    pop_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+    pop_vbox.append(&btn_export_direct);
+    pop_vbox.append(&btn_export_runbook);
     pop_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
     pop_vbox.append(&btn_explain_ai);
     pop_vbox.append(&btn_autocomplete);
@@ -391,6 +401,34 @@ pub fn attach_vte_ux_controllers(
         btn_paste.connect_clicked(move |_| {
             t.paste_clipboard();
             p.popdown();
+        });
+    }
+    {
+        let t = term.clone();
+        let p = popover.clone();
+        btn_select_all.connect_clicked(move |_| {
+            t.select_all();
+            p.popdown();
+        });
+    }
+    {
+        let win_ref = parent_window.clone();
+        let t = term.clone();
+        let p = popover.clone();
+        let st = status_lbl.clone();
+        btn_export_direct.connect_clicked(move |_| {
+            p.popdown();
+            crate::export_dialog::show_export_terminal_dialog(&win_ref, &t, None, false, &st);
+        });
+    }
+    {
+        let win_ref = parent_window.clone();
+        let t = term.clone();
+        let p = popover.clone();
+        let st = status_lbl.clone();
+        btn_export_runbook.connect_clicked(move |_| {
+            p.popdown();
+            crate::export_dialog::show_export_terminal_dialog(&win_ref, &t, None, true, &st);
         });
     }
     {
@@ -801,6 +839,18 @@ pub fn show_command_palette_dialog(
             title: "Dividir Painel Verticalmente".to_string(),
             subtitle: "Divide a aba atual acima/abaixo (Ctrl+Shift+))".to_string(),
             action_key: "act:split-vertical".to_string(),
+        },
+        PaletteItem {
+            category: "Terminal".to_string(),
+            title: "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)".to_string(),
+            subtitle: "Exporta todo o buffer ou a seleção ativa do terminal".to_string(),
+            action_key: "act:export-terminal-buffer".to_string(),
+        },
+        PaletteItem {
+            category: "Terminal".to_string(),
+            title: "Exportar Sessão como Caderno de Bordo (Runbook)".to_string(),
+            subtitle: "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)".to_string(),
+            action_key: "act:export-terminal-runbook".to_string(),
         },
         PaletteItem {
             category: "Terminal".to_string(),
