@@ -502,6 +502,19 @@ pub fn show_command_palette_dialog(
             subtitle: "Sugestões contextuais para git, docker, systemctl, cargo, apt".to_string(),
             action_key: "act:autocomplete".to_string(),
         },
+        PaletteItem {
+            category: "Ação".to_string(),
+            title: "Git Assistant — Sugerir Conventional Commit".to_string(),
+            subtitle: "Inspeciona repositório Git atual e sugere mensagem de commit".to_string(),
+            action_key: "act:git-assistant".to_string(),
+        },
+        PaletteItem {
+            category: "Ação".to_string(),
+            title: "Criar Backup de Configurações (Bundle SHA-256)".to_string(),
+            subtitle: "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+                .to_string(),
+            action_key: "act:backup-config".to_string(),
+        },
     ];
 
     let sessions_path = platform::config_dir().join("sessions.json");

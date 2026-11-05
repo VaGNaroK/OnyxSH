@@ -1349,6 +1349,8 @@ pub fn build_main_window(
             let b_ai_c = b_ai.clone();
             let b_rm_c = b_rm.clone();
             let b_ac_c = b_ac.clone();
+            let st_act = status.clone();
+            let at_act = Rc::clone(&act_term);
 
             let on_act: Rc<dyn Fn(&str)> = Rc::new(move |act: &str| match act {
                 "new-tab" => b_nt_c.emit_clicked(),
@@ -1357,6 +1359,34 @@ pub fn build_main_window(
                 "toggle-ai" => b_ai_c.set_active(!b_ai_c.is_active()),
                 "resource-monitor" => b_rm_c.emit_clicked(),
                 "autocomplete" => b_ac_c.emit_clicked(),
+                "git-assistant" => {
+                    let cwd = std::env::current_dir().unwrap_or_else(|_| platform::home_dir());
+                    if let Some(git_sum) =
+                        onyxsh_terminal::git_assistant::inspect_git_repository(&cwd)
+                    {
+                        let commit_msg =
+                            onyxsh_terminal::git_assistant::suggest_conventional_commit(&git_sum);
+                        if let Some(term) = at_act() {
+                            let cmd = format!("git commit -m \"{commit_msg}\"");
+                            term.feed_child(cmd.as_bytes());
+                        }
+                        st_act.set_text(&format!("Git Assistant: {commit_msg}"));
+                    } else {
+                        st_act.set_text("Git Assistant: diretório atual não é um repositório Git.");
+                    }
+                }
+                "backup-config" => {
+                    let cfg_dir = platform::config_dir();
+                    let out_path = platform::home_dir().join("onyxsh_config_backup.json");
+                    match onyxsh_core::backup::create_config_backup(&cfg_dir, &out_path) {
+                        Ok(bundle) => st_act.set_text(&format!(
+                            "Backup SHA-256 criado ({} arquivos): {}",
+                            bundle.files.len(),
+                            out_path.display()
+                        )),
+                        Err(e) => st_act.set_text(&format!("Erro ao criar backup: {e}")),
+                    }
+                }
                 _ => {}
             });
 

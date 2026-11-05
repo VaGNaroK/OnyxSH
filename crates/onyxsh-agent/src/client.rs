@@ -126,6 +126,7 @@ pub fn build_provider_request(
             let base_url = match provider {
                 "openai" => "https://api.openai.com/v1/chat/completions".to_string(),
                 "groq" => "https://api.groq.com/openai/v1/chat/completions".to_string(),
+                "openrouter" => "https://openrouter.ai/api/v1/chat/completions".to_string(),
                 _ => {
                     let base = local_endpoint
                         .unwrap_or("http://127.0.0.1:11434")
@@ -217,10 +218,70 @@ pub fn parse_sse_line(provider: &str, line: &str) -> Option<String> {
     }
 }
 
+/// Builds an Ollama `/api/generate` preload request (`keep_alive: -1`) to pin `model` in GPU VRAM.
+pub fn build_ollama_preload_request(base_endpoint: &str, model: &str) -> LlmHttpRequest {
+    let base = base_endpoint.trim_end_matches('/');
+    LlmHttpRequest {
+        url: format!("{base}/api/generate"),
+        headers: vec![("Content-Type".to_string(), "application/json".to_string())],
+        body_json: json!({
+            "model": model,
+            "prompt": "",
+            "keep_alive": -1
+        })
+        .to_string(),
+    }
+}
+
+/// Builds an Ollama `/api/generate` unload request (`keep_alive: 0`) to evict `model` from GPU VRAM.
+pub fn build_ollama_unload_request(base_endpoint: &str, model: &str) -> LlmHttpRequest {
+    let base = base_endpoint.trim_end_matches('/');
+    LlmHttpRequest {
+        url: format!("{base}/api/generate"),
+        headers: vec![("Content-Type".to_string(), "application/json".to_string())],
+        body_json: json!({
+            "model": model,
+            "prompt": "",
+            "keep_alive": 0
+        })
+        .to_string(),
+    }
+}
+
+/// Parses Ollama `/api/ps` JSON output and returns the names of loaded models that differ from `active_model`.
+pub fn parse_ollama_ps_models_to_evict(ps_json: &str, active_model: &str) -> Vec<String> {
+    let Ok(val) = serde_json::from_str::<Value>(ps_json) else {
+        return Vec::new();
+    };
+    let Some(models) = val.get("models").and_then(|m| m.as_array()) else {
+        return Vec::new();
+    };
+    models
+        .iter()
+        .filter_map(|item| item.get("name").and_then(|n| n.as_str()))
+        .filter(|&name| name != active_model && !name.starts_with(&format!("{active_model}:")))
+        .map(String::from)
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::router::{RoutingProfile, TaskComplexity};
+
+    #[test]
+    fn test_ollama_vram_lifecycle_preload_evict_and_unload() {
+        let preload = build_ollama_preload_request("http://127.0.0.1:11434/", "llama3.2");
+        assert_eq!(preload.url, "http://127.0.0.1:11434/api/generate");
+        assert!(preload.body_json.contains(r#""keep_alive":-1"#));
+
+        let unload = build_ollama_unload_request("http://127.0.0.1:11434", "qwen2.5-coder");
+        assert!(unload.body_json.contains(r#""keep_alive":0"#));
+
+        let ps_sample = r#"{"models":[{"name":"llama3.2:latest"},{"name":"mistral:7b"},{"name":"deepseek-r1:8b"}]}"#;
+        let to_evict = parse_ollama_ps_models_to_evict(ps_sample, "llama3.2");
+        assert_eq!(to_evict, vec!["mistral:7b", "deepseek-r1:8b"]);
+    }
 
     #[test]
     fn test_build_requests_and_parse_sse_across_providers() {

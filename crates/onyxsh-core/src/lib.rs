@@ -2,6 +2,7 @@
 //! sessions, OpenSSH config parser, snippet resolver, window state,
 //! internationalization, and logging for OnyxSH.
 
+pub mod backup;
 pub mod config;
 pub mod crypto;
 pub mod i18n;
