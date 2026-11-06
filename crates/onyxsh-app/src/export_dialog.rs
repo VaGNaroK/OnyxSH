@@ -315,6 +315,8 @@ pub fn show_export_terminal_dialog(
     let stack = gtk4::Stack::builder()
         .transition_type(gtk4::StackTransitionType::SlideLeftRight)
         .transition_duration(200)
+        .vhomogeneous(false)
+        .interpolate_size(true)
         .build();
     stack_switcher.set_stack(Some(&stack));
     switcher_box.append(&stack_switcher);

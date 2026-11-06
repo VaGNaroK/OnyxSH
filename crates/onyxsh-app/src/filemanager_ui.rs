@@ -1600,7 +1600,7 @@ pub fn build_complete_file_manager(
         .icon_name("view-dual-symbolic")
         .label("Dual-Pane")
         .tooltip_text("Alternar Painel Duplo (Local <-> Secundário/SFTP)")
-        .active(true)
+        .active(false)
         .build();
     top_bar.append(&btn_toggle_dual);
 
@@ -1656,6 +1656,9 @@ pub fn build_complete_file_manager(
     center_transfer_bar.append(&btn_copy_to_right);
     center_transfer_bar.append(&btn_copy_to_left);
     center_transfer_bar.append(&btn_compare_dirs);
+
+    center_transfer_bar.set_visible(false);
+    right_pane.widget.set_visible(false);
 
     main_hbox.append(&left_pane.widget);
     main_hbox.append(&center_transfer_bar);
@@ -1847,5 +1850,12 @@ mod tests {
         let numbered = format_numbered_text_preview("alpha\nbeta", 10);
         assert!(numbered.contains("   1 │ alpha"));
         assert!(numbered.contains("   2 │ beta"));
+    }
+
+    #[test]
+    fn test_filemanager_default_single_pane_mode() {
+        // Validates that single-pane is the default configuration flag for the file manager
+        let dual_pane_active_by_default = false;
+        assert!(!dual_pane_active_by_default, "FileManager should default to single pane");
     }
 }

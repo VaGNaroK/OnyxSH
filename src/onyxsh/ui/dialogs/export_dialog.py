@@ -111,6 +111,8 @@ class ExportTerminalDialog(BaseDialog):
         self.stack = Gtk.Stack(
             transition_type=Gtk.StackTransitionType.SLIDE_LEFT_RIGHT,
             transition_duration=200,
+            vhomogeneous=False,
+            interpolate_size=True,
         )
         self.stack_switcher.set_stack(self.stack)
 

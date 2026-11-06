@@ -144,8 +144,8 @@ pub fn build_main_window(
 
     let btn_sidebar = gtk4::ToggleButton::builder()
         .icon_name("sidebar-show-symbolic")
-        .tooltip_text("Painel de Sessões")
-        .active(true)
+        .tooltip_text("Exibir Painel de Sessões")
+        .active(false)
         .build();
     header_bar.pack_start(&btn_sidebar);
 
@@ -626,8 +626,11 @@ pub fn build_main_window(
     let main_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
     main_hbox.set_hexpand(true);
     main_hbox.set_vexpand(true);
+    sidebar_box.set_visible(false);
+    let sidebar_sep = gtk4::Separator::new(gtk4::Orientation::Vertical);
+    sidebar_sep.set_visible(false);
     main_hbox.append(&sidebar_box);
-    main_hbox.append(&gtk4::Separator::new(gtk4::Orientation::Vertical));
+    main_hbox.append(&sidebar_sep);
     main_hbox.append(&center_vbox);
     main_hbox.append(&ai_widget);
 
@@ -1104,8 +1107,21 @@ pub fn build_main_window(
 
     {
         let sb = sidebar_box.clone();
+        let sep = sidebar_sep.clone();
         btn_sidebar.connect_toggled(move |btn| {
-            sb.set_visible(btn.is_active());
+            let active = btn.is_active();
+            sb.set_visible(active);
+            sep.set_visible(active);
+            btn.set_icon_name(if active {
+                "sidebar-hide-symbolic"
+            } else {
+                "sidebar-show-symbolic"
+            });
+            btn.set_tooltip_text(Some(if active {
+                "Ocultar Painel de Sessões"
+            } else {
+                "Exibir Painel de Sessões"
+            }));
         });
     }
     {
