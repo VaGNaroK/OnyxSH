@@ -84,6 +84,7 @@ fn main() -> glib::ExitCode {
 
     let app = adw::Application::builder()
         .application_id(APP_ID)
+        .flags(gtk4::gio::ApplicationFlags::NON_UNIQUE)
         .build();
 
     let initial_cwd = cli.working_directory.clone();

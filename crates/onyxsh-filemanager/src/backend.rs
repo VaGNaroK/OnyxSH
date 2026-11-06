@@ -20,6 +20,36 @@ pub trait FileSystemBackend {
     fn remove(&self, path: &Path) -> std::io::Result<()>;
 }
 
+#[cfg(unix)]
+pub fn resolve_posix_owner(uid: u32, gid: u32) -> String {
+    let username = unsafe {
+        let pw = libc::getpwuid(uid);
+        if !pw.is_null() && !(*pw).pw_name.is_null() {
+            std::ffi::CStr::from_ptr((*pw).pw_name)
+                .to_string_lossy()
+                .into_owned()
+        } else {
+            uid.to_string()
+        }
+    };
+    let groupname = unsafe {
+        let gr = libc::getgrgid(gid);
+        if !gr.is_null() && !(*gr).gr_name.is_null() {
+            std::ffi::CStr::from_ptr((*gr).gr_name)
+                .to_string_lossy()
+                .into_owned()
+        } else {
+            gid.to_string()
+        }
+    };
+    format!("{username}:{groupname}")
+}
+
+#[cfg(not(unix))]
+pub fn resolve_posix_owner(_uid: u32, _gid: u32) -> String {
+    "user:group".to_string()
+}
+
 /// Native local filesystem backend (`src/onyxsh/filemanager/local_backend.py`).
 #[derive(Debug, Default, Clone)]
 pub struct LocalFsBackend;
@@ -32,7 +62,7 @@ impl FileSystemBackend for LocalFsBackend {
             let symlink_meta = dir_entry.metadata()?;
             let is_symlink = dir_entry.file_type()?.is_symlink();
             let is_dir = symlink_meta.is_dir();
-            let size = if is_dir { 0 } else { symlink_meta.len() };
+            let size = symlink_meta.len();
             let modified_epoch = symlink_meta
                 .modified()
                 .ok()
@@ -40,6 +70,14 @@ impl FileSystemBackend for LocalFsBackend {
                 .map(|d| d.as_secs())
                 .unwrap_or(0);
             let permissions_octal = (symlink_meta.permissions().mode() & 0o777) as u16;
+
+            #[cfg(unix)]
+            let owner = {
+                use std::os::unix::fs::MetadataExt;
+                resolve_posix_owner(symlink_meta.uid(), symlink_meta.gid())
+            };
+            #[cfg(not(unix))]
+            let owner = "user:group".to_string();
 
             entries.push(FileEntry {
                 name: dir_entry.file_name().to_string_lossy().into_owned(),
@@ -49,6 +87,7 @@ impl FileSystemBackend for LocalFsBackend {
                 size,
                 modified_epoch,
                 permissions_octal,
+                owner,
             });
         }
         Ok(entries)
@@ -108,6 +147,12 @@ pub fn parse_sftp_ls_line(parent_dir: &str, line: &str) -> Option<FileEntry> {
         format!("{parent_dir}/{name}")
     };
 
+    let owner = if parts.len() >= 4 {
+        format!("{}:{}", parts[2], parts[3])
+    } else {
+        "user:group".to_string()
+    };
+
     Some(FileEntry {
         name,
         path: full_path,
@@ -116,6 +161,7 @@ pub fn parse_sftp_ls_line(parent_dir: &str, line: &str) -> Option<FileEntry> {
         size,
         modified_epoch: 0,
         permissions_octal: octal,
+        owner,
     })
 }
 

@@ -14,6 +14,8 @@ pub enum SortColumn {
     Name,
     Size,
     Modified,
+    Permissions,
+    Owner,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -25,6 +27,8 @@ pub struct FileEntry {
     pub size: u64,
     pub modified_epoch: u64,
     pub permissions_octal: u16,
+    #[serde(default)]
+    pub owner: String,
 }
 
 impl FileEntry {
@@ -52,9 +56,11 @@ impl FileEntry {
 
     pub fn formatted_size_clean(&self) -> String {
         if self.is_dir {
-            return "—".to_string();
+            let s = if self.size == 0 { 4096 } else { self.size };
+            format_bytes(s)
+        } else {
+            format_bytes(self.size)
         }
-        format_bytes(self.size)
     }
 
     pub fn file_type_badge(&self) -> Option<(&'static str, &'static str)> {
@@ -201,6 +207,8 @@ pub fn filter_and_sort_entries(
             SortColumn::Name => a.name.to_lowercase().cmp(&b.name.to_lowercase()),
             SortColumn::Size => a.size.cmp(&b.size),
             SortColumn::Modified => a.modified_epoch.cmp(&b.modified_epoch),
+            SortColumn::Permissions => a.permissions_octal.cmp(&b.permissions_octal),
+            SortColumn::Owner => a.owner.to_lowercase().cmp(&b.owner.to_lowercase()),
         };
         if ascending {
             ord
@@ -227,6 +235,7 @@ mod tests {
                 size: 512,
                 modified_epoch: 100,
                 permissions_octal: 0o644,
+                owner: "user:user".to_string(),
             },
             FileEntry {
                 name: "zebra.txt".to_string(),
@@ -236,6 +245,7 @@ mod tests {
                 size: 2048,
                 modified_epoch: 200,
                 permissions_octal: 0o644,
+                owner: "user:user".to_string(),
             },
             FileEntry {
                 name: "apps".to_string(),
@@ -245,6 +255,7 @@ mod tests {
                 size: 4096,
                 modified_epoch: 150,
                 permissions_octal: 0o755,
+                owner: "user:user".to_string(),
             },
         ];
 
@@ -253,7 +264,7 @@ mod tests {
         assert_eq!(visible[0].name, "apps"); // Dir first
         assert_eq!(visible[1].name, "zebra.txt");
 
-        assert_eq!(items[2].formatted_size_clean(), "—");
+        assert_eq!(items[2].formatted_size_clean(), "4.0 KB");
         assert_eq!(items[1].formatted_size_clean(), "2.0 KB");
         assert_eq!(items[2].permissions_octal_str(), "0755");
         assert!(!items[1].is_executable());
@@ -268,6 +279,7 @@ mod tests {
             size: 1024,
             modified_epoch: 300,
             permissions_octal: 0o755,
+            owner: "user:user".to_string(),
         };
         assert!(script.is_executable());
         assert_eq!(script.file_type_badge(), Some(("SH", "badge-sh")));
@@ -280,6 +292,7 @@ mod tests {
             size: 1024,
             modified_epoch: 300,
             permissions_octal: 0o644,
+            owner: "user:user".to_string(),
         };
         assert!(!py.is_executable());
         assert_eq!(py.file_type_badge(), Some(("PY", "badge-py")));
@@ -292,8 +305,9 @@ mod tests {
             size: 4096,
             modified_epoch: 0,
             permissions_octal: 0o755,
+            owner: "root:root".to_string(),
         };
         assert!(!parent.is_hidden());
-        assert_eq!(parent.formatted_size_clean(), "—");
+        assert_eq!(parent.formatted_size_clean(), "4.0 KB");
     }
 }

@@ -144,6 +144,87 @@ pub fn menu_custom_css() -> &'static str {
         color: #e14eca;
         border: 1px solid rgba(225, 78, 202, 0.35);
     }
+    .file-detailed-header {
+        padding: 2px 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        background-color: rgba(255, 255, 255, 0.03);
+    }
+    .file-detailed-header button,
+    .file-detailed-header button:focus,
+    .file-detailed-header button:active {
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+        padding: 3px 6px;
+        border-radius: 4px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+    .file-detailed-header button:hover {
+        background-color: rgba(255, 255, 255, 0.12);
+        color: #ffffff;
+    }
+    .file-detailed-header-label {
+        font-weight: 600;
+        font-size: 0.9em;
+    }
+    .file-detailed-row {
+        padding: 3px 6px;
+        border-radius: 6px;
+        margin: 1px 2px;
+        transition: background-color 100ms ease;
+    }
+    .file-detailed-row:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+    }
+    .file-detailed-col-size {
+        font-family: monospace;
+        color: rgba(255, 255, 255, 0.85);
+        min-width: 80px;
+    }
+    .file-detailed-col-date {
+        font-family: monospace;
+        color: rgba(255, 255, 255, 0.85);
+        min-width: 150px;
+    }
+    .file-detailed-col-perms {
+        font-family: monospace;
+        color: rgba(255, 255, 255, 0.85);
+        min-width: 110px;
+    }
+    .file-detailed-col-owner {
+        font-family: monospace;
+        color: rgba(255, 255, 255, 0.85);
+        min-width: 160px;
+    }
+    .breadcrumb-trail button {
+        padding: 2px 6px;
+        font-weight: 600;
+    }
+    .quick-jump-popover {
+        min-width: 320px;
+        padding: 6px;
+    }
+    .quick-jump-header {
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        opacity: 0.6;
+        margin-top: 6px;
+        margin-bottom: 4px;
+        margin-left: 8px;
+        text-transform: uppercase;
+    }
+    .quick-jump-item-btn {
+        border-radius: 6px;
+        padding: 6px 10px;
+    }
+    .quick-jump-name {
+        font-weight: 600;
+    }
+    .bookmark-active-star {
+        color: #f6d32d;
+    }
     "
 }
 

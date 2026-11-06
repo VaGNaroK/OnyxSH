@@ -621,6 +621,7 @@ dependencies = [
 name = "onyxsh-filemanager"
 version = "0.14.0"
 dependencies = [
+ "libc",
  "onyxsh-core",
  "serde",
  "serde_json",

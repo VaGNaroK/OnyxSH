@@ -635,6 +635,7 @@ pub struct FilePaneHandle {
     pub selected_entry: Rc<RefCell<Option<FileEntry>>>,
     pub visible_entries: Rc<RefCell<Vec<FileEntry>>>,
     pub refresh: Rc<dyn Fn()>,
+    pub btn_toggle_dual: gtk4::ToggleButton,
 }
 
 /// Represents a copied or cut item in the File Manager clipboard.
@@ -1452,6 +1453,310 @@ fn show_context_menu_for_background(
     popover.popup();
 }
 
+/// Recursively scans subdirectories for matching file/directory names.
+fn search_recursive_dir(root: &Path, query: &str, limit: usize) -> Vec<FileEntry> {
+    let mut results = Vec::new();
+    let q_lower = query.trim().to_lowercase();
+    let mut stack = vec![root.to_path_buf()];
+
+    while let Some(dir) = stack.pop() {
+        if results.len() >= limit {
+            break;
+        }
+        if let Ok(entries) = fs::read_dir(&dir) {
+            for entry in entries.flatten() {
+                let path = entry.path();
+                let file_name = entry.file_name().to_string_lossy().into_owned();
+                let is_dir = path.is_dir();
+                if is_dir && !file_name.starts_with('.') {
+                    stack.push(path.clone());
+                }
+                if file_name.to_lowercase().contains(&q_lower) {
+                    if let Ok(m) = fs::symlink_metadata(&path) {
+                        let is_symlink = m.is_symlink();
+                        let size = m.len();
+                        let modified_epoch = m
+                            .modified()
+                            .ok()
+                            .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
+                            .map(|d| d.as_secs())
+                            .unwrap_or(0);
+                        let permissions_octal = (m.permissions().mode() & 0o777) as u16;
+                        #[cfg(unix)]
+                        let owner = {
+                            use std::os::unix::fs::MetadataExt;
+                            onyxsh_filemanager::backend::resolve_posix_owner(m.uid(), m.gid())
+                        };
+                        #[cfg(not(unix))]
+                        let owner = "user:group".to_string();
+
+                        results.push(FileEntry {
+                            name: file_name,
+                            path: path.to_string_lossy().into_owned(),
+                            is_dir,
+                            is_symlink,
+                            size,
+                            modified_epoch,
+                            permissions_octal,
+                            owner,
+                        });
+                        if results.len() >= limit {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    results
+}
+
+/// Displays the Quick Jump & Bookmarks popover menu.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, PartialEq, Eq)]
+pub struct FileManagerBookmark {
+    pub name: String,
+    pub path: String,
+}
+
+pub fn load_bookmarks() -> Vec<FileManagerBookmark> {
+    let settings_path = platform::config_dir().join("settings.json");
+    if let Ok(content) = fs::read_to_string(&settings_path) {
+        if let Ok(v) = serde_json::from_str::<serde_json::Value>(&content) {
+            if let Some(bm_val) = v.get("settings").and_then(|s| s.get("file_manager_bookmarks")) {
+                if let Ok(list) = serde_json::from_value::<Vec<FileManagerBookmark>>(bm_val.clone()) {
+                    return list;
+                }
+            }
+        }
+    }
+    Vec::new()
+}
+
+pub fn save_bookmarks(bookmarks: &[FileManagerBookmark]) {
+    let settings_path = platform::config_dir().join("settings.json");
+    if let Ok(content) = fs::read_to_string(&settings_path) {
+        if let Ok(mut v) = serde_json::from_str::<serde_json::Value>(&content) {
+            if let Some(s) = v.get_mut("settings") {
+                if let Ok(bm_json) = serde_json::to_value(bookmarks) {
+                    s["file_manager_bookmarks"] = bm_json;
+                    if let Ok(out) = serde_json::to_string_pretty(&v) {
+                        let _ = fs::write(&settings_path, out);
+                    }
+                }
+            }
+        }
+    }
+}
+
+fn find_git_root(start: &Path) -> Option<PathBuf> {
+    let mut cur = start.to_path_buf();
+    loop {
+        if cur.join(".git").exists() {
+            return Some(cur);
+        }
+        if !cur.pop() {
+            break;
+        }
+    }
+    None
+}
+
+fn show_quick_jump_popover(
+    btn: &gtk4::Button,
+    cur_dir: &Rc<RefCell<PathBuf>>,
+    refresh: &Rc<dyn Fn()>,
+    status_lbl: &gtk4::Label,
+    btn_bookmark: &gtk4::Button,
+) {
+    let popover = gtk4::Popover::new();
+    popover.set_parent(btn);
+    popover.add_css_class("quick-jump-popover");
+
+    let popover_box = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+    popover_box.set_margin_top(6);
+    popover_box.set_margin_bottom(6);
+    popover_box.set_margin_start(6);
+    popover_box.set_margin_end(6);
+
+    // Section 1: ATALHOS DO SISTEMA
+    let header_shortcuts = gtk4::Label::new(Some("ATALHOS DO SISTEMA"));
+    header_shortcuts.set_halign(gtk4::Align::Start);
+    header_shortcuts.add_css_class("quick-jump-header");
+    popover_box.append(&header_shortcuts);
+
+    let home = platform::home_dir();
+    let home_str = home.to_string_lossy().to_string();
+    let config_dir_str = home.join(".config").to_string_lossy().to_string();
+    let temp_str = std::env::temp_dir().to_string_lossy().to_string();
+
+    let mut shortcuts = vec![
+        ("Início", home_str, "folder-symbolic"),
+    ];
+
+    let active_path = cur_dir.borrow().clone();
+    if let Some(git_root) = find_git_root(&active_path) {
+        shortcuts.push((
+            "Raiz do Repositório Git",
+            git_root.to_string_lossy().to_string(),
+            "utilities-terminal-symbolic",
+        ));
+    }
+
+    shortcuts.push(("Raiz do Sistema", "/".to_string(), "computer-symbolic"));
+    shortcuts.push(("Logs do Sistema", "/var/log".to_string(), "text-x-generic-symbolic"));
+    shortcuts.push(("Configurações", config_dir_str, "preferences-other-symbolic"));
+    shortcuts.push(("Temporário", temp_str, "user-trash-symbolic"));
+
+    for (label, path_str, icon_name) in shortcuts {
+        let item_btn = gtk4::Button::new();
+        item_btn.add_css_class("flat");
+        item_btn.add_css_class("quick-jump-item-btn");
+
+        let row = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+
+        let icon = gtk4::Image::from_icon_name(icon_name);
+        row.append(&icon);
+
+        let lbl = gtk4::Label::new(Some(label));
+        lbl.set_halign(gtk4::Align::Start);
+        lbl.set_hexpand(true);
+        lbl.add_css_class("quick-jump-name");
+        row.append(&lbl);
+
+        let path_lbl = gtk4::Label::new(Some(&path_str));
+        path_lbl.set_halign(gtk4::Align::End);
+        path_lbl.add_css_class("caption");
+        path_lbl.add_css_class("dim-label");
+        row.append(&path_lbl);
+
+        item_btn.set_child(Some(&row));
+
+        let c_dir = Rc::clone(cur_dir);
+        let rf = Rc::clone(refresh);
+        let p_clone = popover.clone();
+        let target_path = PathBuf::from(path_str);
+        item_btn.connect_clicked(move |_| {
+            p_clone.popdown();
+            if target_path != *c_dir.borrow() {
+                *c_dir.borrow_mut() = target_path.clone();
+                rf();
+            }
+        });
+
+        popover_box.append(&item_btn);
+    }
+
+    // Section 2: FAVORITOS
+    let sep = gtk4::Separator::new(gtk4::Orientation::Horizontal);
+    sep.set_margin_top(6);
+    sep.set_margin_bottom(6);
+    popover_box.append(&sep);
+
+    let header_bm = gtk4::Label::new(Some("FAVORITOS"));
+    header_bm.set_halign(gtk4::Align::Start);
+    header_bm.add_css_class("quick-jump-header");
+    popover_box.append(&header_bm);
+
+    let bookmarks = load_bookmarks();
+    if bookmarks.is_empty() {
+        let empty_lbl = gtk4::Label::new(Some("Nenhuma pasta favoritada ainda"));
+        empty_lbl.set_halign(gtk4::Align::Start);
+        empty_lbl.add_css_class("caption");
+        empty_lbl.add_css_class("dim-label");
+        empty_lbl.set_margin_start(8);
+        empty_lbl.set_margin_bottom(6);
+        popover_box.append(&empty_lbl);
+    } else {
+        for bm in bookmarks {
+            let row_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
+
+            let btn = gtk4::Button::new();
+            btn.add_css_class("flat");
+            btn.add_css_class("quick-jump-item-btn");
+            btn.set_hexpand(true);
+
+            let btn_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+            let icon = gtk4::Image::from_icon_name("folder-symbolic");
+            btn_box.append(&icon);
+
+            let lbl = gtk4::Label::new(Some(&bm.name));
+            lbl.set_halign(gtk4::Align::Start);
+            lbl.set_hexpand(true);
+            lbl.add_css_class("quick-jump-name");
+            btn_box.append(&lbl);
+
+            let path_lbl = gtk4::Label::new(Some(&bm.path));
+            path_lbl.set_halign(gtk4::Align::End);
+            path_lbl.add_css_class("caption");
+            path_lbl.add_css_class("dim-label");
+            btn_box.append(&path_lbl);
+
+            btn.set_child(Some(&btn_box));
+
+            let bm_path = bm.path.clone();
+            let c_dir = Rc::clone(cur_dir);
+            let rf = Rc::clone(refresh);
+            let p_clone = popover.clone();
+            btn.connect_clicked(move |_| {
+                p_clone.popdown();
+                let target = PathBuf::from(&bm_path);
+                if target != *c_dir.borrow() {
+                    *c_dir.borrow_mut() = target;
+                    rf();
+                }
+            });
+            row_box.append(&btn);
+
+            let del_btn = gtk4::Button::builder()
+                .icon_name("user-trash-symbolic")
+                .has_frame(false)
+                .tooltip_text("Remover favorito")
+                .build();
+            del_btn.add_css_class("flat");
+
+            let bm_path_del = bm.path.clone();
+            let p_clone2 = popover.clone();
+            let c_dir2 = Rc::clone(cur_dir);
+            let rf2 = Rc::clone(refresh);
+            let st = status_lbl.clone();
+            let btn_bm = btn_bookmark.clone();
+            del_btn.connect_clicked(move |_| {
+                let mut bms = load_bookmarks();
+                bms.retain(|b| b.path != bm_path_del);
+                save_bookmarks(&bms);
+                st.set_text("Pasta removida dos favoritos.");
+
+                let cur_str = c_dir2.borrow().to_string_lossy().to_string();
+                let is_cur_bookmarked = bms.iter().any(|b| b.path == cur_str);
+                if is_cur_bookmarked {
+                    btn_bm.add_css_class("bookmark-active-star");
+                    btn_bm.set_tooltip_text(Some("Remover favorito do diretório atual"));
+                } else {
+                    btn_bm.remove_css_class("bookmark-active-star");
+                    btn_bm.set_tooltip_text(Some("Favoritar diretório atual"));
+                }
+
+                p_clone2.popdown();
+                rf2();
+            });
+            row_box.append(&del_btn);
+
+            popover_box.append(&row_box);
+        }
+    }
+
+    let popover_cleanup = popover.clone();
+    popover.connect_closed(move |_| {
+        let p = popover_cleanup.clone();
+        glib::idle_add_local_once(move || {
+            p.unparent();
+        });
+    });
+
+    popover.set_child(Some(&popover_box));
+    popover.popup();
+}
+
 /// Builds a rich File Manager Pane with:
 /// - Navigation toolbar (`Home`, `Up`, `Refresh`, `New Folder`, clickable Breadcrumbs, Path entry, Hidden toggle, Search)
 /// - View Mode Switcher (`List`, `Grid` with thumbnails, `Tree` with inline expanders)
@@ -1474,190 +1779,148 @@ pub fn build_file_pane(
     let sort_asc = Rc::new(RefCell::new(true));
     let view_mode = Rc::new(RefCell::new(FileManagerViewMode::List));
 
-    let pane_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+    let pane_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
     pane_vbox.set_hexpand(true);
     pane_vbox.set_vexpand(true);
 
-    // ── 1. Top Navigation & View Mode Toolbar ─────────────────────────────────
-    let nav_bar = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+    // ── 1. Column Header Bar at Top (Shown in List Mode) ─────────────────────
+    let col_header_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
+    col_header_box.add_css_class("file-detailed-header");
+    col_header_box.set_margin_start(4);
+    col_header_box.set_margin_end(16);
+    col_header_box.set_margin_top(2);
+    col_header_box.set_margin_bottom(2);
 
-    let nav_btns = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
-    nav_btns.add_css_class("linked");
-
-    let btn_home = gtk4::Button::builder()
-        .icon_name("go-home-symbolic")
-        .tooltip_text("Pasta Pessoal (Home)")
-        .build();
-    let btn_up = gtk4::Button::builder()
-        .icon_name("go-up-symbolic")
-        .tooltip_text("Subir Nível (..)")
-        .build();
-    let btn_refresh = gtk4::Button::builder()
-        .icon_name("view-refresh-symbolic")
-        .tooltip_text("Atualizar (F5)")
-        .build();
-    let btn_mkdir = gtk4::Button::builder()
-        .icon_name("folder-new-symbolic")
-        .tooltip_text("Nova Pasta")
-        .build();
-
-    nav_btns.append(&btn_home);
-    nav_btns.append(&btn_up);
-    nav_btns.append(&btn_refresh);
-    nav_btns.append(&btn_mkdir);
-    nav_bar.append(&nav_btns);
-
-    // Clickable Breadcrumbs Scrolled Box
-    let breadcrumb_scroll = gtk4::ScrolledWindow::builder()
-        .hscrollbar_policy(gtk4::PolicyType::Automatic)
-        .vscrollbar_policy(gtk4::PolicyType::Never)
-        .hexpand(true)
-        .build();
-    let breadcrumb_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 2);
-    breadcrumb_box.add_css_class("linked");
-    breadcrumb_scroll.set_child(Some(&breadcrumb_box));
-    nav_bar.append(&breadcrumb_scroll);
-
-    // Hidden files toggle
-    let btn_hidden = gtk4::ToggleButton::builder()
-        .icon_name("view-reveal-symbolic")
-        .tooltip_text("Mostrar Arquivos Ocultos (.dotfiles)")
-        .build();
-    nav_bar.append(&btn_hidden);
-
-    // View Mode Switcher (List / Grid / Tree)
-    let mode_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
-    mode_box.add_css_class("linked");
-    let btn_mode_list = gtk4::ToggleButton::builder()
-        .icon_name("view-list-symbolic")
-        .tooltip_text("Visualização em Lista Detalhada")
-        .active(true)
-        .build();
-    let btn_mode_grid = gtk4::ToggleButton::builder()
-        .icon_name("view-grid-symbolic")
-        .tooltip_text("Visualização em Grade / Miniaturas")
-        .group(&btn_mode_list)
-        .build();
-    let btn_mode_tree = gtk4::ToggleButton::builder()
-        .icon_name("view-list-tree-symbolic")
-        .tooltip_text("Visualização em Árvore")
-        .group(&btn_mode_list)
-        .build();
-    mode_box.append(&btn_mode_list);
-    mode_box.append(&btn_mode_grid);
-    mode_box.append(&btn_mode_tree);
-    nav_bar.append(&mode_box);
-
-    pane_vbox.append(&nav_bar);
-
-    // ── 2. Secondary Bar: Direct Path Entry + Search Filter + File Actions ───
-    let sub_bar = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
-
-    let path_entry = gtk4::Entry::builder()
-        .placeholder_text("/caminho/direto...")
-        .hexpand(true)
-        .build();
-    path_entry.add_css_class("monospace");
-    sub_bar.append(&path_entry);
-
-    let search_entry = gtk4::SearchEntry::builder()
-        .placeholder_text("Filtrar arquivos...")
-        .width_chars(16)
-        .build();
-    sub_bar.append(&search_entry);
-
-    let ops_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
-    ops_box.add_css_class("linked");
-
-    let btn_quick_look = gtk4::Button::builder()
-        .icon_name("system-search-symbolic")
-        .tooltip_text("Quick Look Preview (Espaço)")
-        .build();
-    let btn_rename = gtk4::Button::builder()
-        .icon_name("document-edit-symbolic")
-        .tooltip_text("Renomear Selecionado")
-        .build();
-    let btn_chmod = gtk4::Button::builder()
-        .icon_name("dialog-password-symbolic")
-        .tooltip_text("Alterar Permissões (chmod)")
-        .build();
-    let btn_checksum = gtk4::Button::builder()
-        .icon_name("security-high-symbolic")
-        .tooltip_text("Calcular Checksum SHA-256")
-        .build();
-    let btn_cd_term = gtk4::Button::builder()
-        .icon_name("utilities-terminal-symbolic")
-        .tooltip_text("Abrir Pasta no Terminal Ativo (cd)")
-        .build();
-    let btn_delete = gtk4::Button::builder()
-        .icon_name("user-trash-symbolic")
-        .tooltip_text("Excluir Selecionado")
-        .build();
-    btn_delete.add_css_class("destructive-action");
-
-    ops_box.append(&btn_quick_look);
-    ops_box.append(&btn_rename);
-    ops_box.append(&btn_chmod);
-    ops_box.append(&btn_checksum);
-    ops_box.append(&btn_cd_term);
-    ops_box.append(&btn_delete);
-    sub_bar.append(&ops_box);
-
-    pane_vbox.append(&sub_bar);
-
-    // ── 3. Sortable Column Header Bar (Shown in List Mode) ───────────────────
-    let col_header_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
-    col_header_box.set_margin_start(6);
-    col_header_box.set_margin_end(6);
-
+    // 1.1 Nome Header Button
     let btn_sort_name = gtk4::Button::builder()
-        .label("Nome ↑")
+        .has_frame(false)
         .hexpand(true)
         .halign(gtk4::Align::Fill)
         .build();
     btn_sort_name.add_css_class("flat");
+    btn_sort_name.add_css_class("file-detailed-header-name");
+    let name_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+    let lbl_name = gtk4::Label::builder()
+        .label("Nome")
+        .xalign(0.0)
+        .hexpand(true)
+        .build();
+    lbl_name.add_css_class("file-detailed-header-label");
+    let icon_name_sort = gtk4::Image::from_icon_name("pan-down-symbolic");
+    icon_name_sort.add_css_class("dim-label");
+    icon_name_sort.set_visible(false);
+    name_box.append(&lbl_name);
+    name_box.append(&icon_name_sort);
+    btn_sort_name.set_child(Some(&name_box));
 
+    // 1.2 Tamanho Header Button (matches filemanagerpython.png with chevron arrow on left)
     let btn_sort_size = gtk4::Button::builder()
-        .label("Tamanho")
-        .width_request(90)
+        .has_frame(false)
+        .width_request(80)
+        .halign(gtk4::Align::End)
         .build();
     btn_sort_size.add_css_class("flat");
+    btn_sort_size.add_css_class("file-detailed-header-size");
+    let size_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+    let icon_size_sort = gtk4::Image::from_icon_name("pan-down-symbolic");
+    icon_size_sort.add_css_class("dim-label");
+    icon_size_sort.set_visible(false);
+    let lbl_size = gtk4::Label::builder()
+        .label("Tamanho")
+        .xalign(1.0)
+        .build();
+    lbl_size.add_css_class("file-detailed-header-label");
+    size_box.append(&icon_size_sort);
+    size_box.append(&lbl_size);
+    btn_sort_size.set_child(Some(&size_box));
 
-    let btn_sort_perm = gtk4::Label::new(Some("Permissões"));
-    btn_sort_perm.add_css_class("caption");
-    btn_sort_perm.add_css_class("dim-label");
-    btn_sort_perm.set_width_request(95);
-
+    // 1.3 Data Modificada Header Button
     let btn_sort_mod = gtk4::Button::builder()
-        .label("Modificado")
-        .width_request(130)
+        .has_frame(false)
+        .width_request(150)
+        .halign(gtk4::Align::Center)
         .build();
     btn_sort_mod.add_css_class("flat");
+    btn_sort_mod.add_css_class("file-detailed-header-date");
+    let mod_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+    let icon_mod_sort = gtk4::Image::from_icon_name("pan-down-symbolic");
+    icon_mod_sort.add_css_class("dim-label");
+    icon_mod_sort.set_visible(false);
+    let lbl_mod = gtk4::Label::builder()
+        .label("Data Modificada")
+        .xalign(0.5)
+        .build();
+    lbl_mod.add_css_class("file-detailed-header-label");
+    mod_box.append(&lbl_mod);
+    mod_box.append(&icon_mod_sort);
+    btn_sort_mod.set_child(Some(&mod_box));
+
+    // 1.4 Permissões Header Button
+    let btn_sort_perm = gtk4::Button::builder()
+        .has_frame(false)
+        .width_request(110)
+        .halign(gtk4::Align::Center)
+        .build();
+    btn_sort_perm.add_css_class("flat");
+    btn_sort_perm.add_css_class("file-detailed-header-perms");
+    let perm_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+    let icon_perm_sort = gtk4::Image::from_icon_name("pan-down-symbolic");
+    icon_perm_sort.add_css_class("dim-label");
+    icon_perm_sort.set_visible(false);
+    let lbl_perm = gtk4::Label::builder()
+        .label("Permissões")
+        .xalign(0.5)
+        .build();
+    lbl_perm.add_css_class("file-detailed-header-label");
+    perm_box.append(&lbl_perm);
+    perm_box.append(&icon_perm_sort);
+    btn_sort_perm.set_child(Some(&perm_box));
+
+    // 1.5 Proprietário Header Button
+    let btn_sort_owner = gtk4::Button::builder()
+        .has_frame(false)
+        .width_request(160)
+        .halign(gtk4::Align::Start)
+        .build();
+    btn_sort_owner.add_css_class("flat");
+    btn_sort_owner.add_css_class("file-detailed-header-owner");
+    let owner_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+    let icon_owner_sort = gtk4::Image::from_icon_name("pan-down-symbolic");
+    icon_owner_sort.add_css_class("dim-label");
+    icon_owner_sort.set_visible(false);
+    let lbl_owner = gtk4::Label::builder()
+        .label("Proprietário")
+        .xalign(0.0)
+        .build();
+    lbl_owner.add_css_class("file-detailed-header-label");
+    owner_box.append(&lbl_owner);
+    owner_box.append(&icon_owner_sort);
+    btn_sort_owner.set_child(Some(&owner_box));
 
     col_header_box.append(&btn_sort_name);
     col_header_box.append(&btn_sort_size);
-    col_header_box.append(&btn_sort_perm);
     col_header_box.append(&btn_sort_mod);
+    col_header_box.append(&btn_sort_perm);
+    col_header_box.append(&btn_sort_owner);
+
     pane_vbox.append(&col_header_box);
 
-    // ── 4. `gtk4::Stack` with 3 Views: `list`, `grid`, `tree` ─────────────────
+    // ── 2. Content Stack: List, Grid, Tree ───────────────────────────────────
     let view_stack = gtk4::Stack::new();
     view_stack.set_transition_type(gtk4::StackTransitionType::Crossfade);
     view_stack.set_hexpand(true);
     view_stack.set_vexpand(true);
 
-    // 4.1 List View
     let list_scroll = gtk4::ScrolledWindow::new();
     list_scroll.set_hexpand(true);
     list_scroll.set_vexpand(true);
     let list_box = gtk4::ListBox::new();
     list_box.set_selection_mode(gtk4::SelectionMode::Single);
     list_box.set_activate_on_single_click(false);
-    list_box.add_css_class("boxed-list");
+    list_box.add_css_class("file-manager-detailed-view");
     list_scroll.set_child(Some(&list_box));
     view_stack.add_named(&list_scroll, Some("list"));
 
-    // 4.2 Grid / Thumbnail View
     let grid_scroll = gtk4::ScrolledWindow::new();
     grid_scroll.set_hexpand(true);
     grid_scroll.set_vexpand(true);
@@ -1676,7 +1939,6 @@ pub fn build_file_pane(
     grid_scroll.set_child(Some(&grid_flow));
     view_stack.add_named(&grid_scroll, Some("grid"));
 
-    // 4.3 Tree View
     let tree_scroll = gtk4::ScrolledWindow::new();
     tree_scroll.set_hexpand(true);
     tree_scroll.set_vexpand(true);
@@ -1689,6 +1951,125 @@ pub fn build_file_pane(
     view_stack.add_named(&tree_scroll, Some("tree"));
 
     pane_vbox.append(&view_stack);
+
+    // ── 3. Bottom Action Bar (Identical to filemanagerpython.png) ─────────────
+    let action_bar = gtk4::ActionBar::new();
+    action_bar.add_css_class("file-manager-action-bar");
+
+    let btn_refresh = gtk4::Button::builder()
+        .icon_name("view-refresh-symbolic")
+        .tooltip_text("Atualizar (F5)")
+        .has_frame(false)
+        .build();
+    btn_refresh.add_css_class("flat");
+
+    let btn_hidden = gtk4::ToggleButton::builder()
+        .icon_name("view-reveal-symbolic")
+        .tooltip_text("Mostrar arquivos ocultos (.dotfiles)")
+        .has_frame(false)
+        .build();
+    btn_hidden.add_css_class("flat");
+
+    let btn_bookmark = gtk4::Button::builder()
+        .icon_name("starred-symbolic")
+        .tooltip_text("Favoritar diretório atual")
+        .has_frame(false)
+        .build();
+    btn_bookmark.add_css_class("flat");
+
+    let btn_quick_jump = gtk4::Button::builder()
+        .icon_name("system-search-symbolic")
+        .tooltip_text("Atalhos do Sistema & Favoritos")
+        .has_frame(false)
+        .build();
+    btn_quick_jump.add_css_class("flat");
+
+    action_bar.pack_start(&btn_refresh);
+    action_bar.pack_start(&btn_hidden);
+    action_bar.pack_start(&btn_bookmark);
+    action_bar.pack_start(&btn_quick_jump);
+
+    let sep1 = gtk4::Separator::new(gtk4::Orientation::Vertical);
+    action_bar.pack_start(&sep1);
+
+    let mode_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
+    mode_box.add_css_class("linked");
+    let btn_mode_list = gtk4::ToggleButton::builder()
+        .icon_name("view-list-symbolic")
+        .tooltip_text("Visualização em Lista Detalhada")
+        .active(true)
+        .build();
+    let btn_mode_grid = gtk4::ToggleButton::builder()
+        .icon_name("view-grid-symbolic")
+        .tooltip_text("Visualização em Grade / Miniaturas")
+        .group(&btn_mode_list)
+        .build();
+    let btn_mode_tree = gtk4::ToggleButton::builder()
+        .icon_name("format-indent-more-symbolic")
+        .tooltip_text("Visualização em Árvore Hierárquica")
+        .group(&btn_mode_list)
+        .build();
+    mode_box.append(&btn_mode_list);
+    mode_box.append(&btn_mode_grid);
+    mode_box.append(&btn_mode_tree);
+    action_bar.pack_start(&mode_box);
+
+    let btn_toggle_dual = gtk4::ToggleButton::builder()
+        .icon_name("view-dual-symbolic")
+        .tooltip_text("Alternar Painel Duplo (Dividir / Dual-Pane)")
+        .active(false)
+        .has_frame(false)
+        .build();
+    btn_toggle_dual.add_css_class("flat");
+    action_bar.pack_start(&btn_toggle_dual);
+
+    let sep2 = gtk4::Separator::new(gtk4::Orientation::Vertical);
+    action_bar.pack_start(&sep2);
+
+    let breadcrumb_scroll = gtk4::ScrolledWindow::builder()
+        .hscrollbar_policy(gtk4::PolicyType::Automatic)
+        .vscrollbar_policy(gtk4::PolicyType::Never)
+        .hexpand(true)
+        .build();
+    let breadcrumb_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 2);
+    breadcrumb_box.add_css_class("breadcrumb-trail");
+    breadcrumb_scroll.set_child(Some(&breadcrumb_box));
+    action_bar.pack_start(&breadcrumb_scroll);
+
+    let switch_container = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
+    switch_container.set_valign(gtk4::Align::Center);
+    switch_container.set_margin_start(4);
+    switch_container.set_margin_end(4);
+
+    let recursive_lbl = gtk4::Label::new(Some("Recursivo"));
+    recursive_lbl.add_css_class("dim-label");
+    recursive_lbl.set_valign(gtk4::Align::Center);
+
+    let recursive_switch = gtk4::Switch::new();
+    recursive_switch.set_active(false);
+    recursive_switch.set_valign(gtk4::Align::Center);
+    recursive_switch.set_tooltip_text(Some("Pesquisa recursiva em subdiretórios"));
+
+    switch_container.append(&recursive_lbl);
+    switch_container.append(&recursive_switch);
+
+    let search_entry = gtk4::SearchEntry::builder()
+        .placeholder_text("Filtrar arquivos...")
+        .width_chars(14)
+        .build();
+
+    let btn_history = gtk4::Button::builder()
+        .icon_name("document-open-recent-symbolic")
+        .tooltip_text("Histórico de Transferências")
+        .has_frame(false)
+        .build();
+    btn_history.add_css_class("flat");
+
+    action_bar.pack_end(&switch_container);
+    action_bar.pack_end(&search_entry);
+    action_bar.pack_end(&btn_history);
+
+    pane_vbox.append(&action_bar);
 
     // ── 5. Master Refresh Closure & Background Context Menus ─────────────────
     let refresh_holder: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
@@ -1765,14 +2146,16 @@ pub fn build_file_pane(
         let scol_rc = Rc::clone(&sort_col);
         let sasc_rc = Rc::clone(&sort_asc);
         let bc_box = breadcrumb_box.clone();
-        let pe = path_entry.clone();
         let se = search_entry.clone();
+        let rec_switch = recursive_switch.clone();
         let lb = list_box.clone();
         let gf = grid_flow.clone();
         let tv = tree_vbox.clone();
-        let b_name = btn_sort_name.clone();
-        let b_size = btn_sort_size.clone();
-        let b_mod = btn_sort_mod.clone();
+        let ico_name = icon_name_sort.clone();
+        let ico_size = icon_size_sort.clone();
+        let ico_mod = icon_mod_sort.clone();
+        let ico_perm = icon_perm_sort.clone();
+        let ico_owner = icon_owner_sort.clone();
         let status = status_lbl.clone();
         let r_holder = Rc::clone(&refresh_holder);
         let cd_cb = Rc::clone(&cd_in_terminal_cb);
@@ -1780,41 +2163,50 @@ pub fn build_file_pane(
         let ai_cb_opt = ai_prompt_cb.clone();
         let clip_rc = Rc::clone(&clipboard);
         let win_ref = parent_window.clone();
+        let btn_bm = btn_bookmark.clone();
 
         Rc::new(move || {
             let dir_path = cur_dir.borrow().clone();
-            pe.set_text(&dir_path.to_string_lossy());
 
-            // Update sort column button labels
+            // Update sort column indicators
             let col = *scol_rc.borrow();
             let asc = *sasc_rc.borrow();
-            let arrow = if asc { "↑" } else { "↓" };
-            let name_txt = if col == SortColumn::Name {
-                format!("Nome {arrow}")
-            } else {
-                "Nome".to_string()
-            };
-            b_name.set_label(&name_txt);
+            let arrow_icon = if asc { "pan-down-symbolic" } else { "pan-up-symbolic" };
 
-            let size_txt = if col == SortColumn::Size {
-                format!("Tamanho {arrow}")
-            } else {
-                "Tamanho".to_string()
-            };
-            b_size.set_label(&size_txt);
+            ico_name.set_icon_name(Some(arrow_icon));
+            ico_name.set_visible(col == SortColumn::Name);
 
-            let mod_txt = if col == SortColumn::Modified {
-                format!("Modificado {arrow}")
-            } else {
-                "Modificado".to_string()
-            };
-            b_mod.set_label(&mod_txt);
+            ico_size.set_icon_name(Some(arrow_icon));
+            ico_size.set_visible(col == SortColumn::Size);
 
-            // Rebuild Breadcrumbs
+            ico_mod.set_icon_name(Some(arrow_icon));
+            ico_mod.set_visible(col == SortColumn::Modified);
+
+            ico_perm.set_icon_name(Some(arrow_icon));
+            ico_perm.set_visible(col == SortColumn::Permissions);
+
+            ico_owner.set_icon_name(Some(arrow_icon));
+            ico_owner.set_visible(col == SortColumn::Owner);
+
+            // Update Bookmark star state
+            let cur_str = dir_path.to_string_lossy().to_string();
+            let bms = load_bookmarks();
+            let is_bm = bms.iter().any(|b| b.path == cur_str);
+            if is_bm {
+                btn_bm.add_css_class("bookmark-active-star");
+                btn_bm.set_tooltip_text(Some("Remover favorito do diretório atual"));
+            } else {
+                btn_bm.remove_css_class("bookmark-active-star");
+                btn_bm.set_tooltip_text(Some("Favoritar diretório atual"));
+            }
+
+            // Rebuild Breadcrumbs with › separators
             while let Some(c) = bc_box.first_child() {
                 bc_box.remove(&c);
             }
-            for (seg_name, seg_target) in build_breadcrumb_segments(&dir_path) {
+            let segments = build_breadcrumb_segments(&dir_path);
+            let total_segs = segments.len();
+            for (idx, (seg_name, seg_target)) in segments.into_iter().enumerate() {
                 let seg_btn = gtk4::Button::with_label(&seg_name);
                 seg_btn.add_css_class("flat");
                 let c_dir = Rc::clone(&cur_dir);
@@ -1826,19 +2218,30 @@ pub fn build_file_pane(
                     }
                 });
                 bc_box.append(&seg_btn);
+
+                if idx + 1 < total_segs {
+                    let sep_lbl = gtk4::Label::new(Some("›"));
+                    sep_lbl.add_css_class("dim-label");
+                    bc_box.append(&sep_lbl);
+                }
             }
 
-            // Load entries from LocalFsBackend
-            let backend = LocalFsBackend;
-            let raw_entries = match backend.list_dir(&dir_path) {
-                Ok(list) => list,
-                Err(e) => {
-                    status.set_text(&format!("Erro ao listar {}: {e}", dir_path.display()));
-                    Vec::new()
+            let is_recursive = rec_switch.is_active();
+            let query = se.text().to_string();
+
+            let raw_entries = if is_recursive && !query.is_empty() {
+                search_recursive_dir(&dir_path, &query, 300)
+            } else {
+                let backend = LocalFsBackend;
+                match backend.list_dir(&dir_path) {
+                    Ok(list) => list,
+                    Err(e) => {
+                        status.set_text(&format!("Erro ao listar {}: {e}", dir_path.display()));
+                        Vec::new()
+                    }
                 }
             };
 
-            let query = se.text().to_string();
             let mut sorted = filter_and_sort_entries(
                 &raw_entries,
                 *hidden_rc.borrow(),
@@ -1852,7 +2255,7 @@ pub fn build_file_pane(
             if query.is_empty() && dir_path.parent().is_some() && dir_path != Path::new("/") {
                 let parent_path = dir_path.parent().unwrap();
                 let parent_meta = fs::symlink_metadata(parent_path).ok();
-                let (modified, perms) = if let Some(m) = parent_meta {
+                let (modified, perms, owner) = if let Some(m) = parent_meta {
                     let m_epoch = m
                         .modified()
                         .ok()
@@ -1860,9 +2263,16 @@ pub fn build_file_pane(
                         .map(|d| d.as_secs())
                         .unwrap_or(0);
                     let p = (m.permissions().mode() & 0o777) as u16;
-                    (m_epoch, p)
+                    #[cfg(unix)]
+                    let o = {
+                        use std::os::unix::fs::MetadataExt;
+                        onyxsh_filemanager::backend::resolve_posix_owner(m.uid(), m.gid())
+                    };
+                    #[cfg(not(unix))]
+                    let o = "user:group".to_string();
+                    (m_epoch, p, o)
                 } else {
-                    (0, 0o755)
+                    (0, 0o755, "root:root".to_string())
                 };
 
                 let parent_entry = FileEntry {
@@ -1873,6 +2283,7 @@ pub fn build_file_pane(
                     size: 4096,
                     modified_epoch: modified,
                     permissions_octal: perms,
+                    owner,
                 };
                 sorted.insert(0, parent_entry);
             }
@@ -1885,11 +2296,12 @@ pub fn build_file_pane(
                 lb.remove(&c);
             }
             for entry in sorted.iter().take(300) {
-                let row_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
-                row_hbox.set_margin_start(8);
-                row_hbox.set_margin_end(8);
-                row_hbox.set_margin_top(4);
-                row_hbox.set_margin_bottom(4);
+                let row_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
+                row_hbox.add_css_class("file-detailed-row");
+                row_hbox.set_margin_start(4);
+                row_hbox.set_margin_end(16);
+                row_hbox.set_margin_top(2);
+                row_hbox.set_margin_bottom(2);
                 row_hbox.set_tooltip_markup(Some(&build_entry_tooltip_markup(entry)));
 
                 if entry.is_hidden() {
@@ -1901,6 +2313,7 @@ pub fn build_file_pane(
                 let name_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
                 name_box.set_hexpand(true);
                 name_box.set_halign(gtk4::Align::Start);
+                name_box.append(&icon);
 
                 let name_lbl = gtk4::Label::new(Some(&entry.name));
                 name_lbl.set_halign(gtk4::Align::Start);
@@ -1933,29 +2346,35 @@ pub fn build_file_pane(
                 name_box.append(&badges_box);
 
                 let size_lbl = gtk4::Label::new(Some(&entry.formatted_size_clean()));
+                size_lbl.add_css_class("file-detailed-col-size");
                 size_lbl.add_css_class("monospace");
-                size_lbl.add_css_class("dim-label");
-                size_lbl.set_width_request(85);
-                size_lbl.set_halign(gtk4::Align::End);
-
-                let perm_lbl = gtk4::Label::new(Some(&entry.formatted_permissions()));
-                perm_lbl.add_css_class("monospace");
-                perm_lbl.add_css_class("caption");
-                perm_lbl.add_css_class("dim-label");
-                perm_lbl.set_tooltip_text(Some(&format!("Octal: {}", entry.permissions_octal_str())));
-                perm_lbl.set_width_request(95);
+                size_lbl.set_width_request(80);
+                size_lbl.set_xalign(1.0);
 
                 let mod_lbl = gtk4::Label::new(Some(&format_epoch_short(entry.modified_epoch)));
+                mod_lbl.add_css_class("file-detailed-col-date");
                 mod_lbl.add_css_class("monospace");
-                mod_lbl.add_css_class("caption");
-                mod_lbl.add_css_class("dim-label");
-                mod_lbl.set_width_request(125);
+                mod_lbl.set_width_request(150);
+                mod_lbl.set_xalign(0.5);
 
-                row_hbox.append(&icon);
+                let perm_lbl = gtk4::Label::new(Some(&entry.formatted_permissions()));
+                perm_lbl.add_css_class("file-detailed-col-perms");
+                perm_lbl.add_css_class("monospace");
+                perm_lbl.set_tooltip_text(Some(&format!("Octal: {}", entry.permissions_octal_str())));
+                perm_lbl.set_width_request(110);
+                perm_lbl.set_xalign(0.5);
+
+                let owner_lbl = gtk4::Label::new(Some(&entry.owner));
+                owner_lbl.add_css_class("file-detailed-col-owner");
+                owner_lbl.add_css_class("monospace");
+                owner_lbl.set_width_request(160);
+                owner_lbl.set_xalign(0.0);
+
                 row_hbox.append(&name_box);
                 row_hbox.append(&size_lbl);
-                row_hbox.append(&perm_lbl);
                 row_hbox.append(&mod_lbl);
+                row_hbox.append(&perm_lbl);
+                row_hbox.append(&owner_lbl);
 
                 // Attach right-click context menu gesture to row
                 let right_click = gtk4::GestureClick::new();
@@ -2147,7 +2566,7 @@ pub fn build_file_pane(
                     });
                     exp.add_controller(right_click);
 
-                    if let Ok(children) = backend.list_dir(Path::new(&entry.path)) {
+                    if let Ok(children) = LocalFsBackend.list_dir(Path::new(&entry.path)) {
                         let sub_sorted = filter_and_sort_entries(
                             &children,
                             *hidden_rc.borrow(),
@@ -2306,26 +2725,7 @@ pub fn build_file_pane(
         });
     }
 
-    // ── 7. Wire Navigation & View Mode Controls ───────────────────────────────
-    {
-        let cur_dir = Rc::clone(&current_dir);
-        let refresh = Rc::clone(&refresh_fn);
-        btn_home.connect_clicked(move |_| {
-            *cur_dir.borrow_mut() = platform::home_dir();
-            refresh();
-        });
-    }
-    {
-        let cur_dir = Rc::clone(&current_dir);
-        let refresh = Rc::clone(&refresh_fn);
-        btn_up.connect_clicked(move |_| {
-            let parent = cur_dir.borrow().parent().map(Path::to_path_buf);
-            if let Some(p) = parent {
-                *cur_dir.borrow_mut() = p;
-                refresh();
-            }
-        });
-    }
+    // ── 7. Wire Bottom Action Bar Controls ───────────────────────────────────
     {
         let refresh = Rc::clone(&refresh_fn);
         btn_refresh.connect_clicked(move |_| refresh());
@@ -2339,21 +2739,56 @@ pub fn build_file_pane(
         });
     }
     {
+        let cd = Rc::clone(&current_dir);
+        let st = status_lbl.clone();
+        let rf = Rc::clone(&refresh_fn);
+        let bm_btn = btn_bookmark.clone();
+        btn_bookmark.connect_clicked(move |_| {
+            let p = cd.borrow().clone();
+            let p_str = p.to_string_lossy().to_string();
+            let mut bms = load_bookmarks();
+            if let Some(pos) = bms.iter().position(|b| b.path == p_str) {
+                bms.remove(pos);
+                save_bookmarks(&bms);
+                bm_btn.remove_css_class("bookmark-active-star");
+                bm_btn.set_tooltip_text(Some("Favoritar diretório atual"));
+                st.set_text(&format!("Favorito removido: '{}'", p.display()));
+            } else {
+                let name = p
+                    .file_name()
+                    .map(|n| n.to_string_lossy().to_string())
+                    .unwrap_or_else(|| p_str.clone());
+                bms.push(FileManagerBookmark { name, path: p_str });
+                save_bookmarks(&bms);
+                bm_btn.add_css_class("bookmark-active-star");
+                bm_btn.set_tooltip_text(Some("Remover favorito do diretório atual"));
+                st.set_text(&format!("Diretório '{}' marcado como favorito.", p.display()));
+            }
+            rf();
+        });
+    }
+    {
+        let cd = Rc::clone(&current_dir);
+        let rf = Rc::clone(&refresh_fn);
+        let qj_btn = btn_quick_jump.clone();
+        let st = status_lbl.clone();
+        let bm_btn = btn_bookmark.clone();
+        btn_quick_jump.connect_clicked(move |_| {
+            show_quick_jump_popover(&qj_btn, &cd, &rf, &st, &bm_btn);
+        });
+    }
+    {
         let refresh = Rc::clone(&refresh_fn);
         search_entry.connect_search_changed(move |_| refresh());
     }
     {
-        let cur_dir = Rc::clone(&current_dir);
         let refresh = Rc::clone(&refresh_fn);
-        let status = status_lbl.clone();
-        path_entry.connect_activate(move |entry| {
-            let candidate = PathBuf::from(entry.text().trim());
-            if candidate.is_dir() {
-                *cur_dir.borrow_mut() = candidate;
-                refresh();
-            } else {
-                status.set_text(&format!("Diretório não encontrado: {}", candidate.display()));
-            }
+        recursive_switch.connect_active_notify(move |_| refresh());
+    }
+    {
+        let st = status_lbl.clone();
+        btn_history.connect_clicked(move |_| {
+            st.set_text("Fila de transferências vazia (0 tarefas em andamento).");
         });
     }
 
@@ -2441,204 +2876,59 @@ pub fn build_file_pane(
             refresh();
         });
     }
+    {
+        let scol = Rc::clone(&sort_col);
+        let sasc = Rc::clone(&sort_asc);
+        let refresh = Rc::clone(&refresh_fn);
+        btn_sort_perm.connect_clicked(move |_| {
+            if *scol.borrow() == SortColumn::Permissions {
+                let next = !*sasc.borrow();
+                *sasc.borrow_mut() = next;
+            } else {
+                *scol.borrow_mut() = SortColumn::Permissions;
+                *sasc.borrow_mut() = true;
+            }
+            refresh();
+        });
+    }
+    {
+        let scol = Rc::clone(&sort_col);
+        let sasc = Rc::clone(&sort_asc);
+        let refresh = Rc::clone(&refresh_fn);
+        btn_sort_owner.connect_clicked(move |_| {
+            if *scol.borrow() == SortColumn::Owner {
+                let next = !*sasc.borrow();
+                *sasc.borrow_mut() = next;
+            } else {
+                *scol.borrow_mut() = SortColumn::Owner;
+                *sasc.borrow_mut() = true;
+            }
+            refresh();
+        });
+    }
 
-    // ── 8. Wire File Operations (New Folder, Quick Look, Rename, Chmod, SHA-256, Delete, CD) ──
+    // Spacebar shortcut inside list/grid views triggers Quick Look
     {
         let win_ref = parent_window.clone();
         let vis = Rc::clone(&visible_entries);
         let sel = Rc::clone(&selected_entry);
-        let open_ql = move || {
-            let entries = vis.borrow().clone();
-            if entries.is_empty() {
-                return;
-            }
-            let idx = sel
-                .borrow()
-                .as_ref()
-                .and_then(|s| entries.iter().position(|e| e.path == s.path))
-                .unwrap_or(0);
-            show_quick_look_window(&win_ref, entries, idx);
-        };
-        let open_ql_rc = Rc::new(open_ql);
-        let ql1 = Rc::clone(&open_ql_rc);
-        btn_quick_look.connect_clicked(move |_| ql1());
-
-        // Spacebar shortcut inside list/grid views triggers Quick Look
         let key_ctrl = gtk4::EventControllerKey::new();
-        let ql2 = Rc::clone(&open_ql_rc);
         key_ctrl.connect_key_pressed(move |_, key, _, _| {
             if key == gdk::Key::space {
-                ql2();
-                return glib::Propagation::Stop;
+                let entries = vis.borrow().clone();
+                if !entries.is_empty() {
+                    let idx = sel
+                        .borrow()
+                        .as_ref()
+                        .and_then(|s| entries.iter().position(|e| e.path == s.path))
+                        .unwrap_or(0);
+                    show_quick_look_window(&win_ref, entries, idx);
+                    return glib::Propagation::Stop;
+                }
             }
             glib::Propagation::Proceed
         });
         view_stack.add_controller(key_ctrl);
-    }
-
-    // New Folder dialog
-    {
-        let win_ref = parent_window.clone();
-        let cur_dir = Rc::clone(&current_dir);
-        let refresh = Rc::clone(&refresh_fn);
-        let status = status_lbl.clone();
-        btn_mkdir.connect_clicked(move |_| {
-            show_simple_input_dialog(
-                &win_ref,
-                "Nova Pasta",
-                "Nome da nova pasta:",
-                "nova_pasta",
-                {
-                    let cur_dir = Rc::clone(&cur_dir);
-                    let refresh = Rc::clone(&refresh);
-                    let status = status.clone();
-                    Rc::new(move |folder_name| {
-                        let target = cur_dir.borrow().join(folder_name.trim());
-                        match LocalFsBackend.mkdir(&target) {
-                            Ok(()) => {
-                                status.set_text(&format!("Pasta criada: {}", target.display()));
-                                refresh();
-                            }
-                            Err(e) => {
-                                status.set_text(&format!("Erro ao criar pasta: {e}"));
-                            }
-                        }
-                    })
-                },
-            );
-        });
-    }
-
-    // Rename dialog
-    {
-        let win_ref = parent_window.clone();
-        let sel = Rc::clone(&selected_entry);
-        let refresh = Rc::clone(&refresh_fn);
-        let status = status_lbl.clone();
-        btn_rename.connect_clicked(move |_| {
-            let Some(entry) = sel.borrow().clone() else {
-                status.set_text("Selecione um arquivo ou pasta para renomear.");
-                return;
-            };
-            show_simple_input_dialog(
-                &win_ref,
-                "Renomear Item",
-                "Novo nome:",
-                &entry.name,
-                {
-                    let refresh = Rc::clone(&refresh);
-                    let status = status.clone();
-                    Rc::new(move |new_name| {
-                        let old_path = PathBuf::from(&entry.path);
-                        let Some(parent) = old_path.parent() else {
-                            return;
-                        };
-                        let new_path = parent.join(new_name.trim());
-                        match LocalFsBackend.rename(&old_path, &new_path) {
-                            Ok(()) => {
-                                status.set_text(&format!("Renomeado para '{}'", new_name.trim()));
-                                refresh();
-                            }
-                            Err(e) => status.set_text(&format!("Erro ao renomear: {e}")),
-                        }
-                    })
-                },
-            );
-        });
-    }
-
-    // Chmod dialog
-    {
-        let win_ref = parent_window.clone();
-        let sel = Rc::clone(&selected_entry);
-        let refresh = Rc::clone(&refresh_fn);
-        let status = status_lbl.clone();
-        btn_chmod.connect_clicked(move |_| {
-            let Some(entry) = sel.borrow().clone() else {
-                status.set_text("Selecione um item para alterar permissões.");
-                return;
-            };
-            let current_octal = format!("{:o}", entry.permissions_octal & 0o777);
-            show_simple_input_dialog(
-                &win_ref,
-                "Alterar Permissões (chmod)",
-                "Modo Octal (ex: 755, 644, 600):",
-                &current_octal,
-                {
-                    let refresh = Rc::clone(&refresh);
-                    let status = status.clone();
-                    Rc::new(move |octal_str| {
-                        if let Ok(mode) = u32::from_str_radix(octal_str.trim(), 8) {
-                            let perms = fs::Permissions::from_mode(mode);
-                            match fs::set_permissions(&entry.path, perms) {
-                                Ok(()) => {
-                                    status.set_text(&format!(
-                                        "Permissões de '{}' alteradas para {:o}",
-                                        entry.name, mode
-                                    ));
-                                    refresh();
-                                }
-                                Err(e) => status.set_text(&format!("Erro no chmod: {e}")),
-                            }
-                        } else {
-                            status.set_text("Modo octal inválido (use ex: 755 ou 644).");
-                        }
-                    })
-                },
-            );
-        });
-    }
-
-    // SHA-256 Checksum action
-    {
-        let sel = Rc::clone(&selected_entry);
-        let status = status_lbl.clone();
-        btn_checksum.connect_clicked(move |_| {
-            let Some(entry) = sel.borrow().clone() else {
-                status.set_text("Selecione um arquivo para calcular o SHA-256.");
-                return;
-            };
-            if entry.is_dir {
-                status.set_text("Selecione um arquivo regular para calcular o SHA-256.");
-                return;
-            }
-            match compute_file_sha256_hex(Path::new(&entry.path)) {
-                Ok(hex) => {
-                    status.set_text(&format!("SHA-256 ({}): {hex}", entry.name));
-                }
-                Err(e) => status.set_text(&format!("Erro ao calcular SHA-256: {e}")),
-            }
-        });
-    }
-
-    // CD in Active Terminal
-    {
-        let cur_dir = Rc::clone(&current_dir);
-        let cd_cb = Rc::clone(&cd_in_terminal_cb);
-        btn_cd_term.connect_clicked(move |_| {
-            let dir = cur_dir.borrow().clone();
-            cd_cb(&dir);
-        });
-    }
-
-    // Delete item
-    {
-        let sel = Rc::clone(&selected_entry);
-        let refresh = Rc::clone(&refresh_fn);
-        let status = status_lbl.clone();
-        btn_delete.connect_clicked(move |_| {
-            let Some(entry) = sel.borrow().clone() else {
-                status.set_text("Selecione um item para excluir.");
-                return;
-            };
-            match LocalFsBackend.remove(Path::new(&entry.path)) {
-                Ok(()) => {
-                    status.set_text(&format!("Item removido: {}", entry.name));
-                    refresh();
-                }
-                Err(e) => status.set_text(&format!("Erro ao remover '{}': {e}", entry.name)),
-            }
-        });
     }
 
     FilePaneHandle {
@@ -2647,6 +2937,7 @@ pub fn build_file_pane(
         selected_entry,
         visible_entries,
         refresh: refresh_fn,
+        btn_toggle_dual,
     }
 }
 
@@ -2759,7 +3050,7 @@ fn copy_dir_recursive(src: &Path, dst: &Path) -> std::io::Result<()> {
     Ok(())
 }
 
-/// Builds the complete Phase 12 Dual-Pane File Manager container.
+/// Builds the complete Dual-Pane File Manager container.
 pub fn build_complete_file_manager(
     parent_window: &adw::ApplicationWindow,
     status_lbl: &gtk4::Label,
@@ -2770,43 +3061,15 @@ pub fn build_complete_file_manager(
     let transfers: Rc<RefCell<Vec<TransferItem>>> = Rc::new(RefCell::new(Vec::new()));
     let clipboard: Rc<RefCell<Option<FileManagerClipboardItem>>> = Rc::new(RefCell::new(None));
 
-    let container = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+    let container = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
     container.set_height_request(290);
-    container.set_margin_start(8);
-    container.set_margin_end(8);
-    container.set_margin_top(4);
-    container.set_margin_bottom(4);
-
-    // ── Header Bar of the File Manager Panel ──────────────────────────────────
-    let top_bar = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
-
-    let title_lbl = gtk4::Label::new(Some(
-        "Gerenciador de Arquivos Dual-Pane (Lista / Grade de Miniaturas / Árvore & Quick Look)",
-    ));
-    title_lbl.add_css_class("heading");
-    title_lbl.set_halign(gtk4::Align::Start);
-    title_lbl.set_hexpand(true);
-    top_bar.append(&title_lbl);
-
-    let btn_toggle_dual = gtk4::ToggleButton::builder()
-        .icon_name("view-dual-symbolic")
-        .label("Dual-Pane")
-        .tooltip_text("Alternar Painel Duplo (Local <-> Secundário/SFTP)")
-        .active(false)
-        .build();
-    top_bar.append(&btn_toggle_dual);
-
-    let btn_transfers = gtk4::Button::builder()
-        .icon_name("folder-download-symbolic")
-        .label("Transferências (0)")
-        .tooltip_text("Abrir Fila de Transferências")
-        .build();
-    top_bar.append(&btn_transfers);
-
-    container.append(&top_bar);
+    container.set_margin_start(4);
+    container.set_margin_end(4);
+    container.set_margin_top(2);
+    container.set_margin_bottom(2);
 
     // ── Left Pane + Center DualPaneTransferBar + Right Pane ───────────────────
-    let main_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
+    let main_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
     main_hbox.set_hexpand(true);
     main_hbox.set_vexpand(true);
 
@@ -2864,11 +3127,11 @@ pub fn build_complete_file_manager(
 
     container.append(&main_hbox);
 
-    // Wire Dual-Pane toggle
+    // Wire Dual-Pane toggle from action bar
     {
         let rp = right_pane.widget.clone();
         let ctb = center_transfer_bar.clone();
-        btn_toggle_dual.connect_toggled(move |btn| {
+        left_pane.btn_toggle_dual.connect_toggled(move |btn| {
             let active = btn.is_active();
             rp.set_visible(active);
             ctb.set_visible(active);
@@ -2881,7 +3144,6 @@ pub fn build_complete_file_manager(
         let rp_dir = Rc::clone(&right_pane.current_dir);
         let rp_refresh = Rc::clone(&right_pane.refresh);
         let tx_rc = Rc::clone(&transfers);
-        let btn_tx = btn_transfers.clone();
         let status = status_lbl.clone();
 
         btn_copy_to_right.connect_clicked(move |_| {
@@ -2893,7 +3155,6 @@ pub fn build_complete_file_manager(
             match copy_entry_and_record_transfer(&entry, &dst_dir, TransferDirection::Upload, &tx_rc)
             {
                 Ok(dst_path) => {
-                    btn_tx.set_label(&format!("Transferências ({})", tx_rc.borrow().len()));
                     status.set_text(&format!("Copiado para {}", dst_path.display()));
                     rp_refresh();
                 }
@@ -2908,7 +3169,6 @@ pub fn build_complete_file_manager(
         let lp_dir = Rc::clone(&left_pane.current_dir);
         let lp_refresh = Rc::clone(&left_pane.refresh);
         let tx_rc = Rc::clone(&transfers);
-        let btn_tx = btn_transfers.clone();
         let status = status_lbl.clone();
 
         btn_copy_to_left.connect_clicked(move |_| {
@@ -2924,7 +3184,6 @@ pub fn build_complete_file_manager(
                 &tx_rc,
             ) {
                 Ok(dst_path) => {
-                    btn_tx.set_label(&format!("Transferências ({})", tx_rc.borrow().len()));
                     status.set_text(&format!("Copiado para {}", dst_path.display()));
                     lp_refresh();
                 }
@@ -2947,15 +3206,6 @@ pub fn build_complete_file_manager(
                 cmp.only_in_right.len(),
                 cmp.size_differs.len()
             ));
-        });
-    }
-
-    // Wire Transfer Queue button
-    {
-        let win_ref = parent_window.clone();
-        let tx_rc = Rc::clone(&transfers);
-        btn_transfers.connect_clicked(move |_| {
-            show_transfer_queue_dialog(&win_ref, &tx_rc);
         });
     }
 
@@ -2997,6 +3247,7 @@ mod tests {
                 size: 100,
                 modified_epoch: 0,
                 permissions_octal: 0o644,
+                owner: "vagnarok:vagnarok".to_string(),
             },
             FileEntry {
                 name: "changed.cfg".to_string(),
@@ -3006,6 +3257,7 @@ mod tests {
                 size: 200,
                 modified_epoch: 0,
                 permissions_octal: 0o644,
+                owner: "vagnarok:vagnarok".to_string(),
             },
             FileEntry {
                 name: "left_only.sh".to_string(),
@@ -3015,6 +3267,7 @@ mod tests {
                 size: 50,
                 modified_epoch: 0,
                 permissions_octal: 0o755,
+                owner: "vagnarok:vagnarok".to_string(),
             },
         ];
 
@@ -3027,6 +3280,7 @@ mod tests {
                 size: 100,
                 modified_epoch: 0,
                 permissions_octal: 0o644,
+                owner: "vagnarok:vagnarok".to_string(),
             },
             FileEntry {
                 name: "changed.cfg".to_string(),
@@ -3036,6 +3290,7 @@ mod tests {
                 size: 350,
                 modified_epoch: 0,
                 permissions_octal: 0o644,
+                owner: "vagnarok:vagnarok".to_string(),
             },
         ];
 
@@ -3067,6 +3322,7 @@ mod tests {
             size: 4096,
             modified_epoch: 0,
             permissions_octal: 0o755,
+            owner: "vagnarok:vagnarok".to_string(),
         };
         assert_eq!(icon_for_entry(&parent), "go-up-symbolic");
         assert!(build_entry_tooltip_markup(&parent).contains("Subir para o diretório pai"));
@@ -3079,6 +3335,7 @@ mod tests {
             size: 4096,
             modified_epoch: 1234,
             permissions_octal: 0o755,
+            owner: "vagnarok:vagnarok".to_string(),
         };
         assert_eq!(icon_for_entry(&downloads), "folder-download-symbolic");
 
@@ -3090,6 +3347,7 @@ mod tests {
             size: 2048,
             modified_epoch: 5678,
             permissions_octal: 0o755,
+            owner: "vagnarok:vagnarok".to_string(),
         };
         assert_eq!(icon_for_entry(&script), "text-x-script-symbolic");
         let tip = build_entry_tooltip_markup(&script);
@@ -3131,5 +3389,21 @@ mod tests {
         assert!(!clip.is_dir);
 
         let _ = fs::remove_dir_all(&temp_dir);
+    }
+
+    #[test]
+    fn test_bookmarks_and_git_root_detection() {
+        let root = find_git_root(Path::new(env!("CARGO_MANIFEST_DIR")));
+        assert!(root.is_some(), "Cargo manifest dir should resolve to git root");
+
+        let bms = vec![
+            FileManagerBookmark {
+                name: "Projetos".to_string(),
+                path: "/home/user/Projetos".to_string(),
+            },
+        ];
+        let json = serde_json::to_string(&bms).unwrap();
+        let deserialized: Vec<FileManagerBookmark> = serde_json::from_str(&json).unwrap();
+        assert_eq!(deserialized, bms);
     }
 }
