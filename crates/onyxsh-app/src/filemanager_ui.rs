@@ -1019,31 +1019,12 @@ fn show_context_menu_for_entry(
             }));
         });
 
-        let path_str = entry.path.clone();
-        let name_str = entry.name.clone();
-        let current_octal = format!("{:o}", entry.permissions_octal & 0o777);
+        let e_clone = entry.clone();
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
         add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", "Permissões (chmod)...", false, move || {
-            let p = path_str.clone();
-            let n = name_str.clone();
-            let rf2 = Rc::clone(&rf);
-            let st2 = st.clone();
-            show_simple_input_dialog(&win, "Permissões da Pasta (chmod)", "Modo octal (ex: 755, 700):", &current_octal, Rc::new(move |octal_str| {
-                if let Ok(mode) = u32::from_str_radix(octal_str.trim(), 8) {
-                    let perms = fs::Permissions::from_mode(mode);
-                    match fs::set_permissions(&p, perms) {
-                        Ok(()) => {
-                            st2.set_text(&format!("Permissões de '{n}' alteradas para {:o}", mode));
-                            rf2();
-                        }
-                        Err(e) => st2.set_text(&format!("Erro no chmod: {e}")),
-                    }
-                } else {
-                    st2.set_text("Modo octal inválido.");
-                }
-            }));
+            show_permissions_dialog(&win, &e_clone, Rc::clone(&rf), st.clone());
         });
 
         if let Some(ai_cb) = ai_prompt_cb.as_ref() {
@@ -1262,31 +1243,12 @@ fn show_context_menu_for_entry(
             }));
         });
 
-        let path_str = entry.path.clone();
-        let name_str = entry.name.clone();
-        let current_octal = format!("{:o}", entry.permissions_octal & 0o777);
+        let e_clone = entry.clone();
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
         add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", "Permissões (chmod)...", false, move || {
-            let p = path_str.clone();
-            let n = name_str.clone();
-            let rf2 = Rc::clone(&rf);
-            let st2 = st.clone();
-            show_simple_input_dialog(&win, "Permissões do Arquivo (chmod)", "Modo octal (ex: 644, 755):", &current_octal, Rc::new(move |octal_str| {
-                if let Ok(mode) = u32::from_str_radix(octal_str.trim(), 8) {
-                    let perms = fs::Permissions::from_mode(mode);
-                    match fs::set_permissions(&p, perms) {
-                        Ok(()) => {
-                            st2.set_text(&format!("Permissões de '{n}' alteradas para {:o}", mode));
-                            rf2();
-                        }
-                        Err(e) => st2.set_text(&format!("Erro no chmod: {e}")),
-                    }
-                } else {
-                    st2.set_text("Modo octal inválido.");
-                }
-            }));
+            show_permissions_dialog(&win, &e_clone, Rc::clone(&rf), st.clone());
         });
 
         menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
@@ -2941,7 +2903,175 @@ pub fn build_file_pane(
     }
 }
 
-/// Helper to display a small modal text input dialog for Rename, New Folder, or Chmod.
+/// Displays the rich Libadwaita permissions dialog with checkboxes for Owner, Group, and Others
+/// and live numeric mode calculation matching `CORRIGIR/permissions.png` and `src/onyxsh/filemanager/manager.py`.
+pub fn show_permissions_dialog(
+    parent: &adw::ApplicationWindow,
+    entry: &FileEntry,
+    refresh_fn: Rc<dyn Fn()>,
+    status_lbl: gtk4::Label,
+) {
+    let display_name = if entry.is_dir {
+        format!("{}/", entry.name)
+    } else {
+        entry.name.clone()
+    };
+
+    let title = format!("Permissões para {display_name}");
+    let current_perms = entry.formatted_permissions();
+    let body = format!("Definir permissões de arquivo para: {display_name}\nAtual: {current_perms}");
+
+    let content_box = gtk4::Box::new(gtk4::Orientation::Vertical, 12);
+    content_box.set_size_request(350, -1);
+
+    // Group 1: Proprietário
+    let owner_group = adw::PreferencesGroup::builder().title("Proprietário").build();
+    let owner_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
+    owner_box.set_homogeneous(true);
+    let owner_read = gtk4::CheckButton::with_label("Ler");
+    let owner_write = gtk4::CheckButton::with_label("Escrever");
+    let owner_exec = gtk4::CheckButton::with_label("Executar");
+    owner_box.append(&owner_read);
+    owner_box.append(&owner_write);
+    owner_box.append(&owner_exec);
+    let owner_row = adw::ActionRow::new();
+    owner_row.set_child(Some(&owner_box));
+    owner_group.add(&owner_row);
+    content_box.append(&owner_group);
+
+    // Group 2: Grupo
+    let group_group = adw::PreferencesGroup::builder().title("Grupo").build();
+    let group_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
+    group_box.set_homogeneous(true);
+    let group_read = gtk4::CheckButton::with_label("Ler");
+    let group_write = gtk4::CheckButton::with_label("Escrever");
+    let group_exec = gtk4::CheckButton::with_label("Executar");
+    group_box.append(&group_read);
+    group_box.append(&group_write);
+    group_box.append(&group_exec);
+    let group_row = adw::ActionRow::new();
+    group_row.set_child(Some(&group_box));
+    group_group.add(&group_row);
+    content_box.append(&group_group);
+
+    // Group 3: Outros
+    let others_group = adw::PreferencesGroup::builder().title("Outros").build();
+    let others_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
+    others_box.set_homogeneous(true);
+    let others_read = gtk4::CheckButton::with_label("Ler");
+    let others_write = gtk4::CheckButton::with_label("Escrever");
+    let others_exec = gtk4::CheckButton::with_label("Executar");
+    others_box.append(&others_read);
+    others_box.append(&others_write);
+    others_box.append(&others_exec);
+    let others_row = adw::ActionRow::new();
+    others_row.set_child(Some(&others_box));
+    others_group.add(&others_row);
+    content_box.append(&others_group);
+
+    let mode_label = gtk4::Label::builder()
+        .halign(gtk4::Align::Center)
+        .margin_top(12)
+        .build();
+    content_box.append(&mode_label);
+
+    // Initial values from entry.permissions_octal
+    let init_mode = entry.permissions_octal & 0o777;
+    owner_read.set_active((init_mode & 0o400) != 0);
+    owner_write.set_active((init_mode & 0o200) != 0);
+    owner_exec.set_active((init_mode & 0o100) != 0);
+    group_read.set_active((init_mode & 0o040) != 0);
+    group_write.set_active((init_mode & 0o020) != 0);
+    group_exec.set_active((init_mode & 0o010) != 0);
+    others_read.set_active((init_mode & 0o004) != 0);
+    others_write.set_active((init_mode & 0o002) != 0);
+    others_exec.set_active((init_mode & 0o001) != 0);
+
+    let calc_mode = {
+        let u_r = owner_read.clone();
+        let u_w = owner_write.clone();
+        let u_x = owner_exec.clone();
+        let g_r = group_read.clone();
+        let g_w = group_write.clone();
+        let g_x = group_exec.clone();
+        let o_r = others_read.clone();
+        let o_w = others_write.clone();
+        let o_x = others_exec.clone();
+        move || -> (u32, String) {
+            let owner = (if u_r.is_active() { 4 } else { 0 })
+                + (if u_w.is_active() { 2 } else { 0 })
+                + (if u_x.is_active() { 1 } else { 0 });
+            let group = (if g_r.is_active() { 4 } else { 0 })
+                + (if g_w.is_active() { 2 } else { 0 })
+                + (if g_x.is_active() { 1 } else { 0 });
+            let others = (if o_r.is_active() { 4 } else { 0 })
+                + (if o_w.is_active() { 2 } else { 0 })
+                + (if o_x.is_active() { 1 } else { 0 });
+            let mode_val = (owner << 6) | (group << 3) | others;
+            let mode_str = format!("{owner}{group}{others}");
+            (mode_val, mode_str)
+        }
+    };
+
+    let update_display = {
+        let ml = mode_label.clone();
+        let cm = calc_mode.clone();
+        Rc::new(move || {
+            let (_, str_val) = cm();
+            ml.set_text(&format!("Modo numérico: {str_val}"));
+        })
+    };
+
+    update_display();
+
+    for cb in [
+        &owner_read,
+        &owner_write,
+        &owner_exec,
+        &group_read,
+        &group_write,
+        &group_exec,
+        &others_read,
+        &others_write,
+        &others_exec,
+    ] {
+        let ud = Rc::clone(&update_display);
+        cb.connect_toggled(move |_| ud());
+    }
+
+    let dialog = adw::MessageDialog::builder()
+        .heading(&title)
+        .body(&body)
+        .close_response("cancel")
+        .transient_for(parent)
+        .extra_child(&content_box)
+        .build();
+
+    dialog.add_response("cancel", "Cancelar");
+    dialog.add_response("apply", "Aplicar");
+    dialog.set_response_appearance("apply", adw::ResponseAppearance::Suggested);
+
+    let path = entry.path.clone();
+    let name = display_name;
+    dialog.connect_response(None, move |_, response| {
+        if response == "apply" {
+            let (mode_val, mode_str) = calc_mode();
+            let perms = fs::Permissions::from_mode(mode_val);
+            match fs::set_permissions(&path, perms) {
+                Ok(()) => {
+                    status_lbl.set_text(&format!("Permissões de '{name}' alteradas para {mode_str}"));
+                    refresh_fn();
+                }
+                Err(e) => {
+                    status_lbl.set_text(&format!("Erro ao alterar permissões de '{name}': {e}"));
+                }
+            }
+        }
+    });
+
+    dialog.present();
+}
+
 fn show_simple_input_dialog(
     parent: &adw::ApplicationWindow,
     title: &str,
@@ -3405,5 +3535,42 @@ mod tests {
         let json = serde_json::to_string(&bms).unwrap();
         let deserialized: Vec<FileManagerBookmark> = serde_json::from_str(&json).unwrap();
         assert_eq!(deserialized, bms);
+    }
+
+    #[test]
+    fn test_permissions_dialog_octal_calculation_and_labels() {
+        let entry = FileEntry {
+            name: "Crash Team Racing Turbocharged".to_string(),
+            path: "/games/Crash Team Racing Turbocharged".to_string(),
+            is_dir: true,
+            is_symlink: false,
+            size: 4096,
+            modified_epoch: 0,
+            permissions_octal: 0o775,
+            owner: "vagnarok:vagnarok".to_string(),
+        };
+
+        let formatted = entry.formatted_permissions();
+        assert_eq!(formatted, "drwxrwxr-x");
+
+        let mode = entry.permissions_octal & 0o777;
+        let owner_r = (mode & 0o400) != 0;
+        let owner_w = (mode & 0o200) != 0;
+        let owner_x = (mode & 0o100) != 0;
+        let group_r = (mode & 0o040) != 0;
+        let group_w = (mode & 0o020) != 0;
+        let group_x = (mode & 0o010) != 0;
+        let others_r = (mode & 0o004) != 0;
+        let others_w = (mode & 0o002) != 0;
+        let others_x = (mode & 0o001) != 0;
+
+        assert!(owner_r && owner_w && owner_x);
+        assert!(group_r && group_w && group_x);
+        assert!(others_r && !others_w && others_x);
+
+        let owner = (if owner_r { 4 } else { 0 }) + (if owner_w { 2 } else { 0 }) + (if owner_x { 1 } else { 0 });
+        let group = (if group_r { 4 } else { 0 }) + (if group_w { 2 } else { 0 }) + (if group_x { 1 } else { 0 });
+        let others = (if others_r { 4 } else { 0 }) + (if others_w { 2 } else { 0 }) + (if others_x { 1 } else { 0 });
+        assert_eq!(format!("{owner}{group}{others}"), "775");
     }
 }
