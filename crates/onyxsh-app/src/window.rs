@@ -591,6 +591,16 @@ pub fn build_main_window(
     center_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
     center_vbox.append(&tab_view);
 
+    // Phase 15: Complete Zero-Trust AI Assistant Right Sidebar Panel
+    let (ai_widget, submit_ai_prompt_cb) =
+        crate::ai_assistant_ui::build_complete_ai_assistant_panel(
+            &window,
+            &settings_rc,
+            Rc::clone(&active_term_cb),
+            &status_lbl,
+        );
+    ai_widget.set_visible(false);
+
     let cd_in_terminal_cb: Rc<dyn Fn(&std::path::Path)> = {
         let tv = tab_view.clone();
         let status = status_lbl.clone();
@@ -604,23 +614,37 @@ pub fn build_main_window(
         })
     };
 
+    let feed_terminal_cb: Rc<dyn Fn(&str)> = {
+        let tv = tab_view.clone();
+        let status = status_lbl.clone();
+        Rc::new(move |cmd_str: &str| {
+            if let Some(term) = get_active_vte_terminal(&tv) {
+                term.feed_child(cmd_str.as_bytes());
+                status.set_text(&format!("Comando enviado ao terminal: {}", cmd_str.trim()));
+            }
+        })
+    };
+
+    let ai_prompt_cb: Rc<dyn Fn(&str)> = {
+        let ai_w = ai_widget.clone();
+        let bai = btn_ai.clone();
+        let sub = Rc::clone(&submit_ai_prompt_cb);
+        Rc::new(move |prompt: &str| {
+            ai_w.set_visible(true);
+            bai.set_active(true);
+            sub(prompt);
+        })
+    };
+
     let fm_widget = crate::filemanager_ui::build_complete_file_manager(
         &window,
         &status_lbl,
         cd_in_terminal_cb,
+        feed_terminal_cb,
+        Some(ai_prompt_cb),
     );
     fm_widget.set_visible(false);
     center_vbox.append(&fm_widget);
-
-    // Phase 15: Complete Zero-Trust AI Assistant Right Sidebar Panel
-    let (ai_widget, submit_ai_prompt_cb) =
-        crate::ai_assistant_ui::build_complete_ai_assistant_panel(
-            &window,
-            &settings_rc,
-            Rc::clone(&active_term_cb),
-            &status_lbl,
-        );
-    ai_widget.set_visible(false);
 
     // Main Horizontal Layout
     let main_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);

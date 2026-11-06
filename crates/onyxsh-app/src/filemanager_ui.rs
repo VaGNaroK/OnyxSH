@@ -637,15 +637,834 @@ pub struct FilePaneHandle {
     pub refresh: Rc<dyn Fn()>,
 }
 
+/// Represents a copied or cut item in the File Manager clipboard.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct FileManagerClipboardItem {
+    pub path: PathBuf,
+    pub is_dir: bool,
+    pub is_cut: bool,
+}
+
+/// Recursively copies a directory tree from `src` to `dst`.
+pub fn copy_dir_all(src: &Path, dst: &Path) -> std::io::Result<()> {
+    fs::create_dir_all(dst)?;
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let ty = entry.file_type()?;
+        let from = entry.path();
+        let to = dst.join(entry.file_name());
+        if ty.is_dir() {
+            copy_dir_all(&from, &to)?;
+        } else {
+            fs::copy(&from, &to)?;
+        }
+    }
+    Ok(())
+}
+
+/// Helper function to execute paste operation from clipboard to destination directory.
+fn execute_paste(
+    clipboard: &Rc<RefCell<Option<FileManagerClipboardItem>>>,
+    dest_dir: &Path,
+    status_lbl: &gtk4::Label,
+    refresh_fn: &Rc<dyn Fn()>,
+) {
+    let clip = clipboard.borrow().clone();
+    let Some(item) = clip else {
+        status_lbl.set_text("Nenhum item na área de transferência para colar.");
+        return;
+    };
+    let file_name = match item.path.file_name() {
+        Some(n) => n,
+        None => {
+            status_lbl.set_text("Nome de arquivo inválido na área de transferência.");
+            return;
+        }
+    };
+    let target = dest_dir.join(file_name);
+
+    if item.is_cut {
+        match fs::rename(&item.path, &target) {
+            Ok(()) => {
+                status_lbl.set_text(&format!("Item movido para: {}", target.display()));
+                *clipboard.borrow_mut() = None;
+                refresh_fn();
+            }
+            Err(_) => {
+                let res = if item.is_dir {
+                    copy_dir_all(&item.path, &target).and_then(|_| fs::remove_dir_all(&item.path))
+                } else {
+                    fs::copy(&item.path, &target)
+                        .and_then(|_| fs::remove_file(&item.path))
+                        .map(|_| ())
+                };
+                match res {
+                    Ok(()) => {
+                        status_lbl.set_text(&format!("Item movido para: {}", target.display()));
+                        *clipboard.borrow_mut() = None;
+                        refresh_fn();
+                    }
+                    Err(e) => status_lbl.set_text(&format!("Erro ao mover item: {e}")),
+                }
+            }
+        }
+    } else {
+        let res = if item.is_dir {
+            copy_dir_all(&item.path, &target)
+        } else {
+            fs::copy(&item.path, &target).map(|_| ())
+        };
+        match res {
+            Ok(()) => {
+                status_lbl.set_text(&format!("Item colado em: {}", target.display()));
+                refresh_fn();
+            }
+            Err(e) => status_lbl.set_text(&format!("Erro ao colar item: {e}")),
+        }
+    }
+}
+
+/// Helper to add a stylized action button to a context menu popover.
+fn add_menu_item(
+    menu_box: &gtk4::Box,
+    popover: &gtk4::Popover,
+    icon_name: &str,
+    label_text: &str,
+    destructive: bool,
+    action: impl Fn() + 'static,
+) {
+    let btn = gtk4::Button::new();
+    btn.add_css_class("flat");
+    if destructive {
+        btn.add_css_class("destructive-action");
+    }
+    let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+    let img = gtk4::Image::from_icon_name(icon_name);
+    let lbl = gtk4::Label::new(Some(label_text));
+    lbl.set_halign(gtk4::Align::Start);
+    lbl.set_hexpand(true);
+    hbox.append(&img);
+    hbox.append(&lbl);
+    btn.set_child(Some(&hbox));
+
+    let pop = popover.clone();
+    btn.connect_clicked(move |_| {
+        pop.popdown();
+        action();
+    });
+    menu_box.append(&btn);
+}
+
+/// Confirmation dialog for permanent deletion.
+fn show_confirm_delete_dialog(
+    parent: &adw::ApplicationWindow,
+    entry: &FileEntry,
+    on_confirm: Rc<dyn Fn()>,
+) {
+    let dlg = adw::Window::builder()
+        .transient_for(parent)
+        .modal(true)
+        .title("Confirmar Exclusão")
+        .default_width(380)
+        .default_height(160)
+        .build();
+
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 12);
+    vbox.set_margin_start(16);
+    vbox.set_margin_end(16);
+    vbox.set_margin_top(16);
+    vbox.set_margin_bottom(16);
+
+    let msg = format!(
+        "Tem certeza de que deseja excluir permanentemente {} '{}'?",
+        if entry.is_dir { "a pasta" } else { "o arquivo" },
+        entry.name
+    );
+    let lbl = gtk4::Label::new(Some(&msg));
+    lbl.set_wrap(true);
+    lbl.set_halign(gtk4::Align::Start);
+    vbox.append(&lbl);
+
+    let btn_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+    btn_box.set_halign(gtk4::Align::End);
+
+    let btn_cancel = gtk4::Button::with_label("Cancelar");
+    let btn_delete = gtk4::Button::with_label("Excluir Permanentemente");
+    btn_delete.add_css_class("destructive-action");
+
+    btn_box.append(&btn_cancel);
+    btn_box.append(&btn_delete);
+    vbox.append(&btn_box);
+
+    dlg.set_content(Some(&vbox));
+
+    let d1 = dlg.clone();
+    btn_cancel.connect_clicked(move |_| d1.close());
+
+    let d2 = dlg.clone();
+    btn_delete.connect_clicked(move |_| {
+        on_confirm();
+        d2.close();
+    });
+
+    dlg.present();
+}
+
+/// Shows the right-click contextual popover menu for a file or directory item.
+fn show_context_menu_for_entry(
+    parent_widget: &impl IsA<gtk4::Widget>,
+    x: f64,
+    y: f64,
+    entry: &FileEntry,
+    cur_dir: &Rc<RefCell<PathBuf>>,
+    parent_window: &adw::ApplicationWindow,
+    status_lbl: &gtk4::Label,
+    refresh_fn: &Rc<dyn Fn()>,
+    cd_in_terminal_cb: &Rc<dyn Fn(&Path)>,
+    feed_terminal_cb: &Rc<dyn Fn(&str)>,
+    ai_prompt_cb: &Option<Rc<dyn Fn(&str)>>,
+    clipboard: &Rc<RefCell<Option<FileManagerClipboardItem>>>,
+    visible_entries: &Rc<RefCell<Vec<FileEntry>>>,
+) {
+    let popover = gtk4::Popover::new();
+    popover.set_parent(parent_widget);
+    popover.set_has_arrow(true);
+    popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
+    popover.connect_closed(move |p| {
+        let p_clone = p.clone();
+        glib::idle_add_local_once(move || {
+            p_clone.unparent();
+        });
+    });
+
+    let menu_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
+    menu_vbox.set_margin_start(6);
+    menu_vbox.set_margin_end(6);
+    menu_vbox.set_margin_top(6);
+    menu_vbox.set_margin_bottom(6);
+    menu_vbox.set_width_request(250);
+
+    if entry.name == ".." {
+        let cd = Rc::clone(cur_dir);
+        let rf = Rc::clone(refresh_fn);
+        add_menu_item(&menu_vbox, &popover, "go-up-symbolic", "Subir um Nível", false, move || {
+            if let Some(p) = cd.borrow().parent() {
+                *cd.borrow_mut() = p.to_path_buf();
+                rf();
+            }
+        });
+
+        let cd = Rc::clone(cur_dir);
+        let cd_cb = Rc::clone(cd_in_terminal_cb);
+        add_menu_item(&menu_vbox, &popover, "utilities-terminal-symbolic", "Abrir no Terminal (cd)", false, move || {
+            if let Some(p) = cd.borrow().parent() {
+                cd_cb(p);
+            }
+        });
+
+        let cd = Rc::clone(cur_dir);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Caminho do Diretório Pai", false, move || {
+            if let Some(p) = cd.borrow().parent() {
+                let path_str = p.to_string_lossy().to_string();
+                if let Some(cb) = gdk::Display::default().and_then(|d| Some(d.clipboard())) {
+                    cb.set_text(&path_str);
+                    st.set_text(&format!("Caminho copiado: {path_str}"));
+                }
+            }
+        });
+
+        popover.set_child(Some(&menu_vbox));
+        popover.popup();
+        return;
+    }
+
+    if entry.is_dir {
+        // ── 1. Opções de Pasta ──────────────────────────────────────
+        let path = PathBuf::from(&entry.path);
+        let cd = Rc::clone(cur_dir);
+        let rf = Rc::clone(refresh_fn);
+        add_menu_item(&menu_vbox, &popover, "folder-open-symbolic", "Abrir Pasta", false, move || {
+            *cd.borrow_mut() = path.clone();
+            rf();
+        });
+
+        let path = PathBuf::from(&entry.path);
+        let cd_cb = Rc::clone(cd_in_terminal_cb);
+        add_menu_item(&menu_vbox, &popover, "utilities-terminal-symbolic", "Abrir no Terminal (cd)", false, move || {
+            cd_cb(&path);
+        });
+
+        let path_str = entry.path.clone();
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Caminho Absoluto", false, move || {
+            if let Some(cb) = gdk::Display::default().and_then(|d| Some(d.clipboard())) {
+                cb.set_text(&path_str);
+                st.set_text(&format!("Caminho copiado: {path_str}"));
+            }
+        });
+
+        let path_str = entry.path.clone();
+        let feed_cb = Rc::clone(feed_terminal_cb);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "insert-text-symbolic", "Inserir Caminho no Terminal", false, move || {
+            let escaped = format!("'{}' ", path_str.replace('\'', "'\\''"));
+            feed_cb(&escaped);
+            st.set_text(&format!("Caminho inserido no terminal: {path_str}"));
+        });
+
+        menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+        let target_dir = PathBuf::from(&entry.path);
+        let win = parent_window.clone();
+        let rf = Rc::clone(refresh_fn);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "folder-new-symbolic", "Nova Pasta Aqui...", false, move || {
+            let tdir = target_dir.clone();
+            let rf2 = Rc::clone(&rf);
+            let st2 = st.clone();
+            show_simple_input_dialog(&win, "Nova Pasta", "Nome da nova pasta:", "nova_pasta", Rc::new(move |name| {
+                let p = tdir.join(name.trim());
+                match LocalFsBackend.mkdir(&p) {
+                    Ok(()) => {
+                        st2.set_text(&format!("Pasta criada: {}", p.display()));
+                        rf2();
+                    }
+                    Err(e) => st2.set_text(&format!("Erro ao criar pasta: {e}")),
+                }
+            }));
+        });
+
+        let target_dir = PathBuf::from(&entry.path);
+        let win = parent_window.clone();
+        let rf = Rc::clone(refresh_fn);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "document-new-symbolic", "Novo Arquivo Aqui...", false, move || {
+            let tdir = target_dir.clone();
+            let rf2 = Rc::clone(&rf);
+            let st2 = st.clone();
+            show_simple_input_dialog(&win, "Novo Arquivo", "Nome do novo arquivo:", "novo_arquivo.txt", Rc::new(move |name| {
+                let p = tdir.join(name.trim());
+                match fs::File::create(&p) {
+                    Ok(_) => {
+                        st2.set_text(&format!("Arquivo criado: {}", p.display()));
+                        rf2();
+                    }
+                    Err(e) => st2.set_text(&format!("Erro ao criar arquivo: {e}")),
+                }
+            }));
+        });
+
+        menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+        let p = PathBuf::from(&entry.path);
+        let name = entry.name.clone();
+        let clip = Rc::clone(clipboard);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Pasta", false, move || {
+            *clip.borrow_mut() = Some(FileManagerClipboardItem {
+                path: p.clone(),
+                is_dir: true,
+                is_cut: false,
+            });
+            st.set_text(&format!("Pasta copiada para transferência: {name}"));
+        });
+
+        let p = PathBuf::from(&entry.path);
+        let name = entry.name.clone();
+        let clip = Rc::clone(clipboard);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "edit-cut-symbolic", "Recortar Pasta", false, move || {
+            *clip.borrow_mut() = Some(FileManagerClipboardItem {
+                path: p.clone(),
+                is_dir: true,
+                is_cut: true,
+            });
+            st.set_text(&format!("Pasta marcada para mover: {name}"));
+        });
+
+        if clipboard.borrow().is_some() {
+            let target_dir = PathBuf::from(&entry.path);
+            let clip = Rc::clone(clipboard);
+            let st = status_lbl.clone();
+            let rf = Rc::clone(refresh_fn);
+            add_menu_item(&menu_vbox, &popover, "edit-paste-symbolic", "Colar Dentro desta Pasta", false, move || {
+                execute_paste(&clip, &target_dir, &st, &rf);
+            });
+        }
+
+        menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+        let old_path = PathBuf::from(&entry.path);
+        let old_name = entry.name.clone();
+        let win = parent_window.clone();
+        let rf = Rc::clone(refresh_fn);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "document-edit-symbolic", "Renomear...", false, move || {
+            let op = old_path.clone();
+            let rf2 = Rc::clone(&rf);
+            let st2 = st.clone();
+            show_simple_input_dialog(&win, "Renomear Pasta", "Novo nome da pasta:", &old_name, Rc::new(move |new_name| {
+                if let Some(parent) = op.parent() {
+                    let np = parent.join(new_name.trim());
+                    match LocalFsBackend.rename(&op, &np) {
+                        Ok(()) => {
+                            st2.set_text(&format!("Pasta renomeada para '{}'", new_name.trim()));
+                            rf2();
+                        }
+                        Err(e) => st2.set_text(&format!("Erro ao renomear: {e}")),
+                    }
+                }
+            }));
+        });
+
+        let path_str = entry.path.clone();
+        let name_str = entry.name.clone();
+        let current_octal = format!("{:o}", entry.permissions_octal & 0o777);
+        let win = parent_window.clone();
+        let rf = Rc::clone(refresh_fn);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", "Permissões (chmod)...", false, move || {
+            let p = path_str.clone();
+            let n = name_str.clone();
+            let rf2 = Rc::clone(&rf);
+            let st2 = st.clone();
+            show_simple_input_dialog(&win, "Permissões da Pasta (chmod)", "Modo octal (ex: 755, 700):", &current_octal, Rc::new(move |octal_str| {
+                if let Ok(mode) = u32::from_str_radix(octal_str.trim(), 8) {
+                    let perms = fs::Permissions::from_mode(mode);
+                    match fs::set_permissions(&p, perms) {
+                        Ok(()) => {
+                            st2.set_text(&format!("Permissões de '{n}' alteradas para {:o}", mode));
+                            rf2();
+                        }
+                        Err(e) => st2.set_text(&format!("Erro no chmod: {e}")),
+                    }
+                } else {
+                    st2.set_text("Modo octal inválido.");
+                }
+            }));
+        });
+
+        if let Some(ai_cb) = ai_prompt_cb.as_ref() {
+            let ai = Rc::clone(ai_cb);
+            let e_clone = entry.clone();
+            let st = status_lbl.clone();
+            add_menu_item(&menu_vbox, &popover, "security-high-symbolic", "Auditar Segurança com IA", false, move || {
+                let prompt = format!(
+                    "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{}'.\nCaminho: {}\nPermissões atuais: {} ({})\nÚltima modificação: {}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust.",
+                    e_clone.name, e_clone.path, e_clone.formatted_permissions(), e_clone.permissions_octal_str(), format_epoch_short(e_clone.modified_epoch)
+                );
+                ai(&prompt);
+                st.set_text(&format!("Auditoria de segurança de '{}' enviada ao Assistente de IA.", e_clone.name));
+            });
+        }
+
+        menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+        let e_clone = entry.clone();
+        let win = parent_window.clone();
+        let rf = Rc::clone(refresh_fn);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "user-trash-symbolic", "Excluir Pasta", true, move || {
+            let ec = e_clone.clone();
+            let rf2 = Rc::clone(&rf);
+            let st2 = st.clone();
+            let del_path = PathBuf::from(&ec.path);
+            let del_name = ec.name.clone();
+            show_confirm_delete_dialog(&win, &ec, Rc::new(move || {
+                match LocalFsBackend.remove(&del_path) {
+                    Ok(()) => {
+                        st2.set_text(&format!("Pasta excluída: {del_name}"));
+                        rf2();
+                    }
+                    Err(e) => st2.set_text(&format!("Erro ao excluir pasta: {e}")),
+                }
+            }));
+        });
+    } else {
+        // ── 2. Opções de Arquivo ────────────────────────────────────
+        let win = parent_window.clone();
+        let vis = Rc::clone(visible_entries);
+        let path = entry.path.clone();
+        add_menu_item(&menu_vbox, &popover, "find-location-symbolic", "Quick Look (Pré-visualizar)", false, move || {
+            let entries = vis.borrow().clone();
+            let idx = entries.iter().position(|e| e.path == path).unwrap_or(0);
+            show_quick_look_window(&win, entries, idx);
+        });
+
+        let path = PathBuf::from(&entry.path);
+        let name = entry.name.clone();
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "accessories-calculator-symbolic", "Calcular Hash SHA-256...", false, move || {
+            match compute_file_sha256_hex(&path) {
+                Ok(hex) => st.set_text(&format!("SHA-256 ({name}): {hex}")),
+                Err(e) => st.set_text(&format!("Erro no hash: {e}")),
+            }
+        });
+
+        let lower = entry.name.to_lowercase();
+        let ext = Path::new(&entry.name).extension().and_then(|e| e.to_str()).unwrap_or("").to_ascii_lowercase();
+        let is_script_or_bin = entry.is_executable() || matches!(ext.as_str(), "sh" | "bash" | "zsh" | "py" | "rs" | "pl" | "rb" | "js" | "ts");
+
+        if is_script_or_bin {
+            let name_escaped = entry.name.replace('\'', "'\\''");
+            let cmd_base = if ext == "py" {
+                format!("python3 ./'{}'\n", name_escaped)
+            } else {
+                format!("./'{}'\n", name_escaped)
+            };
+            let feed_cb = Rc::clone(feed_terminal_cb);
+            let cb_copy = cmd_base.clone();
+            add_menu_item(&menu_vbox, &popover, "media-playback-start-symbolic", "Executar no Terminal", false, move || {
+                feed_cb(&cb_copy);
+            });
+
+            let feed_cb = Rc::clone(feed_terminal_cb);
+            let sudo_cmd = format!("sudo {cmd_base}");
+            add_menu_item(&menu_vbox, &popover, "security-medium-symbolic", "Executar com sudo no Terminal", false, move || {
+                feed_cb(&sudo_cmd);
+            });
+        }
+
+        let is_log = matches!(ext.as_str(), "log" | "out" | "err") || lower.contains("log");
+        if is_log {
+            let name_escaped = entry.name.replace('\'', "'\\''");
+            let tail_cmd = format!("tail -n 50 -f ./'{}'\n", name_escaped);
+            let feed_cb = Rc::clone(feed_terminal_cb);
+            add_menu_item(&menu_vbox, &popover, "format-indent-more-symbolic", "Acompanhar Log (tail -f)", false, move || {
+                feed_cb(&tail_cmd);
+            });
+
+            if let Some(ai_cb) = ai_prompt_cb.as_ref() {
+                let ai = Rc::clone(ai_cb);
+                let p = entry.path.clone();
+                let n = entry.name.clone();
+                let st = status_lbl.clone();
+                add_menu_item(&menu_vbox, &popover, "system-search-symbolic", "Diagnosticar Erros do Log com IA", false, move || {
+                    let tail_sample = fs::read_to_string(&p)
+                        .map(|s| {
+                            let lines: Vec<&str> = s.lines().collect();
+                            let start = lines.len().saturating_sub(60);
+                            lines[start..].join("\n")
+                        })
+                        .unwrap_or_else(|_| "[Incapaz de ler arquivo de log]".to_string());
+                    let prompt = format!(
+                        "Analise as seguintes mensagens e erros recentes do arquivo de log '{}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{}\n```",
+                        n, tail_sample
+                    );
+                    ai(&prompt);
+                    st.set_text(&format!("Diagnóstico do log '{n}' enviado ao Assistente de IA."));
+                });
+            }
+        }
+
+        if let Some(ai_cb) = ai_prompt_cb.as_ref() {
+            let ai = Rc::clone(ai_cb);
+            let p = entry.path.clone();
+            let n = entry.name.clone();
+            let st = status_lbl.clone();
+            add_menu_item(&menu_vbox, &popover, "dialog-information-symbolic", "Explicar Arquivo com IA", false, move || {
+                let sample = fs::read_to_string(&p)
+                    .map(|s| s.lines().take(60).collect::<Vec<_>>().join("\n"))
+                    .unwrap_or_else(|_| "[Conteúdo binário ou inacessível]".to_string());
+                let prompt = format!(
+                    "Explique o propósito, estrutura e funcionamento do arquivo '{}'.\nCaminho: {}\n\nConteúdo inicial:\n```\n{}\n```",
+                    n, p, sample
+                );
+                ai(&prompt);
+                st.set_text(&format!("Explicação do arquivo '{n}' solicitada ao Assistente de IA."));
+            });
+
+            let ai = Rc::clone(ai_cb);
+            let e_clone = entry.clone();
+            let st = status_lbl.clone();
+            add_menu_item(&menu_vbox, &popover, "security-high-symbolic", "Auditar Segurança com IA", false, move || {
+                let prompt = format!(
+                    "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{}'.\nCaminho: {}\nPermissões atuais: {} ({})\nTamanho: {}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades.",
+                    e_clone.name, e_clone.path, e_clone.formatted_permissions(), e_clone.permissions_octal_str(), e_clone.formatted_size()
+                );
+                ai(&prompt);
+                st.set_text(&format!("Auditoria de segurança de '{}' enviada ao Assistente de IA.", e_clone.name));
+            });
+        }
+
+        menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+        let path_str = entry.path.clone();
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Caminho Absoluto", false, move || {
+            if let Some(cb) = gdk::Display::default().and_then(|d| Some(d.clipboard())) {
+                cb.set_text(&path_str);
+                st.set_text(&format!("Caminho copiado: {path_str}"));
+            }
+        });
+
+        let path_str = entry.path.clone();
+        let feed_cb = Rc::clone(feed_terminal_cb);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "insert-text-symbolic", "Inserir Caminho no Terminal", false, move || {
+            let escaped = format!("'{}' ", path_str.replace('\'', "'\\''"));
+            feed_cb(&escaped);
+            st.set_text(&format!("Caminho inserido no terminal: {path_str}"));
+        });
+
+        menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+        let p = PathBuf::from(&entry.path);
+        let name = entry.name.clone();
+        let clip = Rc::clone(clipboard);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Arquivo", false, move || {
+            *clip.borrow_mut() = Some(FileManagerClipboardItem {
+                path: p.clone(),
+                is_dir: false,
+                is_cut: false,
+            });
+            st.set_text(&format!("Arquivo copiado para transferência: {name}"));
+        });
+
+        let p = PathBuf::from(&entry.path);
+        let name = entry.name.clone();
+        let clip = Rc::clone(clipboard);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "edit-cut-symbolic", "Recortar Arquivo", false, move || {
+            *clip.borrow_mut() = Some(FileManagerClipboardItem {
+                path: p.clone(),
+                is_dir: false,
+                is_cut: true,
+            });
+            st.set_text(&format!("Arquivo marcado para mover: {name}"));
+        });
+
+        menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+        let old_path = PathBuf::from(&entry.path);
+        let old_name = entry.name.clone();
+        let win = parent_window.clone();
+        let rf = Rc::clone(refresh_fn);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "document-edit-symbolic", "Renomear...", false, move || {
+            let op = old_path.clone();
+            let rf2 = Rc::clone(&rf);
+            let st2 = st.clone();
+            show_simple_input_dialog(&win, "Renomear Arquivo", "Novo nome do arquivo:", &old_name, Rc::new(move |new_name| {
+                if let Some(parent) = op.parent() {
+                    let np = parent.join(new_name.trim());
+                    match LocalFsBackend.rename(&op, &np) {
+                        Ok(()) => {
+                            st2.set_text(&format!("Arquivo renomeado para '{}'", new_name.trim()));
+                            rf2();
+                        }
+                        Err(e) => st2.set_text(&format!("Erro ao renomear: {e}")),
+                    }
+                }
+            }));
+        });
+
+        let path_str = entry.path.clone();
+        let name_str = entry.name.clone();
+        let current_octal = format!("{:o}", entry.permissions_octal & 0o777);
+        let win = parent_window.clone();
+        let rf = Rc::clone(refresh_fn);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", "Permissões (chmod)...", false, move || {
+            let p = path_str.clone();
+            let n = name_str.clone();
+            let rf2 = Rc::clone(&rf);
+            let st2 = st.clone();
+            show_simple_input_dialog(&win, "Permissões do Arquivo (chmod)", "Modo octal (ex: 644, 755):", &current_octal, Rc::new(move |octal_str| {
+                if let Ok(mode) = u32::from_str_radix(octal_str.trim(), 8) {
+                    let perms = fs::Permissions::from_mode(mode);
+                    match fs::set_permissions(&p, perms) {
+                        Ok(()) => {
+                            st2.set_text(&format!("Permissões de '{n}' alteradas para {:o}", mode));
+                            rf2();
+                        }
+                        Err(e) => st2.set_text(&format!("Erro no chmod: {e}")),
+                    }
+                } else {
+                    st2.set_text("Modo octal inválido.");
+                }
+            }));
+        });
+
+        menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+        let e_clone = entry.clone();
+        let win = parent_window.clone();
+        let rf = Rc::clone(refresh_fn);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "user-trash-symbolic", "Excluir Arquivo", true, move || {
+            let ec = e_clone.clone();
+            let rf2 = Rc::clone(&rf);
+            let st2 = st.clone();
+            let del_path = PathBuf::from(&ec.path);
+            let del_name = ec.name.clone();
+            show_confirm_delete_dialog(&win, &ec, Rc::new(move || {
+                match LocalFsBackend.remove(&del_path) {
+                    Ok(()) => {
+                        st2.set_text(&format!("Arquivo excluído: {del_name}"));
+                        rf2();
+                    }
+                    Err(e) => st2.set_text(&format!("Erro ao excluir arquivo: {e}")),
+                }
+            }));
+        });
+    }
+
+    popover.set_child(Some(&menu_vbox));
+    popover.popup();
+}
+
+/// Shows the right-click contextual popover menu for blank / background space of a directory pane.
+fn show_context_menu_for_background(
+    parent_widget: &impl IsA<gtk4::Widget>,
+    x: f64,
+    y: f64,
+    cur_dir: &Rc<RefCell<PathBuf>>,
+    parent_window: &adw::ApplicationWindow,
+    status_lbl: &gtk4::Label,
+    refresh_fn: &Rc<dyn Fn()>,
+    cd_in_terminal_cb: &Rc<dyn Fn(&Path)>,
+    feed_terminal_cb: &Rc<dyn Fn(&str)>,
+    ai_prompt_cb: &Option<Rc<dyn Fn(&str)>>,
+    clipboard: &Rc<RefCell<Option<FileManagerClipboardItem>>>,
+) {
+    let popover = gtk4::Popover::new();
+    popover.set_parent(parent_widget);
+    popover.set_has_arrow(true);
+    popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
+    popover.connect_closed(move |p| {
+        let p_clone = p.clone();
+        glib::idle_add_local_once(move || {
+            p_clone.unparent();
+        });
+    });
+
+    let menu_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
+    menu_vbox.set_margin_start(6);
+    menu_vbox.set_margin_end(6);
+    menu_vbox.set_margin_top(6);
+    menu_vbox.set_margin_bottom(6);
+    menu_vbox.set_width_request(250);
+
+    let cd = Rc::clone(cur_dir);
+    let cd_cb = Rc::clone(cd_in_terminal_cb);
+    add_menu_item(&menu_vbox, &popover, "utilities-terminal-symbolic", "Abrir este Diretório no Terminal (cd)", false, move || {
+        cd_cb(&cd.borrow());
+    });
+
+    let cd = Rc::clone(cur_dir);
+    let st = status_lbl.clone();
+    add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Caminho do Diretório", false, move || {
+        let path_str = cd.borrow().to_string_lossy().to_string();
+        if let Some(cb) = gdk::Display::default().and_then(|d| Some(d.clipboard())) {
+            cb.set_text(&path_str);
+            st.set_text(&format!("Caminho copiado: {path_str}"));
+        }
+    });
+
+    let cd = Rc::clone(cur_dir);
+    let feed_cb = Rc::clone(feed_terminal_cb);
+    let st = status_lbl.clone();
+    add_menu_item(&menu_vbox, &popover, "insert-text-symbolic", "Inserir Caminho no Terminal", false, move || {
+        let path_str = cd.borrow().to_string_lossy().to_string();
+        let escaped = format!("'{}' ", path_str.replace('\'', "'\\''"));
+        feed_cb(&escaped);
+        st.set_text(&format!("Caminho inserido no terminal: {path_str}"));
+    });
+
+    menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+    let cd = Rc::clone(cur_dir);
+    let win = parent_window.clone();
+    let rf = Rc::clone(refresh_fn);
+    let st = status_lbl.clone();
+    add_menu_item(&menu_vbox, &popover, "folder-new-symbolic", "Nova Pasta...", false, move || {
+        let tdir = cd.borrow().clone();
+        let rf2 = Rc::clone(&rf);
+        let st2 = st.clone();
+        show_simple_input_dialog(&win, "Nova Pasta", "Nome da nova pasta:", "nova_pasta", Rc::new(move |name| {
+            let p = tdir.join(name.trim());
+            match LocalFsBackend.mkdir(&p) {
+                Ok(()) => {
+                    st2.set_text(&format!("Pasta criada: {}", p.display()));
+                    rf2();
+                }
+                Err(e) => st2.set_text(&format!("Erro ao criar pasta: {e}")),
+            }
+        }));
+    });
+
+    let cd = Rc::clone(cur_dir);
+    let win = parent_window.clone();
+    let rf = Rc::clone(refresh_fn);
+    let st = status_lbl.clone();
+    add_menu_item(&menu_vbox, &popover, "document-new-symbolic", "Novo Arquivo...", false, move || {
+        let tdir = cd.borrow().clone();
+        let rf2 = Rc::clone(&rf);
+        let st2 = st.clone();
+        show_simple_input_dialog(&win, "Novo Arquivo", "Nome do novo arquivo:", "novo_arquivo.txt", Rc::new(move |name| {
+            let p = tdir.join(name.trim());
+            match fs::File::create(&p) {
+                Ok(_) => {
+                    st2.set_text(&format!("Arquivo criado: {}", p.display()));
+                    rf2();
+                }
+                Err(e) => st2.set_text(&format!("Erro ao criar arquivo: {e}")),
+            }
+        }));
+    });
+
+    if clipboard.borrow().is_some() {
+        let cd = Rc::clone(cur_dir);
+        let clip = Rc::clone(clipboard);
+        let st = status_lbl.clone();
+        let rf = Rc::clone(refresh_fn);
+        add_menu_item(&menu_vbox, &popover, "edit-paste-symbolic", "Colar Aqui", false, move || {
+            execute_paste(&clip, &cd.borrow(), &st, &rf);
+        });
+    }
+
+    menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+    if let Some(ai_cb) = ai_prompt_cb.as_ref() {
+        let ai = Rc::clone(ai_cb);
+        let cd = Rc::clone(cur_dir);
+        let st = status_lbl.clone();
+        add_menu_item(&menu_vbox, &popover, "security-high-symbolic", "Auditar Segurança deste Diretório com IA", false, move || {
+            let path_str = cd.borrow().to_string_lossy().to_string();
+            let prompt = format!(
+                "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust.",
+                path_str
+            );
+            ai(&prompt);
+            st.set_text(&format!("Auditoria do diretório '{path_str}' enviada ao Assistente de IA."));
+        });
+    }
+
+    let rf = Rc::clone(refresh_fn);
+    add_menu_item(&menu_vbox, &popover, "view-refresh-symbolic", "Atualizar Lista (F5)", false, move || {
+        rf();
+    });
+
+    popover.set_child(Some(&menu_vbox));
+    popover.popup();
+}
+
 /// Builds a rich File Manager Pane with:
 /// - Navigation toolbar (`Home`, `Up`, `Refresh`, `New Folder`, clickable Breadcrumbs, Path entry, Hidden toggle, Search)
 /// - View Mode Switcher (`List`, `Grid` with thumbnails, `Tree` with inline expanders)
 /// - File Action Bar (`Quick Look`, `Rename`, `Chmod`, `SHA-256`, `Delete`, `CD in Terminal`)
+/// - Context Popover Menu on Right-Click (Folder actions, File actions, Background actions, Clipboard, Terminal, AI)
 pub fn build_file_pane(
     parent_window: &adw::ApplicationWindow,
     initial_dir: PathBuf,
     status_lbl: &gtk4::Label,
     cd_in_terminal_cb: Rc<dyn Fn(&Path)>,
+    feed_terminal_cb: Rc<dyn Fn(&str)>,
+    ai_prompt_cb: Option<Rc<dyn Fn(&str)>>,
+    clipboard: Rc<RefCell<Option<FileManagerClipboardItem>>>,
 ) -> FilePaneHandle {
     let current_dir = Rc::new(RefCell::new(initial_dir));
     let selected_entry: Rc<RefCell<Option<FileEntry>>> = Rc::new(RefCell::new(None));
@@ -871,8 +1690,72 @@ pub fn build_file_pane(
 
     pane_vbox.append(&view_stack);
 
-    // ── 5. Master Refresh Closure ─────────────────────────────────────────────
+    // ── 5. Master Refresh Closure & Background Context Menus ─────────────────
     let refresh_holder: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
+
+    // Background Right-Click Context Menus
+    {
+        let bg_click_list = gtk4::GestureClick::new();
+        bg_click_list.set_button(3);
+        let list_ref = list_box.clone();
+        let cd = Rc::clone(&current_dir);
+        let win = parent_window.clone();
+        let st = status_lbl.clone();
+        let rh = Rc::clone(&refresh_holder);
+        let cd_cb = Rc::clone(&cd_in_terminal_cb);
+        let feed_cb = Rc::clone(&feed_terminal_cb);
+        let ai_cb = ai_prompt_cb.clone();
+        let clip = Rc::clone(&clipboard);
+        bg_click_list.connect_pressed(move |_, _, x, y| {
+            if let Some(r) = rh.borrow().as_ref() {
+                show_context_menu_for_background(
+                    &list_ref,
+                    x,
+                    y,
+                    &cd,
+                    &win,
+                    &st,
+                    r,
+                    &cd_cb,
+                    &feed_cb,
+                    &ai_cb,
+                    &clip,
+                );
+            }
+        });
+        list_scroll.add_controller(bg_click_list);
+    }
+    {
+        let bg_click_grid = gtk4::GestureClick::new();
+        bg_click_grid.set_button(3);
+        let grid_ref = grid_flow.clone();
+        let cd = Rc::clone(&current_dir);
+        let win = parent_window.clone();
+        let st = status_lbl.clone();
+        let rh = Rc::clone(&refresh_holder);
+        let cd_cb = Rc::clone(&cd_in_terminal_cb);
+        let feed_cb = Rc::clone(&feed_terminal_cb);
+        let ai_cb = ai_prompt_cb.clone();
+        let clip = Rc::clone(&clipboard);
+        bg_click_grid.connect_pressed(move |_, _, x, y| {
+            if let Some(r) = rh.borrow().as_ref() {
+                show_context_menu_for_background(
+                    &grid_ref,
+                    x,
+                    y,
+                    &cd,
+                    &win,
+                    &st,
+                    r,
+                    &cd_cb,
+                    &feed_cb,
+                    &ai_cb,
+                    &clip,
+                );
+            }
+        });
+        grid_scroll.add_controller(bg_click_grid);
+    }
 
     let refresh_fn: Rc<dyn Fn()> = {
         let cur_dir = Rc::clone(&current_dir);
@@ -892,6 +1775,11 @@ pub fn build_file_pane(
         let b_mod = btn_sort_mod.clone();
         let status = status_lbl.clone();
         let r_holder = Rc::clone(&refresh_holder);
+        let cd_cb = Rc::clone(&cd_in_terminal_cb);
+        let feed_cb = Rc::clone(&feed_terminal_cb);
+        let ai_cb_opt = ai_prompt_cb.clone();
+        let clip_rc = Rc::clone(&clipboard);
+        let win_ref = parent_window.clone();
 
         Rc::new(move || {
             let dir_path = cur_dir.borrow().clone();
@@ -1069,6 +1957,44 @@ pub fn build_file_pane(
                 row_hbox.append(&perm_lbl);
                 row_hbox.append(&mod_lbl);
 
+                // Attach right-click context menu gesture to row
+                let right_click = gtk4::GestureClick::new();
+                right_click.set_button(3);
+                let row_ref = row_hbox.clone();
+                let e_clone = entry.clone();
+                let cd = Rc::clone(&cur_dir);
+                let win = win_ref.clone();
+                let st = status.clone();
+                let rh = Rc::clone(&r_holder);
+                let cd_cb2 = Rc::clone(&cd_cb);
+                let feed_cb2 = Rc::clone(&feed_cb);
+                let ai_cb2 = ai_cb_opt.clone();
+                let clip2 = Rc::clone(&clip_rc);
+                let vis2 = Rc::clone(&vis_entries);
+                let sel2 = Rc::clone(&sel_entry);
+                right_click.connect_pressed(move |gesture, _, x, y| {
+                    gesture.set_state(gtk4::EventSequenceState::Claimed);
+                    *sel2.borrow_mut() = Some(e_clone.clone());
+                    if let Some(r) = rh.borrow().as_ref() {
+                        show_context_menu_for_entry(
+                            &row_ref,
+                            x,
+                            y,
+                            &e_clone,
+                            &cd,
+                            &win,
+                            &st,
+                            r,
+                            &cd_cb2,
+                            &feed_cb2,
+                            &ai_cb2,
+                            &clip2,
+                            &vis2,
+                        );
+                    }
+                });
+                row_hbox.add_controller(right_click);
+
                 lb.append(&row_hbox);
             }
 
@@ -1118,6 +2044,44 @@ pub fn build_file_pane(
                 sz_lbl.add_css_class("dim-label");
                 card.append(&sz_lbl);
 
+                // Attach right-click context menu gesture to card
+                let right_click = gtk4::GestureClick::new();
+                right_click.set_button(3);
+                let card_ref = card.clone();
+                let e_clone = entry.clone();
+                let cd = Rc::clone(&cur_dir);
+                let win = win_ref.clone();
+                let st = status.clone();
+                let rh = Rc::clone(&r_holder);
+                let cd_cb2 = Rc::clone(&cd_cb);
+                let feed_cb2 = Rc::clone(&feed_cb);
+                let ai_cb2 = ai_cb_opt.clone();
+                let clip2 = Rc::clone(&clip_rc);
+                let vis2 = Rc::clone(&vis_entries);
+                let sel2 = Rc::clone(&sel_entry);
+                right_click.connect_pressed(move |gesture, _, x, y| {
+                    gesture.set_state(gtk4::EventSequenceState::Claimed);
+                    *sel2.borrow_mut() = Some(e_clone.clone());
+                    if let Some(r) = rh.borrow().as_ref() {
+                        show_context_menu_for_entry(
+                            &card_ref,
+                            x,
+                            y,
+                            &e_clone,
+                            &cd,
+                            &win,
+                            &st,
+                            r,
+                            &cd_cb2,
+                            &feed_cb2,
+                            &ai_cb2,
+                            &clip2,
+                            &vis2,
+                        );
+                    }
+                });
+                card.add_controller(right_click);
+
                 gf.append(&card);
             }
 
@@ -1146,6 +2110,43 @@ pub fn build_file_pane(
                     });
                     sub_list.append(&enter_btn);
 
+                    let right_click = gtk4::GestureClick::new();
+                    right_click.set_button(3);
+                    let exp_ref = exp.clone();
+                    let e_clone = entry.clone();
+                    let cd = Rc::clone(&cur_dir);
+                    let win = win_ref.clone();
+                    let st = status.clone();
+                    let rh2 = Rc::clone(&r_holder);
+                    let cd_cb2 = Rc::clone(&cd_cb);
+                    let feed_cb2 = Rc::clone(&feed_cb);
+                    let ai_cb2 = ai_cb_opt.clone();
+                    let clip2 = Rc::clone(&clip_rc);
+                    let vis2 = Rc::clone(&vis_entries);
+                    let sel2 = Rc::clone(&sel_entry);
+                    right_click.connect_pressed(move |gesture, _, x, y| {
+                        gesture.set_state(gtk4::EventSequenceState::Claimed);
+                        *sel2.borrow_mut() = Some(e_clone.clone());
+                        if let Some(r) = rh2.borrow().as_ref() {
+                            show_context_menu_for_entry(
+                                &exp_ref,
+                                x,
+                                y,
+                                &e_clone,
+                                &cd,
+                                &win,
+                                &st,
+                                r,
+                                &cd_cb2,
+                                &feed_cb2,
+                                &ai_cb2,
+                                &clip2,
+                                &vis2,
+                            );
+                        }
+                    });
+                    exp.add_controller(right_click);
+
                     if let Ok(children) = backend.list_dir(Path::new(&entry.path)) {
                         let sub_sorted = filter_and_sort_entries(
                             &children,
@@ -1160,7 +2161,7 @@ pub fn build_file_pane(
                                 "{} {} ({})",
                                 if child.is_dir { "📁" } else { "📄" },
                                 child.name,
-                                child.formatted_size()
+                                child.formatted_size_clean()
                             )));
                             child_lbl.set_halign(gtk4::Align::Start);
                             child_lbl.add_css_class("caption");
@@ -1174,15 +2175,53 @@ pub fn build_file_pane(
                     let item_btn = gtk4::Button::with_label(&format!(
                         "📄 {}  ({})",
                         entry.name,
-                        entry.formatted_size()
+                        entry.formatted_size_clean()
                     ));
                     item_btn.add_css_class("flat");
                     item_btn.set_halign(gtk4::Align::Fill);
                     let entry_clone = entry.clone();
                     let sel = Rc::clone(&sel_entry);
+                    let e_c = entry.clone();
                     item_btn.connect_clicked(move |_| {
                         *sel.borrow_mut() = Some(entry_clone.clone());
                     });
+
+                    let right_click = gtk4::GestureClick::new();
+                    right_click.set_button(3);
+                    let btn_ref = item_btn.clone();
+                    let cd = Rc::clone(&cur_dir);
+                    let win = win_ref.clone();
+                    let st = status.clone();
+                    let rh2 = Rc::clone(&r_holder);
+                    let cd_cb2 = Rc::clone(&cd_cb);
+                    let feed_cb2 = Rc::clone(&feed_cb);
+                    let ai_cb2 = ai_cb_opt.clone();
+                    let clip2 = Rc::clone(&clip_rc);
+                    let vis2 = Rc::clone(&vis_entries);
+                    let sel2 = Rc::clone(&sel_entry);
+                    right_click.connect_pressed(move |gesture, _, x, y| {
+                        gesture.set_state(gtk4::EventSequenceState::Claimed);
+                        *sel2.borrow_mut() = Some(e_c.clone());
+                        if let Some(r) = rh2.borrow().as_ref() {
+                            show_context_menu_for_entry(
+                                &btn_ref,
+                                x,
+                                y,
+                                &e_c,
+                                &cd,
+                                &win,
+                                &st,
+                                r,
+                                &cd_cb2,
+                                &feed_cb2,
+                                &ai_cb2,
+                                &clip2,
+                                &vis2,
+                            );
+                        }
+                    });
+                    item_btn.add_controller(right_click);
+
                     tv.append(&item_btn);
                 }
             }
@@ -1725,8 +2764,11 @@ pub fn build_complete_file_manager(
     parent_window: &adw::ApplicationWindow,
     status_lbl: &gtk4::Label,
     cd_in_terminal_cb: Rc<dyn Fn(&Path)>,
+    feed_terminal_cb: Rc<dyn Fn(&str)>,
+    ai_prompt_cb: Option<Rc<dyn Fn(&str)>>,
 ) -> gtk4::Box {
     let transfers: Rc<RefCell<Vec<TransferItem>>> = Rc::new(RefCell::new(Vec::new()));
+    let clipboard: Rc<RefCell<Option<FileManagerClipboardItem>>> = Rc::new(RefCell::new(None));
 
     let container = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
     container.set_height_request(290);
@@ -1773,12 +2815,18 @@ pub fn build_complete_file_manager(
         platform::home_dir(),
         status_lbl,
         Rc::clone(&cd_in_terminal_cb),
+        Rc::clone(&feed_terminal_cb),
+        ai_prompt_cb.clone(),
+        Rc::clone(&clipboard),
     );
     let right_pane = build_file_pane(
         parent_window,
         PathBuf::from("/tmp"),
         status_lbl,
         Rc::clone(&cd_in_terminal_cb),
+        Rc::clone(&feed_terminal_cb),
+        ai_prompt_cb,
+        Rc::clone(&clipboard),
     );
 
     // Center Transfer Action Bar (`DualPaneTransferBar`)
@@ -2047,5 +3095,41 @@ mod tests {
         let tip = build_entry_tooltip_markup(&script);
         assert!(tip.contains("deploy.sh"));
         assert!(tip.contains("0755"));
+    }
+
+    #[test]
+    fn test_clipboard_and_recursive_copy() {
+        let temp_dir = std::env::temp_dir().join(format!(
+            "onyxsh_fm_test_{}",
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos()
+        ));
+        let src_dir = temp_dir.join("src");
+        let sub_dir = src_dir.join("subdir");
+        fs::create_dir_all(&sub_dir).unwrap();
+        fs::write(src_dir.join("file1.txt"), "hello").unwrap();
+        fs::write(sub_dir.join("file2.txt"), "world").unwrap();
+
+        let dst_dir = temp_dir.join("dst");
+        copy_dir_all(&src_dir, &dst_dir).unwrap();
+
+        assert!(dst_dir.join("file1.txt").exists());
+        assert!(dst_dir.join("subdir").join("file2.txt").exists());
+        assert_eq!(
+            fs::read_to_string(dst_dir.join("subdir").join("file2.txt")).unwrap(),
+            "world"
+        );
+
+        let clip = FileManagerClipboardItem {
+            path: dst_dir.join("file1.txt"),
+            is_dir: false,
+            is_cut: true,
+        };
+        assert!(clip.is_cut);
+        assert!(!clip.is_dir);
+
+        let _ = fs::remove_dir_all(&temp_dir);
     }
 }
