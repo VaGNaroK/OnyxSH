@@ -172,10 +172,24 @@ fn is_image_entry(entry: &FileEntry) -> bool {
     )
 }
 
-/// Chooses a symbolic icon name for a [`FileEntry`].
+/// Chooses a symbolic icon name for a [`FileEntry`], supporting specialized folders and MIME classifications.
 fn icon_for_entry(entry: &FileEntry) -> &'static str {
+    if entry.name == ".." {
+        return "go-up-symbolic";
+    }
     if entry.is_dir {
-        return "folder-symbolic";
+        let lower = entry.name.to_lowercase();
+        return match lower.as_str() {
+            "downloads" | "transferências" => "folder-download-symbolic",
+            "documents" | "documentos" => "folder-documents-symbolic",
+            "music" | "música" | "músicas" => "folder-music-symbolic",
+            "pictures" | "imagens" | "fotos" => "folder-pictures-symbolic",
+            "videos" | "vídeos" => "folder-videos-symbolic",
+            "desktop" | "área de trabalho" => "user-desktop-symbolic",
+            "public" | "público" => "folder-publicshare-symbolic",
+            ".git" => "folder-git-symbolic",
+            _ => "folder-symbolic",
+        };
     }
     let ext = Path::new(&entry.name)
         .extension()
@@ -183,19 +197,74 @@ fn icon_for_entry(entry: &FileEntry) -> &'static str {
         .unwrap_or("")
         .to_ascii_lowercase();
     match ext.as_str() {
-        "png" | "jpg" | "jpeg" | "gif" | "webp" | "svg" | "bmp" | "ico" => {
+        "png" | "jpg" | "jpeg" | "gif" | "webp" | "svg" | "bmp" | "ico" | "tiff" => {
             "image-x-generic-symbolic"
         }
         "zip" | "tar" | "gz" | "tgz" | "bz2" | "xz" | "zst" | "7z" | "rar" | "deb" | "rpm" => {
             "package-x-generic-symbolic"
         }
-        "rs" | "py" | "sh" | "js" | "ts" | "c" | "cpp" | "h" | "go" | "json" | "toml" | "yaml"
-        | "yml" | "md" => "text-x-script-symbolic",
+        "rs" | "py" | "sh" | "bash" | "zsh" | "js" | "ts" | "c" | "cpp" | "h" | "hpp" | "go"
+        | "lua" | "rb" | "php" | "pl" | "json" | "toml" | "yaml" | "yml" => {
+            "text-x-script-symbolic"
+        }
+        "md" | "txt" | "rst" | "log" | "out" | "err" => "text-x-generic-symbolic",
         "pdf" => "x-office-document-symbolic",
-        "mp3" | "wav" | "ogg" | "flac" => "audio-x-generic-symbolic",
-        "mp4" | "mkv" | "webm" => "video-x-generic-symbolic",
+        "doc" | "docx" | "odt" | "rtf" => "x-office-document-symbolic",
+        "xls" | "xlsx" | "ods" | "csv" | "tsv" => "x-office-spreadsheet-symbolic",
+        "ppt" | "pptx" | "odp" => "x-office-presentation-symbolic",
+        "mp3" | "wav" | "ogg" | "flac" | "aac" | "m4a" => "audio-x-generic-symbolic",
+        "mp4" | "mkv" | "webm" | "avi" | "mov" => "video-x-generic-symbolic",
+        "iso" | "img" => "media-optical-symbolic",
+        "crt" | "pem" | "pub" | "key" => "channel-secure-symbolic",
+        _ if entry.is_executable() => "application-x-executable-symbolic",
         _ => "text-x-generic-symbolic",
     }
+}
+
+/// Generates a rich, formatted Pango Markup tooltip for a file/directory row matching Python.
+fn build_entry_tooltip_markup(entry: &FileEntry) -> String {
+    if entry.name == ".." {
+        return "<b>Subir para o diretório pai (..)</b>".to_string();
+    }
+    let icon_emoji = if entry.is_dir {
+        "📁"
+    } else if entry.is_symlink {
+        "🔗"
+    } else {
+        "📄"
+    };
+    let safe_name = glib::markup_escape_text(&entry.name);
+    let type_desc = glib::markup_escape_text(entry.type_description());
+    let perms_sym = entry.formatted_permissions();
+    let perms_oct = entry.permissions_octal_str();
+    let mod_date = format_epoch_short(entry.modified_epoch);
+
+    let mut lines = vec![
+        format!("{icon_emoji} <b>{safe_name}</b> <span alpha='70%'>({type_desc})</span>"),
+        "<span alpha='30%'>──────────────────────────────────────────</span>".to_string(),
+    ];
+
+    if entry.is_dir {
+        lines.push("📦 <b>Tipo:</b> Pasta / Diretório".to_string());
+    } else {
+        lines.push(format!(
+            "📦 <b>Tamanho:</b> {} <span alpha='70%'>({} bytes)</span>",
+            entry.formatted_size(),
+            entry.size
+        ));
+    }
+
+    lines.push(format!("📅 <b>Modificado:</b> {mod_date}"));
+    lines.push(format!(
+        "🔒 <b>Permissões:</b> <tt>{perms_sym}</tt> <span alpha='70%'>({perms_oct})</span>"
+    ));
+
+    if entry.is_symlink {
+        let safe_path = glib::markup_escape_text(&entry.path);
+        lines.push(format!("🔗 <b>Caminho:</b> <tt>{safe_path}</tt>"));
+    }
+
+    lines.join("\n")
 }
 
 /// Formats epoch seconds into a compact human-readable string (`YYYY-MM-DD` or relative).
@@ -764,6 +833,7 @@ pub fn build_file_pane(
     list_scroll.set_vexpand(true);
     let list_box = gtk4::ListBox::new();
     list_box.set_selection_mode(gtk4::SelectionMode::Single);
+    list_box.set_activate_on_single_click(false);
     list_box.add_css_class("boxed-list");
     list_scroll.set_child(Some(&list_box));
     view_stack.add_named(&list_scroll, Some("list"));
@@ -783,6 +853,7 @@ pub fn build_file_pane(
     grid_flow.set_margin_top(8);
     grid_flow.set_margin_bottom(8);
     grid_flow.set_selection_mode(gtk4::SelectionMode::Single);
+    grid_flow.set_activate_on_single_click(false);
     grid_scroll.set_child(Some(&grid_flow));
     view_stack.add_named(&grid_scroll, Some("grid"));
 
@@ -880,7 +951,7 @@ pub fn build_file_pane(
             };
 
             let query = se.text().to_string();
-            let sorted = filter_and_sort_entries(
+            let mut sorted = filter_and_sort_entries(
                 &raw_entries,
                 *hidden_rc.borrow(),
                 &query,
@@ -888,6 +959,36 @@ pub fn build_file_pane(
                 asc,
                 true,
             );
+
+            // Prepend ".." parent directory entry if not at root and no filter query
+            if query.is_empty() && dir_path.parent().is_some() && dir_path != Path::new("/") {
+                let parent_path = dir_path.parent().unwrap();
+                let parent_meta = fs::symlink_metadata(parent_path).ok();
+                let (modified, perms) = if let Some(m) = parent_meta {
+                    let m_epoch = m
+                        .modified()
+                        .ok()
+                        .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
+                        .map(|d| d.as_secs())
+                        .unwrap_or(0);
+                    let p = (m.permissions().mode() & 0o777) as u16;
+                    (m_epoch, p)
+                } else {
+                    (0, 0o755)
+                };
+
+                let parent_entry = FileEntry {
+                    name: "..".to_string(),
+                    path: parent_path.to_string_lossy().into_owned(),
+                    is_dir: true,
+                    is_symlink: false,
+                    size: 4096,
+                    modified_epoch: modified,
+                    permissions_octal: perms,
+                };
+                sorted.insert(0, parent_entry);
+            }
+
             *vis_entries.borrow_mut() = sorted.clone();
             *sel_entry.borrow_mut() = sorted.first().cloned();
 
@@ -901,17 +1002,49 @@ pub fn build_file_pane(
                 row_hbox.set_margin_end(8);
                 row_hbox.set_margin_top(4);
                 row_hbox.set_margin_bottom(4);
+                row_hbox.set_tooltip_markup(Some(&build_entry_tooltip_markup(entry)));
+
+                if entry.is_hidden() {
+                    row_hbox.add_css_class("dim-label");
+                }
 
                 let icon = gtk4::Image::from_icon_name(icon_for_entry(entry));
+
+                let name_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
+                name_box.set_hexpand(true);
+                name_box.set_halign(gtk4::Align::Start);
+
                 let name_lbl = gtk4::Label::new(Some(&entry.name));
                 name_lbl.set_halign(gtk4::Align::Start);
-                name_lbl.set_hexpand(true);
                 name_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::End);
                 if entry.is_dir {
                     name_lbl.add_css_class("heading");
                 }
+                name_box.append(&name_lbl);
 
-                let size_lbl = gtk4::Label::new(Some(&entry.formatted_size()));
+                if entry.is_symlink {
+                    let sym_icon = gtk4::Image::from_icon_name("emblem-symbolic-link-symbolic");
+                    sym_icon.set_tooltip_text(Some("Link simbólico"));
+                    name_box.append(&sym_icon);
+                }
+
+                let badges_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+                if entry.is_executable() {
+                    let badge_exec = gtk4::Label::new(Some("+x"));
+                    badge_exec.add_css_class("badge-pill");
+                    badge_exec.add_css_class("badge-exec");
+                    badge_exec.set_tooltip_text(Some("Arquivo executável"));
+                    badges_box.append(&badge_exec);
+                }
+                if let Some((badge_text, badge_css)) = entry.file_type_badge() {
+                    let badge_type = gtk4::Label::new(Some(badge_text));
+                    badge_type.add_css_class("badge-pill");
+                    badge_type.add_css_class(badge_css);
+                    badges_box.append(&badge_type);
+                }
+                name_box.append(&badges_box);
+
+                let size_lbl = gtk4::Label::new(Some(&entry.formatted_size_clean()));
                 size_lbl.add_css_class("monospace");
                 size_lbl.add_css_class("dim-label");
                 size_lbl.set_width_request(85);
@@ -921,6 +1054,7 @@ pub fn build_file_pane(
                 perm_lbl.add_css_class("monospace");
                 perm_lbl.add_css_class("caption");
                 perm_lbl.add_css_class("dim-label");
+                perm_lbl.set_tooltip_text(Some(&format!("Octal: {}", entry.permissions_octal_str())));
                 perm_lbl.set_width_request(95);
 
                 let mod_lbl = gtk4::Label::new(Some(&format_epoch_short(entry.modified_epoch)));
@@ -930,28 +1064,10 @@ pub fn build_file_pane(
                 mod_lbl.set_width_request(125);
 
                 row_hbox.append(&icon);
-                row_hbox.append(&name_lbl);
+                row_hbox.append(&name_box);
                 row_hbox.append(&size_lbl);
                 row_hbox.append(&perm_lbl);
                 row_hbox.append(&mod_lbl);
-
-                if entry.is_dir {
-                    let open_btn = gtk4::Button::builder()
-                        .icon_name("go-next-symbolic")
-                        .tooltip_text("Entrar na pasta")
-                        .build();
-                    open_btn.add_css_class("flat");
-                    let target_path = PathBuf::from(&entry.path);
-                    let c_dir = Rc::clone(&cur_dir);
-                    let rh = Rc::clone(&r_holder);
-                    open_btn.connect_clicked(move |_| {
-                        *c_dir.borrow_mut() = target_path.clone();
-                        if let Some(r) = rh.borrow().as_ref() {
-                            r();
-                        }
-                    });
-                    row_hbox.append(&open_btn);
-                }
 
                 lb.append(&row_hbox);
             }
@@ -969,6 +1085,11 @@ pub fn build_file_pane(
                 card.set_margin_top(4);
                 card.set_margin_bottom(4);
                 card.set_halign(gtk4::Align::Center);
+                card.set_tooltip_markup(Some(&build_entry_tooltip_markup(entry)));
+
+                if entry.is_hidden() {
+                    card.add_css_class("dim-label");
+                }
 
                 if is_image_entry(entry) && entry.size <= 12 * 1024 * 1024 {
                     // Render real image thumbnail
@@ -987,9 +1108,12 @@ pub fn build_file_pane(
                 name_lbl.set_max_width_chars(12);
                 name_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::Middle);
                 name_lbl.add_css_class("caption");
+                if entry.is_dir {
+                    name_lbl.add_css_class("heading");
+                }
                 card.append(&name_lbl);
 
-                let sz_lbl = gtk4::Label::new(Some(&entry.formatted_size()));
+                let sz_lbl = gtk4::Label::new(Some(&entry.formatted_size_clean()));
                 sz_lbl.add_css_class("caption");
                 sz_lbl.add_css_class("dim-label");
                 card.append(&sz_lbl);
@@ -1090,7 +1214,12 @@ pub fn build_file_pane(
             let idx = row.index() as usize;
             let entries = vis.borrow().clone();
             if let Some(entry) = entries.get(idx) {
-                if entry.is_dir {
+                if entry.name == ".." {
+                    if let Some(parent) = cur_dir.borrow().parent() {
+                        *cur_dir.borrow_mut() = parent.to_path_buf();
+                        refresh();
+                    }
+                } else if entry.is_dir {
                     *cur_dir.borrow_mut() = PathBuf::from(&entry.path);
                     refresh();
                 } else {
@@ -1102,16 +1231,37 @@ pub fn build_file_pane(
     {
         let vis = Rc::clone(&visible_entries);
         let sel = Rc::clone(&selected_entry);
+        grid_flow.connect_selected_children_changed(move |gf| {
+            let selected = gf.selected_children();
+            if let Some(child) = selected.first() {
+                let idx = child.index() as usize;
+                if let Some(e) = vis.borrow().get(idx) {
+                    *sel.borrow_mut() = Some(e.clone());
+                }
+            }
+        });
+    }
+    {
+        let vis = Rc::clone(&visible_entries);
+        let sel = Rc::clone(&selected_entry);
         let cur_dir = Rc::clone(&current_dir);
         let refresh = Rc::clone(&refresh_fn);
+        let win_ref = parent_window.clone();
         grid_flow.connect_child_activated(move |_, child| {
             let idx = child.index() as usize;
             let entries = vis.borrow().clone();
             if let Some(entry) = entries.get(idx) {
                 *sel.borrow_mut() = Some(entry.clone());
-                if entry.is_dir {
+                if entry.name == ".." {
+                    if let Some(parent) = cur_dir.borrow().parent() {
+                        *cur_dir.borrow_mut() = parent.to_path_buf();
+                        refresh();
+                    }
+                } else if entry.is_dir {
                     *cur_dir.borrow_mut() = PathBuf::from(&entry.path);
                     refresh();
+                } else {
+                    show_quick_look_window(&win_ref, entries, idx);
                 }
             }
         });
@@ -1857,5 +2007,45 @@ mod tests {
         // Validates that single-pane is the default configuration flag for the file manager
         let dual_pane_active_by_default = false;
         assert!(!dual_pane_active_by_default, "FileManager should default to single pane");
+    }
+
+    #[test]
+    fn test_icon_and_tooltip_markup() {
+        let parent = FileEntry {
+            name: "..".to_string(),
+            path: "/home".to_string(),
+            is_dir: true,
+            is_symlink: false,
+            size: 4096,
+            modified_epoch: 0,
+            permissions_octal: 0o755,
+        };
+        assert_eq!(icon_for_entry(&parent), "go-up-symbolic");
+        assert!(build_entry_tooltip_markup(&parent).contains("Subir para o diretório pai"));
+
+        let downloads = FileEntry {
+            name: "Downloads".to_string(),
+            path: "/home/user/Downloads".to_string(),
+            is_dir: true,
+            is_symlink: false,
+            size: 4096,
+            modified_epoch: 1234,
+            permissions_octal: 0o755,
+        };
+        assert_eq!(icon_for_entry(&downloads), "folder-download-symbolic");
+
+        let script = FileEntry {
+            name: "deploy.sh".to_string(),
+            path: "/home/user/deploy.sh".to_string(),
+            is_dir: false,
+            is_symlink: false,
+            size: 2048,
+            modified_epoch: 5678,
+            permissions_octal: 0o755,
+        };
+        assert_eq!(icon_for_entry(&script), "text-x-script-symbolic");
+        let tip = build_entry_tooltip_markup(&script);
+        assert!(tip.contains("deploy.sh"));
+        assert!(tip.contains("0755"));
     }
 }

@@ -29,7 +29,18 @@ pub struct FileEntry {
 
 impl FileEntry {
     pub fn is_hidden(&self) -> bool {
-        self.name.starts_with('.')
+        self.name.starts_with('.') && self.name != ".."
+    }
+
+    pub fn is_executable(&self) -> bool {
+        if self.is_dir {
+            return false;
+        }
+        (self.permissions_octal & 0o111) != 0
+    }
+
+    pub fn permissions_octal_str(&self) -> String {
+        format!("{:04o}", self.permissions_octal & 0o7777)
     }
 
     pub fn formatted_size(&self) -> String {
@@ -37,6 +48,80 @@ impl FileEntry {
             return "<DIR>".to_string();
         }
         format_bytes(self.size)
+    }
+
+    pub fn formatted_size_clean(&self) -> String {
+        if self.is_dir {
+            return "—".to_string();
+        }
+        format_bytes(self.size)
+    }
+
+    pub fn file_type_badge(&self) -> Option<(&'static str, &'static str)> {
+        if self.is_dir {
+            return None;
+        }
+        let lower = self.name.to_lowercase();
+        let ext = std::path::Path::new(&self.name)
+            .extension()
+            .and_then(|e| e.to_str())
+            .unwrap_or("")
+            .to_ascii_lowercase();
+        match ext.as_str() {
+            "py" => Some(("PY", "badge-py")),
+            "sh" | "bash" | "zsh" => Some(("SH", "badge-sh")),
+            "rs" => Some(("RS", "badge-rs")),
+            "log" => Some(("LOG", "badge-log")),
+            "json" => Some(("JSON", "badge-json")),
+            "yaml" | "yml" => Some(("YAML", "badge-yaml")),
+            "toml" => Some(("TOML", "badge-yaml")),
+            "md" => Some(("MD", "badge-py")),
+            _ if lower.starts_with("dockerfile") => Some(("DOCKER", "badge-docker")),
+            _ if self.is_executable() => Some(("EXEC", "badge-exec")),
+            _ => None,
+        }
+    }
+
+    pub fn type_description(&self) -> &'static str {
+        if self.name == ".." {
+            return "Diretório Pai";
+        }
+        if self.is_dir {
+            return "Pasta / Diretório";
+        }
+        if self.is_symlink {
+            return "Link Simbólico";
+        }
+        let ext = std::path::Path::new(&self.name)
+            .extension()
+            .and_then(|e| e.to_str())
+            .unwrap_or("")
+            .to_ascii_lowercase();
+        match ext.as_str() {
+            "py" => "Script Python",
+            "sh" | "bash" | "zsh" => "Script Shell",
+            "rs" => "Código Rust",
+            "js" => "JavaScript",
+            "ts" => "TypeScript",
+            "c" => "Código Fonte C",
+            "cpp" => "Código Fonte C++",
+            "h" | "hpp" => "Cabeçalho C/C++",
+            "go" => "Código Fonte Go",
+            "json" => "Documento JSON",
+            "yaml" | "yml" => "Documento YAML",
+            "toml" => "Documento TOML",
+            "md" => "Documento Markdown",
+            "txt" => "Documento de Texto",
+            "log" => "Arquivo de Log",
+            "pdf" => "Documento PDF",
+            "png" | "jpg" | "jpeg" | "webp" | "svg" | "gif" => "Imagem",
+            "mp3" | "wav" | "ogg" | "flac" => "Arquivo de Áudio",
+            "mp4" | "mkv" | "webm" => "Arquivo de Vídeo",
+            "zip" | "tar" | "gz" | "xz" | "7z" => "Arquivo Compactado",
+            "deb" | "rpm" => "Pacote de Instalação",
+            _ if self.is_executable() => "Programa Executável",
+            _ => "Arquivo de Dados",
+        }
     }
 
     pub fn formatted_permissions(&self) -> String {
@@ -167,5 +252,48 @@ mod tests {
         assert_eq!(visible.len(), 2);
         assert_eq!(visible[0].name, "apps"); // Dir first
         assert_eq!(visible[1].name, "zebra.txt");
+
+        assert_eq!(items[2].formatted_size_clean(), "—");
+        assert_eq!(items[1].formatted_size_clean(), "2.0 KB");
+        assert_eq!(items[2].permissions_octal_str(), "0755");
+        assert!(!items[1].is_executable());
+        assert_eq!(items[2].type_description(), "Pasta / Diretório");
+        assert_eq!(items[1].type_description(), "Documento de Texto");
+
+        let script = FileEntry {
+            name: "build.sh".to_string(),
+            path: "/home/user/build.sh".to_string(),
+            is_dir: false,
+            is_symlink: false,
+            size: 1024,
+            modified_epoch: 300,
+            permissions_octal: 0o755,
+        };
+        assert!(script.is_executable());
+        assert_eq!(script.file_type_badge(), Some(("SH", "badge-sh")));
+
+        let py = FileEntry {
+            name: "main.py".to_string(),
+            path: "/home/user/main.py".to_string(),
+            is_dir: false,
+            is_symlink: false,
+            size: 1024,
+            modified_epoch: 300,
+            permissions_octal: 0o644,
+        };
+        assert!(!py.is_executable());
+        assert_eq!(py.file_type_badge(), Some(("PY", "badge-py")));
+
+        let parent = FileEntry {
+            name: "..".to_string(),
+            path: "/home".to_string(),
+            is_dir: true,
+            is_symlink: false,
+            size: 4096,
+            modified_epoch: 0,
+            permissions_octal: 0o755,
+        };
+        assert!(!parent.is_hidden());
+        assert_eq!(parent.formatted_size_clean(), "—");
     }
 }

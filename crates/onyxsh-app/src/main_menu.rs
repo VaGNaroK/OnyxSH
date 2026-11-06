@@ -71,7 +71,7 @@ pub fn apply_gtk_theme_mode(mode: GtkThemeMode, terminal_bg_is_light: bool) {
     }
 }
 
-/// Generates CSS styling for the 4 circular theme selector buttons and menu layout.
+/// Generates CSS styling for the 4 circular theme selector buttons, menu layout, and file manager badges.
 pub fn menu_custom_css() -> &'static str {
     "
     .themeselector {
@@ -90,6 +90,59 @@ pub fn menu_custom_css() -> &'static str {
     }
     .search-bar-box {
         padding: 4px 8px;
+    }
+    .badge-pill {
+        border-radius: 6px;
+        padding: 1px 5px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        margin-left: 4px;
+    }
+    .badge-exec {
+        background-color: rgba(46, 194, 126, 0.18);
+        color: #2ec4b6;
+        border: 1px solid rgba(46, 194, 126, 0.35);
+    }
+    .badge-root {
+        background-color: rgba(246, 211, 45, 0.18);
+        color: #f6d32d;
+        border: 1px solid rgba(246, 211, 45, 0.35);
+    }
+    .badge-py {
+        background-color: rgba(53, 132, 228, 0.2);
+        color: #3584e4;
+        border: 1px solid rgba(53, 132, 228, 0.35);
+    }
+    .badge-sh {
+        background-color: rgba(51, 209, 122, 0.2);
+        color: #33d17a;
+        border: 1px solid rgba(51, 209, 122, 0.35);
+    }
+    .badge-rs {
+        background-color: rgba(230, 97, 0, 0.2);
+        color: #e66100;
+        border: 1px solid rgba(230, 97, 0, 0.35);
+    }
+    .badge-log {
+        background-color: rgba(255, 120, 0, 0.2);
+        color: #ff7800;
+        border: 1px solid rgba(255, 120, 0, 0.35);
+    }
+    .badge-docker {
+        background-color: rgba(28, 113, 216, 0.2);
+        color: #1c71d8;
+        border: 1px solid rgba(28, 113, 216, 0.35);
+    }
+    .badge-json {
+        background-color: rgba(153, 68, 228, 0.2);
+        color: #9944e4;
+        border: 1px solid rgba(153, 68, 228, 0.35);
+    }
+    .badge-yaml {
+        background-color: rgba(225, 78, 202, 0.2);
+        color: #e14eca;
+        border: 1px solid rgba(225, 78, 202, 0.35);
     }
     "
 }
