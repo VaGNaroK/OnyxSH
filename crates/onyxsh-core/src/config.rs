@@ -16,14 +16,13 @@ pub const OBSOLETE_SHORTCUT_ACTIONS: &[&str] = &[
     "find",
 ];
 
-/// Complete list of 34 default keyboard shortcuts for OnyxSH (`DefaultSettings._get_base_defaults()["shortcuts"]`).
+/// Complete list of default keyboard shortcuts for OnyxSH (`DefaultSettings._get_base_defaults()["shortcuts"]`).
 pub fn default_shortcuts() -> Vec<(&'static str, &'static str)> {
     vec![
         ("new-local-tab", "<Control><Shift>t"),
         ("close-tab", "<Control><Shift>w"),
         ("next-tab", "<Alt>Page_Down"),
         ("previous-tab", "<Alt>Page_Up"),
-        ("new-window", "<Control><Shift>n"),
         ("split-horizontal", "<Control><Shift>parenleft"),
         ("split-vertical", "<Control><Shift>parenright"),
         ("close-pane", "<Control><Shift>k"),
@@ -51,6 +50,10 @@ pub fn default_shortcuts() -> Vec<(&'static str, &'static str)> {
         ("toggle-file-manager", "<Control><Shift>e"),
         ("show-command-manager", "<Control><Shift>m"),
         ("command-palette", "<Control><Shift>p"),
+        ("show-tunnel-manager", "<Control><Shift>u"),
+        ("show-resource-monitor", "<Control><Shift>r"),
+        ("toggle-tftp-server", "<Control><Shift>y"),
+        ("new-window", "<Control><Shift>n"),
         ("preferences", "F2"),
         ("quit", "<Control><Shift>q"),
     ]
@@ -62,57 +65,60 @@ pub fn shortcut_groups() -> Vec<(&'static str, Vec<(&'static str, &'static str)>
         (
             "Gerenciamento de Abas e Painéis",
             vec![
-                ("new-local-tab", "Nova Aba Local"),
-                ("close-tab", "Fechar Aba Atual"),
+                ("new-local-tab", "Nova Aba"),
+                ("close-tab", "Fechar Aba"),
                 ("next-tab", "Próxima Aba"),
                 ("previous-tab", "Aba Anterior"),
             ],
         ),
         (
-            "Divisão de Tela (Splitting)",
+            "Divisão",
             vec![
                 ("split-horizontal", "Dividir Horizontalmente"),
                 ("split-vertical", "Dividir Verticalmente"),
                 ("close-pane", "Fechar Painel Ativo"),
-                ("focus-pane-up", "Focar Painel Acima"),
-                ("focus-pane-down", "Focar Painel Abaixo"),
-                ("focus-pane-left", "Focar Painel à Esquerda"),
-                ("focus-pane-right", "Focar Painel à Direita"),
+                ("focus-pane-up", "Focar painel acima"),
+                ("focus-pane-down", "Focar painel abaixo"),
+                ("focus-pane-left", "Focar painel à esquerda"),
+                ("focus-pane-right", "Focar painel à direita"),
             ],
         ),
         (
-            "Interação com o Terminal & IA",
+            "Interação do Terminal",
             vec![
-                ("copy", "Copiar Seleção"),
+                ("copy", "Copiar"),
                 ("paste", "Colar"),
                 ("select-all", "Selecionar Tudo"),
-                ("clear-session", "Limpar Sessão do Terminal"),
-                ("toggle-search", "Buscar no Terminal Atual"),
-                ("global-search", "Busca Global Multi-Abas / Sessões / Histórico"),
-                ("toggle-broadcast", "Enviar Comando para Todas as Abas (Broadcast)"),
-                ("ai-assistant", "Abrir / Fechar Assistente de IA"),
-                ("opencode-launcher", "Abrir Assistente de Código OpenCode"),
-                ("toggle-selection-mode", "Alternar Modo Seleção de Texto"),
-                ("show-command-history", "Histórico Enriquecido de Comandos"),
-                ("jump-previous-prompt", "Pular para o Prompt Anterior (OSC 133)"),
-                ("jump-next-prompt", "Pular para o Próximo Prompt (OSC 133)"),
+                ("clear-session", "Limpar Sessão"),
+                ("toggle-search", "Pesquisar no Terminal"),
+                ("global-search", "Busca Global Multi-Abas / Histórico"),
+                ("toggle-broadcast", "Enviar Comando para Todas as Abas"),
+                ("ai-assistant", "Perguntar ao Assistente de IA"),
+                ("opencode-launcher", "Assistente de Código OpenCode"),
+                ("toggle-selection-mode", "Modo Seleção de Texto"),
+                ("show-command-history", "Histórico de Comandos"),
+                ("jump-previous-prompt", "Pular para o Prompt Anterior"),
+                ("jump-next-prompt", "Pular para o Próximo Prompt"),
             ],
         ),
         (
-            "Zoom e Fonte",
+            "Zoom",
             vec![
-                ("zoom-in", "Aumentar Zoom (Fonte)"),
-                ("zoom-out", "Diminuir Zoom (Fonte)"),
-                ("zoom-reset", "Resetar Zoom"),
+                ("zoom-in", "Aproximar"),
+                ("zoom-out", "Reduzir Zoom"),
+                ("zoom-reset", "Redefinir Zoom"),
             ],
         ),
         (
             "Aplicativo e Janela",
             vec![
-                ("toggle-sidebar", "Painel Lateral de Sessões SSH"),
-                ("toggle-file-manager", "Gerenciador de Arquivos Dual-Pane"),
-                ("show-command-manager", "Gerenciador de Comandos e Snippets"),
-                ("command-palette", "Paleta de Comandos (Spotlight)"),
+                ("toggle-sidebar", "Painel de Sessões"),
+                ("toggle-file-manager", "Gerenciador de Arquivos"),
+                ("show-command-manager", "Gerenciador de Comandos"),
+                ("command-palette", "Paleta de Comandos"),
+                ("show-tunnel-manager", "Gerenciador de Túneis SSH"),
+                ("show-resource-monitor", "Monitor de Recursos do Sistema"),
+                ("toggle-tftp-server", "Servidor TFTP"),
                 ("new-window", "Nova Janela"),
                 ("preferences", "Preferências"),
                 ("quit", "Sair do Aplicativo"),
@@ -121,7 +127,7 @@ pub fn shortcut_groups() -> Vec<(&'static str, Vec<(&'static str, &'static str)>
     ]
 }
 
-/// Converts a GTK accelerator string (e.g. `<Control><Shift>t`) into a human-readable badge (`Ctrl+Shift+T`).
+/// Converts a GTK accelerator string (e.g. `<Control><Shift>t`) into a human-readable badge (`Shift+Ctrl+T`).
 pub fn accelerator_to_label(accel: &str) -> String {
     if accel.trim().is_empty() {
         return "Não definido".to_string();
@@ -130,9 +136,9 @@ pub fn accelerator_to_label(accel: &str) -> String {
     let mut parts = Vec::new();
 
     for (tag, label) in [
+        ("<Shift>", "Shift"),
         ("<Control>", "Ctrl"),
         ("<Primary>", "Ctrl"),
-        ("<Shift>", "Shift"),
         ("<Alt>", "Alt"),
         ("<Super>", "Super"),
     ] {
@@ -149,10 +155,10 @@ pub fn accelerator_to_label(accel: &str) -> String {
         "parenright" => ")".to_string(),
         "Page_Down" => "Page Down".to_string(),
         "Page_Up" => "Page Up".to_string(),
-        "Up" | "KP_Up" => "↑".to_string(),
-        "Down" | "KP_Down" => "↓".to_string(),
-        "Left" | "KP_Left" => "←".to_string(),
-        "Right" | "KP_Right" => "→".to_string(),
+        "Up" | "KP_Up" => "Acima".to_string(),
+        "Down" | "KP_Down" => "Abaixo".to_string(),
+        "Left" | "KP_Left" => "Esquerda".to_string(),
+        "Right" | "KP_Right" => "Direita".to_string(),
         "Insert" => "Ins".to_string(),
         "Delete" => "Del".to_string(),
         "Return" | "KP_Enter" => "Enter".to_string(),
@@ -448,7 +454,7 @@ mod tests {
     #[test]
     fn test_shortcut_repair_removes_obsolete_and_duplicates() {
         let mut settings = AppSettings::default();
-        assert_eq!(settings.shortcuts.len(), 34);
+        assert_eq!(settings.shortcuts.len(), default_shortcuts().len());
         settings.shortcuts.insert(
             "export-terminal-buffer".to_string(),
             "<Control><Shift>x".to_string(),
@@ -469,7 +475,7 @@ mod tests {
             settings.shortcuts.get("copy").map(String::as_str),
             Some("<Control><Shift>c")
         );
-        assert_eq!(accelerator_to_label("<Control><Shift>t"), "Ctrl+Shift+T");
+        assert_eq!(accelerator_to_label("<Control><Shift>t"), "Shift+Ctrl+T");
         assert_eq!(accelerator_to_label("<Alt>Page_Down"), "Alt+Page Down");
     }
 }

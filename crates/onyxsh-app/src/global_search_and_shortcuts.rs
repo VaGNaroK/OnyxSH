@@ -16,6 +16,7 @@ use onyxsh_core::platform;
 use onyxsh_core::sessions::{SessionItem, SessionsStorageData};
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
+use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
 use std::rc::Rc;
@@ -930,246 +931,304 @@ pub fn show_editable_shortcuts_dialog(
     settings_path: &PathBuf,
     status_lbl: &gtk4::Label,
 ) {
-    let dlg = adw::Window::builder()
+    let dlg = adw::PreferencesWindow::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Atalhos de Teclado — OnyxSH (34 Ações Configuráveis)")
-        .default_width(720)
+        .title("Atalhos de Teclado")
+        .search_enabled(false)
+        .default_width(700)
         .default_height(600)
         .build();
+    dlg.add_css_class("onyxsh-dialog");
 
-    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
-    let hb = adw::HeaderBar::new();
+    let page = adw::PreferencesPage::new();
+    dlg.add(&page);
 
-    let btn_reset_all = gtk4::Button::with_label("Resetar Todos");
-    btn_reset_all.add_css_class("destructive-action");
-    hb.pack_end(&btn_reset_all);
-    vbox.append(&hb);
+    // 1. Top card: Reset all shortcuts to defaults
+    let reset_group = adw::PreferencesGroup::new();
+    let reset_row = adw::ActionRow::builder()
+        .title("Redefinir todos os atalhos para os padrões")
+        .activatable(false)
+        .build();
+    let btn_reset_all = gtk4::Button::with_label("Redefinir Tudo");
+    btn_reset_all.set_valign(gtk4::Align::Center);
+    btn_reset_all.set_tooltip_text(Some("Redefine todos os atalhos para os valores padrão"));
+    reset_row.add_suffix(&btn_reset_all);
+    reset_group.add(&reset_row);
+    page.add(&reset_group);
 
-    let scroll = gtk4::ScrolledWindow::new();
-    scroll.set_vexpand(true);
+    // Map storing action_name -> adw::ActionRow for instant reactivity
+    let row_map: Rc<RefCell<HashMap<String, adw::ActionRow>>> =
+        Rc::new(RefCell::new(HashMap::new()));
 
-    let groups_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 14);
-    groups_vbox.set_margin_start(18);
-    groups_vbox.set_margin_end(18);
-    groups_vbox.set_margin_top(12);
-    groups_vbox.set_margin_bottom(18);
-    scroll.set_child(Some(&groups_vbox));
+    // 2. Shortcut groups
+    for (group_title, actions) in shortcut_groups() {
+        let group = adw::PreferencesGroup::builder()
+            .title(group_title)
+            .build();
 
-    let rebuild_cell: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
+        for (act_key, act_label) in actions {
+            let current_accel = settings_rc
+                .borrow()
+                .shortcuts
+                .get(act_key)
+                .cloned()
+                .unwrap_or_default();
+            let label_text = accelerator_to_label(&current_accel);
 
-    let rebuild: Rc<dyn Fn()> = {
-        let gvbox = groups_vbox.clone();
-        let st_rc = Rc::clone(settings_rc);
-        let spath = settings_path.clone();
-        let status = status_lbl.clone();
-        let dlg_ref = dlg.clone();
-        let reb_self = Rc::clone(&rebuild_cell);
+            let row = adw::ActionRow::builder()
+                .title(act_label)
+                .subtitle(&label_text)
+                .activatable(false)
+                .build();
+            row.set_title_selectable(false);
 
-        Rc::new(move || {
-            while let Some(c) = gvbox.first_child() {
-                gvbox.remove(&c);
-            }
+            let btn_edit = gtk4::Button::with_label("Editar");
+            btn_edit.set_valign(gtk4::Align::Center);
+            btn_edit.set_tooltip_text(Some("Clique para alterar o atalho de teclado"));
 
-            for (group_title, actions) in shortcut_groups() {
-                let grp_lbl = gtk4::Label::new(Some(group_title));
-                grp_lbl.add_css_class("title-4");
-                grp_lbl.set_halign(gtk4::Align::Start);
-                gvbox.append(&grp_lbl);
+            {
+                let act_key_s = act_key.to_string();
+                let act_label_s = act_label.to_string();
+                let row_clone = row.clone();
+                let dlg_weak = dlg.downgrade();
+                let st_edit = Rc::clone(settings_rc);
+                let sp_edit = settings_path.clone();
+                let status_edit = status_lbl.clone();
 
-                let list = gtk4::ListBox::new();
-                list.add_css_class("boxed-list");
-                list.set_selection_mode(gtk4::SelectionMode::None);
+                btn_edit.connect_clicked(move |_| {
+                    let Some(parent_win) = dlg_weak.upgrade() else {
+                        return;
+                    };
 
-                for (act_key, act_label) in actions {
-                    let row = gtk4::Box::new(gtk4::Orientation::Horizontal, 12);
-                    row.set_margin_start(12);
-                    row.set_margin_end(12);
-                    row.set_margin_top(8);
-                    row.set_margin_bottom(8);
+                    let edit_dlg = adw::MessageDialog::builder()
+                        .transient_for(&parent_win)
+                        .modal(true)
+                        .heading("Definir Novo Atalho")
+                        .body(&format!(
+                            "Pressione a nova combinação de teclas para '{}', ou Esc para cancelar.",
+                            act_label_s
+                        ))
+                        .close_response("cancel")
+                        .build();
 
-                    let title_lbl = gtk4::Label::new(Some(act_label));
-                    title_lbl.set_hexpand(true);
-                    title_lbl.set_halign(gtk4::Align::Start);
-
-                    let current_accel = st_rc
+                    let curr_accel = st_edit
                         .borrow()
                         .shortcuts
-                        .get(act_key)
+                        .get(&act_key_s)
                         .cloned()
                         .unwrap_or_default();
-                    let badge_lbl = gtk4::Label::new(Some(&accelerator_to_label(&current_accel)));
-                    badge_lbl.add_css_class("monospace");
-                    badge_lbl.add_css_class("dim-label");
+                    let curr_lbl = accelerator_to_label(&curr_accel);
 
-                    let btn_edit = gtk4::Button::with_label("Editar");
-                    btn_edit.add_css_class("flat");
+                    let feedback_lbl = gtk4::Label::builder()
+                        .label(&format!("Atual: {}\nNovo: (pressione as teclas)", curr_lbl))
+                        .halign(gtk4::Align::Center)
+                        .justify(gtk4::Justification::Center)
+                        .build();
+                    feedback_lbl.add_css_class("dim-label");
+                    edit_dlg.set_extra_child(Some(&feedback_lbl));
+
+                    let new_accel_cell: Rc<RefCell<Option<String>>> =
+                        Rc::new(RefCell::new(None));
+
+                    let kctrl = gtk4::EventControllerKey::new();
+                    {
+                        let fb = feedback_lbl.clone();
+                        let curr_l = curr_lbl.clone();
+                        let new_acc = Rc::clone(&new_accel_cell);
+                        let ed = edit_dlg.clone();
+                        let st_ref = Rc::clone(&st_edit);
+                        let this_act = act_key_s.clone();
+
+                        kctrl.connect_key_pressed(move |_, keyval, _, state| {
+                            let is_mod_only = matches!(
+                                keyval,
+                                gdk::Key::Control_L
+                                    | gdk::Key::Control_R
+                                    | gdk::Key::Shift_L
+                                    | gdk::Key::Shift_R
+                                    | gdk::Key::Alt_L
+                                    | gdk::Key::Alt_R
+                                    | gdk::Key::Super_L
+                                    | gdk::Key::Super_R
+                                    | gdk::Key::ISO_Level3_Shift
+                            );
+                            if is_mod_only {
+                                return glib::Propagation::Proceed;
+                            }
+
+                            if keyval == gdk::Key::Escape {
+                                *new_acc.borrow_mut() = None;
+                                ed.response("cancel");
+                                return glib::Propagation::Stop;
+                            }
+
+                            let mods = state & gtk4::accelerator_get_default_mod_mask();
+                            let accel_name = gtk4::accelerator_name(keyval, mods);
+                            if !accel_name.is_empty() {
+                                *new_acc.borrow_mut() = Some(accel_name.to_string());
+                                let parsed_label = accelerator_to_label(&accel_name);
+
+                                // Conflict detection
+                                let mut conflict: Option<String> = None;
+                                for (other_act, other_accel) in &st_ref.borrow().shortcuts {
+                                    if other_act != &this_act && other_accel.as_str() == accel_name.as_str() {
+                                        conflict = Some(other_act.clone());
+                                        break;
+                                    }
+                                }
+
+                                if let Some(conflict_act) = conflict {
+                                    let mut conflict_title = conflict_act.clone();
+                                    for (_, group_actions) in shortcut_groups() {
+                                        for (k, title) in group_actions {
+                                            if k == conflict_act {
+                                                conflict_title = title.to_string();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    fb.set_text(&format!(
+                                        "Atual: {}\nNovo: {} (Conflita com {})",
+                                        curr_l, parsed_label, conflict_title
+                                    ));
+                                } else {
+                                    fb.set_text(&format!(
+                                        "Atual: {}\nNovo: {}",
+                                        curr_l, parsed_label
+                                    ));
+                                }
+                                return glib::Propagation::Stop;
+                            }
+
+                            glib::Propagation::Proceed
+                        });
+                    }
+                    edit_dlg.add_controller(kctrl);
+
+                    edit_dlg.add_response("cancel", "Cancelar");
+                    edit_dlg.add_response("clear", "Limpar");
+                    edit_dlg.add_response("save", "Definir Atalho");
+                    edit_dlg.set_default_response(Some("save"));
+                    edit_dlg.set_response_appearance(
+                        "save",
+                        adw::ResponseAppearance::Suggested,
+                    );
+                    edit_dlg.set_response_appearance(
+                        "clear",
+                        adw::ResponseAppearance::Destructive,
+                    );
 
                     {
-                        let key_str = act_key.to_string();
-                        let label_str = act_label.to_string();
-                        let st_edit = Rc::clone(&st_rc);
-                        let sp_edit = spath.clone();
-                        let status_edit = status.clone();
-                        let parent_dlg = dlg_ref.clone();
-                        let rb = Rc::clone(&reb_self);
+                        let this_act = act_key_s.clone();
+                        let this_title = act_label_s.clone();
+                        let new_acc = Rc::clone(&new_accel_cell);
+                        let row_up = row_clone.clone();
+                        let st_ref = Rc::clone(&st_edit);
+                        let sp = sp_edit.clone();
+                        let stat = status_edit.clone();
 
-                        btn_edit.connect_clicked(move |_| {
-                            let cap_dlg = adw::Window::builder()
-                                .transient_for(&parent_dlg)
-                                .modal(true)
-                                .title(&format!("Definir Atalho: {label_str}"))
-                                .default_width(420)
-                                .default_height(220)
-                                .build();
-
-                            let cvbox = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
-                            cvbox.append(&adw::HeaderBar::new());
-
-                            let cbody = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
-                            cbody.set_margin_start(16);
-                            cbody.set_margin_end(16);
-                            cbody.set_margin_top(8);
-                            cbody.set_margin_bottom(14);
-
-                            let info = gtk4::Label::new(Some(
-                                "Pressione a nova combinação de teclas ou edite abaixo:",
-                            ));
-                            info.set_halign(gtk4::Align::Start);
-                            cbody.append(&info);
-
-                            let curr_val = st_edit
-                                .borrow()
-                                .shortcuts
-                                .get(&key_str)
-                                .cloned()
-                                .unwrap_or_default();
-                            let entry = gtk4::Entry::builder()
-                                .text(&curr_val)
-                                .hexpand(true)
-                                .build();
-                            entry.add_css_class("monospace");
-                            cbody.append(&entry);
-
-                            // Key capture controller on the dialog
-                            let kctrl = gtk4::EventControllerKey::new();
-                            {
-                                let e_ref = entry.clone();
-                                kctrl.connect_key_pressed(move |_, keyval, _, state| {
-                                    let is_mod_only = matches!(
-                                        keyval,
-                                        gdk::Key::Control_L
-                                            | gdk::Key::Control_R
-                                            | gdk::Key::Shift_L
-                                            | gdk::Key::Shift_R
-                                            | gdk::Key::Alt_L
-                                            | gdk::Key::Alt_R
-                                            | gdk::Key::Super_L
-                                            | gdk::Key::Super_R
-                                    );
-                                    if is_mod_only {
-                                        return glib::Propagation::Proceed;
+                        edit_dlg.connect_response(None, move |dlg, resp| {
+                            match resp {
+                                "save" => {
+                                    if let Some(new_s) = new_acc.borrow().as_ref() {
+                                        st_ref
+                                            .borrow_mut()
+                                            .shortcuts
+                                            .insert(this_act.clone(), new_s.clone());
+                                        let _ = st_ref.borrow().save_to_path(&sp);
+                                        let lbl = accelerator_to_label(new_s);
+                                        row_up.set_subtitle(&lbl);
+                                        stat.set_text(&format!(
+                                            "Atalho '{}' atualizado para {}",
+                                            this_title, lbl
+                                        ));
                                     }
-                                    let mods = state
-                                        & (gdk::ModifierType::CONTROL_MASK
-                                            | gdk::ModifierType::SHIFT_MASK
-                                            | gdk::ModifierType::ALT_MASK
-                                            | gdk::ModifierType::SUPER_MASK);
-                                    let accel_name = gtk4::accelerator_name(keyval, mods);
-                                    if !accel_name.is_empty() {
-                                        e_ref.set_text(&accel_name);
-                                        return glib::Propagation::Stop;
-                                    }
-                                    glib::Propagation::Proceed
-                                });
-                            }
-                            cap_dlg.add_controller(kctrl);
-
-                            let brow = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
-                            brow.set_halign(gtk4::Align::End);
-                            let btn_clear = gtk4::Button::with_label("Limpar");
-                            btn_clear.add_css_class("destructive-action");
-                            let btn_save = gtk4::Button::with_label("Salvar Atalho");
-                            btn_save.add_css_class("suggested-action");
-                            brow.append(&btn_clear);
-                            brow.append(&btn_save);
-                            cbody.append(&brow);
-
-                            {
-                                let k = key_str.clone();
-                                let st_c = Rc::clone(&st_edit);
-                                let sp_c = sp_edit.clone();
-                                let rb_c = Rc::clone(&rb);
-                                let cd = cap_dlg.clone();
-                                btn_clear.connect_clicked(move |_| {
-                                    st_c.borrow_mut().shortcuts.insert(k.clone(), String::new());
-                                    let _ = st_c.borrow().save_to_path(&sp_c);
-                                    if let Some(f) = rb_c.borrow().as_ref() {
-                                        f();
-                                    }
-                                    cd.close();
-                                });
-                            }
-                            {
-                                let k = key_str.clone();
-                                let e_s = entry.clone();
-                                let st_s = Rc::clone(&st_edit);
-                                let sp_s = sp_edit.clone();
-                                let stat_s = status_edit.clone();
-                                let rb_s = Rc::clone(&rb);
-                                let cd = cap_dlg.clone();
-                                btn_save.connect_clicked(move |_| {
-                                    let new_acc = e_s.text().trim().to_string();
-                                    st_s.borrow_mut()
+                                }
+                                "clear" => {
+                                    st_ref
+                                        .borrow_mut()
                                         .shortcuts
-                                        .insert(k.clone(), new_acc.clone());
-                                    let _ = st_s.borrow().save_to_path(&sp_s);
-                                    stat_s.set_text(&format!(
-                                        "Atalho '{}' atualizado para {}",
-                                        k,
-                                        accelerator_to_label(&new_acc)
+                                        .insert(this_act.clone(), String::new());
+                                    let _ = st_ref.borrow().save_to_path(&sp);
+                                    row_up.set_subtitle("Não definido");
+                                    stat.set_text(&format!(
+                                        "Atalho '{}' removido.",
+                                        this_title
                                     ));
-                                    if let Some(f) = rb_s.borrow().as_ref() {
-                                        f();
-                                    }
-                                    cd.close();
-                                });
+                                }
+                                _ => {}
                             }
-
-                            cvbox.append(&cbody);
-                            cap_dlg.set_content(Some(&cvbox));
-                            cap_dlg.present();
+                            dlg.close();
                         });
                     }
 
-                    row.append(&title_lbl);
-                    row.append(&badge_lbl);
-                    row.append(&btn_edit);
-                    list.append(&row);
-                }
-                gvbox.append(&list);
+                    edit_dlg.present();
+                });
             }
-        })
-    };
 
-    *rebuild_cell.borrow_mut() = Some(Rc::clone(&rebuild));
-    rebuild();
+            row.add_suffix(&btn_edit);
+            group.add(&row);
+            row_map.borrow_mut().insert(act_key.to_string(), row);
+        }
 
+        page.add(&group);
+    }
+
+    // 3. Reset All Dialog on button click
     {
-        let st_r = Rc::clone(settings_rc);
-        let sp_r = settings_path.clone();
-        let status_r = status_lbl.clone();
-        let rb = Rc::clone(&rebuild);
+        let dlg_weak = dlg.downgrade();
+        let st_reset = Rc::clone(settings_rc);
+        let sp_reset = settings_path.clone();
+        let status_reset = status_lbl.clone();
+        let rmap = Rc::clone(&row_map);
+
         btn_reset_all.connect_clicked(move |_| {
-            st_r.borrow_mut().reset_shortcuts_to_default();
-            let _ = st_r.borrow().save_to_path(&sp_r);
-            status_r.set_text("Todos os 34 atalhos de teclado foram restaurados para o padrão.");
-            rb();
+            let Some(parent_win) = dlg_weak.upgrade() else {
+                return;
+            };
+
+            let confirm_dlg = adw::MessageDialog::builder()
+                .transient_for(&parent_win)
+                .modal(true)
+                .heading("Redefinir Todos os Atalhos")
+                .body("Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?")
+                .close_response("cancel")
+                .build();
+
+            confirm_dlg.add_response("cancel", "Cancelar");
+            confirm_dlg.add_response("reset", "Redefinir");
+            confirm_dlg.set_response_appearance("reset", adw::ResponseAppearance::Destructive);
+            confirm_dlg.set_default_response(Some("cancel"));
+
+            let st_c = Rc::clone(&st_reset);
+            let sp_c = sp_reset.clone();
+            let stat_c = status_reset.clone();
+            let rmap_c = Rc::clone(&rmap);
+
+            confirm_dlg.connect_response(None, move |dlg, resp| {
+                if resp == "reset" {
+                    st_c.borrow_mut().reset_shortcuts_to_default();
+                    let _ = st_c.borrow().save_to_path(&sp_c);
+
+                    for (act, row) in rmap_c.borrow().iter() {
+                        let curr = st_c
+                            .borrow()
+                            .shortcuts
+                            .get(act)
+                            .cloned()
+                            .unwrap_or_default();
+                        row.set_subtitle(&accelerator_to_label(&curr));
+                    }
+                    stat_c.set_text("Todos os atalhos de teclado foram restaurados para o padrão.");
+                }
+                dlg.close();
+            });
+
+            confirm_dlg.present();
         });
     }
 
-    vbox.append(&scroll);
-    dlg.set_content(Some(&vbox));
     dlg.present();
 }
 
@@ -1292,5 +1351,51 @@ mod tests {
             filter_command_history(&history, "rpm", "pinned", "/home/vagnarok", "localhost");
         assert_eq!(hist_hits.len(), 1);
         assert_eq!(hist_hits[0].command, "rpm -qa --last");
+    }
+
+    #[test]
+    fn test_shortcut_groups_and_accelerator_formatting() {
+        let groups = shortcut_groups();
+        assert_eq!(groups.len(), 5);
+
+        let group_names: Vec<&str> = groups.iter().map(|(n, _)| *n).collect();
+        assert_eq!(
+            group_names,
+            vec![
+                "Gerenciamento de Abas e Painéis",
+                "Divisão",
+                "Interação do Terminal",
+                "Zoom",
+                "Aplicativo e Janela"
+            ]
+        );
+
+        let defaults: std::collections::HashMap<&str, &str> =
+            onyxsh_core::config::default_shortcuts().into_iter().collect();
+
+        for (grp_title, actions) in groups {
+            assert!(!actions.is_empty(), "Grupo '{}' não pode ser vazio", grp_title);
+            for (act_key, act_label) in actions {
+                assert!(
+                    defaults.contains_key(act_key),
+                    "Ação '{}' ('{}') deve existir em default_shortcuts()",
+                    act_key,
+                    act_label
+                );
+            }
+        }
+
+        assert_eq!(accelerator_to_label("<Control><Shift>t"), "Shift+Ctrl+T");
+        assert_eq!(accelerator_to_label("<Control><Shift>w"), "Shift+Ctrl+W");
+        assert_eq!(accelerator_to_label("<Alt>Page_Down"), "Alt+Page Down");
+        assert_eq!(accelerator_to_label("<Alt>Page_Up"), "Alt+Page Up");
+        assert_eq!(accelerator_to_label("<Control><Shift>parenleft"), "Shift+Ctrl+(");
+        assert_eq!(accelerator_to_label("<Control><Shift>parenright"), "Shift+Ctrl+)");
+        assert_eq!(accelerator_to_label("<Control><Shift>k"), "Shift+Ctrl+K");
+        assert_eq!(accelerator_to_label("<Control><Shift>Up"), "Shift+Ctrl+Acima");
+        assert_eq!(accelerator_to_label("<Control><Shift>Down"), "Shift+Ctrl+Abaixo");
+        assert_eq!(accelerator_to_label("<Control><Shift>Left"), "Shift+Ctrl+Esquerda");
+        assert_eq!(accelerator_to_label("<Control><Shift>Right"), "Shift+Ctrl+Direita");
+        assert_eq!(accelerator_to_label(""), "Não definido");
     }
 }
