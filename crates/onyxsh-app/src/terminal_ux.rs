@@ -10,6 +10,7 @@
 
 use crate::command_manager_ui::CommandButton;
 use gtk4::gdk;
+use gtk4::gio;
 use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
@@ -338,152 +339,148 @@ pub fn show_autocomplete_assistant_dialog(
     dlg.present();
 }
 
-/// Attaches a right-click `SelectionPopover` (`ui/widgets/selection_popover.py`) and
-/// `ProductionGuard` Enter-key interceptor to a `vte4::Terminal`.
+/// Detects if there is a hyperlink at coordinates `(x, y)` in `term`.
+pub fn detect_url_at_coords(term: &vte4::Terminal, x: f64, y: f64) -> Option<String> {
+    if let Some(uri) = term.check_hyperlink_at(x, y) {
+        let s = uri.to_string();
+        if !s.is_empty() {
+            return Some(s);
+        }
+    }
+    let (matched, _tag) = term.check_match_at(x, y);
+    if let Some(m) = matched {
+        let s = m.to_string();
+        if s.starts_with("http://")
+            || s.starts_with("https://")
+            || s.starts_with("file://")
+            || s.starts_with("ssh://")
+            || s.starts_with("ftp://")
+        {
+            return Some(s);
+        }
+    }
+    None
+}
+
+/// Checks if recent terminal lines contain an error indicator.
+pub fn check_terminal_last_error(term: &vte4::Terminal) -> Option<i32> {
+    let text = crate::global_search_and_shortcuts::extract_vte_text(term);
+    let last_lines: Vec<&str> = text.lines().rev().take(6).collect();
+    let lower = last_lines.join("\n").to_lowercase();
+    let err_keywords = [
+        "error",
+        "erro",
+        "failed",
+        "falha",
+        "command not found",
+        "não encontrada",
+        "não reconhecida",
+        "no such file",
+        "permission denied",
+        "permissão negada",
+    ];
+    if err_keywords.iter().any(|kw| lower.contains(kw)) {
+        Some(1)
+    } else {
+        None
+    }
+}
+
+/// Builds the native GTK4 `gio::Menu` model for the terminal right-click context menu.
+/// Matches `src/onyxsh/ui/menus.py` (`create_terminal_menu`) and `CORRIGIR/menucontext3.jpg`.
+pub fn create_terminal_context_menu_model(
+    has_selection: bool,
+    url_at_click: Option<&str>,
+    error_code: Option<i32>,
+) -> gio::Menu {
+    let menu = gio::Menu::new();
+
+    // 0. Contextual URL section (when right-clicking over a hyperlink)
+    if let Some(_url) = url_at_click {
+        let url_section = gio::Menu::new();
+        url_section.append(Some("Abrir Link"), Some("win.open-url"));
+        url_section.append(Some("Copiar Link"), Some("win.copy-url"));
+        menu.append_section(None, &url_section);
+    }
+
+    // 1. Standard editing, export & session clear
+    let standard_section = gio::Menu::new();
+    standard_section.append(Some("Copiar"), Some("win.copy"));
+    standard_section.append(Some("Colar"), Some("win.paste"));
+    standard_section.append(Some("Selecionar Tudo"), Some("win.select-all"));
+    standard_section.append(
+        Some("Exportar Saída do Terminal..."),
+        Some("win.export-terminal-buffer"),
+    );
+    standard_section.append(
+        Some("Exportar Sessão como Caderno de Bordo..."),
+        Some("win.export-terminal-runbook"),
+    );
+    standard_section.append(Some("Limpar Sessão"), Some("win.clear-session"));
+    menu.append_section(None, &standard_section);
+
+    // 2. Prompt navigation
+    let nav_section = gio::Menu::new();
+    nav_section.append(
+        Some("Pular para o Prompt Anterior"),
+        Some("win.jump-previous-prompt"),
+    );
+    nav_section.append(
+        Some("Pular para o Próximo Prompt"),
+        Some("win.jump-next-prompt"),
+    );
+    menu.append_section(None, &nav_section);
+
+    // 3. AI / OpenCode Assistant
+    let ai_section = gio::Menu::new();
+    if has_selection {
+        ai_section.append(Some("Perguntar à IA"), Some("win.ask-ai-selection"));
+        ai_section.append(
+            Some("Refatorar seleção com OpenCode"),
+            Some("win.opencode-selection"),
+        );
+    } else {
+        let label = if let Some(code) = error_code {
+            if code != 1 && code != 0 {
+                format!("Resolver erro (código {code}) com OpenCode")
+            } else {
+                "Resolver erro com OpenCode".to_string()
+            }
+        } else {
+            "Resolver erro com OpenCode".to_string()
+        };
+        ai_section.append(Some(&label), Some("win.resolve-error-opencode"));
+    }
+    menu.append_section(None, &ai_section);
+
+    // 4. Splitting & Panes
+    let split_section = gio::Menu::new();
+    split_section.append(
+        Some("Dividir Esquerda/Direita"),
+        Some("win.split-horizontal"),
+    );
+    split_section.append(
+        Some("Dividir Superior/Inferior"),
+        Some("win.split-vertical"),
+    );
+    split_section.append(Some("Fechar Painel"), Some("win.close-pane"));
+    menu.append_section(None, &split_section);
+
+    menu
+}
+
+/// Attaches native right-click `PopoverMenu` (`CORRIGIR/menucontext3.jpg`), floating live autocomplete
+/// popup (`CompletionEngine`), and `ProductionGuard` to a `vte4::Terminal`.
 pub fn attach_vte_ux_controllers(
     term: &vte4::Terminal,
-    parent_window: &adw::ApplicationWindow,
-    ai_widget: &gtk4::Box,
-    btn_ai_toggle: &gtk4::ToggleButton,
-    submit_ai_prompt_cb: Rc<dyn Fn(&str)>,
+    clicked_url_rc: Rc<RefCell<Option<String>>>,
+    _parent_window: &adw::ApplicationWindow,
+    _ai_widget: &gtk4::Box,
+    _btn_ai_toggle: &gtk4::ToggleButton,
+    _submit_ai_prompt_cb: Rc<dyn Fn(&str)>,
     status_lbl: &gtk4::Label,
 ) {
-    // 1. Right-click Contextual `SelectionPopover`
-    let popover = gtk4::Popover::new();
-    popover.set_parent(term);
-    popover.set_has_arrow(true);
-
-    let pop_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
-    pop_vbox.set_margin_start(6);
-    pop_vbox.set_margin_end(6);
-    pop_vbox.set_margin_top(6);
-    pop_vbox.set_margin_bottom(6);
-
-    let btn_copy = gtk4::Button::with_label("📋 Copiar Seleção");
-    btn_copy.add_css_class("flat");
-    let btn_paste = gtk4::Button::with_label("📥 Colar");
-    btn_paste.add_css_class("flat");
-    let btn_select_all = gtk4::Button::with_label("🔲 Selecionar Tudo");
-    btn_select_all.add_css_class("flat");
-    let btn_export_direct = gtk4::Button::with_label("📜 Exportar Saída do Terminal...");
-    btn_export_direct.add_css_class("flat");
-    let btn_export_runbook = gtk4::Button::with_label("📘 Exportar Sessão como Caderno de Bordo (Runbook)...");
-    btn_export_runbook.add_css_class("flat");
-    let btn_explain_ai = gtk4::Button::with_label("🤖 Explicar / Diagnosticar com IA");
-    btn_explain_ai.add_css_class("flat");
-    let btn_autocomplete = gtk4::Button::with_label("⌨️ Autocompletar (CompletionEngine)");
-    btn_autocomplete.add_css_class("flat");
-
-    pop_vbox.append(&btn_copy);
-    pop_vbox.append(&btn_paste);
-    pop_vbox.append(&btn_select_all);
-    pop_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
-    pop_vbox.append(&btn_export_direct);
-    pop_vbox.append(&btn_export_runbook);
-    pop_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
-    pop_vbox.append(&btn_explain_ai);
-    pop_vbox.append(&btn_autocomplete);
-    popover.set_child(Some(&pop_vbox));
-
-    {
-        let t = term.clone();
-        let p = popover.clone();
-        let st = status_lbl.clone();
-        btn_copy.connect_clicked(move |_| {
-            t.copy_clipboard_format(vte4::Format::Text);
-            st.set_text("Texto selecionado copiado do terminal.");
-            p.popdown();
-        });
-    }
-    {
-        let t = term.clone();
-        let p = popover.clone();
-        btn_paste.connect_clicked(move |_| {
-            t.paste_clipboard();
-            p.popdown();
-        });
-    }
-    {
-        let t = term.clone();
-        let p = popover.clone();
-        btn_select_all.connect_clicked(move |_| {
-            t.select_all();
-            p.popdown();
-        });
-    }
-    {
-        let win_ref = parent_window.clone();
-        let t = term.clone();
-        let p = popover.clone();
-        let st = status_lbl.clone();
-        btn_export_direct.connect_clicked(move |_| {
-            p.popdown();
-            crate::export_dialog::show_export_terminal_dialog(&win_ref, &t, None, false, &st);
-        });
-    }
-    {
-        let win_ref = parent_window.clone();
-        let t = term.clone();
-        let p = popover.clone();
-        let st = status_lbl.clone();
-        btn_export_runbook.connect_clicked(move |_| {
-            p.popdown();
-            crate::export_dialog::show_export_terminal_dialog(&win_ref, &t, None, true, &st);
-        });
-    }
-    {
-        let t = term.clone();
-        let p = popover.clone();
-        let ai_w = ai_widget.clone();
-        let ai_btn = btn_ai_toggle.clone();
-        let sub_ai = Rc::clone(&submit_ai_prompt_cb);
-        let st = status_lbl.clone();
-
-        btn_explain_ai.connect_clicked(move |_| {
-            p.popdown();
-            let selected = t
-                .text_selected(vte4::Format::Text)
-                .map(|g| g.to_string())
-                .unwrap_or_default();
-            let query = if selected.trim().is_empty() {
-                "Explique o último comando ou erro do terminal".to_string()
-            } else {
-                format!("Analise e explique esta saída do terminal:\n{}", selected.trim())
-            };
-            ai_w.set_visible(true);
-            ai_btn.set_active(true);
-            sub_ai(&query);
-            st.set_text("Seleção enviada para análise no Assistente de IA Zero-Trust.");
-        });
-    }
-    {
-        let win_ref = parent_window.clone();
-        let t = term.clone();
-        let p = popover.clone();
-        let st = status_lbl.clone();
-        btn_autocomplete.connect_clicked(move |_| {
-            p.popdown();
-            let t_clone = t.clone();
-            show_autocomplete_assistant_dialog(
-                &win_ref,
-                Rc::new(move || Some(t_clone.clone())),
-                &st,
-            );
-        });
-    }
-
-    let click_ctrl = gtk4::GestureClick::new();
-    click_ctrl.set_button(3); // Right mouse button
-    {
-        let p = popover;
-        click_ctrl.connect_pressed(move |_, _, x, y| {
-            p.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
-            p.popup();
-        });
-    }
-    term.add_controller(click_ctrl);
-
-    // 2. Live Floating Autocomplete Popover (`src/onyxsh/terminal/completion/popup.py` & `manager.py`)
+    // 1. Live Floating Autocomplete Popover (`src/onyxsh/terminal/completion/popup.py` & `manager.py`)
     let comp_popover = gtk4::Popover::new();
     comp_popover.set_parent(term);
     comp_popover.set_autohide(false);
@@ -514,6 +511,46 @@ pub fn attach_vte_ux_controllers(
     comp_vbox.append(&comp_hint);
 
     comp_popover.set_child(Some(&comp_vbox));
+
+    // 2. Right-click Native PopoverMenu Context Menu (`CORRIGIR/menucontext3.jpg` & `src/onyxsh/ui/menus.py`)
+    let initial_menu = create_terminal_context_menu_model(false, None, None);
+    term.set_context_menu_model(Some(&initial_menu));
+
+    let popover = gtk4::PopoverMenu::builder()
+        .has_arrow(false)
+        .menu_model(&initial_menu)
+        .build();
+    popover.set_parent(term);
+
+    let click_ctrl = gtk4::GestureClick::new();
+    click_ctrl.set_button(3); // Right mouse button
+    {
+        let p = popover;
+        let t = term.clone();
+        let c_url = Rc::clone(&clicked_url_rc);
+        let comp_p = comp_popover.clone();
+        click_ctrl.connect_pressed(move |_, _, x, y| {
+            t.grab_focus();
+            if comp_p.is_visible() {
+                comp_p.popdown();
+            }
+
+            let url = detect_url_at_coords(&t, x, y);
+            *c_url.borrow_mut() = url.clone();
+
+            let has_sel = t.has_selection();
+            let err_code = check_terminal_last_error(&t);
+
+            let menu = create_terminal_context_menu_model(has_sel, url.as_deref(), err_code);
+            p.set_menu_model(Some(&menu));
+            t.set_context_menu_model(Some(&menu));
+
+            let rect = gdk::Rectangle::new(x as i32, y as i32, 1, 1);
+            p.set_pointing_to(Some(&rect));
+            p.popup();
+        });
+    }
+    term.add_controller(click_ctrl);
 
     let comp_items: Rc<RefCell<Vec<CompletionItem>>> = Rc::new(RefCell::new(Vec::new()));
     let comp_selected_idx: Rc<RefCell<usize>> = Rc::new(RefCell::new(0));
@@ -1123,5 +1160,24 @@ mod tests {
         );
         let rpm_comps = query_terminal_completions("rpm -ivh --no", 6);
         assert!(rpm_comps.iter().any(|c| c.text == "--nodeps"));
+    }
+
+    #[test]
+    fn test_create_terminal_context_menu_model() {
+        // 1. Default context menu (no selection, no URL, no error)
+        let menu_default = create_terminal_context_menu_model(false, None, None);
+        assert_eq!(menu_default.n_items(), 4);
+
+        // 2. With URL clicked
+        let menu_url = create_terminal_context_menu_model(false, Some("https://github.com"), None);
+        assert_eq!(menu_url.n_items(), 5);
+
+        // 3. With Selection
+        let menu_sel = create_terminal_context_menu_model(true, None, None);
+        assert_eq!(menu_sel.n_items(), 4);
+
+        // 4. With error code
+        let menu_err = create_terminal_context_menu_model(false, None, Some(127));
+        assert_eq!(menu_err.n_items(), 4);
     }
 }

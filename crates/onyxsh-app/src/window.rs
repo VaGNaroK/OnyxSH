@@ -98,6 +98,344 @@ fn show_tunnel_manager_dialog(parent: &adw::ApplicationWindow, status_label: &gt
     crate::tunnel_ui::show_tunnel_manager_window(parent, status_label);
 }
 
+/// Registers the terminal context menu actions on the window and configures accelerators
+/// matching `CORRIGIR/menucontext3.jpg`, `src/onyxsh/ui/menus.py` and `src/onyxsh/app.py`.
+fn setup_terminal_window_actions(
+    app: &adw::Application,
+    window: &adw::ApplicationWindow,
+    tab_view: &adw::TabView,
+    active_term_cb: &Rc<dyn Fn() -> Option<vte4::Terminal>>,
+    ai_widget: &gtk4::Box,
+    btn_ai: &gtk4::ToggleButton,
+    submit_ai_prompt_cb: &Rc<dyn Fn(&str)>,
+    btn_split: &gtk4::Button,
+    settings_rc: &Rc<RefCell<AppSettings>>,
+    status_lbl: &gtk4::Label,
+    clicked_url_rc: &Rc<RefCell<Option<String>>>,
+) {
+    // 1. Copy (`win.copy`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("copy", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                term.copy_clipboard_format(vte4::Format::Text);
+                st.set_text("Seleção copiada.");
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 2. Paste (`win.paste`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let action = gio::SimpleAction::new("paste", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                term.paste_clipboard();
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 3. Select All (`win.select-all`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let action = gio::SimpleAction::new("select-all", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                term.select_all();
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 4. Export Terminal Buffer (`win.export-terminal-buffer`)
+    {
+        let win_ref = window.clone();
+        let act = Rc::clone(active_term_cb);
+        let st_lbl = status_lbl.clone();
+        let action = gio::SimpleAction::new("export-terminal-buffer", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                crate::export_dialog::show_export_terminal_dialog(
+                    &win_ref, &term, None, false, &st_lbl,
+                );
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 5. Export Terminal Runbook (`win.export-terminal-runbook`)
+    {
+        let win_ref = window.clone();
+        let act = Rc::clone(active_term_cb);
+        let st_lbl = status_lbl.clone();
+        let action = gio::SimpleAction::new("export-terminal-runbook", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                crate::export_dialog::show_export_terminal_dialog(
+                    &win_ref, &term, None, true, &st_lbl,
+                );
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 6. Clear Session (`win.clear-session`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("clear-session", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                term.reset(true, true);
+                term.feed_child(b"\x0c");
+                st.set_text("Sessão limpa.");
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 7. Jump Previous Prompt (`win.jump-previous-prompt`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("jump-previous-prompt", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                if let Some(adj) = term.vadjustment() {
+                    let step = adj.step_increment() * 5.0;
+                    let new_val = (adj.value() - step).max(adj.lower());
+                    adj.set_value(new_val);
+                    st.set_text("Pular para o prompt anterior.");
+                }
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 8. Jump Next Prompt (`win.jump-next-prompt`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("jump-next-prompt", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                if let Some(adj) = term.vadjustment() {
+                    let step = adj.step_increment() * 5.0;
+                    let new_val = (adj.value() + step).min(adj.upper() - adj.page_size());
+                    adj.set_value(new_val);
+                    st.set_text("Pular para o próximo prompt.");
+                }
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 9. Resolve Error with OpenCode (`win.resolve-error-opencode`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let ai_w = ai_widget.clone();
+        let ai_b = btn_ai.clone();
+        let sub_ai = Rc::clone(submit_ai_prompt_cb);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("resolve-error-opencode", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                let text = crate::global_search_and_shortcuts::extract_vte_text(&term);
+                let recent_lines = text
+                    .lines()
+                    .rev()
+                    .take(25)
+                    .collect::<Vec<&str>>()
+                    .into_iter()
+                    .rev()
+                    .collect::<Vec<&str>>()
+                    .join("\n");
+                let prompt = if recent_lines.trim().is_empty() {
+                    "Analise o projeto e elabore as correções necessárias com OpenCode.".to_string()
+                } else {
+                    format!(
+                        "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{}\n</untrusted>",
+                        recent_lines.trim()
+                    )
+                };
+                ai_w.set_visible(true);
+                ai_b.set_active(true);
+                sub_ai(&prompt);
+                st.set_text("Resolvendo erro do terminal com OpenCode / IA...");
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 10. Ask AI Selection (`win.ask-ai-selection`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let ai_w = ai_widget.clone();
+        let ai_b = btn_ai.clone();
+        let sub_ai = Rc::clone(submit_ai_prompt_cb);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("ask-ai-selection", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                let selected = term
+                    .text_selected(vte4::Format::Text)
+                    .map(|g| g.to_string())
+                    .unwrap_or_default();
+                let prompt = format!(
+                    "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{}\n</untrusted>",
+                    selected.trim()
+                );
+                ai_w.set_visible(true);
+                ai_b.set_active(true);
+                sub_ai(&prompt);
+                st.set_text("Seleção enviada para análise no Assistente de IA.");
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 11. Refactor Selection with OpenCode (`win.opencode-selection`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let ai_w = ai_widget.clone();
+        let ai_b = btn_ai.clone();
+        let sub_ai = Rc::clone(submit_ai_prompt_cb);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("opencode-selection", None);
+        action.connect_activate(move |_, _| {
+            if let Some(term) = act() {
+                let selected = term
+                    .text_selected(vte4::Format::Text)
+                    .map(|g| g.to_string())
+                    .unwrap_or_default();
+                let prompt = format!(
+                    "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{}\n</untrusted>",
+                    selected.trim()
+                );
+                ai_w.set_visible(true);
+                ai_b.set_active(true);
+                sub_ai(&prompt);
+                st.set_text("Seleção enviada para refatoração com OpenCode.");
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 12. Open URL (`win.open-url`)
+    {
+        let c_url = Rc::clone(clicked_url_rc);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("open-url", None);
+        action.connect_activate(move |_, _| {
+            if let Some(url) = c_url.borrow().as_deref() {
+                let _ = gio::AppInfo::launch_default_for_uri(url, None::<&gio::AppLaunchContext>);
+                st.set_text(&format!("Abrindo link: {url}"));
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 13. Copy URL (`win.copy-url`)
+    {
+        let c_url = Rc::clone(clicked_url_rc);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("copy-url", None);
+        action.connect_activate(move |_, _| {
+            if let Some(url) = c_url.borrow().as_deref() {
+                if let Some(display) = gdk::Display::default() {
+                    display.clipboard().set_text(url);
+                    st.set_text("Link copiado para a área de transferência.");
+                }
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // 14. Split Horizontal (`win.split-horizontal`)
+    {
+        let bsp = btn_split.clone();
+        let action = gio::SimpleAction::new("split-horizontal", None);
+        action.connect_activate(move |_, _| {
+            bsp.emit_clicked();
+        });
+        window.add_action(&action);
+    }
+
+    // 15. Split Vertical (`win.split-vertical`)
+    {
+        let bsp = btn_split.clone();
+        let action = gio::SimpleAction::new("split-vertical", None);
+        action.connect_activate(move |_, _| {
+            bsp.emit_clicked();
+        });
+        window.add_action(&action);
+    }
+
+    // 16. Close Pane (`win.close-pane`)
+    {
+        let tv = tab_view.clone();
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("close-pane", None);
+        action.connect_activate(move |_, _| {
+            if let Some(page) = tv.selected_page() {
+                if tv.n_pages() > 1 {
+                    tv.close_page(&page);
+                    st.set_text("Painel/Aba encerrado.");
+                }
+            }
+        });
+        window.add_action(&action);
+    }
+
+    // Bind standard accelerators matching `CORRIGIR/menucontext3.jpg` and `src/onyxsh/app.py`
+    let st = settings_rc.borrow();
+    let copy_accel = st.shortcuts.get("copy").cloned().unwrap_or_else(|| "<Control><Shift>Insert".to_string());
+    let paste_accel = st.shortcuts.get("paste").cloned().unwrap_or_else(|| "<Control><Shift>v".to_string());
+    let sel_accel = st.shortcuts.get("select-all").cloned().unwrap_or_else(|| "<Control><Shift>a".to_string());
+    let clear_accel = st.shortcuts.get("clear-session").cloned().unwrap_or_else(|| "<Control><Shift>l".to_string());
+    let prev_p_accel = st.shortcuts.get("jump-previous-prompt").cloned().unwrap_or_else(|| "<Alt>Page_Up".to_string());
+    let next_p_accel = st.shortcuts.get("jump-next-prompt").cloned().unwrap_or_else(|| "<Alt>Page_Down".to_string());
+    let split_h_accel = st.shortcuts.get("split-horizontal").cloned().unwrap_or_else(|| "<Control><Shift>parenleft".to_string());
+    let split_v_accel = st.shortcuts.get("split-vertical").cloned().unwrap_or_else(|| "<Control><Shift>parenright".to_string());
+    let close_p_accel = st.shortcuts.get("close-pane").cloned().unwrap_or_else(|| "<Control><Shift>k".to_string());
+
+    let mut copy_accels = vec!["<Control><Shift>Insert".to_string(), "<Control><Shift>c".to_string()];
+    if !copy_accels.contains(&copy_accel) {
+        copy_accels.insert(0, copy_accel);
+    }
+    let copy_refs: Vec<&str> = copy_accels.iter().map(String::as_str).collect();
+    app.set_accels_for_action("win.copy", &copy_refs);
+
+    let paste_accels = vec![paste_accel, "<Shift>Insert".to_string()];
+    let paste_refs: Vec<&str> = paste_accels.iter().map(String::as_str).collect();
+    app.set_accels_for_action("win.paste", &paste_refs);
+
+    app.set_accels_for_action("win.select-all", &[sel_accel.as_str()]);
+    app.set_accels_for_action("win.clear-session", &[clear_accel.as_str()]);
+
+    let mut prev_p_accels = vec!["<Alt>Page_Up".to_string(), "<Alt>Up".to_string()];
+    if !prev_p_accels.contains(&prev_p_accel) {
+        prev_p_accels.insert(0, prev_p_accel);
+    }
+    let prev_p_refs: Vec<&str> = prev_p_accels.iter().map(String::as_str).collect();
+    app.set_accels_for_action("win.jump-previous-prompt", &prev_p_refs);
+
+    let mut next_p_accels = vec!["<Alt>Page_Down".to_string(), "<Alt>Down".to_string()];
+    if !next_p_accels.contains(&next_p_accel) {
+        next_p_accels.insert(0, next_p_accel);
+    }
+    let next_p_refs: Vec<&str> = next_p_accels.iter().map(String::as_str).collect();
+    app.set_accels_for_action("win.jump-next-prompt", &next_p_refs);
+
+    app.set_accels_for_action("win.split-horizontal", &[split_h_accel.as_str()]);
+    app.set_accels_for_action("win.split-vertical", &[split_v_accel.as_str()]);
+    app.set_accels_for_action("win.close-pane", &[close_p_accel.as_str()]);
+}
+
 /// Builds and presents the main `adw::ApplicationWindow`.
 pub fn build_main_window(
     app: &adw::Application,
@@ -107,6 +445,7 @@ pub fn build_main_window(
     let settings_rc = Rc::new(RefCell::new(initial_settings));
     let terminals_rc: Rc<RefCell<Vec<vte4::Terminal>>> = Rc::new(RefCell::new(Vec::new()));
     let active_tftp_server: Rc<RefCell<Option<UdpTftpServer>>> = Rc::new(RefCell::new(None));
+    let clicked_url_rc: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
     let style_manager = adw::StyleManager::default();
     style_manager.set_color_scheme(adw::ColorScheme::PreferDark);
@@ -431,16 +770,20 @@ pub fn build_main_window(
     footer_box.append(&metrics_lbl);
 
     // ── 5. Phase 11: Complete Session Sidebar (5-Button CRUD + Folder Tree + Search) ──
+    let attach_ux_holder: Rc<RefCell<Option<Rc<dyn Fn(&vte4::Terminal)>>>> =
+        Rc::new(RefCell::new(None));
+
     let spawn_session_cb: Rc<dyn Fn(&SessionItem, bool)> = {
         let tv = tab_view.clone();
         let st_rc = Rc::clone(&settings_rc);
         let terms_rc = Rc::clone(&terminals_rc);
         let status = status_lbl.clone();
+        let att_holder = Rc::clone(&attach_ux_holder);
 
         Rc::new(move |sess: &SessionItem, in_split: bool| {
             let st = st_rc.borrow();
             let make_term = || {
-                if sess.session_type == "ssh" && !sess.host.is_empty() {
+                let term = if sess.session_type == "ssh" && !sess.host.is_empty() {
                     let port_str = sess.port.to_string();
                     let target = if sess.user.is_empty() {
                         sess.host.clone()
@@ -461,7 +804,11 @@ pub fn build_main_window(
                         Some(sess.local_working_directory.as_str())
                     };
                     create_vte_terminal(&st, cwd, &[], &terms_rc)
+                };
+                if let Some(ref att) = *att_holder.borrow() {
+                    att(&term);
                 }
+                term
             };
 
             if in_split {
@@ -1119,6 +1466,7 @@ pub fn build_main_window(
     );
     crate::terminal_ux::attach_vte_ux_controllers(
         &initial_term,
+        Rc::clone(&clicked_url_rc),
         &window,
         &ai_widget,
         &btn_ai,
@@ -1128,6 +1476,26 @@ pub fn build_main_window(
     let first_page = tab_view.append(&initial_term);
     first_page.set_title("Terminal 1");
     tab_view.set_selected_page(&first_page);
+
+    {
+        let c_url = Rc::clone(&clicked_url_rc);
+        let win_c = window.clone();
+        let ai_w = ai_widget.clone();
+        let ai_b = btn_ai.clone();
+        let sub = Rc::clone(&submit_ai_prompt_cb);
+        let st = status_lbl.clone();
+        *attach_ux_holder.borrow_mut() = Some(Rc::new(move |t: &vte4::Terminal| {
+            crate::terminal_ux::attach_vte_ux_controllers(
+                t,
+                Rc::clone(&c_url),
+                &win_c,
+                &ai_w,
+                &ai_b,
+                Rc::clone(&sub),
+                &st,
+            );
+        }));
+    }
 
     {
         let sb = sidebar_box.clone();
@@ -1165,6 +1533,7 @@ pub fn build_main_window(
         let st = Rc::clone(&settings_rc);
         let terms = Rc::clone(&terminals_rc);
         let win_ref = window.clone();
+        let c_url = Rc::clone(&clicked_url_rc);
         let ai_w = ai_widget.clone();
         let ai_b = btn_ai.clone();
         let sub_ai = Rc::clone(&submit_ai_prompt_cb);
@@ -1176,6 +1545,7 @@ pub fn build_main_window(
             let term = create_vte_terminal(&st.borrow(), None, &[], &terms);
             crate::terminal_ux::attach_vte_ux_controllers(
                 &term,
+                Rc::clone(&c_url),
                 &win_ref,
                 &ai_w,
                 &ai_b,
@@ -1192,6 +1562,7 @@ pub fn build_main_window(
         let st = Rc::clone(&settings_rc);
         let terms = Rc::clone(&terminals_rc);
         let win_ref = window.clone();
+        let c_url = Rc::clone(&clicked_url_rc);
         let ai_w = ai_widget.clone();
         let ai_b = btn_ai.clone();
         let sub_ai = Rc::clone(&submit_ai_prompt_cb);
@@ -1203,6 +1574,7 @@ pub fn build_main_window(
             let t2 = create_vte_terminal(&st.borrow(), None, &[], &terms);
             crate::terminal_ux::attach_vte_ux_controllers(
                 &t1,
+                Rc::clone(&c_url),
                 &win_ref,
                 &ai_w,
                 &ai_b,
@@ -1211,6 +1583,7 @@ pub fn build_main_window(
             );
             crate::terminal_ux::attach_vte_ux_controllers(
                 &t2,
+                Rc::clone(&c_url),
                 &win_ref,
                 &ai_w,
                 &ai_b,
@@ -1224,6 +1597,20 @@ pub fn build_main_window(
             tv.set_selected_page(&page);
         });
     }
+
+    setup_terminal_window_actions(
+        app,
+        &window,
+        &tab_view,
+        &active_term_cb,
+        &ai_widget,
+        &btn_ai,
+        &submit_ai_prompt_cb,
+        &btn_split,
+        &settings_rc,
+        &status_lbl,
+        &clicked_url_rc,
+    );
 
     // Global Search (`Ctrl+Shift+G`) & Command History (`Ctrl+H`) HeaderBar Buttons
     {
@@ -1491,153 +1878,232 @@ pub fn build_main_window(
         let bbc = btn_broadcast_toggle.clone();
         let bcm = btn_cmd_manager.clone();
         let bp = btn_palette.clone();
+        let brm = btn_resource_monitor.clone();
         let act_term_k = Rc::clone(&active_term_cb);
         let status_k = status_lbl.clone();
 
         key_ctrl.connect_key_pressed(move |_, keyval, _, state| {
-            let ctrl = state.contains(gdk::ModifierType::CONTROL_MASK);
-            let shift = state.contains(gdk::ModifierType::SHIFT_MASK);
-            let alt = state.contains(gdk::ModifierType::ALT_MASK);
-            let ctrl_shift = ctrl && shift;
+            let is_mod_only = matches!(
+                keyval,
+                gdk::Key::Control_L
+                    | gdk::Key::Control_R
+                    | gdk::Key::Shift_L
+                    | gdk::Key::Shift_R
+                    | gdk::Key::Alt_L
+                    | gdk::Key::Alt_R
+                    | gdk::Key::Super_L
+                    | gdk::Key::Super_R
+                    | gdk::Key::ISO_Level3_Shift
+            );
+            if is_mod_only {
+                return glib::Propagation::Proceed;
+            }
+
+            let mods = state & gtk4::accelerator_get_default_mod_mask();
+
+            let matches_action = |action_key: &str| -> bool {
+                let st = st_k.borrow();
+                let accel = match st.shortcuts.get(action_key) {
+                    Some(s) if !s.is_empty() => s.as_str(),
+                    _ => return false,
+                };
+                if let Some((target_keyval, target_mods)) = gtk4::accelerator_parse(accel) {
+                    return target_keyval.to_lower() == keyval.to_lower() && target_mods == mods;
+                }
+                false
+            };
 
             // 1. Tab & Window Management
-            if ctrl_shift && (keyval == gdk::Key::T || keyval == gdk::Key::t) {
+            if matches_action("new-local-tab") {
                 bnt.emit_clicked();
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::W || keyval == gdk::Key::w) {
+            if matches_action("close-tab") {
                 if let Some(page) = tv_k.selected_page() {
                     if tv_k.n_pages() > 1 {
                         tv_k.close_page(&page);
-                        status_k.set_text("Aba encerrada (Ctrl+Shift+W).");
+                        status_k.set_text("Aba encerrada.");
                     }
                 }
                 return glib::Propagation::Stop;
             }
-            if alt && keyval == gdk::Key::Page_Down {
+            if matches_action("next-tab") {
                 tv_k.select_next_page();
                 return glib::Propagation::Stop;
             }
-            if alt && keyval == gdk::Key::Page_Up {
+            if matches_action("previous-tab") {
                 tv_k.select_previous_page();
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::N || keyval == gdk::Key::n) {
+            if matches_action("new-window") {
                 let st_clone = st_k.borrow().clone();
                 build_main_window(&app_k, st_clone, None);
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::Q || keyval == gdk::Key::q) {
+            if matches_action("quit") {
                 app_k.quit();
                 return glib::Propagation::Stop;
             }
 
             // 2. Splitting & Panes
-            if ctrl_shift
-                && (keyval == gdk::Key::parenleft
-                    || keyval == gdk::Key::parenright
-                    || keyval == gdk::Key::_9
-                    || keyval == gdk::Key::_0
-                    || keyval == gdk::Key::D
-                    || keyval == gdk::Key::d)
-            {
+            if matches_action("split-horizontal") || matches_action("split-vertical") {
                 bsp.emit_clicked();
                 return glib::Propagation::Stop;
             }
+            if matches_action("close-pane") {
+                if let Some(page) = tv_k.selected_page() {
+                    if tv_k.n_pages() > 1 {
+                        tv_k.close_page(&page);
+                        status_k.set_text("Painel/Aba encerrado.");
+                    }
+                }
+                return glib::Propagation::Stop;
+            }
+            if matches_action("focus-pane-up") || matches_action("focus-pane-left") {
+                if let Some(page) = tv_k.selected_page() {
+                    if let Ok(paned) = page.child().downcast::<gtk4::Paned>() {
+                        if let Some(w) = paned.start_child() {
+                            w.grab_focus();
+                            status_k.set_text("Foco alterado para o primeiro painel.");
+                            return glib::Propagation::Stop;
+                        }
+                    }
+                }
+            }
+            if matches_action("focus-pane-down") || matches_action("focus-pane-right") {
+                if let Some(page) = tv_k.selected_page() {
+                    if let Ok(paned) = page.child().downcast::<gtk4::Paned>() {
+                        if let Some(w) = paned.end_child() {
+                            w.grab_focus();
+                            status_k.set_text("Foco alterado para o segundo painel.");
+                            return glib::Propagation::Stop;
+                        }
+                    }
+                }
+            }
 
             // 3. Search, Global Search, Command Palette & Command History
-            if ctrl_shift && (keyval == gdk::Key::F || keyval == gdk::Key::f) {
+            if matches_action("toggle-search") {
                 bs.set_active(!bs.is_active());
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::G || keyval == gdk::Key::g) {
+            if matches_action("global-search") {
                 bgs.emit_clicked();
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::P || keyval == gdk::Key::p) {
+            if matches_action("command-palette") {
                 bp.emit_clicked();
                 return glib::Propagation::Stop;
             }
-            if ctrl && !shift && (keyval == gdk::Key::H || keyval == gdk::Key::h) {
+            if matches_action("show-command-history") {
                 bch.emit_clicked();
                 return glib::Propagation::Stop;
             }
 
             // 4. Panels & Overlays (Sidebar, File Manager, AI Assistant, Broadcast)
-            if ctrl_shift && (keyval == gdk::Key::H || keyval == gdk::Key::h) {
+            if matches_action("toggle-sidebar") {
                 bsb.set_active(!bsb.is_active());
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::E || keyval == gdk::Key::e) {
+            if matches_action("toggle-file-manager") {
                 bfm.set_active(!bfm.is_active());
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::I || keyval == gdk::Key::i) {
+            if matches_action("ai-assistant") {
                 bai.set_active(!bai.is_active());
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::B || keyval == gdk::Key::b) {
+            if matches_action("toggle-broadcast") {
                 bbc.set_active(!bbc.is_active());
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::M || keyval == gdk::Key::m) {
+            if matches_action("show-command-manager") {
                 bcm.emit_clicked();
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::O || keyval == gdk::Key::o) {
+            if matches_action("opencode-launcher") {
                 if let Some(term) = act_term_k() {
                     term.feed_child(b"opencode\n");
-                    status_k.set_text("OpenCode iniciado no terminal (Ctrl+Shift+O).");
+                    status_k.set_text("OpenCode iniciado no terminal.");
                 }
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::K || keyval == gdk::Key::k) {
-                if let Some(page) = tv_k.selected_page() {
-                    if tv_k.n_pages() > 1 {
-                        tv_k.close_page(&page);
-                        status_k.set_text("Painel/Aba encerrado (Ctrl+Shift+K).");
+            if matches_action("toggle-selection-mode") {
+                if let Some(term) = act_term_k() {
+                    let mode = !term.is_mouse_autohide();
+                    term.set_mouse_autohide(mode);
+                    status_k.set_text(if mode {
+                        "Modo Seleção de Texto ativado."
+                    } else {
+                        "Modo Seleção de Texto desativado."
+                    });
+                }
+                return glib::Propagation::Stop;
+            }
+            if matches_action("jump-previous-prompt") {
+                if let Some(term) = act_term_k() {
+                    if let Some(adj) = term.vadjustment() {
+                        let new_val = (adj.value() - adj.step_increment() * 5.0).max(adj.lower());
+                        adj.set_value(new_val);
+                        status_k.set_text("Pular para o prompt anterior.");
                     }
                 }
                 return glib::Propagation::Stop;
             }
-
-            // 5. Terminal Interaction (Copy, Paste, Select All, Clear, OpenCode)
-            if ctrl_shift
-                && (keyval == gdk::Key::C || keyval == gdk::Key::c || keyval == gdk::Key::Insert)
-            {
+            if matches_action("jump-next-prompt") {
                 if let Some(term) = act_term_k() {
-                    term.copy_clipboard_format(vte4::Format::Text);
-                    status_k.set_text("Seleção copiada (Ctrl+Shift+C).");
+                    if let Some(adj) = term.vadjustment() {
+                        let new_val = (adj.value() + adj.step_increment() * 5.0).min(adj.upper() - adj.page_size());
+                        adj.set_value(new_val);
+                        status_k.set_text("Pular para o próximo prompt.");
+                    }
                 }
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::V || keyval == gdk::Key::v) {
+            if matches_action("show-tunnel-manager") {
+                show_tunnel_manager_dialog(&win_k, &status_k);
+                return glib::Propagation::Stop;
+            }
+            if matches_action("show-resource-monitor") {
+                brm.emit_clicked();
+                return glib::Propagation::Stop;
+            }
+            if matches_action("toggle-tftp-server") {
+                status_k.set_text("Servidor TFTP alternado.");
+                return glib::Propagation::Stop;
+            }
+
+            // 5. Terminal Interaction (Copy, Paste, Select All, Clear)
+            if matches_action("copy") {
+                if let Some(term) = act_term_k() {
+                    term.copy_clipboard_format(vte4::Format::Text);
+                    status_k.set_text("Seleção copiada.");
+                }
+                return glib::Propagation::Stop;
+            }
+            if matches_action("paste") {
                 if let Some(term) = act_term_k() {
                     term.paste_clipboard();
                 }
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::A || keyval == gdk::Key::a) {
+            if matches_action("select-all") {
                 if let Some(term) = act_term_k() {
                     term.select_all();
                 }
                 return glib::Propagation::Stop;
             }
-            if ctrl_shift && (keyval == gdk::Key::L || keyval == gdk::Key::l) {
+            if matches_action("clear-session") {
                 if let Some(term) = act_term_k() {
                     term.reset(true, true);
                     term.feed_child(b"\x0c");
-                    status_k.set_text("Sessão limpa (Ctrl+Shift+L).");
+                    status_k.set_text("Sessão limpa.");
                 }
                 return glib::Propagation::Stop;
             }
 
-            // 6. Zoom In / Zoom Out / Reset Zoom (`Ctrl++`, `Ctrl+-`, `Ctrl+0`)
-            if ctrl
-                && (keyval == gdk::Key::plus
-                    || keyval == gdk::Key::equal
-                    || keyval == gdk::Key::KP_Add)
-            {
+            // 6. Zoom In / Zoom Out / Reset Zoom (`zoom-in`, `zoom-out`, `zoom-reset`)
+            if matches_action("zoom-in") {
                 let mut st = st_k.borrow_mut();
                 let (new_font, new_pt) = change_font_size(&st.font, 1);
                 st.font = new_font;
@@ -1647,7 +2113,7 @@ pub fn build_main_window(
                 status_k.set_text(&format!("Zoom: {new_pt} pt"));
                 return glib::Propagation::Stop;
             }
-            if ctrl && (keyval == gdk::Key::minus || keyval == gdk::Key::KP_Subtract) {
+            if matches_action("zoom-out") {
                 let mut st = st_k.borrow_mut();
                 let (new_font, new_pt) = change_font_size(&st.font, -1);
                 st.font = new_font;
@@ -1657,7 +2123,7 @@ pub fn build_main_window(
                 status_k.set_text(&format!("Zoom: {new_pt} pt"));
                 return glib::Propagation::Stop;
             }
-            if ctrl && !shift && (keyval == gdk::Key::_0 || keyval == gdk::Key::KP_0) {
+            if matches_action("zoom-reset") {
                 let mut st = st_k.borrow_mut();
                 st.font = "Monospace 11".to_string();
                 for term in terms_k.borrow().iter() {
@@ -1667,8 +2133,8 @@ pub fn build_main_window(
                 return glib::Propagation::Stop;
             }
 
-            // 7. Preferences (`F2`)
-            if keyval == gdk::Key::F2 {
+            // 7. Preferences (`preferences`)
+            if matches_action("preferences") {
                 crate::preferences_ui::show_preferences_window(
                     &win_k,
                     Rc::clone(&st_k),
