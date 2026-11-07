@@ -2,6 +2,8 @@
 //! (`src/onyxsh/data/command_manager_models.py`, `ui/dialogs/command_manager_dialog.py`,
 //! `ui/widgets/form_widget_builder.py`, and `ui/window_ui.py`).
 
+use gtk4::gdk;
+use gtk4::pango;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
@@ -55,6 +57,10 @@ pub struct CommandButton {
     pub execution_mode: ExecutionMode,
     pub pinned: bool,
     #[serde(default)]
+    pub hidden: bool,
+    #[serde(default)]
+    pub is_builtin: bool,
+    #[serde(default)]
     pub form_fields: Vec<CommandFormField>,
 }
 
@@ -63,29 +69,163 @@ pub fn command_buttons_file_path() -> PathBuf {
     platform::config_dir().join("command_buttons.json")
 }
 
-/// Built-in default DevOps, Network, Docker, Systemd, and Git command buttons.
+/// Built-in default command buttons matching `src/onyxsh/data/command_manager_models.py` and `CORRIGIR/gerenciador_comandos.png`.
 pub fn default_command_buttons() -> Vec<CommandButton> {
     vec![
+        // 1. APT
         CommandButton {
-            id: "sys_ports".to_string(),
-            name: "Portas em Escuta".to_string(),
-            description: "Lista portas TCP/UDP abertas e processos associados (ss -tulnp)".to_string(),
-            command_template: "ss -tulnp".to_string(),
-            category: "Rede & Segurança".to_string(),
-            icon_name: "network-wired-symbolic".to_string(),
-            execution_mode: ExecutionMode::InsertAndExecute,
-            pinned: true,
-            form_fields: Vec::new(),
+            id: "builtin_apt".to_string(),
+            name: "APT".to_string(),
+            description: "Operações com gerenciador de pacotes Debian/Ubuntu".to_string(),
+            command_template: "sudo apt {{action}} {{package}}".to_string(),
+            category: "Sistema".to_string(),
+            icon_name: "system-software-install-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "action".to_string(),
+                    label: "Ação".to_string(),
+                    field_type: FieldType::Dropdown,
+                    default_value: "install".to_string(),
+                    options: vec![
+                        "install".to_string(),
+                        "remove".to_string(),
+                        "purge".to_string(),
+                        "update".to_string(),
+                        "upgrade -y".to_string(),
+                        "autoremove".to_string(),
+                        "search".to_string(),
+                        "show".to_string(),
+                        "clean".to_string(),
+                        "autoclean".to_string(),
+                    ],
+                },
+                CommandFormField {
+                    id: "package".to_string(),
+                    label: "Pacote".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "".to_string(),
+                    options: Vec::new(),
+                },
+            ],
         },
+        // 2. Compactar
         CommandButton {
-            id: "docker_logs".to_string(),
+            id: "builtin_compress".to_string(),
+            name: "Compactar".to_string(),
+            description: "Cria arquivos compactados a partir de arquivos e pastas".to_string(),
+            command_template: "tar -cJvf {{output}} {{input}}".to_string(),
+            category: "Operações de Arquivo".to_string(),
+            icon_name: "package-x-generic-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "format".to_string(),
+                    label: "Formato".to_string(),
+                    field_type: FieldType::Dropdown,
+                    default_value: "tar.xz".to_string(),
+                    options: vec![
+                        "tar.xz".to_string(),
+                        "tar.gz".to_string(),
+                        "tar.bz2".to_string(),
+                        "tar.zst".to_string(),
+                        "zip".to_string(),
+                    ],
+                },
+                CommandFormField {
+                    id: "input".to_string(),
+                    label: "Arquivos/Pastas de Origem".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "".to_string(),
+                    options: Vec::new(),
+                },
+                CommandFormField {
+                    id: "output".to_string(),
+                    label: "Nome do Arquivo de Destino".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "archive.tar.xz".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 3. Criar Nova Branch no Git
+        CommandButton {
+            id: "snippet_git_new_branch".to_string(),
+            name: "Criar Nova Branch no Git".to_string(),
+            description: "Cria e muda para uma nova branch local no repositório Git".to_string(),
+            command_template: "git checkout -b {{new_branch}}".to_string(),
+            category: "Git & Version Control".to_string(),
+            icon_name: "edit-copy-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "new_branch".to_string(),
+                    label: "Nome da Nova Branch".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "feature/nova-funcionalidade".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 4. DNF
+        CommandButton {
+            id: "builtin_dnf".to_string(),
+            name: "DNF".to_string(),
+            description: "Operações com gerenciador de pacotes Fedora/RHEL".to_string(),
+            command_template: "sudo dnf {{action}} {{package}}".to_string(),
+            category: "Sistema".to_string(),
+            icon_name: "system-software-install-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "action".to_string(),
+                    label: "Ação".to_string(),
+                    field_type: FieldType::Dropdown,
+                    default_value: "install".to_string(),
+                    options: vec![
+                        "install".to_string(),
+                        "remove".to_string(),
+                        "upgrade -y".to_string(),
+                        "check-update".to_string(),
+                        "autoremove".to_string(),
+                        "search".to_string(),
+                        "info".to_string(),
+                        "clean all".to_string(),
+                    ],
+                },
+                CommandFormField {
+                    id: "package".to_string(),
+                    label: "Pacote".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 5. Docker Logs
+        CommandButton {
+            id: "snippet_docker_logs".to_string(),
             name: "Docker Logs".to_string(),
-            description: "Acompanha logs de um container Docker com limite de linhas".to_string(),
-            command_template: "docker logs --tail {{lines}} {{follow}} {{container}}".to_string(),
-            category: "Docker & Containers".to_string(),
+            description: "Acompanha logs de um container Docker em tempo real".to_string(),
+            command_template: "docker logs -f {{container}} --tail {{lines}}".to_string(),
+            category: "Containers & Docker".to_string(),
             icon_name: "utilities-terminal-symbolic".to_string(),
             execution_mode: ExecutionMode::ShowForm,
             pinned: true,
+            hidden: false,
+            is_builtin: true,
             form_fields: vec![
                 CommandFormField {
                     id: "container".to_string(),
@@ -101,6 +241,150 @@ pub fn default_command_buttons() -> Vec<CommandButton> {
                     default_value: "100".to_string(),
                     options: Vec::new(),
                 },
+            ],
+        },
+        // 6. Encontrar Arquivos
+        CommandButton {
+            id: "builtin_find".to_string(),
+            name: "Encontrar Arquivos".to_string(),
+            description: "Busca arquivos e diretórios com filtros avançados".to_string(),
+            command_template: "find {{path}} {{name_pattern}} {{file_type}}".to_string(),
+            category: "Operações de Arquivo".to_string(),
+            icon_name: "system-search-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "path".to_string(),
+                    label: "Diretório Inicial".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: ".".to_string(),
+                    options: Vec::new(),
+                },
+                CommandFormField {
+                    id: "name_pattern".to_string(),
+                    label: "Padrão de Nome (ex: *.log)".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "*".to_string(),
+                    options: Vec::new(),
+                },
+                CommandFormField {
+                    id: "file_type".to_string(),
+                    label: "Tipo de Arquivo".to_string(),
+                    field_type: FieldType::Dropdown,
+                    default_value: "".to_string(),
+                    options: vec![
+                        "".to_string(),
+                        "-type f".to_string(),
+                        "-type d".to_string(),
+                        "-type l".to_string(),
+                    ],
+                },
+            ],
+        },
+        // 7. Extrair
+        CommandButton {
+            id: "builtin_extract".to_string(),
+            name: "Extrair".to_string(),
+            description: "Extrai arquivos de arquivos compactados".to_string(),
+            command_template: "tar -xvf {{input}}".to_string(),
+            category: "Operações de Arquivo".to_string(),
+            icon_name: "package-x-generic-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "input".to_string(),
+                    label: "Arquivo Compactado".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "archive.tar.xz".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 8. Flatpak
+        CommandButton {
+            id: "builtin_flatpak".to_string(),
+            name: "Flatpak".to_string(),
+            description: "Gerenciamento de aplicativos e runtimes Flatpak".to_string(),
+            command_template: "flatpak {{action}} {{package}}".to_string(),
+            category: "Sistema".to_string(),
+            icon_name: "system-software-install-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "action".to_string(),
+                    label: "Ação".to_string(),
+                    field_type: FieldType::Dropdown,
+                    default_value: "install".to_string(),
+                    options: vec![
+                        "install".to_string(),
+                        "uninstall".to_string(),
+                        "update".to_string(),
+                        "list --app".to_string(),
+                        "search".to_string(),
+                        "info".to_string(),
+                        "run".to_string(),
+                    ],
+                },
+                CommandFormField {
+                    id: "package".to_string(),
+                    label: "Aplicativo ou ID".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 9. Git Commit
+        CommandButton {
+            id: "snippet_git_commit".to_string(),
+            name: "Git Commit".to_string(),
+            description: "Faz commit das alterações no Git com mensagem descritiva".to_string(),
+            command_template: "git commit -m \"{{message}}\"".to_string(),
+            category: "Git & Version Control".to_string(),
+            icon_name: "document-save-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "message".to_string(),
+                    label: "Mensagem do Commit".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "feat: ".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 10. Journalctl
+        CommandButton {
+            id: "builtin_journalctl".to_string(),
+            name: "Journalctl".to_string(),
+            description: "Visualiza logs do sistema com journalctl".to_string(),
+            command_template: "journalctl {{unit}} {{follow}} -n {{lines}}".to_string(),
+            category: "Sistema".to_string(),
+            icon_name: "document-open-recent-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "unit".to_string(),
+                    label: "Unidade / Serviço (opcional)".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "".to_string(),
+                    options: Vec::new(),
+                },
                 CommandFormField {
                     id: "follow".to_string(),
                     label: "Seguir em tempo real (-f)".to_string(),
@@ -108,17 +392,179 @@ pub fn default_command_buttons() -> Vec<CommandButton> {
                     default_value: "-f".to_string(),
                     options: vec!["-f".to_string(), "".to_string()],
                 },
+                CommandFormField {
+                    id: "lines".to_string(),
+                    label: "Quantidade de Linhas (-n)".to_string(),
+                    field_type: FieldType::Number,
+                    default_value: "100".to_string(),
+                    options: Vec::new(),
+                },
             ],
         },
+        // 11. Listar Arquivos
         CommandButton {
-            id: "systemd_service".to_string(),
-            name: "Systemd Control".to_string(),
-            description: "Gerencia unidades do systemd (status, restart, logs)".to_string(),
+            id: "builtin_ls".to_string(),
+            name: "Listar Arquivos".to_string(),
+            description: "Lista conteúdos do diretório com detalhes (ls -lah)".to_string(),
+            command_template: "ls -lah ".to_string(),
+            category: "Operações de Arquivo".to_string(),
+            icon_name: "folder-open-symbolic".to_string(),
+            execution_mode: ExecutionMode::InsertAndExecute,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: Vec::new(),
+        },
+        // 12. Logs de Serviço do Systemd
+        CommandButton {
+            id: "snippet_journalctl_service".to_string(),
+            name: "Logs de Serviço do Systemd".to_string(),
+            description: "Acompanha logs de uma unidade do systemd em tempo real".to_string(),
+            command_template: "journalctl -u {{service}} -f -n {{lines}}".to_string(),
+            category: "Sistema".to_string(),
+            icon_name: "system-search-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "service".to_string(),
+                    label: "Nome do Serviço".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "nginx".to_string(),
+                    options: Vec::new(),
+                },
+                CommandFormField {
+                    id: "lines".to_string(),
+                    label: "Quantidade de Linhas (-n)".to_string(),
+                    field_type: FieldType::Number,
+                    default_value: "50".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 13. Pacman
+        CommandButton {
+            id: "builtin_pacman".to_string(),
+            name: "Pacman".to_string(),
+            description: "Operações com gerenciador de pacotes Arch Linux".to_string(),
+            command_template: "sudo pacman {{action}} {{package}}".to_string(),
+            category: "Sistema".to_string(),
+            icon_name: "system-software-install-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "action".to_string(),
+                    label: "Ação".to_string(),
+                    field_type: FieldType::Dropdown,
+                    default_value: "-Syu".to_string(),
+                    options: vec![
+                        "-Syu".to_string(),
+                        "-S".to_string(),
+                        "-R".to_string(),
+                        "-Rs".to_string(),
+                        "-Ss".to_string(),
+                        "-Qi".to_string(),
+                        "-Sc".to_string(),
+                    ],
+                },
+                CommandFormField {
+                    id: "package".to_string(),
+                    label: "Pacote".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 14. Shell Interativo no Docker (Exec)
+        CommandButton {
+            id: "snippet_docker_exec".to_string(),
+            name: "Shell Interativo no Docker (Exec)".to_string(),
+            description: "Abre um shell interativo dentro de um container Docker em execução".to_string(),
+            command_template: "docker exec -it {{container}} {{shell}}".to_string(),
+            category: "Containers & Docker".to_string(),
+            icon_name: "utilities-terminal-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "container".to_string(),
+                    label: "Nome ou ID do Container".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "nginx-proxy".to_string(),
+                    options: Vec::new(),
+                },
+                CommandFormField {
+                    id: "shell".to_string(),
+                    label: "Shell a Executar".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "bash".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 15. Sincronizar Arquivos com Rsync
+        CommandButton {
+            id: "snippet_rsync_remote".to_string(),
+            name: "Sincronizar Arquivos com Rsync".to_string(),
+            description: "Sincroniza arquivos locais para host remoto preservando atributos".to_string(),
+            command_template: "rsync -avzP {{src}} {{user}}@{{host}}:{{dest}}".to_string(),
+            category: "Network & SSH".to_string(),
+            icon_name: "folder-remote-symbolic".to_string(),
+            execution_mode: ExecutionMode::ShowForm,
+            pinned: false,
+            hidden: false,
+            is_builtin: true,
+            form_fields: vec![
+                CommandFormField {
+                    id: "src".to_string(),
+                    label: "Origem (Local)".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: ".".to_string(),
+                    options: Vec::new(),
+                },
+                CommandFormField {
+                    id: "user".to_string(),
+                    label: "Usuário Remoto".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "root".to_string(),
+                    options: Vec::new(),
+                },
+                CommandFormField {
+                    id: "host".to_string(),
+                    label: "Host Remoto (IP / Domínio)".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "192.168.1.100".to_string(),
+                    options: Vec::new(),
+                },
+                CommandFormField {
+                    id: "dest".to_string(),
+                    label: "Destino Remoto".to_string(),
+                    field_type: FieldType::Text,
+                    default_value: "/tmp/".to_string(),
+                    options: Vec::new(),
+                },
+            ],
+        },
+        // 16. Systemctl
+        CommandButton {
+            id: "builtin_systemctl".to_string(),
+            name: "Systemctl".to_string(),
+            description: "Gerencia serviços do sistema com systemctl".to_string(),
             command_template: "sudo systemctl {{action}} {{service}}".to_string(),
-            category: "Sistema & Serviços".to_string(),
-            icon_name: "emblem-system-symbolic".to_string(),
+            category: "Sistema".to_string(),
+            icon_name: "preferences-system-symbolic".to_string(),
             execution_mode: ExecutionMode::ShowForm,
             pinned: true,
+            hidden: false,
+            is_builtin: true,
             form_fields: vec![
                 CommandFormField {
                     id: "action".to_string(),
@@ -127,42 +573,23 @@ pub fn default_command_buttons() -> Vec<CommandButton> {
                     default_value: "status".to_string(),
                     options: vec![
                         "status".to_string(),
+                        "start".to_string(),
+                        "stop".to_string(),
                         "restart".to_string(),
                         "reload".to_string(),
-                        "stop".to_string(),
-                        "start".to_string(),
+                        "enable".to_string(),
+                        "disable".to_string(),
+                        "is-active".to_string(),
                     ],
                 },
                 CommandFormField {
                     id: "service".to_string(),
                     label: "Nome do Serviço".to_string(),
                     field_type: FieldType::Text,
-                    default_value: "sshd".to_string(),
+                    default_value: "nginx".to_string(),
                     options: Vec::new(),
                 },
             ],
-        },
-        CommandButton {
-            id: "disk_usage".to_string(),
-            name: "Uso de Disco".to_string(),
-            description: "Exibe espaço em disco legível por partição (df -hT)".to_string(),
-            command_template: "df -hT".to_string(),
-            category: "Sistema & Serviços".to_string(),
-            icon_name: "drive-harddisk-symbolic".to_string(),
-            execution_mode: ExecutionMode::InsertAndExecute,
-            pinned: true,
-            form_fields: Vec::new(),
-        },
-        CommandButton {
-            id: "git_status_short".to_string(),
-            name: "Git Status & Branch".to_string(),
-            description: "Mostra branch atual, commits recentes e arquivos modificados".to_string(),
-            command_template: "git status -sb && git log --oneline -n 5".to_string(),
-            category: "Git & Dev".to_string(),
-            icon_name: "media-playlist-shuffle-symbolic".to_string(),
-            execution_mode: ExecutionMode::InsertAndExecute,
-            pinned: true,
-            form_fields: Vec::new(),
         },
     ]
 }
@@ -170,14 +597,23 @@ pub fn default_command_buttons() -> Vec<CommandButton> {
 /// Loads command buttons from `~/.config/onyxsh/command_buttons.json`, falling back to defaults.
 pub fn load_command_buttons() -> Vec<CommandButton> {
     let path = command_buttons_file_path();
+    let defaults = default_command_buttons();
     if let Ok(raw) = fs::read_to_string(&path) {
         if let Ok(parsed) = serde_json::from_str::<Vec<CommandButton>>(&raw) {
             if !parsed.is_empty() {
-                return parsed;
+                let existing_ids: std::collections::HashSet<String> =
+                    parsed.iter().map(|c| c.id.clone()).collect();
+                let mut combined = parsed;
+                for def in defaults {
+                    if !existing_ids.contains(&def.id) {
+                        combined.push(def);
+                    }
+                }
+                return combined;
             }
         }
     }
-    default_command_buttons()
+    defaults
 }
 
 /// Persists command buttons to `~/.config/onyxsh/command_buttons.json`.
@@ -417,173 +853,426 @@ pub fn show_command_manager_dialog(
     rebuild_toolbar_cb: Rc<dyn Fn()>,
     dispatch_cb: Rc<dyn Fn(&str, bool, bool)>,
 ) {
+    // 1. Static CSS Provider for Command Manager dialog styling
+    static CSS_INIT: std::sync::Once = std::sync::Once::new();
+    CSS_INIT.call_once(|| {
+        let provider = gtk4::CssProvider::new();
+        provider.load_from_string(
+            r#"
+            .command-manager-dialog .command-button {
+                padding: 6px 14px;
+                border-radius: 8px;
+                background: alpha(currentColor, 0.05);
+                border: 1px solid alpha(currentColor, 0.08);
+                min-width: 70px;
+            }
+            .command-manager-dialog .command-button:hover {
+                background: alpha(currentColor, 0.10);
+            }
+            .command-manager-dialog .commands-flow-box {
+                padding: 4px;
+            }
+            .command-manager-dialog .commands-flow-box > flowboxchild {
+                padding: 3px;
+                background: transparent;
+            }
+            .command-manager-dialog .command-input-frame {
+                border-radius: 10px;
+                background: alpha(currentColor, 0.03);
+                border: 1px solid alpha(currentColor, 0.08);
+            }
+            .command-manager-dialog .command-input-frame:focus-within {
+                border-color: alpha(@accent_bg_color, 0.5);
+            }
+            .command-manager-dialog .bash-textview {
+                background: transparent;
+                font-family: monospace;
+                font-size: 1.05em;
+                padding: 8px 12px;
+            }
+            .command-manager-dialog .execute-button {
+                padding: 7px 18px;
+                border-radius: 8px;
+                font-weight: 600;
+            }
+            .command-manager-dialog .add-command-button {
+                padding: 8px 18px;
+                border-radius: 8px;
+            }
+            "#,
+        );
+        if let Some(display) = gdk::Display::default() {
+            gtk4::style_context_add_provider_for_display(
+                &display,
+                &provider,
+                gtk4::STYLE_PROVIDER_PRIORITY_APPLICATION,
+            );
+        }
+    });
+
     let dlg = adw::Window::builder()
         .transient_for(parent)
-        .modal(true)
-        .title("Gerenciador de Comandos & Formulários — OnyxSH")
-        .default_width(680)
-        .default_height(500)
+        .modal(false)
+        .title("Gerenciador de Comandos")
+        .default_width(820)
+        .default_height(560)
         .build();
+    dlg.add_css_class("onyxsh-dialog");
+    dlg.add_css_class("command-manager-dialog");
 
-    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
-    let hb = adw::HeaderBar::new();
+    let main_box = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
 
-    let btn_new_cmd = gtk4::Button::builder()
-        .icon_name("list-add-symbolic")
-        .label("Novo Comando")
-        .build();
-    btn_new_cmd.add_css_class("suggested-action");
-    hb.pack_start(&btn_new_cmd);
-    vbox.append(&hb);
-
-    let filter_bar = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
-    filter_bar.set_margin_start(14);
-    filter_bar.set_margin_end(14);
-    filter_bar.set_margin_top(6);
-
+    // HeaderBar
+    let header = adw::HeaderBar::new();
     let search_entry = gtk4::SearchEntry::builder()
-        .placeholder_text("Buscar comando por nome, categoria ou template...")
-        .hexpand(true)
+        .placeholder_text("Pesquisar...")
+        .width_chars(20)
         .build();
-    filter_bar.append(&search_entry);
-    vbox.append(&filter_bar);
+    header.pack_start(&search_entry);
 
-    let scroll = gtk4::ScrolledWindow::new();
-    scroll.set_vexpand(true);
-    scroll.set_hexpand(true);
+    let btn_restore_hidden = gtk4::Button::from_icon_name("view-reveal-symbolic");
+    btn_restore_hidden.set_tooltip_text(Some("Restaurar comandos ocultos"));
+    btn_restore_hidden.set_visible(false);
+    header.pack_end(&btn_restore_hidden);
+    main_box.append(&header);
 
-    let list_box = gtk4::ListBox::new();
-    list_box.add_css_class("boxed-list");
-    list_box.set_margin_start(14);
-    list_box.set_margin_end(14);
-    list_box.set_margin_top(6);
-    list_box.set_margin_bottom(14);
-    scroll.set_child(Some(&list_box));
-    vbox.append(&scroll);
+    // Command input section ("Enviar para todos os terminais")
+    let input_section = gtk4::Box::new(gtk4::Orientation::Vertical, 6);
+    input_section.set_margin_top(12);
+    input_section.set_margin_bottom(10);
+    input_section.set_margin_start(16);
+    input_section.set_margin_end(16);
+
+    let hint_lbl = gtk4::Label::new(Some("Enviar para todos os terminais"));
+    hint_lbl.add_css_class("dim-label");
+    hint_lbl.add_css_class("caption");
+    hint_lbl.set_halign(gtk4::Align::Start);
+    input_section.append(&hint_lbl);
+
+    let input_overlay = gtk4::Overlay::new();
+
+    let input_frame = gtk4::Frame::new(None);
+    input_frame.add_css_class("view");
+    input_frame.add_css_class("command-input-frame");
+
+    let scrolled_text = gtk4::ScrolledWindow::builder()
+        .hscrollbar_policy(gtk4::PolicyType::Never)
+        .vscrollbar_policy(gtk4::PolicyType::Automatic)
+        .min_content_height(60)
+        .max_content_height(140)
+        .propagate_natural_height(true)
+        .build();
+
+    let command_tv = gtk4::TextView::new();
+    command_tv.add_css_class("bash-textview");
+    command_tv.set_right_margin(85);
+    scrolled_text.set_child(Some(&command_tv));
+    input_frame.set_child(Some(&scrolled_text));
+    input_overlay.set_child(Some(&input_frame));
+
+    let btn_execute = gtk4::Button::with_label("Executar");
+    btn_execute.add_css_class("suggested-action");
+    btn_execute.add_css_class("execute-button");
+    btn_execute.set_halign(gtk4::Align::End);
+    btn_execute.set_valign(gtk4::Align::Center);
+    btn_execute.set_margin_end(8);
+    btn_execute.set_tooltip_text(Some("Executar comando em todos os terminais"));
+    input_overlay.add_overlay(&btn_execute);
+
+    {
+        let tv_buf = command_tv.buffer();
+        let d = Rc::clone(&dispatch_cb);
+        btn_execute.connect_clicked(move |_| {
+            let start = tv_buf.start_iter();
+            let end = tv_buf.end_iter();
+            let text = tv_buf.text(&start, &end, false).trim().to_string();
+            if !text.is_empty() {
+                d(&text, true, true);
+                tv_buf.set_text("");
+            }
+        });
+    }
+
+    input_section.append(&input_overlay);
+    main_box.append(&input_section);
+
+    let sep = gtk4::Separator::new(gtk4::Orientation::Horizontal);
+    sep.set_margin_start(16);
+    sep.set_margin_end(16);
+    main_box.append(&sep);
+
+    // Scrolled area for command buttons grid
+    let scrolled_commands = gtk4::ScrolledWindow::builder()
+        .hscrollbar_policy(gtk4::PolicyType::Never)
+        .vexpand(true)
+        .build();
+
+    let flow_box = gtk4::FlowBox::builder()
+        .selection_mode(gtk4::SelectionMode::None)
+        .homogeneous(false)
+        .max_children_per_line(5)
+        .min_children_per_line(2)
+        .row_spacing(8)
+        .column_spacing(8)
+        .margin_top(14)
+        .margin_bottom(14)
+        .margin_start(16)
+        .margin_end(16)
+        .valign(gtk4::Align::Start)
+        .css_classes(["commands-flow-box"])
+        .build();
+
+    scrolled_commands.set_child(Some(&flow_box));
+    main_box.append(&scrolled_commands);
+
+    // Bottom action bar with "Adicionar Comando" button
+    let bottom_bar = gtk4::Box::builder()
+        .orientation(gtk4::Orientation::Horizontal)
+        .spacing(12)
+        .margin_top(8)
+        .margin_bottom(12)
+        .margin_start(16)
+        .margin_end(16)
+        .halign(gtk4::Align::Center)
+        .build();
+
+    let btn_add_cmd = gtk4::Button::builder()
+        .css_classes(["add-command-button"])
+        .build();
+    let add_content = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+    add_content.append(&gtk4::Image::from_icon_name("list-add-symbolic"));
+    add_content.append(&gtk4::Label::new(Some("Adicionar Comando")));
+    btn_add_cmd.set_child(Some(&add_content));
+    bottom_bar.append(&btn_add_cmd);
+    main_box.append(&bottom_bar);
 
     let populate_holder: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
 
     let populate: Rc<dyn Fn()> = {
-        let lb = list_box.clone();
+        let fb = flow_box.clone();
         let se = search_entry.clone();
         let cmds_rc = Rc::clone(&buttons_rc);
         let rebuild_tb = Rc::clone(&rebuild_toolbar_cb);
         let disp = Rc::clone(&dispatch_cb);
         let win_ref = parent.clone();
         let pop_holder = Rc::clone(&populate_holder);
+        let dlg_weak = dlg.downgrade();
+        let restore_btn = btn_restore_hidden.clone();
 
         Rc::new(move || {
-            while let Some(c) = lb.first_child() {
-                lb.remove(&c);
+            while let Some(c) = fb.first_child() {
+                fb.remove(&c);
             }
+
             let q = se.text().trim().to_lowercase();
-            let list = cmds_rc.borrow().clone();
+            let mut list: Vec<(usize, CommandButton)> = cmds_rc
+                .borrow()
+                .iter()
+                .cloned()
+                .enumerate()
+                .collect();
 
-            for (idx, cmd) in list.iter().enumerate() {
-                if !q.is_empty()
-                    && !cmd.name.to_lowercase().contains(&q)
-                    && !cmd.category.to_lowercase().contains(&q)
-                    && !cmd.command_template.to_lowercase().contains(&q)
-                {
-                    continue;
+            // Check if any command is hidden
+            let has_hidden = list.iter().any(|(_, c)| c.hidden);
+            restore_btn.set_visible(has_hidden);
+
+            // Filter
+            list.retain(|(_, c)| {
+                if c.hidden {
+                    return false;
                 }
+                if q.is_empty() {
+                    return true;
+                }
+                c.name.to_lowercase().contains(&q)
+                    || c.description.to_lowercase().contains(&q)
+                    || c.command_template.to_lowercase().contains(&q)
+                    || c.category.to_lowercase().contains(&q)
+            });
 
-                let row_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 10);
-                row_hbox.set_margin_start(10);
-                row_hbox.set_margin_end(10);
-                row_hbox.set_margin_top(8);
-                row_hbox.set_margin_bottom(8);
+            // Sort alphabetically by name
+            list.sort_by(|(_, a), (_, b)| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
 
-                let icon = gtk4::Image::from_icon_name(&cmd.icon_name);
-                row_hbox.append(&icon);
-
-                let text_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
-                text_vbox.set_hexpand(true);
-
-                let title_lbl =
-                    gtk4::Label::new(Some(&format!("{}  [{}]", cmd.name, cmd.category)));
-                title_lbl.add_css_class("heading");
-                title_lbl.set_halign(gtk4::Align::Start);
-
-                let tpl_lbl = gtk4::Label::new(Some(&cmd.command_template));
-                tpl_lbl.add_css_class("monospace");
-                tpl_lbl.add_css_class("caption");
-                tpl_lbl.add_css_class("dim-label");
-                tpl_lbl.set_halign(gtk4::Align::Start);
-
-                text_vbox.append(&title_lbl);
-                text_vbox.append(&tpl_lbl);
-                row_hbox.append(&text_vbox);
-
-                // Pin/Unpin toggle button
-                let pin_btn = gtk4::ToggleButton::builder()
-                    .icon_name("view-pin-symbolic")
-                    .tooltip_text("Fixar / Desafixar na Command Toolbar")
-                    .active(cmd.pinned)
+            for (orig_idx, cmd) in list {
+                let btn = gtk4::Button::builder()
+                    .css_classes(["command-button"])
+                    .tooltip_text(&cmd.description)
                     .build();
-                {
-                    let cmds_mut = Rc::clone(&cmds_rc);
-                    let r_tb = Rc::clone(&rebuild_tb);
-                    pin_btn.connect_toggled(move |btn| {
-                        if let Some(item) = cmds_mut.borrow_mut().get_mut(idx) {
-                            item.pinned = btn.is_active();
-                        }
-                        let _ = save_command_buttons(&cmds_mut.borrow());
-                        r_tb();
-                    });
-                }
-                row_hbox.append(&pin_btn);
 
-                // Run / Open Form button
-                let run_btn = gtk4::Button::with_label(if cmd.form_fields.is_empty() {
-                    "Executar"
-                } else {
-                    "Formulário..."
-                });
-                run_btn.add_css_class("suggested-action");
+                let b_content = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+                b_content.append(&gtk4::Image::from_icon_name(&cmd.icon_name));
+                let lbl = gtk4::Label::new(Some(&cmd.name));
+                lbl.set_ellipsize(pango::EllipsizeMode::End);
+                b_content.append(&lbl);
+                btn.set_child(Some(&b_content));
+
+                // Left click: execute or open form
                 {
-                    let cmd_clone = cmd.clone();
+                    let cmd_c = cmd.clone();
                     let w = win_ref.clone();
                     let d = Rc::clone(&disp);
-                    run_btn.connect_clicked(move |_| {
-                        if !cmd_clone.form_fields.is_empty()
-                            || cmd_clone.execution_mode == ExecutionMode::ShowForm
+                    btn.connect_clicked(move |_| {
+                        if !cmd_c.form_fields.is_empty()
+                            || cmd_c.execution_mode == ExecutionMode::ShowForm
                         {
-                            show_command_form_dialog(&w, &cmd_clone, Rc::clone(&d));
+                            show_command_form_dialog(&w, &cmd_c, Rc::clone(&d));
                         } else {
-                            let exec = cmd_clone.execution_mode == ExecutionMode::InsertAndExecute;
-                            d(&cmd_clone.command_template, exec, false);
+                            let exec = cmd_c.execution_mode == ExecutionMode::InsertAndExecute;
+                            d(&cmd_c.command_template, exec, false);
                         }
                     });
                 }
-                row_hbox.append(&run_btn);
 
-                // Delete button
-                let del_btn = gtk4::Button::builder()
-                    .icon_name("user-trash-symbolic")
-                    .tooltip_text("Remover Comando")
-                    .build();
-                del_btn.add_css_class("flat");
+                // Right click: context menu Popover
                 {
-                    let cmds_mut = Rc::clone(&cmds_rc);
-                    let r_tb = Rc::clone(&rebuild_tb);
-                    let ph = Rc::clone(&pop_holder);
-                    del_btn.connect_clicked(move |_| {
-                        let mut guard = cmds_mut.borrow_mut();
-                        if idx < guard.len() {
-                            guard.remove(idx);
-                        }
-                        let _ = save_command_buttons(&guard);
-                        drop(guard);
-                        r_tb();
-                        if let Some(p) = ph.borrow().as_ref() {
-                            p();
-                        }
-                    });
-                }
-                row_hbox.append(&del_btn);
+                    let popover = gtk4::Popover::new();
+                    let mbox = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
+                    mbox.set_margin_start(4);
+                    mbox.set_margin_end(4);
+                    mbox.set_margin_top(4);
+                    mbox.set_margin_bottom(4);
 
-                lb.append(&row_hbox);
+                    let m_exec_all = gtk4::Button::with_label("Executar em Todos os Terminais");
+                    m_exec_all.add_css_class("flat");
+                    let m_edit = gtk4::Button::with_label("Editar");
+                    m_edit.add_css_class("flat");
+                    let m_duplicate = gtk4::Button::with_label("Duplicar");
+                    m_duplicate.add_css_class("flat");
+                    let m_pin = gtk4::Button::with_label(if cmd.pinned {
+                        "Desafixar da Barra de Ferramentas"
+                    } else {
+                        "Fixar na Barra de Ferramentas"
+                    });
+                    m_pin.add_css_class("flat");
+                    let m_hide = gtk4::Button::with_label(if cmd.is_builtin {
+                        "Ocultar"
+                    } else {
+                        "Excluir"
+                    });
+                    m_hide.add_css_class("flat");
+
+                    mbox.append(&m_exec_all);
+                    mbox.append(&m_edit);
+                    mbox.append(&m_duplicate);
+                    mbox.append(&m_pin);
+                    mbox.append(&m_hide);
+                    popover.set_child(Some(&mbox));
+                    popover.set_parent(&btn);
+
+                    // Connect context menu actions
+                    {
+                        let cmd_c = cmd.clone();
+                        let d = Rc::clone(&disp);
+                        let p = popover.clone();
+                        let w = win_ref.clone();
+                        m_exec_all.connect_clicked(move |_| {
+                            p.popdown();
+                            if !cmd_c.form_fields.is_empty()
+                                || cmd_c.execution_mode == ExecutionMode::ShowForm
+                            {
+                                show_command_form_dialog(&w, &cmd_c, Rc::clone(&d));
+                            } else {
+                                d(&cmd_c.command_template, true, true);
+                            }
+                        });
+                    }
+                    {
+                        let cmd_c = cmd.clone();
+                        let p = popover.clone();
+                        let c_rc = Rc::clone(&cmds_rc);
+                        let r_tb = Rc::clone(&rebuild_tb);
+                        let ph = Rc::clone(&pop_holder);
+                        let dw = dlg_weak.clone();
+                        m_edit.connect_clicked(move |_| {
+                            p.popdown();
+                            if let Some(dlg_parent) = dw.upgrade() {
+                                let p_cb = ph.borrow().as_ref().unwrap().clone();
+                                show_command_editor_dialog(
+                                    &dlg_parent,
+                                    Some((orig_idx, cmd_c.clone())),
+                                    Rc::clone(&c_rc),
+                                    Rc::clone(&r_tb),
+                                    p_cb,
+                                );
+                            }
+                        });
+                    }
+                    {
+                        let cmd_c = cmd.clone();
+                        let p = popover.clone();
+                        let c_rc = Rc::clone(&cmds_rc);
+                        let r_tb = Rc::clone(&rebuild_tb);
+                        let ph = Rc::clone(&pop_holder);
+                        m_duplicate.connect_clicked(move |_| {
+                            p.popdown();
+                            let mut dup = cmd_c.clone();
+                            let millis = std::time::SystemTime::now()
+                                .duration_since(std::time::UNIX_EPOCH)
+                                .map(|d| d.as_millis())
+                                .unwrap_or(0);
+                            dup.id = format!("{}_copy_{}", dup.id, millis);
+                            dup.name = format!("{} (Cópia)", dup.name);
+                            dup.is_builtin = false;
+                            c_rc.borrow_mut().push(dup);
+                            let _ = save_command_buttons(&c_rc.borrow());
+                            r_tb();
+                            if let Some(f) = ph.borrow().as_ref() {
+                                f();
+                            }
+                        });
+                    }
+                    {
+                        let p = popover.clone();
+                        let c_rc = Rc::clone(&cmds_rc);
+                        let r_tb = Rc::clone(&rebuild_tb);
+                        let ph = Rc::clone(&pop_holder);
+                        m_pin.connect_clicked(move |_| {
+                            p.popdown();
+                            if let Some(c) = c_rc.borrow_mut().get_mut(orig_idx) {
+                                c.pinned = !c.pinned;
+                            }
+                            let _ = save_command_buttons(&c_rc.borrow());
+                            r_tb();
+                            if let Some(f) = ph.borrow().as_ref() {
+                                f();
+                            }
+                        });
+                    }
+                    {
+                        let is_b = cmd.is_builtin;
+                        let p = popover.clone();
+                        let c_rc = Rc::clone(&cmds_rc);
+                        let r_tb = Rc::clone(&rebuild_tb);
+                        let ph = Rc::clone(&pop_holder);
+                        m_hide.connect_clicked(move |_| {
+                            p.popdown();
+                            if is_b {
+                                if let Some(c) = c_rc.borrow_mut().get_mut(orig_idx) {
+                                    c.hidden = true;
+                                }
+                            } else if orig_idx < c_rc.borrow().len() {
+                                c_rc.borrow_mut().remove(orig_idx);
+                            }
+                            let _ = save_command_buttons(&c_rc.borrow());
+                            r_tb();
+                            if let Some(f) = ph.borrow().as_ref() {
+                                f();
+                            }
+                        });
+                    }
+
+                    let gesture = gtk4::GestureClick::new();
+                    gesture.set_button(3); // Right click
+                    let pop_c = popover.clone();
+                    gesture.connect_pressed(move |_, _, x, y| {
+                        let rect = gdk::Rectangle::new(x as i32, y as i32, 1, 1);
+                        pop_c.set_pointing_to(Some(&rect));
+                        pop_c.popup();
+                    });
+                    btn.add_controller(gesture);
+                }
+
+                fb.append(&btn);
             }
         })
     };
@@ -596,94 +1285,198 @@ pub fn show_command_manager_dialog(
         search_entry.connect_search_changed(move |_| pop());
     }
 
-    // Create New Command modal
+    // Restore hidden commands button
     {
-        let win_ref = parent.clone();
-        let cmds_rc = Rc::clone(&buttons_rc);
-        let rebuild_tb = Rc::clone(&rebuild_toolbar_cb);
-        let pop = Rc::clone(&populate);
-
-        btn_new_cmd.connect_clicked(move |_| {
-            let add_dlg = adw::Window::builder()
-                .transient_for(&win_ref)
-                .modal(true)
-                .title("Novo Botão de Comando")
-                .default_width(440)
-                .default_height(320)
-                .build();
-
-            let avbox = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
-            avbox.append(&adw::HeaderBar::new());
-
-            let form = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
-            form.set_margin_start(16);
-            form.set_margin_end(16);
-            form.set_margin_top(8);
-            form.set_margin_bottom(14);
-
-            let e_name = gtk4::Entry::builder()
-                .placeholder_text("Nome do botão (ex: Reiniciar Nginx)")
-                .build();
-            let e_cat = gtk4::Entry::builder()
-                .placeholder_text("Categoria (ex: Produção)")
-                .text("Custom")
-                .build();
-            let e_tpl = gtk4::Entry::builder()
-                .placeholder_text("Comando (ex: sudo systemctl restart nginx)")
-                .build();
-            e_tpl.add_css_class("monospace");
-
-            let chk_pin = gtk4::CheckButton::with_label("Fixar na Command Toolbar superior");
-            chk_pin.set_active(true);
-
-            let save_btn = gtk4::Button::with_label("Salvar Comando");
-            save_btn.add_css_class("suggested-action");
-
-            form.append(&e_name);
-            form.append(&e_cat);
-            form.append(&e_tpl);
-            form.append(&chk_pin);
-            form.append(&save_btn);
-
-            let cmds_inner = Rc::clone(&cmds_rc);
-            let r_tb = Rc::clone(&rebuild_tb);
-            let p_fn = Rc::clone(&pop);
-            let d_close = add_dlg.clone();
-
-            save_btn.connect_clicked(move |_| {
-                let name = e_name.text().trim().to_string();
-                let tpl = e_tpl.text().trim().to_string();
-                if name.is_empty() || tpl.is_empty() {
-                    return;
-                }
-                let mut list = cmds_inner.borrow_mut();
-                let next_id = format!("custom_{}", list.len() + 1);
-                list.push(CommandButton {
-                    id: next_id,
-                    name,
-                    description: "Comando personalizado".to_string(),
-                    command_template: tpl,
-                    category: e_cat.text().trim().to_string(),
-                    icon_name: "utilities-terminal-symbolic".to_string(),
-                    execution_mode: ExecutionMode::InsertAndExecute,
-                    pinned: chk_pin.is_active(),
-                    form_fields: Vec::new(),
-                });
-                let _ = save_command_buttons(&list);
-                drop(list);
-                r_tb();
-                p_fn();
-                d_close.close();
-            });
-
-            avbox.append(&form);
-            add_dlg.set_content(Some(&avbox));
-            add_dlg.present();
+        let c_rc = Rc::clone(&buttons_rc);
+        let r_tb = Rc::clone(&rebuild_toolbar_cb);
+        let ph = Rc::clone(&populate_holder);
+        btn_restore_hidden.connect_clicked(move |_| {
+            for c in c_rc.borrow_mut().iter_mut() {
+                c.hidden = false;
+            }
+            let _ = save_command_buttons(&c_rc.borrow());
+            r_tb();
+            if let Some(f) = ph.borrow().as_ref() {
+                f();
+            }
         });
     }
 
-    dlg.set_content(Some(&vbox));
+    // Add Command Button clicked
+    {
+        let c_rc = Rc::clone(&buttons_rc);
+        let r_tb = Rc::clone(&rebuild_toolbar_cb);
+        let ph = Rc::clone(&populate_holder);
+        let dw = dlg.downgrade();
+        btn_add_cmd.connect_clicked(move |_| {
+            if let Some(dlg_parent) = dw.upgrade() {
+                let p_cb = ph.borrow().as_ref().unwrap().clone();
+                show_command_editor_dialog(
+                    &dlg_parent,
+                    None,
+                    Rc::clone(&c_rc),
+                    Rc::clone(&r_tb),
+                    p_cb,
+                );
+            }
+        });
+    }
+
+    dlg.set_content(Some(&main_box));
     dlg.present();
+}
+
+/// Opens the Command Editor dialog to create a new command or edit an existing one.
+fn show_command_editor_dialog(
+    parent: &adw::Window,
+    cmd_to_edit: Option<(usize, CommandButton)>,
+    buttons_rc: Rc<RefCell<Vec<CommandButton>>>,
+    rebuild_toolbar_cb: Rc<dyn Fn()>,
+    populate_cb: Rc<dyn Fn()>,
+) {
+    let is_editing = cmd_to_edit.is_some();
+    let initial_cmd = cmd_to_edit.as_ref().map(|(_, c)| c.clone()).unwrap_or_else(|| {
+        let millis = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_millis())
+            .unwrap_or(0);
+        CommandButton {
+            id: format!("custom_{}", millis),
+            name: String::new(),
+            description: String::new(),
+            command_template: String::new(),
+            category: "Personalizado".to_string(),
+            icon_name: "utilities-terminal-symbolic".to_string(),
+            execution_mode: ExecutionMode::InsertAndExecute,
+            pinned: false,
+            hidden: false,
+            is_builtin: false,
+            form_fields: Vec::new(),
+        }
+    });
+
+    let edit_dlg = adw::Window::builder()
+        .transient_for(parent)
+        .modal(true)
+        .title(if is_editing {
+            format!("Editar Comando: {}", initial_cmd.name)
+        } else {
+            "Adicionar Comando".to_string()
+        })
+        .default_width(480)
+        .default_height(420)
+        .build();
+
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+    vbox.append(&adw::HeaderBar::new());
+
+    let form = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+    form.set_margin_start(16);
+    form.set_margin_end(16);
+    form.set_margin_top(8);
+    form.set_margin_bottom(16);
+
+    let e_name = gtk4::Entry::builder()
+        .placeholder_text("Nome do comando (ex: Reiniciar Nginx)")
+        .text(&initial_cmd.name)
+        .build();
+
+    let e_desc = gtk4::Entry::builder()
+        .placeholder_text("Descrição (opcional)")
+        .text(&initial_cmd.description)
+        .build();
+
+    let e_tpl = gtk4::Entry::builder()
+        .placeholder_text("Template do comando (ex: sudo systemctl restart nginx)")
+        .text(&initial_cmd.command_template)
+        .build();
+    e_tpl.add_css_class("monospace");
+
+    let e_cat = gtk4::Entry::builder()
+        .placeholder_text("Categoria")
+        .text(&initial_cmd.category)
+        .build();
+
+    let e_icon = gtk4::Entry::builder()
+        .placeholder_text("Nome do ícone (ex: utilities-terminal-symbolic)")
+        .text(&initial_cmd.icon_name)
+        .build();
+
+    let chk_pin = gtk4::CheckButton::with_label("Fixar na Barra de Ferramentas");
+    chk_pin.set_active(initial_cmd.pinned);
+
+    let btn_save = gtk4::Button::with_label("Salvar Comando");
+    btn_save.add_css_class("suggested-action");
+
+    form.append(&gtk4::Label::builder().label("Nome:").halign(gtk4::Align::Start).build());
+    form.append(&e_name);
+    form.append(&gtk4::Label::builder().label("Descrição:").halign(gtk4::Align::Start).build());
+    form.append(&e_desc);
+    form.append(&gtk4::Label::builder().label("Comando / Template:").halign(gtk4::Align::Start).build());
+    form.append(&e_tpl);
+    form.append(&gtk4::Label::builder().label("Categoria:").halign(gtk4::Align::Start).build());
+    form.append(&e_cat);
+    form.append(&gtk4::Label::builder().label("Ícone:").halign(gtk4::Align::Start).build());
+    form.append(&e_icon);
+    form.append(&chk_pin);
+    form.append(&btn_save);
+
+    let d_close = edit_dlg.clone();
+    btn_save.connect_clicked(move |_| {
+        let name = e_name.text().trim().to_string();
+        let tpl = e_tpl.text().trim().to_string();
+        if name.is_empty() || tpl.is_empty() {
+            return;
+        }
+
+        let mut list = buttons_rc.borrow_mut();
+        if let Some((idx, _)) = cmd_to_edit {
+            if let Some(cmd) = list.get_mut(idx) {
+                cmd.name = name;
+                cmd.description = e_desc.text().trim().to_string();
+                cmd.command_template = tpl;
+                cmd.category = e_cat.text().trim().to_string();
+                cmd.icon_name = e_icon.text().trim().to_string();
+                cmd.pinned = chk_pin.is_active();
+            }
+        } else {
+            let millis = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .map(|d| d.as_millis())
+                .unwrap_or(0);
+            let next_id = format!("custom_{}", millis);
+            list.push(CommandButton {
+                id: next_id,
+                name,
+                description: e_desc.text().trim().to_string(),
+                command_template: tpl,
+                category: e_cat.text().trim().to_string(),
+                icon_name: if e_icon.text().trim().is_empty() {
+                    "utilities-terminal-symbolic".to_string()
+                } else {
+                    e_icon.text().trim().to_string()
+                },
+                execution_mode: ExecutionMode::InsertAndExecute,
+                pinned: chk_pin.is_active(),
+                hidden: false,
+                is_builtin: false,
+                form_fields: Vec::new(),
+            });
+        }
+        let _ = save_command_buttons(&list);
+        drop(list);
+        rebuild_toolbar_cb();
+        populate_cb();
+        d_close.close();
+    });
+
+    let scroll = gtk4::ScrolledWindow::builder()
+        .hscrollbar_policy(gtk4::PolicyType::Never)
+        .child(&form)
+        .build();
+    vbox.append(&scroll);
+    edit_dlg.set_content(Some(&vbox));
+    edit_dlg.present();
 }
 
 /// Builds the Pinned Command Toolbar + Multi-Terminal Broadcast Bar (`crates/onyxsh-app/src/command_manager_ui.rs`).
@@ -904,5 +1697,37 @@ mod tests {
         let (danger_badge, danger_reason) = evaluate_command_safety_badge("sudo rm -rf /");
         assert!(danger_badge.contains("Alto Risco"));
         assert!(danger_reason.is_some());
+    }
+
+    #[test]
+    fn test_builtin_command_buttons_defaults_and_sorting() {
+        let buttons = default_command_buttons();
+        assert_eq!(buttons.len(), 16);
+        let names: Vec<&str> = buttons.iter().map(|b| b.name.as_str()).collect();
+        assert_eq!(
+            names,
+            vec![
+                "APT",
+                "Compactar",
+                "Criar Nova Branch no Git",
+                "DNF",
+                "Docker Logs",
+                "Encontrar Arquivos",
+                "Extrair",
+                "Flatpak",
+                "Git Commit",
+                "Journalctl",
+                "Listar Arquivos",
+                "Logs de Serviço do Systemd",
+                "Pacman",
+                "Shell Interativo no Docker (Exec)",
+                "Sincronizar Arquivos com Rsync",
+                "Systemctl",
+            ]
+        );
+        for btn in &buttons {
+            assert!(btn.is_builtin);
+            assert!(!btn.hidden);
+        }
     }
 }
