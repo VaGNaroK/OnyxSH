@@ -149,9 +149,7 @@ pub fn show_tunnel_manager_window(
 
         let pop_func = Rc::new(move || {
             // Clear existing rows
-            while let Some(child) = list_clone.first_child() {
-                list_clone.remove(&child);
-            }
+            list_clone.remove_all();
 
             let tunnels = reg_clone.borrow().all();
             let query = query_entry.text().to_lowercase();

@@ -310,9 +310,7 @@ pub fn show_diff_review_and_audit_dialog(
         let lb = list_box.clone();
         let status = status_lbl.clone();
         Rc::new(move || {
-            while let Some(c) = lb.first_child() {
-                lb.remove(&c);
-            }
+            lb.remove_all();
             let Ok(logger) = AuditLogger::new(audit_log_file_path()) else {
                 return;
             };
@@ -453,9 +451,7 @@ pub fn show_ai_history_dialog(
         let lb = list_box.clone();
         let h_rc = Rc::clone(&history_rc);
         Rc::new(move || {
-            while let Some(c) = lb.first_child() {
-                lb.remove(&c);
-            }
+            lb.remove_all();
             let items = h_rc.borrow();
             if items.is_empty() {
                 let empty = gtk4::Label::new(Some("Nenhuma conversa salva ainda."));

@@ -272,9 +272,7 @@ pub fn show_autocomplete_assistant_dialog(
         let d_close = dlg.clone();
 
         Rc::new(move || {
-            while let Some(c) = lb.first_child() {
-                lb.remove(&c);
-            }
+            lb.remove_all();
             let line = e.text().to_string();
             let suggestions = query_terminal_completions(&line, 25);
 
@@ -696,9 +694,7 @@ pub fn attach_vte_ux_controllers(
                     let suggestions =
                         engine.get_completions(&cmd_line, Some(cmd_line.len()), &[], 6);
 
-                    while let Some(c) = lb_ref.first_child() {
-                        lb_ref.remove(&c);
-                    }
+                    lb_ref.remove_all();
                     rows_ref.borrow_mut().clear();
 
                     if suggestions.is_empty() {
@@ -1027,9 +1023,7 @@ pub fn show_command_palette_dialog(
         let d_close = dlg.clone();
 
         Rc::new(move || {
-            while let Some(c) = lb.first_child() {
-                lb.remove(&c);
-            }
+            lb.remove_all();
             let filtered = filter_palette_items(&cat, &se.text());
 
             for item in filtered {

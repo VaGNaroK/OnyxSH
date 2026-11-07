@@ -491,9 +491,7 @@ pub fn show_global_search_dialog(
         let act_fn = Rc::clone(&activate_result);
 
         Rc::new(move || {
-            while let Some(c) = lb.first_child() {
-                lb.remove(&c);
-            }
+            lb.remove_all();
             let filter = if b_terms.is_active() {
                 GlobalSearchFilter::Terminals
             } else if b_sess.is_active() {
@@ -730,9 +728,7 @@ pub fn show_command_history_dialog(
         let pop_self = Rc::clone(&populate_cell);
 
         Rc::new(move || {
-            while let Some(c) = lb.first_child() {
-                lb.remove(&c);
-            }
+            lb.remove_all();
             let pill = if b_cwd.is_active() {
                 "cwd"
             } else if b_pin.is_active() {

@@ -545,9 +545,7 @@ pub fn show_transfer_queue_dialog(
         let lb = list_box.clone();
         let tx_rc = Rc::clone(transfers);
         Rc::new(move || {
-            while let Some(child) = lb.first_child() {
-                lb.remove(&child);
-            }
+            lb.remove_all();
             let items = tx_rc.borrow();
             if items.is_empty() {
                 let empty = gtk4::Label::new(Some("Nenhuma transferência registrada na sessão."));
@@ -2254,9 +2252,7 @@ pub fn build_file_pane(
             *sel_entry.borrow_mut() = sorted.first().cloned();
 
             // 1. Populate Detailed List View (`list_box`)
-            while let Some(c) = lb.first_child() {
-                lb.remove(&c);
-            }
+            lb.remove_all();
             for entry in sorted.iter().take(300) {
                 let row_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
                 row_hbox.add_css_class("file-detailed-row");
@@ -2380,9 +2376,7 @@ pub fn build_file_pane(
             }
 
             // 2. Populate Thumbnail / Grid View (`grid_flow`)
-            while let Some(c) = gf.first_child() {
-                gf.remove(&c);
-            }
+            gf.remove_all();
             for entry in sorted.iter().take(150) {
                 let card = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
                 card.set_width_request(104);

@@ -1060,9 +1060,7 @@ pub fn show_command_manager_dialog(
         let restore_btn = btn_restore_hidden.clone();
 
         Rc::new(move || {
-            while let Some(c) = fb.first_child() {
-                fb.remove(&c);
-            }
+            fb.remove_all();
 
             let q = se.text().trim().to_lowercase();
             let mut list: Vec<(usize, CommandButton)> = cmds_rc
