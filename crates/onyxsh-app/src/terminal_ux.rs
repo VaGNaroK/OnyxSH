@@ -510,27 +510,21 @@ pub fn attach_vte_ux_controllers(
 
     comp_popover.set_child(Some(&comp_vbox));
 
-    // 2. Right-click Native PopoverMenu Context Menu (`CORRIGIR/menucontext3.jpg` & `src/onyxsh/ui/menus.py`)
-    // Ensure VTE internal context menu is disabled so it doesn't spawn an orphaned duplicate popup
-    term.set_context_menu_model(None::<&gio::MenuModel>);
-
+    // 2. Right-click Native VTE Context Menu (`CORRIGIR/menucontext3.jpg` & `src/onyxsh/terminal/manager.py`)
+    // In GTK4, VTE natively manages and renders the context menu popover using its context_menu_model.
+    // This provides automatic grab dismissal when clicking outside or switching windows,
+    // correct accelerator display, and eliminates any duplicate or orphaned popovers.
     let initial_menu = create_terminal_context_menu_model(false, None, None);
-    let popover = gtk4::PopoverMenu::builder()
-        .has_arrow(false)
-        .menu_model(&initial_menu)
-        .autohide(true)
-        .build();
-    popover.set_parent(term);
+    term.set_context_menu_model(Some(&initial_menu));
 
     let click_ctrl = gtk4::GestureClick::new();
     click_ctrl.set_button(3); // Right mouse button
+    click_ctrl.set_propagation_phase(gtk4::PropagationPhase::Capture);
     {
-        let p = popover;
         let t = term.clone();
         let c_url = Rc::clone(&clicked_url_rc);
         let comp_p = comp_popover.clone();
-        click_ctrl.connect_pressed(move |gesture, _, x, y| {
-            gesture.set_state(gtk4::EventSequenceState::Claimed);
+        click_ctrl.connect_pressed(move |_gesture, _, x, y| {
             t.grab_focus();
             if comp_p.is_visible() {
                 comp_p.popdown();
@@ -543,11 +537,7 @@ pub fn attach_vte_ux_controllers(
             let err_code = check_terminal_last_error(&t);
 
             let menu = create_terminal_context_menu_model(has_sel, url.as_deref(), err_code);
-            p.set_menu_model(Some(&menu));
-
-            let rect = gdk::Rectangle::new(x as i32, y as i32, 1, 1);
-            p.set_pointing_to(Some(&rect));
-            p.popup();
+            t.set_context_menu_model(Some(&menu));
         });
     }
     term.add_controller(click_ctrl);
@@ -694,6 +684,7 @@ pub fn attach_vte_ux_controllers(
                     let suggestions =
                         engine.get_completions(&cmd_line, Some(cmd_line.len()), &[], 6);
 
+                    lb_ref.select_row(None::<&gtk4::ListBoxRow>);
                     lb_ref.remove_all();
                     rows_ref.borrow_mut().clear();
 

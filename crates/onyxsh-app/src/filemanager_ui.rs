@@ -749,6 +749,9 @@ fn add_menu_item(
     let pop = popover.clone();
     btn.connect_clicked(move |_| {
         pop.popdown();
+        if pop.parent().is_some() {
+            pop.unparent();
+        }
         action();
     });
     menu_box.append(&btn);
@@ -832,7 +835,9 @@ fn show_context_menu_for_entry(
     popover.connect_closed(move |p| {
         let p_clone = p.clone();
         glib::idle_add_local_once(move || {
-            p_clone.unparent();
+            if p_clone.parent().is_some() {
+                p_clone.unparent();
+            }
         });
     });
 
@@ -1298,7 +1303,9 @@ fn show_context_menu_for_background(
     popover.connect_closed(move |p| {
         let p_clone = p.clone();
         glib::idle_add_local_once(move || {
-            p_clone.unparent();
+            if p_clone.parent().is_some() {
+                p_clone.unparent();
+            }
         });
     });
 
@@ -1709,7 +1716,9 @@ fn show_quick_jump_popover(
     popover.connect_closed(move |_| {
         let p = popover_cleanup.clone();
         glib::idle_add_local_once(move || {
-            p.unparent();
+            if p.parent().is_some() {
+                p.unparent();
+            }
         });
     });
 
