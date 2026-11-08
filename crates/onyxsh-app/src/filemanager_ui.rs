@@ -2930,8 +2930,7 @@ pub fn build_file_pane(
                         );
                     }
                 });
-                row_hbox.add_controller(right_click.clone());
-                list_row.add_controller(right_click);
+                row_hbox.add_controller(right_click);
 
                 lb.append(&list_row);
             }
@@ -3039,8 +3038,7 @@ pub fn build_file_pane(
                         );
                     }
                 });
-                card.add_controller(right_click.clone());
-                flow_child.add_controller(right_click);
+                card.add_controller(right_click);
 
                 gf.append(&flow_child);
             }
