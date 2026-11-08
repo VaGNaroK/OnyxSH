@@ -1062,7 +1062,6 @@ fn show_context_menu_for_entry(
     if let Some(old) = active_popover.borrow_mut().take() {
         if old.parent().is_some() {
             old.popdown();
-            old.unparent();
         }
     }
 
@@ -1585,7 +1584,6 @@ fn show_context_menu_for_background(
     if let Some(old) = active_popover.borrow_mut().take() {
         if old.parent().is_some() {
             old.popdown();
-            old.unparent();
         }
     }
 
