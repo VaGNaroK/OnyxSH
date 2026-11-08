@@ -225,6 +225,15 @@ pub fn menu_custom_css() -> &'static str {
     .bookmark-active-star {
         color: #f6d32d;
     }
+    paned.filemanager-paned > separator {
+        min-height: 6px;
+        background-color: rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        transition: background-color 150ms ease-in-out;
+    }
+    paned.filemanager-paned > separator:hover {
+        background-color: alpha(@accent_color, 0.55);
+    }
     "
 }
 

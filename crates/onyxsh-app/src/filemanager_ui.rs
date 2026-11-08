@@ -3195,7 +3195,9 @@ pub fn build_complete_file_manager(
     let clipboard: Rc<RefCell<Option<FileManagerClipboardItem>>> = Rc::new(RefCell::new(None));
 
     let container = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
-    container.set_height_request(290);
+    container.set_height_request(120);
+    container.set_hexpand(true);
+    container.set_vexpand(true);
     container.set_margin_start(4);
     container.set_margin_end(4);
     container.set_margin_top(2);

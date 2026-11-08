@@ -936,7 +936,6 @@ pub fn build_main_window(
     center_vbox.append(&prod_banner);
     center_vbox.append(&cmd_and_broadcast_bar);
     center_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
-    center_vbox.append(&tab_view);
 
     // Phase 15: Complete Zero-Trust AI Assistant Right Sidebar Panel
     let (ai_widget, submit_ai_prompt_cb) =
@@ -991,7 +990,21 @@ pub fn build_main_window(
         Some(ai_prompt_cb),
     );
     fm_widget.set_visible(false);
-    center_vbox.append(&fm_widget);
+
+    // Vertical GtkPaned allowing user to resize file manager height up/down
+    let fm_paned = gtk4::Paned::new(gtk4::Orientation::Vertical);
+    fm_paned.add_css_class("filemanager-paned");
+    fm_paned.set_hexpand(true);
+    fm_paned.set_vexpand(true);
+    fm_paned.set_wide_handle(true);
+    fm_paned.set_start_child(Some(&tab_view));
+    fm_paned.set_end_child(Some(&fm_widget));
+    fm_paned.set_resize_start_child(true);
+    fm_paned.set_shrink_start_child(false);
+    fm_paned.set_resize_end_child(false);
+    fm_paned.set_shrink_end_child(true);
+
+    center_vbox.append(&fm_paned);
 
     // Main Horizontal Layout
     let main_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
@@ -1511,8 +1524,71 @@ pub fn build_main_window(
     }
     {
         let fm = fm_widget.clone();
+        let paned = fm_paned.clone();
+        let st_rc = Rc::clone(&settings_rc);
+        let win_ref = window.clone();
         btn_fm.connect_toggled(move |btn| {
-            fm.set_visible(btn.is_active());
+            let active = btn.is_active();
+            fm.set_visible(active);
+            if active {
+                let p_clone = paned.clone();
+                let st_clone = Rc::clone(&st_rc);
+                let w_clone = win_ref.clone();
+                glib::idle_add_local_once(move || {
+                    let total_h = p_clone.height();
+                    let saved_h = st_clone.borrow().file_manager_height as i32;
+                    let alloc_h = if total_h > 200 {
+                        total_h
+                    } else {
+                        (w_clone.height() - 140).max(250)
+                    };
+                    let min_fm = 120;
+                    let min_term = 100;
+                    let target_fm_h = saved_h.clamp(min_fm, (alloc_h - min_term).max(min_fm));
+                    let target_pos = (alloc_h - target_fm_h).max(min_term);
+                    p_clone.set_position(target_pos);
+                });
+            }
+        });
+    }
+
+    // Connect notify::position on fm_paned to dynamically update and persist file_manager_height
+    {
+        let paned = fm_paned.clone();
+        let fm = fm_widget.clone();
+        let st_rc = Rc::clone(&settings_rc);
+        let debounce_timer: Rc<RefCell<Option<glib::SourceId>>> = Rc::new(RefCell::new(None));
+
+        paned.connect_position_notify(move |p| {
+            if !fm.is_visible() {
+                return;
+            }
+            let total_h = p.height();
+            let pos = p.position();
+            if total_h <= 180 || pos <= 50 {
+                return;
+            }
+            let calculated_fm_h = (total_h - pos).max(120) as u32;
+
+            if st_rc.borrow().file_manager_height != calculated_fm_h {
+                st_rc.borrow_mut().file_manager_height = calculated_fm_h;
+
+                if let Some(source_id) = debounce_timer.borrow_mut().take() {
+                    source_id.remove();
+                }
+
+                let st_persist = Rc::clone(&st_rc);
+                let timer_holder = Rc::clone(&debounce_timer);
+                let new_id = glib::timeout_add_local_once(
+                    std::time::Duration::from_millis(300),
+                    move || {
+                        timer_holder.borrow_mut().take();
+                        let cfg_path = platform::config_dir().join("settings.json");
+                        let _ = st_persist.borrow().save_to_path(&cfg_path);
+                    },
+                );
+                *debounce_timer.borrow_mut() = Some(new_id);
+            }
         });
     }
     {
@@ -2192,6 +2268,15 @@ pub fn build_main_window(
         ));
         glib::ControlFlow::Continue
     });
+
+    {
+        let st_close = Rc::clone(&settings_rc);
+        window.connect_close_request(move |_| {
+            let cfg_path = platform::config_dir().join("settings.json");
+            let _ = st_close.borrow().save_to_path(&cfg_path);
+            glib::Propagation::Proceed
+        });
+    }
 
     window.set_content(Some(&root_vbox));
     window.present();

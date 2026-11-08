@@ -102,6 +102,39 @@ where
     }
 }
 
+/// Default height for the bottom file manager panel in pixels.
+pub fn default_file_manager_height() -> u32 {
+    280
+}
+
+/// Deserializes a numeric u32 setting (e.g. `file_manager_height`) from integer, float, or string.
+pub fn deserialize_flexible_u32<'de, D>(deserializer: D) -> Result<u32, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum NumOrStr {
+        Int(i64),
+        Float(f64),
+        Str(String),
+    }
+
+    match NumOrStr::deserialize(deserializer)? {
+        NumOrStr::Int(i) => Ok(i.clamp(120, 2000) as u32),
+        NumOrStr::Float(f) => Ok(f.clamp(120.0, 2000.0).round() as u32),
+        NumOrStr::Str(s) => {
+            if let Ok(i) = s.trim().parse::<i64>() {
+                Ok(i.clamp(120, 2000) as u32)
+            } else if let Ok(f) = s.trim().parse::<f64>() {
+                Ok(f.clamp(120.0, 2000.0).round() as u32)
+            } else {
+                Ok(280)
+            }
+        }
+    }
+}
+
 /// Complete list of default keyboard shortcuts for OnyxSH (`DefaultSettings._get_base_defaults()["shortcuts"]`).
 pub fn default_shortcuts() -> Vec<(&'static str, &'static str)> {
     vec![
@@ -278,6 +311,8 @@ pub struct AppSettings {
     pub tab_alignment: String,
     pub icon_theme_strategy: String,
     pub hide_headerbar_buttons_when_maximized: String,
+    #[serde(default = "default_file_manager_height", deserialize_with = "deserialize_flexible_u32")]
+    pub file_manager_height: u32,
 
     // 2. Terminal
     pub new_instance_behavior: String,
@@ -377,6 +412,7 @@ impl Default for AppSettings {
             tab_alignment: "center".to_string(),
             icon_theme_strategy: "system".to_string(),
             hide_headerbar_buttons_when_maximized: "auto".to_string(),
+            file_manager_height: 280,
 
             new_instance_behavior: "new_tab".to_string(),
             cursor_shape: 0,
@@ -599,5 +635,17 @@ mod tests {
         assert_eq!(loaded.transparency, 0);
         assert_eq!(loaded.color_scheme, "dracula");
         let _ = std::fs::remove_file(test_file);
+    }
+
+    #[test]
+    fn test_file_manager_height_persistence() {
+        let raw = r#"{
+            "file_manager_height": 420.0
+        }"#;
+        let s: AppSettings = serde_json::from_str(raw).expect("parse fm height");
+        assert_eq!(s.file_manager_height, 420);
+
+        let default_st = AppSettings::default();
+        assert_eq!(default_st.file_manager_height, 280);
     }
 }
