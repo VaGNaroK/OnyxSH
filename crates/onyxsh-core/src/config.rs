@@ -16,6 +16,92 @@ pub const OBSOLETE_SHORTCUT_ACTIONS: &[&str] = &[
     "find",
 ];
 
+/// Built-in color scheme identifiers in standard order (compatible with Python OnyxSH).
+pub const BUILTIN_SCHEME_KEYS: &[&str] = &[
+    "ayu_mirage",
+    "catppuccin",
+    "catppuccin_latte",
+    "dark",
+    "dracula",
+    "everforest",
+    "everforest_dark",
+    "everforest_light",
+    "github_dark",
+    "github_light",
+    "gruvbox_dark_hard",
+    "gruvbox_light",
+    "horizon_dark",
+    "kanagawa_wave",
+    "light",
+    "material_ocean",
+    "monokai",
+    "moonfly",
+    "night_owl",
+    "nord",
+    "onedark_pro",
+    "oxocarbon_dark",
+    "palenight",
+    "pink_light",
+    "rose_pine",
+    "solarized_dark",
+    "solarized_light",
+    "system_default",
+    "tokyonight",
+    "vscode_dark_plus",
+];
+
+/// Deserializes `color_scheme` from either a string name (e.g. `"dracula"`) or legacy integer index (e.g. `8`).
+pub fn deserialize_flexible_color_scheme<'de, D>(deserializer: D) -> Result<String, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum SchemeVal {
+        Str(String),
+        Int(usize),
+    }
+
+    match SchemeVal::deserialize(deserializer)? {
+        SchemeVal::Str(s) => Ok(s),
+        SchemeVal::Int(idx) => {
+            if let Some(key) = BUILTIN_SCHEME_KEYS.get(idx) {
+                Ok((*key).to_string())
+            } else {
+                Ok("dracula".to_string())
+            }
+        }
+    }
+}
+
+/// Deserializes a numeric u8 setting (transparency, headerbar transparency) from integer, float, or string.
+pub fn deserialize_flexible_u8<'de, D>(deserializer: D) -> Result<u8, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum NumOrStr {
+        Int(i64),
+        Float(f64),
+        Str(String),
+    }
+
+    match NumOrStr::deserialize(deserializer)? {
+        NumOrStr::Int(i) => Ok(i.clamp(0, 100) as u8),
+        NumOrStr::Float(f) => Ok(f.clamp(0.0, 100.0).round() as u8),
+        NumOrStr::Str(s) => {
+            if let Ok(i) = s.trim().parse::<i64>() {
+                Ok(i.clamp(0, 100) as u8)
+            } else if let Ok(f) = s.trim().parse::<f64>() {
+                Ok(f.clamp(0.0, 100.0).round() as u8)
+            } else {
+                Ok(16)
+            }
+        }
+    }
+}
+
 /// Complete list of default keyboard shortcuts for OnyxSH (`DefaultSettings._get_base_defaults()["shortcuts"]`).
 pub fn default_shortcuts() -> Vec<(&'static str, &'static str)> {
     vec![
@@ -180,8 +266,11 @@ pub struct AppSettings {
     pub font: String,
     pub font_scale: f64,
     pub line_spacing: f64,
+    #[serde(deserialize_with = "deserialize_flexible_color_scheme")]
     pub color_scheme: String,
+    #[serde(deserialize_with = "deserialize_flexible_u8")]
     pub transparency: u8,
+    #[serde(deserialize_with = "deserialize_flexible_u8")]
     pub headerbar_transparency: u8,
     pub bold_is_bright: bool,
     pub auto_hide_sidebar: bool,
@@ -477,5 +566,38 @@ mod tests {
         );
         assert_eq!(accelerator_to_label("<Control><Shift>t"), "Shift+Ctrl+T");
         assert_eq!(accelerator_to_label("<Alt>Page_Down"), "Alt+Page Down");
+    }
+
+    #[test]
+    fn test_flexible_deserialization_of_color_scheme_and_transparency() {
+        // Test with Python OnyxSH format: integer color_scheme and float transparency
+        let raw_json = r#"{
+            "color_scheme": 8,
+            "transparency": 0.0,
+            "headerbar_transparency": 12.0
+        }"#;
+
+        let settings: AppSettings = serde_json::from_str(raw_json).expect("Failed to deserialize flexible settings");
+        assert_eq!(settings.color_scheme, "github_dark");
+        assert_eq!(settings.transparency, 0);
+        assert_eq!(settings.headerbar_transparency, 12);
+
+        // Test with string color_scheme and int 0 transparency
+        let raw_json2 = r#"{
+            "color_scheme": "dracula",
+            "transparency": 0
+        }"#;
+        let settings2: AppSettings = serde_json::from_str(raw_json2).expect("Failed to deserialize string scheme");
+        assert_eq!(settings2.color_scheme, "dracula");
+        assert_eq!(settings2.transparency, 0);
+
+        // Test with roundtrip save and load to tempfile
+        let tmp_dir = std::env::temp_dir();
+        let test_file = tmp_dir.join(format!("test_onyxsh_settings_{}.json", std::process::id()));
+        settings2.save_to_path(&test_file).expect("Failed to save settings");
+        let loaded = AppSettings::load_from_path(&test_file).expect("Failed to reload settings");
+        assert_eq!(loaded.transparency, 0);
+        assert_eq!(loaded.color_scheme, "dracula");
+        let _ = std::fs::remove_file(test_file);
     }
 }
