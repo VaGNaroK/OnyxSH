@@ -98,8 +98,9 @@ pub fn show_highlight_dialog(
     let mut check_icons: Vec<(String, gtk4::Image, adw::ActionRow)> = Vec::new();
 
     for scheme in all_schemes {
+        let escaped_name = glib::markup_escape_text(scheme.name);
         let row = adw::ActionRow::builder()
-            .title(scheme.name)
+            .title(escaped_name.as_str())
             .activatable(true)
             .build();
 
@@ -524,9 +525,11 @@ pub fn show_highlight_dialog(
     ];
 
     for (name, pattern, hex_col) in default_rules {
+        let escaped_name = glib::markup_escape_text(name);
+        let escaped_pattern = glib::markup_escape_text(pattern);
         let rule_row = adw::ActionRow::builder()
-            .title(name)
-            .subtitle(pattern)
+            .title(escaped_name.as_str())
+            .subtitle(escaped_pattern.as_str())
             .build();
 
         let badge = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
@@ -656,9 +659,11 @@ pub fn show_highlight_dialog(
     let mut switches: Vec<gtk4::Switch> = Vec::new();
 
     for (cmd_name, desc, rule_count) in contexts {
+        let escaped_cmd = glib::markup_escape_text(cmd_name);
+        let escaped_desc = glib::markup_escape_text(desc);
         let row_ctx = adw::ActionRow::builder()
-            .title(cmd_name)
-            .subtitle(desc)
+            .title(escaped_cmd.as_str())
+            .subtitle(escaped_desc.as_str())
             .build();
 
         let badge = gtk4::Label::new(Some(&format!("{rule_count} regras")));
