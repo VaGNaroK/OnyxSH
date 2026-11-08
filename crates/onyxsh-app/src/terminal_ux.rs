@@ -970,6 +970,12 @@ pub fn show_command_palette_dialog(
         },
         PaletteItem {
             category: "Configurações".to_string(),
+            title: "Cores e Destaques do Terminal".to_string(),
+            subtitle: "30 esquemas de cores, destaque de saída e regras por comando".to_string(),
+            action_key: "act:highlight-settings".to_string(),
+        },
+        PaletteItem {
+            category: "Configurações".to_string(),
             title: "Criar Backup de Configurações (Bundle SHA-256)".to_string(),
             subtitle: "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
                 .to_string(),

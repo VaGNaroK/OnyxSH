@@ -8,6 +8,7 @@ pub mod dialogs;
 pub mod export_dialog;
 pub mod filemanager_ui;
 pub mod global_search_and_shortcuts;
+pub mod highlight_dialog_ui;
 pub mod main_menu;
 pub mod preferences_ui;
 pub mod resource_dashboard;

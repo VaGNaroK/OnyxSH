@@ -1259,34 +1259,27 @@ pub fn build_main_window(
         }
         menu_vbox.append(&mi_prefs);
 
-        // 4. Cores (Alternar Paleta do Terminal)
+        // 4. Cores (Abre HighlightDialog / coresfix.png)
         let mi_colors = make_menu_btn(
-            "Cores (Alternar Paleta)",
+            "Cores",
             Some("format-text-highlight-symbolic"),
         );
         {
+            let win_clone = window.clone();
             let st_rc = Rc::clone(&settings_rc);
             let terms_rc = Rc::clone(&terminals_rc);
             let css_prov = css_provider.clone();
             let status = status_lbl.clone();
+            let pop = menu_popover.clone();
             mi_colors.connect_clicked(move |_| {
-                let mut st = st_rc.borrow_mut();
-                st.color_scheme = match st.color_scheme.as_str() {
-                    "onyx_dark" => "dracula".to_string(),
-                    "dracula" => "solarized_light".to_string(),
-                    _ => "onyx_dark".to_string(),
-                };
-                let opacity_pct = 100u8.saturating_sub(st.transparency.min(100));
-                let css = format!(
-                    "{}\n{}",
-                    generate_theme_css(&st.color_scheme, opacity_pct),
-                    menu_custom_css()
+                pop.popdown();
+                crate::highlight_dialog_ui::show_highlight_dialog(
+                    &win_clone,
+                    Rc::clone(&st_rc),
+                    Rc::clone(&terms_rc),
+                    css_prov.clone(),
+                    &status,
                 );
-                css_prov.load_from_string(&css);
-                for term in terms_rc.borrow().iter() {
-                    apply_terminal_appearance(term, &st);
-                }
-                status.set_text(&format!("Paleta ativa: {}", st.color_scheme));
             });
         }
         menu_vbox.append(&mi_colors);
@@ -1781,6 +1774,15 @@ pub fn build_main_window(
                 }
                 "preferences" => {
                     crate::preferences_ui::show_preferences_window(
+                        &win_c,
+                        Rc::clone(&st_c),
+                        Rc::clone(&terms_c),
+                        css_c.clone(),
+                        &st_act,
+                    );
+                }
+                "colors" | "highlight-settings" => {
+                    crate::highlight_dialog_ui::show_highlight_dialog(
                         &win_c,
                         Rc::clone(&st_c),
                         Rc::clone(&terms_c),
