@@ -1086,11 +1086,13 @@ fn show_context_menu_for_entry(
         let p_clone = p.clone();
         let act = Rc::clone(&act_rc);
         glib::idle_add_local_once(move || {
-            if let Some(cur) = act.borrow().as_ref() {
+            let mut act_borrow = act.borrow_mut();
+            if let Some(cur) = act_borrow.as_ref() {
                 if cur == &p_clone {
-                    act.borrow_mut().take();
+                    act_borrow.take();
                 }
             }
+            drop(act_borrow);
             if p_clone.parent().is_some() {
                 p_clone.unparent();
             }
@@ -1597,11 +1599,13 @@ fn show_context_menu_for_background(
         let p_clone = p.clone();
         let act = Rc::clone(&act_rc);
         glib::idle_add_local_once(move || {
-            if let Some(cur) = act.borrow().as_ref() {
+            let mut act_borrow = act.borrow_mut();
+            if let Some(cur) = act_borrow.as_ref() {
                 if cur == &p_clone {
-                    act.borrow_mut().take();
+                    act_borrow.take();
                 }
             }
+            drop(act_borrow);
             if p_clone.parent().is_some() {
                 p_clone.unparent();
             }
