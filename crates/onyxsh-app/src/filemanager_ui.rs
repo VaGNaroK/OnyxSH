@@ -14,7 +14,6 @@
 
 use gtk4::gdk;
 use gtk4::glib;
-use gtk4::graphene;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
@@ -1040,7 +1039,7 @@ fn show_confirm_delete_dialog(
 /// Shows the right-click contextual popover menu for a file or directory item.
 fn show_context_menu_for_entry(
     anchor_widget: &impl IsA<gtk4::Widget>,
-    pane_root: &gtk4::Box,
+    _pane_root: &gtk4::Box,
     active_popover: &Rc<RefCell<Option<gtk4::Popover>>>,
     x: f64,
     y: f64,
@@ -1067,19 +1066,13 @@ fn show_context_menu_for_entry(
         }
     }
 
-    let point = graphene::Point::new(x as f32, y as f32);
-    let (px, py) = if let Some(p) = anchor_widget.compute_point(pane_root, &point) {
-        (p.x() as i32, p.y() as i32)
-    } else {
-        (x as i32, y as i32)
-    };
-
     let popover = gtk4::Popover::new();
-    popover.set_parent(pane_root);
-    popover.set_has_arrow(false);
+    popover.set_parent(anchor_widget);
+    popover.set_has_arrow(true);
+    popover.set_position(gtk4::PositionType::Top);
     popover.set_autohide(true);
     popover.add_css_class("onyxsh-popover");
-    popover.set_pointing_to(Some(&gdk::Rectangle::new(px, py, 1, 1)));
+    popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
 
     let act_rc = Rc::clone(active_popover);
     popover.connect_closed(move |p| {
@@ -1137,7 +1130,15 @@ fn show_context_menu_for_entry(
             }
         });
 
-        popover.set_child(Some(&menu_vbox));
+        let scroll = gtk4::ScrolledWindow::builder()
+            .hscrollbar_policy(gtk4::PolicyType::Never)
+            .vscrollbar_policy(gtk4::PolicyType::Automatic)
+            .propagate_natural_height(true)
+            .propagate_natural_width(true)
+            .max_content_height(440)
+            .child(&menu_vbox)
+            .build();
+        popover.set_child(Some(&scroll));
         popover.popup();
         return;
     }
@@ -1548,14 +1549,22 @@ fn show_context_menu_for_entry(
         status_lbl,
     );
 
-    popover.set_child(Some(&menu_vbox));
+    let scroll = gtk4::ScrolledWindow::builder()
+        .hscrollbar_policy(gtk4::PolicyType::Never)
+        .vscrollbar_policy(gtk4::PolicyType::Automatic)
+        .propagate_natural_height(true)
+        .propagate_natural_width(true)
+        .max_content_height(440)
+        .child(&menu_vbox)
+        .build();
+    popover.set_child(Some(&scroll));
     popover.popup();
 }
 
 /// Shows the right-click contextual popover menu for blank / background space of a directory pane.
 fn show_context_menu_for_background(
     anchor_widget: &impl IsA<gtk4::Widget>,
-    pane_root: &gtk4::Box,
+    _pane_root: &gtk4::Box,
     active_popover: &Rc<RefCell<Option<gtk4::Popover>>>,
     x: f64,
     y: f64,
@@ -1580,19 +1589,13 @@ fn show_context_menu_for_background(
         }
     }
 
-    let point = graphene::Point::new(x as f32, y as f32);
-    let (px, py) = if let Some(p) = anchor_widget.compute_point(pane_root, &point) {
-        (p.x() as i32, p.y() as i32)
-    } else {
-        (x as i32, y as i32)
-    };
-
     let popover = gtk4::Popover::new();
-    popover.set_parent(pane_root);
-    popover.set_has_arrow(false);
+    popover.set_parent(anchor_widget);
+    popover.set_has_arrow(true);
+    popover.set_position(gtk4::PositionType::Top);
     popover.set_autohide(true);
     popover.add_css_class("onyxsh-popover");
-    popover.set_pointing_to(Some(&gdk::Rectangle::new(px, py, 1, 1)));
+    popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
 
     let act_rc = Rc::clone(active_popover);
     popover.connect_closed(move |p| {
@@ -1731,7 +1734,15 @@ fn show_context_menu_for_background(
         status_lbl,
     );
 
-    popover.set_child(Some(&menu_vbox));
+    let scroll = gtk4::ScrolledWindow::builder()
+        .hscrollbar_policy(gtk4::PolicyType::Never)
+        .vscrollbar_policy(gtk4::PolicyType::Automatic)
+        .propagate_natural_height(true)
+        .propagate_natural_width(true)
+        .max_content_height(440)
+        .child(&menu_vbox)
+        .build();
+    popover.set_child(Some(&scroll));
     popover.popup();
 }
 
