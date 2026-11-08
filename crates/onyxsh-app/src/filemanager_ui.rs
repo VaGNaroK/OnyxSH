@@ -14,6 +14,7 @@
 
 use gtk4::gdk;
 use gtk4::glib;
+use gtk4::graphene;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
@@ -1038,7 +1039,9 @@ fn show_confirm_delete_dialog(
 
 /// Shows the right-click contextual popover menu for a file or directory item.
 fn show_context_menu_for_entry(
-    parent_widget: &impl IsA<gtk4::Widget>,
+    anchor_widget: &impl IsA<gtk4::Widget>,
+    pane_root: &gtk4::Box,
+    active_popover: &Rc<RefCell<Option<gtk4::Popover>>>,
     x: f64,
     y: f64,
     entry: &FileEntry,
@@ -1057,18 +1060,43 @@ fn show_context_menu_for_entry(
     change_sort: &Rc<dyn Fn(SortColumn, Option<bool>)>,
     switch_view_mode: &Rc<dyn Fn(FileManagerViewMode)>,
 ) {
+    if let Some(old) = active_popover.borrow_mut().take() {
+        if old.parent().is_some() {
+            old.popdown();
+            old.unparent();
+        }
+    }
+
+    let point = graphene::Point::new(x as f32, y as f32);
+    let (px, py) = if let Some(p) = anchor_widget.compute_point(pane_root, &point) {
+        (p.x() as i32, p.y() as i32)
+    } else {
+        (x as i32, y as i32)
+    };
+
     let popover = gtk4::Popover::new();
-    popover.set_parent(parent_widget);
-    popover.set_has_arrow(true);
-    popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
+    popover.set_parent(pane_root);
+    popover.set_has_arrow(false);
+    popover.set_autohide(true);
+    popover.add_css_class("onyxsh-popover");
+    popover.set_pointing_to(Some(&gdk::Rectangle::new(px, py, 1, 1)));
+
+    let act_rc = Rc::clone(active_popover);
     popover.connect_closed(move |p| {
         let p_clone = p.clone();
+        let act = Rc::clone(&act_rc);
         glib::idle_add_local_once(move || {
+            if let Some(cur) = act.borrow().as_ref() {
+                if cur == &p_clone {
+                    act.borrow_mut().take();
+                }
+            }
             if p_clone.parent().is_some() {
                 p_clone.unparent();
             }
         });
     });
+    *active_popover.borrow_mut() = Some(popover.clone());
 
     let menu_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
     menu_vbox.set_margin_start(6);
@@ -1524,7 +1552,9 @@ fn show_context_menu_for_entry(
 
 /// Shows the right-click contextual popover menu for blank / background space of a directory pane.
 fn show_context_menu_for_background(
-    parent_widget: &impl IsA<gtk4::Widget>,
+    anchor_widget: &impl IsA<gtk4::Widget>,
+    pane_root: &gtk4::Box,
+    active_popover: &Rc<RefCell<Option<gtk4::Popover>>>,
     x: f64,
     y: f64,
     cur_dir: &Rc<RefCell<PathBuf>>,
@@ -1541,18 +1571,43 @@ fn show_context_menu_for_background(
     change_sort: &Rc<dyn Fn(SortColumn, Option<bool>)>,
     switch_view_mode: &Rc<dyn Fn(FileManagerViewMode)>,
 ) {
+    if let Some(old) = active_popover.borrow_mut().take() {
+        if old.parent().is_some() {
+            old.popdown();
+            old.unparent();
+        }
+    }
+
+    let point = graphene::Point::new(x as f32, y as f32);
+    let (px, py) = if let Some(p) = anchor_widget.compute_point(pane_root, &point) {
+        (p.x() as i32, p.y() as i32)
+    } else {
+        (x as i32, y as i32)
+    };
+
     let popover = gtk4::Popover::new();
-    popover.set_parent(parent_widget);
-    popover.set_has_arrow(true);
-    popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
+    popover.set_parent(pane_root);
+    popover.set_has_arrow(false);
+    popover.set_autohide(true);
+    popover.add_css_class("onyxsh-popover");
+    popover.set_pointing_to(Some(&gdk::Rectangle::new(px, py, 1, 1)));
+
+    let act_rc = Rc::clone(active_popover);
     popover.connect_closed(move |p| {
         let p_clone = p.clone();
+        let act = Rc::clone(&act_rc);
         glib::idle_add_local_once(move || {
+            if let Some(cur) = act.borrow().as_ref() {
+                if cur == &p_clone {
+                    act.borrow_mut().take();
+                }
+            }
             if p_clone.parent().is_some() {
                 p_clone.unparent();
             }
         });
     });
+    *active_popover.borrow_mut() = Some(popover.clone());
 
     let menu_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
     menu_vbox.set_margin_start(6);
@@ -2029,6 +2084,8 @@ pub fn build_file_pane(
     pane_vbox.set_hexpand(true);
     pane_vbox.set_vexpand(true);
 
+    let active_popover: Rc<RefCell<Option<gtk4::Popover>>> = Rc::new(RefCell::new(None));
+
     // ── 1. Column Header Bar at Top (Shown in List Mode) ─────────────────────
     let col_header_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
     col_header_box.add_css_class("file-detailed-header");
@@ -2405,6 +2462,9 @@ pub fn build_file_pane(
         let bg_click_list = gtk4::GestureClick::new();
         bg_click_list.set_button(3);
         let list_ref = list_box.clone();
+        let scroll_ref = list_scroll.clone();
+        let pane_ref = pane_vbox.clone();
+        let act_pop = Rc::clone(&active_popover);
         let cd = Rc::clone(&current_dir);
         let win = parent_window.clone();
         let st = status_lbl.clone();
@@ -2419,14 +2479,48 @@ pub fn build_file_pane(
         let cs = Rc::clone(&change_sort);
         let svm = Rc::clone(&switch_view_mode);
         let ema = Rc::clone(&entry_menu_active);
-        bg_click_list.connect_pressed(move |_, _, x, y| {
+        let sel = Rc::clone(&selected_entry);
+        bg_click_list.connect_pressed(move |gesture, _, x, y| {
             if ema.get() {
                 ema.set(false);
                 return;
             }
+
+            // Python-style pick check: ignore clicks on rows/items
+            if let Some(target) = scroll_ref.pick(x, y, gtk4::PickFlags::DEFAULT) {
+                let mut is_row_target = false;
+                let mut curr = Some(target);
+                while let Some(w) = curr {
+                    if &w == scroll_ref.upcast_ref::<gtk4::Widget>() {
+                        break;
+                    }
+                    let css = w.css_name();
+                    let classes = w.css_classes();
+                    if css == "listitem"
+                        || css == "row"
+                        || classes.iter().any(|c| c == "file-detailed-row" || c == "file-grid-card")
+                        || w.type_().name() == "GtkListBoxRow"
+                        || w.type_().name() == "GtkFlowBoxChild"
+                    {
+                        is_row_target = true;
+                        break;
+                    }
+                    curr = w.parent();
+                }
+                if is_row_target {
+                    return;
+                }
+            }
+
+            gesture.set_state(gtk4::EventSequenceState::Claimed);
+            list_ref.unselect_all();
+            *sel.borrow_mut() = None;
+
             if let Some(r) = rh.borrow().as_ref() {
                 show_context_menu_for_background(
-                    &list_ref,
+                    &scroll_ref,
+                    &pane_ref,
+                    &act_pop,
                     x,
                     y,
                     &cd,
@@ -2451,6 +2545,9 @@ pub fn build_file_pane(
         let bg_click_grid = gtk4::GestureClick::new();
         bg_click_grid.set_button(3);
         let grid_ref = grid_flow.clone();
+        let scroll_ref = grid_scroll.clone();
+        let pane_ref = pane_vbox.clone();
+        let act_pop = Rc::clone(&active_popover);
         let cd = Rc::clone(&current_dir);
         let win = parent_window.clone();
         let st = status_lbl.clone();
@@ -2465,14 +2562,47 @@ pub fn build_file_pane(
         let cs = Rc::clone(&change_sort);
         let svm = Rc::clone(&switch_view_mode);
         let ema = Rc::clone(&entry_menu_active);
-        bg_click_grid.connect_pressed(move |_, _, x, y| {
+        let sel = Rc::clone(&selected_entry);
+        bg_click_grid.connect_pressed(move |gesture, _, x, y| {
             if ema.get() {
                 ema.set(false);
                 return;
             }
+
+            if let Some(target) = scroll_ref.pick(x, y, gtk4::PickFlags::DEFAULT) {
+                let mut is_row_target = false;
+                let mut curr = Some(target);
+                while let Some(w) = curr {
+                    if &w == scroll_ref.upcast_ref::<gtk4::Widget>() {
+                        break;
+                    }
+                    let css = w.css_name();
+                    let classes = w.css_classes();
+                    if css == "listitem"
+                        || css == "row"
+                        || classes.iter().any(|c| c == "file-detailed-row" || c == "file-grid-card")
+                        || w.type_().name() == "GtkListBoxRow"
+                        || w.type_().name() == "GtkFlowBoxChild"
+                    {
+                        is_row_target = true;
+                        break;
+                    }
+                    curr = w.parent();
+                }
+                if is_row_target {
+                    return;
+                }
+            }
+
+            gesture.set_state(gtk4::EventSequenceState::Claimed);
+            grid_ref.unselect_all();
+            *sel.borrow_mut() = None;
+
             if let Some(r) = rh.borrow().as_ref() {
                 show_context_menu_for_background(
-                    &grid_ref,
+                    &scroll_ref,
+                    &pane_ref,
+                    &act_pop,
                     x,
                     y,
                     &cd,
@@ -2505,6 +2635,8 @@ pub fn build_file_pane(
         let cs_rc = Rc::clone(&change_sort);
         let svm_rc = Rc::clone(&switch_view_mode);
         let ema_rc = Rc::clone(&entry_menu_active);
+        let pane_vbox_c = pane_vbox.clone();
+        let act_pop_rc = Rc::clone(&active_popover);
         let bc_box = breadcrumb_box.clone();
         let se = search_entry.clone();
         let rec_switch = recursive_switch.clone();
@@ -2742,11 +2874,14 @@ pub fn build_file_pane(
                 list_row.set_selectable(true);
                 list_row.set_activatable(true);
 
-                // Attach right-click context menu gesture to list_row
+                // Attach right-click context menu gesture to row_hbox and list_row
                 let right_click = gtk4::GestureClick::new();
                 right_click.set_button(3);
                 let row_ref = list_row.clone();
+                let hbox_ref = row_hbox.clone();
                 let lb_ref = lb.clone();
+                let pane_ref = pane_vbox_c.clone();
+                let act_pop = Rc::clone(&act_pop_rc);
                 let e_clone = entry.clone();
                 let cd = Rc::clone(&cur_dir);
                 let win = win_ref.clone();
@@ -2770,8 +2905,11 @@ pub fn build_file_pane(
                     *sel2.borrow_mut() = Some(e_clone.clone());
                     lb_ref.select_row(Some(&row_ref));
                     if let Some(r) = rh.borrow().as_ref() {
+                        let clicked_widget = gesture.widget().unwrap_or_else(|| hbox_ref.clone().upcast());
                         show_context_menu_for_entry(
-                            &row_ref,
+                            &clicked_widget,
+                            &pane_ref,
+                            &act_pop,
                             x,
                             y,
                             &e_clone,
@@ -2792,6 +2930,7 @@ pub fn build_file_pane(
                         );
                     }
                 });
+                row_hbox.add_controller(right_click.clone());
                 list_row.add_controller(right_click);
 
                 lb.append(&list_row);
@@ -2844,11 +2983,14 @@ pub fn build_file_pane(
                 let flow_child = gtk4::FlowBoxChild::new();
                 flow_child.set_child(Some(&card));
 
-                // Attach right-click context menu gesture to flow_child
+                // Attach right-click context menu gesture to card and flow_child
                 let right_click = gtk4::GestureClick::new();
                 right_click.set_button(3);
                 let card_ref = flow_child.clone();
+                let card_box_ref = card.clone();
                 let gf_ref = gf.clone();
+                let pane_ref = pane_vbox_c.clone();
+                let act_pop = Rc::clone(&act_pop_rc);
                 let e_clone = entry.clone();
                 let cd = Rc::clone(&cur_dir);
                 let win = win_ref.clone();
@@ -2872,8 +3014,11 @@ pub fn build_file_pane(
                     *sel2.borrow_mut() = Some(e_clone.clone());
                     gf_ref.select_child(&card_ref);
                     if let Some(r) = rh.borrow().as_ref() {
+                        let clicked_widget = gesture.widget().unwrap_or_else(|| card_box_ref.clone().upcast());
                         show_context_menu_for_entry(
-                            &card_ref,
+                            &clicked_widget,
+                            &pane_ref,
+                            &act_pop,
                             x,
                             y,
                             &e_clone,
@@ -2894,6 +3039,7 @@ pub fn build_file_pane(
                         );
                     }
                 });
+                card.add_controller(right_click.clone());
                 flow_child.add_controller(right_click);
 
                 gf.append(&flow_child);
@@ -2944,6 +3090,8 @@ pub fn build_file_pane(
                     let cs_c = Rc::clone(&cs_rc);
                     let svm_c = Rc::clone(&svm_rc);
                     let ema = Rc::clone(&ema_rc);
+                    let pane_ref = pane_vbox_c.clone();
+                    let act_pop = Rc::clone(&act_pop_rc);
                     right_click.connect_pressed(move |gesture, _, x, y| {
                         gesture.set_state(gtk4::EventSequenceState::Claimed);
                         ema.set(true);
@@ -2951,6 +3099,8 @@ pub fn build_file_pane(
                         if let Some(r) = rh2.borrow().as_ref() {
                             show_context_menu_for_entry(
                                 &exp_ref,
+                                &pane_ref,
+                                &act_pop,
                                 x,
                                 y,
                                 &e_clone,
@@ -3031,6 +3181,8 @@ pub fn build_file_pane(
                     let cs_c = Rc::clone(&cs_rc);
                     let svm_c = Rc::clone(&svm_rc);
                     let ema = Rc::clone(&ema_rc);
+                    let pane_ref = pane_vbox_c.clone();
+                    let act_pop = Rc::clone(&act_pop_rc);
                     right_click.connect_pressed(move |gesture, _, x, y| {
                         gesture.set_state(gtk4::EventSequenceState::Claimed);
                         ema.set(true);
@@ -3038,6 +3190,8 @@ pub fn build_file_pane(
                         if let Some(r) = rh2.borrow().as_ref() {
                             show_context_menu_for_entry(
                                 &btn_ref,
+                                &pane_ref,
+                                &act_pop,
                                 x,
                                 y,
                                 &e_c,
