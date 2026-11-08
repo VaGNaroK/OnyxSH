@@ -107,6 +107,18 @@ pub fn default_file_manager_height() -> u32 {
     280
 }
 
+pub fn default_fm_sort_by() -> String {
+    "name".to_string()
+}
+
+pub fn default_true() -> bool {
+    true
+}
+
+pub fn default_fm_view_mode() -> String {
+    "list".to_string()
+}
+
 /// Deserializes a numeric u32 setting (e.g. `file_manager_height`) from integer, float, or string.
 pub fn deserialize_flexible_u32<'de, D>(deserializer: D) -> Result<u32, D::Error>
 where
@@ -313,6 +325,12 @@ pub struct AppSettings {
     pub hide_headerbar_buttons_when_maximized: String,
     #[serde(default = "default_file_manager_height", deserialize_with = "deserialize_flexible_u32")]
     pub file_manager_height: u32,
+    #[serde(default = "default_fm_sort_by")]
+    pub file_manager_sort_by: String,
+    #[serde(default = "default_true")]
+    pub file_manager_sort_ascending: bool,
+    #[serde(default = "default_fm_view_mode")]
+    pub file_manager_view_mode: String,
 
     // 2. Terminal
     pub new_instance_behavior: String,
@@ -413,6 +431,9 @@ impl Default for AppSettings {
             icon_theme_strategy: "system".to_string(),
             hide_headerbar_buttons_when_maximized: "auto".to_string(),
             file_manager_height: 280,
+            file_manager_sort_by: "name".to_string(),
+            file_manager_sort_ascending: true,
+            file_manager_view_mode: "list".to_string(),
 
             new_instance_behavior: "new_tab".to_string(),
             cursor_shape: 0,
@@ -638,14 +659,23 @@ mod tests {
     }
 
     #[test]
-    fn test_file_manager_height_persistence() {
+    fn test_file_manager_settings_persistence() {
         let raw = r#"{
-            "file_manager_height": 420.0
+            "file_manager_height": 420.0,
+            "file_manager_sort_by": "group",
+            "file_manager_sort_ascending": false,
+            "file_manager_view_mode": "grid"
         }"#;
-        let s: AppSettings = serde_json::from_str(raw).expect("parse fm height");
+        let s: AppSettings = serde_json::from_str(raw).expect("parse fm settings");
         assert_eq!(s.file_manager_height, 420);
+        assert_eq!(s.file_manager_sort_by, "group");
+        assert!(!s.file_manager_sort_ascending);
+        assert_eq!(s.file_manager_view_mode, "grid");
 
         let default_st = AppSettings::default();
         assert_eq!(default_st.file_manager_height, 280);
+        assert_eq!(default_st.file_manager_sort_by, "name");
+        assert!(default_st.file_manager_sort_ascending);
+        assert_eq!(default_st.file_manager_view_mode, "list");
     }
 }

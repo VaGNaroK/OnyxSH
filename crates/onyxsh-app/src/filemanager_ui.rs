@@ -17,6 +17,7 @@ use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
+use onyxsh_core::config::AppSettings;
 use onyxsh_core::platform;
 use onyxsh_filemanager::backend::{FileSystemBackend, LocalFsBackend};
 use onyxsh_filemanager::quick_look::{
@@ -757,6 +758,235 @@ fn add_menu_item(
     menu_box.append(&btn);
 }
 
+/// Helper to add a checkable action button with a select indicator to a context menu popover.
+fn add_checkable_menu_item(
+    menu_box: &gtk4::Box,
+    popover: &gtk4::Popover,
+    icon_name: &str,
+    label_text: &str,
+    checked: bool,
+    action: impl Fn() + 'static,
+) {
+    let btn = gtk4::Button::new();
+    btn.add_css_class("flat");
+    let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+    let img = gtk4::Image::from_icon_name(icon_name);
+    let lbl = gtk4::Label::new(Some(label_text));
+    lbl.set_halign(gtk4::Align::Start);
+    lbl.set_hexpand(true);
+    hbox.append(&img);
+    hbox.append(&lbl);
+
+    if checked {
+        let check_icon = gtk4::Image::from_icon_name("object-select-symbolic");
+        check_icon.add_css_class("accent");
+        hbox.append(&check_icon);
+    }
+
+    btn.set_child(Some(&hbox));
+
+    let pop = popover.clone();
+    btn.connect_clicked(move |_| {
+        pop.popdown();
+        if pop.parent().is_some() {
+            pop.unparent();
+        }
+        action();
+    });
+    menu_box.append(&btn);
+}
+
+/// Injects the 'Organizar por' and 'Modo de Exibição' options into the context menu popover.
+fn add_organize_and_view_menu_items(
+    menu_vbox: &gtk4::Box,
+    popover: &gtk4::Popover,
+    sort_col: &Rc<RefCell<SortColumn>>,
+    sort_asc: &Rc<RefCell<bool>>,
+    view_mode: &Rc<RefCell<FileManagerViewMode>>,
+    change_sort: &Rc<dyn Fn(SortColumn, Option<bool>)>,
+    switch_view_mode: &Rc<dyn Fn(FileManagerViewMode)>,
+    status_lbl: &gtk4::Label,
+) {
+    menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+    let header_sort = gtk4::Label::builder()
+        .label("Organizar por")
+        .xalign(0.0)
+        .build();
+    header_sort.add_css_class("dim-label");
+    header_sort.set_margin_start(8);
+    header_sort.set_margin_top(4);
+    header_sort.set_margin_bottom(2);
+    menu_vbox.append(&header_sort);
+
+    let curr_col = *sort_col.borrow();
+    let curr_asc = *sort_asc.borrow();
+    let curr_vm = *view_mode.borrow();
+
+    // 1. Sort by Name
+    {
+        let cs = Rc::clone(change_sort);
+        let st = status_lbl.clone();
+        add_checkable_menu_item(
+            menu_vbox,
+            popover,
+            "edit-find-symbolic",
+            "Nome (A-Z)",
+            curr_col == SortColumn::Name,
+            move || {
+                cs(SortColumn::Name, None);
+                st.set_text("Arquivos organizados por Nome");
+            },
+        );
+    }
+
+    // 2. Sort by Type / Extension
+    {
+        let cs = Rc::clone(change_sort);
+        let st = status_lbl.clone();
+        add_checkable_menu_item(
+            menu_vbox,
+            popover,
+            "text-x-generic-symbolic",
+            "Tipo / Extensão",
+            curr_col == SortColumn::Type,
+            move || {
+                cs(SortColumn::Type, None);
+                st.set_text("Arquivos organizados por Tipo / Extensão");
+            },
+        );
+    }
+
+    // 3. Sort by Size
+    {
+        let cs = Rc::clone(change_sort);
+        let st = status_lbl.clone();
+        add_checkable_menu_item(
+            menu_vbox,
+            popover,
+            "emblem-documents-symbolic",
+            "Tamanho",
+            curr_col == SortColumn::Size,
+            move || {
+                cs(SortColumn::Size, None);
+                st.set_text("Arquivos organizados por Tamanho");
+            },
+        );
+    }
+
+    // 4. Sort by Modified Date
+    {
+        let cs = Rc::clone(change_sort);
+        let st = status_lbl.clone();
+        add_checkable_menu_item(
+            menu_vbox,
+            popover,
+            "x-office-calendar-symbolic",
+            "Data de Modificação",
+            curr_col == SortColumn::Modified,
+            move || {
+                cs(SortColumn::Modified, None);
+                st.set_text("Arquivos organizados por Data de Modificação");
+            },
+        );
+    }
+
+    // 5. Intelligent Grouping (.7z at top, scripts, documents, media)
+    {
+        let cs = Rc::clone(change_sort);
+        let st = status_lbl.clone();
+        add_checkable_menu_item(
+            menu_vbox,
+            popover,
+            "package-x-generic-symbolic",
+            "Agrupar por Categorias (.7z no topo)",
+            curr_col == SortColumn::GroupByType,
+            move || {
+                cs(SortColumn::GroupByType, None);
+                st.set_text("Arquivos agrupados por Categoria (.7z no topo)");
+            },
+        );
+    }
+
+    menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+    // Direction: Ascending / Descending
+    {
+        let cs = Rc::clone(change_sort);
+        let st = status_lbl.clone();
+        add_checkable_menu_item(
+            menu_vbox,
+            popover,
+            "view-sort-ascending-symbolic",
+            "Ordem Crescente",
+            curr_asc,
+            move || {
+                cs(curr_col, Some(true));
+                st.set_text("Ordenação crescente ativada");
+            },
+        );
+    }
+    {
+        let cs = Rc::clone(change_sort);
+        let st = status_lbl.clone();
+        add_checkable_menu_item(
+            menu_vbox,
+            popover,
+            "view-sort-descending-symbolic",
+            "Ordem Decrescente",
+            !curr_asc,
+            move || {
+                cs(curr_col, Some(false));
+                st.set_text("Ordenação decrescente ativada");
+            },
+        );
+    }
+
+    menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+
+    let header_view = gtk4::Label::builder()
+        .label("Modo de Exibição")
+        .xalign(0.0)
+        .build();
+    header_view.add_css_class("dim-label");
+    header_view.set_margin_start(8);
+    header_view.set_margin_top(4);
+    header_view.set_margin_bottom(2);
+    menu_vbox.append(&header_view);
+
+    // View Mode: Grid (Icons) vs List (Detailed)
+    {
+        let vm_fn = Rc::clone(switch_view_mode);
+        let st = status_lbl.clone();
+        add_checkable_menu_item(
+            menu_vbox,
+            popover,
+            "view-grid-symbolic",
+            "Grade de Ícones",
+            curr_vm == FileManagerViewMode::Grid,
+            move || {
+                vm_fn(FileManagerViewMode::Grid);
+                st.set_text("Visualização em Grade de Ícones ativada");
+            },
+        );
+    }
+    {
+        let vm_fn = Rc::clone(switch_view_mode);
+        let st = status_lbl.clone();
+        add_checkable_menu_item(
+            menu_vbox,
+            popover,
+            "view-list-symbolic",
+            "Lista Detalhada",
+            curr_vm == FileManagerViewMode::List,
+            move || {
+                vm_fn(FileManagerViewMode::List);
+                st.set_text("Visualização em Lista Detalhada ativada");
+            },
+        );
+    }
+}
+
 /// Confirmation dialog for permanent deletion.
 fn show_confirm_delete_dialog(
     parent: &adw::ApplicationWindow,
@@ -827,6 +1057,11 @@ fn show_context_menu_for_entry(
     ai_prompt_cb: &Option<Rc<dyn Fn(&str)>>,
     clipboard: &Rc<RefCell<Option<FileManagerClipboardItem>>>,
     visible_entries: &Rc<RefCell<Vec<FileEntry>>>,
+    sort_col: &Rc<RefCell<SortColumn>>,
+    sort_asc: &Rc<RefCell<bool>>,
+    view_mode: &Rc<RefCell<FileManagerViewMode>>,
+    change_sort: &Rc<dyn Fn(SortColumn, Option<bool>)>,
+    switch_view_mode: &Rc<dyn Fn(FileManagerViewMode)>,
 ) {
     let popover = gtk4::Popover::new();
     popover.set_parent(parent_widget);
@@ -846,7 +1081,7 @@ fn show_context_menu_for_entry(
     menu_vbox.set_margin_end(6);
     menu_vbox.set_margin_top(6);
     menu_vbox.set_margin_bottom(6);
-    menu_vbox.set_width_request(250);
+    menu_vbox.set_width_request(280);
 
     if entry.name == ".." {
         let cd = Rc::clone(cur_dir);
@@ -1278,6 +1513,17 @@ fn show_context_menu_for_entry(
         });
     }
 
+    add_organize_and_view_menu_items(
+        &menu_vbox,
+        &popover,
+        sort_col,
+        sort_asc,
+        view_mode,
+        change_sort,
+        switch_view_mode,
+        status_lbl,
+    );
+
     popover.set_child(Some(&menu_vbox));
     popover.popup();
 }
@@ -1295,6 +1541,11 @@ fn show_context_menu_for_background(
     feed_terminal_cb: &Rc<dyn Fn(&str)>,
     ai_prompt_cb: &Option<Rc<dyn Fn(&str)>>,
     clipboard: &Rc<RefCell<Option<FileManagerClipboardItem>>>,
+    sort_col: &Rc<RefCell<SortColumn>>,
+    sort_asc: &Rc<RefCell<bool>>,
+    view_mode: &Rc<RefCell<FileManagerViewMode>>,
+    change_sort: &Rc<dyn Fn(SortColumn, Option<bool>)>,
+    switch_view_mode: &Rc<dyn Fn(FileManagerViewMode)>,
 ) {
     let popover = gtk4::Popover::new();
     popover.set_parent(parent_widget);
@@ -1314,7 +1565,7 @@ fn show_context_menu_for_background(
     menu_vbox.set_margin_end(6);
     menu_vbox.set_margin_top(6);
     menu_vbox.set_margin_bottom(6);
-    menu_vbox.set_width_request(250);
+    menu_vbox.set_width_request(280);
 
     let cd = Rc::clone(cur_dir);
     let cd_cb = Rc::clone(cd_in_terminal_cb);
@@ -1415,6 +1666,17 @@ fn show_context_menu_for_background(
     add_menu_item(&menu_vbox, &popover, "view-refresh-symbolic", "Atualizar Lista (F5)", false, move || {
         rf();
     });
+
+    add_organize_and_view_menu_items(
+        &menu_vbox,
+        &popover,
+        sort_col,
+        sort_asc,
+        view_mode,
+        change_sort,
+        switch_view_mode,
+        status_lbl,
+    );
 
     popover.set_child(Some(&menu_vbox));
     popover.popup();
@@ -1740,13 +2002,34 @@ pub fn build_file_pane(
     ai_prompt_cb: Option<Rc<dyn Fn(&str)>>,
     clipboard: Rc<RefCell<Option<FileManagerClipboardItem>>>,
 ) -> FilePaneHandle {
+    let cfg_path = platform::config_dir().join("settings.json");
+    let (initial_sort, initial_asc, initial_vm) = if let Ok(st) = AppSettings::load_from_path(&cfg_path) {
+        let col = match st.file_manager_sort_by.as_str() {
+            "size" => SortColumn::Size,
+            "modified" => SortColumn::Modified,
+            "permissions" => SortColumn::Permissions,
+            "owner" => SortColumn::Owner,
+            "type" => SortColumn::Type,
+            "group" => SortColumn::GroupByType,
+            _ => SortColumn::Name,
+        };
+        let vm = match st.file_manager_view_mode.as_str() {
+            "grid" => FileManagerViewMode::Grid,
+            "tree" => FileManagerViewMode::Tree,
+            _ => FileManagerViewMode::List,
+        };
+        (col, st.file_manager_sort_ascending, vm)
+    } else {
+        (SortColumn::Name, true, FileManagerViewMode::List)
+    };
+
     let current_dir = Rc::new(RefCell::new(initial_dir));
     let selected_entry: Rc<RefCell<Option<FileEntry>>> = Rc::new(RefCell::new(None));
     let visible_entries: Rc<RefCell<Vec<FileEntry>>> = Rc::new(RefCell::new(Vec::new()));
     let show_hidden = Rc::new(RefCell::new(false));
-    let sort_col = Rc::new(RefCell::new(SortColumn::Name));
-    let sort_asc = Rc::new(RefCell::new(true));
-    let view_mode = Rc::new(RefCell::new(FileManagerViewMode::List));
+    let sort_col = Rc::new(RefCell::new(initial_sort));
+    let sort_asc = Rc::new(RefCell::new(initial_asc));
+    let view_mode = Rc::new(RefCell::new(initial_vm));
 
     let pane_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
     pane_vbox.set_hexpand(true);
@@ -1920,6 +2203,8 @@ pub fn build_file_pane(
     view_stack.add_named(&tree_scroll, Some("tree"));
 
     pane_vbox.append(&view_stack);
+    view_stack.set_visible_child_name(initial_vm.as_stack_name());
+    col_header_box.set_visible(initial_vm == FileManagerViewMode::List);
 
     // ── 3. Bottom Action Bar (Identical to filemanagerpython.png) ─────────────
     let action_bar = gtk4::ActionBar::new();
@@ -1966,16 +2251,18 @@ pub fn build_file_pane(
     let btn_mode_list = gtk4::ToggleButton::builder()
         .icon_name("view-list-symbolic")
         .tooltip_text("Visualização em Lista Detalhada")
-        .active(true)
+        .active(initial_vm == FileManagerViewMode::List)
         .build();
     let btn_mode_grid = gtk4::ToggleButton::builder()
         .icon_name("view-grid-symbolic")
         .tooltip_text("Visualização em Grade / Miniaturas")
+        .active(initial_vm == FileManagerViewMode::Grid)
         .group(&btn_mode_list)
         .build();
     let btn_mode_tree = gtk4::ToggleButton::builder()
         .icon_name("format-indent-more-symbolic")
         .tooltip_text("Visualização em Árvore Hierárquica")
+        .active(initial_vm == FileManagerViewMode::Tree)
         .group(&btn_mode_list)
         .build();
     mode_box.append(&btn_mode_list);
@@ -2043,6 +2330,81 @@ pub fn build_file_pane(
     // ── 5. Master Refresh Closure & Background Context Menus ─────────────────
     let refresh_holder: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
 
+    let change_sort: Rc<dyn Fn(SortColumn, Option<bool>)> = {
+        let scol = Rc::clone(&sort_col);
+        let sasc = Rc::clone(&sort_asc);
+        let rf = Rc::clone(&refresh_holder);
+        Rc::new(move |col: SortColumn, asc: Option<bool>| {
+            *scol.borrow_mut() = col;
+            if let Some(a) = asc {
+                *sasc.borrow_mut() = a;
+            }
+            let col_str = match col {
+                SortColumn::Name => "name",
+                SortColumn::Size => "size",
+                SortColumn::Modified => "modified",
+                SortColumn::Permissions => "permissions",
+                SortColumn::Owner => "owner",
+                SortColumn::Type => "type",
+                SortColumn::GroupByType => "group",
+            };
+            let cfg_path = platform::config_dir().join("settings.json");
+            if let Ok(mut st) = AppSettings::load_from_path(&cfg_path) {
+                st.file_manager_sort_by = col_str.to_string();
+                st.file_manager_sort_ascending = *sasc.borrow();
+                let _ = st.save_to_path(&cfg_path);
+            }
+            if let Some(r) = rf.borrow().as_ref() {
+                r();
+            }
+        })
+    };
+
+    let switch_view_mode: Rc<dyn Fn(FileManagerViewMode)> = {
+        let vs = view_stack.clone();
+        let ch = col_header_box.clone();
+        let vm = Rc::clone(&view_mode);
+        let b_list = btn_mode_list.clone();
+        let b_grid = btn_mode_grid.clone();
+        let b_tree = btn_mode_tree.clone();
+        let rf = Rc::clone(&refresh_holder);
+        Rc::new(move |mode: FileManagerViewMode| {
+            *vm.borrow_mut() = mode;
+            vs.set_visible_child_name(mode.as_stack_name());
+            ch.set_visible(mode == FileManagerViewMode::List);
+            match mode {
+                FileManagerViewMode::List => {
+                    if !b_list.is_active() {
+                        b_list.set_active(true);
+                    }
+                }
+                FileManagerViewMode::Grid => {
+                    if !b_grid.is_active() {
+                        b_grid.set_active(true);
+                    }
+                }
+                FileManagerViewMode::Tree => {
+                    if !b_tree.is_active() {
+                        b_tree.set_active(true);
+                    }
+                }
+            }
+            let mode_str = match mode {
+                FileManagerViewMode::List => "list",
+                FileManagerViewMode::Grid => "grid",
+                FileManagerViewMode::Tree => "tree",
+            };
+            let cfg_path = platform::config_dir().join("settings.json");
+            if let Ok(mut st) = AppSettings::load_from_path(&cfg_path) {
+                st.file_manager_view_mode = mode_str.to_string();
+                let _ = st.save_to_path(&cfg_path);
+            }
+            if let Some(r) = rf.borrow().as_ref() {
+                r();
+            }
+        })
+    };
+
     // Background Right-Click Context Menus
     {
         let bg_click_list = gtk4::GestureClick::new();
@@ -2056,6 +2418,11 @@ pub fn build_file_pane(
         let feed_cb = Rc::clone(&feed_terminal_cb);
         let ai_cb = ai_prompt_cb.clone();
         let clip = Rc::clone(&clipboard);
+        let sc = Rc::clone(&sort_col);
+        let sa = Rc::clone(&sort_asc);
+        let vm = Rc::clone(&view_mode);
+        let cs = Rc::clone(&change_sort);
+        let svm = Rc::clone(&switch_view_mode);
         bg_click_list.connect_pressed(move |_, _, x, y| {
             if let Some(r) = rh.borrow().as_ref() {
                 show_context_menu_for_background(
@@ -2070,6 +2437,11 @@ pub fn build_file_pane(
                     &feed_cb,
                     &ai_cb,
                     &clip,
+                    &sc,
+                    &sa,
+                    &vm,
+                    &cs,
+                    &svm,
                 );
             }
         });
@@ -2087,6 +2459,11 @@ pub fn build_file_pane(
         let feed_cb = Rc::clone(&feed_terminal_cb);
         let ai_cb = ai_prompt_cb.clone();
         let clip = Rc::clone(&clipboard);
+        let sc = Rc::clone(&sort_col);
+        let sa = Rc::clone(&sort_asc);
+        let vm = Rc::clone(&view_mode);
+        let cs = Rc::clone(&change_sort);
+        let svm = Rc::clone(&switch_view_mode);
         bg_click_grid.connect_pressed(move |_, _, x, y| {
             if let Some(r) = rh.borrow().as_ref() {
                 show_context_menu_for_background(
@@ -2101,6 +2478,11 @@ pub fn build_file_pane(
                     &feed_cb,
                     &ai_cb,
                     &clip,
+                    &sc,
+                    &sa,
+                    &vm,
+                    &cs,
+                    &svm,
                 );
             }
         });
@@ -2114,6 +2496,9 @@ pub fn build_file_pane(
         let hidden_rc = Rc::clone(&show_hidden);
         let scol_rc = Rc::clone(&sort_col);
         let sasc_rc = Rc::clone(&sort_asc);
+        let vm_rc = Rc::clone(&view_mode);
+        let cs_rc = Rc::clone(&change_sort);
+        let svm_rc = Rc::clone(&switch_view_mode);
         let bc_box = breadcrumb_box.clone();
         let se = search_entry.clone();
         let rec_switch = recursive_switch.clone();
@@ -2358,6 +2743,11 @@ pub fn build_file_pane(
                 let clip2 = Rc::clone(&clip_rc);
                 let vis2 = Rc::clone(&vis_entries);
                 let sel2 = Rc::clone(&sel_entry);
+                let scol_c = Rc::clone(&scol_rc);
+                let sasc_c = Rc::clone(&sasc_rc);
+                let vm_c = Rc::clone(&vm_rc);
+                let cs_c = Rc::clone(&cs_rc);
+                let svm_c = Rc::clone(&svm_rc);
                 right_click.connect_pressed(move |gesture, _, x, y| {
                     gesture.set_state(gtk4::EventSequenceState::Claimed);
                     *sel2.borrow_mut() = Some(e_clone.clone());
@@ -2376,6 +2766,11 @@ pub fn build_file_pane(
                             &ai_cb2,
                             &clip2,
                             &vis2,
+                            &scol_c,
+                            &sasc_c,
+                            &vm_c,
+                            &cs_c,
+                            &svm_c,
                         );
                     }
                 });
@@ -2443,6 +2838,11 @@ pub fn build_file_pane(
                 let clip2 = Rc::clone(&clip_rc);
                 let vis2 = Rc::clone(&vis_entries);
                 let sel2 = Rc::clone(&sel_entry);
+                let scol_c = Rc::clone(&scol_rc);
+                let sasc_c = Rc::clone(&sasc_rc);
+                let vm_c = Rc::clone(&vm_rc);
+                let cs_c = Rc::clone(&cs_rc);
+                let svm_c = Rc::clone(&svm_rc);
                 right_click.connect_pressed(move |gesture, _, x, y| {
                     gesture.set_state(gtk4::EventSequenceState::Claimed);
                     *sel2.borrow_mut() = Some(e_clone.clone());
@@ -2461,6 +2861,11 @@ pub fn build_file_pane(
                             &ai_cb2,
                             &clip2,
                             &vis2,
+                            &scol_c,
+                            &sasc_c,
+                            &vm_c,
+                            &cs_c,
+                            &svm_c,
                         );
                     }
                 });
@@ -2508,6 +2913,11 @@ pub fn build_file_pane(
                     let clip2 = Rc::clone(&clip_rc);
                     let vis2 = Rc::clone(&vis_entries);
                     let sel2 = Rc::clone(&sel_entry);
+                    let scol_c = Rc::clone(&scol_rc);
+                    let sasc_c = Rc::clone(&sasc_rc);
+                    let vm_c = Rc::clone(&vm_rc);
+                    let cs_c = Rc::clone(&cs_rc);
+                    let svm_c = Rc::clone(&svm_rc);
                     right_click.connect_pressed(move |gesture, _, x, y| {
                         gesture.set_state(gtk4::EventSequenceState::Claimed);
                         *sel2.borrow_mut() = Some(e_clone.clone());
@@ -2526,6 +2936,11 @@ pub fn build_file_pane(
                                 &ai_cb2,
                                 &clip2,
                                 &vis2,
+                                &scol_c,
+                                &sasc_c,
+                                &vm_c,
+                                &cs_c,
+                                &svm_c,
                             );
                         }
                     });
@@ -2583,6 +2998,11 @@ pub fn build_file_pane(
                     let clip2 = Rc::clone(&clip_rc);
                     let vis2 = Rc::clone(&vis_entries);
                     let sel2 = Rc::clone(&sel_entry);
+                    let scol_c = Rc::clone(&scol_rc);
+                    let sasc_c = Rc::clone(&sasc_rc);
+                    let vm_c = Rc::clone(&vm_rc);
+                    let cs_c = Rc::clone(&cs_rc);
+                    let svm_c = Rc::clone(&svm_rc);
                     right_click.connect_pressed(move |gesture, _, x, y| {
                         gesture.set_state(gtk4::EventSequenceState::Claimed);
                         *sel2.borrow_mut() = Some(e_c.clone());
@@ -2601,6 +3021,11 @@ pub fn build_file_pane(
                                 &ai_cb2,
                                 &clip2,
                                 &vis2,
+                                &scol_c,
+                                &sasc_c,
+                                &vm_c,
+                                &cs_c,
+                                &svm_c,
                             );
                         }
                     });
@@ -2759,116 +3184,97 @@ pub fn build_file_pane(
 
     // View Mode Switching (`list` / `grid` / `tree`)
     {
-        let vs = view_stack.clone();
-        let ch = col_header_box.clone();
+        let svm = Rc::clone(&switch_view_mode);
         let vm = Rc::clone(&view_mode);
         btn_mode_list.connect_toggled(move |btn| {
-            if btn.is_active() {
-                *vm.borrow_mut() = FileManagerViewMode::List;
-                vs.set_visible_child_name(FileManagerViewMode::List.as_stack_name());
-                ch.set_visible(true);
+            if btn.is_active() && *vm.borrow() != FileManagerViewMode::List {
+                svm(FileManagerViewMode::List);
             }
         });
     }
     {
-        let vs = view_stack.clone();
-        let ch = col_header_box.clone();
+        let svm = Rc::clone(&switch_view_mode);
         let vm = Rc::clone(&view_mode);
         btn_mode_grid.connect_toggled(move |btn| {
-            if btn.is_active() {
-                *vm.borrow_mut() = FileManagerViewMode::Grid;
-                vs.set_visible_child_name(FileManagerViewMode::Grid.as_stack_name());
-                ch.set_visible(false);
+            if btn.is_active() && *vm.borrow() != FileManagerViewMode::Grid {
+                svm(FileManagerViewMode::Grid);
             }
         });
     }
     {
-        let vs = view_stack.clone();
-        let ch = col_header_box.clone();
+        let svm = Rc::clone(&switch_view_mode);
         let vm = Rc::clone(&view_mode);
         btn_mode_tree.connect_toggled(move |btn| {
-            if btn.is_active() {
-                *vm.borrow_mut() = FileManagerViewMode::Tree;
-                vs.set_visible_child_name(FileManagerViewMode::Tree.as_stack_name());
-                ch.set_visible(false);
+            if btn.is_active() && *vm.borrow() != FileManagerViewMode::Tree {
+                svm(FileManagerViewMode::Tree);
             }
         });
     }
 
     // Sort Column Header Clicks
     {
+        let cs = Rc::clone(&change_sort);
         let scol = Rc::clone(&sort_col);
         let sasc = Rc::clone(&sort_asc);
-        let refresh = Rc::clone(&refresh_fn);
         btn_sort_name.connect_clicked(move |_| {
-            if *scol.borrow() == SortColumn::Name {
-                let next = !*sasc.borrow();
-                *sasc.borrow_mut() = next;
+            let next_asc = if *scol.borrow() == SortColumn::Name {
+                !*sasc.borrow()
             } else {
-                *scol.borrow_mut() = SortColumn::Name;
-                *sasc.borrow_mut() = true;
-            }
-            refresh();
+                true
+            };
+            cs(SortColumn::Name, Some(next_asc));
         });
     }
     {
+        let cs = Rc::clone(&change_sort);
         let scol = Rc::clone(&sort_col);
         let sasc = Rc::clone(&sort_asc);
-        let refresh = Rc::clone(&refresh_fn);
         btn_sort_size.connect_clicked(move |_| {
-            if *scol.borrow() == SortColumn::Size {
-                let next = !*sasc.borrow();
-                *sasc.borrow_mut() = next;
+            let next_asc = if *scol.borrow() == SortColumn::Size {
+                !*sasc.borrow()
             } else {
-                *scol.borrow_mut() = SortColumn::Size;
-                *sasc.borrow_mut() = false;
-            }
-            refresh();
+                false
+            };
+            cs(SortColumn::Size, Some(next_asc));
         });
     }
     {
+        let cs = Rc::clone(&change_sort);
         let scol = Rc::clone(&sort_col);
         let sasc = Rc::clone(&sort_asc);
-        let refresh = Rc::clone(&refresh_fn);
         btn_sort_mod.connect_clicked(move |_| {
-            if *scol.borrow() == SortColumn::Modified {
-                let next = !*sasc.borrow();
-                *sasc.borrow_mut() = next;
+            let next_asc = if *scol.borrow() == SortColumn::Modified {
+                !*sasc.borrow()
             } else {
-                *scol.borrow_mut() = SortColumn::Modified;
-                *sasc.borrow_mut() = false;
-            }
-            refresh();
+                false
+            };
+            cs(SortColumn::Modified, Some(next_asc));
         });
     }
     {
+        let cs = Rc::clone(&change_sort);
         let scol = Rc::clone(&sort_col);
         let sasc = Rc::clone(&sort_asc);
-        let refresh = Rc::clone(&refresh_fn);
         btn_sort_perm.connect_clicked(move |_| {
-            if *scol.borrow() == SortColumn::Permissions {
-                let next = !*sasc.borrow();
-                *sasc.borrow_mut() = next;
+            let next_asc = if *scol.borrow() == SortColumn::Permissions {
+                !*sasc.borrow()
             } else {
-                *scol.borrow_mut() = SortColumn::Permissions;
-                *sasc.borrow_mut() = true;
-            }
-            refresh();
+                true
+            };
+            cs(SortColumn::Permissions, Some(next_asc));
         });
     }
     {
+        let cs = Rc::clone(&change_sort);
         let scol = Rc::clone(&sort_col);
         let sasc = Rc::clone(&sort_asc);
-        let refresh = Rc::clone(&refresh_fn);
         btn_sort_owner.connect_clicked(move |_| {
-            if *scol.borrow() == SortColumn::Owner {
-                let next = !*sasc.borrow();
-                *sasc.borrow_mut() = next;
+            let next_asc = if *scol.borrow() == SortColumn::Owner {
+                !*sasc.borrow()
             } else {
-                *scol.borrow_mut() = SortColumn::Owner;
-                *sasc.borrow_mut() = true;
-            }
-            refresh();
+                true
+            };
+            cs(SortColumn::Owner, Some(next_asc));
         });
     }
 
@@ -3577,5 +3983,41 @@ mod tests {
         let group = (if group_r { 4 } else { 0 }) + (if group_w { 2 } else { 0 }) + (if group_x { 1 } else { 0 });
         let others = (if others_r { 4 } else { 0 }) + (if others_w { 2 } else { 0 }) + (if others_x { 1 } else { 0 });
         assert_eq!(format!("{owner}{group}{others}"), "775");
+    }
+
+    #[test]
+    fn test_filemanager_view_mode_and_sort_conversion() {
+        assert_eq!(FileManagerViewMode::List.as_stack_name(), "list");
+        assert_eq!(FileManagerViewMode::Grid.as_stack_name(), "grid");
+        assert_eq!(FileManagerViewMode::Tree.as_stack_name(), "tree");
+
+        assert_eq!(FileManagerViewMode::from_stack_name("list"), FileManagerViewMode::List);
+        assert_eq!(FileManagerViewMode::from_stack_name("grid"), FileManagerViewMode::Grid);
+        assert_eq!(FileManagerViewMode::from_stack_name("tree"), FileManagerViewMode::Tree);
+        assert_eq!(FileManagerViewMode::from_stack_name("invalid"), FileManagerViewMode::List);
+
+        // Verify SortColumn conversions
+        let cols = [
+            (SortColumn::Name, "name"),
+            (SortColumn::Size, "size"),
+            (SortColumn::Modified, "modified"),
+            (SortColumn::Permissions, "permissions"),
+            (SortColumn::Owner, "owner"),
+            (SortColumn::Type, "type"),
+            (SortColumn::GroupByType, "group"),
+        ];
+
+        for (col, expected_key) in cols {
+            let key = match col {
+                SortColumn::Name => "name",
+                SortColumn::Size => "size",
+                SortColumn::Modified => "modified",
+                SortColumn::Permissions => "permissions",
+                SortColumn::Owner => "owner",
+                SortColumn::Type => "type",
+                SortColumn::GroupByType => "group",
+            };
+            assert_eq!(key, expected_key);
+        }
     }
 }

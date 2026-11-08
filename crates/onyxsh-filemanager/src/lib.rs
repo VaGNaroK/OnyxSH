@@ -16,6 +16,8 @@ pub enum SortColumn {
     Modified,
     Permissions,
     Owner,
+    Type,
+    GroupByType,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -85,6 +87,44 @@ impl FileEntry {
             _ if lower.starts_with("dockerfile") => Some(("DOCKER", "badge-docker")),
             _ if self.is_executable() => Some(("EXEC", "badge-exec")),
             _ => None,
+        }
+    }
+
+    /// Returns lowercase file extension (without leading dot).
+    pub fn extension(&self) -> String {
+        std::path::Path::new(&self.name)
+            .extension()
+            .and_then(|e| e.to_str())
+            .unwrap_or("")
+            .to_ascii_lowercase()
+    }
+
+    /// Numerical group priority for intelligent category clustering.
+    /// Priority 1 clusters archives (.7z, .zip, etc.) at the very top of files.
+    pub fn group_priority(&self) -> u8 {
+        if self.name == ".." || self.is_dir {
+            return 0;
+        }
+        let ext = self.extension();
+        match ext.as_str() {
+            // Priority 1: Archives & Compressed Files (.7z at the top, .zip, .tar, .gz, etc.)
+            "7z" | "zip" | "tar" | "gz" | "tgz" | "xz" | "bz2" | "rar" | "zst" | "iso" => 1,
+            // Priority 2: Scripts and Source Code
+            "py" | "sh" | "bash" | "zsh" | "rs" | "js" | "ts" | "c" | "cpp" | "h" | "hpp"
+            | "go" | "java" | "html" | "css" | "scss" | "lua" | "php" | "rb" => 2,
+            // Priority 3: Packages & Binaries
+            "deb" | "rpm" | "apk" | "appimage" | "flatpakref" => 3,
+            _ if self.is_executable() => 3,
+            // Priority 4: Documents & Plain Text
+            "pdf" | "md" | "txt" | "doc" | "docx" | "odt" | "csv" | "xlsx" | "pptx" => 4,
+            // Priority 5: Images & Visual Media
+            "png" | "jpg" | "jpeg" | "svg" | "webp" | "gif" | "ico" | "bmp" => 5,
+            // Priority 6: Audio & Video
+            "mp3" | "wav" | "flac" | "ogg" | "mp4" | "mkv" | "avi" | "webm" => 6,
+            // Priority 7: Configuration, Environment and Data Files
+            "json" | "yaml" | "yml" | "toml" | "xml" | "ini" | "env" | "conf" | "sql" => 7,
+            // Priority 8: General / Other Files
+            _ => 8,
         }
     }
 
@@ -209,6 +249,27 @@ pub fn filter_and_sort_entries(
             SortColumn::Modified => a.modified_epoch.cmp(&b.modified_epoch),
             SortColumn::Permissions => a.permissions_octal.cmp(&b.permissions_octal),
             SortColumn::Owner => a.owner.to_lowercase().cmp(&b.owner.to_lowercase()),
+            SortColumn::Type => {
+                let ext_cmp = a.extension().cmp(&b.extension());
+                if ext_cmp == Ordering::Equal {
+                    a.name.to_lowercase().cmp(&b.name.to_lowercase())
+                } else {
+                    ext_cmp
+                }
+            }
+            SortColumn::GroupByType => {
+                let grp_cmp = a.group_priority().cmp(&b.group_priority());
+                if grp_cmp == Ordering::Equal {
+                    let ext_cmp = a.extension().cmp(&b.extension());
+                    if ext_cmp == Ordering::Equal {
+                        a.name.to_lowercase().cmp(&b.name.to_lowercase())
+                    } else {
+                        ext_cmp
+                    }
+                } else {
+                    grp_cmp
+                }
+            }
         };
         if ascending {
             ord
@@ -309,5 +370,83 @@ mod tests {
         };
         assert!(!parent.is_hidden());
         assert_eq!(parent.formatted_size_clean(), "4.0 KB");
+    }
+
+    #[test]
+    fn test_file_grouping_and_type_sorting() {
+        let entries = vec![
+            FileEntry {
+                name: "script.py".to_string(),
+                path: "/tmp/script.py".to_string(),
+                is_dir: false,
+                is_symlink: false,
+                size: 100,
+                modified_epoch: 1,
+                permissions_octal: 0o644,
+                owner: "u:u".to_string(),
+            },
+            FileEntry {
+                name: "backup.7z".to_string(),
+                path: "/tmp/backup.7z".to_string(),
+                is_dir: false,
+                is_symlink: false,
+                size: 500,
+                modified_epoch: 2,
+                permissions_octal: 0o644,
+                owner: "u:u".to_string(),
+            },
+            FileEntry {
+                name: "readme.txt".to_string(),
+                path: "/tmp/readme.txt".to_string(),
+                is_dir: false,
+                is_symlink: false,
+                size: 50,
+                modified_epoch: 3,
+                permissions_octal: 0o644,
+                owner: "u:u".to_string(),
+            },
+            FileEntry {
+                name: "archive.zip".to_string(),
+                path: "/tmp/archive.zip".to_string(),
+                is_dir: false,
+                is_symlink: false,
+                size: 300,
+                modified_epoch: 4,
+                permissions_octal: 0o644,
+                owner: "u:u".to_string(),
+            },
+            FileEntry {
+                name: "docs".to_string(),
+                path: "/tmp/docs".to_string(),
+                is_dir: true,
+                is_symlink: false,
+                size: 4096,
+                modified_epoch: 5,
+                permissions_octal: 0o755,
+                owner: "u:u".to_string(),
+            },
+        ];
+
+        // GroupByType: Dirs first, then Priority 1 (Archives: .7z at the very top, .zip), then Scripts (.py), then Docs (.txt)
+        let grouped = filter_and_sort_entries(&entries, false, "", SortColumn::GroupByType, true, true);
+        assert_eq!(grouped[0].name, "docs"); // Directory first
+        assert_eq!(grouped[1].name, "backup.7z"); // Archives group: .7z at the top
+        assert_eq!(grouped[2].name, "archive.zip"); // Archives group: .zip
+        assert_eq!(grouped[3].name, "script.py"); // Code/Scripts group
+        assert_eq!(grouped[4].name, "readme.txt"); // Documents group
+
+        // Test priority 1 for .7z
+        let e_7z = &entries[1];
+        assert_eq!(e_7z.extension(), "7z");
+        assert_eq!(e_7z.group_priority(), 1);
+
+        // Sort by Type (alphabetical by extension):
+        // extensions: .7z (backup.7z), .py (script.py), .txt (readme.txt), .zip (archive.zip)
+        let by_type = filter_and_sort_entries(&entries, false, "", SortColumn::Type, true, true);
+        assert_eq!(by_type[0].name, "docs"); // Directory first
+        assert_eq!(by_type[1].name, "backup.7z"); // .7z
+        assert_eq!(by_type[2].name, "script.py"); // .py
+        assert_eq!(by_type[3].name, "readme.txt"); // .txt
+        assert_eq!(by_type[4].name, "archive.zip"); // .zip
     }
 }
