@@ -123,6 +123,10 @@ pub fn default_gtk_theme() -> String {
     "default".to_string()
 }
 
+pub fn default_ai_panel_height() -> u32 {
+    420
+}
+
 /// Deserializes a numeric u32 setting (e.g. `file_manager_height`) from integer, float, or string.
 pub fn deserialize_flexible_u32<'de, D>(deserializer: D) -> Result<u32, D::Error>
 where
@@ -414,6 +418,8 @@ pub struct AppSettings {
     pub ai_agent_include_system_context: bool,
     pub ai_agent_include_pwd_context: bool,
     pub ai_context_size: u32,
+    #[serde(default = "default_ai_panel_height", deserialize_with = "deserialize_flexible_u32")]
+    pub ai_panel_height: u32,
     pub shortcuts: HashMap<String, String>,
 }
 
@@ -514,6 +520,7 @@ impl Default for AppSettings {
             ai_agent_include_system_context: true,
             ai_agent_include_pwd_context: true,
             ai_context_size: 8192,
+            ai_panel_height: default_ai_panel_height(),
             shortcuts,
         }
     }
@@ -672,7 +679,8 @@ mod tests {
             "file_manager_sort_by": "group",
             "file_manager_sort_ascending": false,
             "file_manager_view_mode": "grid",
-            "gtk_theme": "dark"
+            "gtk_theme": "dark",
+            "ai_panel_height": 450
         }"#;
         let s: AppSettings = serde_json::from_str(raw).expect("parse fm settings");
         assert_eq!(s.file_manager_height, 420);
@@ -680,6 +688,7 @@ mod tests {
         assert!(!s.file_manager_sort_ascending);
         assert_eq!(s.file_manager_view_mode, "grid");
         assert_eq!(s.gtk_theme, "dark");
+        assert_eq!(s.ai_panel_height, 450);
 
         let default_st = AppSettings::default();
         assert_eq!(default_st.file_manager_height, 500);
@@ -687,5 +696,6 @@ mod tests {
         assert!(default_st.file_manager_sort_ascending);
         assert_eq!(default_st.file_manager_view_mode, "list");
         assert_eq!(default_st.gtk_theme, "default");
+        assert_eq!(default_st.ai_panel_height, 420);
     }
 }

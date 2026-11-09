@@ -270,6 +270,39 @@ pub fn menu_custom_css() -> &'static str {
     paned.filemanager-paned > separator:hover {
         background-color: alpha(@accent_color, 0.55);
     }
+    paned.ai-paned > separator {
+        min-height: 6px;
+        background-color: rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        transition: background-color 150ms ease-in-out;
+    }
+    paned.ai-paned > separator:hover {
+        background-color: alpha(@accent_color, 0.55);
+    }
+    .ai-chat-panel {
+        background-color: rgba(24, 26, 32, 0.96);
+    }
+    .ai-panel-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 4px 6px;
+    }
+    .quick-prompt-btn {
+        padding: 8px 12px;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 120ms ease;
+    }
+    .quick-prompt-btn:hover {
+        background-color: rgba(255, 255, 255, 0.09);
+        border-color: rgba(255, 255, 255, 0.16);
+    }
+    .ai-input-pill {
+        border-radius: 12px;
+        padding: 4px 6px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
     "
 }
 

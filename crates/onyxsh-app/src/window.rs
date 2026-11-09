@@ -945,13 +945,21 @@ pub fn build_main_window(
     center_vbox.append(&cmd_and_broadcast_bar);
     center_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
 
-    // Phase 15: Complete Zero-Trust AI Assistant Right Sidebar Panel
+    let on_close_ai: Rc<dyn Fn()> = {
+        let bai = btn_ai.clone();
+        Rc::new(move || {
+            bai.set_active(false);
+        })
+    };
+
+    // Phase 15: Complete Zero-Trust AI Assistant Bottom Horizontal Panel (Python window_ui.py specification)
     let (ai_widget, submit_ai_prompt_cb) =
         crate::ai_assistant_ui::build_complete_ai_assistant_panel(
             &window,
             &settings_rc,
             Rc::clone(&active_term_cb),
             &status_lbl,
+            Some(on_close_ai),
         );
     ai_widget.set_visible(false);
 
@@ -1012,7 +1020,20 @@ pub fn build_main_window(
     fm_paned.set_resize_end_child(true);
     fm_paned.set_shrink_end_child(false);
 
-    center_vbox.append(&fm_paned);
+    // Vertical GtkPaned for Zero-Trust AI Assistant bottom horizontal panel (Python window_ui.py specification)
+    let ai_paned = gtk4::Paned::new(gtk4::Orientation::Vertical);
+    ai_paned.add_css_class("ai-paned");
+    ai_paned.set_hexpand(true);
+    ai_paned.set_vexpand(true);
+    ai_paned.set_wide_handle(true);
+    ai_paned.set_start_child(Some(&fm_paned));
+    ai_paned.set_end_child(Some(&ai_widget));
+    ai_paned.set_resize_start_child(true);
+    ai_paned.set_shrink_start_child(false);
+    ai_paned.set_resize_end_child(true);
+    ai_paned.set_shrink_end_child(false);
+
+    center_vbox.append(&ai_paned);
 
     // Main Horizontal Layout
     let main_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
@@ -1024,7 +1045,6 @@ pub fn build_main_window(
     main_hbox.append(&sidebar_box);
     main_hbox.append(&sidebar_sep);
     main_hbox.append(&center_vbox);
-    main_hbox.append(&ai_widget);
 
     root_vbox.append(&main_hbox);
     root_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
@@ -1720,10 +1740,119 @@ pub fn build_main_window(
             }
         });
     }
+    // Programmatic position flag to prevent feedback loops between set_position and position_notify on ai_paned
+    let is_programmatic_ai_pos = Rc::new(std::cell::Cell::new(false));
+
+    // Toggle AI Assistant panel visibility & set ~50% horizontal split (Python window_ui.py specification)
     {
+        let paned = ai_paned.clone();
         let ai = ai_widget.clone();
+        let st_rc = Rc::clone(&settings_rc);
+        let win = window.clone();
+        let is_prog = Rc::clone(&is_programmatic_ai_pos);
+
         btn_ai.connect_toggled(move |btn| {
-            ai.set_visible(btn.is_active());
+            let active = btn.is_active();
+            if active {
+                is_prog.set(true);
+                ai.set_visible(true);
+                let total_h = paned.height();
+                let alloc_h = if total_h > 200 {
+                    total_h
+                } else {
+                    (win.height() - 100).max(400)
+                };
+                let raw_saved = st_rc.borrow().ai_panel_height as i32;
+                let (_target_ai_h, target_pos) =
+                    crate::ai_assistant_ui::calculate_ai_panel_split(alloc_h, raw_saved);
+                paned.set_position(target_pos);
+
+                let p_clone = paned.clone();
+                let w_clone = win.clone();
+                let st_clone = Rc::clone(&st_rc);
+                let is_prog_clone = Rc::clone(&is_prog);
+                glib::idle_add_local_once(move || {
+                    let total_h = p_clone.height();
+                    let alloc_h = if total_h > 200 {
+                        total_h
+                    } else {
+                        (w_clone.height() - 100).max(400)
+                    };
+                    let raw_saved = st_clone.borrow().ai_panel_height as i32;
+                    let (_target_ai_h, target_pos) =
+                        crate::ai_assistant_ui::calculate_ai_panel_split(alloc_h, raw_saved);
+                    p_clone.set_position(target_pos);
+
+                    glib::timeout_add_local_once(std::time::Duration::from_millis(300), move || {
+                        is_prog_clone.set(false);
+                    });
+                });
+            } else {
+                is_prog.set(true);
+                let total_h = paned.height();
+                let pos = paned.position();
+                if total_h > 200 && pos > 50 {
+                    let min_ai = 200;
+                    let min_term = 120;
+                    let max_ai = (total_h - min_term).max(min_ai);
+                    let last_h = (total_h - pos).clamp(min_ai, max_ai) as u32;
+                    if last_h >= 200 {
+                        st_rc.borrow_mut().ai_panel_height = last_h;
+                        let st_to_save = st_rc.borrow().clone();
+                        let cfg_p = platform::config_dir().join("settings.json");
+                        let _ = st_to_save.save_to_path(&cfg_p);
+                    }
+                }
+                ai.set_visible(false);
+                let is_prog_clone = Rc::clone(&is_prog);
+                glib::timeout_add_local_once(std::time::Duration::from_millis(200), move || {
+                    is_prog_clone.set(false);
+                });
+            }
+        });
+    }
+
+    // Connect notify::position on ai_paned to dynamically update and persist ai_panel_height
+    {
+        let paned = ai_paned.clone();
+        let ai = ai_widget.clone();
+        let st_rc = Rc::clone(&settings_rc);
+        let debounce_timer: Rc<RefCell<Option<glib::SourceId>>> = Rc::new(RefCell::new(None));
+        let is_prog_track = Rc::clone(&is_programmatic_ai_pos);
+
+        paned.connect_position_notify(move |p| {
+            if !ai.is_visible() || is_prog_track.get() {
+                return;
+            }
+            let total_h = p.height();
+            let pos = p.position();
+            if total_h <= 200 || pos <= 50 {
+                return;
+            }
+            let min_ai = 200;
+            let min_term = 120;
+            let max_ai = (total_h - min_term).max(min_ai);
+            let calculated_ai_h = (total_h - pos).clamp(min_ai, max_ai) as u32;
+
+            if st_rc.borrow().ai_panel_height != calculated_ai_h {
+                st_rc.borrow_mut().ai_panel_height = calculated_ai_h;
+
+                if let Some(source_id) = debounce_timer.borrow_mut().take() {
+                    source_id.remove();
+                }
+
+                let st_persist = Rc::clone(&st_rc);
+                let timer_holder = Rc::clone(&debounce_timer);
+                let new_id = glib::timeout_add_local_once(
+                    std::time::Duration::from_millis(300),
+                    move || {
+                        timer_holder.borrow_mut().take();
+                        let cfg_path = platform::config_dir().join("settings.json");
+                        let _ = st_persist.borrow().save_to_path(&cfg_path);
+                    },
+                );
+                *debounce_timer.borrow_mut() = Some(new_id);
+            }
         });
     }
     {

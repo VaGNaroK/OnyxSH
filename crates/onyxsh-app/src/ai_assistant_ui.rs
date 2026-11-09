@@ -527,6 +527,105 @@ pub fn show_ai_history_dialog(
     dlg.present();
 }
 
+/// Opens the Agent Security Scope & Policies Dialog (`ui/dialogs/agent_scope_dialog.py`).
+pub fn show_agent_scope_dialog(parent: &adw::ApplicationWindow) {
+    let dlg = adw::Window::builder()
+        .transient_for(parent)
+        .modal(true)
+        .title("Políticas de Segurança e Escopo do Agente")
+        .default_width(620)
+        .default_height(460)
+        .build();
+
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
+    let hb = adw::HeaderBar::new();
+    vbox.append(&hb);
+
+    let content = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+    content.set_margin_start(16);
+    content.set_margin_end(16);
+    content.set_margin_top(8);
+    content.set_margin_bottom(16);
+
+    let title_lbl = gtk4::Label::new(Some("🛡️ Zero-Trust Security Scope & Policies"));
+    title_lbl.add_css_class("title-3");
+    title_lbl.set_halign(gtk4::Align::Start);
+    content.append(&title_lbl);
+
+    let desc = gtk4::Label::new(Some(
+        "O OnyxSH opera sob a arquitetura de Confiança Zero (Zero-Trust). Nenhuma ação destrutiva é executada sem confirmação explícita ou validação pelo PolicyEngine.",
+    ));
+    desc.set_wrap(true);
+    desc.set_halign(gtk4::Align::Start);
+    desc.add_css_class("dim-label");
+    content.append(&desc);
+
+    let list_box = gtk4::ListBox::new();
+    list_box.add_css_class("boxed-list");
+
+    let add_policy_row = |title: &str, subtitle: &str, badge: &str, badge_cls: &str| {
+        let row = adw::ActionRow::builder()
+            .title(title)
+            .subtitle(subtitle)
+            .build();
+        let b = gtk4::Label::new(Some(badge));
+        b.add_css_class(badge_cls);
+        row.add_suffix(&b);
+        list_box.append(&row);
+    };
+
+    add_policy_row(
+        "PolicyEngine",
+        "Análise de comandos de alto risco (rm -rf, dd, mkfs, DROP/DELETE)",
+        "Bloquear / Requerer Confirmação",
+        "warning",
+    );
+    add_policy_row(
+        "PathGuard",
+        "Bloqueio estrito de leitura/escrita em ~/.ssh, ~/.bashrc, /etc/shadow, .env",
+        "Isolamento Estrito",
+        "success",
+    );
+    add_policy_row(
+        "SecretRedactor",
+        "Sanitização de tokens de API, JWT, chaves privadas e credenciais antes do envio",
+        "Redação Atômica",
+        "success",
+    );
+    add_policy_row(
+        "AuditLogger",
+        "Registro imutável em ~/.config/onyxsh/audit.jsonl com backup e rollback atômico",
+        "Auditoria Ativa",
+        "accent",
+    );
+
+    content.append(&list_box);
+    vbox.append(&content);
+    dlg.set_content(Some(&vbox));
+    dlg.present();
+}
+
+/// Implements Python OnyxSH window_ui.py AI panel specification:
+/// - Defaults to ~50% screen split (as in assistenteIAfix.png) when raw_saved <= 350
+/// - Enforces min_ai = 200, min_term = 120
+/// - Returns (target_ai_height, target_paned_position)
+pub fn calculate_ai_panel_split(alloc_h: i32, raw_saved: i32) -> (i32, i32) {
+    let min_ai = 200;
+    let min_term = 120;
+    let max_ai = (alloc_h - min_term).max(min_ai);
+
+    let default_ideal_h = (alloc_h * 50) / 100;
+    let saved_h = if raw_saved <= 350 {
+        default_ideal_h.max(350)
+    } else {
+        raw_saved.max(min_ai)
+    };
+
+    let target_ai_h = saved_h.clamp(min_ai, max_ai);
+    let target_pos = (alloc_h - target_ai_h).max(min_term);
+    (target_ai_h, target_pos)
+}
+
 /// Builds the complete Phase 15 Zero-Trust AI Assistant Panel.
 /// Returns `(panel_widget, submit_prompt_callback)` so external components (like `SelectionPopover`)
 /// can send selected terminal output directly to the AI Assistant.
@@ -535,92 +634,273 @@ pub fn build_complete_ai_assistant_panel(
     settings: &Rc<RefCell<AppSettings>>,
     active_term_cb: Rc<dyn Fn() -> Option<vte4::Terminal>>,
     status_lbl: &gtk4::Label,
+    on_close_cb: Option<Rc<dyn Fn()>>,
 ) -> (gtk4::Box, Rc<dyn Fn(&str)>) {
     let history_rc = Rc::new(RefCell::new(load_ai_history()));
     let selected_profile = Rc::new(RefCell::new(RoutingProfile::Auto));
     let offline_mode = Rc::new(RefCell::new(false));
     let attached_context: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
-    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 6);
-    vbox.set_width_request(360);
-    vbox.set_margin_start(10);
-    vbox.set_margin_end(10);
-    vbox.set_margin_top(8);
-    vbox.set_margin_bottom(8);
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
+    vbox.add_css_class("ai-chat-panel");
+    vbox.set_hexpand(true);
+    vbox.set_vexpand(true);
+    vbox.set_height_request(200);
 
-    // ── 1. Top Header & SmartRouter Toolbar ───────────────────────────────────
-    let header_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
-    let title = gtk4::Label::new(Some("🤖 OnyxSH Zero-Trust AI"));
-    title.add_css_class("title-4");
-    title.set_halign(gtk4::Align::Start);
-    title.set_hexpand(true);
-    header_hbox.append(&title);
+    // ── 1. HeaderBar (Python AIChatPanel specification & assistenteIAfix.png) ──
+    let header = adw::HeaderBar::new();
+    header.add_css_class("ai-panel-header");
+    header.set_show_start_title_buttons(false);
+    header.set_show_end_title_buttons(false);
 
-    let btn_audit_diff = gtk4::Button::builder()
-        .icon_name("document-revert-symbolic")
-        .tooltip_text("Revisão de Diff & Rollback Atômico (AuditLogger)")
+    // Left buttons
+    let btn_new_chat = gtk4::Button::builder()
+        .icon_name("document-new-symbolic")
+        .tooltip_text("Nova conversa")
+        .css_classes(["flat"])
         .build();
-    btn_audit_diff.add_css_class("flat");
+    header.pack_start(&btn_new_chat);
 
     let btn_history = gtk4::Button::builder()
         .icon_name("document-open-recent-symbolic")
         .tooltip_text("Histórico de Conversas")
+        .css_classes(["flat"])
         .build();
-    btn_history.add_css_class("flat");
+    header.pack_start(&btn_history);
+
+    let btn_scope = gtk4::Button::builder()
+        .icon_name("security-high-symbolic")
+        .tooltip_text("Políticas de Segurança e Escopo do Agente")
+        .css_classes(["flat"])
+        .build();
+    header.pack_start(&btn_scope);
+
+    let btn_audit = gtk4::Button::builder()
+        .icon_name("document-properties-symbolic")
+        .tooltip_text("Registro de Auditoria de Ações")
+        .css_classes(["flat"])
+        .build();
+    header.pack_start(&btn_audit);
+
+    let btn_export = gtk4::MenuButton::builder()
+        .icon_name("document-save-symbolic")
+        .tooltip_text("Exportar conversa")
+        .css_classes(["flat"])
+        .build();
+    header.pack_start(&btn_export);
+
+    // Center title
+    let title_lbl = gtk4::Label::builder()
+        .label("Assistente de IA")
+        .css_classes(["title", "heading"])
+        .build();
+    header.set_title_widget(Some(&title_lbl));
+
+    // Right buttons (packed in reverse order: pack_end right-to-left)
+    let btn_close = gtk4::Button::builder()
+        .icon_name("window-close-symbolic")
+        .tooltip_text("Fechar painel")
+        .css_classes(["flat"])
+        .build();
+    header.pack_end(&btn_close);
 
     let btn_settings = gtk4::Button::builder()
         .icon_name("emblem-system-symbolic")
-        .tooltip_text("Configurações do Assistente de IA")
+        .tooltip_text("Configurações da IA (Modelos e Provedores)")
+        .css_classes(["flat"])
         .build();
-    btn_settings.add_css_class("flat");
+    header.pack_end(&btn_settings);
+
+    let btn_offline = gtk4::Button::builder().css_classes(["flat"]).build();
+    header.pack_end(&btn_offline);
+
+    let btn_routing = gtk4::Button::builder().css_classes(["flat"]).build();
+    header.pack_end(&btn_routing);
+
+    vbox.append(&header);
+
+    // Wire Offline Badge
+    let update_offline_ui = {
+        let btn = btn_offline.clone();
+        let off_rc = Rc::clone(&offline_mode);
+        Rc::new(move || {
+            let is_off = *off_rc.borrow();
+            let box_c = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
+            if is_off {
+                let img = gtk4::Image::from_icon_name("security-high-symbolic");
+                img.add_css_class("success");
+                let lbl = gtk4::Label::new(Some("🛡️ Offline (Local)"));
+                lbl.add_css_class("caption");
+                lbl.add_css_class("success");
+                box_c.append(&img);
+                box_c.append(&lbl);
+                btn.set_child(Some(&box_c));
+                btn.set_tooltip_text(Some(
+                    "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online.",
+                ));
+            } else {
+                let img = gtk4::Image::from_icon_name("network-wireless-symbolic");
+                img.add_css_class("dim-label");
+                let lbl = gtk4::Label::new(Some("Nuvem (Online)"));
+                lbl.add_css_class("caption");
+                lbl.add_css_class("dim-label");
+                box_c.append(&img);
+                box_c.append(&lbl);
+                btn.set_child(Some(&box_c));
+                btn.set_tooltip_text(Some(
+                    "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local.",
+                ));
+            }
+        })
+    };
+    update_offline_ui();
+
     {
-        let win_c = parent_window.clone();
-        let st_c = Rc::clone(settings);
-        let status_c = status_lbl.clone();
-        btn_settings.connect_clicked(move |_| {
-            crate::ai_config_ui::show_ai_config_window(&win_c, Rc::clone(&st_c), &status_c);
+        let off_rc = Rc::clone(&offline_mode);
+        let upd_off = Rc::clone(&update_offline_ui);
+        let st_lbl = status_lbl.clone();
+        btn_offline.connect_clicked(move |_| {
+            let cur = *off_rc.borrow();
+            *off_rc.borrow_mut() = !cur;
+            upd_off();
+            if !cur {
+                st_lbl.set_text("Modo Estritamente Offline Ativo (Zero Cloud).");
+            } else {
+                st_lbl.set_text("Modo Online com Roteamento Inteligente Ativo.");
+            }
         });
     }
 
-    header_hbox.append(&btn_audit_diff);
-    header_hbox.append(&btn_history);
-    header_hbox.append(&btn_settings);
-    vbox.append(&header_hbox);
+    // Wire Smart Routing Profile Badge
+    let update_routing_ui = {
+        let btn = btn_routing.clone();
+        let prof_rc = Rc::clone(&selected_profile);
+        Rc::new(move || {
+            let p = *prof_rc.borrow();
+            let box_c = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
+            let (icon_name, label_text) = match p {
+                RoutingProfile::Fast => ("starred-symbolic", "⚡ Rápido"),
+                RoutingProfile::Advanced => ("emblem-system-symbolic", "🧠 Avançado"),
+                RoutingProfile::Security => ("security-high-symbolic", "🛡️ Segurança"),
+                RoutingProfile::Auto => ("view-refresh-symbolic", "Auto"),
+            };
+            let img = gtk4::Image::from_icon_name(icon_name);
+            let lbl = gtk4::Label::new(Some(label_text));
+            lbl.add_css_class("caption");
+            box_c.append(&img);
+            box_c.append(&lbl);
+            btn.set_child(Some(&box_c));
+            btn.set_tooltip_text(Some(
+                "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)",
+            ));
+        })
+    };
+    update_routing_ui();
 
-    // SmartRouter Profile Dropdown + Offline Toggle + Attach File (`PathGuard`)
-    let router_bar = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+    {
+        let prof_rc = Rc::clone(&selected_profile);
+        let upd_route = Rc::clone(&update_routing_ui);
+        let st_lbl = status_lbl.clone();
+        btn_routing.connect_clicked(move |_| {
+            let next_p = match *prof_rc.borrow() {
+                RoutingProfile::Auto => RoutingProfile::Fast,
+                RoutingProfile::Fast => RoutingProfile::Advanced,
+                RoutingProfile::Advanced => RoutingProfile::Security,
+                RoutingProfile::Security => RoutingProfile::Auto,
+            };
+            *prof_rc.borrow_mut() = next_p;
+            upd_route();
+            st_lbl.set_text(&format!("Perfil de roteamento alterado para: {next_p:?}"));
+        });
+    }
 
-    let prof_list = gtk4::StringList::new(&[
-        "Roteamento: Auto",
-        "Perfil: Rápido",
-        "Perfil: Avançado",
-        "Perfil: Segurança",
-    ]);
-    let prof_dd = gtk4::DropDown::new(Some(prof_list), gtk4::Expression::NONE);
-    prof_dd.set_hexpand(true);
-    router_bar.append(&prof_dd);
+    // Wire Export Popover
+    {
+        let export_popover = gtk4::Popover::new();
+        let export_menu = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+        export_menu.set_margin_start(6);
+        export_menu.set_margin_end(6);
+        export_menu.set_margin_top(6);
+        export_menu.set_margin_bottom(6);
 
-    let btn_offline = gtk4::ToggleButton::builder()
-        .icon_name("network-offline-symbolic")
-        .tooltip_text("Modo Estritamente Offline (Apenas Local / Heurísticas)")
-        .build();
-    router_bar.append(&btn_offline);
+        let btn_exp_md = gtk4::Button::builder()
+            .label("Exportar como Markdown (.md)")
+            .icon_name("text-x-generic-symbolic")
+            .css_classes(["flat"])
+            .build();
+        let btn_exp_json = gtk4::Button::builder()
+            .label("Exportar como JSON (.json)")
+            .icon_name("text-x-script-symbolic")
+            .css_classes(["flat"])
+            .build();
+        let btn_exp_copy = gtk4::Button::builder()
+            .label("Copiar para Área de Transferência")
+            .icon_name("edit-copy-symbolic")
+            .css_classes(["flat"])
+            .build();
 
-    let btn_attach = gtk4::Button::builder()
-        .icon_name("mail-attachment-symbolic")
-        .tooltip_text("Anexar Arquivo ao Contexto (Protegido pelo PathGuard)")
-        .build();
-    router_bar.append(&btn_attach);
+        export_menu.append(&btn_exp_md);
+        export_menu.append(&btn_exp_json);
+        export_menu.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+        export_menu.append(&btn_exp_copy);
+        export_popover.set_child(Some(&export_menu));
+        btn_export.set_popover(Some(&export_popover));
 
-    vbox.append(&router_bar);
-
-    let guard_status_lbl = gtk4::Label::new(Some(
-        "🛡️ SecretRedactor • PathGuard • PolicyEngine Ativos",
-    ));
-    guard_status_lbl.add_css_class("caption");
-    guard_status_lbl.add_css_class("dim-label");
-    guard_status_lbl.set_halign(gtk4::Align::Start);
-    vbox.append(&guard_status_lbl);
+        {
+            let h_rc = Rc::clone(&history_rc);
+            let st = status_lbl.clone();
+            let pop = export_popover.clone();
+            btn_exp_md.connect_clicked(move |_| {
+                pop.popdown();
+                let home = platform::home_dir();
+                let export_path = home.join("ai_chat_export.md");
+                let mut md = String::from("# OnyxSH AI Chat Export\n\n");
+                for item in h_rc.borrow().iter() {
+                    md.push_str(&format!(
+                        "### {} ({})\n{}\n\n---\n\n",
+                        item.role, item.route_summary, item.content
+                    ));
+                }
+                if fs::write(&export_path, md).is_ok() {
+                    st.set_text(&format!("Exportado para {}", export_path.display()));
+                }
+            });
+        }
+        {
+            let h_rc = Rc::clone(&history_rc);
+            let st = status_lbl.clone();
+            let pop = export_popover.clone();
+            btn_exp_json.connect_clicked(move |_| {
+                pop.popdown();
+                let home = platform::home_dir();
+                let export_path = home.join("ai_chat_export.json");
+                if let Ok(json) = serde_json::to_string_pretty(&*h_rc.borrow()) {
+                    if fs::write(&export_path, json).is_ok() {
+                        st.set_text(&format!("Exportado para {}", export_path.display()));
+                    }
+                }
+            });
+        }
+        {
+            let h_rc = Rc::clone(&history_rc);
+            let st = status_lbl.clone();
+            let pop = export_popover.clone();
+            btn_exp_copy.connect_clicked(move |_| {
+                pop.popdown();
+                let mut md = String::from("# OnyxSH AI Chat\n\n");
+                for item in h_rc.borrow().iter() {
+                    md.push_str(&format!(
+                        "### {} ({})\n{}\n\n---\n\n",
+                        item.role, item.route_summary, item.content
+                    ));
+                }
+                if let Some(display) = gdk::Display::default() {
+                    display.clipboard().set_text(&md);
+                    st.set_text("Conversa copiada para a área de transferência.");
+                }
+            });
+        }
+    }
 
     // ── 2. Scrollable Message & ActionPlan Card Feed ──────────────────────────
     let feed_scroll = gtk4::ScrolledWindow::new();
@@ -628,9 +908,86 @@ pub fn build_complete_ai_assistant_panel(
     feed_scroll.set_hexpand(true);
 
     let feed_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
-    feed_vbox.set_margin_end(4);
+    feed_vbox.set_margin_start(12);
+    feed_vbox.set_margin_end(12);
+    feed_vbox.set_margin_top(8);
+    feed_vbox.set_margin_bottom(8);
     feed_scroll.set_child(Some(&feed_vbox));
     vbox.append(&feed_scroll);
+
+    // ── 3. Quick Prompts 3x2 Grid (assistenteIAfix.png specification) ─────────
+    let quick_prompts_container = gtk4::Box::new(gtk4::Orientation::Vertical, 6);
+    quick_prompts_container.set_margin_start(12);
+    quick_prompts_container.set_margin_end(12);
+    quick_prompts_container.set_margin_top(4);
+    quick_prompts_container.set_margin_bottom(6);
+
+    let prompts_header = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
+    let prompts_lbl = gtk4::Label::builder()
+        .label("Prompts Rápidos")
+        .css_classes(["dim-label"])
+        .halign(gtk4::Align::Start)
+        .hexpand(true)
+        .build();
+    prompts_header.append(&prompts_lbl);
+
+    let btn_customize_prompts = gtk4::Button::builder()
+        .icon_name("emblem-system-symbolic")
+        .css_classes(["flat", "circular"])
+        .tooltip_text("Personalizar prompts rápidos")
+        .build();
+    prompts_header.append(&btn_customize_prompts);
+    quick_prompts_container.append(&prompts_header);
+
+    let grid = gtk4::Grid::new();
+    grid.set_column_spacing(8);
+    grid.set_row_spacing(8);
+    grid.set_column_homogeneous(true);
+
+    quick_prompts_container.append(&grid);
+    vbox.append(&quick_prompts_container);
+
+    // ── 4. Bottom Input Pill (assistenteIAfix.png specification) ───────────────
+    let input_container = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+    input_container.set_margin_start(12);
+    input_container.set_margin_end(12);
+    input_container.set_margin_bottom(8);
+    input_container.set_margin_top(2);
+
+    let pill_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
+    pill_box.add_css_class("ai-input-pill");
+
+    let prompt_entry = gtk4::Entry::builder()
+        .placeholder_text("Pergunte ou cole um erro do terminal...")
+        .hexpand(true)
+        .css_classes(["flat"])
+        .build();
+    pill_box.append(&prompt_entry);
+
+    let btn_attach = gtk4::Button::builder()
+        .icon_name("mail-attachment-symbolic")
+        .tooltip_text("Anexar Arquivo ao Contexto (Validado pelo PathGuard)")
+        .css_classes(["flat", "circular"])
+        .build();
+    pill_box.append(&btn_attach);
+
+    let btn_plan = gtk4::Button::builder()
+        .icon_name("view-list-bullet-symbolic")
+        .tooltip_text("Gerar Plano de Ação Estruturado (ActionPlan)")
+        .css_classes(["flat", "circular"])
+        .build();
+    pill_box.append(&btn_plan);
+
+    let btn_send = gtk4::Button::builder()
+        .icon_name("pan-up-symbolic")
+        .tooltip_text("Enviar Pergunta")
+        .css_classes(["suggested-action", "circular"])
+        .valign(gtk4::Align::Center)
+        .build();
+    pill_box.append(&btn_send);
+
+    input_container.append(&pill_box);
+    vbox.append(&input_container);
 
     // Helper closure to append a code block card with `[Inserir]`, `[Executar]`, `[Copiar]`
     let append_code_card = {
@@ -732,43 +1089,10 @@ pub fn build_complete_ai_assistant_panel(
         })
     };
 
-    // Welcome card with interactive example
-    {
-        let welcome_lbl = gtk4::Label::new(Some(
-            "Bem-vindo ao Assistente Zero-Trust.\nFaça uma pergunta abaixo, selecione um texto no terminal ou clique em 'Gerar Plano'.",
-        ));
-        welcome_lbl.set_wrap(true);
-        welcome_lbl.set_halign(gtk4::Align::Start);
-        welcome_lbl.add_css_class("caption");
-        feed_vbox.append(&welcome_lbl);
-    }
-
-    // ── 3. Bottom Input Area (`Entry` + `[Enviar]` + `[Gerar Plano]`) ─────────
-    let input_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
-    let prompt_entry = gtk4::Entry::builder()
-        .placeholder_text("Pergunte ou cole um erro do terminal...")
-        .hexpand(true)
-        .build();
-    input_vbox.append(&prompt_entry);
-
-    let send_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
-    let btn_send = gtk4::Button::with_label("Enviar Pergunta");
-    btn_send.add_css_class("suggested-action");
-    btn_send.set_hexpand(true);
-
-    let btn_plan = gtk4::Button::with_label("📋 Gerar Plano");
-    btn_plan.set_tooltip_text(Some(
-        "Gera um ActionPlan passo a passo avaliado pelo PolicyEngine",
-    ));
-
-    send_hbox.append(&btn_send);
-    send_hbox.append(&btn_plan);
-    input_vbox.append(&send_hbox);
-    vbox.append(&input_vbox);
-
-    // ── 4. Core Prompt Submission Handler ─────────────────────────────────────
+    // ── Core Prompt Submission Handler ────────────────────────────────────────
     let handle_submission: Rc<dyn Fn(&str, bool)> = {
         let fv = feed_vbox.clone();
+        let q_box = quick_prompts_container.clone();
         let st_rc = Rc::clone(settings);
         let prof_rc = Rc::clone(&selected_profile);
         let off_rc = Rc::clone(&offline_mode);
@@ -783,6 +1107,9 @@ pub fn build_complete_ai_assistant_panel(
             if trimmed.is_empty() {
                 return;
             }
+
+            // Hide quick prompts once a message is submitted
+            q_box.set_visible(false);
 
             let combined_input = if let Some(att) = ctx_rc.borrow_mut().take() {
                 format!("{trimmed}\n[Arquivo Anexado]: {att}")
@@ -911,38 +1238,47 @@ pub fn build_complete_ai_assistant_panel(
         })
     };
 
-    // Wire Controls
-    {
-        let prof_rc = Rc::clone(&selected_profile);
-        prof_dd.connect_selected_notify(move |dd| {
-            let p = match dd.selected() {
-                1 => RoutingProfile::Fast,
-                2 => RoutingProfile::Advanced,
-                3 => RoutingProfile::Security,
-                _ => RoutingProfile::Auto,
-            };
-            *prof_rc.borrow_mut() = p;
+    // Populate Quick Prompts 3x2 Grid matching assistenteIAfix.png
+    let quick_prompts_data = [
+        (0, 0, "📄", "Como faço para desfazer o último commit?", "Como faço para desfazer o último commit no Git mantendo as alterações locais?"),
+        (0, 1, "📁", "Como faço para listar arquivos recursivamente?", "Como faço para listar arquivos recursivamente ordenados por tamanho?"),
+        (1, 0, "⏱️", "Como eu uso o watch?", "Como eu uso o comando watch para monitorar alterações no terminal periodicamente?"),
+        (1, 1, "📦", "Como faço para puxar alterações do git?", "Como faço para puxar alterações do git com rebase?"),
+        (2, 0, "📡", "Como faço para verificar portas abertas?", "Como faço para verificar portas abertas e sockets de rede ativos?"),
+        (2, 1, "🛡️", "Como faço para proteger arquivos confidenciais?", "Como faço para proteger arquivos confidenciais e definir permissões seguras no Linux?"),
+    ];
+
+    for (col, row, icon, title, query) in quick_prompts_data {
+        let btn = gtk4::Button::new();
+        btn.add_css_class("quick-prompt-btn");
+        btn.add_css_class("flat");
+
+        let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+        let icon_lbl = gtk4::Label::new(Some(icon));
+        let text_lbl = gtk4::Label::builder()
+            .label(title)
+            .halign(gtk4::Align::Start)
+            .hexpand(true)
+            .ellipsize(gtk4::pango::EllipsizeMode::End)
+            .build();
+        hbox.append(&icon_lbl);
+        hbox.append(&text_lbl);
+        btn.set_child(Some(&hbox));
+
+        let sub = Rc::clone(&handle_submission);
+        let q = query.to_string();
+        btn.connect_clicked(move |_| {
+            sub(&q, false);
         });
-    }
-    {
-        let off_rc = Rc::clone(&offline_mode);
-        let g_lbl = guard_status_lbl.clone();
-        btn_offline.connect_toggled(move |btn| {
-            let active = btn.is_active();
-            *off_rc.borrow_mut() = active;
-            if active {
-                g_lbl.set_text("🔒 Modo Offline Estrito Ativo (Sem tráfego externo)");
-            } else {
-                g_lbl.set_text("🛡️ SecretRedactor • PathGuard • PolicyEngine Ativos");
-            }
-        });
+
+        grid.attach(&btn, col, row, 1, 1);
     }
 
     // Attach File Dialog (Protected by PathGuard)
     {
         let win_ref = parent_window.clone();
         let ctx_rc = Rc::clone(&attached_context);
-        let g_lbl = guard_status_lbl.clone();
+        let st_lbl = status_lbl.clone();
         btn_attach.connect_clicked(move |_| {
             let dlg = adw::Window::builder()
                 .transient_for(&win_ref)
@@ -967,9 +1303,7 @@ pub fn build_complete_ai_assistant_panel(
             info.set_wrap(true);
             info.set_halign(gtk4::Align::Start);
 
-            let entry = gtk4::Entry::builder()
-                .text("/etc/os-release")
-                .build();
+            let entry = gtk4::Entry::builder().text("/etc/os-release").build();
             entry.add_css_class("monospace");
 
             let btn_ok = gtk4::Button::with_label("Validar & Anexar");
@@ -980,17 +1314,17 @@ pub fn build_complete_ai_assistant_panel(
             form.append(&btn_ok);
 
             let ctx_inner = Rc::clone(&ctx_rc);
-            let gl = g_lbl.clone();
+            let sl = st_lbl.clone();
             let d_close = dlg.clone();
 
             btn_ok.connect_clicked(move |_| {
                 let raw_path = entry.text().trim().to_string();
                 let guard = PathGuard::default();
                 if !guard.can_read(&raw_path) {
-                    gl.set_text(&format!("🛑 PathGuard BLOQUEOU leitura de: {raw_path}"));
+                    sl.set_text(&format!("🛑 PathGuard BLOQUEOU leitura de: {raw_path}"));
                 } else {
                     *ctx_inner.borrow_mut() = Some(raw_path.clone());
-                    gl.set_text(&format!("📎 Anexado com segurança: {raw_path}"));
+                    sl.set_text(&format!("📎 Anexado com segurança: {raw_path}"));
                 }
                 d_close.close();
             });
@@ -1001,13 +1335,28 @@ pub fn build_complete_ai_assistant_panel(
         });
     }
 
-    {
-        let win_ref = parent_window.clone();
-        let status = status_lbl.clone();
-        btn_audit_diff.connect_clicked(move |_| {
-            show_diff_review_and_audit_dialog(&win_ref, &status);
+    // Wire HeaderBar Buttons
+    if let Some(on_close) = on_close_cb {
+        btn_close.connect_clicked(move |_| {
+            on_close();
         });
     }
+
+    {
+        let win_ref = parent_window.clone();
+        let st = status_lbl.clone();
+        btn_audit.connect_clicked(move |_| {
+            show_diff_review_and_audit_dialog(&win_ref, &st);
+        });
+    }
+
+    {
+        let win_ref = parent_window.clone();
+        btn_scope.connect_clicked(move |_| {
+            show_agent_scope_dialog(&win_ref);
+        });
+    }
+
     {
         let win_ref = parent_window.clone();
         let hist = Rc::clone(&history_rc);
@@ -1017,6 +1366,38 @@ pub fn build_complete_ai_assistant_panel(
         });
     }
 
+    {
+        let win_ref = parent_window.clone();
+        let st_rc = Rc::clone(settings);
+        let st = status_lbl.clone();
+        btn_settings.connect_clicked(move |_| {
+            crate::ai_config_ui::show_ai_config_window(&win_ref, Rc::clone(&st_rc), &st);
+        });
+    }
+
+    {
+        let fv = feed_vbox.clone();
+        let q_box = quick_prompts_container.clone();
+        let st = status_lbl.clone();
+        btn_new_chat.connect_clicked(move |_| {
+            while let Some(child) = fv.first_child() {
+                fv.remove(&child);
+            }
+            q_box.set_visible(true);
+            st.set_text("Nova conversa iniciada.");
+        });
+    }
+
+    {
+        let win_ref = parent_window.clone();
+        let st_rc = Rc::clone(settings);
+        let st = status_lbl.clone();
+        btn_customize_prompts.connect_clicked(move |_| {
+            crate::ai_config_ui::show_ai_config_window(&win_ref, Rc::clone(&st_rc), &st);
+        });
+    }
+
+    // Wire Input Pill Submission
     {
         let pe = prompt_entry.clone();
         let sub = Rc::clone(&handle_submission);
@@ -1083,5 +1464,23 @@ mod tests {
         let (_, plan) = synthesize_agent_response("Atualizar servidor", true);
         assert!(plan.is_some());
         assert_eq!(plan.unwrap().steps.len(), 3);
+    }
+
+    #[test]
+    fn test_calculate_ai_panel_split() {
+        // When saved is <= 350 (or default), it defaults to 50% split
+        let (ai_h, pos) = calculate_ai_panel_split(1000, 300);
+        assert_eq!(ai_h, 500);
+        assert_eq!(pos, 500);
+
+        // When saved is higher, respects saved
+        let (ai_h2, pos2) = calculate_ai_panel_split(1000, 420);
+        assert_eq!(ai_h2, 420);
+        assert_eq!(pos2, 580);
+
+        // Clamps to min_term (120) and min_ai (200)
+        let (ai_h3, pos3) = calculate_ai_panel_split(300, 500);
+        assert_eq!(ai_h3, 200);
+        assert_eq!(pos3, 120);
     }
 }
