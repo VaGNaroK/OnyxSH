@@ -747,10 +747,14 @@ fn add_menu_item(
     hbox.append(&lbl);
     btn.set_child(Some(&hbox));
 
+    let act = Rc::new(action);
     let pop = popover.clone();
     btn.connect_clicked(move |_| {
         pop.popdown();
-        action();
+        let a = Rc::clone(&act);
+        glib::idle_add_local_once(move || {
+            a();
+        });
     });
     menu_box.append(&btn);
 }
@@ -782,10 +786,14 @@ fn add_checkable_menu_item(
 
     btn.set_child(Some(&hbox));
 
+    let act = Rc::new(action);
     let pop = popover.clone();
     btn.connect_clicked(move |_| {
         pop.popdown();
-        action();
+        let a = Rc::clone(&act);
+        glib::idle_add_local_once(move || {
+            a();
+        });
     });
     menu_box.append(&btn);
 }
