@@ -12,6 +12,7 @@ pub mod global_search_and_shortcuts;
 pub mod highlight_dialog_ui;
 pub mod main_menu;
 pub mod preferences_ui;
+pub mod quick_look_dialog;
 pub mod resource_dashboard;
 pub mod session_sidebar;
 pub mod state;

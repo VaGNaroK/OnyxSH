@@ -20,9 +20,6 @@ use libadwaita::prelude::*;
 use onyxsh_core::config::AppSettings;
 use onyxsh_core::platform;
 use onyxsh_filemanager::backend::{FileSystemBackend, LocalFsBackend};
-use onyxsh_filemanager::quick_look::{
-    load_local_preview, select_quick_look_entry, PreviewKind,
-};
 use onyxsh_filemanager::transfer::{TransferDirection, TransferItem, TransferStatus};
 use onyxsh_filemanager::{
     filter_and_sort_entries, format_bytes, FileEntry, SortColumn,
@@ -291,221 +288,20 @@ fn format_epoch_short(epoch: u64) -> String {
     format!("{year:04}-{m:02}-{d:02} {hh:02}:{mm:02}")
 }
 
-/// Opens the Quick Look modal preview window with `< Previous` and `Next >` navigation.
+/// Opens the Quick Look modal preview window with in-place editor and navigation.
 pub fn show_quick_look_window(
     parent: &adw::ApplicationWindow,
     entries: Vec<FileEntry>,
     initial_index: usize,
 ) {
-    if entries.is_empty() {
-        return;
-    }
-
-    let current_idx = Rc::new(RefCell::new(initial_index.min(entries.len() - 1)));
-    let entries_rc = Rc::new(entries);
-
-    let dlg = adw::Window::builder()
-        .transient_for(parent)
-        .modal(true)
-        .title("Quick Look")
-        .default_width(720)
-        .default_height(520)
-        .build();
-
-    let root_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
-    let hb = adw::HeaderBar::new();
-
-    let nav_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
-    nav_box.add_css_class("linked");
-    let btn_prev = gtk4::Button::builder()
-        .icon_name("go-previous-symbolic")
-        .tooltip_text("Arquivo Anterior")
-        .build();
-    let btn_next = gtk4::Button::builder()
-        .icon_name("go-next-symbolic")
-        .tooltip_text("Próximo Arquivo")
-        .build();
-    nav_box.append(&btn_prev);
-    nav_box.append(&btn_next);
-    hb.pack_start(&nav_box);
-
-    let pos_lbl = gtk4::Label::new(None);
-    pos_lbl.add_css_class("dim-label");
-    pos_lbl.add_css_class("monospace");
-    hb.pack_end(&pos_lbl);
-
-    root_vbox.append(&hb);
-
-    let meta_bar = gtk4::Box::new(gtk4::Orientation::Horizontal, 12);
-    meta_bar.set_margin_start(14);
-    meta_bar.set_margin_end(14);
-    meta_bar.set_margin_top(8);
-    meta_bar.set_margin_bottom(8);
-
-    let title_lbl = gtk4::Label::new(None);
-    title_lbl.add_css_class("title-4");
-    title_lbl.set_halign(gtk4::Align::Start);
-    title_lbl.set_hexpand(true);
-
-    let subtitle_lbl = gtk4::Label::new(None);
-    subtitle_lbl.add_css_class("caption");
-    subtitle_lbl.add_css_class("dim-label");
-
-    meta_bar.append(&title_lbl);
-    meta_bar.append(&subtitle_lbl);
-    root_vbox.append(&meta_bar);
-    root_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
-
-    let body_scroll = gtk4::ScrolledWindow::new();
-    body_scroll.set_hexpand(true);
-    body_scroll.set_vexpand(true);
-    root_vbox.append(&body_scroll);
-
-    let render_entry: Rc<dyn Fn()> = {
-        let entries = Rc::clone(&entries_rc);
-        let idx_rc = Rc::clone(&current_idx);
-        let title_l = title_lbl.clone();
-        let sub_l = subtitle_lbl.clone();
-        let pos_l = pos_lbl.clone();
-        let scroll = body_scroll.clone();
-        let dlg_ref = dlg.clone();
-
-        Rc::new(move || {
-            let idx = *idx_rc.borrow();
-            let Some(entry) = entries.get(idx) else {
-                return;
-            };
-            pos_l.set_text(&format!("{}/{}", idx + 1, entries.len()));
-            dlg_ref.set_title(Some(&format!("Quick Look — {}", entry.name)));
-
-            let path = Path::new(&entry.path);
-            match load_local_preview(path) {
-                Ok(preview) => {
-                    title_l.set_text(&preview.title);
-                    sub_l.set_text(&format!(
-                        "{} • {} • {}",
-                        preview.subtitle,
-                        entry.formatted_permissions(),
-                        format_epoch_short(entry.modified_epoch)
-                    ));
-
-                    match preview.kind {
-                        PreviewKind::Image => {
-                            let pic = gtk4::Picture::for_filename(path);
-                            pic.set_can_shrink(true);
-                            pic.set_margin_start(16);
-                            pic.set_margin_end(16);
-                            pic.set_margin_top(16);
-                            pic.set_margin_bottom(16);
-                            scroll.set_child(Some(&pic));
-                        }
-                        PreviewKind::Text => {
-                            let tv = gtk4::TextView::new();
-                            tv.set_editable(false);
-                            tv.set_monospace(true);
-                            tv.set_left_margin(12);
-                            tv.set_right_margin(12);
-                            tv.set_top_margin(10);
-                            tv.set_bottom_margin(10);
-                            let raw = preview.text_content.unwrap_or_default();
-                            let numbered = format_numbered_text_preview(&raw, 2000);
-                            tv.buffer().set_text(&numbered);
-                            scroll.set_child(Some(&tv));
-                        }
-                        PreviewKind::Directory | PreviewKind::Archive | PreviewKind::Binary => {
-                            let card = gtk4::Box::new(gtk4::Orientation::Vertical, 12);
-                            card.set_valign(gtk4::Align::Center);
-                            card.set_halign(gtk4::Align::Center);
-                            card.set_margin_top(32);
-                            card.set_margin_bottom(32);
-
-                            let icon = gtk4::Image::from_icon_name(icon_for_entry(entry));
-                            icon.set_pixel_size(64);
-                            card.append(&icon);
-
-                            let kind_str = match preview.kind {
-                                PreviewKind::Directory => "Diretório",
-                                PreviewKind::Archive => "Arquivo Compactado / Pacote",
-                                PreviewKind::Binary => "Arquivo Binário",
-                                _ => "Item",
-                            };
-                            let info = gtk4::Label::new(Some(&format!(
-                                "{kind_str}\nCaminho: {}\nTamanho / Itens: {}\nPermissões: {}",
-                                entry.path,
-                                preview.subtitle,
-                                entry.formatted_permissions()
-                            )));
-                            info.set_justify(gtk4::Justification::Center);
-                            card.append(&info);
-
-                            if !entry.is_dir && entry.size <= 32 * 1024 * 1024 {
-                                if let Ok(sha) = compute_file_sha256_hex(path) {
-                                    let sha_lbl =
-                                        gtk4::Label::new(Some(&format!("SHA-256: {sha}")));
-                                    sha_lbl.add_css_class("monospace");
-                                    sha_lbl.add_css_class("caption");
-                                    sha_lbl.set_selectable(true);
-                                    card.append(&sha_lbl);
-                                }
-                            }
-                            scroll.set_child(Some(&card));
-                        }
-                    }
-                }
-                Err(e) => {
-                    title_l.set_text(&entry.name);
-                    sub_l.set_text("Erro ao carregar preview");
-                    let err_lbl =
-                        gtk4::Label::new(Some(&format!("Não foi possível ler o item: {e}")));
-                    scroll.set_child(Some(&err_lbl));
-                }
-            }
-        })
-    };
-
-    render_entry();
-
-    {
-        let entries = Rc::clone(&entries_rc);
-        let idx_rc = Rc::clone(&current_idx);
-        let render = Rc::clone(&render_entry);
-        btn_prev.connect_clicked(move |_| {
-            let curr = *idx_rc.borrow();
-            if let Some((next_idx, _)) = select_quick_look_entry(&entries, curr, false) {
-                *idx_rc.borrow_mut() = next_idx;
-                render();
-            }
-        });
-    }
-    {
-        let entries = Rc::clone(&entries_rc);
-        let idx_rc = Rc::clone(&current_idx);
-        let render = Rc::clone(&render_entry);
-        btn_next.connect_clicked(move |_| {
-            let curr = *idx_rc.borrow();
-            if let Some((next_idx, _)) = select_quick_look_entry(&entries, curr, true) {
-                *idx_rc.borrow_mut() = next_idx;
-                render();
-            }
-        });
-    }
-
-    // Close on Escape or Space
-    {
-        let key_ctrl = gtk4::EventControllerKey::new();
-        let dlg_close = dlg.clone();
-        key_ctrl.connect_key_pressed(move |_, key, _, _| {
-            if key == gdk::Key::Escape || key == gdk::Key::space {
-                dlg_close.close();
-                return glib::Propagation::Stop;
-            }
-            glib::Propagation::Proceed
-        });
-        dlg.add_controller(key_ctrl);
-    }
-
-    dlg.set_content(Some(&root_vbox));
-    dlg.present();
+    crate::quick_look_dialog::show_quick_look_dialog(
+        parent,
+        entries,
+        initial_index,
+        None,
+        None,
+        None,
+    );
 }
 
 /// Opens the Transfer Queue dialog (`TransferManagerDialog`) showing active/completed transfers.
@@ -1338,10 +1134,20 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let vis = Rc::clone(visible_entries);
         let path = entry.path.clone();
+        let feed_cb = Rc::clone(feed_terminal_cb);
+        let ai_cb = ai_prompt_cb.clone();
+        let rf_cb = Rc::clone(refresh_fn);
         add_menu_item(&menu_vbox, &popover, "find-location-symbolic", "Quick Look (Pré-visualizar)", false, move || {
             let entries = vis.borrow().clone();
             let idx = entries.iter().position(|e| e.path == path).unwrap_or(0);
-            show_quick_look_window(&win, entries, idx);
+            crate::quick_look_dialog::show_quick_look_dialog(
+                &win,
+                entries,
+                idx,
+                Some(Rc::clone(&feed_cb)),
+                ai_cb.clone(),
+                Some(Rc::clone(&rf_cb)),
+            );
         });
 
         let path = PathBuf::from(&entry.path);
@@ -3272,6 +3078,8 @@ pub fn build_file_pane(
         let cur_dir = Rc::clone(&current_dir);
         let refresh = Rc::clone(&refresh_fn);
         let win_ref = parent_window.clone();
+        let feed_cb = Rc::clone(&feed_terminal_cb);
+        let ai_cb = ai_prompt_cb.clone();
         list_box.connect_row_activated(move |_, row| {
             let idx = row.index() as usize;
             let entries = vis.borrow().clone();
@@ -3285,7 +3093,14 @@ pub fn build_file_pane(
                     *cur_dir.borrow_mut() = PathBuf::from(&entry.path);
                     refresh();
                 } else {
-                    show_quick_look_window(&win_ref, entries, idx);
+                    crate::quick_look_dialog::show_quick_look_dialog(
+                        &win_ref,
+                        entries,
+                        idx,
+                        Some(Rc::clone(&feed_cb)),
+                        ai_cb.clone(),
+                        Some(Rc::clone(&refresh)),
+                    );
                 }
             }
         });
@@ -3309,6 +3124,8 @@ pub fn build_file_pane(
         let cur_dir = Rc::clone(&current_dir);
         let refresh = Rc::clone(&refresh_fn);
         let win_ref = parent_window.clone();
+        let feed_cb = Rc::clone(&feed_terminal_cb);
+        let ai_cb = ai_prompt_cb.clone();
         grid_flow.connect_child_activated(move |_, child| {
             let idx = child.index() as usize;
             let entries = vis.borrow().clone();
@@ -3323,7 +3140,14 @@ pub fn build_file_pane(
                     *cur_dir.borrow_mut() = PathBuf::from(&entry.path);
                     refresh();
                 } else {
-                    show_quick_look_window(&win_ref, entries, idx);
+                    crate::quick_look_dialog::show_quick_look_dialog(
+                        &win_ref,
+                        entries,
+                        idx,
+                        Some(Rc::clone(&feed_cb)),
+                        ai_cb.clone(),
+                        Some(Rc::clone(&refresh)),
+                    );
                 }
             }
         });
@@ -3497,6 +3321,9 @@ pub fn build_file_pane(
         let win_ref = parent_window.clone();
         let vis = Rc::clone(&visible_entries);
         let sel = Rc::clone(&selected_entry);
+        let feed_cb = Rc::clone(&feed_terminal_cb);
+        let ai_cb = ai_prompt_cb.clone();
+        let refresh = Rc::clone(&refresh_fn);
         let key_ctrl = gtk4::EventControllerKey::new();
         key_ctrl.connect_key_pressed(move |_, key, _, _| {
             if key == gdk::Key::space {
@@ -3507,7 +3334,14 @@ pub fn build_file_pane(
                         .as_ref()
                         .and_then(|s| entries.iter().position(|e| e.path == s.path))
                         .unwrap_or(0);
-                    show_quick_look_window(&win_ref, entries, idx);
+                    crate::quick_look_dialog::show_quick_look_dialog(
+                        &win_ref,
+                        entries,
+                        idx,
+                        Some(Rc::clone(&feed_cb)),
+                        ai_cb.clone(),
+                        Some(Rc::clone(&refresh)),
+                    );
                     return glib::Propagation::Stop;
                 }
             }

@@ -199,8 +199,8 @@ pub fn format_checksum_report(
 }
 
 /// Displays the Libadwaita Checksum Dialog for a selected file.
-pub fn show_checksum_dialog(
-    parent: &adw::ApplicationWindow,
+pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
+    parent: &W,
     file_path: &Path,
     file_name: &str,
     file_size_str: &str,
