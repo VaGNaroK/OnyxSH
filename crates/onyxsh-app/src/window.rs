@@ -449,8 +449,14 @@ pub fn build_main_window(
     let active_tftp_server: Rc<RefCell<Option<UdpTftpServer>>> = Rc::new(RefCell::new(None));
     let clicked_url_rc: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
-    let style_manager = adw::StyleManager::default();
-    style_manager.set_color_scheme(adw::ColorScheme::PreferDark);
+    {
+        let initial_theme_mode = GtkThemeMode::from_setting(&settings_rc.borrow().gtk_theme);
+        let initial_pal = get_palette(&settings_rc.borrow().color_scheme);
+        apply_gtk_theme_mode(
+            initial_theme_mode,
+            is_light_hex_color(initial_pal.background),
+        );
+    }
 
     let css_provider = gtk4::CssProvider::new();
     {
@@ -1029,47 +1035,60 @@ pub fn build_main_window(
         let menu_popover = gtk4::Popover::new();
         menu_popover.set_has_arrow(true);
         let menu_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
-        menu_vbox.set_width_request(260);
+        menu_vbox.set_width_request(280);
         menu_vbox.set_margin_start(10);
         menu_vbox.set_margin_end(10);
         menu_vbox.set_margin_top(8);
         menu_vbox.set_margin_bottom(8);
 
-        // 6.1 ThemeSelectorWidget (4 modes: System, Light, Dark, Terminal)
-        let theme_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 16);
+        // 6.1 ThemeSelectorWidget (4 circular buttons: Follow System, Light, Dark, Terminal Match)
+        let theme_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 22);
         theme_hbox.add_css_class("themeselector");
         theme_hbox.set_halign(gtk4::Align::Center);
 
         let rb_system = gtk4::CheckButton::builder()
             .tooltip_text("Seguir Estilo do Sistema")
             .build();
+        rb_system.add_css_class("follow");
         rb_system.add_css_class("theme-selector");
 
         let rb_light = gtk4::CheckButton::builder()
             .group(&rb_system)
             .tooltip_text("Estilo Claro (Light)")
             .build();
+        rb_light.add_css_class("light");
         rb_light.add_css_class("theme-selector");
 
         let rb_dark = gtk4::CheckButton::builder()
             .group(&rb_system)
             .tooltip_text("Estilo Escuro (Dark)")
-            .active(true)
             .build();
+        rb_dark.add_css_class("dark");
         rb_dark.add_css_class("theme-selector");
 
         let rb_terminal = gtk4::CheckButton::builder()
             .group(&rb_system)
             .tooltip_text("Combinar com Cores do Terminal")
             .build();
+        rb_terminal.add_css_class("terminal");
         rb_terminal.add_css_class("theme-selector");
+
+        match settings_rc.borrow().gtk_theme.as_str() {
+            "light" => rb_light.set_active(true),
+            "dark" => rb_dark.set_active(true),
+            "terminal" => rb_terminal.set_active(true),
+            _ => rb_system.set_active(true),
+        }
 
         {
             let st = Rc::clone(&settings_rc);
             rb_system.connect_toggled(move |btn| {
                 if btn.is_active() {
+                    st.borrow_mut().gtk_theme = "default".to_string();
                     let pal = get_palette(&st.borrow().color_scheme);
                     apply_gtk_theme_mode(GtkThemeMode::System, is_light_hex_color(pal.background));
+                    let cfg_path = platform::config_dir().join("settings.json");
+                    let _ = st.borrow().save_to_path(&cfg_path);
                 }
             });
         }
@@ -1077,8 +1096,11 @@ pub fn build_main_window(
             let st = Rc::clone(&settings_rc);
             rb_light.connect_toggled(move |btn| {
                 if btn.is_active() {
+                    st.borrow_mut().gtk_theme = "light".to_string();
                     let pal = get_palette(&st.borrow().color_scheme);
                     apply_gtk_theme_mode(GtkThemeMode::Light, is_light_hex_color(pal.background));
+                    let cfg_path = platform::config_dir().join("settings.json");
+                    let _ = st.borrow().save_to_path(&cfg_path);
                 }
             });
         }
@@ -1086,8 +1108,11 @@ pub fn build_main_window(
             let st = Rc::clone(&settings_rc);
             rb_dark.connect_toggled(move |btn| {
                 if btn.is_active() {
+                    st.borrow_mut().gtk_theme = "dark".to_string();
                     let pal = get_palette(&st.borrow().color_scheme);
                     apply_gtk_theme_mode(GtkThemeMode::Dark, is_light_hex_color(pal.background));
+                    let cfg_path = platform::config_dir().join("settings.json");
+                    let _ = st.borrow().save_to_path(&cfg_path);
                 }
             });
         }
@@ -1095,11 +1120,14 @@ pub fn build_main_window(
             let st = Rc::clone(&settings_rc);
             rb_terminal.connect_toggled(move |btn| {
                 if btn.is_active() {
+                    st.borrow_mut().gtk_theme = "terminal".to_string();
                     let pal = get_palette(&st.borrow().color_scheme);
                     apply_gtk_theme_mode(
                         GtkThemeMode::TerminalMatch,
                         is_light_hex_color(pal.background),
                     );
+                    let cfg_path = platform::config_dir().join("settings.json");
+                    let _ = st.borrow().save_to_path(&cfg_path);
                 }
             });
         }
@@ -1171,8 +1199,8 @@ pub fn build_main_window(
         menu_vbox.append(&font_center);
         menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
 
-        // Helper to create flat menu action buttons
-        let make_menu_btn = |label: &str, icon: Option<&str>| -> gtk4::Button {
+        // Helper to create flat menu action buttons with optional shortcut accelerator
+        let make_menu_btn = |label: &str, icon: Option<&str>, shortcut: Option<&str>| -> gtk4::Button {
             let btn = gtk4::Button::new();
             btn.add_css_class("flat");
             let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
@@ -1183,12 +1211,18 @@ pub fn build_main_window(
             lbl.set_halign(gtk4::Align::Start);
             lbl.set_hexpand(true);
             hbox.append(&lbl);
+            if let Some(sc) = shortcut {
+                let sc_lbl = gtk4::Label::new(Some(sc));
+                sc_lbl.set_halign(gtk4::Align::End);
+                sc_lbl.add_css_class("dim-label");
+                hbox.append(&sc_lbl);
+            }
             btn.set_child(Some(&hbox));
             btn
         };
 
         // 1. Nova Janela
-        let mi_new_win = make_menu_btn("Nova Janela", Some("window-new-symbolic"));
+        let mi_new_win = make_menu_btn("Nova Janela", Some("window-new-symbolic"), Some("Shift+Ctrl+N"));
         {
             let app_clone = app.clone();
             let st_rc = Rc::clone(&settings_rc);
@@ -1205,6 +1239,7 @@ pub fn build_main_window(
         let mi_export = make_menu_btn(
             "Exportar Saída do Terminal...",
             Some("document-save-symbolic"),
+            None,
         );
         {
             let win_clone = window.clone();
@@ -1230,6 +1265,7 @@ pub fn build_main_window(
         let mi_runbook = make_menu_btn(
             "Exportar Sessão como Caderno de Bordo (Runbook)...",
             Some("document-edit-symbolic"),
+            None,
         );
         {
             let win_clone = window.clone();
@@ -1253,7 +1289,7 @@ pub fn build_main_window(
         menu_vbox.append(&mi_runbook);
 
         // 3. Preferências (4 Abas Completas — `adw::PreferencesWindow`)
-        let mi_prefs = make_menu_btn("Preferências", Some("preferences-system-symbolic"));
+        let mi_prefs = make_menu_btn("Preferências", Some("preferences-system-symbolic"), Some("Shift+Ctrl+,"));
         {
             let win_clone = window.clone();
             let st_rc = Rc::clone(&settings_rc);
@@ -1278,6 +1314,7 @@ pub fn build_main_window(
         let mi_colors = make_menu_btn(
             "Cores",
             Some("format-text-highlight-symbolic"),
+            None,
         );
         {
             let win_clone = window.clone();
@@ -1300,7 +1337,7 @@ pub fn build_main_window(
         menu_vbox.append(&mi_colors);
 
         // 5. Assistente de IA
-        let mi_ai = make_menu_btn("Assistente de IA", Some("avatar-default-symbolic"));
+        let mi_ai = make_menu_btn("Assistente de IA", Some("avatar-default-symbolic"), None);
         {
             let bai = btn_ai.clone();
             let pop = menu_popover.clone();
@@ -1315,6 +1352,7 @@ pub fn build_main_window(
         let mi_ai_cfg = make_menu_btn(
             "Configurar Assistente de IA...",
             Some("preferences-system-symbolic"),
+            None,
         );
         {
             let win_clone = window.clone();
@@ -1332,6 +1370,7 @@ pub fn build_main_window(
         let mi_shortcuts = make_menu_btn(
             "Atalhos de Teclado",
             Some("preferences-desktop-keyboard-shortcuts-symbolic"),
+            None,
         );
         {
             let win_clone = window.clone();
@@ -1355,6 +1394,7 @@ pub fn build_main_window(
         let mi_import = make_menu_btn(
             "Importar Sessões (~/.ssh/config)",
             Some("document-open-symbolic"),
+            None,
         );
         {
             let pop_sess = Rc::clone(&populate_sessions_sidebar);
@@ -1372,6 +1412,7 @@ pub fn build_main_window(
         let mi_tunnels = make_menu_btn(
             "Gerenciador de Túneis SSH",
             Some("network-vpn-symbolic"),
+            None,
         );
         {
             let win_clone = window.clone();
@@ -1426,7 +1467,7 @@ pub fn build_main_window(
         menu_vbox.append(&mi_tftp);
 
         // 10. Sobre
-        let mi_about = make_menu_btn("Sobre o OnyxSH", Some("help-about-symbolic"));
+        let mi_about = make_menu_btn("Sobre o OnyxSH", Some("help-about-symbolic"), None);
         {
             let win_clone = window.clone();
             let pop = menu_popover.clone();
@@ -1487,7 +1528,7 @@ pub fn build_main_window(
         menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
 
         // 11. Sair
-        let mi_quit = make_menu_btn("Sair", Some("application-exit-symbolic"));
+        let mi_quit = make_menu_btn("Sair", Some("application-exit-symbolic"), Some("Shift+Ctrl+Q"));
         {
             let app_clone = app.clone();
             mi_quit.connect_clicked(move |_| {

@@ -119,6 +119,10 @@ pub fn default_fm_view_mode() -> String {
     "list".to_string()
 }
 
+pub fn default_gtk_theme() -> String {
+    "default".to_string()
+}
+
 /// Deserializes a numeric u32 setting (e.g. `file_manager_height`) from integer, float, or string.
 pub fn deserialize_flexible_u32<'de, D>(deserializer: D) -> Result<u32, D::Error>
 where
@@ -323,6 +327,8 @@ pub struct AppSettings {
     pub tab_alignment: String,
     pub icon_theme_strategy: String,
     pub hide_headerbar_buttons_when_maximized: String,
+    #[serde(default = "default_gtk_theme")]
+    pub gtk_theme: String,
     #[serde(default = "default_file_manager_height", deserialize_with = "deserialize_flexible_u32")]
     pub file_manager_height: u32,
     #[serde(default = "default_fm_sort_by")]
@@ -430,6 +436,7 @@ impl Default for AppSettings {
             tab_alignment: "center".to_string(),
             icon_theme_strategy: "system".to_string(),
             hide_headerbar_buttons_when_maximized: "auto".to_string(),
+            gtk_theme: default_gtk_theme(),
             file_manager_height: 500,
             file_manager_sort_by: "name".to_string(),
             file_manager_sort_ascending: true,
@@ -664,18 +671,21 @@ mod tests {
             "file_manager_height": 420.0,
             "file_manager_sort_by": "group",
             "file_manager_sort_ascending": false,
-            "file_manager_view_mode": "grid"
+            "file_manager_view_mode": "grid",
+            "gtk_theme": "dark"
         }"#;
         let s: AppSettings = serde_json::from_str(raw).expect("parse fm settings");
         assert_eq!(s.file_manager_height, 420);
         assert_eq!(s.file_manager_sort_by, "group");
         assert!(!s.file_manager_sort_ascending);
         assert_eq!(s.file_manager_view_mode, "grid");
+        assert_eq!(s.gtk_theme, "dark");
 
         let default_st = AppSettings::default();
         assert_eq!(default_st.file_manager_height, 500);
         assert_eq!(default_st.file_manager_sort_by, "name");
         assert!(default_st.file_manager_sort_ascending);
         assert_eq!(default_st.file_manager_view_mode, "list");
+        assert_eq!(default_st.gtk_theme, "default");
     }
 }

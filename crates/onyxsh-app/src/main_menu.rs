@@ -75,14 +75,50 @@ pub fn apply_gtk_theme_mode(mode: GtkThemeMode, terminal_bg_is_light: bool) {
 pub fn menu_custom_css() -> &'static str {
     "
     .themeselector {
-        margin-top: 8px;
-        margin-bottom: 6px;
+        margin: 8px 10px;
     }
-    .theme-selector {
-        min-height: 28px;
-        min-width: 28px;
-        border-radius: 999px;
+    .themeselector checkbutton {
+        padding: 0;
+        min-height: 44px;
+        min-width: 44px;
+        background-clip: content-box;
+        border-radius: 9999px;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+        transition: all 150ms ease-in-out;
+    }
+    .themeselector checkbutton:checked {
+        box-shadow: inset 0 0 0 2px #3584e4;
+    }
+    .themeselector checkbutton.follow {
+        background-image: linear-gradient(to bottom right, #ffffff 49.99%, #202020 50.01%);
+    }
+    .themeselector checkbutton.light {
+        background-color: #ffffff;
+    }
+    .themeselector checkbutton.dark {
+        background-color: #202020;
+    }
+    .themeselector checkbutton.terminal {
+        background: linear-gradient(45deg, #000000 50%, #ffffff 50%);
+    }
+    .themeselector checkbutton radio,
+    .themeselector checkbutton check {
+        -gtk-icon-source: none;
+        border: none;
+        background: none;
+        box-shadow: none;
+        min-width: 14px;
+        min-height: 14px;
+        transform: translate(25px, 13px);
         padding: 2px;
+        border-radius: 9999px;
+    }
+    .themeselector checkbutton radio:checked,
+    .themeselector checkbutton check:checked {
+        -gtk-icon-source: -gtk-icontheme(\"object-select-symbolic\");
+        background-color: #3584e4;
+        color: #ffffff;
+        border-radius: 9999px;
     }
     .font-sizer {
         margin-top: 4px;
@@ -270,5 +306,17 @@ mod tests {
         );
         assert_eq!(GtkThemeMode::from_setting("default"), GtkThemeMode::System);
         assert_eq!(GtkThemeMode::TerminalMatch.as_setting(), "terminal");
+    }
+
+    #[test]
+    fn test_theme_selector_css_contains_four_circle_modes() {
+        let css = menu_custom_css();
+        assert!(css.contains(".themeselector checkbutton"));
+        assert!(css.contains(".themeselector checkbutton.follow"));
+        assert!(css.contains(".themeselector checkbutton.light"));
+        assert!(css.contains(".themeselector checkbutton.dark"));
+        assert!(css.contains(".themeselector checkbutton.terminal"));
+        assert!(css.contains("object-select-symbolic"));
+        assert!(css.contains("border-radius: 9999px"));
     }
 }
