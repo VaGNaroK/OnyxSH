@@ -2158,6 +2158,9 @@ pub fn build_main_window(
                 "configure-ai" => {
                     crate::ai_config_ui::show_ai_config_window(&win_c, Rc::clone(&st_c), &st_act);
                 }
+                "show-audit-log" | "audit-log" => {
+                    crate::audit_log_dialog::show_audit_log_dialog(&win_c, &st_act);
+                }
                 _ => {}
             });
 

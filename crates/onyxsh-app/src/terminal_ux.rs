@@ -951,6 +951,12 @@ pub fn show_command_palette_dialog(
             action_key: "act:git-assistant".to_string(),
         },
         PaletteItem {
+            category: "Assistente de IA".to_string(),
+            title: "Registro de Auditoria do Agente".to_string(),
+            subtitle: "Trilha contínua de auditoria das decisões, comandos e rollback atômico".to_string(),
+            action_key: "act:show-audit-log".to_string(),
+        },
+        PaletteItem {
             category: "Ferramentas".to_string(),
             title: "Diagnóstico Seguro do Sistema (Telemetria & Suporte)".to_string(),
             subtitle: "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak".to_string(),

@@ -1346,7 +1346,7 @@ pub fn build_complete_ai_assistant_panel(
         let win_ref = parent_window.clone();
         let st = status_lbl.clone();
         btn_audit.connect_clicked(move |_| {
-            show_diff_review_and_audit_dialog(&win_ref, &st);
+            crate::audit_log_dialog::show_audit_log_dialog(&win_ref, &st);
         });
     }
 
