@@ -1003,8 +1003,8 @@ pub fn build_main_window(
     fm_paned.set_end_child(Some(&fm_widget));
     fm_paned.set_resize_start_child(true);
     fm_paned.set_shrink_start_child(false);
-    fm_paned.set_resize_end_child(false);
-    fm_paned.set_shrink_end_child(true);
+    fm_paned.set_resize_end_child(true);
+    fm_paned.set_shrink_end_child(false);
 
     center_vbox.append(&fm_paned);
 
@@ -1572,23 +1572,22 @@ pub fn build_main_window(
             if active {
                 is_prog.set(true);
 
-                let saved_h = (st_rc.borrow().file_manager_height as i32).max(240);
-                let total_h = paned.height();
+                // Make file manager visible first so GTK Paned has both children realized/visible
+                fm.set_visible(true);
+
+                let paned_h = paned.height();
                 let win_h = win_ref.height();
-                let alloc_h = if total_h > 200 {
-                    total_h
+                let alloc_h = if paned_h > 200 {
+                    paned_h
                 } else {
                     (win_h - 100).max(400)
                 };
 
-                let min_fm = 240;
-                let min_term = 120;
-                let max_fm = (alloc_h - min_term).max(min_fm);
-                let target_fm_h = saved_h.clamp(min_fm, max_fm);
-                let target_pos = (alloc_h - target_fm_h).max(min_term);
+                let raw_saved = st_rc.borrow().file_manager_height as i32;
+                let (_target_fm_h, target_pos) =
+                    crate::filemanager_ui::calculate_file_manager_split(alloc_h, raw_saved);
 
                 paned.set_position(target_pos);
-                fm.set_visible(true);
 
                 let p_clone = paned.clone();
                 let st_clone = Rc::clone(&st_rc);
@@ -1597,23 +1596,37 @@ pub fn build_main_window(
 
                 glib::idle_add_local_once(move || {
                     let total_h = p_clone.height();
-                    let saved_h = (st_clone.borrow().file_manager_height as i32).max(240);
                     let alloc_h = if total_h > 200 {
                         total_h
                     } else {
                         (w_clone.height() - 100).max(400)
                     };
-                    let max_fm = (alloc_h - min_term).max(min_fm);
-                    let target_fm_h = saved_h.clamp(min_fm, max_fm);
-                    let target_pos = (alloc_h - target_fm_h).max(min_term);
+                    let raw_saved = st_clone.borrow().file_manager_height as i32;
+                    let (_target_fm_h, target_pos) =
+                        crate::filemanager_ui::calculate_file_manager_split(alloc_h, raw_saved);
                     p_clone.set_position(target_pos);
 
-                    glib::timeout_add_local_once(std::time::Duration::from_millis(200), move || {
+                    glib::timeout_add_local_once(std::time::Duration::from_millis(300), move || {
                         is_prog_clone.set(false);
                     });
                 });
             } else {
                 is_prog.set(true);
+                // Save last position before hiding, matching python tabs.py closing logic
+                let total_h = paned.height();
+                let pos = paned.position();
+                if total_h > 200 && pos > 50 {
+                    let min_fm = 240;
+                    let min_term = 120;
+                    let max_fm = (total_h - min_term).max(min_fm);
+                    let last_h = (total_h - pos).clamp(min_fm, max_fm) as u32;
+                    if last_h >= 240 {
+                        st_rc.borrow_mut().file_manager_height = last_h;
+                        let st_to_save = st_rc.borrow().clone();
+                        let cfg_p = platform::config_dir().join("settings.json");
+                        let _ = st_to_save.save_to_path(&cfg_p);
+                    }
+                }
                 fm.set_visible(false);
                 let is_prog_clone = Rc::clone(&is_prog);
                 glib::timeout_add_local_once(std::time::Duration::from_millis(200), move || {

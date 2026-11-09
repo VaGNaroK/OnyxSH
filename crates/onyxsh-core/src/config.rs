@@ -102,9 +102,9 @@ where
     }
 }
 
-/// Default height for the bottom file manager panel in pixels.
+/// Default height for the bottom file manager panel in pixels (~48-50% screen split).
 pub fn default_file_manager_height() -> u32 {
-    280
+    500
 }
 
 pub fn default_fm_sort_by() -> String {
@@ -430,7 +430,7 @@ impl Default for AppSettings {
             tab_alignment: "center".to_string(),
             icon_theme_strategy: "system".to_string(),
             hide_headerbar_buttons_when_maximized: "auto".to_string(),
-            file_manager_height: 280,
+            file_manager_height: 500,
             file_manager_sort_by: "name".to_string(),
             file_manager_sort_ascending: true,
             file_manager_view_mode: "list".to_string(),
@@ -673,7 +673,7 @@ mod tests {
         assert_eq!(s.file_manager_view_mode, "grid");
 
         let default_st = AppSettings::default();
-        assert_eq!(default_st.file_manager_height, 280);
+        assert_eq!(default_st.file_manager_height, 500);
         assert_eq!(default_st.file_manager_sort_by, "name");
         assert!(default_st.file_manager_sort_ascending);
         assert_eq!(default_st.file_manager_view_mode, "list");

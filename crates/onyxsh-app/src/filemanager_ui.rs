@@ -3801,6 +3801,28 @@ pub fn build_complete_file_manager(
     container
 }
 
+/// Calculates the target file manager height and paned divider position.
+/// Implements Python OnyxSH tabs.py specification:
+/// - Defaults to ~48-50% screen split (as in filemanagerfixagain2.png) when raw_saved <= 280
+/// - Enforces min_fm = 240, min_term = 120
+/// - Returns (target_fm_height, target_paned_position)
+pub fn calculate_file_manager_split(alloc_h: i32, raw_saved: i32) -> (i32, i32) {
+    let min_fm = 240;
+    let min_term = 120;
+    let max_fm = (alloc_h - min_term).max(min_fm);
+
+    let default_ideal_h = (alloc_h * 48) / 100;
+    let saved_h = if raw_saved <= 280 {
+        default_ideal_h.max(380)
+    } else {
+        raw_saved.max(320)
+    };
+
+    let target_fm_h = saved_h.clamp(min_fm, max_fm);
+    let target_pos = (alloc_h - target_fm_h).max(min_term);
+    (target_fm_h, target_pos)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -4067,5 +4089,32 @@ mod tests {
             };
             assert_eq!(key, expected_key);
         }
+    }
+
+    #[test]
+    fn test_filemanager_paned_split_calculation() {
+        // 1. Full HD Screen (~1041px available height like filemanagerfixagain2.png) with default/unconfigured height (280)
+        let (fm_h, pos) = calculate_file_manager_split(1041, 280);
+        // ~48% of 1041 is 499px, leaving 542px for terminal (50/50 balanced split)
+        assert_eq!(fm_h, 499);
+        assert_eq!(pos, 542);
+        assert_eq!(fm_h + pos, 1041);
+
+        // 2. User custom saved height (e.g. 557px from ~/.config/onyxsh/settings.json)
+        let (fm_h2, pos2) = calculate_file_manager_split(1041, 557);
+        assert_eq!(fm_h2, 557);
+        assert_eq!(pos2, 484);
+        assert_eq!(fm_h2 + pos2, 1041);
+
+        // 3. Compact window (e.g. 500px total height) with default
+        let (fm_h3, pos3) = calculate_file_manager_split(500, 280);
+        // Minimum default floor is 380, but clamped to max_fm = 500 - 120 = 380
+        assert_eq!(fm_h3, 380);
+        assert_eq!(pos3, 120); // Terminal gets guaranteed minimum 120px
+
+        // 4. Overly large saved height clamped by min terminal constraint
+        let (fm_h4, pos4) = calculate_file_manager_split(800, 1500);
+        assert_eq!(fm_h4, 680); // 800 - 120
+        assert_eq!(pos4, 120);
     }
 }
