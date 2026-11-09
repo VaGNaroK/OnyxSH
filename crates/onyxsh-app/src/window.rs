@@ -16,7 +16,9 @@ use libadwaita::prelude::*;
 use onyxsh_core::config::AppSettings;
 use onyxsh_core::platform;
 use onyxsh_core::sessions::SessionItem;
-use onyxsh_core::{APP_ID, APP_NAME, APP_VERSION};
+use onyxsh_core::{
+    APP_ID, APP_NAME, APP_VERSION, COPYRIGHT, DEVELOPERS, DEVELOPER_NAME, ISSUE_URL, WEBSITE,
+};
 use onyxsh_filemanager::backend::UdpTftpServer;
 use onyxsh_system::{
     calculate_cpu_usage_percent, parse_proc_meminfo, parse_proc_net_dev, parse_proc_stat,
@@ -1430,18 +1432,53 @@ pub fn build_main_window(
             let pop = menu_popover.clone();
             mi_about.connect_clicked(move |_| {
                 pop.popdown();
+
+                let gtk_ver = format!(
+                    "{}.{}.{}",
+                    gtk4::major_version(),
+                    gtk4::minor_version(),
+                    gtk4::micro_version()
+                );
+                let adw_ver = format!(
+                    "{}.{}.{}",
+                    adw::major_version(),
+                    adw::minor_version(),
+                    adw::micro_version()
+                );
+                let debug_info = format!(
+                    "App ID: {}\nVersion: {}\nPlatform: Linux\nArchitecture: {}\nShell: {}\nGTK: {}\nlibadwaita: {}\nFlatpak: {}\nConfig: {}",
+                    APP_ID,
+                    APP_VERSION,
+                    std::env::consts::ARCH,
+                    std::env::var("SHELL").unwrap_or_else(|_| "N/A".to_string()),
+                    gtk_ver,
+                    adw_ver,
+                    platform::is_flatpak_sandbox(),
+                    platform::config_dir().display(),
+                );
+
                 let about = adw::AboutWindow::builder()
                     .transient_for(&win_clone)
+                    .modal(true)
                     .application_name(APP_NAME)
                     .application_icon(APP_ID)
                     .version(APP_VERSION)
-                    .developer_name("Leonardo Berbert")
+                    .developer_name(DEVELOPER_NAME)
+                    .developers(DEVELOPERS)
+                    .copyright(COPYRIGHT)
+                    .website(WEBSITE)
+                    .issue_url(ISSUE_URL)
                     .license_type(gtk4::License::Gpl30)
                     .comments(
-                        "Emulador de Terminal Nativo em Rust (GTK4 + Libadwaita + VTE4) \
-                         com ProductionGuard, Dual-Pane SFTP/TFTP e Agente de IA Zero-Trust.",
+                        "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, \
+                         com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust.",
                     )
+                    .debug_info(&debug_info)
                     .build();
+
+                about.add_link("Código-Fonte", WEBSITE);
+                about.add_link("Reportar Problema", ISSUE_URL);
+
                 about.present();
             });
         }

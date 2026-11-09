@@ -14,7 +14,7 @@ members = [
 version = "0.14.0"
 edition = "2021"
 license = "GPL-3.0-or-later"
-authors = ["Leonardo Berbert <leo4berbert@gmail.com>"]
+authors = ["VaGNaroK <indialuz42@gmail.com>"]
 repository = "https://github.com/VaGNaroK/OnyxSH"
 
 [workspace.dependencies]
