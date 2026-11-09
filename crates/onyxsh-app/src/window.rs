@@ -23,7 +23,7 @@ use onyxsh_filemanager::backend::UdpTftpServer;
 use onyxsh_system::{
     calculate_cpu_usage_percent, parse_proc_meminfo, parse_proc_net_dev, parse_proc_stat,
 };
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 use vte4::prelude::*;
 
@@ -1559,31 +1559,65 @@ pub fn build_main_window(
             }));
         });
     }
+    let is_programmatic_pos = Rc::new(Cell::new(false));
     {
         let fm = fm_widget.clone();
         let paned = fm_paned.clone();
         let st_rc = Rc::clone(&settings_rc);
         let win_ref = window.clone();
+        let is_prog = Rc::clone(&is_programmatic_pos);
+
         btn_fm.connect_toggled(move |btn| {
             let active = btn.is_active();
-            fm.set_visible(active);
             if active {
+                is_prog.set(true);
+
+                let saved_h = (st_rc.borrow().file_manager_height as i32).max(240);
+                let total_h = paned.height();
+                let win_h = win_ref.height();
+                let alloc_h = if total_h > 200 {
+                    total_h
+                } else {
+                    (win_h - 100).max(400)
+                };
+
+                let min_fm = 240;
+                let min_term = 120;
+                let max_fm = (alloc_h - min_term).max(min_fm);
+                let target_fm_h = saved_h.clamp(min_fm, max_fm);
+                let target_pos = (alloc_h - target_fm_h).max(min_term);
+
+                paned.set_position(target_pos);
+                fm.set_visible(true);
+
                 let p_clone = paned.clone();
                 let st_clone = Rc::clone(&st_rc);
                 let w_clone = win_ref.clone();
+                let is_prog_clone = Rc::clone(&is_prog);
+
                 glib::idle_add_local_once(move || {
                     let total_h = p_clone.height();
-                    let saved_h = st_clone.borrow().file_manager_height as i32;
+                    let saved_h = (st_clone.borrow().file_manager_height as i32).max(240);
                     let alloc_h = if total_h > 200 {
                         total_h
                     } else {
-                        (w_clone.height() - 140).max(250)
+                        (w_clone.height() - 100).max(400)
                     };
-                    let min_fm = 120;
-                    let min_term = 100;
-                    let target_fm_h = saved_h.clamp(min_fm, (alloc_h - min_term).max(min_fm));
+                    let max_fm = (alloc_h - min_term).max(min_fm);
+                    let target_fm_h = saved_h.clamp(min_fm, max_fm);
                     let target_pos = (alloc_h - target_fm_h).max(min_term);
                     p_clone.set_position(target_pos);
+
+                    glib::timeout_add_local_once(std::time::Duration::from_millis(200), move || {
+                        is_prog_clone.set(false);
+                    });
+                });
+            } else {
+                is_prog.set(true);
+                fm.set_visible(false);
+                let is_prog_clone = Rc::clone(&is_prog);
+                glib::timeout_add_local_once(std::time::Duration::from_millis(200), move || {
+                    is_prog_clone.set(false);
                 });
             }
         });
@@ -1595,17 +1629,21 @@ pub fn build_main_window(
         let fm = fm_widget.clone();
         let st_rc = Rc::clone(&settings_rc);
         let debounce_timer: Rc<RefCell<Option<glib::SourceId>>> = Rc::new(RefCell::new(None));
+        let is_prog_track = Rc::clone(&is_programmatic_pos);
 
         paned.connect_position_notify(move |p| {
-            if !fm.is_visible() {
+            if !fm.is_visible() || is_prog_track.get() {
                 return;
             }
             let total_h = p.height();
             let pos = p.position();
-            if total_h <= 180 || pos <= 50 {
+            if total_h <= 200 || pos <= 50 {
                 return;
             }
-            let calculated_fm_h = (total_h - pos).max(120) as u32;
+            let min_fm = 240;
+            let min_term = 120;
+            let max_fm = (total_h - min_term).max(min_fm);
+            let calculated_fm_h = (total_h - pos).clamp(min_fm, max_fm) as u32;
 
             if st_rc.borrow().file_manager_height != calculated_fm_h {
                 st_rc.borrow_mut().file_manager_height = calculated_fm_h;
