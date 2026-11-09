@@ -3,6 +3,7 @@
 
 pub mod ai_assistant_ui;
 pub mod ai_config_ui;
+pub mod checksum_dialog;
 pub mod command_manager_ui;
 pub mod dialogs;
 pub mod export_dialog;

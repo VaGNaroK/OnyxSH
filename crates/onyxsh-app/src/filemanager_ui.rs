@@ -1346,13 +1346,25 @@ fn show_context_menu_for_entry(
 
         let path = PathBuf::from(&entry.path);
         let name = entry.name.clone();
-        let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "accessories-calculator-symbolic", "Calcular Hash SHA-256...", false, move || {
-            match compute_file_sha256_hex(&path) {
-                Ok(hex) => st.set_text(&format!("SHA-256 ({name}): {hex}")),
-                Err(e) => st.set_text(&format!("Erro no hash: {e}")),
-            }
-        });
+        let size_str = entry.formatted_size_clean();
+        let win = parent_window.clone();
+        let feed_cb = Rc::clone(feed_terminal_cb);
+        add_menu_item(
+            &menu_vbox,
+            &popover,
+            "accessories-calculator-symbolic",
+            "Calcular / Verificar Hash...",
+            false,
+            move || {
+                crate::checksum_dialog::show_checksum_dialog(
+                    &win,
+                    &path,
+                    &name,
+                    &size_str,
+                    &feed_cb,
+                );
+            },
+        );
 
         let lower = entry.name.to_lowercase();
         let ext = Path::new(&entry.name).extension().and_then(|e| e.to_str()).unwrap_or("").to_ascii_lowercase();
