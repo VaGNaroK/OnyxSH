@@ -145,22 +145,37 @@ pub fn audit_log_file_path() -> PathBuf {
 }
 
 pub fn load_ai_history() -> Vec<AiChatEntry> {
-    let path = ai_history_file_path();
-    if let Ok(raw) = fs::read_to_string(&path) {
-        if let Ok(list) = serde_json::from_str::<Vec<AiChatEntry>>(&raw) {
-            return list;
-        }
+    let store = crate::conversation_history_dialog::load_history_store();
+    if let Some(conv) = store.get_current_conversation() {
+        return conv
+            .messages
+            .iter()
+            .map(|m| AiChatEntry {
+                role: m.role.clone(),
+                content: m.content.clone(),
+                route_summary: m.route_summary.clone(),
+            })
+            .collect();
     }
     Vec::new()
 }
 
 pub fn save_ai_history(entries: &[AiChatEntry]) -> std::io::Result<()> {
-    let path = ai_history_file_path();
-    if let Some(parent) = path.parent() {
-        fs::create_dir_all(parent)?;
-    }
-    let json = serde_json::to_string_pretty(entries).map_err(std::io::Error::other)?;
-    fs::write(path, json)
+    let mut store = crate::conversation_history_dialog::load_history_store();
+    let conv = store.ensure_current_conversation();
+    conv.messages = entries
+        .iter()
+        .map(|e| crate::conversation_history_dialog::AiConversationMessage {
+            timestamp: crate::conversation_history_dialog::current_iso_timestamp(),
+            role: e.role.clone(),
+            content: e.content.clone(),
+            route_summary: e.route_summary.clone(),
+            commands: None,
+            model: None,
+            provider: None,
+        })
+        .collect();
+    crate::conversation_history_dialog::save_history_store(&store)
 }
 
 /// Synthesizes a rich Zero-Trust DevOps assistant response (including fenced bash blocks and
@@ -407,124 +422,36 @@ pub fn show_diff_review_and_audit_dialog(
     dlg.present();
 }
 
-/// Opens the Conversation History modal (`ui/widgets/conversation_history.py`).
+/// Opens the Conversation History modal matching `historicoIA.png` and `conversation_history.py`.
 pub fn show_ai_history_dialog(
     parent: &adw::ApplicationWindow,
     history_rc: Rc<RefCell<Vec<AiChatEntry>>>,
     status_lbl: &gtk4::Label,
 ) {
-    let dlg = adw::Window::builder()
-        .transient_for(parent)
-        .modal(true)
-        .title("Histórico de Conversas da IA — OnyxSH")
-        .default_width(600)
-        .default_height(440)
-        .build();
+    let store_rc = Rc::new(RefCell::new(crate::conversation_history_dialog::load_history_store()));
+    let st = status_lbl.clone();
+    let h_rc = Rc::clone(&history_rc);
+    let s_rc = Rc::clone(&store_rc);
 
-    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
-    let hb = adw::HeaderBar::new();
-
-    let btn_export = gtk4::Button::builder()
-        .icon_name("document-save-symbolic")
-        .label("Exportar Markdown")
-        .build();
-    let btn_clear = gtk4::Button::builder()
-        .icon_name("user-trash-symbolic")
-        .tooltip_text("Limpar Histórico")
-        .build();
-    btn_clear.add_css_class("destructive-action");
-
-    hb.pack_start(&btn_export);
-    hb.pack_end(&btn_clear);
-    vbox.append(&hb);
-
-    let scroll = gtk4::ScrolledWindow::new();
-    scroll.set_vexpand(true);
-    let list_box = gtk4::ListBox::new();
-    list_box.add_css_class("boxed-list");
-    list_box.set_margin_start(14);
-    list_box.set_margin_end(14);
-    list_box.set_margin_top(10);
-    list_box.set_margin_bottom(14);
-
-    let populate = {
-        let lb = list_box.clone();
-        let h_rc = Rc::clone(&history_rc);
-        Rc::new(move || {
-            lb.remove_all();
-            let items = h_rc.borrow();
-            if items.is_empty() {
-                let empty = gtk4::Label::new(Some("Nenhuma conversa salva ainda."));
-                empty.add_css_class("dim-label");
-                empty.set_margin_top(24);
-                empty.set_margin_bottom(24);
-                lb.append(&empty);
-                return;
+    crate::conversation_history_dialog::show_conversation_history_dialog(
+        parent,
+        store_rc,
+        move |_conv_id| {
+            let mut h = h_rc.borrow_mut();
+            h.clear();
+            let store = s_rc.borrow();
+            if let Some(conv) = store.get_current_conversation() {
+                for m in &conv.messages {
+                    h.push(AiChatEntry {
+                        role: m.role.clone(),
+                        content: m.content.clone(),
+                        route_summary: m.route_summary.clone(),
+                    });
+                }
             }
-            for item in items.iter().rev() {
-                let r_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
-                r_vbox.set_margin_start(10);
-                r_vbox.set_margin_end(10);
-                r_vbox.set_margin_top(6);
-                r_vbox.set_margin_bottom(6);
-
-                let head = gtk4::Label::new(Some(&format!(
-                    "[{}] {}",
-                    item.role.to_uppercase(),
-                    item.route_summary
-                )));
-                head.add_css_class("heading");
-                head.set_halign(gtk4::Align::Start);
-
-                let body = gtk4::Label::new(Some(&item.content));
-                body.set_halign(gtk4::Align::Start);
-                body.set_wrap(true);
-                body.add_css_class("caption");
-
-                r_vbox.append(&head);
-                r_vbox.append(&body);
-                lb.append(&r_vbox);
-            }
-        })
-    };
-
-    populate();
-
-    {
-        let h_rc = Rc::clone(&history_rc);
-        let status = status_lbl.clone();
-        btn_export.connect_clicked(move |_| {
-            let export_path = platform::home_dir().join("onyxsh_ai_history.md");
-            let mut md = String::from("# Histórico de Conversas — OnyxSH Zero-Trust AI\n\n");
-            for item in h_rc.borrow().iter() {
-                md.push_str(&format!(
-                    "### {} ({})\n{}\n\n---\n\n",
-                    item.role, item.route_summary, item.content
-                ));
-            }
-            if fs::write(&export_path, md).is_ok() {
-                status.set_text(&format!(
-                    "Histórico exportado para {}",
-                    export_path.display()
-                ));
-            }
-        });
-    }
-
-    {
-        let h_rc = Rc::clone(&history_rc);
-        let pop = Rc::clone(&populate);
-        btn_clear.connect_clicked(move |_| {
-            h_rc.borrow_mut().clear();
-            let _ = save_ai_history(&[]);
-            pop();
-        });
-    }
-
-    scroll.set_child(Some(&list_box));
-    vbox.append(&scroll);
-    dlg.set_content(Some(&vbox));
-    dlg.present();
+            st.set_text("Conversa carregada do histórico.");
+        },
+    );
 }
 
 /// Implements Python OnyxSH window_ui.py AI panel specification:
@@ -558,10 +485,31 @@ pub fn build_complete_ai_assistant_panel(
     status_lbl: &gtk4::Label,
     on_close_cb: Option<Rc<dyn Fn()>>,
 ) -> (gtk4::Box, Rc<dyn Fn(&str)>) {
+    let history_store_rc = Rc::new(RefCell::new(crate::conversation_history_dialog::load_history_store()));
+    history_store_rc.borrow_mut().ensure_current_conversation();
     let history_rc = Rc::new(RefCell::new(load_ai_history()));
     let selected_profile = Rc::new(RefCell::new(RoutingProfile::Auto));
     let offline_mode = Rc::new(RefCell::new(false));
     let attached_context: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
+
+    let sync_history_rc = {
+        let h_rc = Rc::clone(&history_rc);
+        let s_rc = Rc::clone(&history_store_rc);
+        Rc::new(move || {
+            let mut h = h_rc.borrow_mut();
+            h.clear();
+            let store = s_rc.borrow();
+            if let Some(conv) = store.get_current_conversation() {
+                for m in &conv.messages {
+                    h.push(AiChatEntry {
+                        role: m.role.clone(),
+                        content: m.content.clone(),
+                        route_summary: m.route_summary.clone(),
+                    });
+                }
+            }
+        })
+    };
 
     let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
     vbox.add_css_class("ai-chat-panel");
@@ -1011,6 +959,67 @@ pub fn build_complete_ai_assistant_panel(
         })
     };
 
+    // Helper closure to render all messages of the active conversation into `feed_vbox`
+    let render_conversation: Rc<dyn Fn()> = {
+        let fv = feed_vbox.clone();
+        let q_box = quick_prompts_container.clone();
+        let code_card_fn = Rc::clone(&append_code_card);
+        let store_rc = Rc::clone(&history_store_rc);
+
+        Rc::new(move || {
+            while let Some(child) = fv.first_child() {
+                fv.remove(&child);
+            }
+            let store = store_rc.borrow();
+            let conv = store.get_current_conversation();
+            let msgs = conv.map(|c| c.messages.clone()).unwrap_or_default();
+            drop(store);
+
+            if msgs.is_empty() {
+                q_box.set_visible(true);
+                return;
+            }
+
+            q_box.set_visible(false);
+            for msg in &msgs {
+                if msg.role == "user" {
+                    let user_lbl = gtk4::Label::new(Some(&format!("👤 Você:\n{}", msg.content)));
+                    user_lbl.set_halign(gtk4::Align::Start);
+                    user_lbl.set_wrap(true);
+                    user_lbl.add_css_class("heading");
+                    fv.append(&user_lbl);
+                } else {
+                    if !msg.route_summary.is_empty() {
+                        let route_lbl =
+                            gtk4::Label::new(Some(&format!("🤖 Rota: {}", msg.route_summary)));
+                        route_lbl.add_css_class("caption");
+                        route_lbl.add_css_class("dim-label");
+                        route_lbl.set_halign(gtk4::Align::Start);
+                        fv.append(&route_lbl);
+                    }
+                    for seg in parse_markdown_segments(&msg.content) {
+                        match seg {
+                            MarkdownSegment::Prose(txt) => {
+                                let p_lbl = gtk4::Label::new(Some(&txt));
+                                p_lbl.set_halign(gtk4::Align::Start);
+                                p_lbl.set_wrap(true);
+                                fv.append(&p_lbl);
+                            }
+                            MarkdownSegment::CodeBlock { language, code } => {
+                                code_card_fn(&fv, &language, &code);
+                            }
+                        }
+                    }
+                    fv.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+                }
+            }
+        })
+    };
+
+    // Load active conversation messages on startup
+    render_conversation();
+    sync_history_rc();
+
     // ── Core Prompt Submission Handler ────────────────────────────────────────
     let handle_submission: Rc<dyn Fn(&str, bool)> = {
         let fv = feed_vbox.clone();
@@ -1019,7 +1028,8 @@ pub fn build_complete_ai_assistant_panel(
         let prof_rc = Rc::clone(&selected_profile);
         let off_rc = Rc::clone(&offline_mode);
         let ctx_rc = Rc::clone(&attached_context);
-        let hist_rc = Rc::clone(&history_rc);
+        let store_rc_sub = Rc::clone(&history_store_rc);
+        let sync_h_sub = Rc::clone(&sync_history_rc);
         let code_card_fn = Rc::clone(&append_code_card);
         let act_term = Rc::clone(&active_term_cb);
         let status = status_lbl.clone();
@@ -1145,18 +1155,13 @@ pub fn build_complete_ai_assistant_panel(
             fv.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
 
             // Persist in history
-            let mut h_guard = hist_rc.borrow_mut();
-            h_guard.push(AiChatEntry {
-                role: "user".to_string(),
-                content: redacted,
-                route_summary: route_badge.clone(),
-            });
-            h_guard.push(AiChatEntry {
-                role: "assistant".to_string(),
-                content: reply_md,
-                route_summary: route_badge,
-            });
-            let _ = save_ai_history(&h_guard);
+            {
+                let mut store = store_rc_sub.borrow_mut();
+                store.add_user_message(&redacted);
+                store.add_assistant_message(&reply_md, &route_badge);
+                let _ = crate::conversation_history_dialog::save_history_store(&store);
+            }
+            sync_h_sub();
         })
     };
 
@@ -1282,10 +1287,23 @@ pub fn build_complete_ai_assistant_panel(
 
     {
         let win_ref = parent_window.clone();
-        let hist = Rc::clone(&history_rc);
+        let store_ref = Rc::clone(&history_store_rc);
+        let render_c = Rc::clone(&render_conversation);
+        let sync_h = Rc::clone(&sync_history_rc);
         let status = status_lbl.clone();
         btn_history.connect_clicked(move |_| {
-            show_ai_history_dialog(&win_ref, Rc::clone(&hist), &status);
+            let rc_render = Rc::clone(&render_c);
+            let rc_sync = Rc::clone(&sync_h);
+            let st = status.clone();
+            crate::conversation_history_dialog::show_conversation_history_dialog(
+                &win_ref,
+                Rc::clone(&store_ref),
+                move |_conv_id| {
+                    rc_render();
+                    rc_sync();
+                    st.set_text("Conversa carregada do histórico.");
+                },
+            );
         });
     }
 
@@ -1299,14 +1317,18 @@ pub fn build_complete_ai_assistant_panel(
     }
 
     {
-        let fv = feed_vbox.clone();
-        let q_box = quick_prompts_container.clone();
+        let store_rc_new = Rc::clone(&history_store_rc);
+        let render_c = Rc::clone(&render_conversation);
+        let sync_h = Rc::clone(&sync_history_rc);
         let st = status_lbl.clone();
         btn_new_chat.connect_clicked(move |_| {
-            while let Some(child) = fv.first_child() {
-                fv.remove(&child);
+            {
+                let mut store = store_rc_new.borrow_mut();
+                store.new_conversation();
+                let _ = crate::conversation_history_dialog::save_history_store(&store);
             }
-            q_box.set_visible(true);
+            render_c();
+            sync_h();
             st.set_text("Nova conversa iniciada.");
         });
     }
