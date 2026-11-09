@@ -957,6 +957,12 @@ pub fn show_command_palette_dialog(
             action_key: "act:show-audit-log".to_string(),
         },
         PaletteItem {
+            category: "Assistente de IA".to_string(),
+            title: "Configuração de Escopo e Segurança do Agente".to_string(),
+            subtitle: "Diretórios permitidos, isolamento PathGuard e políticas default-deny".to_string(),
+            action_key: "act:show-scope-dialog".to_string(),
+        },
+        PaletteItem {
             category: "Ferramentas".to_string(),
             title: "Diagnóstico Seguro do Sistema (Telemetria & Suporte)".to_string(),
             subtitle: "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak".to_string(),

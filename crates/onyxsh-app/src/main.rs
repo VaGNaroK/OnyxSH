@@ -1,6 +1,7 @@
 //! OnyxSH Native Rust Application Entrypoint (GTK4 + Libadwaita + VTE4).
 //! Ports `src/onyxsh/main.py` and `src/onyxsh/window.py`.
 
+pub mod agent_scope_dialog;
 pub mod ai_assistant_ui;
 pub mod ai_config_ui;
 pub mod audit_log_dialog;

@@ -527,84 +527,6 @@ pub fn show_ai_history_dialog(
     dlg.present();
 }
 
-/// Opens the Agent Security Scope & Policies Dialog (`ui/dialogs/agent_scope_dialog.py`).
-pub fn show_agent_scope_dialog(parent: &adw::ApplicationWindow) {
-    let dlg = adw::Window::builder()
-        .transient_for(parent)
-        .modal(true)
-        .title("Políticas de Segurança e Escopo do Agente")
-        .default_width(620)
-        .default_height(460)
-        .build();
-
-    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
-    let hb = adw::HeaderBar::new();
-    vbox.append(&hb);
-
-    let content = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
-    content.set_margin_start(16);
-    content.set_margin_end(16);
-    content.set_margin_top(8);
-    content.set_margin_bottom(16);
-
-    let title_lbl = gtk4::Label::new(Some("🛡️ Zero-Trust Security Scope & Policies"));
-    title_lbl.add_css_class("title-3");
-    title_lbl.set_halign(gtk4::Align::Start);
-    content.append(&title_lbl);
-
-    let desc = gtk4::Label::new(Some(
-        "O OnyxSH opera sob a arquitetura de Confiança Zero (Zero-Trust). Nenhuma ação destrutiva é executada sem confirmação explícita ou validação pelo PolicyEngine.",
-    ));
-    desc.set_wrap(true);
-    desc.set_halign(gtk4::Align::Start);
-    desc.add_css_class("dim-label");
-    content.append(&desc);
-
-    let list_box = gtk4::ListBox::new();
-    list_box.add_css_class("boxed-list");
-
-    let add_policy_row = |title: &str, subtitle: &str, badge: &str, badge_cls: &str| {
-        let row = adw::ActionRow::builder()
-            .title(title)
-            .subtitle(subtitle)
-            .build();
-        let b = gtk4::Label::new(Some(badge));
-        b.add_css_class(badge_cls);
-        row.add_suffix(&b);
-        list_box.append(&row);
-    };
-
-    add_policy_row(
-        "PolicyEngine",
-        "Análise de comandos de alto risco (rm -rf, dd, mkfs, DROP/DELETE)",
-        "Bloquear / Requerer Confirmação",
-        "warning",
-    );
-    add_policy_row(
-        "PathGuard",
-        "Bloqueio estrito de leitura/escrita em ~/.ssh, ~/.bashrc, /etc/shadow, .env",
-        "Isolamento Estrito",
-        "success",
-    );
-    add_policy_row(
-        "SecretRedactor",
-        "Sanitização de tokens de API, JWT, chaves privadas e credenciais antes do envio",
-        "Redação Atômica",
-        "success",
-    );
-    add_policy_row(
-        "AuditLogger",
-        "Registro imutável em ~/.config/onyxsh/audit.jsonl com backup e rollback atômico",
-        "Auditoria Ativa",
-        "accent",
-    );
-
-    content.append(&list_box);
-    vbox.append(&content);
-    dlg.set_content(Some(&vbox));
-    dlg.present();
-}
-
 /// Implements Python OnyxSH window_ui.py AI panel specification:
 /// - Defaults to ~50% screen split (as in assistenteIAfix.png) when raw_saved <= 350
 /// - Enforces min_ai = 200, min_term = 120
@@ -1352,8 +1274,9 @@ pub fn build_complete_ai_assistant_panel(
 
     {
         let win_ref = parent_window.clone();
+        let st_c = Rc::clone(settings);
         btn_scope.connect_clicked(move |_| {
-            show_agent_scope_dialog(&win_ref);
+            crate::agent_scope_dialog::show_agent_scope_dialog(&win_ref, &st_c);
         });
     }
 

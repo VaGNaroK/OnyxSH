@@ -127,6 +127,16 @@ pub fn default_ai_panel_height() -> u32 {
     420
 }
 
+pub fn default_ai_agent_allowed_roots() -> Vec<String> {
+    let home = crate::platform::home_dir();
+    vec![
+        home.join("Documents").to_string_lossy().to_string(),
+        home.join("Projects").to_string_lossy().to_string(),
+        home.join("Downloads").to_string_lossy().to_string(),
+        home.join("scripts").to_string_lossy().to_string(),
+    ]
+}
+
 /// Deserializes a numeric u32 setting (e.g. `file_manager_height`) from integer, float, or string.
 pub fn deserialize_flexible_u32<'de, D>(deserializer: D) -> Result<u32, D::Error>
 where
@@ -420,6 +430,8 @@ pub struct AppSettings {
     pub ai_context_size: u32,
     #[serde(default = "default_ai_panel_height", deserialize_with = "deserialize_flexible_u32")]
     pub ai_panel_height: u32,
+    #[serde(default = "default_ai_agent_allowed_roots")]
+    pub ai_agent_allowed_roots: Vec<String>,
     pub shortcuts: HashMap<String, String>,
 }
 
@@ -521,6 +533,7 @@ impl Default for AppSettings {
             ai_agent_include_pwd_context: true,
             ai_context_size: 8192,
             ai_panel_height: default_ai_panel_height(),
+            ai_agent_allowed_roots: default_ai_agent_allowed_roots(),
             shortcuts,
         }
     }
@@ -697,5 +710,6 @@ mod tests {
         assert_eq!(default_st.file_manager_view_mode, "list");
         assert_eq!(default_st.gtk_theme, "default");
         assert_eq!(default_st.ai_panel_height, 420);
+        assert_eq!(default_st.ai_agent_allowed_roots.len(), 4);
     }
 }

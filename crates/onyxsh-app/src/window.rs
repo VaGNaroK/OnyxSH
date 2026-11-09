@@ -2161,6 +2161,9 @@ pub fn build_main_window(
                 "show-audit-log" | "audit-log" => {
                     crate::audit_log_dialog::show_audit_log_dialog(&win_c, &st_act);
                 }
+                "show-scope-dialog" | "agent-scope" => {
+                    crate::agent_scope_dialog::show_agent_scope_dialog(&win_c, &st_c);
+                }
                 _ => {}
             });
 
