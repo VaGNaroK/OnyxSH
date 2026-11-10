@@ -2380,14 +2380,15 @@ pub fn build_file_pane(
     grid_scroll.set_vexpand(true);
     let grid_flow = gtk4::FlowBox::new();
     grid_flow.set_valign(gtk4::Align::Start);
-    grid_flow.set_max_children_per_line(30);
+    grid_flow.set_homogeneous(true);
+    grid_flow.set_max_children_per_line(36);
     grid_flow.set_min_children_per_line(2);
-    grid_flow.set_column_spacing(10);
-    grid_flow.set_row_spacing(14);
-    grid_flow.set_margin_start(8);
-    grid_flow.set_margin_end(8);
-    grid_flow.set_margin_top(8);
-    grid_flow.set_margin_bottom(8);
+    grid_flow.set_column_spacing(4);
+    grid_flow.set_row_spacing(8);
+    grid_flow.set_margin_start(4);
+    grid_flow.set_margin_end(4);
+    grid_flow.set_margin_top(4);
+    grid_flow.set_margin_bottom(4);
     grid_flow.set_selection_mode(gtk4::SelectionMode::Single);
     grid_flow.set_activate_on_single_click(false);
     grid_flow.add_css_class("file-manager-grid-view");
@@ -3178,15 +3179,15 @@ pub fn build_file_pane(
             // 2. Populate Thumbnail / Grid View (`grid_flow`) matching icongrade.png
             gf.remove_all();
             for entry in sorted.iter().take(300) {
-                let card = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+                let card = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
                 card.add_css_class("file-grid-card");
-                card.set_width_request(104);
+                card.set_width_request(66);
                 card.set_valign(gtk4::Align::Center);
                 card.set_halign(gtk4::Align::Center);
-                card.set_margin_start(4);
-                card.set_margin_end(4);
-                card.set_margin_top(4);
-                card.set_margin_bottom(4);
+                card.set_margin_start(1);
+                card.set_margin_end(1);
+                card.set_margin_top(2);
+                card.set_margin_bottom(2);
                 card.set_tooltip_markup(Some(&build_entry_tooltip_markup(entry)));
 
                 if entry.is_hidden() {
@@ -3200,13 +3201,13 @@ pub fn build_file_pane(
                     // Render real image thumbnail
                     let pic = gtk4::Picture::for_filename(&entry.path);
                     pic.set_can_shrink(true);
-                    pic.set_size_request(48, 48);
+                    pic.set_size_request(44, 44);
                     pic.set_halign(gtk4::Align::Center);
                     pic.add_css_class("file-grid-card-icon");
                     icon_box.append(&pic);
                 } else {
                     let icon = gtk4::Image::from_icon_name(icon_for_entry(entry));
-                    icon.set_pixel_size(48);
+                    icon.set_pixel_size(44);
                     icon.add_css_class("file-grid-card-icon");
                     icon_box.append(&icon);
                 }
@@ -3239,8 +3240,8 @@ pub fn build_file_pane(
                 name_lbl.set_justify(gtk4::Justification::Center);
                 name_lbl.set_wrap(true);
                 name_lbl.set_wrap_mode(gtk4::pango::WrapMode::WordChar);
-                name_lbl.set_width_chars(10);
-                name_lbl.set_max_width_chars(16);
+                name_lbl.set_width_chars(8);
+                name_lbl.set_max_width_chars(11);
                 name_lbl.set_lines(2);
                 name_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::Middle);
                 name_lbl.add_css_class("file-grid-card-label");
@@ -3252,6 +3253,8 @@ pub fn build_file_pane(
                 let sub_text = format_grid_subtitle(entry);
                 let sub_lbl = gtk4::Label::new(Some(&sub_text));
                 sub_lbl.set_halign(gtk4::Align::Center);
+                sub_lbl.set_justify(gtk4::Justification::Center);
+                sub_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::Middle);
                 sub_lbl.add_css_class("file-grid-card-size");
                 sub_lbl.add_css_class("dim-label");
                 sub_lbl.add_css_class("caption");

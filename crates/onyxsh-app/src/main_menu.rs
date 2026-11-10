@@ -233,23 +233,37 @@ pub fn menu_custom_css() -> &'static str {
         color: rgba(255, 255, 255, 0.85);
         min-width: 160px;
     }
+    .file-manager-grid-view flowboxchild {
+        padding: 2px;
+        margin: 0;
+        border-radius: 8px;
+        background: transparent;
+        transition: background-color 100ms ease;
+    }
+    .file-manager-grid-view flowboxchild:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+    .file-manager-grid-view flowboxchild:selected {
+        background-color: rgba(53, 132, 228, 0.35);
+    }
     .file-grid-card {
-        padding: 8px 6px;
-        border-radius: 10px;
-        min-width: 90px;
+        padding: 4px 2px;
+        border-radius: 8px;
+        min-width: 64px;
+        max-width: 76px;
         transition: background-color 100ms ease;
     }
     .file-grid-card:hover {
         background-color: rgba(255, 255, 255, 0.08);
     }
     .file-grid-card-icon {
-        margin-bottom: 4px;
+        margin-bottom: 2px;
     }
     .file-grid-card-label {
-        font-size: 0.85rem;
+        font-size: 0.78rem;
     }
     .file-grid-card-size {
-        font-size: 0.75rem;
+        font-size: 0.68rem;
     }
     .file-manager-tree-view {
         background: transparent;
