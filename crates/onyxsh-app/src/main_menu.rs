@@ -250,7 +250,6 @@ pub fn menu_custom_css() -> &'static str {
         padding: 4px 2px;
         border-radius: 8px;
         min-width: 64px;
-        max-width: 76px;
         transition: background-color 100ms ease;
     }
     .file-grid-card:hover {
