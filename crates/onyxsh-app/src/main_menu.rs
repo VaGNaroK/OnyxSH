@@ -216,7 +216,7 @@ pub fn menu_custom_css() -> &'static str {
     .file-detailed-col-size {
         font-family: monospace;
         color: rgba(255, 255, 255, 0.85);
-        min-width: 80px;
+        min-width: 130px;
     }
     .file-detailed-col-date {
         font-family: monospace;
@@ -232,6 +232,48 @@ pub fn menu_custom_css() -> &'static str {
         font-family: monospace;
         color: rgba(255, 255, 255, 0.85);
         min-width: 160px;
+    }
+    .file-grid-card {
+        padding: 8px 6px;
+        border-radius: 10px;
+        min-width: 90px;
+        transition: background-color 100ms ease;
+    }
+    .file-grid-card:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+    .file-grid-card-icon {
+        margin-bottom: 4px;
+    }
+    .file-grid-card-label {
+        font-size: 0.85rem;
+    }
+    .file-grid-card-size {
+        font-size: 0.75rem;
+    }
+    .file-manager-tree-view {
+        background: transparent;
+    }
+    .file-tree-row {
+        padding: 3px 6px;
+        border-radius: 6px;
+        margin: 1px 2px;
+        transition: background-color 100ms ease;
+    }
+    .file-tree-row:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+    }
+    .file-tree-expander-btn {
+        min-width: 20px;
+        min-height: 20px;
+        padding: 0;
+        margin-right: 4px;
+        border-radius: 4px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    .file-tree-expander-btn:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
     }
     .breadcrumb-trail button {
         padding: 2px 6px;
