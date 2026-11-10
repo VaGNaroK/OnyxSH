@@ -234,9 +234,9 @@ pub fn menu_custom_css() -> &'static str {
         min-width: 160px;
     }
     .file-manager-grid-view flowboxchild {
-        padding: 2px;
-        margin: 0;
-        border-radius: 8px;
+        padding: 0px;
+        margin: 0px;
+        border-radius: 6px;
         background: transparent;
         transition: background-color 100ms ease;
     }
@@ -247,9 +247,9 @@ pub fn menu_custom_css() -> &'static str {
         background-color: rgba(53, 132, 228, 0.35);
     }
     .file-grid-card {
-        padding: 4px 2px;
-        border-radius: 8px;
-        min-width: 64px;
+        padding: 2px 2px;
+        border-radius: 6px;
+        min-width: 58px;
         transition: background-color 100ms ease;
     }
     .file-grid-card:hover {
@@ -259,10 +259,10 @@ pub fn menu_custom_css() -> &'static str {
         margin-bottom: 2px;
     }
     .file-grid-card-label {
-        font-size: 0.78rem;
+        font-size: 0.72rem;
     }
     .file-grid-card-size {
-        font-size: 0.68rem;
+        font-size: 0.62rem;
     }
     .file-manager-tree-view {
         background: transparent;

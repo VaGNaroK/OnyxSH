@@ -173,7 +173,7 @@ fn is_image_entry(entry: &FileEntry) -> bool {
 /// Chooses a symbolic icon name for a [`FileEntry`], supporting specialized folders and MIME classifications.
 fn icon_for_entry(entry: &FileEntry) -> &'static str {
     if entry.name == ".." {
-        return "go-up-symbolic";
+        return "folder";
     }
     if entry.is_dir {
         let lower = entry.name.to_lowercase();
@@ -2378,10 +2378,13 @@ pub fn build_file_pane(
     let grid_scroll = gtk4::ScrolledWindow::new();
     grid_scroll.set_hexpand(true);
     grid_scroll.set_vexpand(true);
+    grid_scroll.set_policy(gtk4::PolicyType::Never, gtk4::PolicyType::Automatic);
     let grid_flow = gtk4::FlowBox::new();
     grid_flow.set_valign(gtk4::Align::Start);
+    grid_flow.set_halign(gtk4::Align::Fill);
+    grid_flow.set_hexpand(true);
     grid_flow.set_homogeneous(true);
-    grid_flow.set_max_children_per_line(36);
+    grid_flow.set_max_children_per_line(30);
     grid_flow.set_min_children_per_line(2);
     grid_flow.set_column_spacing(4);
     grid_flow.set_row_spacing(8);
@@ -3179,9 +3182,9 @@ pub fn build_file_pane(
             // 2. Populate Thumbnail / Grid View (`grid_flow`) matching icongrade.png
             gf.remove_all();
             for entry in sorted.iter().take(300) {
-                let card = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
+                let card = gtk4::Box::new(gtk4::Orientation::Vertical, 1);
                 card.add_css_class("file-grid-card");
-                card.set_width_request(66);
+                card.set_width_request(60);
                 card.set_valign(gtk4::Align::Center);
                 card.set_halign(gtk4::Align::Center);
                 card.set_margin_start(1);
@@ -3240,8 +3243,8 @@ pub fn build_file_pane(
                 name_lbl.set_justify(gtk4::Justification::Center);
                 name_lbl.set_wrap(true);
                 name_lbl.set_wrap_mode(gtk4::pango::WrapMode::WordChar);
-                name_lbl.set_width_chars(8);
-                name_lbl.set_max_width_chars(11);
+                name_lbl.set_width_chars(6);
+                name_lbl.set_max_width_chars(9);
                 name_lbl.set_lines(2);
                 name_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::Middle);
                 name_lbl.add_css_class("file-grid-card-label");
@@ -3251,14 +3254,18 @@ pub fn build_file_pane(
                 card.append(&name_lbl);
 
                 let sub_text = format_grid_subtitle(entry);
-                let sub_lbl = gtk4::Label::new(Some(&sub_text));
-                sub_lbl.set_halign(gtk4::Align::Center);
-                sub_lbl.set_justify(gtk4::Justification::Center);
-                sub_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::Middle);
-                sub_lbl.add_css_class("file-grid-card-size");
-                sub_lbl.add_css_class("dim-label");
-                sub_lbl.add_css_class("caption");
-                card.append(&sub_lbl);
+                if !sub_text.is_empty() {
+                    let sub_lbl = gtk4::Label::new(Some(&sub_text));
+                    sub_lbl.set_halign(gtk4::Align::Center);
+                    sub_lbl.set_justify(gtk4::Justification::Center);
+                    sub_lbl.set_width_chars(6);
+                    sub_lbl.set_max_width_chars(10);
+                    sub_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::Middle);
+                    sub_lbl.add_css_class("file-grid-card-size");
+                    sub_lbl.add_css_class("dim-label");
+                    sub_lbl.add_css_class("caption");
+                    card.append(&sub_lbl);
+                }
 
                 let flow_child = gtk4::FlowBoxChild::new();
                 flow_child.set_child(Some(&card));
@@ -4298,7 +4305,7 @@ mod tests {
             permissions_octal: 0o755,
             owner: "vagnarok:vagnarok".to_string(),
         };
-        assert_eq!(icon_for_entry(&parent), "go-up-symbolic");
+        assert_eq!(icon_for_entry(&parent), "folder");
         assert!(build_entry_tooltip_markup(&parent).contains("Subir para o diretório pai"));
 
         let downloads = FileEntry {
