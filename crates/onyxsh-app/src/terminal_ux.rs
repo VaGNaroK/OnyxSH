@@ -15,6 +15,7 @@ use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_core::sessions::{SessionItem, SessionsStorageData};
 use onyxsh_terminal::completion::{CompletionEngine, CompletionItem};
@@ -95,22 +96,24 @@ pub fn build_production_banner(
     let icon = gtk4::Image::from_icon_name("dialog-warning-symbolic");
     banner.append(&icon);
 
-    let lbl = gtk4::Label::new(Some(
+    let lbl = gtk4::Label::new(Some(&tr(
         "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)",
-    ));
+    )));
     lbl.add_css_class("heading");
     lbl.set_halign(gtk4::Align::Start);
     lbl.set_hexpand(true);
     lbl.set_ellipsize(gtk4::pango::EllipsizeMode::End);
     banner.append(&lbl);
 
-    let btn_test_guard = gtk4::Button::with_label("Testar Interceptação");
+    let btn_test_guard = gtk4::Button::with_label(&tr("Testar Interceptação"));
     btn_test_guard.add_css_class("destructive-action");
     banner.append(&btn_test_guard);
 
     let toggle_prod_btn = gtk4::ToggleButton::builder()
         .icon_name("security-high-symbolic")
-        .tooltip_text("Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)")
+        .tooltip_text(&tr(
+            "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)",
+        ))
         .build();
 
     {
@@ -135,7 +138,7 @@ pub fn build_production_banner(
                         if let Some(term) = at() {
                             term.feed_child(b"# [Confirmado pelo Operador] rm -rf cancelado em modo demo\n");
                         }
-                        st.set_text("Comando de produção avaliado pelo operador.");
+                        st.set_text(&tr("Comando de produção avaliado pelo operador."));
                     })
                 });
             }
@@ -155,7 +158,7 @@ pub fn show_production_confirm_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("🛑 Alerta Crítico — ProductionGuard")
+        .title(&tr("🛑 Alerta Crítico — ProductionGuard"))
         .default_width(500)
         .default_height(310)
         .build();
@@ -169,9 +172,12 @@ pub fn show_production_confirm_dialog(
     content.set_margin_top(8);
     content.set_margin_bottom(16);
 
-    let head = gtk4::Label::new(Some(&format!(
-        "⚠️ Comando Destrutivo Interceptado ({:?} / {:?})",
-        violation.category, violation.severity
+    let head = gtk4::Label::new(Some(&tr_fmt(
+        "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})",
+        &[
+            ("cat", &format!("{:?}", violation.category)),
+            ("sev", &format!("{:?}", violation.severity)),
+        ],
     )));
     head.add_css_class("title-4");
     head.set_halign(gtk4::Align::Start);
@@ -191,10 +197,10 @@ pub fn show_production_confirm_dialog(
     let btn_row = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
     btn_row.set_halign(gtk4::Align::End);
 
-    let btn_cancel = gtk4::Button::with_label("Bloquear e Cancelar (Recomendado)");
+    let btn_cancel = gtk4::Button::with_label(&tr("Bloquear e Cancelar (Recomendado)"));
     btn_cancel.add_css_class("suggested-action");
 
-    let btn_proceed = gtk4::Button::with_label("Assumir Risco e Executar");
+    let btn_proceed = gtk4::Button::with_label(&tr("Assumir Risco e Executar"));
     btn_proceed.add_css_class("destructive-action");
 
     btn_row.append(&btn_cancel);
@@ -228,7 +234,7 @@ pub fn show_autocomplete_assistant_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Autocompletar Inteligente — OnyxSH CompletionEngine")
+        .title(&tr("Autocompletar Inteligente — OnyxSH CompletionEngine"))
         .default_width(540)
         .default_height(420)
         .build();
@@ -243,9 +249,9 @@ pub fn show_autocomplete_assistant_dialog(
     content.set_margin_bottom(14);
     content.set_vexpand(true);
 
-    let hint = gtk4::Label::new(Some(
+    let hint = gtk4::Label::new(Some(&tr(
         "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):",
-    ));
+    )));
     hint.add_css_class("caption");
     hint.set_halign(gtk4::Align::Start);
     content.append(&hint);
@@ -304,7 +310,7 @@ pub fn show_autocomplete_assistant_dialog(
                     format!("{line} {}", item.text)
                 };
 
-                let btn_ins = gtk4::Button::with_label("Inserir");
+                let btn_ins = gtk4::Button::with_label(&tr("Insert"));
                 btn_ins.add_css_class("suggested-action");
                 let at = Rc::clone(&act_term);
                 let status = st.clone();
@@ -312,7 +318,10 @@ pub fn show_autocomplete_assistant_dialog(
                 btn_ins.connect_clicked(move |_| {
                     if let Some(term) = at() {
                         term.feed_child(full_to_insert.as_bytes());
-                        status.set_text(&format!("Autocompletado: {full_to_insert}"));
+                        status.set_text(&tr_fmt(
+                            "Autocompletado: {cmd}",
+                            &[("cmd", &full_to_insert)],
+                        ));
                     }
                     dc.close();
                 });
@@ -396,35 +405,35 @@ pub fn create_terminal_context_menu_model(
     // 0. Contextual URL section (when right-clicking over a hyperlink)
     if let Some(_url) = url_at_click {
         let url_section = gio::Menu::new();
-        url_section.append(Some("Abrir Link"), Some("win.open-url"));
-        url_section.append(Some("Copiar Link"), Some("win.copy-url"));
+        url_section.append(Some(&tr("Open Link")), Some("win.open-url"));
+        url_section.append(Some(&tr("Copy Link")), Some("win.copy-url"));
         menu.append_section(None, &url_section);
     }
 
     // 1. Standard editing, export & session clear
     let standard_section = gio::Menu::new();
-    standard_section.append(Some("Copiar"), Some("win.copy"));
-    standard_section.append(Some("Colar"), Some("win.paste"));
-    standard_section.append(Some("Selecionar Tudo"), Some("win.select-all"));
+    standard_section.append(Some(&tr("Copiar")), Some("win.copy"));
+    standard_section.append(Some(&tr("Paste")), Some("win.paste"));
+    standard_section.append(Some(&tr("Selecionar Tudo")), Some("win.select-all"));
     standard_section.append(
-        Some("Exportar Saída do Terminal..."),
+        Some(&tr("Export Terminal Output...")),
         Some("win.export-terminal-buffer"),
     );
     standard_section.append(
-        Some("Exportar Sessão como Caderno de Bordo..."),
+        Some(&tr("Export Session as Runbook...")),
         Some("win.export-terminal-runbook"),
     );
-    standard_section.append(Some("Limpar Sessão"), Some("win.clear-session"));
+    standard_section.append(Some(&tr("Clear Session")), Some("win.clear-session"));
     menu.append_section(None, &standard_section);
 
     // 2. Prompt navigation
     let nav_section = gio::Menu::new();
     nav_section.append(
-        Some("Pular para o Prompt Anterior"),
+        Some(&tr("Pular para o Prompt Anterior")),
         Some("win.jump-previous-prompt"),
     );
     nav_section.append(
-        Some("Pular para o Próximo Prompt"),
+        Some(&tr("Pular para o Próximo Prompt")),
         Some("win.jump-next-prompt"),
     );
     menu.append_section(None, &nav_section);
@@ -432,20 +441,23 @@ pub fn create_terminal_context_menu_model(
     // 3. AI / OpenCode Assistant
     let ai_section = gio::Menu::new();
     if has_selection {
-        ai_section.append(Some("Perguntar à IA"), Some("win.ask-ai-selection"));
+        ai_section.append(Some(&tr("Perguntar à IA")), Some("win.ask-ai-selection"));
         ai_section.append(
-            Some("Refatorar seleção com OpenCode"),
+            Some(&tr("Refatorar seleção com OpenCode")),
             Some("win.opencode-selection"),
         );
     } else {
         let label = if let Some(code) = error_code {
             if code != 1 && code != 0 {
-                format!("Resolver erro (código {code}) com OpenCode")
+                tr_fmt(
+                    "Resolver erro (código {code}) com OpenCode",
+                    &[("code", &code.to_string())],
+                )
             } else {
-                "Resolver erro com OpenCode".to_string()
+                tr("Resolver erro com OpenCode")
             }
         } else {
-            "Resolver erro com OpenCode".to_string()
+            tr("Resolver erro com OpenCode")
         };
         ai_section.append(Some(&label), Some("win.resolve-error-opencode"));
     }
@@ -453,15 +465,9 @@ pub fn create_terminal_context_menu_model(
 
     // 4. Splitting & Panes
     let split_section = gio::Menu::new();
-    split_section.append(
-        Some("Dividir Esquerda/Direita"),
-        Some("win.split-horizontal"),
-    );
-    split_section.append(
-        Some("Dividir Superior/Inferior"),
-        Some("win.split-vertical"),
-    );
-    split_section.append(Some("Fechar Painel"), Some("win.close-pane"));
+    split_section.append(Some(&tr("Split Left/Right")), Some("win.split-horizontal"));
+    split_section.append(Some(&tr("Split Top/Bottom")), Some("win.split-vertical"));
+    split_section.append(Some(&tr("Close Pane")), Some("win.close-pane"));
     menu.append_section(None, &split_section);
 
     menu
@@ -501,7 +507,7 @@ pub fn attach_vte_ux_controllers(
     comp_list.set_can_focus(false);
     comp_vbox.append(&comp_list);
 
-    let comp_hint = gtk4::Label::new(Some("Tab ou → aplicar • ↑/↓ navegar • Esc fechar"));
+    let comp_hint = gtk4::Label::new(Some(&tr("Tab ou → aplicar • ↑/↓ navegar • Esc fechar")));
     comp_hint.add_css_class("dim-label");
     comp_hint.add_css_class("caption");
     comp_hint.set_halign(gtk4::Align::Start);
@@ -576,7 +582,10 @@ pub fn attach_vte_ux_controllers(
                     }
                     t.feed_child(feed.as_bytes());
                 }
-                st.set_text(&format!("Autocompletar aplicado: {}", item.text));
+                st.set_text(&tr_fmt(
+                    "Autocompletar aplicado: {cmd}",
+                    &[("cmd", &item.text)],
+                ));
             }
         })
     };
@@ -782,7 +791,7 @@ pub fn show_command_palette_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Command Palette (Ctrl+Shift+P) — Busca Unificada")
+        .title(&tr("Command Palette (Ctrl+Shift+P) — Busca Unificada"))
         .default_width(580)
         .default_height(420)
         .build();
@@ -798,7 +807,9 @@ pub fn show_command_palette_dialog(
     content.set_vexpand(true);
 
     let search_entry = gtk4::SearchEntry::builder()
-        .placeholder_text("Digite uma ação, sessão SSH ou comando parametrizado...")
+        .placeholder_text(&tr(
+            "Digite uma ação, sessão SSH ou comando parametrizado...",
+        ))
         .hexpand(true)
         .build();
     content.append(&search_entry);
@@ -813,184 +824,185 @@ pub fn show_command_palette_dialog(
     // Build unified catalog of PaletteItems (Port of `src/onyxsh/ui/dialogs/command_palette_dialog.py`)
     let mut catalog = vec![
         PaletteItem {
-            category: "Busca".to_string(),
-            title: "Busca Global Multi-Abas / Sessões / Histórico".to_string(),
-            subtitle: "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)".to_string(),
+            category: tr("Busca"),
+            title: tr("Busca Global Multi-Abas / Sessões / Histórico"),
+            subtitle: tr(
+                "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)",
+            ),
             action_key: "act:global-search".to_string(),
         },
         PaletteItem {
-            category: "Busca".to_string(),
-            title: "Buscar no Terminal Atual".to_string(),
-            subtitle: "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)".to_string(),
+            category: tr("Busca"),
+            title: tr("Buscar no Terminal Atual"),
+            subtitle: tr("Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"),
             action_key: "act:toggle-search".to_string(),
         },
         PaletteItem {
-            category: "Terminal".to_string(),
-            title: "Histórico Enriquecido de Comandos".to_string(),
-            subtitle: "Busca fuzzy por diretório, host e favoritos (Ctrl+H)".to_string(),
+            category: tr("Terminal"),
+            title: tr("Histórico Enriquecido de Comandos"),
+            subtitle: tr("Busca fuzzy por diretório, host e favoritos (Ctrl+H)"),
             action_key: "act:show-command-history".to_string(),
         },
         PaletteItem {
-            category: "Abas e Janelas".to_string(),
-            title: "Nova Aba de Terminal".to_string(),
-            subtitle: "Abre um novo terminal local (Ctrl+Shift+T)".to_string(),
+            category: tr("Abas e Janelas"),
+            title: tr("Nova Aba de Terminal"),
+            subtitle: tr("Abre um novo terminal local (Ctrl+Shift+T)"),
             action_key: "act:new-tab".to_string(),
         },
         PaletteItem {
-            category: "Abas e Janelas".to_string(),
-            title: "Fechar Aba Atual".to_string(),
-            subtitle: "Encerra a aba ativa (Ctrl+Shift+W)".to_string(),
+            category: tr("Abas e Janelas"),
+            title: tr("Fechar Aba Atual"),
+            subtitle: tr("Encerra a aba ativa (Ctrl+Shift+W)"),
             action_key: "act:close-tab".to_string(),
         },
         PaletteItem {
-            category: "Abas e Janelas".to_string(),
-            title: "Próxima Aba".to_string(),
-            subtitle: "Avança para a próxima aba (Alt+Page Down)".to_string(),
+            category: tr("Abas e Janelas"),
+            title: tr("Próxima Aba"),
+            subtitle: tr("Avança para a próxima aba (Alt+Page Down)"),
             action_key: "act:next-tab".to_string(),
         },
         PaletteItem {
-            category: "Abas e Janelas".to_string(),
-            title: "Aba Anterior".to_string(),
-            subtitle: "Volta para a aba anterior (Alt+Page Up)".to_string(),
+            category: tr("Abas e Janelas"),
+            title: tr("Aba Anterior"),
+            subtitle: tr("Volta para a aba anterior (Alt+Page Up)"),
             action_key: "act:previous-tab".to_string(),
         },
         PaletteItem {
-            category: "Divisão de Telas".to_string(),
-            title: "Dividir Painel Horizontalmente".to_string(),
-            subtitle: "Divide a aba atual lado a lado (Ctrl+Shift+()".to_string(),
+            category: tr("Divisão de Telas"),
+            title: tr("Dividir Painel Horizontalmente"),
+            subtitle: tr("Divide a aba atual lado a lado (Ctrl+Shift+()"),
             action_key: "act:split".to_string(),
         },
         PaletteItem {
-            category: "Divisão de Telas".to_string(),
-            title: "Dividir Painel Verticalmente".to_string(),
-            subtitle: "Divide a aba atual acima/abaixo (Ctrl+Shift+))".to_string(),
+            category: tr("Divisão de Telas"),
+            title: tr("Dividir Painel Verticalmente"),
+            subtitle: tr("Divide a aba atual acima/abaixo (Ctrl+Shift+))"),
             action_key: "act:split-vertical".to_string(),
         },
         PaletteItem {
-            category: "Terminal".to_string(),
-            title: "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)".to_string(),
-            subtitle: "Exporta todo o buffer ou a seleção ativa do terminal".to_string(),
+            category: tr("Terminal"),
+            title: tr("Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"),
+            subtitle: tr("Exporta todo o buffer ou a seleção ativa do terminal"),
             action_key: "act:export-terminal-buffer".to_string(),
         },
         PaletteItem {
-            category: "Terminal".to_string(),
-            title: "Exportar Sessão como Caderno de Bordo (Runbook)".to_string(),
-            subtitle: "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)".to_string(),
+            category: tr("Terminal"),
+            title: tr("Exportar Sessão como Caderno de Bordo (Runbook)"),
+            subtitle: tr("Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"),
             action_key: "act:export-terminal-runbook".to_string(),
         },
         PaletteItem {
-            category: "Terminal".to_string(),
-            title: "Limpar Sessão do Terminal".to_string(),
-            subtitle: "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)".to_string(),
+            category: tr("Terminal"),
+            title: tr("Limpar Sessão do Terminal"),
+            subtitle: tr("Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"),
             action_key: "act:clear-session".to_string(),
         },
         PaletteItem {
-            category: "Terminal".to_string(),
-            title: "Modo Transmissão (Broadcast p/ Todas as Abas)".to_string(),
-            subtitle: "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)".to_string(),
+            category: tr("Terminal"),
+            title: tr("Modo Transmissão (Broadcast p/ Todas as Abas)"),
+            subtitle: tr("Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"),
             action_key: "act:toggle-broadcast".to_string(),
         },
         PaletteItem {
-            category: "Terminal".to_string(),
-            title: "Aumentar Zoom / Tamanho da Fonte".to_string(),
-            subtitle: "Incrementa o tamanho da fonte do terminal (Ctrl++)".to_string(),
+            category: tr("Terminal"),
+            title: tr("Aumentar Zoom / Tamanho da Fonte"),
+            subtitle: tr("Incrementa o tamanho da fonte do terminal (Ctrl++)"),
             action_key: "act:zoom-in".to_string(),
         },
         PaletteItem {
-            category: "Terminal".to_string(),
-            title: "Diminuir Zoom / Tamanho da Fonte".to_string(),
-            subtitle: "Reduz o tamanho da fonte do terminal (Ctrl+-)".to_string(),
+            category: tr("Terminal"),
+            title: tr("Diminuir Zoom / Tamanho da Fonte"),
+            subtitle: tr("Reduz o tamanho da fonte do terminal (Ctrl+-)"),
             action_key: "act:zoom-out".to_string(),
         },
         PaletteItem {
-            category: "Terminal".to_string(),
-            title: "Resetar Zoom".to_string(),
-            subtitle: "Restaura a fonte padrão Monospace 11 (Ctrl+0)".to_string(),
+            category: tr("Terminal"),
+            title: tr("Resetar Zoom"),
+            subtitle: tr("Restaura a fonte padrão Monospace 11 (Ctrl+0)"),
             action_key: "act:zoom-reset".to_string(),
         },
         PaletteItem {
-            category: "Sessões & SSH".to_string(),
-            title: "Alternar Painel Lateral de Sessões SSH".to_string(),
-            subtitle: "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)".to_string(),
+            category: tr("Sessões & SSH"),
+            title: tr("Alternar Painel Lateral de Sessões SSH"),
+            subtitle: tr("Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"),
             action_key: "act:toggle-sidebar".to_string(),
         },
         PaletteItem {
-            category: "Sessões & SSH".to_string(),
-            title: "Alternar Gerenciador de Arquivos Dual-Pane".to_string(),
-            subtitle: "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)".to_string(),
+            category: tr("Sessões & SSH"),
+            title: tr("Alternar Gerenciador de Arquivos Dual-Pane"),
+            subtitle: tr("Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"),
             action_key: "act:toggle-fm".to_string(),
         },
         PaletteItem {
-            category: "Ferramentas".to_string(),
-            title: "Gerenciador de Comandos e Snippets".to_string(),
-            subtitle: "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)".to_string(),
+            category: tr("Ferramentas"),
+            title: tr("Gerenciador de Comandos e Snippets"),
+            subtitle: tr("Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"),
             action_key: "act:show-command-manager".to_string(),
         },
         PaletteItem {
-            category: "Assistente de IA".to_string(),
-            title: "Alternar Assistente de IA Zero-Trust".to_string(),
-            subtitle: "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)".to_string(),
+            category: tr("Assistente de IA"),
+            title: tr("Alternar Assistente de IA Zero-Trust"),
+            subtitle: tr("SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"),
             action_key: "act:toggle-ai".to_string(),
         },
         PaletteItem {
-            category: "Ferramentas".to_string(),
-            title: "Abrir Monitor de Recursos (Sparklines Cairo)".to_string(),
-            subtitle: "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU".to_string(),
+            category: tr("Ferramentas"),
+            title: tr("Abrir Monitor de Recursos (Sparklines Cairo)"),
+            subtitle: tr("Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"),
             action_key: "act:resource-monitor".to_string(),
         },
         PaletteItem {
-            category: "Ferramentas".to_string(),
-            title: "Autocompletar Inteligente (CompletionEngine)".to_string(),
-            subtitle: "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git".to_string(),
+            category: tr("Ferramentas"),
+            title: tr("Autocompletar Inteligente (CompletionEngine)"),
+            subtitle: tr("Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"),
             action_key: "act:autocomplete".to_string(),
         },
         PaletteItem {
-            category: "Assistente de IA".to_string(),
-            title: "Git Assistant — Sugerir Conventional Commit".to_string(),
-            subtitle: "Inspeciona repositório Git atual e sugere mensagem de commit".to_string(),
+            category: tr("Assistente de IA"),
+            title: tr("Git Assistant — Sugerir Conventional Commit"),
+            subtitle: tr("Inspeciona repositório Git atual e sugere mensagem de commit"),
             action_key: "act:git-assistant".to_string(),
         },
         PaletteItem {
-            category: "Assistente de IA".to_string(),
-            title: "Registro de Auditoria do Agente".to_string(),
-            subtitle: "Trilha contínua de auditoria das decisões, comandos e rollback atômico".to_string(),
+            category: tr("Assistente de IA"),
+            title: tr("Registro de Auditoria do Agente"),
+            subtitle: tr("Trilha contínua de auditoria das decisões, comandos e rollback atômico"),
             action_key: "act:show-audit-log".to_string(),
         },
         PaletteItem {
-            category: "Assistente de IA".to_string(),
-            title: "Configuração de Escopo e Segurança do Agente".to_string(),
-            subtitle: "Diretórios permitidos, isolamento PathGuard e políticas default-deny".to_string(),
+            category: tr("Assistente de IA"),
+            title: tr("Configuração de Escopo e Segurança do Agente"),
+            subtitle: tr("Diretórios permitidos, isolamento PathGuard e políticas default-deny"),
             action_key: "act:show-scope-dialog".to_string(),
         },
         PaletteItem {
-            category: "Ferramentas".to_string(),
-            title: "Diagnóstico Seguro do Sistema (Telemetria & Suporte)".to_string(),
-            subtitle: "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak".to_string(),
+            category: tr("Ferramentas"),
+            title: tr("Diagnóstico Seguro do Sistema (Telemetria & Suporte)"),
+            subtitle: tr("Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"),
             action_key: "act:system-diagnostics".to_string(),
         },
         PaletteItem {
-            category: "Configurações".to_string(),
-            title: "Atalhos de Teclado (34 Ações Configuráveis)".to_string(),
-            subtitle: "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH".to_string(),
+            category: tr("Configurações"),
+            title: tr("Atalhos de Teclado (34 Ações Configuráveis)"),
+            subtitle: tr("Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"),
             action_key: "act:shortcuts".to_string(),
         },
         PaletteItem {
-            category: "Configurações".to_string(),
-            title: "Preferências do OnyxSH".to_string(),
-            subtitle: "Fonte, paleta de cores, transparência e IA (F2)".to_string(),
+            category: tr("Configurações"),
+            title: tr("Preferências do OnyxSH"),
+            subtitle: tr("Fonte, paleta de cores, transparência e IA (F2)"),
             action_key: "act:preferences".to_string(),
         },
         PaletteItem {
-            category: "Configurações".to_string(),
-            title: "Cores e Destaques do Terminal".to_string(),
-            subtitle: "30 esquemas de cores, destaque de saída e regras por comando".to_string(),
+            category: tr("Configurações"),
+            title: tr("Cores e Destaques do Terminal"),
+            subtitle: tr("30 esquemas de cores, destaque de saída e regras por comando"),
             action_key: "act:highlight-settings".to_string(),
         },
         PaletteItem {
-            category: "Configurações".to_string(),
-            title: "Criar Backup de Configurações (Bundle SHA-256)".to_string(),
-            subtitle: "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
-                .to_string(),
+            category: tr("Configurações"),
+            title: tr("Criar Backup de Configurações (Bundle SHA-256)"),
+            subtitle: tr("Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"),
             action_key: "act:backup-config".to_string(),
         },
     ];
@@ -1002,8 +1014,8 @@ pub fn show_command_palette_dialog(
 
     for (idx, sess) in loaded_sessions.iter().enumerate() {
         catalog.push(PaletteItem {
-            category: "Sessão".to_string(),
-            title: format!("Conectar: {}", sess.name),
+            category: tr("Session"),
+            title: tr_fmt("Conectar: {name}", &[("name", &sess.name)]),
             subtitle: format!("{} ({})", sess.connection_string(), sess.session_type),
             action_key: format!("sess:{idx}"),
         });
@@ -1011,8 +1023,8 @@ pub fn show_command_palette_dialog(
 
     for cmd in cmd_buttons {
         catalog.push(PaletteItem {
-            category: format!("Comando ({})", cmd.category),
-            title: cmd.name.clone(),
+            category: tr_fmt("Comando ({cat})", &[("cat", &tr(&cmd.category))]),
+            title: tr(&cmd.name),
             subtitle: format!("$ {}", cmd.command_template),
             action_key: format!("cmd:{}", cmd.command_template),
         });
@@ -1058,7 +1070,7 @@ pub fn show_command_palette_dialog(
                 text_vbox.append(&s_lbl);
                 row.append(&text_vbox);
 
-                let run_btn = gtk4::Button::with_label("Executar");
+                let run_btn = gtk4::Button::with_label(&tr("Execute"));
                 run_btn.add_css_class("flat");
                 let key = item.action_key.clone();
                 let a_fn = Rc::clone(&act_cb);

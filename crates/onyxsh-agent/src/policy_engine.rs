@@ -2,6 +2,7 @@
 //! Port of `src/onyxsh/agent/policy_engine.py`.
 
 use crate::models::{ActionStep, RiskLevel};
+use onyxsh_core::i18n::tr;
 use regex::Regex;
 use std::collections::HashSet;
 use std::sync::OnceLock;
@@ -94,11 +95,11 @@ impl PolicyEngine {
 
         for (pattern, reason) in &rules.denies {
             if pattern.is_match(cmd_trimmed) {
-                return (true, Some((*reason).to_string()));
+                return (true, Some(tr(reason)));
             }
             for elem in argv {
                 if pattern.is_match(elem) {
-                    return (true, Some((*reason).to_string()));
+                    return (true, Some(tr(reason)));
                 }
             }
         }

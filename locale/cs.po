@@ -17119,3 +17119,4099 @@ msgstr "🧠 Pokročilý profil (složité plány / skripty / diagnostika)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Vždy pokročilé (uvažování)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} skrytých tajných údajů)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ Export terminálu OnyxSH"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Cíl / Kontext"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Závěr a získané poznatky"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Předběžné poznámky"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Postup provedení krok za krokem"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Informace o relaci"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Nebyl vygenerován žádný výstup)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*Dokument automaticky vygenerovaný provozním deníkem OnyxSH.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Pro tento dokument nebyly vybrány žádné kroky.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Datum / Čas:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Hostitel:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Operátor / Autor:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Relace:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Stav:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Celkem zaznamenaných kroků:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Výstup ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (zbytek výstupu byl v náhledu zkrácen)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Čtení / Zápis zařízení"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable a Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 barevných schémat, zvýrazňování výstupu a pravidla pro jednotlivé příkazy"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Přejít do nadřazeného adresáře (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Poznámka:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "Port {port} je již obsazen jiným procesem."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "KARTA #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "AI asistent: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Karta zavřena."
+
+# 
+msgid "Abaixo"
+msgstr "Níže"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Přerušit aktuální řešení konfliktů"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Přerušit rebase a vrátit se na původní větev"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Otevře panel hledání Regex/Literál na aktivní kartě (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Otevře tento tunel automaticky při připojení k SSH hostiteli"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Otevře nový místní terminál (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Otevře interaktivní shell v běžícím kontejneru Docker"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Otevírání odkazu: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Otevřít sledování prostředků (Cairo sparkliny)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Otevřít složku"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Otevřít v externí aplikaci"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Otevřít tento adresář v terminálu (cd)"
+
+# 
+msgid "Acima"
+msgstr "Výše"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Sleduje protokoly kontejneru Docker v reálném čase"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Sleduje protokoly jednotky systemd v reálném čase"
+
+# 
+msgid "Active"
+msgstr "Aktivní"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Přidat referenci sledování upstream"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Přidat nový SSH tunel"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Přidat vlastní schéma"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Seskupit podle kategorií (.7z nahoře)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Přidělit pseudo-TTY připojený ke stdin kontejneru"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Povolit downgrade na starší verzi balíčku"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Povolit nezabezpečená připojení TLS"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Auditovaná změna vytvořena s atomickou zálohou."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Přepnout Zero-Trust AI asistenta"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Přepnout dvoupanelového správce souborů"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Přepnout režim úprav (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Přepnout dvojitý panel (Rozdělit / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "Přepnout postranní panel relací SSH"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Prostředí Flatpak"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Produkční prostředí (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Produkční prostředí — chráněno pomocí ProductionGuard"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Upravit poslední commit aktuální větve"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Analyzujte následující nedávné zprávy a chyby ze souboru protokolu '{name}' a poskytněte diagnostiku hlavních příčin a doporučená řešení:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Analyzujte projekt a připravte potřebné opravy pomocí OpenCode."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Analyzovat aktuální balíček a nahlásit chyby"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Přiložit soubor (ověření PathGuard)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Přiložit soubor ke kontextu (ověřeno pomocí PathGuard)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "Analýza vašeho požadavku byla dokončena (použity `SecretRedactor` a izolace `<untrusted>`).\n\nDoporučený příkaz:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Analýza vyžádána od AI asistenta."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Použije zvýraznění syntaxe na výstup příkazu 'cat'"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Automaticky použije kontextová pravidla při zjištění spuštěného příkazu"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Použít zvýrazňování výstupu pro připojení SSH"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Použít zvýrazňování výstupu pro místní relace terminálu"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Aplikace a Okno"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Aplikace nebo ID"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Použít odložený stav a ponechat jej v seznamu stash"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Použít odložený stav a odebrat jej ze seznamu stash"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Schválit a spustit"
+
+# 
+msgid "Aproximar"
+msgstr "Přiblížit"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Nástroj pro správu balíčků v Arch Linux / Manjaro"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Archivní režim (zachovává oprávnění, časy, symbolické odkazy)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Předchozí soubor (Šipka nahoru / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Binární soubor: {name}\nCesta: {path}\nVelikost: {size}\nOprávnění: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Archivní soubor"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Soubor zkopírován pro přenos: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Soubor vytvořen: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Datový soubor"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Videosoubor"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Zvukový soubor"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Soubor odstraněn: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Soubor označen k přesunutí: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Soubor znovu načten z disku."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Soubor přejmenován na '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Soubor obnoven po vrácení změn (rollback): {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Soubor uložen s oprávněním správce (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Soubor byl úspěšně uložen s oprávněním správce (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Soubor byl úspěšně uložen!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Soubor: {name} (Velikost: {size} bajtů)\nÚryvek:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Soubory seskupené podle kategorií (.7z nahoře)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Soubory seřazené podle data změny"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Soubory seřazené podle názvu"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Soubory seřazené podle velikosti"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Soubory seřazené podle typu / přípony"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Zdrojové soubory/složky"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "Asistent pro kódování OpenCode"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust AI asistent"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "AI asistent není připojen."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Převzít riziko a spustit"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "Klávesová zkratka '{name}' aktualizována na {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "Klávesová zkratka '{name}' odstraněna."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Klávesové zkratky (34 konfigurovatelných akcí)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Systémové zkratky a oblíbené"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Povolit / zakázat štít produkčního prostředí (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "Povolit obarvení příkazu 'cat'"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Povolit zvýrazňování vstupu shellu"
+
+# 
+msgid "Ativar Todos"
+msgstr "Povolit vše"
+
+# 
+msgid "Ativo"
+msgstr "Aktivní"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Aktivní (naslouchá na {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Aktuální: {curr}\nNové: (stiskněte klávesy)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Aktuální: {curr}\nNový: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Aktuální: {curr}\nNové: {new} (Konflikty s {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Obnovit (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Obnovit seznam (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Bezpečnostní audit pomocí AI"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Bezpečnostní audit tohoto adresáře pomocí AI"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "Bezpečnostní audit pro '{name}' odeslán AI asistentovi."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "Audit adresáře '{path}' byl odeslán AI asistentovi."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Zvětšit písmo (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Ověření:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Auto: přizpůsobí se pozadí terminálu. Ručně: pevné téma."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Auto: automaticky rozpozná kontrast s pozadím"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Automaticky doplněno: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Chytré automatické doplňování (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Chytré automatické doplňování — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Použito automatické doplnění: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Automaticky ano"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Automaticky odstranit nepotřebné závislosti"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Automaticky spouští diagnostiku pouze pro čtení bez nutnosti ručního potvrzení."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Přejde na další kartu (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Akce"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "Záloha SHA-256 vytvořena ({count} souborů): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "Záloha SHA-256 uložena ({count} souborů): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Záloha nebyla nalezena v {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Záloha úspěšně obnovena ({count} souborů ověřeno pomocí SHA-256)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Lišta současného spouštění (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Dávkové mazání přes xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Zablokovat a zrušit (Doporučeno)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Vysílání odesláno: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Vysílat všem"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Sestavit všechny balíčky v pracovním prostoru"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Sestavit artefakty v režimu vydání (release)"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Sestavit artefakty v režimu vydání s optimalizacemi"
+
+# 
+msgid "Busca"
+msgstr "Hledat"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Globální vyhledávání napříč kartami / Historie"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Globální vyhledávání napříč kartami / Relace / Historie"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Globální vyhledávání napříč kartami, relacemi, historií a úryvky (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Globální vyhledávání vložilo do příkazového řádku: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Globální vyhledávání v OnyxSH (Ctrl+Shift+G) — Karty, relace, historie a úryvky"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Globální vyhledávání: zaměřeno na kartu #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Vyhledává soubory a adresáře s pokročilými filtry"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Přibližné (fuzzy) vyhledávání podle adresáře, hostitele a oblíbených (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Hledat v terminálu (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Hledat v aktuálním terminálu"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Hledat relace nebo hostitele..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Hledat text v terminálu..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Přeskočit výzvy k potvrzení"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Výpočet hashů na pozadí..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Cesta zkopírována: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Cesta ke složce (např.: Produkce nebo Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Cesta k souboru (např.: /var/log/syslog nebo ~/.ssh/id_rsa pro test blokování):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Cesta vložena do terminálu: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Vzor názvu souboru bez rozlišení velikosti písmen"
+
+# 
+msgid "Categoria"
+msgstr "Kategorie"
+
+# 
+msgid "Categoria:"
+msgstr "Kategorie:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Přepnout do adresáře před provedením operací"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH klíč / Heslo:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Zkontrolovat GPG podpis a integritu souboru .rpm"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Zkontrolovat dostupné aktualizace balíčků bez instalace"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Zkontroluje balíček za účelem zachycení běžných chyb"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Kontrolní součty a ověření integrity — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Vyberte si mezi vysokorychlostními cloudovými poskytovateli nebo lokálními servery."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Vyčistit celou mezipaměť balíčků (odstranit všechny stažené balíčky)"
+
+# 
+msgid "Clean local caches"
+msgstr "Vyčistit místní mezipaměti"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Vyčistit mezipaměť balíčků (odstranit staré stažené balíčky)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Kliknutím změníte klávesovou zkratku"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Kliknutím se připojíte na nové kartě (a vyberete tuto relaci)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Kliknutím zobrazíte, co jednotlivé úrovně oprávnění povolují nebo omezují"
+
+# 
+msgid "Colar"
+msgstr "Vložit"
+
+# 
+msgid "Colar Aqui"
+msgstr "Vložit sem"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Vložit do této složky"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Vložte výše hash MD5, SHA-1, SHA-256 nebo SHA-512 pro ověření pravosti."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Zbarvuje příkazy v reálném čase během psaní v terminálu"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Zbarvuje vzory ve výstupu terminálu, jako jsou chyby, varování a IP adresy. Příliš mnoho pravidel může ovlivnit velmi rozsáhlé výstupy."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "Zbarvení příkazu cat"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Příkaz ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Příkaz / Šablona:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Příkaz po přihlášení:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Příkaz zkopírován do schránky."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Produkční příkaz vyhodnocen operátorem."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Příkaz odeslán do terminálu: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Příkaz odeslán: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Příkaz spuštěn z historie: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Příkaz spuštěn přes paletu: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Příkaz selhal (kód {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Příkaz vložen do příkazového řádku: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Dlouhý příkaz byl úspěšně dokončen (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Přizpůsobit barvám terminálu"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Paleta příkazů (Ctrl+Shift+P) — Sjednocené vyhledávání"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Paleta příkazů — Sjednocené vyhledávání (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Komprimovat"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Porovnávač integrity"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Porovnat / Synchronizovat adresáře (Levý ⇄ Pravý)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Porovnání dvou panelů: {identical} shodných | {left_only} pouze vlevo | {right_only} pouze vpravo | {diff} s odlišnou velikostí"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Kompatibilita s Git a staršími repozitáři"
+
+# 
+msgid "Compile the current package"
+msgstr "Zkompilovat aktuální balíček"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Komprimovat data souborů během přenosu"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Závěr a ponaučení"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Připojeno k relaci: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Připojování přes Globální vyhledávání: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Připojování přes Paletu příkazů: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Připojit v rozděleném panelu (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Připojit: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "Konfigurovat AI asistenta..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Konfigurovat pravidla tohoto příkazu"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "Konfigurace AI asistenta — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Konfigurovat všechny rozbalené, ale nenakonfigurované balíčky"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Konfigurovat rozbalený balíček"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Nakonfigurujte jednotlivé klíče pro přepínání poskytovatelů bez opětovného nastavování"
+
+# 
+msgid "Confirm"
+msgstr "Potvrdit"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Potvrdit smazání"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Konflikt nebo selhání synchronizace v repozitáři Git."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Velikost kontextového okna (Tokeny)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Obsah zkopírován do schránky."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Pokračovat v rebase po vyřešení konfliktů"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Konverzace načtena z historie."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Zkopírováno do {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Kopírovat soubor"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Kopírovat cestu nadřazeného adresáře"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Kopírovat složku"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Kopírovat vybrané do pravého panelu (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Kopírovat vybrané do levého panelu (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Kopírovat do schránky"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Kopírovat podrobnou zprávu ve formátu Markdown"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Barvy a zvýraznění"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Barvy a zvýraznění terminálu"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Výchozí barvy terminálu (0-7 normální, 8-15 jasné)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Vytvořit slučovací commit i při fast-forward"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Vytvořit mělký klon se zkrácenou historií"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Vytvořit gzipovaný archiv tar s podrobným výpisem"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Vytváří komprimované archivy ze souborů a složek"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Vytváří a upravuje parametrizovaná tlačítka příkazů (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Vytvoří a přepne na novou místní větev v repozitáři Git"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Vytvoří testovací soubor v /tmp s atomickou zálohou v AuditLogger"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Vytvoří vlastní barevné schéma na základě aktivního schématu"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Vytvořit zálohu nastavení (balíček SHA-256)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Vytvořit relaci"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Vytvořte místní (-L), vzdálený (-R) nebo dynamický SOCKS5 (-D) tunel pro přesměrování portů přes SSH."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Výpočet kontrolního součtu zrušen uživatelem."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Kód Rust"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Kód vložen do aktivního terminálu."
+
+# 
+msgid "Código-Fonte"
+msgstr "Zdrojový kód"
+
+# 
+msgid "Cópia de {name}"
+msgstr "Kopie {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "Datum změny"
+
+# 
+msgid "Date / Time"
+msgstr "Datum / Čas"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Datum: {date} | Rozměry: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Nízkoúrovňový správce balíčků pro Debian (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Výchozí klíč API"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Výchozí identifikátor modelu"
+
+# 
+msgid "Default Provider"
+msgstr "Výchozí poskytovatel"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Definuje a spouští vícekontejnerové aplikace"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Nastavit oprávnění souboru pro: {name}\nAktuální: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Odstranit pravidlo brány firewall"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Odstranit sloučenou větev"
+
+# 
+msgid "Desativar Todos"
+msgstr "Zakázat vše"
+
+# 
+msgid "Descrição:"
+msgstr "Popis:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Zvýraznění vstupu v Shellu"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Zvýrazňování syntaxe v reálném čase během psaní příkazů"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Zvýraznění syntaxe pro výstup příkazu 'cat' (pomocí enginu Pygments/ANSI)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Vzdálený cíl"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Odpojený režim: spustit příkaz na pozadí"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Diagnostikovat chyby protokolu pomocí AI"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Diagnostikovat a restartovat webovou službu"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Heuristická diagnostika (**{title}**):\n{desc}\n\nNávrh rychlé opravy:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Bezpečná diagnostika systému — Telemetrie a podpora"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "Diagnostika protokolu '{name}' byla odeslána AI asistentovi."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Rozlišovat velikost písmen"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Zadejte příkaz (např.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Zadejte příkaz k odeslání do VŠECH otevřených terminálů..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Zadejte akci, relaci SSH nebo parametrizovaný příkaz..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Zmenšit písmo (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Dynamický (-D) • SOCKS5 proxy přes SSH"
+
+# 
+msgid "Direita"
+msgstr "Vpravo"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "Adresář '{path}' byl přidán do oblíbených."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Konfigurační adresář"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Adresář odeslán do terminálu: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Adresář: {name}\nCesta: {path}\nOprávnění: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Povolené adresáře, izolace PathGuard a zásady výchozího zamítnutí"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Zakázat nainstalovaný snap"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Plný disk (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Disk (fyzické V/V)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Zobrazit podrobné informace o nainstalovaném balíčku"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Zobrazit paměť v megabajtech"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Zobrazit podrobnosti o stavu nainstalovaného balíčku"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Rozdělí aktuální kartu nad/pod sebe (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Rozdělí aktuální kartu vedle sebe (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Rozdělit horizontálně"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Rozdělit terminál vodorovně"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Rozdělit vertikálně"
+
+# 
+msgid "Divisão"
+msgstr "Dělení"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Na nic se neptat, použít výchozí odpovědi"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Nekontrolovat závislosti před odebráním"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Nespouštět vzdálený příkaz (pouze přesměrování portů)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Nepřekládat názvy služeb"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Neukládat snímek dat snap balíčku"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Neověřovat závislosti balíčků"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Neověřovat závislosti balíčků před instalací"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Nedělat nic, pokud již existuje vzdálené úložiště se stejným názvem"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Textový dokument"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Stáhnout novou kopii databází balíčků"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Pouze stáhnout balíčky, neinstalovat"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Vykreslit textovou grafickou historii revizí"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Zkušební odebrání bez smazání souborů"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Zkušební instalace bez úpravy systému"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Upravit příkaz: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Upravit nastavení tunelu"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Upravit barevné schéma"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Upravit vybranou relaci"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Upravit relaci — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Upravit barevné schéma nebo vytvořit vlastní variantu"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Připravil jsem **Strukturovaný akční plán** s ověřením pomocí `PolicyEngine` a automatickou kontrolou po provedení (`verifier.rs`) pro:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Moderní emulátor terminálu pro místní i vzdálené pracovní postupy v Linuxu s nástrojem ProductionGuard, dvoupanelovým SFTP/TFTP a Zero-Trust AI asistentem."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Povolit zakázaný snap"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "Přesměrování X11 (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Zavře aktivní kartu (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Najít soubory"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Odesílá příkazy současně do více terminálů (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Odeslat příkaz do všech karet"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Odeslat dotaz"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "Odeslat příkaz sha256sum do aktivní karty terminálu"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Odeslat všem"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Odebrat (odinstalovat) nainstalovaný RPM balíček"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Chyba při ukládání souboru"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Chyba při změně oprávnění pro '{name}': {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Chyba při výpočtu hashe"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Chyba při vkládání položky: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Chyba při vytváření souboru: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Chyba při vytváření zálohy: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Chyba při vytváření složky: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Chyba při odstraňování souboru: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Chyba při odstraňování složky: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Chyba při výpisu {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Chyba při přesouvání položky: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Chyba při přejmenování: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Chyba repozitáře Git"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Chyba při vrácení změn: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Chyba: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Vyberte mezi místním (-L), vzdáleným (-R) nebo dynamickým SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Barevné schéma použito: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Barevné schéma uloženo: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Tato relace pochází z ~/.ssh/config (jen pro čtení) nebo již byla odebrána."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Tento soubor je jen pro čtení. Úpravy lze uložit s oprávněním správce (Root)."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Světlý styl (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Tmavý styl (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "Např.: 10.0.0.15 nebo srv.firma.cz"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "Např.: Produkce (ponechte prázdné pro kořen)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "Např.: Produkce Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "Např.: root nebo ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Odstranit složku"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Trvale odstranit"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Spuštěno v terminálu: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Spustit (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Spustit nyní"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Spustit pomocí sudo v terminálu"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Spustit příkaz ve všech terminálech"
+
+# 
+msgid "Executar passo"
+msgstr "Spustit krok"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Spustit plán agenta"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Spustit všechny jednotkové a integrační testy"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Zobrazit panel relací"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Vysvětlit soubor pomocí AI"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "Vysvětlení souboru '{name}' vyžádáno od AI asistenta."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Vysvětlete účel, strukturu a fungování souboru '{name}'.\nCesta: {path}\n\nPočáteční obsah:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Exportuje settings.json, sessions.json a command_buttons.json s hashem SHA-256"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Exportuje celou vyrovnávací paměť nebo aktivní výběr terminálu"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Exportováno do {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Exportovat výstup terminálu (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Exportovat relaci jako provozní příručku (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "Export terminálu OnyxSH - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Řízení externích připojení a přísná izolace dat."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Podrobně rozbalit tar archiv komprimovaný pomocí gzip"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Extrahuje soubory z komprimovaných archivů"
+
+# 
+msgid "Extrair"
+msgstr "Extrahovat"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Nepodařilo se uložit jako Root"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Nepodařilo se počkat na proces pkexec: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Nepodařilo se vypočítat kontrolní součty: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Nepodařilo se vytvořit zálohu: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Nepodařilo se zapsat data na stdin procesu pkexec: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Nepodařilo se spustit privilegovaný proces pkexec: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Nepodařilo se obnovit zálohu: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Nepodařilo se uložit soubor: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Přenos se nezdařil (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Přenos se nezdařil (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Rychlý a všestranný nástroj pro kopírování vzdálených a místních souborů"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Přidat / odebrat příkaz z oblíbených"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Přidat aktuální adresář do oblíbených"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Oblíbená položka odstraněna: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Provede commit změn v Gitu s popisnou zprávou"
+
+# 
+msgid "Fechar Aba"
+msgstr "Zavřít kartu"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Zavřít aktivní panel"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "Správce RPM balíčků pro Fedora/RHEL/Rocky/AlmaLinux"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Stáhnout z jiného repozitáře a začlenit změny"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Fronta přenosů — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Fronta přenosů je prázdná (0 probíhajících úloh)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Data souboru změněna před n*24 hodinami"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Typ souboru (f běžný soubor, d adresář, l symbolický odkaz)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Filtrovat archiv přes gzip (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Zjistit, který balíček poskytuje zadaný soubor nebo funkci"
+
+# 
+msgid "Focar janela existente"
+msgstr "Zaměřit existující okno"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Podokno ostření dolů"
+
+# 
+msgid "Focar painel acima"
+msgstr "Podokno ostření nahoru"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Podokno zaostření vpravo"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Podokno zaostření vlevo"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Fokus přepnut na první panel."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Fokus přepnut na druhý panel."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Sledovat výstup živě při růstu souboru"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Písmo, paleta barev, průhlednost a AI (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Vynutit odstranění, i když na něm závisí aplikace"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Vynutit instalaci, i když balíček nebo soubory již existují"
+
+# 
+msgid "Force upgrade"
+msgstr "Vynutit aktualizaci"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Formátovat výstup dotazu pomocí vlastního queryformat"
+
+# 
+msgid "Formato"
+msgstr "Formát"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "Občerstvit RPM balíčky (aktualizovat pouze pokud jsou již nainstalovány)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Vygenerovat strukturovaný akční plán (ActionPlan)"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Spravuje systémové služby pomocí systemctl"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Správce souborů"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Dvoupanelový správce souborů"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Správce příkazů"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Správce příkazů a dynamických formulářů"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Správa karet a panelů"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Správa aplikací Flatpak a runtime"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Navrhnout Conventional Commit"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: aktuální adresář není repozitář Git."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Vysoká kapacita kontextu"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Mřížka ikon"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Ultrarychlý LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Grafy v reálném čase pro CPU, RAM, I/O disku a síť/GPU"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Model a poskytovatel s pokročilým uvažováním pro vícekrokové plány"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Rozšířená historie příkazů (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Historie konverzací"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Historie přenosů"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Historie: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Hostitel / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Vzdálený hostitel (IP / doména)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Vzdálený hostitel pro Bind"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Hostitel nesmí být prázdný"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Neplatný hostitel nebo IP adresa."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Soubor identity (soukromý klíč) pro ověření veřejným klíčem"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Ignorovat rozdíly ve velikosti písmen"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Ignorovat označení záloh souborů (odstranit konfigurační soubory)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Ignorovat neexistující soubory, nikdy se neptat"
+
+# 
+msgid "Imagem"
+msgstr "Obrázek"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "Importovat veřejný GPG klíč ve formátu ASCII-armored do klíčenky RPM"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Importovat vzdálenou konfiguraci ze souboru .flatpakrepo"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Importovat relace (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "Zahrnout hlavičky odpovědi HTTP do výstupu"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Zvětší velikost písma terminálu (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Odvodí a navrhne automatické kontroly (stav služby, syntaxe konfigurace) po příkazech měnících stav."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "Spustit TFTP server"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Vložit (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Vložit cestu do terminálu"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Zkontroluje aktuální repozitář Git a navrhne zprávu commitu"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Zkontrolovat aktivní sokety a porty na hostiteli"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Nainstalovat místní soubor balíčku .deb"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Nainstalovat soubor RPM balíčku s podrobným průběhem"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Nainstalovat jako neexplicitní závislost"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Nainstalovat z kanálu beta"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Nainstalovat z kanálu edge"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Nainstalovat ze stabilního kanálu (stable)"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Nainstalovat jeden nebo více RPM balíčků"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Nainstalovat snap balíčky do systému"
+
+# 
+msgid "Interactive rebase"
+msgstr "Interaktivní rebase"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Interaktivně vybrat části (hunks) záplaty"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Terminálová interakce"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Místní rozhraní / Bind IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Místní rozhraní pro naslouchání"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Interpretovat vzor jako rozšířený regulární výraz (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Interval kontroly latence"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Interval v sekundách pro odesílání testovacích paketů KeepAlive"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Neplatné uživatelské jméno SSH"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Neplatný název hostitele nebo IP adresa"
+
+# 
+msgid "Invalid local port"
+msgstr "Neplatný místní port"
+
+# 
+msgid "Invalid port number"
+msgstr "Neplatné číslo portu"
+
+# 
+msgid "Invalid remote host"
+msgstr "Neplatný vzdálený hostitel"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Zkoumání soketů (moderní náhrada za netstat)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Přejít na kartu"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Tímto obnovíte všechny klávesové zkratky na výchozí hodnoty. Chcete pokračovat?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Položka vložena do: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Položka přesunuta do: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "Rozvržení {n_pages} karet uloženo do {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Vymaže obrazovku a historii posouvání aktivní relace (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Vymazat dokončené"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Vymazat neoblíbenou historii"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Vymazat relaci"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Vymazat relaci terminálu"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Odkaz zkopírován do schránky."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Vypsat všechny soubory patřící nainstalovanému RPM balíčku"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Vypsat aplikace a běhová prostředí dostupná ve vzdáleném repozitáři"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Vypsat schopnosti vyžadované tímto balíčkem .rpm"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Vypsat konfigurační soubory nainstalovaného balíčku"
+
+# 
+msgid "List configuration files only"
+msgstr "Vypsat pouze konfigurační soubory"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Vypsat závislosti vyžadované nainstalovaným balíčkem"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Vypsat soubory obsažené uvnitř archivu .rpm"
+
+# 
+msgid "List files installed by package"
+msgstr "Vypsat soubory nainstalované balíčkem"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Vypsat cizí balíčky (např. z AUR)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Vypsat nainstalované balíčky odpovídající vzoru"
+
+# 
+msgid "List installed snaps"
+msgstr "Vypsat nainstalované balíčky snap"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Vypsat nainstalované soubory jednotek a stav jejich povolení"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Vypsat osiřelé balíčky (již nepotřebné závislosti)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Vypsat balíčky nainstalované jako závislosti"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Vypsat aktuálně uložené stashe"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Podrobný seznam"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Vypíše obsah adresáře s podrobnostmi (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Seznam, mřížka miniatur, strom a Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Seznam souborů"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Místní (Ollama / LM Studio) • Plné soukromí GPU/CPU"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Základní URL místního serveru"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Dlouhý formát, všechny soubory, čitelné velikosti"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Model a poskytovatel s nízkou latencí pro každodenní shellové dotazy"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Vytvořit nadřazené adresáře podle potřeby"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Maximální alokace kontextové paměti odesílané modelu"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Paměť (RAM a Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "Paměť RAM"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Zpráva commitu"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Striktně offline režim je aktivní (Nulový cloud)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Online režim s inteligentním směrováním je aktivní."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Režim výběru textu zapnut."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Režim výběru textu vypnut."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Režim vysílání (Broadcast do všech karet)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Režim motivu"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Monitor zdrojů v reálném čase (Cairo sparklines)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Monitor zdrojů v reálném čase — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Zobrazí nebo skryje strom relací SSH (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Zobrazit skryté soubory (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Jádro"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Název a volitelně značka ve formátu 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Ve schránce není žádná položka ke vložení."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Zatím žádné záznamy auditu. Kliknutím na „Simulovat auditovanou změnu“ otestujete atomický návrat."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Pomocí sysfs/nvidia-smi nebylo detekováno žádné vyhrazené GPU"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Není vybrána žádná relace"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "V relaci nebyly zaznamenány žádné přenosy."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Síť (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Síť (/proc/net/dev) • RX / TX v reálném čase"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Síť (RX / TX) a GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Nikdy se neptat"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Název (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Název nové větve"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Název relace:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Název nové složky:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Neplatný název souboru ve schránce."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "Uživatelské jméno SSH obsahuje neplatné znaky."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Název cílového souboru"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Název služby"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Název příkazu (např.: Restartovat Nginx)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Název nového souboru:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Název ikony (např.: utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Název nebo ID kontejneru"
+
+# 
+msgid "Nome:"
+msgstr "Název:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Neinteraktivní režim"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Nová karta terminálu"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Nová karta terminálu (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Nová složka zde..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Nová složka relací"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Nová složka..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Nová relace — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Byla zahájena nová konverzace."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Nový soubor zde..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Nový soubor..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Nové barevné schéma"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Nový název složky:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Nový název souboru:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Nepodařilo se načíst položku: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Nepodařilo se zapsat změny: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "V souborovém systému není dostatek volného místa."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Úroveň 0 (Čtení)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Úroveň 1 (Zápis)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Úroveň 2 (Správce)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Úroveň 3 (Kritická)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Úroveň 4 (Blokováno)"
+
+# 
+msgid "Nível {n}"
+msgstr "Úroveň {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Počet pokusů před vzdáním automatického znovupřipojení"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "Binární soubor '{bin}' není nainstalován nebo není v $PATH."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "Příkaz skončil s chybovým kódem."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "Příkaz spuštěný v terminálu selhal. Analyzujte soubory projektu a připravte potřebné opravy pomocí OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "Příkaz selhal kvůli nedostatku oprávnění superuživatele (root)."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "Název relace nemůže být prázdný."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Obfuskovaný / Base64 dekódovaný prováděcí řetězec"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Předchozí výskyt (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Výskyty nalezené v terminálu"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Osmičkově: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Připraveno"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Test oznámení"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode byl spuštěn v terminálu."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Jednotný multimodelový katalog"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Operátor: {author} | Hostitel: {host} | Datum: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Pracovat se všemi balíčky v pracovním prostoru"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "Operace byla uživatelem zrušena nebo odmítnuta."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Operace se správcem balíčků Arch Linux"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Operace se správcem balíčků Debian/Ubuntu"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Operace se správcem balíčků Fedora/RHEL"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Operace se soubory"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Vzestupné pořadí"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Sestupné pořadí"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Vzestupné řazení zapnuto"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Sestupné řazení zapnuto"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Seřadit nainstalované balíčky podle času instalace (nejnovější první)"
+
+# 
+msgid "Organizar por"
+msgstr "Seřadit podle"
+
+# 
+msgid "Origem (Local)"
+msgstr "Zdroj (místní)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Vypsat čísla v čitelném formátu"
+
+# 
+msgid "Output package names only"
+msgstr "Vypsat pouze názvy balíčků"
+
+# 
+msgid "Pacote"
+msgstr "Balíček"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Instalační balíček"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Vzor názvu (např.: *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Panel relací"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Panel/Karta ukončena."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Celé slovo"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16barevná paleta ANSI"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "Zastavit TFTP server ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Parametry — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Krok #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Provedený krok: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "Složka '{path}' byla úspěšně vytvořena."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Složka / Adresář"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Složka zkopírována do schránky: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Vytvořena složka: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Smazaná složka: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Složka označena k přesunutí: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Složka byla odebrána z oblíbených."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Složka přejmenována na '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Složka · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Složka:"
+
+# 
+msgid "Pause"
+msgstr "Pozastavit"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Směrovací profil změněn na: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Provést aktualizaci distribuce (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Zeptej se AI asistenta"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Zeptejte se nebo vložte chybu z terminálu..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Oprávnění (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "Oprávnění položky '{name}' změněna na {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Oprávnění pro {name}"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Hledat ve všech otevřených kartách, relacích SSH, historii a úryvcích (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Rekurzivní vyhledávání v podadresářích"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Hledat v terminálu"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Hledat text ve všech otevřených kartách terminálu, relacích SSH, historii a úryvcích..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Hledat tunely podle názvu, portu nebo hostitele..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Předání výstupu rourou do interpretru shellu"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Akční plán Zero-Trust pro: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Pozadí"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Před testováním zadejte klíč API pro {provider}."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Koncové body a porty"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Analyzujte prosím následující výběr z terminálu:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Analyzujte prosím a vysvětlete kód/obsah souboru '{name}', jeho účel, strukturu a důležité body:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Proveďte prosím podrobný audit zabezpečení a správy přístupu v aktuálním adresáři '{path}'. Zkontrolujte příliš volná oprávnění, citlivé soubory (.env, soukromé klíče, odhalené přihlašovací údaje) a doporučte osvědčené postupy Zero-Trust."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Proveďte prosím podrobný audit zabezpečení a přístupových oprávnění souboru '{name}'.\nCesta: {path}\nAktuální oprávnění: {perms} ({oct})\nVelikost: {size}\nDoporučte bezpečné nastavení chmod a zmírnění zranitelností."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Proveďte prosím podrobný audit zabezpečení a přístupových oprávnění adresáře '{name}'.\nCesta: {path}\nAktuální oprávnění: {perms} ({oct})\nPoslední změna: {date}\nDoporučte optimální nastavení chmod, omezení a osvědčené postupy souladu s principy Zero-Trust."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Refaktorujte prosím následující úryvek kódu pomocí OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Port je mimo platný rozsah (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Vzdálený vystavený port (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Vzdálený cílový port"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Místní naslouchací port (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "Port proxy SOCKS5 (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Port je mimo povolený rozsah (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Port:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Vzdálený PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Nastavení"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Před každý řádek vložit číslo řádku počítané od 1"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Náhled příkazu:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Primární poskytovatel a připojení"
+
+# 
+msgid "Print Git version"
+msgstr "Vypsat verzi Git"
+
+# 
+msgid "Print RPM version"
+msgstr "Vypsat verzi RPM"
+
+# 
+msgid "Print help synopsis"
+msgstr "Vypsat stručný přehled nápovědy"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Vypsat velikosti v mocninách 1024 (např. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Vypsat stdout/stderr testu přímo"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Vypsat součet pro adresář do hloubky 1"
+
+# 
+msgid "Print zypper version"
+msgstr "Vypsat verzi zypper"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Produkce / Webové servery"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Protokol:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Poskytnout podrobný výstup"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Poskytovatel používaný při vypnutém chytrém směrování"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Živý náhled"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Další výskyt (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Další soubor (Šipka dolů / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Přejít na předchozí výzvu."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Přejít na další výzvu."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Úplně odstranit nainstalovaný balíček včetně konfigurace"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Přepnout snap do klasického režimu omezení"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Počet řádků (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Počet řádků (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Dotázat se na nenainstalovaný místní balíček .rpm"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Vyhledat a vypsat všechny nainstalované balíčky RPM"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Vyhledat balíčky odpovídající kritériím repozitáře"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "Zjistit stav služeb poskytovaných balíčky snap"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Zjistit, kterému nainstalovanému balíčku RPM patří cesta k souboru"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Náhled)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "Nízkoúrovňový nástroj správce balíčků RPM (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Rekurzivně číst všechny soubory v každém adresáři"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Čtení: {read}/s • Zápis: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Přesadit aktuální větev na větev upstream po stažení"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Znovu sestavit indexy databáze RPM z nainstalovaných hlaviček"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Inteligentní automatické opětovné připojení při výpadcích"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Zapsat připravené změny do repozitáře"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Vyjmout soubor"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Vyjmout složku"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Obnoví všechny klávesové zkratky na výchozí hodnoty"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Obnovit přiblížení"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Zmenší velikost písma terminálu (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Zmenšit"
+
+# 
+msgid "Refresh Interval"
+msgstr "Interval obnovování"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Obnovit všechna metadata repozitářů"
+
+# 
+msgid "Refresh files database"
+msgstr "Obnovit databázi souborů"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "Záznamy AuditLogger (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Globální pravidla zvýrazňování"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Restartovat spravovanou službu a použít konfiguraci"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Přeinstalovat, pokud je balíček již přítomen"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Kompletní přehled hashů byl zkopírován do schránky"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Sanitizovaná diagnostická zpráva OnyxSH"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Diagnostická zpráva byla zkopírována do schránky."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Strukturovaný provozní přehled s kroky, poznámkami, cílem a závěrem (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Sanitizovaná zpráva o OS, RAM, GPU/VRAM a prostředí Flatpak"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Znovu načíst službu nebo ji restartovat, pokud znovunačtení není podporováno"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Vzdálený (-R) • Zpřístupnit místní port na vzdáleném serveru"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Odebrat jeden záznam ze skrýše (stash)"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Odebrat všechny balíčky, které závisí na cíli"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Odebrat všechny záznamy ze skrýše (stash)"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Odebrat všechny verze balíčku"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Odebrat nainstalovaný balíček se zachováním konfigurace"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Rekurzivně odebrat adresáře a jejich obsah"
+
+# 
+msgid "Remove installed packages"
+msgstr "Odebrat nainstalované balíčky"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Odebrat zastaralé vzdáleně sledované reference"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Odebrat jeden nebo více balíčků a nepoužívané závislosti"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Odebrat balíčky původně nainstalované jako závislosti, které již nejsou potřeba"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Odebrat balíčky snap ze systému"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Odebrat nepoužívaná data (kontejnery, sítě, obrazy)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Odebrat vybranou relaci"
+
+# 
+msgid "Remover Túnel"
+msgstr "Odebrat tunel"
+
+# 
+msgid "Remover favorito"
+msgstr "Odebrat oblíbenou položku"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Odebrat aktuální adresář z oblíbených"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Přejmenovat soubor"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Přejmenovat složku"
+
+# 
+msgid "Renomear..."
+msgstr "Přejmenovat..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Zobrazit aktuální snímek běžících procesů"
+
+# 
+msgid "Reportar Problema"
+msgstr "Nahlásit problém"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Obnovit velikost písma (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Řešení chyby terminálu pomocí OpenCode / AI..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Zásada restartu při ukončení kontejneru"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Obnoví výchozí písmo Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Obnovit globální pravidla"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Obnovit všechny příkazy"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Obnovit původní seznam ignorovaných příkazů"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Obnovit index / odebrat soubory ze stage"
+
+# 
+msgid "Resume"
+msgstr "Obnovit"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Standardní kryptografické hashe vypočítané z obsahu souboru:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Načíst protokoly služeb"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Kontrola Diff a audit Zero-Trust (Atomický rollback)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Chytré směrování: kliknutím přepnete profil (Auto, Rychlý, Pokročilý, Zabezpečení)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Přesměrováno na pokročilý/bezpečnostní profil uvažování."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Přesměrováno na rychlý profil (jednoduchý dotaz s nízkou latencí)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Spustit binární soubor nebo příklad místního balíčku"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Spustit, jako by byl git spuštěn v cestě"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Spustit přihlašovací shell jako cílový uživatel (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Spustit optimalizovanou release binárku"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Nativní Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Správce balíčků a nástroj pro sestavení pro Rust"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "RELACE SSH"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "Proxy SOCKS5"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Firemní proxy SOCKS5"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Bezpečné vynucené odeslání s ověřením vzdálené reference"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Ukončit aplikaci"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Uložit a zavřít"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Uložit změny"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "Uložit zálohu OnyxSH"
+
+# 
+msgid "Salvar Comando"
+msgstr "Uložit příkaz"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Uložit aktuální rozvržení karet"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Uložit s oprávněním správce / Root (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Úspěšně uloženo: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Spuštění skriptu"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Hledat v popisech i v názvech"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Vyhledat balíček vlastnící název souboru"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Vyhledat balíčky odpovídající vzoru"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Vyhledat snapy v obchodě"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Vyhledat místně nainstalované balíčky"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Řídit se stylem systému"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Sledovat v reálném čase (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Sekundy pro udržení aktivního spojení (0 pro vypnutí)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Vybráno: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "Vybrat záložní soubor OnyxSH"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Vyberte příkazy, které chcete zahrnout, a přidejte technické vysvětlující komentáře ke každému kroku. (zjištěno: {count})"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Vyberte položku v pravém panelu ke stažení (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Vyberte položku v levém panelu k nahrání (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Pro úpravu nejprve vyberte relaci ze seznamu."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Nejprve vyberte relaci k odstranění."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Vybrat sledovaného hostitele"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Vybrat neodpovídající řádky"
+
+# 
+msgid "Seleção copiada."
+msgstr "Výběr zkopírován."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Výběr odeslán k analýze do AI asistenta."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Výběr odeslán k refaktoringu pomocí OpenCode."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Vždy skrýt"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP server"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "TFTP server jen pro čtení je aktivní na {addr} (kořen: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "Stav TFTP serveru přepnut."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP server ukončen."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Relace: {session} | Hostitel: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "Relace „{name}“ odstraněna."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "Relace „{name}“ uložena do ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Propojená relace SSH"
+
+# 
+msgid "Sessão limpa."
+msgstr "Relace vyčištěna."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Uložené relace"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Relace synchronizovány z ~/.config/onyxsh/sessions.json a ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Shell ke spuštění"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Zobrazit všechny naslouchající TCP/UDP sokety s procesem a číselnými porty"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Zobrazit všechny revize nainstalovaných snapů"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Zobrazit a spravovat směrování, síťová zařízení a rozhraní"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Zobrazit dostupné aktualizace snapů bez instalace"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Zobrazit změny mezi commity, indexem a pracovním stromem"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Zobrazit podrobné informace o snapu"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Zobrazit podrobné informace o nainstalované aplikaci nebo runtime"
+
+# 
+msgid "Show error message on failure"
+msgstr "Zobrazit chybovou zprávu při selhání"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Zobrazit úplné informace pro zadané balíčky"
+
+# 
+msgid "Show package metadata info"
+msgstr "Zobrazit informace o metadatech balíčku"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Zobrazit oprávnění pro konkrétní cestu k souboru"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Zobrazit skripty před/po instalaci a odinstalaci"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Zobrazit průběh a ponechat částečně přenesené soubory"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Zobrazit tlačítko a boční panel AI asistenta v horní liště."
+
+# 
+msgid "Silent mode"
+msgstr "Tichý režim"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Simulovat auditovanou změnu"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Synchronizuje místní soubory na vzdáleného hostitele se zachováním atributů"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "Systém"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Operační systém"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Přeskočit výzvu k potvrzení"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Chytré směrování zakázáno: používá se výchozí nakonfigurovaný poskytovatel."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, akční plány a atomický rollback (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "O aplikaci OnyxSH"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "Určit metodu HTTP požadavku (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Určit balíček ke spuštění"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "Určit vzdálený shell k použití (např. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Rozdělit terminál"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Uložit změny do zásobníku (stash) v modifikovaném pracovním adresáři"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Zastavit po odeslání 4 paketů"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Aktivní přísný offline režim (pouze místní Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Navrhovat dílčí příkazy a parametry pro rpm, dnf, apt, pacman, flatpak, systemctl, docker, git a běžné nástroje"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Návrhy pro rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Souhrn velikosti v čitelné podobě"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab nebo → použít • ↑/↓ navigace • Esc zavřít"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Opravdu chcete trvale odstranit složku „{name}“?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Opravdu chcete trvale odstranit soubor „{name}“?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Motiv pro světlé pozadí"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Motiv pro tmavé pozadí"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Motiv používaný, když je pozadí terminálu světlé"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Motiv používaný, když je pozadí terminálu tmavé"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Šablona příkazu (např.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Pokusí se znovu připojit spadlé relace SSH s odpočtem a upozorněním na obrazovce"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Terminál: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Otestovat všechny balíčky v pracovním prostoru"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Otestovat zachycení"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Otestovat integritu syntaxe konfigurace Nginx"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Text popředí (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Tímto dojde k trvalému smazání všech {count} konverzací. Tuto akci nelze vrátit zpět."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Typ / Přípona"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Typ souboru"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Všechna nastavení byla obnovena na výchozí hodnoty."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Všechny klávesové zkratky byly obnoveny na výchozí hodnoty."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Všechny SSH tunely byly zastaveny."
+
+# 
+msgid "Total Lines"
+msgstr "Celkem řádků"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Průběžná auditní stopa rozhodnutí, příkazů a atomického rollbacku"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Správce balíčků Snap pro Ubuntu / Canonical"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Správce brány firewall Uncomplicated Firewall"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Jednotka / Služba (volitelné)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Aktualizovat nainstalované balíčky novějšími verzemi"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Aktualizovat balíčky snap v systému"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Aktualizovat aplikaci/runtime, pokud je již nainstalována"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Upgradovat soubor balíčku RPM (nebo nainstalovat, pokud chybí)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Upgradovat nebo nainstalovat místní/vzdálený soubor balíčku (.pkg.tar.zst)"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Používá sbalitelné bloky (&lt;details&gt;) pro výstupy delší než 15 řádků"
+
+# 
+msgid "Use a long listing format"
+msgstr "Použít dlouhý formát výpisu"
+
+# 
+msgid "Use archive file or device"
+msgstr "Použít soubor archivu nebo zařízení"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Použít adresář jako kořen nejvyšší úrovně pro operace RPM"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Vzdálený uživatel"
+
+# 
+msgid "Usuário SSH:"
+msgstr "Uživatel SSH:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Ověřit a připojit"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Zkontrolovat aktuální stav služby a závislostí"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Zkontrolovat, zda je služba '{svc}' aktivní"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Zkontrolovat, zda byla služba '{svc}' povolena při spuštění"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Zkontrolovat, zda byla služba '{svc}' zastavena"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Ověřit konkrétní balíček oproti souboru .rpm"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Ověřit integritu všech nainstalovaných balíčků RPM oproti databázi"
+
+# 
+msgid "Versão"
+msgstr "Verze"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Zobrazit připravené změny pro další commit"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Zobrazuje systémové protokoly pomocí journalctl"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Zobrazí, upraví a obnoví všechny klávesové zkratky aplikace OnyxSH"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Prohlížeč sjednoceného diffu (Před vs. Po):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Zobrazení mřížky / miniatur"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Zobrazení mřížky ikon zapnuto"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Podrobné zobrazení seznamu zapnuto"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "Nemáte oprávnění upravovat '{name}'. Chcete uložit pomocí oprávnění správce (Root)?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "V souboru '{fname}' máte neuložené změny. Co chcete před zavřením udělat?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "V tomto souboru máte neuložené změny, které budou ztraceny. Opravdu je chcete zahodit?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Přepnout na předchozí kartu (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Čekání na vzorek..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Zapsat výstup do místního souboru pojmenovaného jako vzdálený"
+
+# 
+msgid "You: "
+msgstr "Vy: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Přiblížení obnoveno (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[ZÁVĚR A POZNÁMKY]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Binární nebo nepřístupný obsah]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Nelze přečíst soubor protokolu]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[CÍL / KONTEXT]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[PROVEDENÉ KROKY ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Riziko: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Zjištěno riziko"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Ověřeno"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` dokončen za {secs}s."
+
+# 
+msgid "linha"
+msgstr "řádek"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "Nástroj správce balíčků pro openSUSE / SLES"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} příkazů • Klikněte pro rozbalení/sbalení"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} příkazů"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} řádků"
+
+# 
+msgid "{count} regras"
+msgstr "{count} pravidel"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} výsledků"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} logických jader)"
+
+# 
+msgid "{days} days"
+msgstr "{days} dní"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} hr"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} řádků • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} min"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Kopie)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (založeno na {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Připojený soubor]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "Klíč API pro {provider} byl úspěšně nakonfigurován."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Rozhodnutí: {decision} | Stav: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "Tunel {type}"
+
+# 
+msgid "Ícone:"
+msgstr "Ikona:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "Ikony OnyxSH (Vestavěné)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Stáhnout / Kopírovat"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Nahrát / Kopírovat"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Spustit   •   Tab Vložit do výzvy   •   ⭐ Oblíbené   •   Esc Zavřít"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Přejít na kartu / Spustit • ↑/↓ Navigace • Esc Zavřít"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Atomický návrat"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ Upozornění ProductionGuard ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Zachycen destruktivní příkaz ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ Na pomalejších počítačích může zpracování barevných vzorů mírně snížit odezvu u velmi objemných výstupů."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ Export terminálu OnyxSH"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Úryvky"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Příkaz dokončen"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Zkopírováno!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Spuštěno"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Atomický návrat dokončen: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Příkaz selhal (Kód {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ HASH NEODPOVÍDÁ! Vložená hodnota{hint} se liší od vypočítaných hashů souboru. Soubor může být poškozený nebo upravený."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ HISTORIE"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Online režim je aktivní.\nKliknutím přepnete do striktně lokálního offline režimu."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Vše"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Cíl / Kontext"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Závěr a získané poznatky"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Vy:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Vy{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Poznámka:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Poznámka: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Aktuální adresář"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x spuštění"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Změněno:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Analyzovat využití disku"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Kopírovat sanitizovanou zprávu"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Kopírovat výstup"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Bezpečně připojeno: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Historie"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Předběžné poznámky"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Hromadné vysílání (🛡️ ProductionGuard aktivní):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Příkaz hromadně odeslán do {count} terminálů."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Velikost:</b> {size} <span alpha='70%'>({bytes} bajtů)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Typ:</b> Složka / Adresář"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 Nainstalovat {bin}"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}s"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 Relace SSH"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 Zkontrolovat git status"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Kontrola po spuštění: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Oprávnění:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Testovací oznámení bylo odesláno na plochu."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Cesta:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Vysoké riziko (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Karty terminálu"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Kritické upozornění — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Hromadné vysílání zablokováno službou ProductionGuard: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard ZABLOKOVAL čtení: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ PRODUKČNÍ REŽIM AKTIVNÍ — ProductionGuard zachycuje destruktivní příkazy (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Striktně offline režim aktivní (Zero Cloud).\nKliknutím přepnete do online režimu."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Offline (Místní)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Zabezpečení"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Bezpečný příkaz"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Trasa: {route}"
+

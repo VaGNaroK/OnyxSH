@@ -78,7 +78,7 @@ impl OptionSpec {
     pub fn new(names: &[&str], description: &str) -> Self {
         Self {
             names: names.iter().map(|s| (*s).to_string()).collect(),
-            description: description.to_string(),
+            description: onyxsh_core::i18n::tr(description),
         }
     }
 }
@@ -96,7 +96,7 @@ impl SubcommandSpec {
     pub fn new(name: &str, description: &str) -> Self {
         Self {
             name: name.to_string(),
-            description: description.to_string(),
+            description: onyxsh_core::i18n::tr(description),
             aliases: Vec::new(),
             options: Vec::new(),
             subcommands: Vec::new(),
@@ -132,7 +132,7 @@ impl CommandSpec {
     pub fn new(name: &str, description: &str) -> Self {
         Self {
             name: name.to_string(),
-            description: description.to_string(),
+            description: onyxsh_core::i18n::tr(description),
             aliases: Vec::new(),
             subcommands: Vec::new(),
             global_options: Vec::new(),
@@ -1439,7 +1439,7 @@ impl CompletionEngine {
             if cmd.starts_with(line_prefix) && cmd.trim() != line_prefix {
                 items.push(CompletionItem {
                     text: cmd.clone(),
-                    description: "Command History".to_string(),
+                    description: onyxsh_core::i18n::tr("Command History"),
                     completion_type: CompletionType::History,
                     source: CompletionSource::History,
                     score: 2.0,

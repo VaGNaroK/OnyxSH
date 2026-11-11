@@ -2,7 +2,7 @@
 //! Port of `src/onyxsh/sessions/models.py` and `src/onyxsh/sessions/storage.py`.
 
 use crate::crypto::{decrypt_session_password, encrypt_session_password, is_securecrt_v2_password};
-use crate::i18n::tr;
+use crate::i18n::{tr, tr_fmt};
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::io::Write;
@@ -167,22 +167,22 @@ impl SessionItem {
             }
             for tunnel in &self.port_forwardings {
                 if tunnel.local_port <= 1024 {
-                    errors.push(format!(
-                        "Port forward '{}' has an invalid local port (must be between 1025 and 65535).",
-                        tunnel.name
+                    errors.push(tr_fmt(
+                        "Port forward '{name}' has an invalid local port (must be between 1025 and 65535).",
+                        &[("name", &tunnel.name)],
                     ));
                 }
                 if tunnel.tunnel_type != "dynamic" {
                     if tunnel.remote_port == 0 {
-                        errors.push(format!(
-                            "Port forward '{}' has an invalid remote port.",
-                            tunnel.name
+                        errors.push(tr_fmt(
+                            "Port forward '{name}' has an invalid remote port.",
+                            &[("name", &tunnel.name)],
                         ));
                     }
                     if tunnel.remote_host.trim().is_empty() {
-                        errors.push(format!(
-                            "Port forward '{}' requires a remote host.",
-                            tunnel.name
+                        errors.push(tr_fmt(
+                            "Port forward '{name}' requires a remote host.",
+                            &[("name", &tunnel.name)],
                         ));
                     }
                 }

@@ -77,12 +77,14 @@ fn main() -> glib::ExitCode {
     }
 
     init_logger("info");
+    let active_lang = onyxsh_core::i18n::init_i18n();
     let config_path = platform::config_dir().join("settings.json");
     let settings = AppSettings::load_from_path(&config_path).unwrap_or_default();
 
     tracing::info!(
         app_id = APP_ID,
         version = APP_VERSION,
+        locale = %active_lang,
         flatpak = platform::is_flatpak_sandbox(),
         os = %platform::detect_os_context(),
         "Starting {APP_NAME} v{APP_VERSION} (Rust Native GTK4/Libadwaita/VTE4)"

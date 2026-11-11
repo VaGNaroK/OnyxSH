@@ -7,6 +7,7 @@ use gtk4::pango;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_terminal::broadcast::{BroadcastOutcome, BroadcastRouter, BroadcastScope};
 use onyxsh_terminal::production_guard::ProductionGuard;
@@ -643,12 +644,12 @@ pub fn render_command_template(template: &str, values: &BTreeMap<String, String>
 }
 
 /// Color-codes a command's risk level using [`ProductionGuard`].
-pub fn evaluate_command_safety_badge(cmd: &str) -> (&'static str, Option<String>) {
+pub fn evaluate_command_safety_badge(cmd: &str) -> (String, Option<String>) {
     let guard = ProductionGuard::new();
     if let Some(v) = guard.evaluate_command(cmd) {
-        ("🔴 Alto Risco (ProductionGuard)", Some(v.risk_summary))
+        (tr("🔴 Alto Risco (ProductionGuard)"), Some(v.risk_summary))
     } else {
-        ("🟢 Comando Seguro", None)
+        (tr("🟢 Comando Seguro"), None)
     }
 }
 
@@ -658,10 +659,14 @@ pub fn show_command_form_dialog(
     cmd_btn: &CommandButton,
     dispatch_cb: Rc<dyn Fn(&str, bool, bool)>,
 ) {
+    let translated_name = tr(&cmd_btn.name);
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title(format!("Parâmetros — {}", cmd_btn.name))
+        .title(&tr_fmt(
+            "Parâmetros — {name}",
+            &[("name", &translated_name)],
+        ))
         .default_width(520)
         .default_height(440)
         .build();
@@ -675,7 +680,7 @@ pub fn show_command_form_dialog(
     content.set_margin_top(8);
     content.set_margin_bottom(14);
 
-    let desc_lbl = gtk4::Label::new(Some(&cmd_btn.description));
+    let desc_lbl = gtk4::Label::new(Some(&tr(&cmd_btn.description)));
     desc_lbl.add_css_class("dim-label");
     desc_lbl.set_halign(gtk4::Align::Start);
     content.append(&desc_lbl);
@@ -689,7 +694,7 @@ pub fn show_command_form_dialog(
 
     // Live Preview Box
     let preview_frame = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
-    let preview_title = gtk4::Label::new(Some("Preview do Comando:"));
+    let preview_title = gtk4::Label::new(Some(&tr("Preview do Comando:")));
     preview_title.add_css_class("caption");
     preview_title.set_halign(gtk4::Align::Start);
 
@@ -713,7 +718,7 @@ pub fn show_command_form_dialog(
             if let Some(r) = reason {
                 sl.set_text(&format!("{badge}: {r}"));
             } else {
-                sl.set_text(badge);
+                sl.set_text(&badge);
             }
         })
     };
@@ -721,7 +726,7 @@ pub fn show_command_form_dialog(
     // Build dynamic fields
     for field in &cmd_btn.form_fields {
         let row = gtk4::Box::new(gtk4::Orientation::Horizontal, 10);
-        let lbl = gtk4::Label::new(Some(&format!("{}:", field.label)));
+        let lbl = gtk4::Label::new(Some(&format!("{}:", tr(&field.label))));
         lbl.set_halign(gtk4::Align::Start);
         lbl.set_hexpand(true);
         row.append(&lbl);
@@ -803,10 +808,10 @@ pub fn show_command_form_dialog(
     let actions_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
     actions_hbox.set_halign(gtk4::Align::End);
 
-    let btn_insert = gtk4::Button::with_label("Inserir no Terminal");
-    let btn_run = gtk4::Button::with_label("Executar Agora");
+    let btn_insert = gtk4::Button::with_label(&tr("Insert into terminal"));
+    let btn_run = gtk4::Button::with_label(&tr("Executar Agora"));
     btn_run.add_css_class("suggested-action");
-    let btn_broadcast = gtk4::Button::with_label("Broadcast p/ Todos");
+    let btn_broadcast = gtk4::Button::with_label(&tr("Broadcast p/ Todos"));
 
     actions_hbox.append(&btn_insert);
     actions_hbox.append(&btn_run);
@@ -913,7 +918,7 @@ pub fn show_command_manager_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(false)
-        .title("Gerenciador de Comandos")
+        .title(&tr("Command Manager"))
         .default_width(820)
         .default_height(560)
         .build();
@@ -925,13 +930,13 @@ pub fn show_command_manager_dialog(
     // HeaderBar
     let header = adw::HeaderBar::new();
     let search_entry = gtk4::SearchEntry::builder()
-        .placeholder_text("Pesquisar...")
+        .placeholder_text(&tr("Search..."))
         .width_chars(20)
         .build();
     header.pack_start(&search_entry);
 
     let btn_restore_hidden = gtk4::Button::from_icon_name("view-reveal-symbolic");
-    btn_restore_hidden.set_tooltip_text(Some("Restaurar comandos ocultos"));
+    btn_restore_hidden.set_tooltip_text(Some(&tr("Restore hidden commands")));
     btn_restore_hidden.set_visible(false);
     header.pack_end(&btn_restore_hidden);
     main_box.append(&header);
@@ -943,7 +948,7 @@ pub fn show_command_manager_dialog(
     input_section.set_margin_start(16);
     input_section.set_margin_end(16);
 
-    let hint_lbl = gtk4::Label::new(Some("Enviar para todos os terminais"));
+    let hint_lbl = gtk4::Label::new(Some(&tr("Send to all terminals")));
     hint_lbl.add_css_class("dim-label");
     hint_lbl.add_css_class("caption");
     hint_lbl.set_halign(gtk4::Align::Start);
@@ -970,13 +975,13 @@ pub fn show_command_manager_dialog(
     input_frame.set_child(Some(&scrolled_text));
     input_overlay.set_child(Some(&input_frame));
 
-    let btn_execute = gtk4::Button::with_label("Executar");
+    let btn_execute = gtk4::Button::with_label(&tr("Execute"));
     btn_execute.add_css_class("suggested-action");
     btn_execute.add_css_class("execute-button");
     btn_execute.set_halign(gtk4::Align::End);
     btn_execute.set_valign(gtk4::Align::Center);
     btn_execute.set_margin_end(8);
-    btn_execute.set_tooltip_text(Some("Executar comando em todos os terminais"));
+    btn_execute.set_tooltip_text(Some(&tr("Executar comando em todos os terminais")));
     input_overlay.add_overlay(&btn_execute);
 
     {
@@ -1041,7 +1046,7 @@ pub fn show_command_manager_dialog(
         .build();
     let add_content = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
     add_content.append(&gtk4::Image::from_icon_name("list-add-symbolic"));
-    add_content.append(&gtk4::Label::new(Some("Adicionar Comando")));
+    add_content.append(&gtk4::Label::new(Some(&tr("Add Command"))));
     btn_add_cmd.set_child(Some(&add_content));
     bottom_bar.append(&btn_add_cmd);
     main_box.append(&bottom_bar);
@@ -1082,24 +1087,36 @@ pub fn show_command_manager_dialog(
                 if q.is_empty() {
                     return true;
                 }
+                let tr_name = tr(&c.name).to_lowercase();
+                let tr_desc = tr(&c.description).to_lowercase();
+                let tr_cat = tr(&c.category).to_lowercase();
                 c.name.to_lowercase().contains(&q)
+                    || tr_name.contains(&q)
                     || c.description.to_lowercase().contains(&q)
+                    || tr_desc.contains(&q)
                     || c.command_template.to_lowercase().contains(&q)
                     || c.category.to_lowercase().contains(&q)
+                    || tr_cat.contains(&q)
             });
 
-            // Sort alphabetically by name
-            list.sort_by(|(_, a), (_, b)| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
+            // Sort alphabetically by localized display name
+            list.sort_by(|(_, a), (_, b)| {
+                tr(&a.name)
+                    .to_lowercase()
+                    .cmp(&tr(&b.name).to_lowercase())
+            });
 
             for (orig_idx, cmd) in list {
+                let disp_name = tr(&cmd.name);
+                let disp_desc = tr(&cmd.description);
                 let btn = gtk4::Button::builder()
                     .css_classes(["command-button"])
-                    .tooltip_text(&cmd.description)
+                    .tooltip_text(&disp_desc)
                     .build();
 
                 let b_content = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
                 b_content.append(&gtk4::Image::from_icon_name(&cmd.icon_name));
-                let lbl = gtk4::Label::new(Some(&cmd.name));
+                let lbl = gtk4::Label::new(Some(&disp_name));
                 lbl.set_ellipsize(pango::EllipsizeMode::End);
                 b_content.append(&lbl);
                 btn.set_child(Some(&b_content));
@@ -1130,22 +1147,22 @@ pub fn show_command_manager_dialog(
                     mbox.set_margin_top(4);
                     mbox.set_margin_bottom(4);
 
-                    let m_exec_all = gtk4::Button::with_label("Executar em Todos os Terminais");
+                    let m_exec_all = gtk4::Button::with_label(&tr("Execute in All Terminals"));
                     m_exec_all.add_css_class("flat");
-                    let m_edit = gtk4::Button::with_label("Editar");
+                    let m_edit = gtk4::Button::with_label(&tr("Edit"));
                     m_edit.add_css_class("flat");
-                    let m_duplicate = gtk4::Button::with_label("Duplicar");
+                    let m_duplicate = gtk4::Button::with_label(&tr("Duplicate"));
                     m_duplicate.add_css_class("flat");
-                    let m_pin = gtk4::Button::with_label(if cmd.pinned {
-                        "Desafixar da Barra de Ferramentas"
+                    let m_pin = gtk4::Button::with_label(&if cmd.pinned {
+                        tr("Unpin from Toolbar")
                     } else {
-                        "Fixar na Barra de Ferramentas"
+                        tr("Pin to Toolbar")
                     });
                     m_pin.add_css_class("flat");
-                    let m_hide = gtk4::Button::with_label(if cmd.is_builtin {
-                        "Ocultar"
+                    let m_hide = gtk4::Button::with_label(&if cmd.is_builtin {
+                        tr("Hide")
                     } else {
-                        "Excluir"
+                        tr("Delete")
                     });
                     m_hide.add_css_class("flat");
 
@@ -1209,7 +1226,7 @@ pub fn show_command_manager_dialog(
                                 .map(|d| d.as_millis())
                                 .unwrap_or(0);
                             dup.id = format!("{}_copy_{}", dup.id, millis);
-                            dup.name = format!("{} (Cópia)", dup.name);
+                            dup.name = tr_fmt("{name} (Cópia)", &[("name", &tr(&dup.name))]);
                             dup.is_builtin = false;
                             c_rc.borrow_mut().push(dup);
                             let _ = save_command_buttons(&c_rc.borrow());
@@ -1343,7 +1360,7 @@ fn show_command_editor_dialog(
             name: String::new(),
             description: String::new(),
             command_template: String::new(),
-            category: "Personalizado".to_string(),
+            category: tr("Custom"),
             icon_name: "utilities-terminal-symbolic".to_string(),
             execution_mode: ExecutionMode::InsertAndExecute,
             pinned: false,
@@ -1356,10 +1373,10 @@ fn show_command_editor_dialog(
     let edit_dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title(if is_editing {
-            format!("Editar Comando: {}", initial_cmd.name)
+        .title(&if is_editing {
+            tr_fmt("Editar Comando: {name}", &[("name", &tr(&initial_cmd.name))])
         } else {
-            "Adicionar Comando".to_string()
+            tr("Add Command")
         })
         .default_width(480)
         .default_height(420)
@@ -1375,46 +1392,46 @@ fn show_command_editor_dialog(
     form.set_margin_bottom(16);
 
     let e_name = gtk4::Entry::builder()
-        .placeholder_text("Nome do comando (ex: Reiniciar Nginx)")
-        .text(&initial_cmd.name)
+        .placeholder_text(&tr("Nome do comando (ex: Reiniciar Nginx)"))
+        .text(&tr(&initial_cmd.name))
         .build();
 
     let e_desc = gtk4::Entry::builder()
-        .placeholder_text("Descrição (opcional)")
-        .text(&initial_cmd.description)
+        .placeholder_text(&tr("Description (optional)"))
+        .text(&tr(&initial_cmd.description))
         .build();
 
     let e_tpl = gtk4::Entry::builder()
-        .placeholder_text("Template do comando (ex: sudo systemctl restart nginx)")
+        .placeholder_text(&tr("Template do comando (ex: sudo systemctl restart nginx)"))
         .text(&initial_cmd.command_template)
         .build();
     e_tpl.add_css_class("monospace");
 
     let e_cat = gtk4::Entry::builder()
-        .placeholder_text("Categoria")
-        .text(&initial_cmd.category)
+        .placeholder_text(&tr("Categoria"))
+        .text(&tr(&initial_cmd.category))
         .build();
 
     let e_icon = gtk4::Entry::builder()
-        .placeholder_text("Nome do ícone (ex: utilities-terminal-symbolic)")
+        .placeholder_text(&tr("Nome do ícone (ex: utilities-terminal-symbolic)"))
         .text(&initial_cmd.icon_name)
         .build();
 
-    let chk_pin = gtk4::CheckButton::with_label("Fixar na Barra de Ferramentas");
+    let chk_pin = gtk4::CheckButton::with_label(&tr("Pin to Toolbar"));
     chk_pin.set_active(initial_cmd.pinned);
 
-    let btn_save = gtk4::Button::with_label("Salvar Comando");
+    let btn_save = gtk4::Button::with_label(&tr("Salvar Comando"));
     btn_save.add_css_class("suggested-action");
 
-    form.append(&gtk4::Label::builder().label("Nome:").halign(gtk4::Align::Start).build());
+    form.append(&gtk4::Label::builder().label(&tr("Nome:")).halign(gtk4::Align::Start).build());
     form.append(&e_name);
-    form.append(&gtk4::Label::builder().label("Descrição:").halign(gtk4::Align::Start).build());
+    form.append(&gtk4::Label::builder().label(&tr("Descrição:")).halign(gtk4::Align::Start).build());
     form.append(&e_desc);
-    form.append(&gtk4::Label::builder().label("Comando / Template:").halign(gtk4::Align::Start).build());
+    form.append(&gtk4::Label::builder().label(&tr("Comando / Template:")).halign(gtk4::Align::Start).build());
     form.append(&e_tpl);
-    form.append(&gtk4::Label::builder().label("Categoria:").halign(gtk4::Align::Start).build());
+    form.append(&gtk4::Label::builder().label(&tr("Categoria:")).halign(gtk4::Align::Start).build());
     form.append(&e_cat);
-    form.append(&gtk4::Label::builder().label("Ícone:").halign(gtk4::Align::Start).build());
+    form.append(&gtk4::Label::builder().label(&tr("Ícone:")).halign(gtk4::Align::Start).build());
     form.append(&e_icon);
     form.append(&chk_pin);
     form.append(&btn_save);
@@ -1507,9 +1524,9 @@ pub fn build_command_and_broadcast_bars(
                 let ids: Vec<u64> = (0..list.len() as u64).collect();
                 match router.dispatch_command(0, &ids, &ids, cmd_str) {
                     BroadcastOutcome::BlockedByGuard { violation, .. } => {
-                        status.set_text(&format!(
-                            "🛑 Broadcast bloqueado pelo ProductionGuard: {}",
-                            violation.risk_summary
+                        status.set_text(&tr_fmt(
+                            "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}",
+                            &[("risk", &violation.risk_summary)],
                         ));
                     }
                     BroadcastOutcome::FanOut { targets, .. } => {
@@ -1518,9 +1535,9 @@ pub fn build_command_and_broadcast_bars(
                                 t.feed_child(payload.as_bytes());
                             }
                         }
-                        status.set_text(&format!(
-                            "📡 Comando enviado em Broadcast para {} terminal(is).",
-                            targets.len()
+                        status.set_text(&tr_fmt(
+                            "📡 Comando enviado em Broadcast para {count} terminal(is).",
+                            &[("count", &targets.len().to_string())],
                         ));
                     }
                     BroadcastOutcome::SingleTarget(_) => {}
@@ -1528,13 +1545,16 @@ pub fn build_command_and_broadcast_bars(
             } else if let Some(term) = active_fn() {
                 let guard = ProductionGuard::new();
                 if let Some(violation) = guard.evaluate_command(cmd_str) {
-                    status.set_text(&format!(
-                        "⚠️ Alerta ProductionGuard ({:?}): {}",
-                        violation.severity, violation.risk_summary
+                    status.set_text(&tr_fmt(
+                        "⚠️ Alerta ProductionGuard ({severity}): {risk}",
+                        &[
+                            ("severity", &format!("{:?}", violation.severity)),
+                            ("risk", &violation.risk_summary),
+                        ],
                     ));
                 }
                 term.feed_child(payload.as_bytes());
-                status.set_text(&format!("Comando enviado: {cmd_str}"));
+                status.set_text(&tr_fmt("Comando enviado: {cmd}", &[("cmd", cmd_str)]));
             }
         })
     };
@@ -1558,7 +1578,9 @@ pub fn build_command_and_broadcast_bars(
     let btn_toggle_broadcast = gtk4::ToggleButton::builder()
         .icon_name("network-transmit-receive-symbolic")
         .label("Broadcast")
-        .tooltip_text("Barra de Execução Simultânea (Multi-Terminal Broadcast)")
+        .tooltip_text(&tr(
+            "Barra de Execução Simultânea (Multi-Terminal Broadcast)",
+        ))
         .build();
     btn_toggle_broadcast.add_css_class("flat");
     cmd_toolbar_hbox.append(&btn_toggle_broadcast);
@@ -1573,18 +1595,20 @@ pub fn build_command_and_broadcast_bars(
     broadcast_bar.set_margin_bottom(4);
     broadcast_bar.set_visible(false);
 
-    let bc_badge = gtk4::Label::new(Some("📡 Broadcast (🛡️ ProductionGuard Ativo):"));
+    let bc_badge = gtk4::Label::new(Some(&tr("📡 Broadcast (🛡️ ProductionGuard Ativo):")));
     bc_badge.add_css_class("heading");
     broadcast_bar.append(&bc_badge);
 
     let bc_entry = gtk4::Entry::builder()
-        .placeholder_text("Digite um comando para enviar a TODOS os terminais abertos...")
+        .placeholder_text(&tr(
+            "Digite um comando para enviar a TODOS os terminais abertos...",
+        ))
         .hexpand(true)
         .build();
     bc_entry.add_css_class("monospace");
     broadcast_bar.append(&bc_entry);
 
-    let bc_send_btn = gtk4::Button::with_label("Enviar p/ Todos");
+    let bc_send_btn = gtk4::Button::with_label(&tr("Enviar p/ Todos"));
     bc_send_btn.add_css_class("suggested-action");
     broadcast_bar.append(&bc_send_btn);
 
@@ -1632,16 +1656,18 @@ pub fn build_command_and_broadcast_bars(
             }
             let list = cmds_rc.borrow().clone();
             for cmd in list.into_iter().filter(|b| b.pinned) {
+                let disp_name = tr(&cmd.name);
+                let disp_desc = tr(&cmd.description);
                 let btn = gtk4::Button::new();
                 btn.add_css_class("flat");
                 btn.set_tooltip_text(Some(&format!(
                     "{} — {}\n$ {}",
-                    cmd.name, cmd.description, cmd.command_template
+                    disp_name, disp_desc, cmd.command_template
                 )));
 
                 let b_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
                 let icon = gtk4::Image::from_icon_name(&cmd.icon_name);
-                let lbl = gtk4::Label::new(Some(&cmd.name));
+                let lbl = gtk4::Label::new(Some(&disp_name));
                 lbl.add_css_class("caption");
                 b_hbox.append(&icon);
                 b_hbox.append(&lbl);
@@ -1689,11 +1715,11 @@ mod tests {
         assert_eq!(rendered, "docker logs --tail 50 -f redis-cache");
 
         let (safe_badge, reason) = evaluate_command_safety_badge(&rendered);
-        assert!(safe_badge.contains("Seguro"));
+        assert_eq!(safe_badge, tr("🟢 Comando Seguro"));
         assert!(reason.is_none());
 
         let (danger_badge, danger_reason) = evaluate_command_safety_badge("sudo rm -rf /");
-        assert!(danger_badge.contains("Alto Risco"));
+        assert_eq!(danger_badge, tr("🔴 Alto Risco (ProductionGuard)"));
         assert!(danger_reason.is_some());
     }
 

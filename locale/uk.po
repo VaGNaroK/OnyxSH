@@ -17116,3 +17116,4099 @@ msgstr "🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Sempre Avançado (Raciocínio)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} секрет(ів) приховано)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ Експорт термінала OnyxSH"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Мета / Контекст"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Висновок і винесені уроки"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Попередні зауваження"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Покрокове виконання"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Інформація про сесію"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Вивід не згенеровано)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*Документ автоматично створено журналом операцій OnyxSH.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Для цього документа не вибрано жодного кроку.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Дата / Час:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Хост:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Оператор / Автор:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Сесія:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Статус:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Усього записано кроків:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Вивід ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (решту виводу обрізано у попередньому перегляді)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Читання / Запис пристрою"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable і Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 колірних схем, підсвічування виводу та правила для команд"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Перейти до батьківського каталогу (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Примітка:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "Порт {port} уже зайнято іншим процесом."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "ВКЛАДКА #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "ШІ-асистент: {state}"
+
+# 
+msgid "AI: "
+msgstr "ШІ: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Вкладку закрито."
+
+# 
+msgid "Abaixo"
+msgstr "Нижче"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Перервати поточне вирішення конфліктів"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Перервати rebase і повернутися до початкової гілки"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Відкриває панель пошуку (Regex/Літерал) на активній вкладці (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Автоматично відкриває цей тунель під час підключення до хоста SSH"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Відкриває новий локальний термінал (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Відкриває інтерактивну оболонку всередині запущеного контейнера Docker"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Відкриття посилання: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Відкрити монітор ресурсів (спарклайни Cairo)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Відкрити теку"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Відкрити у зовнішній програмі"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Відкрити цей каталог у терміналі (cd)"
+
+# 
+msgid "Acima"
+msgstr "Вище"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Відстежує журнали контейнера Docker у реальному часі"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Відстежує журнали юніта systemd у реальному часі"
+
+# 
+msgid "Active"
+msgstr "Активно"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Додати посилання відстеження upstream"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Додати новий SSH-туннель"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Додати власну схему"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Групувати за категоріями (.7z угорі)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Виділити pseudo-TTY, підключений до stdin контейнера"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Дозволити відкат до старішої версії пакета"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Дозволити небезпечні з'єднання TLS"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Аудитовану зміну створено з атомарною резервною копією."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Перемкнути ШІ-асистента Zero-Trust"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Перемкнути двопанельний файловий менеджер"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Перемкнути режим редагування (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Перемкнути подвійну панель (Розділити / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "Перемкнути бічну панель сесій SSH"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Середовище Flatpak"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Середовище виробництва (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Середовище виробництва — захищено ProductionGuard"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Змінити (amend) останній коміт поточної гілки"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Проаналізуйте наведені нижче останні повідомлення та помилки з файлу журналу '{name}' і надайте діагностику першопричин та рекомендовані рішення:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Проаналізуйте проєкт і підготуйте необхідні виправлення за допомогою OpenCode."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Проаналізувати поточний пакет і повідомити про помилки"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Додати файл (перевірка PathGuard)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Додати файл до контексту (перевірено PathGuard)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "Аналіз вашого запиту завершено (застосовано `SecretRedactor` та ізоляцію `<untrusted>`).\n\nРекомендована команда:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Аналіз надіслано до ШІ-асистента."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Застосовує підсвічування синтаксису до виводу команди 'cat'"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Автоматично застосовує контекстні правила під час виявлення команди, що виконується"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Застосовувати підсвічування виводу до з'єднань SSH"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Застосовувати підсвічування виводу до локальних сесій термінала"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Застосунок і Вікно"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Програма або ID"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Застосувати збережений стан (stash) і залишити у списку"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Застосувати збережений стан (stash) і видалити зі списку"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Схвалити та виконати"
+
+# 
+msgid "Aproximar"
+msgstr "Збільшити"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Утиліта керування пакетами для Arch Linux / Manjaro"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Режим архівування (зберігає права доступу, час і символічні посилання)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Попередній файл (Стрілка вгору / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Двійковий файл: {name}\nШлях: {path}\nРозмір: {size}\nПрава: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Архівний файл"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Файл скопійовано для перенесення: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Файл створено: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Файл даних"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Відеофайл"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Аудіофайл"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Файл видалено: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Файл позначено для переміщення: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Файл перезавантажено з диска."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Файл перейменовано на '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Файл відновлено після відкату: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Файл збережено з правами адміністратора (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Файл успішно збережено з правами адміністратора (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Файл успішно збережено!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Файл: {name} (Розмір: {size} байтів)\nФрагмент:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Файли згруповано за категоріями (.7z угорі)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Файли впорядковано за датою зміни"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Файли впорядковано за назвою"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Файли впорядковано за розміром"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Файли впорядковано за типом / розширенням"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Вихідні файли/теки"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "Асистент коду OpenCode"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "ШІ-асистент Zero-Trust"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "ШІ-асистента не підключено."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Прийняти ризик і виконати"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "Комбінацію клавіш '{name}' оновлено на {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "Комбінацію клавіш '{name}' видалено."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Комбінації клавіш (34 налаштовувані дії)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Системні ярлики та вибране"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Увімкнути / вимкнути щит середовища виробництва (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "Увімкнути розфарбування для 'cat'"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Увімкнути підсвічування введення оболонки"
+
+# 
+msgid "Ativar Todos"
+msgstr "Увімкнути всі"
+
+# 
+msgid "Ativo"
+msgstr "Активно"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Активно (прослуховування на {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Поточний: {curr}\nНовий: (натисніть клавіші)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Current: {curr}\nNew: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Current: {curr}\nNew: {new} (Conflicts with {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Оновити (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Оновити список (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Аудит безпеки за допомогою ШІ"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Аудит безпеки цього каталогу за допомогою ШІ"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "Запит на аудит безпеки '{name}' надіслано ШІ-асистенту."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "Аудит каталогу '{path}' надіслано ШІ-асистенту."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Збільшити шрифт (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Автентифікація:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Авто: адаптується до фону термінала. Вручну: фіксована тема."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Авто: автоматично визначає контраст із фоном"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Автодоповнено: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Розумне автодоповнення (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Розумне автодоповнення — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Автодоповнення застосовано: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Автоматичне «так»"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Автоматично видаляти непотрібні залежності"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Автоматично запускає діагностику лише для читання без потреби в ручному підтвердженні."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Переходить до наступної вкладки (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Дія"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "Створено резервну копію SHA-256 ({count} файлів): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "Збережено резервну копію SHA-256 ({count} файлів): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Резервну копію не знайдено в {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Резервну копію успішно відновлено ({count} файлів перевірено через SHA-256)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Панель одночасного виконання (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Пакетне видалення через xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Заблокувати і скасувати (Рекомендовано)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Розсилку надіслано: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Розіслати всім"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Зібрати всі пакети в робочому просторі"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Зібрати артефакти в режимі випуску (release)"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Зібрати артефакти в режимі випуску з оптимізаціями"
+
+# 
+msgid "Busca"
+msgstr "Пошук"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Глобальний пошук по вкладках / Історія"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Глобальний пошук по вкладках / Сеанси / Історія"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Глобальний пошук по вкладках, сеансах, історії та сніпетах (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Глобальний пошук вставив у рядок вводу: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Глобальний пошук в OnyxSH (Ctrl+Shift+G) — Вкладки, сеанси, історія та сніпети"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Глобальний пошук: фокус на вкладці #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Шукає файли та каталоги за допомогою розширених фільтрів"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Нечіткий пошук за каталогом, хостом та обраним (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Пошук у терміналі (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Пошук у поточному терміналі"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Пошук сеансів або хостів..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Пошук тексту в терміналі..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Пропускати запити підтвердження"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Обчислення хешів у фоновому режимі..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Шлях скопійовано: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Шлях до теки (напр.: Продакшн або Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Шлях до файлу (напр.: /var/log/syslog або ~/.ssh/id_rsa для тестування блокування):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Шлях вставлено в термінал: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Шаблон імені файлу без урахування регістру"
+
+# 
+msgid "Categoria"
+msgstr "Категорія"
+
+# 
+msgid "Categoria:"
+msgstr "Категорія:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Змінити каталог перед виконанням операцій"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "Ключ SSH / Пароль:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Перевірити підпис GPG і цілісність файлу .rpm"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Перевірити наявні оновлення пакетів без установлення"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Перевіряє пакет для виявлення типових помилок"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Контрольні суми та перевірка цілісності — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Виберіть між високошвидкісними хмарними постачальниками або локальними серверами."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Очистити весь кеш пакетів (видалити всі завантажені пакети)"
+
+# 
+msgid "Clean local caches"
+msgstr "Очистити локальні кеші"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Очистити кеш пакетів (видалити старі завантажені пакети)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Натисніть, щоб змінити комбінацію клавіш"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Натисніть, щоб підключитися в новій вкладці (і вибрати цей сеанс)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Натисніть, щоб дізнатися, що дозволяє або обмежує кожен рівень дозволів"
+
+# 
+msgid "Colar"
+msgstr "Вставити"
+
+# 
+msgid "Colar Aqui"
+msgstr "Вставити сюди"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Вставити всередину цієї теки"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Вставте вище хеш MD5, SHA-1, SHA-256 або SHA-512 для перевірки автентичності."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Підсвічує команди в реальному часі під час введення в терміналі"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Підсвічує шаблони у виводі термінала, як-от помилки, попередження та IP-адреси. Велика кількість правил може вплинути на дуже об'ємний вивід."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "Підсвічування команди cat"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Команда ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Команда / Шаблон:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Команда після входу:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Команду скопійовано до буфера обміну."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Робочу команду оцінено оператором."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Команду надіслано до термінала: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Команду надіслано: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Команду виконано з історії: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Команду виконано через палітру: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Помилка виконання команди (код {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Команду вставлено в рядок вводу: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Тривала команда успішно завершена (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Поєднати з кольорами термінала"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Палітра команд (Ctrl+Shift+P) — Єдиний пошук"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Палітра команд — Єдиний пошук (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Стиснути"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Порівняння цілісності"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Порівняти / Синхронізувати каталоги (Лівий ⇄ Правий)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Двопанельне порівняння: {identical} ідентичних | {left_only} лише ліворуч | {right_only} лише праворуч | {diff} різного розміру"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Сумісність із репозиторіями Git та застарілими сховищами"
+
+# 
+msgid "Compile the current package"
+msgstr "Скомпілювати поточний пакет"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Стискати дані файлів під час передавання"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Висновки та отримані уроки"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Підключено до сеансу: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Підключення через глобальний пошук: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Підключення через палітру команд: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Підключитися в розділеній панелі (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Підключитися: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "Налаштувати ШІ-асистента..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Налаштувати правила для цієї команди"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "Налаштування ШІ-асистента — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Налаштувати всі розпаковані, але не налаштовані пакети"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Налаштувати розпакований пакет"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Налаштуйте окремі ключі для перемикання постачальників без повторного налаштування"
+
+# 
+msgid "Confirm"
+msgstr "Підтвердити"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Підтвердити видалення"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Конфлікт або збій синхронізації в репозиторії Git."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Розмір вікна контексту (Токени)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Вміст скопійовано до буфера обміну."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Продовжити rebase після розв'язання конфліктів"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Розмову завантажено з історії."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Скопійовано до {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Копіювати файл"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Копіювати шлях до батьківського каталогу"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Копіювати теку"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Копіювати вибране до правої панелі (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Копіювати вибране до лівої панелі (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Копіювати до буфера обміну"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Копіювати детальний звіт у форматі Markdown"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Кольори та підсвічування"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Кольори та підсвічування термінала"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Стандартні кольори термінала (0-7 звичайні, 8-15 яскраві)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Створювати коміт злиття навіть за fast-forward"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Створити неглибоку копію з обрізаною історією"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Створити стиснутий gzip tar-архів із докладним виводом"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Створює стиснені архіви з файлів і тек"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Створює та редагує параметризовані кнопки команд (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Створює нову локальну гілку в репозиторії Git і перемикається на неї"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Створює тестовий файл у /tmp з атомарним резервним копіюванням в AuditLogger"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Створює власну колірну схему на основі активної схеми"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Створити резервну копію налаштувань (пакет SHA-256)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Создать новую ветку Git"
+
+# 
+msgid "Criar Sessão"
+msgstr "Створити сеанс"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Створіть локальний (-L), віддалений (-R) або динамічний тунель SOCKS5 (-D) для перенаправлення портів через SSH."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Обчислення контрольної суми скасовано користувачем."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Код Rust"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Код вставлено в активний термінал."
+
+# 
+msgid "Código-Fonte"
+msgstr "Вихідний код"
+
+# 
+msgid "Cópia de {name}"
+msgstr "Копія {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "Дата зміни"
+
+# 
+msgid "Date / Time"
+msgstr "Дата / Час"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Дата: {date} | Розміри: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Низькорівневий менеджер пакунків Debian (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Ключ API за замовчуванням"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Ідентифікатор моделі за замовчуванням"
+
+# 
+msgid "Default Provider"
+msgstr "Постачальник за замовчуванням"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Визначає та запускає багатоконтейнерні застосунки"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Установити права доступу до файлу для: {name}\nПоточні: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Видалити правило брандмауера"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Видалити злиту гілку"
+
+# 
+msgid "Desativar Todos"
+msgstr "Вимкнути все"
+
+# 
+msgid "Descrição:"
+msgstr "Опис:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Підсвічування введення Shell"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Підсвічування синтаксису в реальному часі під час введення команд"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Підсвічування синтаксису для виводу команди 'cat' (за допомогою рушія Pygments/ANSI)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Віддалене призначення"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Від'єднаний режим: запустити команду у фоновому режимі"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Фоновый режим: запускать контейнеры в фоне"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Діагностувати помилки журналу за допомогою ШІ"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Діагностувати та перезапустити вебсервіс"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Евристична діагностика (**{title}**):\n{desc}\n\nПропозиція швидкого виправлення:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Безпечна діагностика системи — Телеметрія та підтримка"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "Діагностику журналу '{name}' надіслано ШІ-помічнику."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Враховувати регістр"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Введіть команду (напр.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Введіть команду для надсилання в УСІ відкриті термінали..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Введіть дію, сеанс SSH або параметризовану команду..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Зменшити шрифт (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Динамічний (-D) • Проксі SOCKS5 через SSH"
+
+# 
+msgid "Direita"
+msgstr "Праворуч"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "Каталог '{path}' додано до вибраного."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Каталог конфігурації"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Каталог надіслано до термінала: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Каталог: {name}\nШлях: {path}\nПрава: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Дозволені каталоги, ізоляція PathGuard і політики заборони за замовчуванням"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Вимкнути встановлений snap"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Диск заповнений (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Диск (фізичний В/В)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Показати докладну інформацію про встановлений пакунок"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Показувати пам'ять у мегабайтах"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Показати відомості про стан встановленого пакунка"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Розділяє поточну вкладку зверху/знизу (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Розділяє поточну вкладку поруч (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Split Horizontally"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Розділити термінал горизонтально"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Розділити вертикально"
+
+# 
+msgid "Divisão"
+msgstr "Розділення"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Нічого не питати, використовувати відповіді за замовчуванням"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Не перевіряти залежності перед видаленням"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Не виконувати віддалену команду (лише перенаправлення портів)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Не розв'язувати назви служб"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Не зберігати знімок даних пакунка snap"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Не перевіряти залежності пакунків"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Не перевіряти залежності пакунків перед встановленням"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Нічого не робити, якщо віддалений репозиторій із такою самою назвою вже існує"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Текстовий документ"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Завантажити свіжу копію баз даних пакунків"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Лише завантажити пакунки, не встановлювати"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Намалювати текстовий графік історії комітів"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Пробне видалення без вилучення файлів"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Пробне тестове встановлення без зміни системи"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Редагувати команду: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Редагувати налаштування тунелю"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Редагувати колірну схему"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Редагувати вибраний сеанс"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Редагувати сеанс — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Редагувати колірну схему або створити власний варіант"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Я підготував **Структурований план дій** із валідацією через `PolicyEngine` та автоматичною перевіркою після виконання (`verifier.rs`) для:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Сучасний емулятор термінала для локальних і віддалених робочих процесів у Linux із ProductionGuard, двопанельним SFTP/TFTP та Zero-Trust ШІ-помічником."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Увімкнути вимкнений snap"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "Перенаправлення X11 (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Закриває активну вкладку (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Найти файлы"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Надсилає команди одночасно до кількох терміналів (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Відправити команду на всі вкладки"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Надіслати запитання"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "Надіслати команду sha256sum до активної вкладки термінала"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Надіслати всім"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Видалити (деінсталювати) встановлений RPM-пакунок"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Помилка збереження файлу"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Помилка зміни прав доступу для '{name}': {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Помилка обчислення хешу"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Помилка вставлення елемента: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Помилка створення файлу: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Помилка створення резервної копії: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Помилка створення теки: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Помилка видалення файлу: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Помилка видалення теки: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Помилка переліку {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Помилка переміщення елемента: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Помилка перейменування: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Помилка репозиторію Git"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Помилка відкату: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Помилка: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Виберіть між локальним (-L), віддаленим (-R) або динамічним SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Колірну схему застосовано: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Колірну схему збережено: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Цей сеанс походить із ~/.ssh/config (лише для читання) або вже був видалений."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Цей файл лише для читання. Зміни можна зберегти з правами адміністратора (Root)."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Світлий стиль (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Темний стиль (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "Напр.: 10.0.0.15 або srv.company.com"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "Напр.: Продакшн (залиште порожнім для кореня)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "Напр.: Продакшн Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "Напр.: root або ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Видалити теку"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Видалити назавжди"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Виконано в терміналі: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Виконати (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Виконати зараз"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Запустити з sudo у терміналі"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Виконати команду в усіх терміналах"
+
+# 
+msgid "Executar passo"
+msgstr "Виконати крок"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Виконати план агента"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Виконати всі модульні та інтеграційні тести"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Показати панель сеансів"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Пояснити файл за допомогою ШІ"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "Запитано пояснення файлу '{name}' у ШІ-помічника."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Поясніть призначення, структуру та роботу файлу '{name}'.\nШлях: {path}\n\nПочатковий вміст:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Експортує settings.json, sessions.json і command_buttons.json із хешем SHA-256"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Експортує весь буфер або активне виділення термінала"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Експортовано до {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Експортувати вивід термінала (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Експортувати сеанс як експлуатаційний журнал (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "Експорт термінала OnyxSH - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Контроль зовнішніх з'єднань та сувора ізоляція даних."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Детально розпакувати tar-архів, стиснутий gzip"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Видобуває файли зі стиснених архівів"
+
+# 
+msgid "Extrair"
+msgstr "Витягти"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Не вдалося зберегти як Root"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Не вдалося дочекатися процесу pkexec: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Не вдалося обчислити контрольні суми: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Не вдалося створити резервну копію: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Не вдалося записати дані у stdin процесу pkexec: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Не вдалося запустити привілейований процес pkexec: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Не вдалося відновити резервну копію: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Не вдалося зберегти файл: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Помилка передавання (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Помилка передавання (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Швидкий та універсальний інструмент для копіювання віддалених і локальних файлів"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Додати / прибрати команду з вибраного"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Додати поточний каталог до вибраного"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Видалено з вибраного: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Фіксує зміни (commit) у Git з описовим повідомленням"
+
+# 
+msgid "Fechar Aba"
+msgstr "Закрити вкладку"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Закрити активну панель"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "Менеджер RPM-пакунків для Fedora/RHEL/Rocky/AlmaLinux"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Отримати з іншого репозиторію та інтегрувати"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Черга передавань — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Черга передавань порожня (0 активних завдань)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Дані файлу змінено n*24 годин тому"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Тип файлу (f звичайний файл, d каталог, l символьне посилання)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Фільтрувати архів через gzip (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Знайти пакунок, що надає вказаний файл або функцію"
+
+# 
+msgid "Focar janela existente"
+msgstr "Сфокусувати наявне вікно"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Focus Pane Down"
+
+# 
+msgid "Focar painel acima"
+msgstr "Focus Pane Up"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Focus Pane Right"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Focus Pane Left"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Фокус перемкнуто на першу панель."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Фокус перемкнуто на другу панель."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Відстежувати вивід наживо в міру зростання файлу"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Шрифт, палітра кольорів, прозорість і ШІ (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Примусово видалити, навіть якщо від нього залежать програми"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Примусово встановити, навіть якщо пакунок або файли вже існують"
+
+# 
+msgid "Force upgrade"
+msgstr "Примусово оновити"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Форматувати вивід запиту за допомогою власного queryformat"
+
+# 
+msgid "Formato"
+msgstr "Format"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "Оновити RPM-пакунки (оновлювати лише якщо вони вже встановлені)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Згенерувати структурований план дій (ActionPlan)"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Керує системними службами за допомогою systemctl"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Файловий менеджер"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Двопанельний файловий менеджер"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Менеджер команд"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Менеджер команд і динамічних форм"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Управління вкладками та панелями"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak application and runtime management"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Запропонувати Conventional Commit"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: поточний каталог не є репозиторієм Git."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Висока місткість контексту"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Сітка піктограм"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Надшвидкий LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Графіки в реальному часі для ЦП, ОЗП, дискового вводу-виводу та мережі/ГП"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Модель і постачальник із глибоким міркуванням для багатокрокових планів"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Розширена історія команд (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Історія розмов"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Історія передавань"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Історія: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Хост / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Віддалений хост (IP / домен)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Віддалений хост для прив'язки (Bind)"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Хост не може бути порожнім"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Недійсний хост або IP-адреса."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Файл ідентифікації (закритий ключ) для автентифікації за відкритим ключем"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Ігнорувати регістр символів"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Ігнорувати позначення резервних копій файлів (видалити файли конфігурації)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Ігнорувати неіснуючі файли, ніколи не запитувати"
+
+# 
+msgid "Imagem"
+msgstr "Зображення"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "Імпортувати відкритий GPG-ключ у форматі ASCII-armored до в'язки ключів RPM"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Імпортувати віддалену конфігурацію з .flatpakrepo"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Імпортувати сеанси (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "Включити заголовки відповіді HTTP у вивід"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Збільшує розмір шрифту термінала (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Виводить і пропонує автоматичні перевірки (стан служби, синтаксис конфігурації) після команд, що змінюють стан."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "Запустити TFTP-сервер"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Вставити (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Вставити шлях у термінал"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Перевіряє поточний репозиторій Git і пропонує повідомлення коміту"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Перевірити активні сокети та порти на хості"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Встановити локальний файл пакунка .deb"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Встановити файл пакунка RPM із детальним поступом"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Встановити як неявну залежність"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Встановити з каналу beta"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Встановити з каналу edge"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Встановити зі стабільного каналу (stable)"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Встановити один або кілька пакунків RPM"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Встановити snap-пакунки в систему"
+
+# 
+msgid "Interactive rebase"
+msgstr "Інтерактивний rebase"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Інтерактивно обирати фрагменти (hunks) патчу"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Термінальний взаємодія"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Локальний інтерфейс / IP прив'язки (Bind)"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Локальний інтерфейс прослуховування"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Інтерпретувати шаблон як розширений регулярний вираз (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Інтервал перевірки затримки"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Інтервал у секундах для надсилання зондувальних пакетів KeepAlive"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Недійсне ім'я користувача SSH"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Недійсне ім'я хоста або IP-адреса"
+
+# 
+msgid "Invalid local port"
+msgstr "Недійсний локальний порт"
+
+# 
+msgid "Invalid port number"
+msgstr "Недійсний номер порту"
+
+# 
+msgid "Invalid remote host"
+msgstr "Недійсний віддалений хост"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Дослідити сокети (сучасна заміна netstat)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Перейти до вкладки"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Це скине всі клавіатурні скорочення до стандартних значень. Продовжити?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Елемент вставлено в: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Елемент переміщено до: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "Макет {n_pages} вкладок збережено до {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Очищає екран і буфер прокручування активного сеансу (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Очистити завершені"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Очистити невибрану історію"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Очистити сесію"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Очистити сеанс термінала"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Посилання скопійовано до буфера обміну."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Вивести список усіх файлів, що належать установленому пакунку RPM"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Показати програми та середовища виконання, доступні у віддаленому сховищі"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Показати можливості, необхідні цьому .rpm"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Показати файли конфігурації встановленого пакунка"
+
+# 
+msgid "List configuration files only"
+msgstr "Показати лише файли конфігурації"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Показати залежності, необхідні встановленому пакунку"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Показати файли, що містяться в архіві .rpm"
+
+# 
+msgid "List files installed by package"
+msgstr "Показати файли, встановлені пакунком"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Показати сторонні пакунки (напр., з AUR)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Показати встановлені пакунки, що відповідають шаблону"
+
+# 
+msgid "List installed snaps"
+msgstr "Показати встановлені snap-пакунки"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Показати встановлені файли юнітів та їхній стан увімкнення"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Показати осиротілі пакунки (залежності, які більше не потрібні)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Показати пакунки, встановлені як залежності"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Показати збережені наразі stash-записи"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Детальний список"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Виводить вміст каталогу з подробицями (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Список, сітка мініатюр, дерево та Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Список файлів"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Локально (Ollama / LM Studio) • Повна приватність GPU/CPU"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Базова URL-адреса локального сервера"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Журналы служб Systemd"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Довгий формат, усі файли, зручні для читання розміри"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Модель і провайдер із низькою затримкою для щоденних запитань щодо shell"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Створювати батьківські каталоги за потреби"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Максимальне виділення пам'яті контексту, що надсилається моделі"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Пам'ять (RAM і Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "Оперативна пам'ять (RAM)"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Повідомлення коміту"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Увімкнено суворий офлайн-режим (Без хмари)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Увімкнено онлайн-режим з інтелектуальною маршрутизацією."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Режим виділення тексту ввімкнено."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Режим виділення тексту вимкнено."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Режим трансляції (Broadcast на всі вкладки)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Режим теми"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Монітор ресурсів у реальному часі (спарклайни Cairo)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Монітор ресурсів у реальному часі — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Показує або приховує дерево сесій SSH (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Показувати приховані файли (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Рушій"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Назва та, за потреби, тег у форматі 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "У буфері обміну немає елементів для вставлення."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Записів аудиту ще немає. Натисніть «Симулювати аудитовану зміну», щоб перевірити атомарний відкат."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Через sysfs/nvidia-smi не виявлено дискретного GPU"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Сесію не вибрано"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "У сесії не зафіксовано жодного передавання."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Мережа (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Мережа (/proc/net/dev) • RX / TX у реальному часі"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Мережа (RX / TX) і GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Ніколи не ставити запитань"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Назва (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Назва нової гілки"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Назва сесії:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Назва нової теки:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Недійсне ім'я файлу в буфері обміну."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "Ім'я користувача SSH містить неприпустимі символи."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Ім'я цільового файлу"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Служба Назва"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Назва команди (напр.: Перезапустити Nginx)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Назва нового файлу:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Назва піктограми (напр.: utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Ім'я або ID контейнера"
+
+# 
+msgid "Nome:"
+msgstr "Назва:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Неінтерактивний режим"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Нова вкладка термінала"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Нова вкладка термінала (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Нова тека тут..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Нова тека сесій"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Нова тека..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Нова сесія — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Розпочато нову розмову."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Новий файл тут..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Новий файл..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Нова колірна схема"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Нова назва теки:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Нова назва файлу:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Не вдалося завантажити елемент: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Не вдалося записати зміни: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Недостатньо вільного місця у файловій системі."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Рівень 0 (Читання)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Рівень 1 (Запис)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Рівень 2 (Адмін)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Рівень 3 (Критичний)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Рівень 4 (Заблоковано)"
+
+# 
+msgid "Nível {n}"
+msgstr "Рівень {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Кількість спроб перед відмовою від автоматичного повторного підключення"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "Виконуваний файл '{bin}' не встановлено або він поза межами $PATH."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "Команда завершилася з кодом помилки."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "Команда, виконана в терміналі, завершилася з помилкою. Проаналізуйте файли проєкту та підготуйте необхідні виправлення за допомогою OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "Команда не вдалася через брак прав суперкористувача (root)."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "Назва сесії не може бути порожньою."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Обфускований / декодований із Base64 конвеєр виконання"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Попередній збіг (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Збіги, знайдені в терміналі"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Вісімковий: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Готово"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Тест сповіщення"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode запущено в терміналі."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Єдиний мультимодельний каталог"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Оператор: {author} | Хост: {host} | Дата: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Працювати з усіма пакунками в робочому просторі"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "Операцію скасовано або відхилено користувачем."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Операції з менеджером пакунків Arch Linux"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Операції з менеджером пакунків Debian/Ubuntu"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Операції з менеджером пакунків Fedora/RHEL"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Файлові операції"
+
+# 
+msgid "Ordem Crescente"
+msgstr "За зростанням"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "За спаданням"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Сортування за зростанням увімкнено"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Сортування за спаданням увімкнено"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Упорядкувати встановлені пакунки за часом встановлення (спочатку новіші)"
+
+# 
+msgid "Organizar por"
+msgstr "Упорядкувати за"
+
+# 
+msgid "Origem (Local)"
+msgstr "Джерело (Локальне)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Виводити числа у зручному для читання форматі"
+
+# 
+msgid "Output package names only"
+msgstr "Виводити лише назви пакунків"
+
+# 
+msgid "Pacote"
+msgstr "Пакунок"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Пакунок встановлення"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Шаблон імені (напр.: *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Сесії Панель"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Панель/вкладку закрито."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Ціле слово"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16-колірна палітра ANSI"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "Зупинити TFTP-сервер ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Параметри — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Крок #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Виконано крок: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "Теку '{path}' успішно створено."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Тека / Каталог"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Теку скопійовано до буфера обміну: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Створено теку: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Видалено теку: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Теку позначено для переміщення: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Теку вилучено з вибраного."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Теку перейменовано на '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Тека · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Тека:"
+
+# 
+msgid "Pause"
+msgstr "Призупинити"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Профіль маршрутизації змінено на: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Виконати оновлення дистрибутива (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Запитати AI Асистента"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Запитайте або вставте помилку термінала..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Права доступу (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "Права доступу для '{name}' змінено на {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Дозволи для {name}"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Пошук у всіх відкритих вкладках, сеансах SSH, історії та сніпетах (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Рекурсивний пошук у підкаталогах"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Search in Terminal"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Пошук тексту в усіх відкритих вкладках термінала, сеансах SSH, історії та сніпетах..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Пошук тунелів за назвою, портом або хостом..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Конвеєрне виконання в інтерпретаторі оболонки"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "План дій Zero-Trust для: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Тло"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Будь ласка, введіть ключ API для {provider} перед тестуванням."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Кінцеві точки та порти"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Будь ласка, проаналізуйте таке виділення з термінала:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Будь ласка, проаналізуйте та поясніть код/вміст файлу '{name}', його призначення, структуру та ключові моменти:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Будь ласка, проведіть детальний аудит безпеки та керування доступом у поточному каталозі '{path}'. Перевірте надто широкі права доступу, конфіденційні файли (.env, приватні ключі, відкриті облікові дані) і порекомендуйте найкращі практики Zero-Trust."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Будь ласка, проведіть детальний аудит безпеки та прав доступу до файлу '{name}'.\nШлях: {path}\nПоточні права: {perms} ({oct})\nРозмір: {size}\nПорекомендуйте безпечні налаштування chmod та заходи зі зменшення вразливостей."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Будь ласка, проведіть детальний аудит безпеки та прав доступу до каталогу '{name}'.\nШлях: {path}\nПоточні права: {perms} ({oct})\nОстання зміна: {date}\nПорекомендуйте оптимальні налаштування chmod, обмеження та найкращі практики відповідності Zero-Trust."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Будь ласка, виконайте рефакторинг наведеного фрагмента коду за допомогою OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Порт поза допустимим діапазоном (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Віддалений відкритий порт (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Віддалений цільовий порт"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Локальний порт прослуховування (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "Порт проксі SOCKS5 (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Порт поза дозволеним діапазоном (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Порт:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Віддалений PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Параметри"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Додавати перед кожним рядком номер рядка з початком від 1"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Попередній перегляд команди:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Основний постачальник і з’єднання"
+
+# 
+msgid "Print Git version"
+msgstr "Вивести версію Git"
+
+# 
+msgid "Print RPM version"
+msgstr "Вивести версію RPM"
+
+# 
+msgid "Print help synopsis"
+msgstr "Вивести коротку довідку"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Виводити розміри у степенях 1024 (напр., 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Виводити stdout/stderr тесту безпосередньо"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Виводити підсумок для глибини каталогу 1"
+
+# 
+msgid "Print zypper version"
+msgstr "Вивести версію zypper"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Продакшн / Вебсервери"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Протокол:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Надавати докладний вивід"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Постачальник, що використовується, коли розумну маршрутизацію вимкнено"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Попередній перегляд наживо"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Наступний збіг (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Наступний файл (Стрілка вниз / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Перейти до попереднього запиту командного рядка."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Перейти до наступного запиту командного рядка."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Повністю вилучити встановлений пакунок разом із конфігурацією"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Перевести snap у класичний режим ізоляції"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Кількість рядків (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Кількість рядків (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Запитати відомості про невстановлений локальний файл пакунка .rpm"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Запитати та показати список усіх встановлених пакунків RPM"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Знайти пакунки за критеріями репозиторію"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "Запитати стан служб, що надаються пакунками snap"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Дізнатися, якому встановленому пакунку RPM належить шлях до файлу"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Попередній перегляд)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "Низькорівневий інструмент менеджера пакунків RPM (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Рекурсивно читати всі файли в кожному каталозі"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Читання: {read}/s • Запис: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Перебазувати поточну гілку поверх upstream після отримання"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Перебудувати індекси бази даних RPM зі встановлених заголовків"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Розумне автоматичне повторне підключення при розривах"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Зафіксувати підготовлені зміни в репозиторії"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Вирізати файл"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Вирізати теку"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Скидає всі клавіатурні скорочення до стандартних значень"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Скинути масштаб"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Зменшує розмір шрифту термінала (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Зменшити масштаб"
+
+# 
+msgid "Refresh Interval"
+msgstr "Інтервал оновлення"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Оновити всі метадані репозиторіїв"
+
+# 
+msgid "Refresh files database"
+msgstr "Оновити базу даних файлів"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "Записи AuditLogger (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Глобальні правила підсвічування"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Перезапустити керовану службу та застосувати конфігурацію"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Перевстановити, якщо пакунок уже наявний"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Повний звіт гешів скопійовано до буфера обміну"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Очищений діагностичний звіт OnyxSH"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Діагностичний звіт скопійовано до буфера обміну."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Структурований операційний звіт із кроками, нотатками, метою та висновками (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Очищений звіт про ОС, RAM, GPU/VRAM і середовище Flatpak"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Перезавантажити конфігурацію служби або перезапустити її, якщо це не підтримується"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Віддалений (-R) • Відкрити локальний порт на віддаленому сервері"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Вилучити один запис зі stash"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Вилучити всі пакунки, що залежать від цілі"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Вилучити всі записи зі stash"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Вилучити всі версії пакунка"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Вилучити встановлений пакунок зі збереженням конфігурації"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Рекурсивно видаляти каталоги та їхній вміст"
+
+# 
+msgid "Remove installed packages"
+msgstr "Вилучити встановлені пакунки"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Вилучити застарілі посилання відстеження віддалених гілок"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Вилучити один або кілька пакунків і невикористовувані залежності"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Вилучити пакунки, початково встановлені як залежності, які більше не потрібні"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Вилучити пакунки snap із системи"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Вилучити невикористовувані дані (контейнери, мережі, образи)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Вилучити вибраний сеанс"
+
+# 
+msgid "Remover Túnel"
+msgstr "Вилучити тунель"
+
+# 
+msgid "Remover favorito"
+msgstr "Вилучити з вибраного"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Вилучити поточний каталог із вибраного"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Перейменувати файл"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Перейменувати теку"
+
+# 
+msgid "Renomear..."
+msgstr "Перейменувати..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Вивести знімок поточних процесів"
+
+# 
+msgid "Reportar Problema"
+msgstr "Повідомити про проблему"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Скинути розмір шрифту (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Вирішення помилки термінала за допомогою OpenCode / ШІ..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Політика перезапуску після завершення роботи контейнера"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Відновлює стандартний шрифт Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Відновити глобальні правила"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Відновити всі команди"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Відновити початковий список ігнорованих команд"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Відновити індекс / прибрати файли зі stage"
+
+# 
+msgid "Resume"
+msgstr "Відновити"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Стандартні криптографічні дайджести, обчислені за вмістом файлу:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Отримати журнали для служб"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Перегляд Diff та аудит Zero-Trust (Атомарний відкат)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Розумна маршрутизація: натисніть для зміни профілю (Авто, Швидкий, Розширений, Безпека)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Перенаправлено до профілю розширеного/безпекового аналізу."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Перенаправлено до швидкого профілю (простий запит із низькою затримкою)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Запустити бінарний файл або приклад локального пакунка"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Запустити так, ніби git було запущено у вказаному шляху"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Запустити оболонку входу від імені цільового користувача (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Запустити оптимізований релізний бінарний файл"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Нативний Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Менеджер пакунків та інструмент збірки для Rust"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH-СЕСІЯ"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "Проксі SOCKS5"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Корпоративний проксі SOCKS5"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Безпечне примусове надсилання з перевіркою віддаленого посилання"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Quit Application"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Зберегти й закрити"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Зберегти зміни"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "Зберегти резервну копію OnyxSH"
+
+# 
+msgid "Salvar Comando"
+msgstr "Зберегти команду"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Зберегти поточне розташування вкладок"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Зберегти з правами адміністратора / Root (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Успішно збережено: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Виконання скрипту"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Шукати як в описах, так і в назвах"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Знайти пакунок, якому належить файл"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Пошук пакунків за шаблоном"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Пошук snap-пакунків у крамниці"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Пошук серед локально встановлених пакунків"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Дотримуватися стилю системи"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Стежити в реальному часі (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Секунди підтримання активних з'єднань (0 для вимкнення)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Вибрано: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "Вибрати файл резервної копії OnyxSH"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Виберіть команди для включення та додайте пояснювальні технічні коментарі до кожного кроку. (виявлено: {count})"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Виберіть елемент на правій панелі для завантаження (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Виберіть елемент на лівій панелі для надсилання (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Спочатку виберіть сесію зі списку для редагування."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Спочатку виберіть сесію для видалення."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Вибрати відстежуваний хост"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Вибрати рядки, що не збігаються"
+
+# 
+msgid "Seleção copiada."
+msgstr "Виділене скопійовано."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Виділене надіслано на аналіз до AI-помічника."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Виділене надіслано для рефакторингу за допомогою OpenCode."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Завжди приховувати"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP-сервер"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "TFTP-сервер лише для читання активний на {addr} (корінь: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "TFTP-сервер перемкнуто."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP-сервер зупинено."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Сесія: {session} | Хост: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "Сесію «{name}» видалено."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "Сесію «{name}» збережено у ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Пов'язана SSH-сесія"
+
+# 
+msgid "Sessão limpa."
+msgstr "Сесію очищено."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Збережені сесії"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Сесії синхронізовано з ~/.config/onyxsh/sessions.json та ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Интерактивная оболочка в Docker (Exec)"
+
+# 
+msgid "Shell a Executar"
+msgstr "Оболонка для запуску"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Показати всі TCP/UDP-сокети, що слухають, із процесом і числовими портами"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Показати всі ревізії встановлених snap-пакунків"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Перегляд і керування маршрутизацією, мережевими пристроями та інтерфейсами"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Показати доступні оновлення snap без встановлення"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Показати зміни між комітами, індексом і робочим деревом"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Показати докладну інформацію про snap-пакунок"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Показати докладну інформацію про встановлений застосунок або середовище виконання"
+
+# 
+msgid "Show error message on failure"
+msgstr "Показувати повідомлення про помилку в разі збою"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Показати повну інформацію про вказані пакунки"
+
+# 
+msgid "Show package metadata info"
+msgstr "Показати метадані пакунка"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Показати права доступу для вказаного шляху до файлу"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Показати скрипти до/після встановлення та видалення"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Показувати прогрес і зберігати частково передані файли"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Показувати кнопку та бічну панель AI-помічника на верхній панелі."
+
+# 
+msgid "Silent mode"
+msgstr "Тихий режим"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Зімітувати аудовану зміну"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Синхронізує локальні файли на віддалений хост зі збереженням атрибутів"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Синхронизация файлов с Rsync"
+
+# 
+msgid "Sistema"
+msgstr "Система"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Операційна система"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Пропустити запит підтвердження"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Розумна маршрутизація вимкнена: використовується типово налаштований провайдер."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, плани дій та атомарний відкат (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "Про OnyxSH"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "Вказати метод HTTP-запиту (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Вказати пакунок для запуску"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "Вказати віддалену оболонку для використання (напр., ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Розділити термінал"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Сховати (stash) зміни у зміненому робочому каталозі"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Зупинити після надсилання 4 пакетів"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Активовано суворий автономний режим (лише локальний Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Пропонувати підкоманди та параметри для rpm, dnf, apt, pacman, flatpak, systemctl, docker, git і поширених інструментів"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Підказки для rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Зведення розміру у зручному для читання форматі"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab або → застосувати • ↑/↓ навігація • Esc закрити"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Ви впевнені, що хочете назавжди видалити теку «{name}»?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Ви впевнені, що хочете назавжди видалити файл «{name}»?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Тема для світлого фону"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Тема для темного фону"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Тема, що використовується при світлому фоні термінала"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Тема, що використовується при темному фоні термінала"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Шаблон команди (напр.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Намагається перепідключити розірвані SSH-сесії зі зворотним відліком і сповіщенням на екрані"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Термінал: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Протестувати всі пакунки в робочому просторі"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Перевірити перехоплення"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Перевірити цілісність синтаксису конфігурації Nginx"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Текст переднього плану (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Це назавжди видалить усі {count} розмови. Цю дію не можна скасувати."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Тип / Розширення"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Тип файлу"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Усі налаштування відновлено до типових значень."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Усі комбінації клавіш відновлено до типових значень."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Усі SSH-тунелі зупинено."
+
+# 
+msgid "Total Lines"
+msgstr "Усього рядків"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Безперервний аудиторський слід рішень, команд і атомарного відкату"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Менеджер пакунків Snap від Ubuntu / Canonical"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Менеджер брандмауера Uncomplicated Firewall"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Юніт / Служба (необов'язково)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Оновити встановлені пакунки до новіших версій"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Оновити пакети snap у системі"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Оновити програму/середовище виконання, якщо вже встановлено"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Оновити файл пакета RPM (або встановити, якщо відсутній)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Оновити або встановити локальний/віддалений файл пакета (.pkg.tar.zst)"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Використовує розкладні блоки (&lt;details&gt;) для виводу довше 15 рядків"
+
+# 
+msgid "Use a long listing format"
+msgstr "Використовувати докладний формат списку"
+
+# 
+msgid "Use archive file or device"
+msgstr "Використовувати файл архіву або пристрій"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Використовувати каталог як верхній кореневий для операцій RPM"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Віддалений користувач"
+
+# 
+msgid "Usuário SSH:"
+msgstr "Користувач SSH:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Перевірити та прикріпити"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Перевірити поточний стан служби та залежності"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Перевірити, чи активна служба '{svc}'"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Перевірити, чи увімкнено службу '{svc}' під час завантаження"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Перевірити, чи зупинено службу '{svc}'"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Перевірити конкретний пакет щодо файлу .rpm"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Перевірити цілісність усіх встановлених пакетів RPM за базою даних"
+
+# 
+msgid "Versão"
+msgstr "Версія"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Переглянути підготовлені зміни для наступного коміту"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Перегляд системних журналів за допомогою journalctl"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Перегляд, редагування та скидання всіх клавіатурних скорочень OnyxSH"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Переглядач об'єднаного Diff (До та Після):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Перегляд сіткою / мініатюрами"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Увімкнено перегляд сіткою піктограм"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Увімкнено докладний перегляд списком"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "У вас немає дозволу на зміну '{name}'. Зберегти з правами адміністратора (Root)?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "У вас є незбережені зміни у '{fname}'. Що зробити перед закриттям?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "У цьому файлі є незбережені зміни, які будуть втрачені. Справді скасувати їх?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Перейти до попередньої вкладки (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Очікування зразка..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Записати вивід у локальний файл із назвою віддаленого файлу"
+
+# 
+msgid "You: "
+msgstr "Ви: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Масштаб скинуто (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[ВИСНОВОК ТА СПОСТЕРЕЖЕННЯ]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Двійковий або недоступний вміст]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Не вдалося прочитати файл журналу]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[МЕТА / КОНТЕКСТ]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[ВИКОНАНІ КРОКИ ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Ризик: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Виявлено ризик"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Перевірено"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` завершилася за {secs}с."
+
+# 
+msgid "linha"
+msgstr "рядок"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "Утиліта керування пакетами openSUSE / SLES"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} команд(и) • Натисніть, щоб розгорнути/згорнути"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} команд"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} рядків"
+
+# 
+msgid "{count} regras"
+msgstr "{count} правил"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} результатів"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} логічних ядер)"
+
+# 
+msgid "{days} days"
+msgstr "{days} днів"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} год"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} рядків • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} хв"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Копія)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (на базі {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Прикріплений файл]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "API-ключ {provider} успішно налаштовано."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Рішення: {decision} | Статус: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "Тунель {type}"
+
+# 
+msgid "Ícone:"
+msgstr "Піктограма:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "Піктограми OnyxSH (Вбудовані)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Завантажити / Копіювати"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Вивантажити / Копіювати"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Виконати   •   Tab Вставити в запит   •   ⭐ Обране   •   Esc Закрити"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Перейти до вкладки / Виконати • ↑/↓ Навігація • Esc Закрити"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Атомарний відкат"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ Попередження ProductionGuard ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Перехоплено руйнівну команду ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ На повільніших комп'ютерах обробка колірних шаблонів може трохи знижувати чуйність при дуже об'ємному виводі."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ Експорт термінала OnyxSH"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Фрагменти"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Команду виконано"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Скопійовано!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Виконано"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Атомарний відкат завершено: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Помилка команди (Код {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ ХЕШ НЕ ЗБІГАЄТЬСЯ! Вставлене значення{hint} відрізняється від обчислених хешів файлу. Файл може бути пошкоджено або змінено."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ ІСТОРІЯ"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Онлайн-режим активний.\nНатисніть, щоб увімкнути суворо локальний офлайн-режим."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Усе"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Мета / Контекст"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Висновок і винесені уроки"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Ви:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Ви{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Примітка:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Нотатка: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Поточний каталог"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x запусків"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Змінено:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Аналізувати використання диска"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Копіювати очищений звіт"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Копіювати вивід"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Безпечно прикріплено: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Історія"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Попередні зауваження"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Трансляція (🛡️ ProductionGuard активний):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Команду надіслано до {count} термінал(ів)."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Розмір:</b> {size} <span alpha='70%'>({bytes} байтів)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Тип:</b> Тека / Каталог"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 Встановити {bin}"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}с"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 Сеанси SSH"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 Перевірити git status"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Перевірка після виконання: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Права доступу:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Тестове сповіщення надіслано на стільницю."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Шлях:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Високий ризик (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Вкладки термінала"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Критичне сповіщення — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Трансляцію заблоковано ProductionGuard: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard ЗАБЛОКУВАВ читання: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ РЕЖИМ PRODUCTION АКТИВНИЙ — ProductionGuard перехоплює руйнівні команди (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Увімкнено суворий офлайн-режим (Zero Cloud).\nНатисніть, щоб перемкнутися в онлайн-режим."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Офлайн (Локально)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Безпека"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}мс"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}мс"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Безпечна команда"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}мс"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Маршрут: {route}"
+

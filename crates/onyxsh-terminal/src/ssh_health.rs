@@ -1,6 +1,7 @@
 //! Proactive SSH Connection Health Monitor & Latency (RTT) Tracker.
 //! Port of `src/onyxsh/terminal/ssh_health_monitor.py`.
 
+use onyxsh_core::i18n::{tr, tr_fmt};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -64,15 +65,24 @@ impl SshHealthRecord {
 
     pub fn badge_label(&self) -> String {
         if self.is_auto_reconnecting && self.countdown_seconds > 0 {
-            return format!("🔄 {}s", self.countdown_seconds);
+            return tr_fmt(
+                "🔄 {secs}s",
+                &[("secs", &self.countdown_seconds.to_string())],
+            );
         }
         match (self.status, self.rtt_ms) {
-            (SshHealthStatus::Healthy, Some(rtt)) => format!("🟢 {}ms", rtt as u64),
-            (SshHealthStatus::Degraded, Some(rtt)) => format!("🟡 {}ms", rtt as u64),
-            (SshHealthStatus::Poor, Some(rtt)) => format!("🟠 {}ms", rtt as u64),
-            (SshHealthStatus::Unreachable, _) => "🔴 Inalcançável".to_string(),
-            (SshHealthStatus::Reconnecting, _) => "🔄 Reconectando...".to_string(),
-            _ => "⚪ Verificando...".to_string(),
+            (SshHealthStatus::Healthy, Some(rtt)) => {
+                tr_fmt("🟢 {rtt}ms", &[("rtt", &(rtt as u64).to_string())])
+            }
+            (SshHealthStatus::Degraded, Some(rtt)) => {
+                tr_fmt("🟡 {rtt}ms", &[("rtt", &(rtt as u64).to_string())])
+            }
+            (SshHealthStatus::Poor, Some(rtt)) => {
+                tr_fmt("🟠 {rtt}ms", &[("rtt", &(rtt as u64).to_string())])
+            }
+            (SshHealthStatus::Unreachable, _) => tr("🔴 Inalcançável"),
+            (SshHealthStatus::Reconnecting, _) => tr("🔄 Reconectando..."),
+            _ => tr("⚪ Verificando..."),
         }
     }
 
@@ -158,17 +168,17 @@ mod tests {
 
         rec.record_probe_success(42.0);
         assert_eq!(rec.status, SshHealthStatus::Healthy);
-        assert_eq!(rec.badge_label(), "🟢 42ms");
+        assert_eq!(rec.badge_label(), tr_fmt("🟢 {rtt}ms", &[("rtt", "42")]));
         assert_eq!(rec.css_class(), "latency-healthy");
 
         rec.record_probe_success(220.0);
         assert_eq!(rec.status, SshHealthStatus::Degraded);
-        assert_eq!(rec.badge_label(), "🟡 220ms");
+        assert_eq!(rec.badge_label(), tr_fmt("🟡 {rtt}ms", &[("rtt", "220")]));
 
         rec.record_probe_failure("Connection timed out", true, 5);
         assert_eq!(rec.status, SshHealthStatus::Reconnecting);
         assert!(rec.is_auto_reconnecting);
         assert_eq!(rec.reconnect_attempt, 1);
-        assert_eq!(rec.badge_label(), "🔄 5s");
+        assert_eq!(rec.badge_label(), tr_fmt("🔄 {secs}s", &[("secs", "5")]));
     }
 }

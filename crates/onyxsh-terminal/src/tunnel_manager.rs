@@ -50,7 +50,7 @@ impl SshTunnel {
 
     pub fn display_target(&self) -> String {
         match self.tunnel_type.as_str() {
-            "dynamic" => "SOCKS5 Proxy".to_string(),
+            "dynamic" => onyxsh_core::i18n::tr("SOCKS5 Proxy"),
             "remote" => format!("{}:{}", self.local_host, self.local_port),
             _ => format!("{}:{}", self.remote_host, self.remote_port),
         }

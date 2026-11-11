@@ -17119,3 +17119,4099 @@ msgstr "🧠 Προηγμένο προφίλ (Σύνθετα σχέδια / Σε
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Πάντα προχωρημένος (Συλλογισμός)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} μυστικό/ά αποκρύφθηκε/αν)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ Εξαγωγή τερματικού OnyxSH"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Στόχος / Πλαίσιο"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Συμπέρασμα & Διδάγματα"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Προκαταρκτικές σημειώσεις"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Εκτέλεση βήμα προς βήμα"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Πληροφορίες συνεδρίας"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Δεν δημιουργήθηκε έξοδος)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*Έγγραφο που δημιουργήθηκε αυτόματα από το ημερολόγιο OnyxSH.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Δεν επιλέχθηκαν βήματα για αυτό το έγγραφο.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Ημερομηνία / Ώρα:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Κεντρικός υπολογιστής:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Χειριστής / Συντάκτης:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Συνεδρία:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Κατάσταση:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Σύνολο καταγεγραμμένων βημάτων:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Έξοδος ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (το υπόλοιπο της εξόδου περικόπηκε στην προεπισκόπηση)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Ανάγνωση / Εγγραφή συσκευής"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable & Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 συνδυασμοί χρωμάτων, επισήμανση εξόδου και κανόνες ανά εντολή"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Μετάβαση στον γονικό κατάλογο (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Σημείωση:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "Η θύρα {port} έχει ήδη εκχωρηθεί σε άλλη διεργασία."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "ΚΑΡΤΕΛΑ #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "Βοηθός AI: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Η καρτέλα έκλεισε."
+
+# 
+msgid "Abaixo"
+msgstr "Παρακάτω"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Ματαίωση τρέχουσας επίλυσης διενέξεων"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Ματαίωση rebase και επιστροφή στον αρχικό κλάδο"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Ανοίγει τη γραμμή αναζήτησης Regex/Κυριολεκτική στην ενεργή καρτέλα (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Ανοίγει αυτόματα αυτή τη σήραγγα κατά τη σύνδεση στον κεντρικό υπολογιστή SSH"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Ανοίγει ένα νέο τοπικό τερματικό (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Ανοίγει ένα διαδραστικό κέλυφος μέσα σε ένα εκτελούμενο κοντέινερ Docker"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Άνοιγμα συνδέσμου: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Άνοιγμα επόπτη πόρων (Cairo sparklines)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Άνοιγμα φακέλου"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Άνοιγμα με εξωτερική εφαρμογή"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Άνοιγμα αυτού του καταλόγου στο τερματικό (cd)"
+
+# 
+msgid "Acima"
+msgstr "Παραπάνω"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Παρακολουθεί τα αρχεία καταγραφής ενός κοντέινερ Docker σε πραγματικό χρόνο"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Παρακολουθεί τα αρχεία καταγραφής μιας μονάδας systemd σε πραγματικό χρόνο"
+
+# 
+msgid "Active"
+msgstr "Ενεργό"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Προσθήκη αναφοράς παρακολούθησης upstream"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Προσθήκη νέας σήραγγας SSH"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Προσθήκη προσαρμοσμένου σχήματος"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Ομαδοποίηση κατά κατηγορία (.7z στην κορυφή)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Εκχώρηση ενός pseudo-TTY συνδεδεμένου στο stdin του κοντέινερ"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Να επιτρέπεται η υποβάθμιση σε παλαιότερη έκδοση πακέτου"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Να επιτρέπονται μη ασφαλείς συνδέσεις TLS"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Δημιουργήθηκε ελεγμένη αλλαγή με ατομικό αντίγραφο ασφαλείας."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Εναλλαγή βοηθού Zero-Trust AI"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Εναλλαγή διαχειριστή αρχείων διπλού πίνακα"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Εναλλαγή λειτουργίας επεξεργασίας (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Εναλλαγή διπλού πίνακα (Διαίρεση / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "Εναλλαγή πλαϊνού πίνακα συνεδριών SSH"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Περιβάλλον Flatpak"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Περιβάλλον παραγωγής (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Περιβάλλον παραγωγής — προστατεύεται από το ProductionGuard"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Τροποποίηση της κορυφής του τρέχοντος κλάδου"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Αναλύστε τα παρακάτω πρόσφατα μηνύματα και σφάλματα από το αρχείο καταγραφής '{name}' και δώστε διάγνωση των βασικών αιτιών και προτεινόμενες λύσεις:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Αναλύστε το έργο και προετοιμάστε τις απαραίτητες διορθώσεις με το OpenCode."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Ανάλυση του τρέχοντος πακέτου και αναφορά σφαλμάτων"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Επισύναψη αρχείου (επικύρωση PathGuard)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Επισύναψη αρχείου στο πλαίσιο (επικυρωμένο από το PathGuard)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "Η ανάλυση για το αίτημά σας ολοκληρώθηκε (εφαρμόστηκαν το `SecretRedactor` και η απομόνωση `<untrusted>`).\n\nΠροτεινόμενη εντολή:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Ζητήθηκε ανάλυση από τον βοηθό AI."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Εφαρμόζει επισήμανση σύνταξης στην έξοδο της εντολής 'cat'"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Εφαρμόζει αυτόματα κανόνες συμφραζομένων κατά τον εντοπισμό της εκτελούμενης εντολής"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Εφαρμογή επισήμανσης εξόδου σε συνδέσεις SSH"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Εφαρμογή επισήμανσης εξόδου σε τοπικές συνεδρίες τερματικού"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Εφαρμογή & Παράθυρο"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Εφαρμογή ή αναγνωριστικό"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Εφαρμογή αποθηκευμένης κατάστασης και διατήρηση στη λίστα stash"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Εφαρμογή αποθηκευμένης κατάστασης και αφαίρεση από τη λίστα stash"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Έγκριση & Εκτέλεση"
+
+# 
+msgid "Aproximar"
+msgstr "Ζουμ Εισαγωγή"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Εργαλείο διαχείρισης πακέτων για Arch Linux / Manjaro"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Λειτουργία αρχειοθέτησης (διατηρεί δικαιώματα, χρόνους, συμβολικούς συνδέσμους)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Προηγούμενο αρχείο (Πάνω βέλος / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Δυαδικό αρχείο: {name}\nΔιαδρομή: {path}\nΜέγεθος: {size}\nΔικαιώματα: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Αρχείο Αρχειοθέτησης"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Το αρχείο αντιγράφηκε για μεταφορά: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Δημιουργήθηκε αρχείο: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Αρχείο δεδομένων"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Αρχείο βίντεο"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Αρχείο ήχου"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Το αρχείο διαγράφηκε: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Το αρχείο επισημάνθηκε για μετακίνηση: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Το αρχείο επαναφορτώθηκε από τον δίσκο."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Το αρχείο μετονομάστηκε σε '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Το αρχείο επαναφέρθηκε μετά την επαναφορά (rollback): {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Το αρχείο αποθηκεύτηκε με δικαιώματα διαχειριστή (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Το αρχείο αποθηκεύτηκε με επιτυχία με δικαιώματα διαχειριστή (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Το αρχείο αποθηκεύτηκε με επιτυχία!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Αρχείο: {name} (Μέγεθος: {size} bytes)\nΑπόσπασμα:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Αρχεία ομαδοποιημένα κατά κατηγορία (.7z στην κορυφή)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Αρχεία ταξινομημένα κατά ημερομηνία τροποποίησης"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Αρχεία ταξινομημένα κατά όνομα"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Αρχεία ταξινομημένα κατά μέγεθος"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Αρχεία ταξινομημένα κατά τύπο / επέκταση"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Αρχεία/Φάκελοι προέλευσης"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "Βοηθός κώδικα OpenCode"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Βοηθός Zero-Trust AI"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "Ο βοηθός AI δεν είναι συνδεδεμένος."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Ανάληψη κινδύνου και εκτέλεση"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "Η συντόμευση '{name}' ενημερώθηκε σε {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "Η συντόμευση '{name}' αφαιρέθηκε."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Συντομεύσεις πληκτρολογίου (34 παραμετροποιήσιμες ενέργειες)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Συντομεύσεις συστήματος & Αγαπημένα"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Ενεργοποίηση / Απενεργοποίηση ασπίδας περιβάλλοντος παραγωγής (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "Ενεργοποίηση χρωματισμού του 'cat'"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Ενεργοποίηση επισήμανσης εισόδου κελύφους"
+
+# 
+msgid "Ativar Todos"
+msgstr "Ενεργοποίηση όλων"
+
+# 
+msgid "Ativo"
+msgstr "Ενεργό"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Ενεργό (ακρόαση στο {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Τρέχον: {curr}\nΝέο: (πατήστε πλήκτρα)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Τρέχον: {curr}\nΝέο: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Τρέχον: {curr}\nΝέο: {new} (Συγκρούεται με {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Ανανέωση (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Ανανέωση λίστας (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Έλεγχος ασφάλειας με AI"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Έλεγχος ασφάλειας αυτού του καταλόγου με AI"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "Ο έλεγχος ασφάλειας του '{name}' στάλθηκε στον βοηθό AI."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "Ο έλεγχος του καταλόγου '{path}' στάλθηκε στον Βοηθό AI."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Μεγέθυνση γραμματοσειράς (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Έλεγχος ταυτότητας:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Αυτόματο: προσαρμόζεται στο φόντο του τερματικού. Χειροκίνητο: σταθερό θέμα."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Αυτόματο: εντοπίζει αυτόματα την αντίθεση με το φόντο"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Αυτόματη συμπλήρωση: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Έξυπνη αυτόματη συμπλήρωση (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Έξυπνη αυτόματη συμπλήρωση — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Εφαρμόστηκε αυτόματη συμπλήρωση: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Αυτόματο ναι"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Αυτόματη αφαίρεση περιττών εξαρτήσεων"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Εκτελεί αυτόματα διαγνωστικούς ελέγχους μόνο για ανάγνωση χωρίς να απαιτείται χειροκίνητη επιβεβαίωση."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Μεταβαίνει στην επόμενη καρτέλα (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Ενέργεια"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "Δημιουργήθηκε αντίγραφο ασφαλείας SHA-256 ({count} αρχεία): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "Αποθηκεύτηκε αντίγραφο ασφαλείας SHA-256 ({count} αρχεία): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Δεν βρέθηκε αντίγραφο ασφαλείας στο {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Το αντίγραφο ασφαλείας επαναφέρθηκε με επιτυχία ({count} αρχεία επαληθεύτηκαν μέσω SHA-256)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Γραμμή ταυτόχρονης εκτέλεσης (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Μαζική διαγραφή μέσω xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Αποκλεισμός και ακύρωση (Συνιστάται)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Η εκπομπή στάλθηκε: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Εκπομπή σε όλους"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Δόμηση όλων των πακέτων στον χώρο εργασίας"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Δόμηση τεχνουργημάτων σε λειτουργία release"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Δόμηση τεχνουργημάτων σε λειτουργία release με βελτιστοποιήσεις"
+
+# 
+msgid "Busca"
+msgstr "Αναζήτηση"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Καθολική αναζήτηση σε καρτέλες / Ιστορικό"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Καθολική αναζήτηση σε καρτέλες / Συνεδρίες / Ιστορικό"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Καθολική αναζήτηση σε καρτέλες, συνεδρίες, ιστορικό & αποσπάσματα (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Η καθολική αναζήτηση εισήγαγε στη γραμμή εντολών: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Καθολική αναζήτηση στο OnyxSH (Ctrl+Shift+G) — Καρτέλες, συνεδρίες, ιστορικό & αποσπάσματα"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Καθολική αναζήτηση: εστίαση στην καρτέλα #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Αναζητά αρχεία και καταλόγους με προηγμένα φίλτρα"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Ασαφής (fuzzy) αναζήτηση κατά κατάλογο, κεντρικό υπολογιστή και αγαπημένα (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Αναζήτηση στο τερματικό (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Αναζήτηση στο τρέχον τερματικό"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Αναζήτηση συνεδριών ή κεντρικών υπολογιστών..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Αναζήτηση κειμένου στο τερματικό..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Παράκαμψη προτροπών επιβεβαίωσης"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Υπολογισμός hashes στο παρασκήνιο..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Η διαδρομή αντιγράφηκε: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Διαδρομή φακέλου (π.χ. Παραγωγή ή Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Διαδρομή αρχείου (π.χ. /var/log/syslog ή ~/.ssh/id_rsa για δοκιμή αποκλεισμού):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Η διαδρομή εισήχθη στο τερματικό: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Μοτίβο ονόματος αρχείου χωρίς διάκριση πεζών-κεφαλαίων"
+
+# 
+msgid "Categoria"
+msgstr "Κατηγορία"
+
+# 
+msgid "Categoria:"
+msgstr "Κατηγορία:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Αλλαγή στον κατάλογο πριν από την εκτέλεση λειτουργιών"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "Κλειδί SSH / Κωδικός πρόσβασης:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Έλεγχος υπογραφής GPG και ακεραιότητας ενός αρχείου .rpm"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Έλεγχος για διαθέσιμες αναβαθμίσεις πακέτων χωρίς εγκατάσταση"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Ελέγχει ένα πακέτο για τον εντοπισμό συχνών σφαλμάτων"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Αθροίσματα ελέγχου & επαλήθευση ακεραιότητας — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Επιλέξτε μεταξύ παρόχων cloud υψηλής ταχύτητας ή τοπικών διακομιστών."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Εκκαθάριση όλης της προσωρινής μνήμης πακέτων (αφαίρεση όλων των ληφθέντων πακέτων)"
+
+# 
+msgid "Clean local caches"
+msgstr "Εκκαθάριση τοπικών προσωρινών μνημών"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Εκκαθάριση προσωρινής μνήμης πακέτων (αφαίρεση παλιών ληφθέντων πακέτων)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Κάντε κλικ για να αλλάξετε τη συντόμευση πληκτρολογίου"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Κάντε κλικ για σύνδεση σε νέα καρτέλα (και επιλογή αυτής της συνεδρίας)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Κάντε κλικ για να κατανοήσετε τι επιτρέπει ή περιορίζει κάθε επίπεδο δικαιωμάτων"
+
+# 
+msgid "Colar"
+msgstr "Επικόλληση"
+
+# 
+msgid "Colar Aqui"
+msgstr "Επικόλληση εδώ"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Επικόλληση μέσα σε αυτόν τον φάκελο"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Επικολλήστε παραπάνω ένα hash MD5, SHA-1, SHA-256 ή SHA-512 για επαλήθευση γνησιότητας."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Χρωματίζει εντολές σε πραγματικό χρόνο καθώς πληκτρολογείτε στο τερματικό"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Χρωματίζει μοτίβα στην έξοδο του τερματικού, όπως σφάλματα, προειδοποιήσεις και διευθύνσεις IP. Πολλοί κανόνες ενδέχεται να επηρεάσουν πολύ μεγάλες εξόδους."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "Χρωματισμός της εντολής cat"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Εντολή ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Εντολή / Πρότυπο:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Εντολή μετά τη σύνδεση:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Η εντολή αντιγράφηκε στο πρόχειρο."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Η εντολή παραγωγής αξιολογήθηκε από τον χειριστή."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Η εντολή στάλθηκε στο τερματικό: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Η εντολή στάλθηκε: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Η εντολή εκτελέστηκε από το ιστορικό: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Η εντολή εκτελέστηκε μέσω παλέτας: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Η εντολή απέτυχε (κωδικός {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Η εντολή εισήχθη στη γραμμή εντολών: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Η χρονοβόρα εντολή ολοκληρώθηκε με επιτυχία (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Ταίριασμα με τα χρώματα του τερματικού"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Παλέτα εντολών (Ctrl+Shift+P) — Ενοποιημένη αναζήτηση"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Παλέτα εντολών — Ενοποιημένη αναζήτηση (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Συμπίεση"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Συγκριτής ακεραιότητας"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Σύγκριση / Συγχρονισμός καταλόγων (Αριστερά ⇄ Δεξιά)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Σύγκριση διπλού πίνακα: {identical} ίδια | {left_only} μόνο αριστερά | {right_only} μόνο δεξιά | {diff} με διαφορετικό μέγεθος"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Συμβατότητα με αποθετήρια Git και παλαιού τύπου"
+
+# 
+msgid "Compile the current package"
+msgstr "Μεταγλώττιση του τρέχοντος πακέτου"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Συμπίεση δεδομένων αρχείων κατά τη μεταφορά"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Συμπέρασμα &amp; Διδάγματα"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Συνδέθηκε στη συνεδρία: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Σύνδεση μέσω Καθολικής αναζήτησης: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Σύνδεση μέσω Παλέτας εντολών: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Σύνδεση σε διαιρεμένο πίνακα (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Σύνδεση: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "Ρύθμιση Βοηθού AI..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Ρύθμιση κανόνων αυτής της εντολής"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "Ρύθμιση Βοηθού AI — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Ρύθμιση όλων των αποσυμπιεσμένων αλλά μη ρυθμισμένων πακέτων"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Ρύθμιση ενός αποσυμπιεσμένου πακέτου"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Ρυθμίστε μεμονωμένα κλειδιά για εναλλαγή παρόχων χωρίς εκ νέου ρύθμιση"
+
+# 
+msgid "Confirm"
+msgstr "Επιβεβαίωση"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Επιβεβαίωση διαγραφής"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Σύγκρουση ή αποτυχία συγχρονισμού στο αποθετήριο Git."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Μέγεθος παραθύρου περιβάλλοντος (Tokens)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Το περιεχόμενο αντιγράφηκε στο πρόχειρο."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Συνέχιση του rebase μετά την επίλυση συγκρούσεων"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Η συνομιλία φορτώθηκε από το ιστορικό."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Αντιγράφηκε στο {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Αντιγραφή αρχείου"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Αντιγραφή διαδρομής γονικού καταλόγου"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Αντιγραφή φακέλου"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Αντιγραφή επιλεγμένων στον δεξιό πίνακα (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Αντιγραφή επιλεγμένων στον αριστερό πίνακα (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Αντιγραφή στο πρόχειρο"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Αντιγραφή αναλυτικής αναφοράς σε μορφή Markdown"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Χρώματα και επισημάνσεις"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Χρώματα και επισημάνσεις τερματικού"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Τυπικά χρώματα τερματικού (0-7 κανονικά, 8-15 φωτεινά)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Δημιουργία commit συγχώνευσης ακόμη και σε fast-forward"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Δημιουργία ρηχού κλώνου με περικομμένο ιστορικό"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Δημιουργία συμπιεσμένου αρχείου tar (gzip) με αναλυτική έξοδο"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Δημιουργεί συμπιεσμένα αρχεία από αρχεία και φακέλους"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Δημιουργεί και επεξεργάζεται παραμετροποιημένα κουμπιά εντολών (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Δημιουργεί και μεταβαίνει σε νέο τοπικό κλάδο στο αποθετήριο Git"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Δημιουργεί ένα δοκιμαστικό αρχείο στο /tmp με ατομικό αντίγραφο ασφαλείας στο AuditLogger"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Δημιουργεί ένα προσαρμοσμένο συνδυασμό χρωμάτων με βάση τον ενεργό συνδυασμό"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Δημιουργία αντιγράφου ασφαλείας ρυθμίσεων (Πακέτο SHA-256)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Δημιουργία συνεδρίας"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Δημιουργήστε μια τοπική (-L), απομακρυσμένη (-R) ή δυναμική σήραγγα SOCKS5 (-D) για προώθηση θυρών μέσω SSH."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Ο υπολογισμός αθροίσματος ελέγχου ακυρώθηκε από τον χρήστη."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Κώδικας Rust"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Ο κώδικας εισήχθη στο ενεργό τερματικό."
+
+# 
+msgid "Código-Fonte"
+msgstr "Πηγαίος κώδικας"
+
+# 
+msgid "Cópia de {name}"
+msgstr "Αντίγραφο του {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "Ημερομηνία τροποποίησης"
+
+# 
+msgid "Date / Time"
+msgstr "Ημερομηνία / Ώρα"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Ημερομηνία: {date} | Διαστάσεις: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Διαχειριστής πακέτων χαμηλού επιπέδου Debian (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Προεπιλεγμένο κλειδί API"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Προεπιλεγμένο αναγνωριστικό μοντέλου"
+
+# 
+msgid "Default Provider"
+msgstr "Προεπιλεγμένος πάροχος"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Ορίζει και εκτελεί εφαρμογές πολλαπλών κοντέινερ"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Ορισμός δικαιωμάτων αρχείου για: {name}\nΤρέχοντα: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Διαγραφή κανόνα τείχους προστασίας"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Διαγραφή συγχωνευμένου κλάδου"
+
+# 
+msgid "Desativar Todos"
+msgstr "Απενεργοποίηση όλων"
+
+# 
+msgid "Descrição:"
+msgstr "Περιγραφή:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Επισήμανση εισόδου Shell"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Επισήμανση σύνταξης σε πραγματικό χρόνο καθώς πληκτρολογείτε εντολές"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Επισήμανση σύνταξης για την έξοδο της εντολής 'cat' (με χρήση της μηχανής Pygments/ANSI)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Απομακρυσμένος προορισμός"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Αποσπασμένη λειτουργία: εκτέλεση εντολής στο παρασκήνιο"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Διάγνωση σφαλμάτων καταγραφής με AI"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Διάγνωση και επανεκκίνηση υπηρεσίας ιστού"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Ευρετική διάγνωση (**{title}**):\n{desc}\n\nΠρόταση γρήγορης διόρθωσης:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Ασφαλής διαγνωστικός έλεγχος συστήματος — Τηλεμετρία & Υποστήριξη"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "Η διάγνωση του αρχείου καταγραφής '{name}' στάλθηκε στον Βοηθό AI."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Διάκριση πεζών/κεφαλαίων"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Πληκτρολογήστε μια εντολή (π.χ.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Πληκτρολογήστε μια εντολή για αποστολή σε ΟΛΑ τα ανοιχτά τερματικά..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Πληκτρολογήστε μια ενέργεια, συνεδρία SSH ή παραμετροποιημένη εντολή..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Σμίκρυνση γραμματοσειράς (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Δυναμικό (-D) • Διακομιστής μεσολάβησης SOCKS5 μέσω SSH"
+
+# 
+msgid "Direita"
+msgstr "Δεξιά"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "Ο κατάλογος '{path}' προστέθηκε στα αγαπημένα."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Κατάλογος ρυθμίσεων"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Ο κατάλογος στάλθηκε στο τερματικό: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Κατάλογος: {name}\nΔιαδρομή: {path}\nΔικαιώματα: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Επιτρεπόμενοι κατάλογοι, απομόνωση PathGuard και πολιτικές default-deny"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Απενεργοποίηση εγκατεστημένου snap"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Πλήρης δίσκος (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Δίσκος (Φυσική Ε/Ε)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Εμφάνιση λεπτομερών πληροφοριών για ένα εγκατεστημένο πακέτο"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Εμφάνιση μνήμης σε megabytes"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Εμφάνιση λεπτομερειών κατάστασης εγκατεστημένου πακέτου"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Διαχωρίζει την τρέχουσα καρτέλα πάνω/κάτω (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Διαχωρίζει την τρέχουσα καρτέλα δίπλα-δίπλα (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Διαχωρισμός Οριζόντια"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Οριζόντιος διαχωρισμός τερματικού"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Διαχωρισμός Κατακόρυφα"
+
+# 
+msgid "Divisão"
+msgstr "Διαχωρισμός"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Να μην ερωτηθεί τίποτα, χρήση προεπιλεγμένων απαντήσεων"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Να μην ελέγχονται οι εξαρτήσεις πριν από τη διαγραφή"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Να μην εκτελείται απομακρυσμένη εντολή (μόνο προώθηση θυρών)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Να μην γίνεται επίλυση ονομάτων υπηρεσιών"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Να μην αποθηκεύεται στιγμιότυπο των δεδομένων του snap"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Να μην επαληθεύονται οι εξαρτήσεις πακέτων"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Να μην επαληθεύονται οι εξαρτήσεις πακέτων πριν από την εγκατάσταση"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Καμία ενέργεια αν υπάρχει απομακρυσμένο αποθετήριο με το ίδιο όνομα"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Έγγραφο κειμένου"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Λήψη νέου αντιγράφου των βάσεων δεδομένων πακέτων"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Μόνο λήψη πακέτων, χωρίς εγκατάσταση"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Σχεδίαση γραφικού ιστορικού commit σε μορφή κειμένου"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Δοκιμαστική αφαίρεση χωρίς διαγραφή αρχείων"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Δοκιμαστική εγκατάσταση χωρίς τροποποίηση του συστήματος"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Επεξεργασία εντολής: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Επεξεργασία ρυθμίσεων σήραγγας"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Επεξεργασία συνδυασμού χρωμάτων"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Επεξεργασία επιλεγμένης συνεδρίας"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Επεξεργασία συνεδρίας — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Επεξεργασία συνδυασμού χρωμάτων ή δημιουργία προσαρμοσμένης παραλλαγής"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Ετοίμασα ένα **Δομημένο Σχέδιο Δράσης** με επικύρωση από το `PolicyEngine` και αυτόματη επαλήθευση μετά την εκτέλεση (`verifier.rs`) για:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Σύγχρονος εξομοιωτής τερματικού για τοπικές και απομακρυσμένες ροές εργασίας στο Linux, με ProductionGuard, διπλό παράθυρο SFTP/TFTP και Βοηθό AI Zero-Trust."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Ενεργοποίηση απενεργοποιημένου snap"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "Προώθηση X11 (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Κλείνει την ενεργή καρτέλα (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Βρείτε Αρχεία"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Στέλνει εντολές ταυτόχρονα σε πολλαπλά τερματικά (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Αποστολή εντολής σε όλες τις καρτέλες"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Αποστολή ερώτησης"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "Αποστολή εντολής sha256sum στην ενεργή καρτέλα τερματικού"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Αποστολή σε όλους"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Διαγραφή (απεγκατάσταση) εγκατεστημένου πακέτου RPM"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Σφάλμα κατά την αποθήκευση αρχείου"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Σφάλμα κατά την αλλαγή δικαιωμάτων του '{name}': {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Σφάλμα κατά τον υπολογισμό hash"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Σφάλμα κατά την επικόλληση στοιχείου: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Σφάλμα κατά τη δημιουργία αρχείου: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Σφάλμα κατά τη δημιουργία αντιγράφου ασφαλείας: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Σφάλμα κατά τη δημιουργία φακέλου: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Σφάλμα κατά τη διαγραφή αρχείου: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Σφάλμα κατά τη διαγραφή φακέλου: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Σφάλμα κατά την εμφάνιση του {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Σφάλμα κατά τη μετακίνηση στοιχείου: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Σφάλμα κατά τη μετονομασία: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Σφάλμα αποθετηρίου Git"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Σφάλμα κατά την επαναφορά: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Σφάλμα: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Επιλέξτε μεταξύ Τοπικού (-L), Απομακρυσμένου (-R) ή Δυναμικού SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Εφαρμόστηκε ο συνδυασμός χρωμάτων: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Ο συνδυασμός χρωμάτων αποθηκεύτηκε: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Αυτή η συνεδρία προέρχεται από το ~/.ssh/config (μόνο για ανάγνωση) ή έχει ήδη αφαιρεθεί."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Αυτό το αρχείο είναι μόνο για ανάγνωση. Οι αλλαγές μπορούν να αποθηκευτούν με δικαιώματα Διαχειριστή (Root)."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Φωτεινό στυλ (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Σκοτεινό στυλ (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "Π.χ.: 10.0.0.15 ή srv.etaireia.com"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "Π.χ.: Παραγωγή (αφήστε κενό για ριζικό φάκελο)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "Π.χ.: Παραγωγή Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "Π.χ.: root ή ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Διαγραφή φακέλου"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Μόνιμη διαγραφή"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Εκτελέστηκε στο τερματικό: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Εκτέλεση (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Εκτέλεση τώρα"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Εκτέλεση με sudo στο τερματικό"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Εκτέλεση εντολής σε όλα τα τερματικά"
+
+# 
+msgid "Executar passo"
+msgstr "Εκτέλεση βήματος"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Εκτέλεση σχεδίου πράκτορα"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Εκτέλεση όλων των δοκιμών μονάδας και ενσωμάτωσης"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Εμφάνιση πίνακα συνεδριών"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Επεξήγηση αρχείου με ΤΝ"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "Ζητήθηκε επεξήγηση του αρχείου '{name}' από τον βοηθό ΤΝ."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Εξηγήστε τον σκοπό, τη δομή και τη λειτουργία του αρχείου '{name}'.\nΔιαδρομή: {path}\n\nΑρχικό περιεχόμενο:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Εξάγει τα settings.json, sessions.json και command_buttons.json με κατακερματισμό SHA-256"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Εξάγει ολόκληρη την προσωρινή μνήμη ή την ενεργή επιλογή τερματικού"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Εξήχθη σε {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Εξαγωγή εξόδου τερματικού (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Εξαγωγή συνεδρίας ως εγχειρίδιο λειτουργίας (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "Εξαγωγή τερματικού OnyxSH - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Έλεγχος εξωτερικών συνδέσεων και αυστηρή απομόνωση δεδομένων."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Αναλυτική εξαγωγή συμπιεσμένου αρχείου tar με gzip"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Εξάγει αρχεία από συμπιεσμένες αρχειοθήκες"
+
+# 
+msgid "Extrair"
+msgstr "Εξαγωγή"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Αποτυχία αποθήκευσης ως Root"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Αποτυχία αναμονής της διεργασίας pkexec: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Αποτυχία υπολογισμού αθροισμάτων ελέγχου: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Αποτυχία δημιουργίας αντιγράφου ασφαλείας: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Αποτυχία εγγραφής δεδομένων στο stdin του pkexec: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Αποτυχία εκκίνησης προνομιούχας διεργασίας pkexec: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Αποτυχία επαναφοράς αντιγράφου ασφαλείας: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Αποτυχία αποθήκευσης αρχείου: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Η μεταφορά απέτυχε (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Η μεταφορά απέτυχε (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Γρήγορο, ευέλικτο εργαλείο αντιγραφής απομακρυσμένων και τοπικών αρχείων"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Προσθήκη / αφαίρεση εντολής από τα αγαπημένα"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Προσθήκη τρέχοντος καταλόγου στα αγαπημένα"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Το αγαπημένο αφαιρέθηκε: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Κάνει commit τις αλλαγές στο Git με περιγραφικό μήνυμα"
+
+# 
+msgid "Fechar Aba"
+msgstr "Κλείσιμο Καρτέλας"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Κλείσιμο Ενεργού Πλαισίου"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "Διαχειριστής πακέτων RPM για Fedora/RHEL/Rocky/AlmaLinux"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Λήψη από και ενσωμάτωση με άλλο αποθετήριο"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Ουρά μεταφορών — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Η ουρά μεταφορών είναι κενή (0 εργασίες σε εξέλιξη)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Δεδομένα αρχείου τροποποιημένα πριν από n*24 ώρες"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Τύπος αρχείου (f κανονικό αρχείο, d κατάλογος, l συμβολικός σύνδεσμος)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Φιλτράρισμα της αρχειοθήκης μέσω gzip (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Εύρεση του πακέτου που παρέχει ένα συγκεκριμένο αρχείο ή δυνατότητα"
+
+# 
+msgid "Focar janela existente"
+msgstr "Εστίαση σε υπάρχον παράθυρο"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Εστίαση προς τα κάτω"
+
+# 
+msgid "Focar painel acima"
+msgstr "Παράθυρο εστίασης επάνω"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Παράθυρο εστίασης δεξιά"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Παράθυρο εστίασης αριστερά"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Η εστίαση μεταφέρθηκε στο πρώτο πλαίσιο."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Η εστίαση μεταφέρθηκε στο δεύτερο πλαίσιο."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Παρακολούθηση της εξόδου σε πραγματικό χρόνο καθώς μεγαλώνει το αρχείο"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Γραμματοσειρά, παλέτα χρωμάτων, διαφάνεια και ΤΝ (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Επιβολή διαγραφής ακόμα κι αν εξαρτώνται εφαρμογές από αυτό"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Επιβολή εγκατάστασης ακόμα κι αν το πακέτο ή τα αρχεία υπάρχουν ήδη"
+
+# 
+msgid "Force upgrade"
+msgstr "Επιβολή αναβάθμισης"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Μορφοποίηση εξόδου ερωτήματος με προσαρμοσμένο queryformat"
+
+# 
+msgid "Formato"
+msgstr "Μορφή"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "Ανανέωση πακέτων RPM (αναβάθμιση μόνο εάν είναι ήδη εγκατεστημένα)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Δημιουργία δομημένου σχεδίου δράσης (ActionPlan)"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Διαχειρίζεται υπηρεσίες συστήματος με το systemctl"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Διαχειριστής Αρχείων"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Διαχειριστής αρχείων διπλού πλαισίου"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Διαχειριστής Εντολών"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Διαχειριστής εντολών & δυναμικών φορμών"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Διαχείριση Καρτελών & Πινάκων"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Εφαρμογή Flatpak και διαχείριση χρόνου εκτέλεσης"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Πρόταση Conventional Commit"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: ο τρέχων κατάλογος δεν είναι αποθετήριο Git."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Υψηλή χωρητικότητα πλαισίου"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Πλέγμα εικονιδίων"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Υπερταχύς LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Γραφήματα σε πραγματικό χρόνο για CPU, RAM, I/O δίσκου και Δίκτυο/GPU"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Μοντέλο και πάροχος υψηλού συλλογισμού για σχέδια πολλαπλών βημάτων"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Εμπλουτισμένο ιστορικό εντολών (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Ιστορικό συνομιλιών"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Ιστορικό μεταφορών"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Ιστορικό: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Κεντρικός υπολογιστής / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Απομακρυσμένος κεντρικός υπολογιστής (IP / τομέας)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Απομακρυσμένος κεντρικός υπολογιστής για Bind"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Ο κεντρικός υπολογιστής δεν μπορεί να είναι κενός"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Μη έγκυρος κεντρικός υπολογιστής ή διεύθυνση IP."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Αρχείο ταυτότητας (ιδιωτικό κλειδί) για έλεγχο ταυτότητας με δημόσιο κλειδί"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Παράβλεψη διάκρισης πεζών-κεφαλαίων"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Παράβλεψη ενδείξεων αντιγράφων ασφαλείας αρχείων (αφαίρεση αρχείων ρυθμίσεων)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Παράβλεψη ανύπαρκτων αρχείων, χωρίς επιβεβαίωση"
+
+# 
+msgid "Imagem"
+msgstr "Εικόνα"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "Εισαγωγή δημόσιου κλειδιού GPG σε μορφή ASCII-armored στην κλειδοθήκη RPM"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Εισαγωγή απομακρυσμένης διαμόρφωσης από .flatpakrepo"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Εισαγωγή συνεδριών (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "Συμπερίληψη κεφαλίδων απόκρισης HTTP στην έξοδο"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Αυξάνει το μέγεθος γραμματοσειράς του τερματικού (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Συνάγει και προτείνει αυτόματες επικυρώσεις (κατάσταση υπηρεσίας, σύνταξη διαμόρφωσης) μετά από εντολές τροποποίησης."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "Εκκίνηση διακομιστή TFTP"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Εισαγωγή (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Εισαγωγή διαδρομής στο τερματικό"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Επιθεωρεί το τρέχον αποθετήριο Git και προτείνει μήνυμα commit"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Επιθεώρηση ενεργών υποδοχών και θυρών στον κεντρικό υπολογιστή"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Εγκατάσταση τοπικού αρχείου πακέτου .deb"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Εγκατάσταση αρχείου πακέτου RPM με αναλυτική πρόοδο"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Εγκατάσταση ως μη ρητή εξάρτηση"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Εγκατάσταση από το κανάλι beta"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Εγκατάσταση από το κανάλι edge"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Εγκατάσταση από το σταθερό κανάλι (stable)"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Εγκατάσταση ενός ή περισσότερων πακέτων RPM"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Εγκατάσταση snap στο σύστημα"
+
+# 
+msgid "Interactive rebase"
+msgstr "Διαδραστικό rebase"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Διαδραστική επιλογή τμημάτων (hunks) της διόρθωσης"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Αλληλεπίδραση Τερματικού"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Τοπική διεπαφή / Bind IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Τοπική διεπαφή ακρόασης"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Ερμηνεία μοτίβου ως εκτεταμένη κανονική έκφραση (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Διάστημα ελέγχου καθυστέρησης"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Διάστημα σε δευτερόλεπτα για αποστολή πακέτων ελέγχου KeepAlive"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Μη έγκυρο όνομα χρήστη SSH"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Μη έγκυρο όνομα κεντρικού υπολογιστή ή διεύθυνση IP"
+
+# 
+msgid "Invalid local port"
+msgstr "Μη έγκυρη τοπική θύρα"
+
+# 
+msgid "Invalid port number"
+msgstr "Μη έγκυρος αριθμός θύρας"
+
+# 
+msgid "Invalid remote host"
+msgstr "Μη έγκυρος απομακρυσμένος κεντρικός υπολογιστής"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Διερεύνηση υποδοχών (σύγχρονος αντικαταστάτης του netstat)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Μετάβαση σε καρτέλα"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Αυτό θα επαναφέρει όλες τις συντομεύσεις πληκτρολογίου στις προεπιλεγμένες τιμές τους. Θέλετε να συνεχίσετε;"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Το στοιχείο επικολλήθηκε στο: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Το στοιχείο μετακινήθηκε στο: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "Η διάταξη {n_pages} καρτέλας(-ών) αποθηκεύτηκε στο {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Καθαρίζει την οθόνη και το scrollback της ενεργής συνεδρίας (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Εκκαθάριση ολοκληρωμένων"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Εκκαθάριση μη αγαπημένου ιστορικού"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Καθαρισμός Συνεδρίας"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Εκκαθάριση συνεδρίας τερματικού"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Ο σύνδεσμος αντιγράφηκε στο πρόχειρο."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Λίστα όλων των αρχείων που ανήκουν σε ένα εγκατεστημένο πακέτο RPM"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Λίστα εφαρμογών και περιβαλλόντων εκτέλεσης που είναι διαθέσιμα σε απομακρυσμένο αποθετήριο"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Λίστα δυνατοτήτων που απαιτούνται από αυτό το .rpm"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Λίστα αρχείων ρυθμίσεων ενός εγκατεστημένου πακέτου"
+
+# 
+msgid "List configuration files only"
+msgstr "Λίστα μόνο των αρχείων ρυθμίσεων"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Λίστα εξαρτήσεων που απαιτούνται από ένα εγκατεστημένο πακέτο"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Λίστα αρχείων που περιέχονται στο αρχείο .rpm"
+
+# 
+msgid "List files installed by package"
+msgstr "Λίστα αρχείων που εγκαταστάθηκαν από το πακέτο"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Λίστα εξωτερικών πακέτων (π.χ. από το AUR)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Λίστα εγκατεστημένων πακέτων που ταιριάζουν στο μοτίβο"
+
+# 
+msgid "List installed snaps"
+msgstr "Λίστα εγκατεστημένων snaps"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Λίστα εγκατεστημένων αρχείων μονάδων και κατάστασης ενεργοποίησής τους"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Λίστα ορφανών πακέτων (εξαρτήσεις που δεν απαιτούνται πλέον)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Λίστα πακέτων που εγκαταστάθηκαν ως εξαρτήσεις"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Λίστα αποθηκευμένων stashes"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Λεπτομερής λίστα"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Εμφανίζει τα περιεχόμενα του καταλόγου με λεπτομέρειες (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Λίστα, πλέγμα μικρογραφιών, δέντρο & Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Λίστα Αρχείων"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Τοπικό (Ollama / LM Studio) • Πλήρες απόρρητο GPU/CPU"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Βασικό URL τοπικού διακομιστή"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Εκτενής μορφή, όλα τα αρχεία, αναγνώσιμα μεγέθη"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Μοντέλο και πάροχος χαμηλής καθυστέρησης για καθημερινές ερωτήσεις shell"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Δημιουργία γονικών καταλόγων όπως απαιτείται"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Μέγιστη κατανομή μνήμης πλαισίου που αποστέλλεται στο μοντέλο"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Μνήμη (RAM & Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "Μνήμη RAM"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Μήνυμα commit"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Αυστηρή λειτουργία εκτός σύνδεσης ενεργή (Μηδέν Cloud)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Λειτουργία σύνδεσης με έξυπνη δρομολόγηση ενεργή."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Η λειτουργία επιλογής κειμένου ενεργοποιήθηκε."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Η λειτουργία επιλογής κειμένου απενεργοποιήθηκε."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Λειτουργία εκπομπής (Broadcast σε όλες τις καρτέλες)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Λειτουργία θέματος"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Παρακολούθηση πόρων σε πραγματικό χρόνο (Sparklines Cairo)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Παρακολούθηση πόρων σε πραγματικό χρόνο — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Εμφανίζει ή αποκρύπτει το δέντρο συνεδριών SSH (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Εμφάνιση κρυφών αρχείων (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Μηχανή"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Όνομα και προαιρετικά ετικέτα σε μορφή 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Κανένα στοιχείο στο πρόχειρο για επικόλληση."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Δεν υπάρχουν ακόμη εγγραφές ελέγχου. Κάντε κλικ στο 'Προσομοίωση ελεγμένης αλλαγής' για να δοκιμάσετε την ατομική επαναφορά."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Δεν εντοπίστηκε αποκλειστική GPU μέσω sysfs/nvidia-smi"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Δεν επιλέχθηκε καμία συνεδρία"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "Δεν καταγράφηκαν μεταφορές στη συνεδρία."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Δίκτυο (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Δίκτυο (/proc/net/dev) • RX / TX σε πραγματικό χρόνο"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Δίκτυο (RX / TX) & GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Να μη γίνονται ποτέ ερωτήσεις"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Όνομα (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Όνομα νέου κλάδου"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Όνομα συνεδρίας:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Όνομα νέου φακέλου:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Μη έγκυρο όνομα αρχείου στο πρόχειρο."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "Το όνομα χρήστη SSH περιέχει μη έγκυρους χαρακτήρες."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Όνομα αρχείου προορισμού"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Όνομα Υπηρεσίας"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Όνομα εντολής (π.χ.: Επανεκκίνηση Nginx)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Όνομα νέου αρχείου:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Όνομα εικονιδίου (π.χ.: utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Όνομα ή ID κοντέινερ"
+
+# 
+msgid "Nome:"
+msgstr "Όνομα:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Μη διαδραστική λειτουργία"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Νέα καρτέλα τερματικού"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Νέα καρτέλα τερματικού (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Νέος φάκελος εδώ..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Νέος φάκελος συνεδριών"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Νέος φάκελος..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Νέα συνεδρία — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Ξεκίνησε νέα συνομιλία."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Νέο αρχείο εδώ..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Νέο αρχείο..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Νέος συνδυασμός χρωμάτων"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Νέο όνομα φακέλου:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Νέο όνομα αρχείου:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Δεν ήταν δυνατή η φόρτωση του στοιχείου: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Δεν ήταν δυνατή η εγγραφή των αλλαγών: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Δεν υπάρχει αρκετός ελεύθερος χώρος στο σύστημα αρχείων."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Επίπεδο 0 (Ανάγνωση)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Επίπεδο 1 (Εγγραφή)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Επίπεδο 2 (Διαχειριστής)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Επίπεδο 3 (Κρίσιμο)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Επίπεδο 4 (Αποκλεισμένο)"
+
+# 
+msgid "Nível {n}"
+msgstr "Επίπεδο {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Αριθμός προσπαθειών πριν από την εγκατάλειψη της αυτόματης επανασύνδεσης"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "Το εκτελέσιμο '{bin}' δεν είναι εγκατεστημένο ή βρίσκεται εκτός $PATH."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "Η εντολή τερματίστηκε με κωδικό σφάλματος."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "Η εντολή που εκτελέστηκε στο τερματικό απέτυχε. Αναλύστε τα αρχεία του έργου και προετοιμάστε τις απαραίτητες διορθώσεις με το OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "Η εντολή απέτυχε λόγω έλλειψης δικαιωμάτων υπερχρήστη (root)."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "Το όνομα της συνεδρίας δεν μπορεί να είναι κενό."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Συγκεκαλυμμένη / αποκωδικοποιημένη μέσω Base64 διοχέτευση εκτέλεσης"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Προηγούμενη εμφάνιση (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Εμφανίσεις που βρέθηκαν στο τερματικό"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Οκταδικό: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Έτοιμο"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Δοκιμή ειδοποίησης"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "Το OpenCode ξεκίνησε στο τερματικό."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Ενιαίος κατάλογος πολλαπλών μοντέλων"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Χειριστής: {author} | Κεντρικός υπολογιστής: {host} | Ημερομηνία: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Λειτουργία σε όλα τα πακέτα στον χώρο εργασίας"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "Η λειτουργία ακυρώθηκε ή απορρίφθηκε από τον χρήστη."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Λειτουργίες με τη διαχείριση πακέτων Arch Linux"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Λειτουργίες με τη διαχείριση πακέτων Debian/Ubuntu"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Λειτουργίες με τη διαχείριση πακέτων Fedora/RHEL"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Λειτουργίες Αρχείων"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Αύξουσα σειρά"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Φθίνουσα σειρά"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Ενεργοποιήθηκε η αύξουσα ταξινόμηση"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Ενεργοποιήθηκε η φθίνουσα ταξινόμηση"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Ταξινόμηση εγκατεστημένων πακέτων κατά χρόνο εγκατάστασης (νεότερα πρώτα)"
+
+# 
+msgid "Organizar por"
+msgstr "Ταξινόμηση κατά"
+
+# 
+msgid "Origem (Local)"
+msgstr "Προέλευση (Τοπική)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Εμφάνιση αριθμών σε αναγνώσιμη μορφή"
+
+# 
+msgid "Output package names only"
+msgstr "Εμφάνιση μόνο των ονομάτων πακέτων"
+
+# 
+msgid "Pacote"
+msgstr "Πακέτο"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Πακέτο εγκατάστασης"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Μοτίβο ονόματος (π.χ.: *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Πίνακας Συνεδριών"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Ο πίνακας/η καρτέλα έκλεισε."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Ολόκληρη λέξη"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "Παλέτα ANSI 16 χρωμάτων"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "Διακοπή διακομιστή TFTP ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Παράμετροι — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Βήμα #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Εκτελεσμένο βήμα: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "Ο φάκελος '{path}' δημιουργήθηκε με επιτυχία."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Φάκελος / Κατάλογος"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Ο φάκελος αντιγράφηκε στο πρόχειρο: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Δημιουργήθηκε φάκελος: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Διαγράφηκε φάκελος: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Ο φάκελος επισημάνθηκε για μετακίνηση: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Ο φάκελος αφαιρέθηκε από τα αγαπημένα."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Ο φάκελος μετονομάστηκε σε '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Φάκελος · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Φάκελος:"
+
+# 
+msgid "Pause"
+msgstr "Παύση"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Το προφίλ δρομολόγησης άλλαξε σε: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Εκτέλεση αναβάθμισης διανομής (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Ρώτησε τον Βοηθό AI"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Ρωτήστε ή επικολλήστε ένα σφάλμα τερματικού..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Δικαιώματα (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "Τα δικαιώματα του '{name}' άλλαξαν σε {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Δικαιώματα για {name}"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Αναζήτηση σε όλες τις ανοιχτές καρτέλες, συνεδρίες SSH, ιστορικό και αποσπάσματα (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Αναδρομική αναζήτηση σε υποκαταλόγους"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Αναζήτηση στο Τερματικό"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Αναζήτηση κειμένου σε όλες τις ανοιχτές καρτέλες τερματικού, συνεδρίες SSH, ιστορικό και αποσπάσματα..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Αναζήτηση σηράγγων κατά όνομα, θύρα ή κεντρικό υπολογιστή..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Εκτέλεση μέσω σωλήνωσης στον διερμηνέα κελύφους"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Σχέδιο δράσης Zero-Trust για: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Φόντο"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Παρακαλούμε εισαγάγετε ένα κλειδί API για {provider} πριν από τη δοκιμή."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Τελικά σημεία και θύρες"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Παρακαλούμε αναλύστε την ακόλουθη επιλογή από το τερματικό:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Παρακαλούμε αναλύστε και εξηγήστε τον κώδικα/περιεχόμενο του αρχείου '{name}', τον σκοπό, τη δομή και τα σημαντικά σημεία του:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Παρακαλούμε πραγματοποιήστε έναν λεπτομερή έλεγχο ασφάλειας και διακυβέρνησης πρόσβασης στον τρέχοντα κατάλογο '{path}'. Ελέγξτε για υπερβολικά χαλαρά δικαιώματα, ευαίσθητα αρχεία (.env, ιδιωτικά κλειδιά, εκτεθειμένα διαπιστευτήρια) και προτείνετε βέλτιστες πρακτικές Zero-Trust."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Παρακαλούμε πραγματοποιήστε έναν λεπτομερή έλεγχο ασφάλειας και δικαιωμάτων πρόσβασης του αρχείου '{name}'.\nΔιαδρομή: {path}\nΤρέχοντα δικαιώματα: {perms} ({oct})\nΜέγεθος: {size}\nΠροτείνετε ασφαλείς ρυθμίσεις chmod και μέτρα μετριασμού ευπαθειών."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Παρακαλούμε πραγματοποιήστε έναν λεπτομερή έλεγχο ασφάλειας και δικαιωμάτων πρόσβασης του καταλόγου '{name}'.\nΔιαδρομή: {path}\nΤρέχοντα δικαιώματα: {perms} ({oct})\nΤελευταία τροποποίηση: {date}\nΠροτείνετε ιδανικές ρυθμίσεις chmod, περιορισμούς και βέλτιστες πρακτικές συμμόρφωσης Zero-Trust."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Παρακαλούμε αναδιαμορφώστε το ακόλουθο απόσπασμα κώδικα με το OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Η θύρα είναι εκτός έγκυρου εύρους (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Απομακρυσμένη εκτεθειμένη θύρα (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Απομακρυσμένη θύρα προορισμού"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Τοπική θύρα ακρόασης (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "Θύρα διαμεσολαβητή SOCKS5 (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Η θύρα είναι εκτός του επιτρεπόμενου εύρους (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Θύρα:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Απομακρυσμένο PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Προτιμήσεις"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Προσθήκη αριθμού γραμμής με βάση το 1 στην αρχή κάθε γραμμής"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Προεπισκόπηση εντολής:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Κύριος πάροχος και συνδεσιμότητα"
+
+# 
+msgid "Print Git version"
+msgstr "Εμφάνιση έκδοσης του Git"
+
+# 
+msgid "Print RPM version"
+msgstr "Εμφάνιση έκδοσης του RPM"
+
+# 
+msgid "Print help synopsis"
+msgstr "Εμφάνιση σύνοψης βοήθειας"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Εμφάνιση μεγεθών σε δυνάμεις του 1024 (π.χ. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Άμεση εμφάνιση stdout/stderr της δοκιμής"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Εμφάνιση συνόλου για βάθος καταλόγου 1"
+
+# 
+msgid "Print zypper version"
+msgstr "Εμφάνιση έκδοσης του zypper"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Παραγωγή / Διακομιστές ιστού"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Πρωτόκολλο:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Παροχή αναλυτικής εξόδου"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Πάροχος που χρησιμοποιείται όταν είναι απενεργοποιημένη η Έξυπνη Δρομολόγηση"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Ζωντανή προεπισκόπηση"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Επόμενη εμφάνιση (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Επόμενο αρχείο (Κάτω βέλος / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Μετάβαση στην προηγούμενη γραμμή εντολών."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Μετάβαση στην επόμενη γραμμή εντολών."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Πλήρης εκκαθάριση εγκατεστημένου πακέτου συμπεριλαμβανομένων των ρυθμίσεων"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Θέση του snap σε κλασική λειτουργία περιορισμού"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Αριθμός γραμμών (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Αριθμός γραμμών (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Ερώτημα σε μη εγκατεστημένο τοπικό αρχείο πακέτου .rpm"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Ερώτημα και παράθεση όλων των εγκατεστημένων πακέτων RPM"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Αναζήτηση πακέτων που πληρούν τα κριτήρια αποθετηρίου"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "Έλεγχος της κατάστασης των υπηρεσιών που παρέχονται από snaps"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Έλεγχος ποιο εγκατεστημένο πακέτο RPM κατέχει μια διαδρομή αρχείου"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Προεπισκόπηση)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "Εργαλείο χαμηλού επιπέδου του RPM Package Manager (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Αναδρομική ανάγνωση όλων των αρχείων σε κάθε κατάλογο"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Ανάγνωση: {read}/s • Εγγραφή: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Επανατοποθέτηση (rebase) του τρέχοντος κλάδου πάνω στο upstream μετά τη λήψη"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Ανακατασκευή των ευρετηρίων της βάσης δεδομένων RPM από τις εγκατεστημένες κεφαλίδες"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Έξυπνη αυτόματη επανασύνδεση σε αποσυνδέσεις"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Καταγραφή των προετοιμασμένων αλλαγών στο αποθετήριο"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Αποκοπή αρχείου"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Αποκοπή φακέλου"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Επαναφέρει όλες τις συντομεύσεις στις προεπιλεγμένες τιμές"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Επαναφορά Ζουμ"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Μειώνει το μέγεθος γραμματοσειράς του τερματικού (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Μείωση Ζουμ"
+
+# 
+msgid "Refresh Interval"
+msgstr "Διάστημα ανανέωσης"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Ανανέωση όλων των μεταδεδομένων αποθετηρίων"
+
+# 
+msgid "Refresh files database"
+msgstr "Ανανέωση βάσης δεδομένων αρχείων"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "Εγγραφές AuditLogger (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Καθολικοί κανόνες επισήμανσης"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Επανεκκίνηση διαχειριζόμενης υπηρεσίας και εφαρμογή ρυθμίσεων"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Επανεγκατάσταση εάν το πακέτο υπάρχει ήδη"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Η πλήρης αναφορά κατακερματισμών (hashes) αντιγράφηκε στο πρόχειρο"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Εκκαθαρισμένη διαγνωστική αναφορά OnyxSH"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Η διαγνωστική αναφορά αντιγράφηκε στο πρόχειρο."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Δομημένη επιχειρησιακή αναφορά με βήματα, σημειώσεις, στόχο και συμπέρασμα (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Εκκαθαρισμένη αναφορά για ΛΣ, RAM, GPU/VRAM και περιβάλλον Flatpak"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Επαναφόρτωση υπηρεσίας ή επανεκκίνηση εάν η επαναφόρτωση δεν υποστηρίζεται"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Απομακρυσμένη (-R) • Έκθεση τοπικής θύρας σε απομακρυσμένο διακομιστή"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Αφαίρεση μίας εγγραφής stash"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Αφαίρεση όλων των πακέτων που εξαρτώνται από τον στόχο"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Αφαίρεση όλων των εγγραφών stash"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Αφαίρεση όλων των εκδόσεων του πακέτου"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Αφαίρεση εγκατεστημένου πακέτου με διατήρηση των ρυθμίσεων"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Αναδρομική αφαίρεση καταλόγων και του περιεχομένου τους"
+
+# 
+msgid "Remove installed packages"
+msgstr "Αφαίρεση εγκατεστημένων πακέτων"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Αφαίρεση παρωχημένων απομακρυσμένων αναφορών παρακολούθησης"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Αφαίρεση ενός ή περισσότερων πακέτων και αχρησιμοποίητων εξαρτήσεων"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Αφαίρεση πακέτων που εγκαταστάθηκαν αρχικά ως εξαρτήσεις και δεν χρειάζονται πλέον"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Αφαίρεση snaps από το σύστημα"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Αφαίρεση αχρησιμοποίητων δεδομένων (κοντέινερ, δίκτυα, εικόνες)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Αφαίρεση επιλεγμένης συνεδρίας"
+
+# 
+msgid "Remover Túnel"
+msgstr "Αφαίρεση σήραγγας"
+
+# 
+msgid "Remover favorito"
+msgstr "Αφαίρεση αγαπημένου"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Αφαίρεση αγαπημένου του τρέχοντος καταλόγου"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Μετονομασία αρχείου"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Μετονομασία φακέλου"
+
+# 
+msgid "Renomear..."
+msgstr "Μετονομασία..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Αναφορά στιγμιότυπου των τρεχουσών διεργασιών"
+
+# 
+msgid "Reportar Problema"
+msgstr "Αναφορά προβλήματος"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Επαναφορά μεγέθους γραμματοσειράς (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Επίλυση σφάλματος τερματικού με OpenCode / AI..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Πολιτική επανεκκίνησης κατά την έξοδο του κοντέινερ"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Επαναφέρει την προεπιλεγμένη γραμματοσειρά Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Επαναφορά καθολικών κανόνων"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Επαναφορά όλων των εντολών"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Επαναφορά της αρχικής λίστας αγνοημένων εντολών"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Επαναφορά ευρετηρίου / κατάργηση από stage"
+
+# 
+msgid "Resume"
+msgstr "Συνέχιση"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Τυπικές κρυπτογραφικές συνόψεις που υπολογίζονται από το περιεχόμενο του αρχείου:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Ανάκτηση αρχείων καταγραφής για υπηρεσίες"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Έλεγχος Diff & Έλεγχος Zero-Trust (Ατομική επαναφορά)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Έξυπνη δρομολόγηση: κλικ για εναλλαγή προφίλ (Αυτόματο, Γρήγορο, Προηγμένο, Ασφάλεια)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Δρομολογήθηκε στο προηγμένο/ασφαλές προφίλ συλλογισμού."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Δρομολογήθηκε στο γρήγορο προφίλ (απλό ερώτημα χαμηλής καθυστέρησης)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Εκτέλεση εκτελέσιμου ή παραδείγματος του τοπικού πακέτου"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Εκτέλεση σαν να ξεκίνησε το git στη διαδρομή"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Εκτέλεση κελύφους σύνδεσης ως χρήστης-στόχος (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Εκτέλεση βελτιστοποιημένου εκτελέσιμου έκδοσης"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Εγγενές Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Διαχειριστής πακέτων και εργαλείο δόμησης για Rust"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "ΣΥΝΕΔΡΙΑ SSH"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "Διακομιστής μεσολάβησης SOCKS5"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Εταιρικός διακομιστής μεσολάβησης SOCKS5"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Ασφαλής αναγκαστική προώθηση με επαλήθευση απομακρυσμένης αναφοράς"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Έξοδος από την εφαρμογή"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Αποθήκευση και κλείσιμο"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Αποθήκευση αλλαγών"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "Αποθήκευση αντιγράφου ασφαλείας OnyxSH"
+
+# 
+msgid "Salvar Comando"
+msgstr "Αποθήκευση εντολής"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Αποθήκευση τρέχουσας διάταξης καρτελών"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Αποθήκευση με δικαιώματα διαχειριστή / Root (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Αποθηκεύτηκε με επιτυχία: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Εκτέλεση σεναρίου (script)"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Αναζήτηση σε περιγραφές καθώς και σε ονόματα"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Αναζήτηση πακέτου που κατέχει ένα όνομα αρχείου"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Αναζήτηση πακέτων που ταιριάζουν στο μοτίβο"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Αναζήτηση snaps στο κατάστημα"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Αναζήτηση τοπικά εγκατεστημένων πακέτων"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Ακολούθηση στυλ συστήματος"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Παρακολούθηση σε πραγματικό χρόνο (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Δευτερόλεπτα διατήρησης ενεργών συνδέσεων (0 για απενεργοποίηση)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Επιλεγμένο: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "Επιλογή αρχείου αντιγράφου ασφαλείας OnyxSH"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Επιλέξτε τις εντολές που θα συμπεριληφθούν και προσθέστε επεξηγηματικά τεχνικά σχόλια για κάθε βήμα. (εντοπίστηκαν {count})"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Επιλέξτε ένα στοιχείο στο δεξί πλαίσιο για λήψη (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Επιλέξτε ένα στοιχείο στο αριστερό πλαίσιο για αποστολή (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Επιλέξτε πρώτα μια συνεδρία από τη λίστα για επεξεργασία."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Επιλέξτε πρώτα μια συνεδρία για κατάργηση."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Επιλογή παρακολουθούμενου κεντρικού υπολογιστή"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Επιλογή γραμμών που δεν ταιριάζουν"
+
+# 
+msgid "Seleção copiada."
+msgstr "Η επιλογή αντιγράφηκε."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Η επιλογή στάλθηκε για ανάλυση στον Βοηθό AI."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Η επιλογή στάλθηκε για αναδόμηση με το OpenCode."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Απόκρυψη πάντα"
+
+# 
+msgid "Servidor TFTP"
+msgstr "Διακομιστής TFTP"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "Διακομιστής TFTP μόνο για ανάγνωση ενεργός στο {addr} (ρίζα: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "Ο διακομιστής TFTP εναλλάχθηκε."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "Ο διακομιστής TFTP τερματίστηκε."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Συνεδρία: {session} | Κεντρικός υπολογιστής: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "Η συνεδρία '{name}' καταργήθηκε."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "Η συνεδρία '{name}' αποθηκεύτηκε στο ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Συνδεδεμένη συνεδρία SSH"
+
+# 
+msgid "Sessão limpa."
+msgstr "Η συνεδρία εκκαθαρίστηκε."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Αποθηκευμένες συνεδρίες"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Οι συνεδρίες συγχρονίστηκαν από το ~/.config/onyxsh/sessions.json και το ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Κέλυφος προς εκτέλεση"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Εμφάνιση όλων των υποδοχών TCP/UDP σε ακρόαση με διεργασία και αριθμητικές θύρες"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Εμφάνιση όλων των αναθεωρήσεων εγκατεστημένων snaps"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Εμφάνιση και διαχείριση δρομολόγησης, συσκευών δικτύου και διεπαφών"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Εμφάνιση διαθέσιμων ενημερώσεων snap χωρίς εγκατάσταση"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Εμφάνιση αλλαγών μεταξύ commits, ευρετηρίου και δέντρου εργασίας"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Εμφάνιση λεπτομερών πληροφοριών για ένα snap"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Εμφάνιση λεπτομερών πληροφοριών για μια εγκατεστημένη εφαρμογή ή περιβάλλον εκτέλεσης"
+
+# 
+msgid "Show error message on failure"
+msgstr "Εμφάνιση μηνύματος σφάλματος σε αποτυχία"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Εμφάνιση πλήρων πληροφοριών για τα καθορισμένα πακέτα"
+
+# 
+msgid "Show package metadata info"
+msgstr "Εμφάνιση πληροφοριών μεταδεδομένων πακέτου"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Εμφάνιση δικαιωμάτων για μια συγκεκριμένη διαδρομή αρχείου"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Εμφάνιση σεναρίων πριν/μετά την εγκατάσταση και απεγκατάσταση"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Εμφάνιση προόδου και διατήρηση μερικώς μεταφερμένων αρχείων"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Εμφάνιση του κουμπιού και του πλαϊνού πίνακα του Βοηθού AI στην επάνω γραμμή."
+
+# 
+msgid "Silent mode"
+msgstr "Αθόρυβη λειτουργία"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Προσομοίωση ελεγχόμενης αλλαγής"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Συγχρονίζει τοπικά αρχεία σε απομακρυσμένο κεντρικό υπολογιστή διατηρώντας τα χαρακτηριστικά"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "Σύστημα"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Λειτουργικό σύστημα"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Παράλειψη προτροπής επιβεβαίωσης"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Η έξυπνη δρομολόγηση απενεργοποιήθηκε: χρήση του προεπιλεγμένου ρυθμισμένου παρόχου."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, Σχέδια Δράσης & Ατομική Επαναφορά (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "Σχετικά με το OnyxSH"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "Καθορισμός μεθόδου αιτήματος HTTP (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Καθορισμός πακέτου προς εκτέλεση"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "Καθορισμός του απομακρυσμένου κελύφους προς χρήση (π.χ. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Διαίρεση τερματικού"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Αποθήκευση αλλαγών (stash) σε τροποποιημένο κατάλογο εργασίας"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Διακοπή μετά την αποστολή 4 πακέτων"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Ενεργή αυστηρή λειτουργία εκτός σύνδεσης (μόνο τοπικό Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Πρόταση υποεντολών και παραμέτρων για rpm, dnf, apt, pacman, flatpak, systemctl, docker, git και κοινά εργαλεία"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Προτάσεις για rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Σύνοψη μεγέθους σε μορφή αναγνώσιμη από άνθρωπο"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab ή → εφαρμογή • ↑/↓ πλοήγηση • Esc κλείσιμο"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε οριστικά τον φάκελο '{name}';"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε οριστικά το αρχείο '{name}';"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Θέμα για ανοιχτό φόντο"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Θέμα για σκούρο φόντο"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Θέμα που χρησιμοποιείται όταν το φόντο του τερματικού είναι ανοιχτό"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Θέμα που χρησιμοποιείται όταν το φόντο του τερματικού είναι σκούρο"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Πρότυπο εντολής (π.χ.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Προσπαθεί να επανασυνδέσει αποσυνδεδεμένες συνεδρίες SSH με αντίστροφη μέτρηση και ειδοποίηση στην οθόνη"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Τερματικό: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Δοκιμή όλων των πακέτων στον χώρο εργασίας"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Δοκιμή αναχαίτισης"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Έλεγχος ακεραιότητας της σύνταξης διαμόρφωσης του Nginx"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Κείμενο προσκηνίου (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Αυτή η ενέργεια θα διαγράψει μόνιμα όλες τις {count} συνομιλίες. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Τύπος / Επέκταση"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Τύπος Αρχείου"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Όλες οι ρυθμίσεις επαναφέρθηκαν στις προεπιλεγμένες."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Όλες οι συντομεύσεις πληκτρολογίου επαναφέρθηκαν στις προεπιλεγμένες."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Όλες οι σήραγγες SSH διακόπηκαν."
+
+# 
+msgid "Total Lines"
+msgstr "Σύνολο γραμμών"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Συνεχές ίχνος ελέγχου αποφάσεων, εντολών και ατομικής επαναφοράς"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Διαχειριστής πακέτων Snap για Ubuntu / Canonical"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Διαχειριστής του Uncomplicated Firewall"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Μονάδα / Υπηρεσία (προαιρετικό)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Ενημέρωση εγκατεστημένων πακέτων με νεότερες εκδόσεις"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Ενημέρωση πακέτων snap στο σύστημα"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Ενημέρωση της εφαρμογής/runtime εάν είναι ήδη εγκατεστημένη"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Αναβάθμιση αρχείου πακέτου RPM (ή εγκατάσταση αν δεν υπάρχει)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Αναβάθμιση ή εγκατάσταση τοπικού/απομακρυσμένου αρχείου πακέτου (.pkg.tar.zst)"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Χρησιμοποιεί πτυσσόμενα μπλοκ (&lt;details&gt;) για εξόδους άνω των 15 γραμμών"
+
+# 
+msgid "Use a long listing format"
+msgstr "Χρήση αναλυτικής μορφής λίστας"
+
+# 
+msgid "Use archive file or device"
+msgstr "Χρήση αρχείου αρχειοθήκης ή συσκευής"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Χρήση καταλόγου ως ανώτατου ριζικού καταλόγου για λειτουργίες RPM"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Απομακρυσμένος χρήστης"
+
+# 
+msgid "Usuário SSH:"
+msgstr "Χρήστης SSH:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Επικύρωση & Επισύναψη"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Έλεγχος τρέχουσας κατάστασης υπηρεσίας και εξαρτήσεων"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Έλεγχος αν η υπηρεσία '{svc}' είναι ενεργή"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Έλεγχος αν η υπηρεσία '{svc}' έχει ενεργοποιηθεί κατά την εκκίνηση"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Έλεγχος αν η υπηρεσία '{svc}' έχει σταματήσει"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Επαλήθευση συγκεκριμένου πακέτου έναντι αρχείου .rpm"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Επαλήθευση ακεραιότητας όλων των εγκατεστημένων πακέτων RPM έναντι της βάσης δεδομένων"
+
+# 
+msgid "Versão"
+msgstr "Έκδοση"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Προβολή των έτοιμων αλλαγών (staged) για το επόμενο commit"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Προβολή αρχείων καταγραφής συστήματος με το journalctl"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Προβολή, επεξεργασία και επαναφορά όλων των συντομεύσεων πληκτρολογίου του OnyxSH"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Προβολή ενοποιημένου Diff (Πριν έναντι Μετά):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Προβολή πλέγματος / μικρογραφιών"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Η προβολή πλέγματος εικονιδίων ενεργοποιήθηκε"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Η προβολή αναλυτικής λίστας ενεργοποιήθηκε"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "Δεν έχετε άδεια να τροποποιήσετε το '{name}'. Θέλετε να αποθηκεύσετε με δικαιώματα διαχειριστή (Root);"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "Έχετε μη αποθηκευμένες αλλαγές στο '{fname}'. Τι θέλετε να κάνετε πριν το κλείσιμο;"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "Έχετε μη αποθηκευμένες αλλαγές σε αυτό το αρχείο που θα χαθούν. Θέλετε σίγουρα να τις απορρίψετε;"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Επιστροφή στην προηγούμενη καρτέλα (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Αναμονή για δείγμα..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Εγγραφή εξόδου σε τοπικό αρχείο με το όνομα του απομακρυσμένου"
+
+# 
+msgid "You: "
+msgstr "Εσείς: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Η μεγέθυνση επαναφέρθηκε (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[ΣΥΜΠΕΡΑΣΜΑ & ΠΑΡΑΤΗΡΗΣΕΙΣ]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Δυαδικό ή μη προσβάσιμο περιεχόμενο]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Αδυναμία ανάγνωσης αρχείου καταγραφής]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[ΣΤΟΧΟΣ / ΠΛΑΙΣΙΟ]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[ΕΚΤΕΛΕΣΜΕΝΑ ΒΗΜΑΤΑ ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Κίνδυνος: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Εντοπίστηκε κίνδυνος"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Επαληθεύτηκε"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "Το `{cmd}` ολοκληρώθηκε σε {secs} δευτ."
+
+# 
+msgid "linha"
+msgstr "γραμμή"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "Βοηθητικό πρόγραμμα διαχείρισης πακέτων openSUSE / SLES"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} εντολή(ές) • Κάντε κλικ για επέκταση/σύμπτυξη"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} εντολές"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} γραμμές"
+
+# 
+msgid "{count} regras"
+msgstr "{count} κανόνες"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} αποτελέσματα"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} λογικοί πυρήνες)"
+
+# 
+msgid "{days} days"
+msgstr "{days} ημέρες"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} ώρες"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} γραμμές • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} λεπτά"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Αντίγραφο)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (βασισμένο στο {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Συνημμένο αρχείο]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "Το κλειδί API για {provider} ρυθμίστηκε με επιτυχία."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Απόφαση: {decision} | Κατάσταση: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "Σήραγγα {type}"
+
+# 
+msgid "Ícone:"
+msgstr "Εικονίδιο:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "Εικονίδια OnyxSH (Ενσωματωμένα)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Λήψη / Αντιγραφή"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Μεταφόρτωση / Αντιγραφή"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Εκτέλεση   •   Tab Εισαγωγή στην προτροπή   •   ⭐ Αγαπημένο   •   Esc Κλείσιμο"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Μετάβαση στην καρτέλα / Εκτέλεση • ↑/↓ Πλοήγηση • Esc Κλείσιμο"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Ατομική επαναφορά"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ Προειδοποίηση ProductionGuard ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Αναχαιτίστηκε καταστροφική εντολή ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ Σε πιο αργούς υπολογιστές, η επεξεργασία μοτίβων χρωμάτων ενδέχεται να μειώσει ελαφρώς την απόκριση σε πολύ μεγάλες εξόδους."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ Εξαγωγή τερματικού OnyxSH"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Αποσπάσματα"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Η εντολή ολοκληρώθηκε"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Αντιγράφηκε!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Εκτελέστηκε"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Η ατομική επαναφορά ολοκληρώθηκε: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Η εντολή απέτυχε (Έξοδος {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ ΤΟ HASH ΔΕΝ ΤΑΙΡΙΑΖΕΙ! Η επικολλημένη τιμή{hint} διαφέρει από τα υπολογισμένα hashes του αρχείου. Το αρχείο ενδέχεται να είναι κατεστραμμένο ή τροποποιημένο."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ ΙΣΤΟΡΙΚΟ"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Ενεργή λειτουργία Online.\nΚάντε κλικ για να ενεργοποιήσετε την αυστηρά τοπική λειτουργία εκτός σύνδεσης."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Όλα"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Στόχος / Πλαίσιο"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Συμπέρασμα & Διδάγματα"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Εσείς:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Εσείς{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Σημείωση:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Σημείωση: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Τρέχων κατάλογος"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x εκτελέσεις"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Τροποποιήθηκε:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Ανάλυση χρήσης δίσκου"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Αντιγραφή εκκαθαρισμένης αναφοράς"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Αντιγραφή εξόδου"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Επισυνάφθηκε με ασφάλεια: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Ιστορικό"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Προκαταρκτικές παρατηρήσεις"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Εκπομπή (🛡️ ProductionGuard ενεργό):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Η εντολή στάλθηκε με εκπομπή σε {count} τερματικό/ά."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Μέγεθος:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Τύπος:</b> Φάκελος / Κατάλογος"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 Εγκατάσταση {bin}"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}s"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 Συνεδρίες SSH"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 Έλεγχος git status"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Έλεγχος μετά την εκτέλεση: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Δικαιώματα:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Στάλθηκε δοκιμαστική ειδοποίηση στην επιφάνεια εργασίας."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Διαδρομή:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Υψηλός κίνδυνος (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Καρτέλες τερματικού"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Κρίσιμη ειδοποίηση — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Η εκπομπή αποκλείστηκε από το ProductionGuard: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 Το PathGuard ΑΠΕΚΛΕΙΣΕ την ανάγνωση του: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ ΛΕΙΤΟΥΡΓΙΑ ΠΑΡΑΓΩΓΗΣ ΕΝΕΡΓΗ — Το ProductionGuard αναχαιτίζει καταστροφικές εντολές (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Ενεργή αυστηρή λειτουργία εκτός σύνδεσης (Zero Cloud).\nΚάντε κλικ για εναλλαγή σε λειτουργία Online."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Εκτός σύνδεσης (Τοπικά)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Ασφάλεια"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Ασφαλής εντολή"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Διαδρομή: {route}"
+

@@ -257,6 +257,87 @@ class TestTranslationsSync(unittest.TestCase):
             "Diagnóstico do Sistema",
         )
 
+    def test_rust_ui_keys_coverage_across_all_28_catalogs(self) -> None:
+        """Verify all extracted Rust UI/backend i18n keys exist and load across all 28 .mo catalogs."""
+        import sys
+
+        scripts_dir = str(REPO_ROOT / "scripts")
+        if scripts_dir not in sys.path:
+            sys.path.insert(0, scripts_dir)
+        import sync_translations
+
+        self.assertEqual(
+            sync_translations.audit_rust_translations(strict=True),
+            0,
+            "Rust i18n strict audit reported missing or empty .po entries",
+        )
+
+        rust_keys = sorted(sync_translations.extract_rust_tr_keys().keys())
+        self.assertGreater(len(rust_keys), 1500)
+
+        for lang in SUPPORTED_LANGUAGES + ["pt_BR"]:
+            trans = gettext.translation(
+                "onyxsh",
+                localedir=str(INTERNAL_LOCALE_DIR),
+                languages=[lang],
+                fallback=False,
+            )
+            for key in rust_keys:
+                val = trans.gettext(key)
+                self.assertTrue(
+                    val,
+                    f"Rust key {repr(key)} resolved to empty translation in .mo catalog '{lang}'",
+                )
+
+        rust_spot_checks = {
+            "en": {
+                "Organizar por": "Sort by",
+                "Excluir Pasta": "Delete Folder",
+                "Modo do Tema": "Theme Mode",
+            },
+            "es": {
+                "Organizar por": "Ordenar por",
+                "Excluir Pasta": "Eliminar carpeta",
+                "Modo do Tema": "Modo del tema",
+            },
+            "fr": {
+                "Organizar por": "Trier par",
+                "Excluir Pasta": "Supprimer le dossier",
+                "Modo do Tema": "Mode du thème",
+            },
+            "de": {
+                "Organizar por": "Sortieren nach",
+                "Excluir Pasta": "Ordner löschen",
+                "Modo do Tema": "Designmodus",
+            },
+            "ru": {
+                "Organizar por": "Сортировать по",
+                "Excluir Pasta": "Удалить папку",
+                "Pasta / Diretório": "Папка / Каталог",
+            },
+            "ja": {
+                "Organizar por": "並べ替え",
+                "Excluir Pasta": "フォルダを削除",
+            },
+            "zh": {
+                "Organizar por": "排序方式",
+                "Excluir Pasta": "删除文件夹",
+            },
+            "pt_BR": {
+                "Install an RPM package file with verbose progress": "Instalar um arquivo de pacote RPM com progresso detalhado",
+                "File System": "Sistema de Arquivos",
+            },
+        }
+        for lang, expected_dict in rust_spot_checks.items():
+            trans = gettext.translation(
+                "onyxsh",
+                localedir=str(INTERNAL_LOCALE_DIR),
+                languages=[lang],
+                fallback=False,
+            )
+            for key, expected_val in expected_dict.items():
+                self.assertEqual(trans.gettext(key), expected_val)
+
 
 if __name__ == "__main__":
     unittest.main()

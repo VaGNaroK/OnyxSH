@@ -17119,3 +17119,4099 @@ msgstr "🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Sempre Avançado (Raciocínio)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} leyndarmál falin)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ Útflutningur OnyxSH útstöðvar"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Markmið / Samhengi"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Niðurstaða og lærdómur"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Athugasemdir í upphafi"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Framkvæmd skref fyrir skref"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Upplýsingar um setu"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Ekkert úttak myndað)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*Skjal sjálfvirkt útbúið af OnyxSH aðgerðadagbók.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Engin skref valin fyrir þetta skjal.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Dagsetning / Tími:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Hýsill:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Stjórnandi / Höfundur:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Seta:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Staða:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Skráð skref samtals:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Úttak ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (afgangur úttaks styttur í forskoðun)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Lesa / Skrifa á tæki"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable og Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 litasamsetningar, úttaksáhersla og reglur fyrir hverja skipun"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Fara upp í yfirmöppu (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Athugasemd:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "Gátt {port} er þegar frátekin af öðru ferli."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "FLIP #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "Gervigreindaraðstoð: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Flipa lokað."
+
+# 
+msgid "Abaixo"
+msgstr "Fyrir neðan"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Hætta við núverandi árekstrarlausn"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Hætta við rebase og fara aftur á upprunalega grein"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Opnar leitarstikuna Regex/Bókstaflegt í virka flipanum (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Opnar þessi göng sjálfkrafa þegar tengst er SSH-hýsli"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Opnar nýja staðbundna útstöð (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Opnar gagnvirka skel inni í keyrandi Docker-gámi"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Opna tengil: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Opna auðlindavakt (Cairo sparklines)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Opna möppu"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Opna með ytra forriti"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Opna þessa möppu í útstöð (cd)"
+
+# 
+msgid "Acima"
+msgstr "Fyrir ofan"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Fylgist með atvikaskrám Docker-gáms í rauntíma"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Fylgist með atvikaskrám systemd-einingar í rauntíma"
+
+# 
+msgid "Active"
+msgstr "Virkt"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Bæta við upstream rakningartilvísun"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Bæta við nýjum SSH-göngum"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Bæta við sérsniðnu þema"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Flokka eftir flokkum (.7z efst)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Úthluta pseudo-TTY tengdu við stdin gámsins"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Leyfa niðurfærslu í eldri útgáfu pakka"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Leyfa óöruggar TLS-tengingar"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Endurskoðuð breyting búin til með atóm-afriti."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Víxla Zero-Trust gervigreindaraðstoð"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Víxla tvískiptum skráarstjóra"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Víxla breytingarham (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Víxla tvöföldum glugga (Skipta / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "Víxla hliðarstiku SSH-setna"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Flatpak umhverfi"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Framleiðsluumhverfi (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Framleiðsluumhverfi — varið af ProductionGuard"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Breyta enda núverandi greinar"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Greindu eftirfarandi nýleg skilaboð og villur úr atvikaskránni '{name}' og veittu greiningu á undirliggjandi orsökum ásamt ráðlögðum lausnum:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Greindu verkefnið og útbúðu nauðsynlegar lagfæringar með OpenCode."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Greina núverandi pakka og tilkynna villur"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Hengja við skrá (PathGuard staðfesting)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Hengja skrá við samhengi (staðfest af PathGuard)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "Greiningu lokið fyrir beiðni þína (`SecretRedactor` og `<untrusted>` einangrun beitt).\n\nRáðlögð skipun:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Óskað eftir greiningu frá gervigreindaraðstoð."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Beitir málfræðiáherslu á úttak skipunarinnar 'cat'"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Beitir samhengisreglum sjálfkrafa þegar keyrandi skipun greinist"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Beita úttaksáherslu á SSH-tengingar"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Beita úttaksáherslu á staðbundnar útstöðvarsetur"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Forrit & Gluggi"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Forrit eða auðkenni"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Beita geymdri stöðu og halda á stash-lista"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Beita geymdri stöðu og fjarlægja af stash-lista"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Samþykkja og keyra"
+
+# 
+msgid "Aproximar"
+msgstr "Zooma inn"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Pakkastjórnunartól fyrir Arch Linux / Manjaro"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Skjalasafnshamur (varðveitir heimildir, tímastimpla, tákntengla)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Fyrri skrá (Ör upp / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Tvíundaskrá: {name}\nSlóð: {path}\nStærð: {size}\nHeimildir: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Skráarsafn"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Skrá afrituð til flutnings: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Skrá búin til: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Gagnaskrá"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Myndbandsskrá"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Hljóðskrá"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Skrá eytt: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Skrá merkt til færslu: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Skrá endurhlaðin af diski."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Skrá endurnefnd í '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Skrá endurheimt eftir afturköllun: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Skrá vistuð með kerfisstjóraheimildum (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Skrá vistuð með kerfisstjóraheimildum (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Skrá vistuð!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Skrá: {name} (Stærð: {size} bæti)\nÚtdráttur:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Skrám raðað í flokka (.7z efst)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Skrám raðað eftir breytingardagsetningu"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Skrám raðað eftir nafni"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Skrám raðað eftir stærð"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Skrám raðað eftir gerð / skráarendingu"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Upprunaskrár/-möppur"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "OpenCode kóðaaðstoðarmaður"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust gervigreindaraðstoð"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "Gervigreindaraðstoðin er ekki tengd."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Taka áhættu og keyra"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "Flýtilykill '{name}' uppfærður í {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "Flýtilykill '{name}' fjarlægður."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Flýtilyklar (34 stillanlegar aðgerðir)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Kerfisflýtileiðir og uppáhöld"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Virkja / Afvirkja vörn framleiðsluumhverfis (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "Virkja litun fyrir 'cat'"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Virkja áherslulitun skeljarinntaks"
+
+# 
+msgid "Ativar Todos"
+msgstr "Virkja allt"
+
+# 
+msgid "Ativo"
+msgstr "Virkt"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Virkt (hlustar á {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Núverandi: {curr}\nNýr: (pressa takka)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Núverandi: {curr}\nNýtt: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Núverandi: {curr}\nNýr: {new} (Stangast á við {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Endurnýja (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Endurnýja lista (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Öryggisúttekt með gervigreind"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Öryggisúttekt á þessari möppu með gervigreind"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "Öryggisúttekt á '{name}' send til gervigreindaraðstoðar."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "Úttekt á möppunni '{path}' send til AI-aðstoðarmannsins."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Stækka letur (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Auðkenning:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Sjálfvirkt: aðlagast bakgrunni skjáhermis. Handvirkt: fast þema."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Sjálfvirkt: greinir birtuskil við bakgrunn sjálfkrafa"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Sjálfvirkt fyllt út: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Snjöll sjálfvirk útfylling (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Snjöll sjálfvirk útfylling — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Sjálfvirk útfylling notuð: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Sjálfvirkt já"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Fjarlægja óþarfar hliðarbúnaðarkröfur sjálfkrafa"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Keyrir sjálfkrafa lesgreiningu án þess að krefjast handvirkrar staðfestingar."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Fer í næsta flipa (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Aðgerð"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "SHA-256 öryggisafrit búið til ({count} skrár): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "SHA-256 öryggisafrit vistað ({count} skrár): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Öryggisafrit fannst ekki á {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Öryggisafrit endurheimt ({count} skrár staðfestar með SHA-256)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Samtímakeyrslustika (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Magnfargað eyðing í gegnum xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Loka og hætta við (Mælt með)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Útsending send: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Senda til allra"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Byggja alla pakka á vinnusvæðinu"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Byggja smíðahluti í útgáfuham"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Byggja smíðahluti í útgáfuham með hagræðingu"
+
+# 
+msgid "Busca"
+msgstr "Leit"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Heildarleit milli flipa / Saga"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Heildarleit milli flipa / Lotur / Saga"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Heildarleit í flipum, lotum, sögu og kóðabútum (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Heildarleit setti inn í skipanalínu: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Heildarleit í OnyxSH (Ctrl+Shift+G) — Flipar, lotur, saga og kóðabútar"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Heildarleit: fókus á flipa #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Leitar að skrám og möppum með ítarlegum síum"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Óljós leit eftir möppu, hýsili og uppáhaldi (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Leita í skjáherminum (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Leita í núverandi skjáhermi"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Leita að lotum eða hýslum..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Leita að texta í skjáhermi..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Sleppa staðfestingarbeiðnum"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Reiknar hakka (hashes) í bakgrunni..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Slóð afrituð: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Slóð möppu (t.d. Framleiðsla eða Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Skráarslóð (t.d. /var/log/syslog eða ~/.ssh/id_rsa til að prófa lokun):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Slóð sett inn í skjáherminn: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Skráarnafnsmynstur óháð há- og lágstöfum"
+
+# 
+msgid "Categoria"
+msgstr "Flokkur"
+
+# 
+msgid "Categoria:"
+msgstr "Flokkur:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Skipta í möppu áður en aðgerðir eru framkvæmdar"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH-lykill / Lykilorð:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Athuga GPG-undirskrift og heilleika .rpm-skrár"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Athuga hvort uppfærslur á pökkum séu tiltækar án þess að setja þær upp"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Athugar pakka til að finna algeng mistök"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Prófsumma og heilleikaprófun — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Veldu á milli hraðvirkra skýjaþjónustuaðila eða staðbundinna þjóna."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Hreinsa allt skyndiminni pakka (fjarlægja alla niðurhalaða pakka)"
+
+# 
+msgid "Clean local caches"
+msgstr "Hreinsa staðbundið skyndiminni"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Hreinsa skyndiminni pakka (fjarlægja gamla niðurhalaða pakka)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Smelltu til að breyta flýtilyklinum"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Smelltu til að tengjast í nýjum flipa (og velja þessa lotu)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Smelltu til að sjá hvað hvert heimildastig leyfir eða takmarkar"
+
+# 
+msgid "Colar"
+msgstr "Líma"
+
+# 
+msgid "Colar Aqui"
+msgstr "Líma hingað"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Líma inn í þessa möppu"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Límdu MD5, SHA-1, SHA-256 eða SHA-512 hakk hér að ofan til að staðfesta áreiðanleika."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Litar skipanir í rauntíma á meðan þú skrifar í skjáherminum"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Litar mynstur í úttaki skjáhermis, svo sem villur, viðvaranir og IP-tölur. Margar reglur geta haft áhrif á mjög langt úttak."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "Litun á cat-skipuninni"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Skipun ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Skipun / Sniðmát:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Skipun eftir innskráningu:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Skipun afrituð á klippiborð."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Framleiðsluskipun metin af stjórnanda."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Skipun send í skjáherminn: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Skipun send: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Skipun keyrð úr sögu: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Skipun keyrð í gegnum valmynd: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Skipun mistókst (kóði {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Skipun sett inn í skipanalínu: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Langri skipun lauk með góðum árangri (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Laga að litum skjáhermis"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Skipanapaletta (Ctrl+Shift+P) — Samræmd leit"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Skipanapaletta — Samræmd leit (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Þjappa"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Heilleikasamanburður"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Bera saman / Samstilla möppur (Vinstri ⇄ Hægri)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Samanburður í tvískiptum glugga: {identical} eins | {left_only} aðeins vinstra megin | {right_only} aðeins hægra megin | {diff} misstór"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Samrýmanleiki við Git og eldri gagnahirslur"
+
+# 
+msgid "Compile the current package"
+msgstr "Þýða núverandi pakka"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Þjappa skráargögnum við flutning"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Niðurstaða og lærdómur"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Tengdur við lotu: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Tengist í gegnum heildarleit: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Tengist í gegnum skipanapalettu: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Tengjast í skiptum glugga (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Tengjast: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "Stilla AI-aðstoðarmann..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Stilla reglur fyrir þessa skipun"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "Stilla AI-aðstoðarmann — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Stilla alla uppákkaða en óstillta pakka"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Stilla uppákkaðan pakka"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Stilltu staka lykla til að skipta um þjónustuaðila án endurstillingar"
+
+# 
+msgid "Confirm"
+msgstr "Staðfesta"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Staðfesta eyðingu"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Árekstur eða samstillingarvilla í Git-gagnahirslunni."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Stærð samhengisglugga (Tókar)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Efni afritað á klippiborð."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Halda áfram með rebase eftir að árekstrar hafa verið leystir"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Samtal hlaðið úr sögu."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Afritað í {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Afrita skrá"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Afrita slóð yfirmöppu"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Afrita möppu"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Afrita valið í hægri glugga (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Afrita valið í vinstri glugga (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Afrita á klippiborð"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Afrita ítarlega skýrslu á Markdown-sniði"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Litir og áherslur"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Litir og áherslur skjáhermis"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Staðlaðir litir skjáhermis (0-7 venjulegir, 8-15 skærir)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Búa til sameiningarskil jafnvel við fast-forward"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Búa til grunna klónun með styttri sögu"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Búa til gzip-þjappað tar-safn með ítarlegu úttaki"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Býr til þjöppuð skjalasöfn úr skrám og möppum"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Býr til og breytir færibreytuskipanahnöppum (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Býr til og skiptir yfir í nýja staðbundna grein í Git-hirslunni"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Býr til prófunarskrá í /tmp með atómísku afriti í AuditLogger"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Býr til sérsniðið litakerfi byggt á virka kerfinu"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Búa til afrit af stillingum (SHA-256 pakki)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Búa til lotu"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Búðu til staðbundin (-L), fjarlæg (-R) eða breytileg SOCKS5 (-D) göng til að áframsenda gáttir yfir SSH."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Notandi hætti við útreikning gátsummu."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Rust-kóði"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Kóði settur inn í virkan skjáhermi."
+
+# 
+msgid "Código-Fonte"
+msgstr "Frumkóði"
+
+# 
+msgid "Cópia de {name}"
+msgstr "Afrit af {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "Breytingardagur"
+
+# 
+msgid "Date / Time"
+msgstr "Dagsetning / Tími"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Dagsetning: {date} | Mál: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Lágstigs pakkastjóri fyrir Debian (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Sjálfgefinn API-lykill"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Sjálfgefið auðkenni líkans"
+
+# 
+msgid "Default Provider"
+msgstr "Sjálfgefinn þjónustuaðili"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Skilgreinir og keyrir fjölgámaforrit"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Stilla skráarheimildir fyrir: {name}\nNúverandi: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Eyða eldveggjarreglu"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Eyða sameinaðri grein"
+
+# 
+msgid "Desativar Todos"
+msgstr "Gera allt óvirkt"
+
+# 
+msgid "Descrição:"
+msgstr "Lýsing:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Litun á Shell-inntaki"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Rauntímalitun setningafræði á meðan skipanir eru slegnar inn"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Litun setningafræði fyrir úttak 'cat'-skipunar (með Pygments/ANSI-vél)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Fjarlægur áfangastaður"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Aftengdur hamur: keyra skipun í bakgrunni"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Greina villur í atvikaskrá með gervigreind"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Greina og endurræsa vefþjónustu"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Greining með þumalputtareglu (**{title}**):\n{desc}\n\nTillaga að fljótlegri lagfæringu:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Örugg kerfisgreining — Fjarmælingar og stuðningur"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "Greining atvikaskrárinnar '{name}' send til gervigreindaraðstoðar."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Greina á milli há- og lágstafa"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Sláðu inn skipun (t.d.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Sláðu inn skipun til að senda á ALLA opna skjáherma..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Sláðu inn aðgerð, SSH-lotu eða færibreytuskipun..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Minnka letur (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Breytilegt (-D) • SOCKS5-milliþjónn yfir SSH"
+
+# 
+msgid "Direita"
+msgstr "Hægri"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "Mappan '{path}' merkt sem eftirlæti."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Stillingamappa"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Mappa send í skjáhermi: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Mappa: {name}\nSlóð: {path}\nHeimildir: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Leyfðar möppur, PathGuard einangrun og sjálfgefnar höfnunarreglur"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Gera uppsettan snap óvirkan"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Diskur fullur (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Diskur (raunverulegt I/O)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Birta ítarlegar upplýsingar um uppsettan pakka"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Birta minni í megabætum"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Birta stöðuupplýsingar uppsetts pakka"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Skiptir núverandi flipa að ofan/neðan (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Skiptir núverandi flipa hlið við hlið (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Skipta lárétt"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Skipta skjáhermi lárétt"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Snyrða lóðrétt"
+
+# 
+msgid "Divisão"
+msgstr "Aðskilnaður"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Ekki spyrja neins, nota sjálfgefin svör"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Ekki athuga háð fyrir eyðingu"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Ekki keyra fjarskipun (aðeins gáttaáframsending)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Ekki leysa þjónustunöfn"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Ekki vista skyndimynd af gögnum snap-pakkans"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Ekki sannreyna háð pakka"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Ekki sannreyna háð pakka fyrir uppsetningu"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Gera ekkert ef fjartengd hirsla með sama heiti er þegar til"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Textaskjal"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Sækja nýtt eintak af pakkagagnagrunnum"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Aðeins sækja pakka, ekki setja upp"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Teikna textabyggða myndræna breytingasögu"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Prufuferli fjarlægingar án þess að eyða skrám"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Prufuuppsetning án þess að breyta kerfinu"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Breyta skipun: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Breyta stillingum ganga"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Breyta litakerfi"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Breyta valinni lotu"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Breyta lotu — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Breyta litakerfi eða búa til sérsniðið afbrigði"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Ég útbjó **Skipulagða aðgerðaáætlun** með staðfestingu frá `PolicyEngine` og sjálfvirkri sannprófun eftir keyrslu (`verifier.rs`) fyrir:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Nútímalegur skjáhermir fyrir staðbundna og fjarlæga Linux-verkferla, með ProductionGuard, tvískiptum SFTP/TFTP og Zero-Trust gervigreindaraðstoð."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Virkja óvirkan snap"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "X11-áframsending (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Lokar virkum flipa (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Finna skrár"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Sendir skipanir samtímis á marga skjáherma (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Sendu skipun til allra flipa"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Senda spurningu"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "Senda sha256sum skipun á virkan skjáhermisflipa"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Senda á alla"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Eyða (fjarlægja) uppsettum RPM-pakka"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Villa við vistun skrár"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Villa við breytingu á heimildum fyrir '{name}': {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Villa við útreikning hakks"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Villa við að líma atriði: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Villa við að búa til skrá: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Villa við að búa til afrit: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Villa við að búa til möppu: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Villa við að eyða skrá: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Villa við að eyða möppu: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Villa við að skrá {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Villa við að færa atriði: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Villa við endurnefningu: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Villa í Git-hirslu"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Villa við afturköllun: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Villa: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Veldu á milli staðbundins (-L), fjarlægs (-R) eða breytilegs SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Litakerfi virkjað: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Litakerfi vistað: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Þessi lota kemur úr ~/.ssh/config (skrifvarin) eða hefur þegar verið fjarlægð."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Þessi skrá er skrifvarin. Hægt er að vista breytingar með kerfisstjóraréttindum (Root)."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Ljós stíll (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Dökkur stíll (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "T.d.: 10.0.0.15 eða srv.fyrirtaeki.is"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "T.d.: Framleiðsla (skildu eftir autt fyrir rót)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "T.d.: Framleiðsla Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "T.d.: root eða ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Eyða möppu"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Eyða varanlega"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Keyrt í skjáhermi: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Keyra (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Keyra núna"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Keyra með sudo í skjáhermi"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Keyra skipun í öllum skjáhermum"
+
+# 
+msgid "Executar passo"
+msgstr "Keyra skref"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Keyra áætlun umboðsmanns"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Keyra öll eininga- og samþættingarpróf"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Sýna lotuspjald"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Útskýra skrá með gervigreind"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "Beðið var um útskýringu á skránni '{name}' hjá gervigreindaraðstoðarmanninum."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Útskýrðu tilgang, uppbyggingu og virkni skrárinnar '{name}'.\nSlóð: {path}\n\nUpphafsinnihald:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Flytur út settings.json, sessions.json og command_buttons.json með SHA-256 hakkgildi"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Flytur út allt biðminnið eða virkt val í skjáherminum"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Flutt út í {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Flytja út úttak skjáhermis (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Flytja út lotu sem rekstrarbók (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "OnyxSH skjáhermisútflutningur - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Stýring ytri tenginga og ströng gagnaeinangrun."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Afþjappa gzip-þjappað tar-safn ítarlega"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Afþjappar skrár úr þjöppuðum safnskrám"
+
+# 
+msgid "Extrair"
+msgstr "Dreggja"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Mistókst að vista sem Root"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Mistókst að bíða eftir pkexec ferli: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Mistókst að reikna gátsummur: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Mistókst að búa til öryggisafrit: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Mistókst að skrifa gögn í stdin hjá pkexec: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Mistókst að ræsa forréttindaferlið pkexec: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Mistókst að endurheimta öryggisafrit: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Mistókst að vista skrá: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Flutningur mistókst (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Flutningur mistókst (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Hraðvirkt og fjölhæft tól til að afrita skrár bæði staðbundið og yfir net"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Merkja / afmerkja skipun sem eftirlæti"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Setja núverandi möppu í eftirlæti"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Eftirlæti fjarlægt: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Sendir breytingar í Git (commit) með lýsandi skilaboðum"
+
+# 
+msgid "Fechar Aba"
+msgstr "Loka flipa"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Loka virka glugga"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "RPM pakkastjóri fyrir Fedora/RHEL/Rocky/AlmaLinux"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Sækja frá og samþætta við annað gagnasafn"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Flutningabiðröð — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Flutningabiðröðin er tóm (0 verkefni í gangi)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Skráargögnum breytt fyrir n*24 klukkustundum síðan"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Skráargerð (f venjuleg skrá, d mappa, l tákntengill)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Sía safnskrána í gegnum gzip (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Finna hvaða pakki veitir tiltekna skrá eða eiginleika"
+
+# 
+msgid "Focar janela existente"
+msgstr "Setja fókus á núverandi glugga"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Focus Pane Down"
+
+# 
+msgid "Focar painel acima"
+msgstr "Focus Pane Up"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Focus Pane Right"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Focus Pane Left"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Fókus færður á fyrsta ramma."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Fókus færður á annan ramma."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Fylgjast með úttaki í rauntíma eftir því sem skráin stækkar"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Leturgerð, litaspjald, gagnsæi og gervigreind (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Þvinga eyðingu jafnvel þó forrit séu háð því"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Þvinga uppsetningu jafnvel þó pakki/skrár séu þegar til"
+
+# 
+msgid "Force upgrade"
+msgstr "Þvinga uppfærslu"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Sníða úttak fyrirspurnar með sérsniðnu queryformat"
+
+# 
+msgid "Formato"
+msgstr "Snið"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "Endurnýja RPM pakka (uppfæra aðeins ef þeir eru þegar uppsettir)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Útbúa skipulagða aðgerðaáætlun (ActionPlan)"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Stjórnar kerfisþjónustum með systemctl"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Skráaskiptari"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Tvískiptur skráastjóri"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Skipulagningaraðili"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Skipanastjóri og kvik eyðublöð"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Flipa & Glugga Stjórnunar"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak application and runtime management"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Stinga upp á Conventional Commit"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: núverandi mappa er ekki Git-gagnasafn."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Mikil samhengisgeta"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Táknmyndanet"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Ofurhraður LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Rauntímagröf fyrir örgjörva (CPU), vinnsluminni (RAM), disk I/O og net/GPU"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Líkan og þjónustuaðili með mikla rökhugsun fyrir fjölþrepa áætlanir"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Auðguð skipanasaga (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Samtalssaga"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Flutningssaga"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Saga: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Hýsill / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Ytri hýsill (IP / lén)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Ytri hýsill fyrir Bind"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Hýsill má ekki vera tómur"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Ógildur hýsill eða IP-tala."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Auðkennisskrá (einkalykill) fyrir auðkenningu með dreifilykli"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Hunsa mun á há- og lágstöfum"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Hunsa tilnefningar afritunarskráa (fjarlægja stillingaskrár)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Hunsa ótilteknar skrár, aldrei biðja um staðfestingu"
+
+# 
+msgid "Imagem"
+msgstr "Mynd"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "Flytja inn ASCII-brynjaðan GPG dreifilykil í RPM lyklakippu"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Flytja inn fjarlæga stillingu úr .flatpakrepo"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Flytja inn lotur (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "Taka HTTP svörhausa með í úttakinu"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Stækkar leturstærð skjáhermisins (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Ályktar um og leggur til sjálfvirkar sannprófanir (staða þjónustu, setningafræði stillinga) eftir breytandi skipanir."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "Ræsa TFTP-þjón"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Setja inn (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Setja slóð inn í skjáhermi"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Skoðar núverandi Git-gagnasafn og stingur upp á commit-skilaboðum"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Skoða virka sökkla og tengi á hýslinum"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Setja upp staðbundna .deb pakkaskrá"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Setja upp RPM pakkaskrá með ítarlegri framvindu"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Setja upp sem óbeint háðan pakka"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Setja upp af beta-rásinni"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Setja upp af edge-rásinni"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Setja upp af stöðugu rásinni (stable)"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Setja upp einn eða fleiri RPM pakka"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Setja upp snap-pakka á kerfinu"
+
+# 
+msgid "Interactive rebase"
+msgstr "Gagnvirk endurgrunnun (rebase)"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Velja gagnvirkt búta (hunks) úr plástrinum"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Terminal samskipti"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Staðbundið viðmót / Bind IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Staðbundið hlustunarviðmót"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Túlka mynstur sem útvíkkaða reglulega segð (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Bil milli biðtímamælinga"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Bil í sekúndum til að senda KeepAlive kannanapakka"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Ógilt SSH notandanafn"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Ógilt hýsilnafn eða IP-tala"
+
+# 
+msgid "Invalid local port"
+msgstr "Ógilt staðbundið tengi"
+
+# 
+msgid "Invalid port number"
+msgstr "Ógilt tenginúmer"
+
+# 
+msgid "Invalid remote host"
+msgstr "Ógildur ytri hýsill"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Rannsaka sökkla (nútímalegur staðgengill fyrir netstat)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Fara á flipa"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Þetta mun endurstilla alla flýtilykla á sjálfgefin gildi. Viltu halda áfram?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Atriði límt í: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Atriði fært í: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "Útlit {n_pages} flipa vistað í {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Hreinsar skjáinn og skrunminni virku lotunnar (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Hreinsa lokið"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Hreinsa sögu sem ekki er í eftirlæti"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Tæma sessjón"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Hreinsa skjáhermislotu"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Tengill afritaður á klippiborð."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Telja upp allar skrár í eigu uppsetts RPM pakka"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Sýna forrit og keyrsluumhverfi í boði í ytri gagnageymslu"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Sýna getu sem þessi .rpm pakki krefst"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Sýna stillingaskrár uppsetts pakka"
+
+# 
+msgid "List configuration files only"
+msgstr "Sýna eingöngu stillingaskrár"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Sýna háð sem uppsettur pakki krefst"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Sýna skrár innan í .rpm safnskránni"
+
+# 
+msgid "List files installed by package"
+msgstr "Sýna skrár sem pakkinn setti upp"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Sýna utanaðkomandi pakka (t.d. frá AUR)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Sýna uppsetta pakka sem passa við mynstur"
+
+# 
+msgid "List installed snaps"
+msgstr "Sýna uppsetta snap-pakka"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Sýna uppsettar einingaskrár og virkjunarstöðu þeirra"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Sýna munaðarlausa pakka (háð sem ekki er lengur þörf á)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Sýna pakka uppsetta sem háð"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Sýna geymd stash-söfn"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Ítarlegur listi"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Sýnir innihald möppu með nánari upplýsingum (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Listi, smámyndanet, tré og Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Skrá yfir skrár"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Staðbundið (Ollama / LM Studio) • Fullt GPU/CPU næði"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Grunnslóð (URL) staðbundins þjóns"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Langt snið, allar skrár, læsilegar stærðir"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Líkan og þjónustuaðili með lágum svartíma fyrir daglegar skeljarspurningar"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Búa til yfirmöppur eftir þörfum"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Hámarksúthlutun samhengisminnis sem sent er til líkansins"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Minni (RAM og Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "RAM-vinnsluminni"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Skilaboð við innsendingu (Commit)"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Strangur ótengdur hamur virkur (Ekkert ský)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Tengdur hamur með snjallri leiðarstýringu virkur."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Textavalshamur virkjaður."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Textavalshamur óvirkjaður."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Útsendingarhamur (Broadcast á alla flipa)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Þemahamur"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Rauntíma auðlindavöktun (Cairo Sparklines)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Rauntíma auðlindavöktun — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Sýnir eða felur greinatré SSH-lotna (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Sýna faldar skrár (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Vél"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Heiti og valfrjálst merki á sniðinu 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Engin atriði á klippiborði til að líma."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Engar endurskoðunarfærslur enn. Smelltu á 'Líkja eftir endurskoðaðri breytingu' til að prófa atómíska afturköllun."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Enginn sérstakur GPU fannst í gegnum sysfs/nvidia-smi"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Engin lota valin"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "Engar færslur skráðar í lotunni."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Net (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Net (/proc/net/dev) • Rauntíma RX / TX"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Net (RX / TX) og GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Aldrei spyrja spurninga"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Nafn (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Heiti nýrrar greinar"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Heiti lotu:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Heiti nýrrar möppu:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Ógilt skráarheiti á klippiborði."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "SSH-notandanafn inniheldur ógilda stafi."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Heiti áfangaskrár"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Þjónustunafn"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Heiti skipunar (t.d. Endurræsa Nginx)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Heiti nýrrar skrár:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Heiti tákns (t.d. utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Heiti eða auðkenni (ID) gáms"
+
+# 
+msgid "Nome:"
+msgstr "Heiti:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Ógagnvirkur hamur"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Nýr skjáhermisflipi"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Nýr skjáhermisflipi (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Ný mappa hér..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Ný lotumappa"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Ný mappa..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Ný lota — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Nýtt samtal hafið."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Ný skrá hér..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Ný skrá..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Nýtt litastef"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Nýtt nafn möppu:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Nýtt nafn skrár:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Ekki tókst að hlaða atriði: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Ekki tókst að vista breytingar: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Ekki nægt laust pláss á skráakerfinu."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Stig 0 (Lestur)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Stig 1 (Ritun)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Stig 2 (Stjórnandi)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Stig 3 (Áríðandi)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Stig 4 (Lokað)"
+
+# 
+msgid "Nível {n}"
+msgstr "Stig {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Fjöldi tilrauna áður en hætt er við sjálfvirka endurtengingu"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "Keyrsluskráin '{bin}' er ekki uppsett eða er utan $PATH."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "Skipunin hætti með villukóða."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "Skipunin sem keyrð var í skjáhermi mistókst. Greindu verkefnaskrárnar og útbúðu nauðsynlegar lagfæringar með OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "Skipunin mistókst vegna skorts á ofurnotandaréttindum (root)."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "Heiti lotunnar má ekki vera tómt."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Hulin / Base64-afkóðuð keyrslupípa"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Fyrra tilvik (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Tilvik sem fundust í skjáhermi"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Áttundakerfi: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Tilbúið"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Tilkynningarpróf"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode ræst í skjáhermi."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Samræmdur fjöllíkanaskrá"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Stjórnandi: {author} | Hýsill: {host} | Dagsetning: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Vinna með alla pakka á vinnusvæðinu"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "Aðgerð hætt við eða hafnað af notanda."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Aðgerðir með pakkastjóra Arch Linux"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Aðgerðir með pakkastjóra Debian/Ubuntu"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Aðgerðir með pakkastjóra Fedora/RHEL"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Skráaraðgerðir"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Hækkandi röð"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Lækkandi röð"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Hækkandi röðun virkjuð"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Lækkandi röðun virkjuð"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Raða uppsettum pökkum eftir uppsetningartíma (nýjast fyrst)"
+
+# 
+msgid "Organizar por"
+msgstr "Raða eftir"
+
+# 
+msgid "Origem (Local)"
+msgstr "Uppruni (Staðbundinn)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Birta tölur á læsilegu sniði"
+
+# 
+msgid "Output package names only"
+msgstr "Birta eingöngu nöfn pakka"
+
+# 
+msgid "Pacote"
+msgstr "Pakki"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Uppsetningarpakki"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Nafnamynstur (t.d. *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Sniðsvið Panel"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Rúðu/flipa lokað."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Heilt orð"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16 lita ANSI-litaspjald"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "Stöðva TFTP-þjón ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Breytur — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Skref #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Skref framkvæmt: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "Mappan '{path}' var búin til."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Mappa / Skráasafn"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Mappa afrituð á klippiborð: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Mappa búin til: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Mappa eytt: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Mappa merkt til færslu: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Mappa fjarlægð úr eftirlæti."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Mappa endurnefnd í '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Mappa · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Mappa:"
+
+# 
+msgid "Pause"
+msgstr "Gera hlé"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Beiningarsniði breytt í: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Framkvæma útgáfuuppfærslu kerfis (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Spyrja AI aðstoðarmann"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Spyrðu eða límdu villu úr skjáhermi..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Heimildir (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "Heimildum fyrir '{name}' breytt í {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Leyfi fyrir {name}"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Leita í öllum opnum flipum, SSH-setum, ferli og kóðabútum (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Endurkvæm leit í undirmöppum"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Leita í Terminal"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Leita að texta í öllum opnum skjáhermisflipum, SSH-setum, ferli og kóðabútum..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Leita að göngum eftir nafni, gátt eða hýsli..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Pípuð keyrsla til skeljartúlks"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Zero-Trust aðgerðaáætlun fyrir: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Bakgrunnur"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Vinsamlegast sláðu inn {provider} API-lykil áður en prófað er."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Endapunktar og gáttir"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Vinsamlegast greindu eftirfarandi val úr skjáhermi:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Vinsamlegast greindu og útskýrðu kóða/innihald skráarinnar '{name}', tilgang hennar, uppbyggingu og mikilvæg atriði:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Vinsamlegast framkvæmdu ítarlega öryggis- og aðgangsstýringarúttekt á núverandi möppu '{path}'. Athugaðu of rúmar heimildir, viðkvæmar skrár (.env, einkalykla, opinberuð auðkenni) og mæltu með bestu Zero-Trust starfsháttum."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Vinsamlegast framkvæmdu ítarlega öryggis- og aðgangsheimildaúttekt á skránni '{name}'.\nSlóð: {path}\nNúverandi heimildir: {perms} ({oct})\nStærð: {size}\nMæltu með öruggum chmod-stillingum og mótvægisaðgerðum gegn veikleikum."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Vinsamlegast framkvæmdu ítarlega öryggis- og aðgangsheimildaúttekt á möppunni '{name}'.\nSlóð: {path}\nNúverandi heimildir: {perms} ({oct})\nSíðast breytt: {date}\nMæltu með ákjósanlegum chmod-stillingum, takmörkunum og bestu Zero-Trust fylgnivenjum."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Vinsamlegast endurskipuleggðu eftirfarandi kóðabút með OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Gátt utan gilds bils (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Fjarlæg opnuð gátt (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Fjarlæg áfangagátt"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Staðvær hlustunargátt (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "SOCKS5 milliþjónsgátt (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Gátt utan leyfilegs bils (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Gátt:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Fjarlægur PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Valmyndir"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Setja línunúmer sem byrjar á 1 fremst í hverja línu"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Forskoðun skipunar:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Aðalþjónustuaðili og tenging"
+
+# 
+msgid "Print Git version"
+msgstr "Prenta Git-útgáfu"
+
+# 
+msgid "Print RPM version"
+msgstr "Prenta RPM-útgáfu"
+
+# 
+msgid "Print help synopsis"
+msgstr "Prenta stutt yfirlit yfir hjálp"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Prenta stærðir í veldum af 1024 (t.d. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Prenta stdout/stderr prófunar beint"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Prenta samtölu fyrir möppudýpt 1"
+
+# 
+msgid "Print zypper version"
+msgstr "Prenta zypper-útgáfu"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Framleiðsluumhverfi / Vefþjónar"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Samskiptaregla:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Sýna ítarlegt úttak"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Þjónustuaðili sem notaður er þegar snjallbeining er óvirk"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Forskoðun í rauntíma"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Næsta samsvörun (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Næsta skrá (Ör niður / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Stökkva í fyrri kvaðningu."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Stökkva í næstu kvaðningu."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Hreinsa uppsettan pakka að fullu ásamt stillingum"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Setja snap í hefðbundinn aðskilnaðarham"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Fjöldi lína (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Fjöldi lína (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Fyrirspurn um óuppsetta staðværa .rpm pakkaskrá"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Fyrirspurn og listi yfir alla uppsetta RPM-pakka"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Leita að pökkum sem uppfylla skilyrði hugbúnaðarsafns"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "Kanna stöðu þjónusta sem snap-pakkar veita"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Kanna hvaða uppsetti RPM-pakki á skráarslóð"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Forskoðun)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "Lágstigs tól fyrir RPM-pakkastjórann (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Lesa allar skrár undir hverri möppu endurkvæmt"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Lestur: {read}/s • Skrif: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Endurgrunna núverandi grein ofan á upstream eftir sækingu"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Endurbyggja yfirlit RPM-gagnagrunnsins út frá uppsettum hausum"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Snjöll sjálfvirk endurtenging við rof"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Skrá undirbúnar breytingar í gagnageymsluna"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Klippa skrá"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Klippa möppu"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Endurstillir allar flýtileiðir á sjálfgefin gildi"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Endur stilla"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Minnkar leturstærð skjáhermisins (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Aðdráttur minnka"
+
+# 
+msgid "Refresh Interval"
+msgstr "Endurnýjunarbil"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Endurnýja öll lýsigögn hugbúnaðarsafna"
+
+# 
+msgid "Refresh files database"
+msgstr "Endurnýja skráagagnagrunn"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "Færslur AuditLogger (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Víðværar áherslureglur"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Endurræsa stýrða þjónustu og virkja stillingar"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Enduruppsetja ef pakkinn er þegar til staðar"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Heildarskýrsla tætigilda afrituð á klippiborð"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Hreinsuð greiningarskýrsla OnyxSH"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Greiningarskýrsla afrituð á klippiborð."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Skipulögð rekstrarskýrsla með skrefum, athugasemdum, markmiði og niðurstöðu (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Hreinsuð skýrsla um stýrikerfi, vinnsluminni (RAM), GPU/VRAM og Flatpak-umhverfi"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Endurhlaða þjónustu eða endurræsa ef endurhleðsla er óstudd"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Fjarlægt (-R) • Opna staðværa gátt á fjarlægum þjóni"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Fjarlægja staka stash-færslu"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Fjarlægja alla pakka sem eru háðir markmiðinu"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Fjarlægja allar stash-færslur"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Fjarlægja allar útgáfur pakkans"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Fjarlægja uppsettan pakka en halda stillingum"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Fjarlægja möppur og innihald þeirra endurkvæmt"
+
+# 
+msgid "Remove installed packages"
+msgstr "Fjarlægja uppsetta pakka"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Fjarlægja úreltar fjarvöktunartilvísanir"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Fjarlægja einn eða fleiri pakka og ónotaðar háðir"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Fjarlægja pakka sem upphaflega voru settir upp sem háðir og er ekki lengur þörf á"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Fjarlægja snap-pakka af kerfinu"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Fjarlægja ónotuð gögn (gáma, netkerfi, myndir)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Fjarlægja valda setu"
+
+# 
+msgid "Remover Túnel"
+msgstr "Fjarlægja göng"
+
+# 
+msgid "Remover favorito"
+msgstr "Fjarlægja eftirlæti"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Fjarlægja núverandi möppu úr eftirlæti"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Endurnefna skrá"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Endurnefna möppu"
+
+# 
+msgid "Renomear..."
+msgstr "Endurnefna..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Birta skyndimynd af núverandi ferlum"
+
+# 
+msgid "Reportar Problema"
+msgstr "Tilkynna vandamál"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Endurstilla leturstærð (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Leysi villu í skjáhermi með OpenCode / gervigreind..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Endurræsingarregla þegar gámur hættir"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Endurheimtir sjálfgefið letur Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Endurheimta altækar reglur"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Endurheimta allar skipanir"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Endurheimta upprunalegan lista yfir hunsuð skipanir"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Endurheimta yfirlit / taka skrár úr biðsvæði"
+
+# 
+msgid "Resume"
+msgstr "Halda áfram"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Staðlaðar dulritunarsummur reiknaðar út frá innihaldi skrárinnar:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Sækja atvikaskrár fyrir þjónustur"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Diff-yfirferð og Zero-Trust endurskoðun (Atómísk afturköllun)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Snjöll leiðsögn: smelltu til að skipta um snið (Sjálfvirkt, Hratt, Ítarlegt, Öryggi)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Beint á ítarlegt/öryggistengt rökhugsunarsnið."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Beint á hraðvirkt snið (einföld fyrirspurn með lítilli töf)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Keyra keyrsluskrá eða dæmi úr staðbundnum pakka"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Keyra eins og git hafi verið ræst í slóðinni"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Keyra innskráningarskel sem marknotandi (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Keyra fínstillta útgáfukeyrsluskrá"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Innfæddur Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Pakkastjóri og smíðatól fyrir Rust"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH SETA"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "SOCKS5 milliþjónn"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Fyrirtækja-SOCKS5 milliþjónn"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Örugg þvinguð sending með staðfestingu á fjartilvísun"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Hætta við forrit"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Vista og loka"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Vista breytingar"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "Vista öryggisafrit af OnyxSH"
+
+# 
+msgid "Salvar Comando"
+msgstr "Vista skipun"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Vista núverandi flipaskipan"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Vista með stjórnanda- / Root-réttindum (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Vistað með góðum árangri: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Keyrsla skriftu"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Leita í lýsingum jafnt sem nöfnum"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Leita að pakka sem á tiltekið skráarheiti"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Leita að pökkum sem samsvara mynstri"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Leita að snap-pökkum í versluninni"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Leita í staðbundið uppsettum pökkum"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Fylgja stíl kerfisins"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Fylgjast með í rauntíma (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Sekúndur til að halda tengingum virkum (0 til að slökkva)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Valið: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "Velja öryggisafritsskrá OnyxSH"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Veldu skipanirnar sem á að taka með og bættu við skýrandi tæknilegum athugasemdum fyrir hvert skref. ({count} greindar)"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Veldu atriði í hægri rúðunni til að sækja (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Veldu atriði í vinstri rúðunni til að senda (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Veldu fyrst setu af listanum til að breyta."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Veldu fyrst setu til að fjarlægja."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Velja vaktaðan hýsil"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Velja línur sem samsvara ekki"
+
+# 
+msgid "Seleção copiada."
+msgstr "Val afritað."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Val sent til greiningar í gervigreindaraðstoðarmanninum."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Val sent til endurhönnunar með OpenCode."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Fela alltaf"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP-þjónn"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "Skrifvarinn TFTP-þjónn virkur á {addr} (rót: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "Slökkt/kveikt á TFTP-þjóni."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP-þjónn stöðvaður."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Seta: {session} | Hýsill: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "Setan '{name}' fjarlægð."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "Setan '{name}' vistuð í ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Tengd SSH-seta"
+
+# 
+msgid "Sessão limpa."
+msgstr "Seta hreinsuð."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Vistaðar setur"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Setur samstilltar úr ~/.config/onyxsh/sessions.json og ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Skel til að keyra"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Sýna alla hlustandi TCP/UDP-sökkla með ferli og tölulegum gáttum"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Sýna allar útgáfur uppsettra snap-pakka"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Sýna og stýra beinun, nettækjum og viðmótum"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Sýna tiltækar snap-uppfærslur án þess að setja upp"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Sýna breytingar á milli færslna, yfirlits og vinnutrés"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Sýna ítarlegar upplýsingar um snap-pakka"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Sýna ítarlegar upplýsingar um uppsett forrit eða keyrsluumhverfi"
+
+# 
+msgid "Show error message on failure"
+msgstr "Sýna villuboð við mistök"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Sýna allar upplýsingar um tilgreinda pakka"
+
+# 
+msgid "Show package metadata info"
+msgstr "Sýna lýsigögn pakka"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Sýna heimildir fyrir tiltekna skráaslóð"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Sýna skriftur fyrir/eftir uppsetningu og fjarlægingu"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Sýna framvindu og halda skrám sem fluttust að hluta"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Sýna hnapp og hliðarspjald gervigreindaraðstoðar á efstu stikunni."
+
+# 
+msgid "Silent mode"
+msgstr "Hljóðlátur hamur"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Líkja eftir endurskoðaðri breytingu"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Samstillir staðbundnar skrár við fjarhýsil og varðveitir eigindi"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "Kerfi"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Stýrikerfi"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Sleppa staðfestingarboði"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Snjöll leiðsögn óvirk: sjálfgefinn stilltur þjónustuveitandi notaður."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, aðgerðaáætlanir og atómísk afturköllun (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "Um OnyxSH"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "Tilgreina HTTP-beiðniaðferð (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Tilgreina pakka til að keyra"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "Tilgreina fjarskel til að nota (t.d. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Skipta útstöð"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Geyma breytingar tímabundið (stash) í breyttri vinnumöppu"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Stöðva eftir að hafa sent 4 pakka"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Strangur ótengdur hamur virkur (aðeins staðbundið Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Stinga upp á undirskipunum og viðföngum fyrir rpm, dnf, apt, pacman, flatpak, systemctl, docker, git og algeng tól"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Tillögur fyrir rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Yfirlit yfir stærð á læsilegu sniði"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab eða → nota • ↑/↓ fletta • Esc loka"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Ertu viss um að þú viljir eyða möppunni '{name}' varanlega?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Ertu viss um að þú viljir eyða skránni '{name}' varanlega?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Þema fyrir ljósan bakgrunn"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Þema fyrir dökkan bakgrunn"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Þema notað þegar bakgrunnur útstöðvarinnar er ljós"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Þema notað þegar bakgrunnur útstöðvarinnar er dökkur"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Sniðmát skipunar (t.d.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Reynir að endurtengja rofnar SSH-setur með niðurtalningu og viðvörun á skjánum"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Útstöð: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Prófa alla pakka á vinnusvæðinu"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Prófa grip"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Prófa áreiðanleika málskipunar í Nginx-stillingum"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Forgrunnstexti (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Þetta mun varanlega eyða öllum {count} samtölum. Þessi aðgerð er ekki hægt að afturkalla."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Tegund / Ending"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Skráartegund"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Öllum stillingum hefur verið breytt aftur í sjálfgefið gildi."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Öllum flýtilyklum hefur verið breytt aftur í sjálfgefið gildi."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Öll SSH-göng hafa verið stöðvuð."
+
+# 
+msgid "Total Lines"
+msgstr "Fjöldi lína"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Stöðug endurskoðunarskrá yfir ákvarðanir, skipanir og atómíska afturköllun"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Snap-pakkastjóri fyrir Ubuntu / Canonical"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Stjórnun fyrir Uncomplicated Firewall"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Eining / Þjónusta (valkvætt)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Uppfæra uppsetta pakka með nýrri útgáfum"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Uppfæra snap-pakka í kerfinu"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Uppfæra forrit/keyrsluumhverfi ef þegar uppsett"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Uppfæra RPM-pakkaskrá (eða setja upp ef hún er ekki til staðar)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Uppfæra eða setja upp staðbundna/fjartengda pakkaskrá (.pkg.tar.zst)"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Notar fellanlega kubba (&lt;details&gt;) fyrir úttök sem eru lengri en 15 línur"
+
+# 
+msgid "Use a long listing format"
+msgstr "Nota langt listaform"
+
+# 
+msgid "Use archive file or device"
+msgstr "Nota safnskrá eða tæki"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Nota möppu sem efstu rót fyrir RPM-aðgerðir"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Fjartengdur notandi"
+
+# 
+msgid "Usuário SSH:"
+msgstr "SSH notandi:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Staðfesta og hengja við"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Athuga núverandi stöðu þjónustu og háða pakka"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Athuga hvort þjónustan '{svc}' sé virk"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Athuga hvort þjónustan '{svc}' sé virkjuð við ræsingu"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Athuga hvort þjónustan '{svc}' hafi verið stöðvuð"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Staðfesta tiltekinn pakka samanborið við .rpm-skrá"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Staðfesta heilleika allra uppsettra RPM-pakka samanborið við gagnagrunn"
+
+# 
+msgid "Versão"
+msgstr "Útgáfa"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Skoða undirbúnar breytingar fyrir næsta commit"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Skoðar kerfisannála með journalctl"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Skoðar, breytir og endurstillir alla flýtilykla í OnyxSH"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Sameinaður Diff-skoðari (Fyrir vs. Eftir):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Reitanet / smámyndayfirlit"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Táknreitanet virkjað"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Ítarlegur listayfirlitsvalkostur virkjaður"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "Þú hefur ekki heimild til að breyta '{name}'. Viltu vista með kerfisstjóraréttindum (Root)?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "Þú átt óvistaðar breytingar í '{fname}'. Hvað viltu gera áður en lokað er?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "Þú átt óvistaðar breytingar í þessari skrá sem munu tapast. Viltu örugglega fleygja þeim?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Fara aftur á fyrri flipa (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Beðið eftir sýni..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Skrifa úttak í staðbundna skrá með sama nafni og hin fjartengda"
+
+# 
+msgid "You: "
+msgstr "Þú: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Aðdráttur endurstilltur (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[NIÐURSTAÐA OG ATHUGASEMDIR]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Tvíundarefni eða óaðgengilegt efni]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Ekki tókst að lesa annálaskrá]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[MARKMIÐ / SAMHENGI]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[FRAMKVÆMD SKREF ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Áhætta: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Áhætta greind"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Staðfest"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` lauk á {secs}s."
+
+# 
+msgid "linha"
+msgstr "lína"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "Pakkastjórnunartól fyrir openSUSE / SLES"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} skipti • Smelltu til að stækka/minnka"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} skipanir"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} línur"
+
+# 
+msgid "{count} regras"
+msgstr "{count} reglur"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} niðurstöður"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} röklegir kjarnar)"
+
+# 
+msgid "{days} days"
+msgstr "{days} dagar"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} klst"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} línur • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} mín"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Afrit)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (byggt á {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Viðhengd skrá]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "API-lykill fyrir {provider} stilltur."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Ákvörðun: {decision} | Staða: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "{type} göng"
+
+# 
+msgid "Ícone:"
+msgstr "Táknmynd:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "OnyxSH táknmyndir (Innbyggðar)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Sækja / Afrita"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Hlaða upp / Afrita"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Keyra   •   Tab Setja í kvaðningu   •   ⭐ Eftirlæti   •   Esc Loka"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Fara á flipa / Keyra • ↑/↓ Fletta • Esc Loka"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Atómísk afturköllun"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ ProductionGuard viðvörun ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Skaðleg skipun stöðvuð ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ Á hægvirkari tölvum getur vinnsla litamynstra dregið örlítið úr viðbragðstíma við mjög stór úttök."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ OnyxSH útstöðvarútflutningur"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Kóðabútar"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Skipun lokið"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Afritað!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Keyrt"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Atómísk afturköllun lokið: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Skipun mistókst (Útgöngukóði {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ HAKK PASSAR EKKI! Límda gildið{hint} er frábrugðið útreiknuðum hakkgildum skrárinnar. Skráin gæti verið skemmd eða breytt."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ SAGA"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Nettengdur hamur virkur.\nSmelltu til að virkja eingöngu staðbundinn ótengdan ham."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Allt"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Markmið / Samhengi"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Niðurstaða og lærdómur"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Þú:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Þú{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Athugasemd:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Athugasemd: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Núverandi mappa"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x keyrslur"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Breytt:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Greina disknotkun"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Afrita hreinsaða skýrslu"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Afrita úttak"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Örugglega hengt við: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Saga"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Fyrstu athugasemdir"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Útvörpun (🛡️ ProductionGuard virkt):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Skipun send með útvörpun til {count} útstöðva."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Stærð:</b> {size} <span alpha='70%'>({bytes} bæti)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Tegund:</b> Mappa / Skráasafn"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 Setja upp {bin}"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}s"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 SSH lotur"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 Athuga git status"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Athugun eftir keyrslu: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Heimildir:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Prófunartilkynning send á skjáborð."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Slóð:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Mikil áhætta (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Útstöðvarflipar"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Alvarleg viðvörun — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Útvörpun lokuð af ProductionGuard: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard LOKAÐI á lestur á: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ FRAMLEIÐSLUHAMUR VIRKUR — ProductionGuard stöðvar skaðlegar skipanir (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Eingöngu ótengdur hamur virkur (Zero Cloud).\nSmelltu til að skipta yfir í nettengdan ham."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Ótengt (Staðbundið)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Öryggi"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Örugg skipun"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Leið: {route}"
+

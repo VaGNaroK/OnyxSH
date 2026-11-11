@@ -12,6 +12,7 @@ use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
 use onyxsh_core::config::{accelerator_to_label, shortcut_groups, AppSettings};
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_core::sessions::{SessionItem, SessionsStorageData};
 use serde::{Deserialize, Serialize};
@@ -235,9 +236,15 @@ pub fn compute_global_search_results(
                 if q.is_empty() || clean.to_lowercase().contains(&q) {
                     results.push(GlobalSearchResult {
                         source_type: GlobalSearchFilter::Terminals,
-                        badge: format!("ABA #{} (L{})", tab_idx + 1, line_no + 1),
+                        badge: tr_fmt(
+                            "ABA #{tab} (L{line})",
+                            &[
+                                ("tab", &(tab_idx + 1).to_string()),
+                                ("line", &(line_no + 1).to_string()),
+                            ],
+                        ),
                         title: clean.chars().take(90).collect(),
-                        subtitle: format!("Terminal: {tab_title}"),
+                        subtitle: tr_fmt("Terminal: {title}", &[("title", tab_title)]),
                         tab_index: Some(*tab_idx),
                         matched_query: query.trim().to_string(),
                         command_to_feed: None,
@@ -262,7 +269,7 @@ pub fn compute_global_search_results(
             {
                 results.push(GlobalSearchResult {
                     source_type: GlobalSearchFilter::Sessions,
-                    badge: "SESSÃO SSH".to_string(),
+                    badge: tr("SESSÃO SSH"),
                     title: sess.name.clone(),
                     subtitle: format!("{} ({}:{})", conn, sess.session_type, sess.port),
                     tab_index: None,
@@ -284,12 +291,18 @@ pub fn compute_global_search_results(
                 results.push(GlobalSearchResult {
                     source_type: GlobalSearchFilter::History,
                     badge: if entry.pinned {
-                        "⭐ HISTÓRICO".to_string()
+                        tr("⭐ HISTÓRICO")
                     } else {
-                        "HISTÓRICO".to_string()
+                        tr("History")
                     },
                     title: entry.command.clone(),
-                    subtitle: format!("📁 {} • {}x execuções", entry.cwd, entry.execution_count),
+                    subtitle: tr_fmt(
+                        "📁 {cwd} • {count}x execuções",
+                        &[
+                            ("cwd", &entry.cwd),
+                            ("count", &entry.execution_count.to_string()),
+                        ],
+                    ),
                     tab_index: None,
                     matched_query: String::new(),
                     command_to_feed: Some(entry.command.clone()),
@@ -337,7 +350,9 @@ pub fn show_global_search_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets")
+        .title(&tr(
+            "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets",
+        ))
         .default_width(740)
         .default_height(520)
         .build();
@@ -353,27 +368,27 @@ pub fn show_global_search_dialog(
     content.set_vexpand(true);
 
     let search_entry = gtk4::SearchEntry::builder()
-        .placeholder_text(
+        .placeholder_text(&tr(
             "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets...",
-        )
+        ))
         .hexpand(true)
         .build();
     content.append(&search_entry);
 
     // Filter Pills
     let filter_bar = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
-    let btn_all = gtk4::ToggleButton::with_label("🌐 Tudo");
+    let btn_all = gtk4::ToggleButton::with_label(&tr("🌐 Tudo"));
     btn_all.set_active(true);
-    let btn_terms = gtk4::ToggleButton::with_label("🖥️ Abas de Terminal");
+    let btn_terms = gtk4::ToggleButton::with_label(&tr("🖥️ Abas de Terminal"));
     btn_terms.set_group(Some(&btn_all));
-    let btn_sess = gtk4::ToggleButton::with_label("🔌 Sessões SSH");
+    let btn_sess = gtk4::ToggleButton::with_label(&tr("🔌 Sessões SSH"));
     btn_sess.set_group(Some(&btn_all));
-    let btn_hist = gtk4::ToggleButton::with_label("📜 Histórico");
+    let btn_hist = gtk4::ToggleButton::with_label(&tr("📜 Histórico"));
     btn_hist.set_group(Some(&btn_all));
-    let btn_snip = gtk4::ToggleButton::with_label("⚡ Snippets");
+    let btn_snip = gtk4::ToggleButton::with_label(&tr("⚡ Snippets"));
     btn_snip.set_group(Some(&btn_all));
 
-    let count_lbl = gtk4::Label::new(Some("0 resultados"));
+    let count_lbl = gtk4::Label::new(Some(&tr_fmt("{count} resultados", &[("count", "0")])));
     count_lbl.add_css_class("caption");
     count_lbl.add_css_class("dim-label");
     count_lbl.set_hexpand(true);
@@ -395,9 +410,9 @@ pub fn show_global_search_dialog(
     scroll.set_child(Some(&list_box));
     content.append(&scroll);
 
-    let hint_lbl = gtk4::Label::new(Some(
+    let hint_lbl = gtk4::Label::new(Some(&tr(
         "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar",
-    ));
+    )));
     hint_lbl.add_css_class("caption");
     hint_lbl.add_css_class("dim-label");
     hint_lbl.set_halign(gtk4::Align::Start);
@@ -458,7 +473,10 @@ pub fn show_global_search_dialog(
                                 apply_vte_search(term, &hit.matched_query, false, false, false);
                             }
                         }
-                        st.set_text(&format!("Busca Global: focado na Aba #{}", tab_idx + 1));
+                        st.set_text(&tr_fmt(
+                            "Busca Global: focado na Aba #{tab}",
+                            &[("tab", &(tab_idx + 1).to_string())],
+                        ));
                     }
                 } else if let Some(s_idx) = hit.session_index {
                     if let Some(s) = sess_rc.get(s_idx) {
@@ -468,7 +486,10 @@ pub fn show_global_search_dialog(
                     if let Some(term) = act_term() {
                         term.feed_child(cmd.as_bytes());
                         term.grab_focus();
-                        st.set_text(&format!("Busca Global inseriu no prompt: {cmd}"));
+                        st.set_text(&tr_fmt(
+                            "Busca Global inseriu no prompt: {cmd}",
+                            &[("cmd", &cmd)],
+                        ));
                     }
                 }
             }
@@ -506,7 +527,10 @@ pub fn show_global_search_dialog(
 
             let hits =
                 compute_global_search_results(&se.text(), filter, &tb, &ss, &hs, &sn);
-            cnt.set_text(&format!("{} resultados", hits.len()));
+            cnt.set_text(&tr_fmt(
+                "{count} resultados",
+                &[("count", &hits.len().to_string())],
+            ));
 
             for (idx, hit) in hits.iter().enumerate() {
                 let row = gtk4::ListBoxRow::new();
@@ -540,10 +564,10 @@ pub fn show_global_search_dialog(
                 text_vbox.append(&title_lbl);
                 text_vbox.append(&sub_lbl);
 
-                let btn_go = gtk4::Button::with_label(if hit.tab_index.is_some() {
-                    "Ir p/ Aba"
+                let btn_go = gtk4::Button::with_label(&if hit.tab_index.is_some() {
+                    tr("Ir p/ Aba")
                 } else {
-                    "Aplicar"
+                    tr("Apply")
                 });
                 btn_go.add_css_class("flat");
                 let af = Rc::clone(&act_fn);
@@ -638,7 +662,7 @@ pub fn show_command_history_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Histórico Enriquecido de Comandos (Ctrl+H)")
+        .title(&tr("Histórico Enriquecido de Comandos (Ctrl+H)"))
         .default_width(760)
         .default_height(540)
         .build();
@@ -648,7 +672,7 @@ pub fn show_command_history_dialog(
 
     let btn_clear = gtk4::Button::builder()
         .icon_name("user-trash-symbolic")
-        .tooltip_text("Limpar Histórico Não-Favoritado")
+        .tooltip_text(&tr("Limpar Histórico Não-Favoritado"))
         .build();
     btn_clear.add_css_class("flat");
     hb.pack_start(&btn_clear);
@@ -662,7 +686,9 @@ pub fn show_command_history_dialog(
     content.set_vexpand(true);
 
     let search_entry = gtk4::SearchEntry::builder()
-        .placeholder_text("Buscar comando por texto, diretório ou parâmetros...")
+        .placeholder_text(&tr(
+            "Buscar comando por texto, diretório ou parâmetros...",
+        ))
         .hexpand(true)
         .build();
     content.append(&search_entry);
@@ -673,11 +699,11 @@ pub fn show_command_history_dialog(
         .to_string();
 
     let filter_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
-    let btn_all = gtk4::ToggleButton::with_label("Todos");
+    let btn_all = gtk4::ToggleButton::with_label(&tr("Todos"));
     btn_all.set_active(true);
-    let btn_cwd = gtk4::ToggleButton::with_label("📁 Diretório Atual");
+    let btn_cwd = gtk4::ToggleButton::with_label(&tr("📁 Diretório Atual"));
     btn_cwd.set_group(Some(&btn_all));
-    let btn_pinned = gtk4::ToggleButton::with_label("⭐ Favoritos");
+    let btn_pinned = gtk4::ToggleButton::with_label(&tr("⭐ Favoritos"));
     btn_pinned.set_group(Some(&btn_all));
 
     let stats_lbl = gtk4::Label::new(Some(""));
@@ -700,9 +726,9 @@ pub fn show_command_history_dialog(
     scroll.set_child(Some(&list_box));
     content.append(&scroll);
 
-    let footer = gtk4::Label::new(Some(
+    let footer = gtk4::Label::new(Some(&tr(
         "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar",
-    ));
+    )));
     footer.add_css_class("caption");
     footer.add_css_class("dim-label");
     footer.set_halign(gtk4::Align::Start);
@@ -738,7 +764,10 @@ pub fn show_command_history_dialog(
             };
             let list =
                 filter_command_history(&all_rc.borrow(), &se.text(), pill, &cwd_str, "localhost");
-            st_lbl.set_text(&format!("{} comandos", list.len()));
+            st_lbl.set_text(&tr_fmt(
+                "{count} comandos",
+                &[("count", &list.len().to_string())],
+            ));
 
             for entry in &list {
                 let row = gtk4::ListBoxRow::new();
@@ -750,7 +779,7 @@ pub fn show_command_history_dialog(
 
                 let pin_btn = gtk4::Button::with_label(if entry.pinned { "⭐" } else { "☆" });
                 pin_btn.add_css_class("flat");
-                pin_btn.set_tooltip_text(Some("Favoritar / Desfavoritar comando"));
+                pin_btn.set_tooltip_text(Some(&tr("Favoritar / Desfavoritar comando")));
 
                 let txt_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
                 txt_vbox.set_hexpand(true);
@@ -772,9 +801,9 @@ pub fn show_command_history_dialog(
                 txt_vbox.append(&cmd_lbl);
                 txt_vbox.append(&meta_lbl);
 
-                let btn_insert = gtk4::Button::with_label("Inserir (Tab)");
+                let btn_insert = gtk4::Button::with_label(&tr("Inserir (Tab)"));
                 btn_insert.add_css_class("flat");
-                let btn_run = gtk4::Button::with_label("Executar (↵)");
+                let btn_run = gtk4::Button::with_label(&tr("Executar (↵)"));
                 btn_run.add_css_class("suggested-action");
 
                 {
@@ -803,7 +832,10 @@ pub fn show_command_history_dialog(
                         if let Some(term) = at() {
                             term.feed_child(cmd_str.as_bytes());
                             term.grab_focus();
-                            st.set_text(&format!("Comando inserido no prompt: {cmd_str}"));
+                            st.set_text(&tr_fmt(
+                                "Comando inserido no prompt: {cmd}",
+                                &[("cmd", &cmd_str)],
+                            ));
                         }
                         dc.close();
                     });
@@ -817,7 +849,10 @@ pub fn show_command_history_dialog(
                         if let Some(term) = at() {
                             term.feed_child(format!("{cmd_str}\n").as_bytes());
                             term.grab_focus();
-                            st.set_text(&format!("Comando executado do histórico: {cmd_str}"));
+                            st.set_text(&tr_fmt(
+                                "Comando executado do histórico: {cmd}",
+                                &[("cmd", &cmd_str)],
+                            ));
                         }
                         dc.close();
                     });
@@ -902,7 +937,10 @@ pub fn show_command_history_dialog(
                                 term.feed_child(format!("{}\n", item.command).as_bytes());
                             }
                             term.grab_focus();
-                            st.set_text(&format!("Histórico: {}", item.command));
+                            st.set_text(&tr_fmt(
+                                "Histórico: {cmd}",
+                                &[("cmd", &item.command)],
+                            ));
                         }
                         dc.close();
                         return glib::Propagation::Stop;
@@ -930,7 +968,7 @@ pub fn show_editable_shortcuts_dialog(
     let dlg = adw::PreferencesWindow::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Atalhos de Teclado")
+        .title(&tr("Atalhos de Teclado"))
         .search_enabled(false)
         .default_width(700)
         .default_height(600)
@@ -943,12 +981,14 @@ pub fn show_editable_shortcuts_dialog(
     // 1. Top card: Reset all shortcuts to defaults
     let reset_group = adw::PreferencesGroup::new();
     let reset_row = adw::ActionRow::builder()
-        .title("Redefinir todos os atalhos para os padrões")
+        .title(&tr("Reset all shortcuts to defaults"))
         .activatable(false)
         .build();
-    let btn_reset_all = gtk4::Button::with_label("Redefinir Tudo");
+    let btn_reset_all = gtk4::Button::with_label(&tr("Reset All"));
     btn_reset_all.set_valign(gtk4::Align::Center);
-    btn_reset_all.set_tooltip_text(Some("Redefine todos os atalhos para os valores padrão"));
+    btn_reset_all.set_tooltip_text(Some(&tr(
+        "Redefine todos os atalhos para os valores padrão",
+    )));
     reset_row.add_suffix(&btn_reset_all);
     reset_group.add(&reset_row);
     page.add(&reset_group);
@@ -960,7 +1000,7 @@ pub fn show_editable_shortcuts_dialog(
     // 2. Shortcut groups
     for (group_title, actions) in shortcut_groups() {
         let group = adw::PreferencesGroup::builder()
-            .title(group_title)
+            .title(&tr(group_title))
             .build();
 
         for (act_key, act_label) in actions {
@@ -971,21 +1011,22 @@ pub fn show_editable_shortcuts_dialog(
                 .cloned()
                 .unwrap_or_default();
             let label_text = accelerator_to_label(&current_accel);
+            let translated_label = tr(act_label);
 
             let row = adw::ActionRow::builder()
-                .title(act_label)
+                .title(&translated_label)
                 .subtitle(&label_text)
                 .activatable(false)
                 .build();
             row.set_title_selectable(false);
 
-            let btn_edit = gtk4::Button::with_label("Editar");
+            let btn_edit = gtk4::Button::with_label(&tr("Edit"));
             btn_edit.set_valign(gtk4::Align::Center);
-            btn_edit.set_tooltip_text(Some("Clique para alterar o atalho de teclado"));
+            btn_edit.set_tooltip_text(Some(&tr("Clique para alterar o atalho de teclado")));
 
             {
                 let act_key_s = act_key.to_string();
-                let act_label_s = act_label.to_string();
+                let act_label_s = translated_label.clone();
                 let row_clone = row.clone();
                 let dlg_weak = dlg.downgrade();
                 let st_edit = Rc::clone(settings_rc);
@@ -1000,10 +1041,10 @@ pub fn show_editable_shortcuts_dialog(
                     let edit_dlg = adw::MessageDialog::builder()
                         .transient_for(&parent_win)
                         .modal(true)
-                        .heading("Definir Novo Atalho")
-                        .body(&format!(
-                            "Pressione a nova combinação de teclas para '{}', ou Esc para cancelar.",
-                            act_label_s
+                        .heading(&tr("Set New Shortcut"))
+                        .body(&tr_fmt(
+                            "Press the new key combination for '{}', or Esc to cancel.",
+                            &[("", &act_label_s)],
                         ))
                         .close_response("cancel")
                         .build();
@@ -1017,7 +1058,10 @@ pub fn show_editable_shortcuts_dialog(
                     let curr_lbl = accelerator_to_label(&curr_accel);
 
                     let feedback_lbl = gtk4::Label::builder()
-                        .label(&format!("Atual: {}\nNovo: (pressione as teclas)", curr_lbl))
+                        .label(&tr_fmt(
+                            "Atual: {curr}\nNovo: (pressione as teclas)",
+                            &[("curr", &curr_lbl)],
+                        ))
                         .halign(gtk4::Align::Center)
                         .justify(gtk4::Justification::Center)
                         .build();
@@ -1079,19 +1123,23 @@ pub fn show_editable_shortcuts_dialog(
                                     for (_, group_actions) in shortcut_groups() {
                                         for (k, title) in group_actions {
                                             if k == conflict_act {
-                                                conflict_title = title.to_string();
+                                                conflict_title = tr(title);
                                                 break;
                                             }
                                         }
                                     }
-                                    fb.set_text(&format!(
-                                        "Atual: {}\nNovo: {} (Conflita com {})",
-                                        curr_l, parsed_label, conflict_title
+                                    fb.set_text(&tr_fmt(
+                                        "Atual: {curr}\nNovo: {new} (Conflita com {conflict})",
+                                        &[
+                                            ("curr", &curr_l),
+                                            ("new", &parsed_label),
+                                            ("conflict", &conflict_title),
+                                        ],
                                     ));
                                 } else {
-                                    fb.set_text(&format!(
-                                        "Atual: {}\nNovo: {}",
-                                        curr_l, parsed_label
+                                    fb.set_text(&tr_fmt(
+                                        "Atual: {curr}\nNovo: {new}",
+                                        &[("curr", &curr_l), ("new", &parsed_label)],
                                     ));
                                 }
                                 return glib::Propagation::Stop;
@@ -1102,9 +1150,9 @@ pub fn show_editable_shortcuts_dialog(
                     }
                     edit_dlg.add_controller(kctrl);
 
-                    edit_dlg.add_response("cancel", "Cancelar");
-                    edit_dlg.add_response("clear", "Limpar");
-                    edit_dlg.add_response("save", "Definir Atalho");
+                    edit_dlg.add_response("cancel", &tr("Cancelar"));
+                    edit_dlg.add_response("clear", &tr("Clear"));
+                    edit_dlg.add_response("save", &tr("Set Shortcut"));
                     edit_dlg.set_default_response(Some("save"));
                     edit_dlg.set_response_appearance(
                         "save",
@@ -1135,9 +1183,9 @@ pub fn show_editable_shortcuts_dialog(
                                         let _ = st_ref.borrow().save_to_path(&sp);
                                         let lbl = accelerator_to_label(new_s);
                                         row_up.set_subtitle(&lbl);
-                                        stat.set_text(&format!(
-                                            "Atalho '{}' atualizado para {}",
-                                            this_title, lbl
+                                        stat.set_text(&tr_fmt(
+                                            "Atalho '{name}' atualizado para {label}",
+                                            &[("name", &this_title), ("label", &lbl)],
                                         ));
                                     }
                                 }
@@ -1147,10 +1195,10 @@ pub fn show_editable_shortcuts_dialog(
                                         .shortcuts
                                         .insert(this_act.clone(), String::new());
                                     let _ = st_ref.borrow().save_to_path(&sp);
-                                    row_up.set_subtitle("Não definido");
-                                    stat.set_text(&format!(
-                                        "Atalho '{}' removido.",
-                                        this_title
+                                    row_up.set_subtitle(&tr("Not set"));
+                                    stat.set_text(&tr_fmt(
+                                        "Atalho '{name}' removido.",
+                                        &[("name", &this_title)],
                                     ));
                                 }
                                 _ => {}
@@ -1187,13 +1235,15 @@ pub fn show_editable_shortcuts_dialog(
             let confirm_dlg = adw::MessageDialog::builder()
                 .transient_for(&parent_win)
                 .modal(true)
-                .heading("Redefinir Todos os Atalhos")
-                .body("Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?")
+                .heading(&tr("Reset All Shortcuts"))
+                .body(&tr(
+                    "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?",
+                ))
                 .close_response("cancel")
                 .build();
 
-            confirm_dlg.add_response("cancel", "Cancelar");
-            confirm_dlg.add_response("reset", "Redefinir");
+            confirm_dlg.add_response("cancel", &tr("Cancelar"));
+            confirm_dlg.add_response("reset", &tr("Reset"));
             confirm_dlg.set_response_appearance("reset", adw::ResponseAppearance::Destructive);
             confirm_dlg.set_default_response(Some("cancel"));
 
@@ -1216,7 +1266,9 @@ pub fn show_editable_shortcuts_dialog(
                             .unwrap_or_default();
                         row.set_subtitle(&accelerator_to_label(&curr));
                     }
-                    stat_c.set_text("Todos os atalhos de teclado foram restaurados para o padrão.");
+                    stat_c.set_text(&tr(
+                        "Todos os atalhos de teclado foram restaurados para o padrão.",
+                    ));
                 }
                 dlg.close();
             });
@@ -1233,7 +1285,7 @@ pub fn show_system_diagnostics_dialog(parent: &adw::ApplicationWindow, status_lb
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Diagnóstico Seguro do Sistema — Telemetria & Suporte")
+        .title(&tr("Diagnóstico Seguro do Sistema — Telemetria & Suporte"))
         .default_width(620)
         .default_height(440)
         .build();
@@ -1254,28 +1306,39 @@ pub fn show_system_diagnostics_dialog(parent: &adw::ApplicationWindow, status_lb
         .unwrap_or_default();
     let gpu_summary = crate::resource_dashboard::probe_local_gpu_vram()
         .map(|g| format!("{} / {} MB VRAM ({:.1}%)", g.used_mb, g.total_mb, g.usage_percent))
-        .unwrap_or_else(|| "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi".to_string());
+        .unwrap_or_else(|| tr("Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"));
 
+    let active_str = tr("Ativo");
     let report = format!(
-        "=== Relatório de Diagnóstico Sanitizado do OnyxSH ===\n\
-         Versão: {} ({})\n\
-         Motor: Rust Nativo (GTK4 + Libadwaita + VTE4)\n\
-         Sistema Operacional: {}\n\
-         Ambiente Flatpak: {}\n\
-         Memória RAM: {} / {} MB ({:.1}%)\n\
+        "=== {} ===\n\
+         {}: {} ({})\n\
+         {}: {}\n\
+         {}: {}\n\
+         {}: {}\n\
+         {}: {} / {} MB ({:.1}%)\n\
          GPU / VRAM: {}\n\
-         Diretório de Config: {}\n\
-         Zero-Trust SecretRedactor: Ativo\n\
-         ProductionGuard: Ativo\n",
+         {}: {}\n\
+         Zero-Trust SecretRedactor: {}\n\
+         ProductionGuard: {}\n",
+        tr("Relatório de Diagnóstico Sanitizado do OnyxSH"),
+        tr("Versão"),
         onyxsh_core::APP_VERSION,
         onyxsh_core::APP_ID,
+        tr("Motor"),
+        tr("Rust Nativo (GTK4 + Libadwaita + VTE4)"),
+        tr("Sistema Operacional"),
         os_info,
+        tr("Ambiente Flatpak"),
         platform::is_flatpak_sandbox(),
+        tr("Memória RAM"),
         mem.ram_used_bytes / (1024 * 1024),
         mem.ram_total_bytes / (1024 * 1024),
         mem.ram_percent,
         gpu_summary,
-        platform::config_dir().display()
+        tr("Diretório de Config"),
+        platform::config_dir().display(),
+        active_str,
+        active_str,
     );
 
     let scroll = gtk4::ScrolledWindow::new();
@@ -1287,14 +1350,16 @@ pub fn show_system_diagnostics_dialog(parent: &adw::ApplicationWindow, status_lb
     scroll.set_child(Some(&tv));
     content.append(&scroll);
 
-    let btn_copy = gtk4::Button::with_label("📋 Copiar Relatório Sanitizado");
+    let btn_copy = gtk4::Button::with_label(&tr("📋 Copiar Relatório Sanitizado"));
     btn_copy.add_css_class("suggested-action");
     {
         let rep = report;
         let st = status_lbl.clone();
         btn_copy.connect_clicked(move |btn| {
             btn.clipboard().set_text(&rep);
-            st.set_text("Relatório de diagnóstico copiado para a área de transferência.");
+            st.set_text(&tr(
+                "Relatório de diagnóstico copiado para a área de transferência.",
+            ));
         });
     }
     content.append(&btn_copy);
@@ -1388,10 +1453,10 @@ mod tests {
         assert_eq!(accelerator_to_label("<Control><Shift>parenleft"), "Shift+Ctrl+(");
         assert_eq!(accelerator_to_label("<Control><Shift>parenright"), "Shift+Ctrl+)");
         assert_eq!(accelerator_to_label("<Control><Shift>k"), "Shift+Ctrl+K");
-        assert_eq!(accelerator_to_label("<Control><Shift>Up"), "Shift+Ctrl+Acima");
-        assert_eq!(accelerator_to_label("<Control><Shift>Down"), "Shift+Ctrl+Abaixo");
-        assert_eq!(accelerator_to_label("<Control><Shift>Left"), "Shift+Ctrl+Esquerda");
-        assert_eq!(accelerator_to_label("<Control><Shift>Right"), "Shift+Ctrl+Direita");
-        assert_eq!(accelerator_to_label(""), "Não definido");
+        assert_eq!(accelerator_to_label("<Control><Shift>Up"), format!("Shift+Ctrl+{}", tr("Acima")));
+        assert_eq!(accelerator_to_label("<Control><Shift>Down"), format!("Shift+Ctrl+{}", tr("Abaixo")));
+        assert_eq!(accelerator_to_label("<Control><Shift>Left"), format!("Shift+Ctrl+{}", tr("Left")));
+        assert_eq!(accelerator_to_label("<Control><Shift>Right"), format!("Shift+Ctrl+{}", tr("Direita")));
+        assert_eq!(accelerator_to_label(""), tr("Not set"));
     }
 }

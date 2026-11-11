@@ -17116,3 +17116,4099 @@ msgstr "🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Sempre Avançado (Raciocínio)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} gizli veri gizlendi)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ OnyxSH Terminal Dışa Aktarımı"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Amaç / Bağlam"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Sonuç ve Çıkarılan Dersler"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Ön Notlar"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Adım Adım Yürütme"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Oturum Bilgileri"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Çıktı üretilmedi)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*OnyxSH Çalışma Günlüğü tarafından otomatik olarak oluşturulan belge.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Bu belge için seçili adım yok.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Tarih / Saat:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Ana Bilgisayar:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Operatör / Yazar:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Oturum:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Durum:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Toplam Kaydedilen Adım:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Çıktı ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (çıktının geri kalanı önizlemede kesildi)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Aygıt Okuma / Yazma"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable ve Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 renk şeması, çıktı vurgulama ve komuta özel kurallar"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Üst dizine çık (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Not:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "{port} bağlantı noktası zaten başka bir işlem tarafından kullanılıyor."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "SEKME #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "Yapay Zeka Asistanı: {state}"
+
+# 
+msgid "AI: "
+msgstr "YZ: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Sekme kapatıldı."
+
+# 
+msgid "Abaixo"
+msgstr "Aşağıda"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Mevcut çakışma çözümünü iptal et"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Rebase işlemini iptal et ve orijinal dala dön"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Etkin sekmede Regex/Birebir arama çubuğunu açar (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "SSH ana bilgisayarına bağlanırken bu tüneli otomatik olarak açar"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Yeni bir yerel terminal açar (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Çalışan bir Docker kapsayıcısı içinde etkileşimli bir kabuk açar"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Bağlantı açılıyor: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Kaynak İzleyiciyi Aç (Cairo Sparklines)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Klasörü Aç"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Harici uygulama ile aç"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Bu Dizini Terminalde Aç (cd)"
+
+# 
+msgid "Acima"
+msgstr "Yukarıda"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Bir Docker kapsayıcısının günlüklerini gerçek zamanlı olarak izler"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Bir systemd biriminin günlüklerini gerçek zamanlı olarak izler"
+
+# 
+msgid "Active"
+msgstr "Etkin"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Upstream izleme referansı ekle"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Yeni SSH Tüneli Ekle"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Özel şema ekle"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Kategorilere Göre Grupla (.7z en üstte)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Kapsayıcı stdin'ine bağlı bir pseudo-TTY ayır"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Daha eski bir paket sürümüne düşürmeye izin ver"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Güvenli olmayan TLS bağlantılarına izin ver"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Atomik yedekleme ile denetlenmiş değişiklik oluşturuldu."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Zero-Trust Yapay Zeka Asistanını Aç/Kapat"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Çift Bölmeli Dosya Yöneticisini Aç/Kapat"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Düzenleme Modunu Aç/Kapat (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Çift Bölmeyi Aç/Kapat (Böl / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "SSH Oturumları Yan Panelini Aç/Kapat"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Flatpak Ortamı"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Üretim Ortamı (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Üretim Ortamı — ProductionGuard ile Korunuyor"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Mevcut dalın ucunu düzelt (amend)"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "'{name}' günlük dosyasındaki aşağıdaki son iletileri ve hataları analiz edin, kök neden teşhisini ve önerilen çözümleri sunun:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Projeyi analiz edin ve OpenCode ile gerekli düzeltmeleri hazırlayın."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Mevcut paketi analiz et ve hataları bildir"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Dosya Ekle (PathGuard Doğrulaması)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Bağlama Dosya Ekle (PathGuard ile Doğrulandı)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "İsteğiniz için analiz tamamlandı (`SecretRedactor` ve `<untrusted>` yalıtımı uygulandı).\n\nÖnerilen komut:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Yapay Zeka Asistanından analiz istendi."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "'cat' komutunun çıktısına sözdizimi vurgulaması uygular"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Çalışan komutu algıladığında bağlamsal kuralları otomatik olarak uygular"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "SSH bağlantılarına çıktı vurgulama uygula"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Yerel terminal oturumlarına çıktı vurgulama uygula"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Uygulama & Pencere"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Uygulama veya Kimlik"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Saklanan durumu uygula ve stash listesinde tut"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Saklanan durumu uygula ve stash listesinden kaldır"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Onayla ve Çalıştır"
+
+# 
+msgid "Aproximar"
+msgstr "Yakınlaştır"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Arch Linux / Manjaro paket yöneticisi yardımcı programı"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Arşiv modu (izinleri, zamanları ve sembolik bağlantıları korur)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Önceki Dosya (Yukarı Ok / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "İkili Dosya: {name}\nYol: {path}\nBoyut: {size}\nİzinler: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Arşiv Dosyası"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Dosya aktarım için kopyalandı: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Dosya oluşturuldu: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Veri Dosyası"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Video Dosyası"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Ses Dosyası"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Dosya silindi: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Dosya taşınmak üzere işaretlendi: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Dosya diskten yeniden yüklendi."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Dosya '{name}' olarak yeniden adlandırıldı"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Geri alma sonrası dosya kurtarıldı: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Dosya Yönetici (Root) ayrıcalıklarıyla kaydedildi!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Dosya Yönetici (Root) ayrıcalıklarıyla başarıyla kaydedildi!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Dosya başarıyla kaydedildi!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Dosya: {name} (Boyut: {size} bayt)\nAlıntı:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Dosyalar Kategoriye göre gruplandı (.7z en üstte)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Dosyalar Değiştirilme Tarihine göre sıralandı"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Dosyalar Ada göre sıralandı"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Dosyalar Boyuta göre sıralandı"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Dosyalar Tür / Uzantıya göre sıralandı"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Kaynak Dosyalar/Klasörler"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "OpenCode Kod Asistanı"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust Yapay Zeka Asistanı"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "Yapay Zeka Asistanı bağlı değil."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Riski Kabul Et ve Çalıştır"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "'{name}' kısayolu {label} olarak güncellendi"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "'{name}' kısayolu kaldırıldı."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Klavye Kısayolları (34 Yapılandırılabilir Eylem)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Sistem Kısayolları ve Sık Kullanılanlar"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Üretim Ortamı Kalkanını Etkinleştir / Devre Dışı Bırak (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "'cat' Renklendirmesini Etkinleştir"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Kabuk Girdi Vurgulamasını Etkinleştir"
+
+# 
+msgid "Ativar Todos"
+msgstr "Tümünü Etkinleştir"
+
+# 
+msgid "Ativo"
+msgstr "Etkin"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Etkin ({src} üzerinde dinleniyor)"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Geçerli: {curr}\nYeni: (tuşlara basın)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Geçerli: {curr}\nYeni: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Geçerli: {curr}\nYeni: {new} ({conflict} ile çelişiyor)"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Yenile (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Listeyi Yenile (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Yapay Zeka ile Güvenliği Denetle"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Bu Dizinin Güvenliğini Yapay Zeka ile Denetle"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "'{name}' güvenlik denetimi Yapay Zeka Asistanına gönderildi."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "'{path}' dizin denetimi Yapay Zeka Asistanı'na gönderildi."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Yazı Tipini Büyüt (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Kimlik Doğrulama:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Otomatik: terminal arka planına uyum sağlar. Manuel: sabit tema."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Otomatik: arka plan kontrastını otomatik olarak algılar"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Otomatik tamamlandı: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Akıllı Otomatik Tamamlama (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Akıllı Otomatik Tamamlama — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Otomatik tamamlama uygulandı: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Otomatik evet"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Gereksiz bağımlılıkları otomatik olarak kaldır"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Manuel onay gerektirmeden salt okunur tanılamaları otomatik olarak çalıştırır."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Sonraki sekmeye geçer (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Eylem"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "SHA-256 yedeği oluşturuldu ({count} dosya): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "SHA-256 yedeği kaydedildi ({count} dosya): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "{path} konumunda yedek bulunamadı"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Yedek başarıyla geri yüklendi ({count} dosya SHA-256 ile doğrulandı)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Eşzamanlı Çalıştırma Çubuğu (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "xargs ile toplu silme (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Engelle ve İptal Et (Önerilen)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Yayın gönderildi: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Tümüne Yayınla"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Çalışma alanındaki tüm paketleri derle"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Yapıtları yayın (release) modunda derle"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Yapıtları optimizasyonlarla yayın (release) modunda derle"
+
+# 
+msgid "Busca"
+msgstr "Arama"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Genel Çoklu Sekme Araması / Geçmiş"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Genel Çoklu Sekme Araması / Oturumlar / Geçmiş"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Sekmeler, Oturumlar, Geçmiş ve Kod Parçacıklarında Genel Arama (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Genel Arama komut istemine ekledi: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "OnyxSH Genel Arama (Ctrl+Shift+G) — Sekmeler, Oturumlar, Geçmiş ve Kod Parçacıkları"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Genel Arama: #{tab} numaralı sekmeye odaklanıldı"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Gelişmiş filtrelerle dosya ve dizin arar"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Dizine, sunucuya ve favorilere göre bulanık arama (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Terminalde Ara (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Geçerli Terminalde Ara"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Oturum veya sunucu ara..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Terminalde metin ara..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Onay istemlerini atla"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Arka planda karma (hash) değerleri hesaplanıyor..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Yol kopyalandı: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Klasör Yolu (ör.: Üretim veya Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Dosya yolu (ör.: engellemeyi test etmek için /var/log/syslog veya ~/.ssh/id_rsa):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Yol terminale eklendi: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Büyük/küçük harfe duyarsız dosya adı deseni"
+
+# 
+msgid "Categoria"
+msgstr "Kategori"
+
+# 
+msgid "Categoria:"
+msgstr "Kategori:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "İşlemleri gerçekleştirmeden önce dizine geç"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH Anahtarı / Parola:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Bir .rpm dosyasının GPG imzasını ve bütünlüğünü denetle"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Yüklemeden kullanılabilir paket yükseltmelerini denetle"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Yaygın hataları yakalamak için bir paketi denetler"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Sağlama Toplamları ve Bütünlük Doğrulama — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Yüksek hızlı bulut sağlayıcıları veya yerel sunucular arasında seçim yapın."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Tüm paket önbelleğini temizle (indirilen tüm paketleri kaldır)"
+
+# 
+msgid "Clean local caches"
+msgstr "Yerel önbellekleri temizle"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Paket önbelleğini temizle (eski indirilen paketleri kaldır)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Klavye kısayolunu değiştirmek için tıklayın"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Yeni sekmede bağlanmak için tıklayın (ve bu oturumu seçin)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Her izin düzeyinin nelere izin verdiğini veya neleri kısıtladığını görmek için tıklayın"
+
+# 
+msgid "Colar"
+msgstr "Yapıştır"
+
+# 
+msgid "Colar Aqui"
+msgstr "Buraya Yapıştır"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Bu Klasörün İçine Yapıştır"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Orijinalliği doğrulamak için yukarıya bir MD5, SHA-1, SHA-256 veya SHA-512 karma değeri yapıştırın."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Terminale yazarken komutları gerçek zamanlı olarak renklendirir"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Terminal çıktısındaki hatalar, uyarılar ve IP'ler gibi desenleri renklendirir. Çok fazla kural çok uzun çıktıları etkileyebilir."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "cat Komutu Renklendirmesi"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Komut ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Komut / Şablon:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Giriş Sonrası Komut:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Komut panoya kopyalandı."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Üretim komutu operatör tarafından değerlendirildi."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Komut terminale gönderildi: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Komut gönderildi: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Geçmişten komut çalıştırıldı: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Palet üzerinden komut çalıştırıldı: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Komut başarısız oldu (kod {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Komut isteme eklendi: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Uzun komut başarıyla tamamlandı (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Terminal Renkleriyle Eşleştir"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Komut Paleti (Ctrl+Shift+P) — Birleşik Arama"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Komut Paleti — Birleşik Arama (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Sıkıştırmak"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Bütünlük Karşılaştırıcısı"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Dizinleri Karşılaştır / Eşitle (Sol ⇄ Sağ)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Çift Panel Karşılaştırması: {identical} aynı | {left_only} yalnızca Solda | {right_only} yalnızca Sağda | {diff} farklı boyutta"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Git ve eski depolarla uyumluluk"
+
+# 
+msgid "Compile the current package"
+msgstr "Geçerli paketi derle"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Aktarım sırasında dosya verilerini sıkıştır"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Sonuç ve Çıkarılan Dersler"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Oturuma bağlanıldı: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Genel Arama üzerinden bağlanılıyor: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Komut Paleti üzerinden bağlanılıyor: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Bölünmüş Panelde Bağlan (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Bağlan: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "Yapay Zeka Asistanını Yapılandır..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Bu komutun kurallarını yapılandır"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "Yapay Zeka Asistanını Yapılandır — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Paketten çıkarılmış ancak yapılandırılmamış tüm paketleri yapılandır"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Paketten çıkarılmış bir paketi yapılandır"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Yeniden yapılandırmadan sağlayıcı değiştirmek için ayrı anahtarlar yapılandırın"
+
+# 
+msgid "Confirm"
+msgstr "Onayla"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Silmeyi Onayla"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Git deposunda çakışma veya eşitleme hatası."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Bağlam Penceresi Boyutu (Token)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "İçerik panoya kopyalandı."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Çakışmaları çözdükten sonra rebase işlemine devam et"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Konuşma geçmişten yüklendi."
+
+# 
+msgid "Copiado para {path}"
+msgstr "{path} konumuna kopyalandı"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Dosyayı Kopyala"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Üst Dizin Yolunu Kopyala"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Klasörü Kopyala"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Seçilenleri Sağ Panele Kopyala (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Seçilenleri Sol Panele Kopyala (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Panoya Kopyala"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Ayrıntılı raporu Markdown biçiminde kopyala"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Renkler ve Vurgular"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Terminal Renkleri ve Vurguları"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Standart terminal renkleri (0-7 normal, 8-15 parlak)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Fast-forward durumunda bile bir birleştirme commit'i oluştur"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Kısaltılmış geçmişe sahip sığ bir klon oluştur"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Ayrıntılı çıktıyla gzip sıkıştırmalı tar arşivi oluştur"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Dosyalardan ve klasörlerden sıkıştırılmış arşivler oluşturur"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Parametreli komut düğmeleri oluşturur ve düzenler (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Git deposunda yeni bir yerel dal oluşturur ve ona geçer"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "AuditLogger içinde atomik yedeklemeyle /tmp dizininde bir test dosyası oluşturur"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Etkin şemaya göre özel bir renk şeması oluşturur"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Ayar Yedeği Oluştur (SHA-256 Paketi)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Oturum Oluştur"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "SSH üzerinden port yönlendirmek için Yerel (-L), Uzak (-R) veya Dinamik SOCKS5 (-D) tüneli oluşturun."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Sağlama toplamı hesaplaması kullanıcı tarafından iptal edildi."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Rust Kodu"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Kod etkin terminale eklendi."
+
+# 
+msgid "Código-Fonte"
+msgstr "Kaynak Kodu"
+
+# 
+msgid "Cópia de {name}"
+msgstr "{name} kopyası"
+
+# 
+msgid "Data de Modificação"
+msgstr "Değiştirilme Tarihi"
+
+# 
+msgid "Date / Time"
+msgstr "Tarih / Saat"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Tarih: {date} | Boyutlar: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Debian alt düzey paket yöneticisi (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Varsayılan API Anahtarı"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Varsayılan Model Tanımlayıcısı"
+
+# 
+msgid "Default Provider"
+msgstr "Varsayılan Sağlayıcı"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Çoklu kapsayıcı uygulamalarını tanımlar ve çalıştırır"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Şunun için dosya izinlerini ayarla: {name}\nGeçerli: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Güvenlik duvarı kuralını sil"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Birleştirilmiş dalı sil"
+
+# 
+msgid "Desativar Todos"
+msgstr "Tümünü Devre Dışı Bırak"
+
+# 
+msgid "Descrição:"
+msgstr "Açıklama:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Shell Girişi Vurgulama"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Komutları yazarken gerçek zamanlı sözdizimi vurgulama"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "'cat' komutu çıktısı için sözdizimi vurgulama (Pygments/ANSI motoru kullanılarak)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Uzak Hedef"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Ayrılmış mod: komutu arka planda çalıştır"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Günlük Hatalarını Yapay Zeka ile Teşhis Et"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Web hizmetini teşhis et ve yeniden başlat"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Sezgisel Teşhis (**{title}**):\n{desc}\n\nHızlı düzeltme önerisi:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Güvenli Sistem Tanılama — Telemetri ve Destek"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "'{name}' günlük tanısı Yapay Zeka Asistanına gönderildi."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Büyük/Küçük Harf Eşleştir"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Bir komut girin (örn.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "TÜM açık terminallere gönderilecek bir komut yazın..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Bir eylem, SSH oturumu veya parametreli komut yazın..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Yazı Tipini Küçült (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Dinamik (-D) • SSH üzerinden SOCKS5 Vekil Sunucusu"
+
+# 
+msgid "Direita"
+msgstr "Sağ"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "'{path}' dizini favori olarak işaretlendi."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Yapılandırma Dizini"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Dizin terminale gönderildi: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Dizin: {name}\nYol: {path}\nİzinler: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "İzin verilen dizinler, PathGuard yalıtımı ve varsayılan reddetme ilkeleri"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Yüklü bir snap paketini devre dışı bırak"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Disk Dolu (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Disk (Fiziksel G/Ç)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Yüklü bir paket hakkında ayrıntılı bilgi görüntüle"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Belleği megabayt cinsinden görüntüle"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Yüklü paketin durum ayrıntılarını görüntüle"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Geçerli sekmeyi üst/alt olarak böler (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Geçerli sekmeyi yan yana böler (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Yatay Bölme"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Terminali Yatay Olarak Böl"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Dikey Bölme"
+
+# 
+msgid "Divisão"
+msgstr "Bölme"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Hiçbir şey sorma, varsayılan yanıtları kullan"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Silmeden önce bağımlılıkları denetleme"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Uzak komut çalıştırma (yalnızca port yönlendirme)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Hizmet adlarını çözümleme"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Snap verilerinin anlık görüntüsünü kaydetme"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Paket bağımlılıklarını doğrulama"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Kurulumdan önce paket bağımlılıklarını doğrulama"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Aynı ada sahip bir uzak depo varsa hiçbir şey yapma"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Metin Belgesi"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Paket veritabanlarının güncel kopyasını indir"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Yalnızca paketleri indir, kurma"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Metin tabanlı grafiksel commit geçmişini çiz"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Dosyaları silmeden deneme amaçlı kaldırma"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Sistemi değiştirmeden deneme kurulumu testi"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Komutu Düzenle: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Tünel Ayarlarını Düzenle"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Renk Şemasını Düzenle"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Seçili Oturumu Düzenle"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Oturumu Düzenle — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Renk şemasını düzenle veya özel varyant oluştur"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "`PolicyEngine` doğrulaması ve yürütme sonrası otomatik doğrulama (`verifier.rs`) içeren bir **Yapılandırılmış Eylem Planı** hazırladım:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "ProductionGuard, Çift Bölmeli SFTP/TFTP ve Zero-Trust Yapay Zeka Asistanı ile Linux'ta yerel ve uzak iş akışları için modern terminal öykünücüsü."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Devre dışı bırakılmış bir snap paketini etkinleştir"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "X11 Yönlendirme (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Etkin sekmeyi kapatır (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Dosyaları Bul"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Komutları aynı anda birden fazla terminale gönderir (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Tüm Sekmelere Komut Gönder"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Soruyu Gönder"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "sha256sum komutunu etkin terminal sekmesine gönder"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Tümüne Gönder"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Yüklü bir RPM paketini sil (kaldır)"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Dosya Kaydetme Hatası"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "'{name}' izinleri değiştirilirken hata: {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Karma değeri hesaplanırken hata"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Öğe yapıştırılırken hata: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Dosya oluşturulurken hata: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Yedek oluşturulurken hata: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Klasör oluşturulurken hata: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Dosya silinirken hata: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Klasör silinirken hata: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "{path} listelenirken hata: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Öğe taşınırken hata: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Yeniden adlandırılırken hata: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Git Deposu Hatası"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Geri alma hatası: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Hata: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Yerel (-L), Uzak (-R) veya Dinamik SOCKS5 (-D) arasından seçim yapın"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Renk şeması uygulandı: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Renk şeması kaydedildi: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Bu oturum ~/.ssh/config dosyasından (salt okunur) geliyor veya zaten kaldırılmış."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Bu dosya salt okunurdur. Düzenlemeler Yönetici (Root) ayrıcalıklarıyla kaydedilebilir."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Açık Stil (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Koyu Stil (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "Örn.: 10.0.0.15 veya srv.sirket.com"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "Örn.: Üretim (kök için boş bırakın)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "Örn.: Üretim Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "Örn.: root veya ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Klasörü Sil"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Kalıcı Olarak Sil"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Terminalde çalıştırıldı: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Çalıştır (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Şimdi Çalıştır"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Terminalde sudo ile çalıştır"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Komutu tüm terminallerde çalıştır"
+
+# 
+msgid "Executar passo"
+msgstr "Adımı çalıştır"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Aracı planını çalıştır"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Tüm birim ve tümleştirme testlerini çalıştır"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Oturumlar Panelini Göster"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Dosyayı Yapay Zeka ile Açıkla"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "'{name}' dosyasının açıklaması Yapay Zeka Asistanından istendi."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "'{name}' dosyasının amacını, yapısını ve işleyişini açıklayın.\nYol: {path}\n\nBaşlangıç içeriği:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "settings.json, sessions.json ve command_buttons.json dosyalarını SHA-256 karmasıyla dışa aktarır"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Tüm arabelleği veya etkin terminal seçimini dışa aktarır"
+
+# 
+msgid "Exportado para {path}"
+msgstr "{path} konumuna dışa aktarıldı"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Terminal Çıktısını Dışa Aktar (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Oturumu İşletim Kitapçığı (Runbook) Olarak Dışa Aktar"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "OnyxSH Terminal Dışa Aktarımı - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Dış bağlantı denetimi ve sıkı veri yalıtımı."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Gzip ile sıkıştırılmış tar arşivini ayrıntılı olarak çıkar"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Sıkıştırılmış arşivlerden dosyaları çıkarır"
+
+# 
+msgid "Extrair"
+msgstr "Çıkar"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Root Olarak Kaydedilemedi"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "pkexec işlemi beklenemedi: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Sağlama toplamları hesaplanamadı: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Yedek oluşturulamadı: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "pkexec stdin'e veri yazılamadı: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Ayrıcalıklı pkexec işlemi başlatılamadı: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Yedek geri yüklenemedi: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Dosya kaydedilemedi: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Aktarım başarısız (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Aktarım başarısız (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Hızlı, çok yönlü, uzak ve yerel dosya kopyalama aracı"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Komutu favorilere ekle / favorilerden çıkar"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Geçerli dizini favorilere ekle"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Favori kaldırıldı: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Değişiklikleri açıklayıcı bir iletiyle Git'e işler (commit)"
+
+# 
+msgid "Fechar Aba"
+msgstr "Sekmeyi Kapat"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Açık Pane'yi Kapat"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "Fedora/RHEL/Rocky/AlmaLinux RPM paket yöneticisi"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Başka bir depodan getir ve birleştir"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Aktarım Kuyruğu — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Aktarım kuyruğu boş (0 etkin görev)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Dosya verileri n*24 saat önce değiştirildi"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Dosya türü (f normal dosya, d dizin, l sembolik bağ)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Arşivi gzip üzerinden süz (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Belirli bir dosyayı veya özelliği hangi paketin sağladığını bul"
+
+# 
+msgid "Focar janela existente"
+msgstr "Mevcut pencereye odaklan"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Focus Pane Down"
+
+# 
+msgid "Focar painel acima"
+msgstr "Focus Pane Up"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Focus Pane Right"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Focus Pane Left"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Odak ilk bölmeye geçirildi."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Odak ikinci bölmeye geçirildi."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Dosya büyüdükçe çıktıyı canlı olarak takip et"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Yazı tipi, renk paleti, saydamlık ve Yapay Zeka (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Uygulamalar buna bağımlı olsa bile silmeyi zorla"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Paket veya dosyalar zaten mevcut olsa bile kurulumu zorla"
+
+# 
+msgid "Force upgrade"
+msgstr "Yükseltmeyi zorla"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Sorgu çıktısını özel queryformat ile biçimlendir"
+
+# 
+msgid "Formato"
+msgstr "Biçim"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "RPM paketlerini yenile (yalnızca zaten kuruluysa yükselt)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Yapılandırılmış Eylem Planı (ActionPlan) Oluştur"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "systemctl ile sistem hizmetlerini yönetir"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Dosya Yöneticisi"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Çift Bölmeli Dosya Yöneticisi"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Komut Yöneticisi"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Komut Yöneticisi ve Dinamik Formlar"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Sekme ve Panel Yönetimi"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak application and runtime management"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Conventional Commit Öner"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: geçerli dizin bir Git deposu değil."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Yüksek Bağlam Kapasitesi"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Simge Izgarası"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Ultra Hızlı LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "CPU, RAM, Disk G/Ç ve Ağ/GPU için gerçek zamanlı grafikler"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Çok adımlı planlar için yüksek muhakeme gücüne sahip model ve sağlayıcı"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Zenginleştirilmiş Komut Geçmişi (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Sohbet Geçmişi"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Aktarım Geçmişi"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Geçmiş: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Ana Bilgisayar / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Uzak Ana Bilgisayar (IP / Alan Adı)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Bind için Uzak Ana Bilgisayar"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Ana bilgisayar boş olamaz"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Geçersiz ana bilgisayar veya IP adresi."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Açık anahtar kimlik doğrulaması için kimlik dosyası (özel anahtar)"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Büyük/küçük harf farkını yoksay"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Dosya yedekleme tanımlarını yoksay (yapılandırma dosyalarını kaldır)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Mevcut olmayan dosyaları yoksay, asla sorma"
+
+# 
+msgid "Imagem"
+msgstr "Görsel"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "ASCII-armored GPG açık anahtarını RPM anahtarlığına aktar"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr ".flatpakrepo dosyasından uzak yapılandırmayı içe aktar"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Oturumları İçe Aktar (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "HTTP yanıt üstbilgilerini çıktıya dahil et"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Terminal yazı tipi boyutunu artırır (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Değişiklik yapan komutlardan sonra otomatik doğrulamaları (hizmet durumu, yapılandırma sözdizimi) çıkarır ve önerir."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "TFTP Sunucusunu Başlat"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Ekle (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Yolu Terminale Ekle"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Geçerli Git deposunu inceler ve commit iletisi önerir"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Ana bilgisayardaki etkin soketleri ve bağlantı noktalarını incele"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Yerel bir .deb paket dosyası kur"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Ayrıntılı ilerlemeyle bir RPM paket dosyası kur"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Açık olmayan bağımlılık olarak kur"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Beta kanalından kur"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Edge kanalından kur"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Kararlı (stable) kanaldan kur"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Bir veya daha fazla RPM paketi kur"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Sisteme snap paketleri kur"
+
+# 
+msgid "Interactive rebase"
+msgstr "Etkileşimli rebase"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Yama parçalarını (hunks) etkileşimli olarak seç"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Terminal Etkileşimi"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Yerel Arayüz / Bind IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Yerel Dinleme Arayüzü"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Deseni genişletilmiş düzenli ifade (regex) olarak yorumla"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Gecikme Denetimi Aralığı"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "KeepAlive yoklama paketlerini gönderme aralığı (saniye)"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Geçersiz SSH kullanıcı adı"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Geçersiz ana bilgisayar adı veya IP adresi"
+
+# 
+msgid "Invalid local port"
+msgstr "Geçersiz yerel bağlantı noktası"
+
+# 
+msgid "Invalid port number"
+msgstr "Geçersiz bağlantı noktası numarası"
+
+# 
+msgid "Invalid remote host"
+msgstr "Geçersiz uzak ana bilgisayar"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Soketleri incele (modern netstat alternatifi)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Sekmeye Git"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Bu işlem tüm klavye kısayollarını varsayılan değerlerine sıfırlayacaktır. Devam etmek istiyor musunuz?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Öğe şuraya yapıştırıldı: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Öğe şuraya taşındı: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "{n_pages} sekmenin düzeni {path} konumuna kaydedildi"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Etkin oturumun ekranını ve geri kaydırma arabelleğini temizler (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Tamamlananları Temizle"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Favori Olmayan Geçmişi Temizle"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Oturumu Temizle"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Terminal Oturumunu Temizle"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Bağlantı panoya kopyalandı."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Kurulu bir RPM paketine ait tüm dosyaları listele"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Uzak depoda bulunan uygulamaları ve çalışma zamanlarını listele"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Bu .rpm paketinin gerektirdiği yetenekleri listele"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Yüklü bir paketin yapılandırma dosyalarını listele"
+
+# 
+msgid "List configuration files only"
+msgstr "Yalnızca yapılandırma dosyalarını listele"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Yüklü bir paketin gerektirdiği bağımlılıkları listele"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr ".rpm arşivi içindeki dosyaları listele"
+
+# 
+msgid "List files installed by package"
+msgstr "Paket tarafından yüklenen dosyaları listele"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Harici paketleri listele (ör. AUR'dan)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Desenle eşleşen yüklü paketleri listele"
+
+# 
+msgid "List installed snaps"
+msgstr "Yüklü snap'leri listele"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Yüklü birim dosyalarını ve etkinleştirme durumlarını listele"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Artık paketleri listele (artık gerekmeyen bağımlılıklar)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Bağımlılık olarak yüklenen paketleri listele"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Şu anda kayıtlı stash'leri listele"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Ayrıntılı Liste"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Dizin içeriğini ayrıntılarıyla listeler (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Liste, Küçük Resim Izgarası, Ağaç ve Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Dosya Listesi"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Yerel (Ollama / LM Studio) • Tam GPU/CPU Gizliliği"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Yerel Sunucu Temel URL'si"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Uzun biçim, tüm dosyalar, okunabilir boyutlar"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Günlük kabuk soruları için düşük gecikmeli model ve sağlayıcı"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Gerektiğinde üst dizinleri oluştur"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Modele gönderilen maksimum bağlam belleği tahsisi"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Bellek (RAM ve Takas)"
+
+# 
+msgid "Memória RAM"
+msgstr "RAM Bellek"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Commit Mesajı"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Kesin Çevrimdışı Mod Etkin (Sıfır Bulut)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Akıllı Yönlendirmeli Çevrimiçi Mod Etkin."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Metin Seçimi Modu etkinleştirildi."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Metin Seçimi Modu devre dışı bırakıldı."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Yayın Modu (Tüm Sekmelere Yayın)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Tema Modu"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Gerçek Zamanlı Kaynak İzleyici (Cairo Kıvılcım Çizgileri)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Gerçek Zamanlı Kaynak İzleyici — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "SSH oturum ağacını gösterir veya gizler (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Gizli dosyaları göster (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Motor"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Ad ve isteğe bağlı olarak 'name:tag' biçiminde bir etiket"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Panoda yapıştırılacak öğe yok."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Henüz denetim kaydı yok. Atomik Geri Almayı test etmek için 'Denetlenen Değişikliği Simüle Et' seçeneğine tıklayın."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "sysfs/nvidia-smi aracılığıyla ayrılmış GPU algılanmadı"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Seçili oturum yok"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "Oturumda kayıtlı aktarım yok."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Ağ (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Ağ (/proc/net/dev) • Gerçek Zamanlı RX / TX"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Ağ (RX / TX) ve GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Asla soru sorma"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Ad (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Yeni Dal Adı"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Oturum Adı:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Yeni klasör adı:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Panoda geçersiz dosya adı."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "SSH kullanıcı adı geçersiz karakterler içeriyor."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Hedef Dosya Adı"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Hizmet Adı"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Komut adı (ör. Nginx'i Yeniden Başlat)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Yeni dosya adı:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Simge adı (ör. utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Konteyner Adı veya Kimliği"
+
+# 
+msgid "Nome:"
+msgstr "Ad:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Etkileşimsiz mod"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Yeni Uçbirim Sekmesi"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Yeni Uçbirim Sekmesi (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Buraya Yeni Klasör..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Yeni Oturumlar Klasörü"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Yeni Klasör..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Yeni Oturum — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Yeni sohbet başlatıldı."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Buraya Yeni Dosya..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Yeni Dosya..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Yeni Renk Şeması"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Yeni klasör adı:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Yeni dosya adı:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Öğe yüklenemedi: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Değişiklikler yazılamadı: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Dosya sisteminde yeterli boş alan yok."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Seviye 0 (Okuma)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Seviye 1 (Yazma)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Seviye 2 (Yönetici)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Seviye 3 (Kritik)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Seviye 4 (Engellendi)"
+
+# 
+msgid "Nível {n}"
+msgstr "Seviye {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Otomatik yeniden bağlanmadan vazgeçmeden önceki deneme sayısı"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "'{bin}' ikili dosyası yüklü değil veya $PATH dışında."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "Komut bir hata koduyla sonlandı."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "Uçbirimde çalıştırılan komut başarısız oldu. Proje dosyalarını analiz edin ve OpenCode ile gerekli düzeltmeleri hazırlayın:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "Komut, süper kullanıcı (root) ayrıcalıkları eksikliği nedeniyle başarısız oldu."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "Oturum adı boş olamaz."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Karartılmış / Base64 çözümlenmiş yürütme hattı"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Önceki Eşleşme (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Uçbirimde bulunan eşleşmeler"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Sekizlik: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Hazır"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Bildirim Testi"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode uçbirimde başlatıldı."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Birleşik Çoklu Model Kataloğu"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Operatör: {author} | Ana Bilgisayar: {host} | Tarih: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Çalışma alanındaki tüm paketler üzerinde işlem yap"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "İşlem kullanıcı tarafından iptal edildi veya reddedildi."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Arch Linux paket yöneticisi ile işlemler"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Debian/Ubuntu paket yöneticisi ile işlemler"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Fedora/RHEL paket yöneticisi ile işlemler"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Dosya İşlemleri"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Artan Sıra"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Azalan Sıra"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Artan sıralama etkinleştirildi"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Azalan sıralama etkinleştirildi"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Yüklü paketleri yüklenme zamanına göre sırala (en yeni önce)"
+
+# 
+msgid "Organizar por"
+msgstr "Sırala"
+
+# 
+msgid "Origem (Local)"
+msgstr "Kaynak (Yerel)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Sayıları okunabilir biçimde çıkar"
+
+# 
+msgid "Output package names only"
+msgstr "Yalnızca paket adlarını çıkar"
+
+# 
+msgid "Pacote"
+msgstr "Paket"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Kurulum Paketi"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Ad Deseni (ör. *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Oturumlar Paneli"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Bölme/Sekme kapatıldı."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Tam Sözcük"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16 Renkli ANSI Paleti"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "TFTP Sunucusunu Durdur ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Parametreler — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Adım #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Adım yürütüldü: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "'{path}' klasörü başarıyla oluşturuldu."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Klasör / Dizin"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Klasör panoya kopyalandı: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Klasör oluşturuldu: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Klasör silindi: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Klasör taşınmak üzere işaretlendi: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Klasör sık kullanılanlardan kaldırıldı."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Klasör '{name}' olarak yeniden adlandırıldı"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Klasör · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Klasör:"
+
+# 
+msgid "Pause"
+msgstr "Duraklat"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Yönlendirme profili değiştirildi: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Dağıtım yükseltmesi gerçekleştir (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Yapay Zeka Asistanı Sorun"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Sorun veya bir terminal hatası yapıştırın..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "İzinler (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "'{name}' izinleri {mode} olarak değiştirildi"
+
+# 
+msgid "Permissões para {name}"
+msgstr "{name} için İzinler"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Tüm açık sekmelerde, SSH oturumlarında, geçmişte ve kod parçacıklarında ara (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Alt dizinlerde özyinelemeli arama"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Terminal'da Ara"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Tüm açık terminal sekmelerinde, SSH oturumlarında, geçmişte ve kod parçacıklarında metin ara..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Tünelleri ada, bağlantı noktasına veya ana bilgisayara göre ara..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Kabuk yorumlayıcısına borulanmış yürütme"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Şunun için Zero-Trust Eylem Planı: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Arka Plan"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Test etmeden önce lütfen bir {provider} API anahtarı girin."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Uç Noktalar ve Bağlantı Noktaları"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Lütfen aşağıdaki terminal seçimini analiz edin:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Lütfen '{name}' dosyasının kodunu/içeriğini, amacını, yapısını ve önemli noktalarını analiz edip açıklayın:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Lütfen geçerli '{path}' dizininde ayrıntılı bir güvenlik ve erişim yönetişimi denetimi gerçekleştirin. Aşırı esnek izinleri, hassas dosyaları (.env, özel anahtarlar, açığa çıkmış kimlik bilgileri) kontrol edin ve Zero-Trust en iyi uygulamalarını önerin."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Lütfen '{name}' dosyası için ayrıntılı bir güvenlik ve erişim izinleri denetimi gerçekleştirin.\nYol: {path}\nGeçerli izinler: {perms} ({oct})\nBoyut: {size}\nGüvenli chmod ayarları ve güvenlik açığı azaltma önerileri sunun."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Lütfen '{name}' dizini için ayrıntılı bir güvenlik ve erişim izinleri denetimi gerçekleştirin.\nYol: {path}\nGeçerli izinler: {perms} ({oct})\nSon değiştirilme: {date}\nİdeal chmod ayarları, kısıtlamalar ve Zero-Trust uyumluluğu için en iyi uygulamaları önerin."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Lütfen aşağıdaki kod parçacığını OpenCode ile yeniden düzenleyin:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Bağlantı noktası geçerli aralığın dışında (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Uzak Açık Bağlantı Noktası (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Uzak Hedef Bağlantı Noktası"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Yerel Dinleme Bağlantı Noktası (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "SOCKS5 Proxy Bağlantı Noktası (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Bağlantı noktası izin verilen aralığın dışında (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Bağlantı Noktası:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Uzak PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Tercihler"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Her satırın başına 1 tabanlı satır numarası ekle"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Komut Önizlemesi:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Birincil Sağlayıcı ve Bağlantı"
+
+# 
+msgid "Print Git version"
+msgstr "Git sürümünü yazdır"
+
+# 
+msgid "Print RPM version"
+msgstr "RPM sürümünü yazdır"
+
+# 
+msgid "Print help synopsis"
+msgstr "Yardım özetini yazdır"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Boyutları 1024'ün katları olarak yazdır (örn. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Test stdout/stderr çıktısını doğrudan yazdır"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Dizin derinliği 1 için toplamı yazdır"
+
+# 
+msgid "Print zypper version"
+msgstr "zypper sürümünü yazdır"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Üretim / Web Sunucuları"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Protokol:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Ayrıntılı çıktı sağla"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Akıllı Yönlendirme devre dışı bırakıldığında kullanılan sağlayıcı"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Canlı Önizleme"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Sonraki Eşleşme (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Sonraki Dosya (Aşağı Ok / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Önceki isteme atla."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Sonraki isteme atla."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Kurulu bir paketi yapılandırmasıyla birlikte tamamen kaldır"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Snap'i klasik kısıtlama moduna al"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Satır Sayısı (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Satır Sayısı (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Yüklenmemiş yerel bir .rpm paket dosyasını sorgula"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Kurulu tüm RPM paketlerini sorgula ve listele"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Depo ölçütleriyle eşleşen paketleri sorgula"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "Snap'lerin sağladığı servislerin durumunu sorgula"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Bir dosya yolunun hangi kurulu RPM paketine ait olduğunu sorgula"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Önizleme)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "RPM Paket Yöneticisi düşük düzey aracı (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Her dizin altındaki tüm dosyaları özyinelemeli olarak oku"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Okuma: {read}/s • Yazma: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Getirme işleminden sonra geçerli dalı upstream üzerine yeniden temellendir"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Kurulu üstbilgilerden RPM veritabanı dizinlerini yeniden oluştur"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Kopmalarda Akıllı Otomatik Yeniden Bağlanma"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Hazırlanmış değişiklikleri depoya kaydet"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Dosyayı Kes"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Klasörü Kes"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Tüm kısayolları varsayılan değerlere sıfırlar"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Zoom'u Sıfırla"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Terminal yazı tipi boyutunu küçültür (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Yakınlaştırmayı Kaldır"
+
+# 
+msgid "Refresh Interval"
+msgstr "Yenileme Aralığı"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Tüm depo meta verilerini yenile"
+
+# 
+msgid "Refresh files database"
+msgstr "Dosya veritabanını yenile"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "AuditLogger Kayıtları (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Genel Vurgulama Kuralları"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Yönetilen servisi yeniden başlat ve yapılandırmayı uygula"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Paket zaten mevcutsa yeniden yükle"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Tam karma raporu panoya kopyalandı"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Temizlenmiş OnyxSH Tanılama Raporu"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Tanılama raporu panoya kopyalandı."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Adımlar, notlar, amaç ve sonuç içeren yapılandırılmış operasyonel rapor (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "İşletim Sistemi, RAM, GPU/VRAM ve Flatpak ortamının temizlenmiş raporu"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Servisi yeniden yükle veya yeniden yükleme desteklenmiyorsa yeniden başlat"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Uzak (-R) • Yerel bağlantı noktasını uzak sunucuda aç"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Tek bir stash girdisini kaldır"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Hedefe bağımlı tüm paketleri kaldır"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Tüm stash girdilerini kaldır"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Paketin tüm sürümlerini kaldır"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Kurulu bir paketi yapılandırmayı koruyarak kaldır"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Dizinleri ve içeriklerini özyinelemeli olarak kaldır"
+
+# 
+msgid "Remove installed packages"
+msgstr "Kurulu paketleri kaldır"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Eski uzak izleme referanslarını kaldır"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Bir veya daha fazla paketi ve kullanılmayan bağımlılıkları kaldır"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Başlangıçta bağımlılık olarak yüklenen ancak artık gerekmeyen paketleri kaldır"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Snap'leri sistemden kaldır"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Kullanılmayan verileri kaldır (kapsayıcılar, ağlar, imajlar)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Seçili Oturumu Kaldır"
+
+# 
+msgid "Remover Túnel"
+msgstr "Tüneli Kaldır"
+
+# 
+msgid "Remover favorito"
+msgstr "Sık kullanılanı kaldır"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Geçerli dizini sık kullanılanlardan kaldır"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Dosyayı Yeniden Adlandır"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Klasörü Yeniden Adlandır"
+
+# 
+msgid "Renomear..."
+msgstr "Yeniden Adlandır..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Geçerli işlemlerin anlık görüntüsünü raporla"
+
+# 
+msgid "Reportar Problema"
+msgstr "Sorun Bildir"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Yazı Tipi Boyutunu Sıfırla (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Terminal hatası OpenCode / Yapay Zeka ile çözülüyor..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Kapsayıcı çıktığında yeniden başlatma ilkesi"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Varsayılan Monospace 11 yazı tipini geri yükler (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Genel Kuralları Geri Yükle"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Tüm Komutları Geri Yükle"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Orijinal yoksayılan komutlar listesini geri yükle"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "İndeksi geri yükle / dosyaları stage'den çıkar"
+
+# 
+msgid "Resume"
+msgstr "Devam Et"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Dosya içeriği üzerinden hesaplanan standart kriptografik özetler:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Hizmetler için günlükleri al"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Diff İncelemesi ve Zero-Trust Denetimi (Atomik Geri Alma)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Akıllı Yönlendirme: profili değiştirmek için tıklayın (Otomatik, Hızlı, Gelişmiş, Güvenlik)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Gelişmiş/Güvenlik akıl yürütme profiline yönlendirildi."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Hızlı profile yönlendirildi (düşük gecikmeli basit sorgu)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Yerel paketin bir ikilisini veya örneğini çalıştır"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "git belirtilen yolda başlatılmış gibi çalıştır"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Hedef kullanıcı (root) olarak oturum açma kabuğunu çalıştır"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Optimize edilmiş sürüm ikilisini çalıştır"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Yerel Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Rust paket yöneticisi ve derleme aracı"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH OTURUMU"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "SOCKS5 Proxy"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Kurumsal SOCKS5 Proxy"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Uzak referansı doğrulayan güvenli zorla gönderme"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Uygulamayı Kapat"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Kaydet ve Kapat"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Değişiklikleri Kaydet"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "OnyxSH Yedeğini Kaydet"
+
+# 
+msgid "Salvar Comando"
+msgstr "Komutu Kaydet"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Geçerli Sekme Düzenini Kaydet"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Yönetici / Root yetkileriyle kaydet (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Başarıyla kaydedildi: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Betik Çalıştırma"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Adların yanı sıra açıklamalarda da ara"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Bir dosya adına sahip paketi ara"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Desenle eşleşen paketleri ara"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Mağazada snap paketlerini ara"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Yerel olarak yüklenen paketleri ara"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Sistem Stilini Takip Et"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Gerçek zamanlı takip et (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Bağlantıları canlı tutma süresi (saniye, devre dışı bırakmak için 0)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Seçili: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "OnyxSH Yedek Dosyasını Seç"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Dahil edilecek komutları seçin ve her adım için açıklayıcı teknik yorumlar ekleyin. ({count} belirlendi)"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "İndirmek için sağ bölmeden bir öğe seçin (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Göndermek için sol bölmeden bir öğe seçin (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Düzenlemek için önce listeden bir oturum seçin."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Kaldırmak için önce bir oturum seçin."
+
+# 
+msgid "Select Monitored Host"
+msgstr "İzlenen Ana Bilgisayarı Seç"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Eşleşmeyen satırları seç"
+
+# 
+msgid "Seleção copiada."
+msgstr "Seçim kopyalandı."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Seçim analiz için Yapay Zeka Asistanına gönderildi."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Seçim, OpenCode ile yeniden düzenleme için gönderildi."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Her zaman gizle"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP Sunucusu"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "Salt Okunur TFTP Sunucusu {addr} adresinde etkin (kök: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "TFTP Sunucusu değiştirildi."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP Sunucusu durduruldu."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Oturum: {session} | Ana Bilgisayar: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "'{name}' oturumu kaldırıldı."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "'{name}' oturumu ~/.config/onyxsh/sessions.json konumuna kaydedildi."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Bağlı SSH Oturumu"
+
+# 
+msgid "Sessão limpa."
+msgstr "Oturum temizlendi."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Kayıtlı Oturumlar"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Oturumlar ~/.config/onyxsh/sessions.json ve ~/.ssh/config konumundan senkronize edildi."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Çalıştırılacak Kabuk"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Dinleyen tüm TCP/UDP soketlerini işlem ve sayısal portlarla göster"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Yüklü snap paketlerinin tüm revizyonlarını göster"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Yönlendirme, ağ aygıtları ve arayüzleri göster ve yönet"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Yüklemeden mevcut snap güncellemelerini göster"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Commit'ler, indeks ve çalışma ağacı arasındaki değişiklikleri göster"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Bir snap paketi hakkında ayrıntılı bilgi göster"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Yüklü bir uygulama veya çalışma zamanı hakkında ayrıntılı bilgi göster"
+
+# 
+msgid "Show error message on failure"
+msgstr "Başarısız olduğunda hata mesajını göster"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Belirtilen paketler için tam bilgiyi göster"
+
+# 
+msgid "Show package metadata info"
+msgstr "Paket meta veri bilgilerini göster"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Belirli bir dosya yolu için izinleri göster"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Kurulum ve kaldırma öncesi/sonrası betiklerini göster"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "İlerlemeyi göster ve kısmen aktarılan dosyaları sakla"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Üst çubukta Yapay Zeka Asistanı düğmesini ve yan panelini göster."
+
+# 
+msgid "Silent mode"
+msgstr "Sessiz mod"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Denetlenen Değişikliği Simüle Et"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Yerel dosyaları özniteliklerini koruyarak uzak ana bilgisayara senkronize eder"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "Sistem"
+
+# 
+msgid "Sistema Operacional"
+msgstr "İşletim Sistemi"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Onay istemini atla"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Akıllı yönlendirme devre dışı: varsayılan yapılandırılmış sağlayıcı kullanılıyor."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, Eylem Planları ve Atomik Geri Alma (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "OnyxSH Hakkında"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "HTTP istek yöntemini belirt (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Çalıştırılacak paketi belirt"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "Kullanılacak uzak kabuğu belirt (örn. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Terminali Böl"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Değiştirilmiş bir çalışma dizinindeki değişiklikleri rafa kaldır (stash)"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "4 paket gönderdikten sonra durdur"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Katı Çevrimdışı Mod etkin (yalnızca yerel Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "rpm, dnf, apt, pacman, flatpak, systemctl, docker, git ve yaygın araçlar için alt komutlar ve parametreler öner"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git için öneriler"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "İnsan tarafından okunabilir biçimde boyut özeti"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab veya → uygula • ↑/↓ gezin • Esc kapat"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "'{name}' klasörünü kalıcı olarak silmek istediğinizden emin misiniz?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "'{name}' dosyasını kalıcı olarak silmek istediğinizden emin misiniz?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Açık Arka Plan Teması"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Koyu Arka Plan Teması"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Terminal arka planı açık olduğunda kullanılan tema"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Terminal arka planı koyu olduğunda kullanılan tema"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Komut şablonu (örn.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Kopmuş SSH oturumlarını geri sayım ve ekran uyarısıyla yeniden bağlamayı dener"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Uçbirim: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Çalışma alanındaki tüm paketleri test et"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Yakalama Testi Yap"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Nginx yapılandırma sözdizimi bütünlüğünü test et"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Ön Plan Metni (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Bu, tüm {count} konuşmalarını kalıcı olarak silecektir. Bu işlem geri alınamaz."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Tür / Uzantı"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Dosya Türü"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Tüm ayarlar varsayılana geri yüklendi."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Tüm klavye kısayolları varsayılana geri yüklendi."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Tüm SSH tünelleri durduruldu."
+
+# 
+msgid "Total Lines"
+msgstr "Toplam Satır"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Kararların, komutların ve atomik geri almanın sürekli denetim izi"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Ubuntu / Canonical Snap paket yöneticisi"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Uncomplicated Firewall yöneticisi"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Birim / Hizmet (isteğe bağlı)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Yüklü paketleri daha yeni sürümlerle güncelle"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Sistemdeki snap paketlerini güncelle"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Zaten yüklüyse uygulamayı/çalışma zamanını güncelle"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Bir RPM paket dosyasını yükselt (veya yoksa kur)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Yerel/uzak paket dosyasını (.pkg.tar.zst) yükselt veya kur"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "15 satırdan uzun çıktılar için daraltılabilir bloklar (&lt;details&gt;) kullanır"
+
+# 
+msgid "Use a long listing format"
+msgstr "Uzun listeleme biçimi kullan"
+
+# 
+msgid "Use archive file or device"
+msgstr "Arşiv dosyası veya aygıt kullan"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "RPM işlemleri için dizini en üst düzey kök olarak kullan"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Uzak Kullanıcı"
+
+# 
+msgid "Usuário SSH:"
+msgstr "SSH Kullanıcısı:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Doğrula ve Ekle"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Mevcut servis durumunu ve bağımlılıkları kontrol et"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "'{svc}' servisinin etkin olup olmadığını kontrol et"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "'{svc}' servisinin önyüklemede etkinleştirilip etkinleştirilmediğini kontrol et"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "'{svc}' servisinin durdurulup durdurulmadığını kontrol et"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Belirli bir paketi bir .rpm dosyasına göre doğrula"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Kurulu tüm RPM paketlerinin bütünlüğünü veritabanına göre doğrula"
+
+# 
+msgid "Versão"
+msgstr "Sürüm"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Sonraki commit için hazırlanan değişiklikleri görüntüle"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "journalctl ile sistem günlüklerini görüntüler"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Tüm OnyxSH klavye kısayollarını görüntüler, düzenler ve sıfırlar"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Birleşik Diff Görüntüleyici (Önce ve Sonra):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Izgara / Küçük Resim Görünümü"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Simge Izgara Görünümü etkinleştirildi"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Ayrıntılı Liste Görünümü etkinleştirildi"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "'{name}' öğesini değiştirme izniniz yok. Yönetici (Root) ayrıcalıklarıyla kaydetmek istiyor musunuz?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "'{fname}' dosyasında kaydedilmemiş değişiklikleriniz var. Kapatmadan önce ne yapmak istersiniz?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "Bu dosyada kaybolacak kaydedilmemiş değişiklikleriniz var. Bunları gerçekten silmek istiyor musunuz?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Önceki sekmeye dön (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Örnek bekleniyor..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Çıktıyı uzak dosya ile aynı ada sahip yerel dosyaya yaz"
+
+# 
+msgid "You: "
+msgstr "Siz: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Yakınlaştırma sıfırlandı (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[SONUÇ VE GÖZLEMLER]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[İkili veya erişilemeyen içerik]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Günlük dosyası okunamıyor]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[AMAÇ / BAĞLAM]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[YÜRÜTÜLEN ADIMLAR ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Risk: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Risk Algılandı"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Doğrulandı"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` {secs} sn içinde tamamlandı."
+
+# 
+msgid "linha"
+msgstr "satır"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "openSUSE / SLES paket yöneticisi aracı"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} komut(lar) • Genişletmek/küçültmek için tıklayın"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} komut"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} satır"
+
+# 
+msgid "{count} regras"
+msgstr "{count} kural"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} sonuç"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} mantıksal çekirdek)"
+
+# 
+msgid "{days} days"
+msgstr "{days} gün"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} hr"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} satır • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} dk"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Kopya)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} ({base_distro} tabanlı)"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Eklenen Dosya]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "{provider} API anahtarı başarıyla yapılandırıldı."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Karar: {decision} | Durum: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "{type} Tüneli"
+
+# 
+msgid "Ícone:"
+msgstr "Simge:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "OnyxSH Simgeleri (Yerleşik)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← İndir / Kopyala"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Yükle / Kopyala"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Çalıştır   •   Tab İsteme Ekle   •   ⭐ Favorilere Ekle   •   Esc Kapat"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Sekmeye Git / Çalıştır • ↑/↓ Gezin • Esc Kapat"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Atomik Geri Alma"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ ProductionGuard Uyarısı ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Yıkıcı Komut Engellendi ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ Daha yavaş bilgisayarlarda renk desenlerinin işlenmesi, çok büyük çıktılarda yanıt verme hızını hafifçe düşürebilir."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ OnyxSH Uçbirim Dışa Aktarımı"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Kod Parçacıkları"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Komut Tamamlandı"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Kopyalandı!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Çalıştırıldı"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Atomik geri alma tamamlandı: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Komut Başarısız Oldu (Çıkış {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ KARMA EŞLEŞMİYOR! Yapıştırılan değer{hint}, dosyanın hesaplanan karmalarından farklı. Dosya bozulmuş veya değiştirilmiş olabilir."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ GEÇMİŞ"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Çevrimiçi Mod Etkin.\nTamamen yerel çevrimdışı modu etkinleştirmek için tıklayın."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Tümü"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Amaç / Bağlam"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Sonuç ve Çıkarılan Dersler"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Siz:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Siz{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Not:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Not: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Geçerli Dizin"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x çalıştırma"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Değiştirilme:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Disk kullanımını analiz et"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Temizlenmiş Raporu Kopyala"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Çıktıyı Kopyala"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Güvenle eklendi: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Geçmiş"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Ön Gözlemler"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Toplu Yayın (🛡️ ProductionGuard Etkin):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Komut {count} uçbirime yayınlandı."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Boyut:</b> {size} <span alpha='70%'>({bytes} bayt)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Tür:</b> Klasör / Dizin"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 {bin} paketini kur"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}sn"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 SSH Oturumları"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 git status kontrol et"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Çalıştırma sonrası doğrulama: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>İzinler:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Masaüstüne test bildirimi gönderildi."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Yol:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Yüksek Risk (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Uçbirim Sekmeleri"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Kritik Uyarı — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Toplu yayın ProductionGuard tarafından engellendi: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard okuma işlemini ENGELLEDİ: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ ÜRETİM MODU ETKİN — ProductionGuard yıkıcı komutları engelliyor (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Tamamen Çevrimdışı Mod Etkin (Zero Cloud).\nÇevrimiçi moda geçmek için tıklayın."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Çevrimdışı (Yerel)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Güvenlik"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Güvenli Komut"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Rota: {route}"
+

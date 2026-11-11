@@ -25,6 +25,7 @@ use onyxsh_agent::redactor::redact_secrets;
 use onyxsh_agent::router::{RoutingProfile, SmartRouter};
 use onyxsh_agent::verifier::infer_verifications;
 use onyxsh_core::config::AppSettings;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_terminal::production_guard::ProductionGuard;
 use serde::{Deserialize, Serialize};
@@ -187,38 +188,38 @@ pub fn synthesize_agent_response(
     let policy = PolicyEngine::default();
 
     if as_action_plan {
-        let raw_plan_json = format!(
-            r#"```json
-{{
-  "intent": "Plano de Ação Zero-Trust para: {}",
-  "steps": [
-    {{
-      "tool": "shell.run",
-      "argv": ["systemctl", "status", "ssh", "--no-pager"],
-      "description": "Verificar estado atual do serviço e dependências",
-      "requires_admin": false
-    }},
-    {{
-      "tool": "shell.run",
-      "argv": ["ss", "-tulnp"],
-      "description": "Inspecionar sockets e portas ativas no host",
-      "requires_admin": false
-    }},
-    {{
-      "tool": "shell.run",
-      "argv": ["sudo", "systemctl", "restart", "nginx"],
-      "description": "Reiniciar serviço gerenciado e aplicar configuração",
-      "requires_admin": true
-    }}
-  ]
-}}
-```"#,
-            redacted_prompt.replace('"', "'")
+        let intent = tr_fmt(
+            "Plano de Ação Zero-Trust para: {prompt}",
+            &[("prompt", &redacted_prompt.replace('"', "'"))],
         );
+        let plan_json = serde_json::json!({
+            "intent": intent,
+            "steps": [
+                {
+                    "tool": "shell.run",
+                    "argv": ["systemctl", "status", "ssh", "--no-pager"],
+                    "description": tr("Verificar estado atual do serviço e dependências"),
+                    "requires_admin": false
+                },
+                {
+                    "tool": "shell.run",
+                    "argv": ["ss", "-tulnp"],
+                    "description": tr("Inspecionar sockets e portas ativas no host"),
+                    "requires_admin": false
+                },
+                {
+                    "tool": "shell.run",
+                    "argv": ["sudo", "systemctl", "restart", "nginx"],
+                    "description": tr("Reiniciar serviço gerenciado e aplicar configuração"),
+                    "requires_admin": true
+                }
+            ]
+        });
+        let raw_plan_json = format!("```json\n{}\n```", serde_json::to_string_pretty(&plan_json).unwrap_or_default());
         let plan = parse_action_plan(&raw_plan_json, &policy);
-        let explanation = format!(
-            "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {}",
-            redacted_prompt
+        let explanation = tr_fmt(
+            "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}",
+            &[("prompt", redacted_prompt)],
         );
         return (explanation, plan);
     }
@@ -228,9 +229,13 @@ pub fn synthesize_agent_response(
         let qf = err_match
             .quick_fix_command
             .unwrap_or_else(|| "journalctl -xe --no-pager | tail -n 30".to_string());
-        let reply = format!(
-            "Diagnóstico Heurístico (**{}**):\n{}\n\nSugestão de correção rápida:\n```bash\n{}\n```",
-            err_match.title, err_match.description, qf
+        let reply = tr_fmt(
+            "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```",
+            &[
+                ("title", &err_match.title),
+                ("desc", &err_match.description),
+                ("cmd", &qf),
+            ],
         );
         return (reply, None);
     }
@@ -238,11 +243,23 @@ pub fn synthesize_agent_response(
     let lower = redacted_prompt.to_lowercase();
     let suggested_cmd = if lower.contains("docker") || lower.contains("container") {
         "docker ps --format 'table {{.Names}}\\t{{.Status}}\\t{{.Ports}}'"
-    } else if lower.contains("disco") || lower.contains("disk") || lower.contains("espaço") {
+    } else if lower.contains("disco")
+        || lower.contains("disk")
+        || lower.contains("espaço")
+        || lower.contains("space")
+    {
         "df -hT && du -sh /* 2>/dev/null | sort -hr | head -n 10"
-    } else if lower.contains("rede") || lower.contains("porta") || lower.contains("port") {
+    } else if lower.contains("rede")
+        || lower.contains("network")
+        || lower.contains("porta")
+        || lower.contains("port")
+    {
         "ss -tulnp"
-    } else if lower.contains("systemd") || lower.contains("serviço") || lower.contains("nginx") {
+    } else if lower.contains("systemd")
+        || lower.contains("serviço")
+        || lower.contains("service")
+        || lower.contains("nginx")
+    {
         "sudo systemctl restart nginx"
     } else if lower.contains("git") {
         "git status -sb && git log --oneline -n 5"
@@ -250,8 +267,9 @@ pub fn synthesize_agent_response(
         "uname -a && uptime"
     };
 
-    let reply = format!(
-        "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{suggested_cmd}\n```"
+    let reply = tr_fmt(
+        "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```",
+        &[("cmd", suggested_cmd)],
     );
     (reply, None)
 }
@@ -264,7 +282,9 @@ pub fn show_diff_review_and_audit_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)")
+        .title(&tr(
+            "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)",
+        ))
         .default_width(680)
         .default_height(500)
         .build();
@@ -274,8 +294,10 @@ pub fn show_diff_review_and_audit_dialog(
 
     let btn_demo_stage = gtk4::Button::builder()
         .icon_name("document-save-symbolic")
-        .label("Simular Alteração Auditada")
-        .tooltip_text("Cria um arquivo de teste em /tmp com backup atômico no AuditLogger")
+        .label(&tr("Simular Alteração Auditada"))
+        .tooltip_text(&tr(
+            "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger",
+        ))
         .build();
     hb.pack_start(&btn_demo_stage);
     vbox.append(&hb);
@@ -288,7 +310,9 @@ pub fn show_diff_review_and_audit_dialog(
     content.set_vexpand(true);
 
     // 1. Unified Diff Preview Box
-    let diff_lbl = gtk4::Label::new(Some("Visualizador de Diff Unificado (Antes vs. Depois):"));
+    let diff_lbl = gtk4::Label::new(Some(&tr(
+        "Visualizador de Diff Unificado (Antes vs. Depois):",
+    )));
     diff_lbl.add_css_class("heading");
     diff_lbl.set_halign(gtk4::Align::Start);
     content.append(&diff_lbl);
@@ -307,9 +331,9 @@ pub fn show_diff_review_and_audit_dialog(
     content.append(&diff_scroll);
 
     // 2. Audit Log Records with 1-Click Atomic Rollback
-    let audit_lbl = gtk4::Label::new(Some(
+    let audit_lbl = gtk4::Label::new(Some(&tr(
         "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):",
-    ));
+    )));
     audit_lbl.add_css_class("heading");
     audit_lbl.set_halign(gtk4::Align::Start);
     content.append(&audit_lbl);
@@ -331,9 +355,9 @@ pub fn show_diff_review_and_audit_dialog(
             };
             let records = logger.get_records(25);
             if records.is_empty() {
-                let empty = gtk4::Label::new(Some(
+                let empty = gtk4::Label::new(Some(&tr(
                     "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico.",
-                ));
+                )));
                 empty.add_css_class("dim-label");
                 empty.set_margin_top(16);
                 empty.set_margin_bottom(16);
@@ -348,9 +372,14 @@ pub fn show_diff_review_and_audit_dialog(
                 row.set_margin_top(8);
                 row.set_margin_bottom(8);
 
-                let info = gtk4::Label::new(Some(&format!(
-                    "[{}] {} — {} (Risco: {:?})",
-                    rec.id, rec.tool, rec.command_or_path, rec.risk_level
+                let info = gtk4::Label::new(Some(&tr_fmt(
+                    "[{id}] {tool} — {cmd} (Risco: {risk})",
+                    &[
+                        ("id", &rec.id.to_string()),
+                        ("tool", &rec.tool),
+                        ("cmd", &rec.command_or_path),
+                        ("risk", &format!("{:?}", rec.risk_level)),
+                    ],
                 )));
                 info.set_halign(gtk4::Align::Start);
                 info.set_hexpand(true);
@@ -359,15 +388,19 @@ pub fn show_diff_review_and_audit_dialog(
 
                 if let (Some(bak), Some(target)) = (rec.backup_path.clone(), rec.target_path.clone())
                 {
-                    let btn_rb = gtk4::Button::with_label("⏪ Rollback Atômico");
+                    let btn_rb = gtk4::Button::with_label(&tr("⏪ Rollback Atômico"));
                     btn_rb.add_css_class("destructive-action");
                     let st = status.clone();
                     btn_rb.connect_clicked(move |_| {
                         match AuditLogger::rollback_file(Path::new(&bak), Path::new(&target)) {
-                            Ok(()) => {
-                                st.set_text(&format!("✅ Rollback atômico concluído: {target}"))
-                            }
-                            Err(e) => st.set_text(&format!("Erro no rollback: {e}")),
+                            Ok(()) => st.set_text(&tr_fmt(
+                                "✅ Rollback atômico concluído: {target}",
+                                &[("target", &target)],
+                            )),
+                            Err(e) => st.set_text(&tr_fmt(
+                                "Erro no rollback: {err}",
+                                &[("err", &e.to_string())],
+                            )),
                         }
                     });
                     row.append(&btn_rb);
@@ -411,7 +444,7 @@ pub fn show_diff_review_and_audit_dialog(
                         target_path: Some(target_file.to_string_lossy().into_owned()),
                     });
                 }
-                status.set_text("Alteração auditada criada com backup atômico.");
+                status.set_text(&tr("Alteração auditada criada com backup atômico."));
                 pop();
             }
         });
@@ -449,7 +482,7 @@ pub fn show_ai_history_dialog(
                     });
                 }
             }
-            st.set_text("Conversa carregada do histórico.");
+            st.set_text(&tr("Conversa carregada do histórico."));
         },
     );
 }
@@ -526,42 +559,42 @@ pub fn build_complete_ai_assistant_panel(
     // Left buttons
     let btn_new_chat = gtk4::Button::builder()
         .icon_name("document-new-symbolic")
-        .tooltip_text("Nova conversa")
+        .tooltip_text(&tr("New conversation"))
         .css_classes(["flat"])
         .build();
     header.pack_start(&btn_new_chat);
 
     let btn_history = gtk4::Button::builder()
         .icon_name("document-open-recent-symbolic")
-        .tooltip_text("Histórico de Conversas")
+        .tooltip_text(&tr("Histórico de Conversas"))
         .css_classes(["flat"])
         .build();
     header.pack_start(&btn_history);
 
     let btn_scope = gtk4::Button::builder()
         .icon_name("security-high-symbolic")
-        .tooltip_text("Políticas de Segurança e Escopo do Agente")
+        .tooltip_text(&tr("Políticas de Segurança e Escopo do Agente"))
         .css_classes(["flat"])
         .build();
     header.pack_start(&btn_scope);
 
     let btn_audit = gtk4::Button::builder()
         .icon_name("document-properties-symbolic")
-        .tooltip_text("Registro de Auditoria de Ações")
+        .tooltip_text(&tr("Registro de Auditoria de Ações"))
         .css_classes(["flat"])
         .build();
     header.pack_start(&btn_audit);
 
     let btn_export = gtk4::MenuButton::builder()
         .icon_name("document-save-symbolic")
-        .tooltip_text("Exportar conversa")
+        .tooltip_text(&tr("Export conversation"))
         .css_classes(["flat"])
         .build();
     header.pack_start(&btn_export);
 
     // Center title
     let title_lbl = gtk4::Label::builder()
-        .label("Assistente de IA")
+        .label(&tr("Assistente de IA"))
         .css_classes(["title", "heading"])
         .build();
     header.set_title_widget(Some(&title_lbl));
@@ -569,14 +602,14 @@ pub fn build_complete_ai_assistant_panel(
     // Right buttons (packed in reverse order: pack_end right-to-left)
     let btn_close = gtk4::Button::builder()
         .icon_name("window-close-symbolic")
-        .tooltip_text("Fechar painel")
+        .tooltip_text(&tr("Close panel"))
         .css_classes(["flat"])
         .build();
     header.pack_end(&btn_close);
 
     let btn_settings = gtk4::Button::builder()
         .icon_name("emblem-system-symbolic")
-        .tooltip_text("Configurações da IA (Modelos e Provedores)")
+        .tooltip_text(&tr("Configurações da IA (Modelos e Provedores)"))
         .css_classes(["flat"])
         .build();
     header.pack_end(&btn_settings);
@@ -599,27 +632,27 @@ pub fn build_complete_ai_assistant_panel(
             if is_off {
                 let img = gtk4::Image::from_icon_name("security-high-symbolic");
                 img.add_css_class("success");
-                let lbl = gtk4::Label::new(Some("🛡️ Offline (Local)"));
+                let lbl = gtk4::Label::new(Some(&tr("🛡️ Offline (Local)")));
                 lbl.add_css_class("caption");
                 lbl.add_css_class("success");
                 box_c.append(&img);
                 box_c.append(&lbl);
                 btn.set_child(Some(&box_c));
-                btn.set_tooltip_text(Some(
+                btn.set_tooltip_text(Some(&tr(
                     "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online.",
-                ));
+                )));
             } else {
                 let img = gtk4::Image::from_icon_name("network-wireless-symbolic");
                 img.add_css_class("dim-label");
-                let lbl = gtk4::Label::new(Some("Nuvem (Online)"));
+                let lbl = gtk4::Label::new(Some(&tr("Nuvem (Online)")));
                 lbl.add_css_class("caption");
                 lbl.add_css_class("dim-label");
                 box_c.append(&img);
                 box_c.append(&lbl);
                 btn.set_child(Some(&box_c));
-                btn.set_tooltip_text(Some(
+                btn.set_tooltip_text(Some(&tr(
                     "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local.",
-                ));
+                )));
             }
         })
     };
@@ -634,9 +667,9 @@ pub fn build_complete_ai_assistant_panel(
             *off_rc.borrow_mut() = !cur;
             upd_off();
             if !cur {
-                st_lbl.set_text("Modo Estritamente Offline Ativo (Zero Cloud).");
+                st_lbl.set_text(&tr("Modo Estritamente Offline Ativo (Zero Cloud)."));
             } else {
-                st_lbl.set_text("Modo Online com Roteamento Inteligente Ativo.");
+                st_lbl.set_text(&tr("Modo Online com Roteamento Inteligente Ativo."));
             }
         });
     }
@@ -649,20 +682,20 @@ pub fn build_complete_ai_assistant_panel(
             let p = *prof_rc.borrow();
             let box_c = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
             let (icon_name, label_text) = match p {
-                RoutingProfile::Fast => ("starred-symbolic", "⚡ Rápido"),
-                RoutingProfile::Advanced => ("emblem-system-symbolic", "🧠 Avançado"),
-                RoutingProfile::Security => ("security-high-symbolic", "🛡️ Segurança"),
-                RoutingProfile::Auto => ("view-refresh-symbolic", "Auto"),
+                RoutingProfile::Fast => ("starred-symbolic", tr("⚡ Rápido")),
+                RoutingProfile::Advanced => ("emblem-system-symbolic", tr("🧠 Avançado")),
+                RoutingProfile::Security => ("security-high-symbolic", tr("🛡️ Segurança")),
+                RoutingProfile::Auto => ("view-refresh-symbolic", tr("Auto")),
             };
             let img = gtk4::Image::from_icon_name(icon_name);
-            let lbl = gtk4::Label::new(Some(label_text));
+            let lbl = gtk4::Label::new(Some(&label_text));
             lbl.add_css_class("caption");
             box_c.append(&img);
             box_c.append(&lbl);
             btn.set_child(Some(&box_c));
-            btn.set_tooltip_text(Some(
+            btn.set_tooltip_text(Some(&tr(
                 "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)",
-            ));
+            )));
         })
     };
     update_routing_ui();
@@ -680,7 +713,10 @@ pub fn build_complete_ai_assistant_panel(
             };
             *prof_rc.borrow_mut() = next_p;
             upd_route();
-            st_lbl.set_text(&format!("Perfil de roteamento alterado para: {next_p:?}"));
+            st_lbl.set_text(&tr_fmt(
+                "Perfil de roteamento alterado para: {profile}",
+                &[("profile", &format!("{next_p:?}"))],
+            ));
         });
     }
 
@@ -694,17 +730,17 @@ pub fn build_complete_ai_assistant_panel(
         export_menu.set_margin_bottom(6);
 
         let btn_exp_md = gtk4::Button::builder()
-            .label("Exportar como Markdown (.md)")
+            .label(&tr("Export as Markdown (.md)"))
             .icon_name("text-x-generic-symbolic")
             .css_classes(["flat"])
             .build();
         let btn_exp_json = gtk4::Button::builder()
-            .label("Exportar como JSON (.json)")
+            .label(&tr("Export as JSON (.json)"))
             .icon_name("text-x-script-symbolic")
             .css_classes(["flat"])
             .build();
         let btn_exp_copy = gtk4::Button::builder()
-            .label("Copiar para Área de Transferência")
+            .label(&tr("Copiar para Área de Transferência"))
             .icon_name("edit-copy-symbolic")
             .css_classes(["flat"])
             .build();
@@ -732,7 +768,10 @@ pub fn build_complete_ai_assistant_panel(
                     ));
                 }
                 if fs::write(&export_path, md).is_ok() {
-                    st.set_text(&format!("Exportado para {}", export_path.display()));
+                    st.set_text(&tr_fmt(
+                        "Exportado para {path}",
+                        &[("path", &export_path.display().to_string())],
+                    ));
                 }
             });
         }
@@ -746,7 +785,10 @@ pub fn build_complete_ai_assistant_panel(
                 let export_path = home.join("ai_chat_export.json");
                 if let Ok(json) = serde_json::to_string_pretty(&*h_rc.borrow()) {
                     if fs::write(&export_path, json).is_ok() {
-                        st.set_text(&format!("Exportado para {}", export_path.display()));
+                        st.set_text(&tr_fmt(
+                            "Exportado para {path}",
+                            &[("path", &export_path.display().to_string())],
+                        ));
                     }
                 }
             });
@@ -766,7 +808,7 @@ pub fn build_complete_ai_assistant_panel(
                 }
                 if let Some(display) = gdk::Display::default() {
                     display.clipboard().set_text(&md);
-                    st.set_text("Conversa copiada para a área de transferência.");
+                    st.set_text(&tr("Conversation copied to clipboard."));
                 }
             });
         }
@@ -794,7 +836,7 @@ pub fn build_complete_ai_assistant_panel(
 
     let prompts_header = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
     let prompts_lbl = gtk4::Label::builder()
-        .label("Prompts Rápidos")
+        .label(&tr("Quick Prompts"))
         .css_classes(["dim-label"])
         .halign(gtk4::Align::Start)
         .hexpand(true)
@@ -804,7 +846,7 @@ pub fn build_complete_ai_assistant_panel(
     let btn_customize_prompts = gtk4::Button::builder()
         .icon_name("emblem-system-symbolic")
         .css_classes(["flat", "circular"])
-        .tooltip_text("Personalizar prompts rápidos")
+        .tooltip_text(&tr("Customize quick prompts"))
         .build();
     prompts_header.append(&btn_customize_prompts);
     quick_prompts_container.append(&prompts_header);
@@ -828,7 +870,7 @@ pub fn build_complete_ai_assistant_panel(
     pill_box.add_css_class("ai-input-pill");
 
     let prompt_entry = gtk4::Entry::builder()
-        .placeholder_text("Pergunte ou cole um erro do terminal...")
+        .placeholder_text(&tr("Pergunte ou cole um erro do terminal..."))
         .hexpand(true)
         .css_classes(["flat"])
         .build();
@@ -836,21 +878,23 @@ pub fn build_complete_ai_assistant_panel(
 
     let btn_attach = gtk4::Button::builder()
         .icon_name("mail-attachment-symbolic")
-        .tooltip_text("Anexar Arquivo ao Contexto (Validado pelo PathGuard)")
+        .tooltip_text(&tr(
+            "Anexar Arquivo ao Contexto (Validado pelo PathGuard)",
+        ))
         .css_classes(["flat", "circular"])
         .build();
     pill_box.append(&btn_attach);
 
     let btn_plan = gtk4::Button::builder()
         .icon_name("view-list-bullet-symbolic")
-        .tooltip_text("Gerar Plano de Ação Estruturado (ActionPlan)")
+        .tooltip_text(&tr("Gerar Plano de Ação Estruturado (ActionPlan)"))
         .css_classes(["flat", "circular"])
         .build();
     pill_box.append(&btn_plan);
 
     let btn_send = gtk4::Button::builder()
         .icon_name("pan-up-symbolic")
-        .tooltip_text("Enviar Pergunta")
+        .tooltip_text(&tr("Enviar Pergunta"))
         .css_classes(["suggested-action", "circular"])
         .valign(gtk4::Align::Center)
         .build();
@@ -875,9 +919,9 @@ pub fn build_complete_ai_assistant_panel(
             let top_bar = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
             let guard = ProductionGuard::new();
             let risk_badge = if guard.evaluate_command(code).is_some() {
-                format!("[{lang}] 🔴 Risco Detectado")
+                tr_fmt("[{lang}] 🔴 Risco Detectado", &[("lang", lang)])
             } else {
-                format!("[{lang}] 🟢 Verificado")
+                tr_fmt("[{lang}] 🟢 Verificado", &[("lang", lang)])
             };
             let lang_lbl = gtk4::Label::new(Some(&risk_badge));
             lang_lbl.add_css_class("caption");
@@ -897,9 +941,9 @@ pub fn build_complete_ai_assistant_panel(
             // Post-execution verification hint from `verifier.rs`
             let checks = infer_verifications(&[code.to_string()]);
             if let Some(first_chk) = checks.first() {
-                let ver_lbl = gtk4::Label::new(Some(&format!(
-                    "🔍 Verificação pós-execução: `{}`",
-                    first_chk.check_command
+                let ver_lbl = gtk4::Label::new(Some(&tr_fmt(
+                    "🔍 Verificação pós-execução: `{cmd}`",
+                    &[("cmd", &first_chk.check_command)],
                 )));
                 ver_lbl.add_css_class("caption");
                 ver_lbl.add_css_class("dim-label");
@@ -910,10 +954,10 @@ pub fn build_complete_ai_assistant_panel(
             let btn_row = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
             btn_row.add_css_class("linked");
 
-            let btn_insert = gtk4::Button::with_label("Inserir");
-            let btn_run = gtk4::Button::with_label("Executar");
+            let btn_insert = gtk4::Button::with_label(&tr("Insert"));
+            let btn_run = gtk4::Button::with_label(&tr("Execute"));
             btn_run.add_css_class("suggested-action");
-            let btn_copy = gtk4::Button::with_label("Copiar");
+            let btn_copy = gtk4::Button::with_label(&tr("Copiar"));
 
             btn_row.append(&btn_insert);
             btn_row.append(&btn_run);
@@ -927,7 +971,7 @@ pub fn build_complete_ai_assistant_panel(
                 btn_insert.connect_clicked(move |_| {
                     if let Some(term) = at() {
                         term.feed_child(code_str.as_bytes());
-                        st.set_text("Código inserido no terminal ativo.");
+                        st.set_text(&tr("Código inserido no terminal ativo."));
                     }
                 });
             }
@@ -939,7 +983,10 @@ pub fn build_complete_ai_assistant_panel(
                     if let Some(term) = at() {
                         let cmd = format!("{code_str}\n");
                         term.feed_child(cmd.as_bytes());
-                        st.set_text(&format!("Executado no terminal: {code_str}"));
+                        st.set_text(&tr_fmt(
+                            "Executado no terminal: {cmd}",
+                            &[("cmd", &code_str)],
+                        ));
                     }
                 });
             }
@@ -949,7 +996,7 @@ pub fn build_complete_ai_assistant_panel(
                 btn_copy.connect_clicked(move |_| {
                     if let Some(display) = gdk::Display::default() {
                         display.clipboard().set_text(&code_str);
-                        st.set_text("Comando copiado para a área de transferência.");
+                        st.set_text(&tr("Comando copiado para a área de transferência."));
                     }
                 });
             }
@@ -983,15 +1030,20 @@ pub fn build_complete_ai_assistant_panel(
             q_box.set_visible(false);
             for msg in &msgs {
                 if msg.role == "user" {
-                    let user_lbl = gtk4::Label::new(Some(&format!("👤 Você:\n{}", msg.content)));
+                    let user_lbl = gtk4::Label::new(Some(&tr_fmt(
+                        "👤 Você:\n{msg}",
+                        &[("msg", &msg.content)],
+                    )));
                     user_lbl.set_halign(gtk4::Align::Start);
                     user_lbl.set_wrap(true);
                     user_lbl.add_css_class("heading");
                     fv.append(&user_lbl);
                 } else {
                     if !msg.route_summary.is_empty() {
-                        let route_lbl =
-                            gtk4::Label::new(Some(&format!("🤖 Rota: {}", msg.route_summary)));
+                        let route_lbl = gtk4::Label::new(Some(&tr_fmt(
+                            "🤖 Rota: {route}",
+                            &[("route", &msg.route_summary)],
+                        )));
                         route_lbl.add_css_class("caption");
                         route_lbl.add_css_class("dim-label");
                         route_lbl.set_halign(gtk4::Align::Start);
@@ -1044,7 +1096,10 @@ pub fn build_complete_ai_assistant_panel(
             q_box.set_visible(false);
 
             let combined_input = if let Some(att) = ctx_rc.borrow_mut().take() {
-                format!("{trimmed}\n[Arquivo Anexado]: {att}")
+                tr_fmt(
+                    "{prompt}\n[Arquivo Anexado]: {att}",
+                    &[("prompt", trimmed), ("att", &att)],
+                )
             } else {
                 trimmed.to_string()
             };
@@ -1067,14 +1122,17 @@ pub fn build_complete_ai_assistant_panel(
             );
 
             // 1. Render User Bubble
-            let user_lbl = gtk4::Label::new(Some(&format!(
-                "👤 Você{}:\n{}",
-                if redaction_count > 0 {
-                    format!(" ({redaction_count} segredo(s) ocultado(s))")
-                } else {
-                    String::new()
-                },
-                redacted
+            let redaction_note = if redaction_count > 0 {
+                tr_fmt(
+                    " ({count} segredo(s) ocultado(s))",
+                    &[("count", &redaction_count.to_string())],
+                )
+            } else {
+                String::new()
+            };
+            let user_lbl = gtk4::Label::new(Some(&tr_fmt(
+                "👤 Você{note}:\n{msg}",
+                &[("note", &redaction_note), ("msg", &redacted)],
             )));
             user_lbl.set_halign(gtk4::Align::Start);
             user_lbl.set_wrap(true);
@@ -1084,7 +1142,10 @@ pub fn build_complete_ai_assistant_panel(
             // 2. Synthesize & Render Assistant Response + Code Cards / ActionPlan Cards
             let (reply_md, maybe_plan) = synthesize_agent_response(&redacted, as_plan);
 
-            let route_lbl = gtk4::Label::new(Some(&format!("🤖 Rota: {route_badge}")));
+            let route_lbl = gtk4::Label::new(Some(&tr_fmt(
+                "🤖 Rota: {route}",
+                &[("route", &route_badge)],
+            )));
             route_lbl.add_css_class("caption");
             route_lbl.add_css_class("dim-label");
             route_lbl.set_halign(gtk4::Align::Start);
@@ -1115,9 +1176,13 @@ pub fn build_complete_ai_assistant_panel(
                 for step in &plan.steps {
                     let s_row = gtk4::Box::new(gtk4::Orientation::Vertical, 2);
                     let cmd_joined = step.argv.join(" ");
-                    let step_title = gtk4::Label::new(Some(&format!(
-                        "Passo #{}: {} [{:?}]",
-                        step.id, step.description, step.risk_level
+                    let step_title = gtk4::Label::new(Some(&tr_fmt(
+                        "Passo #{id}: {desc} [{risk}]",
+                        &[
+                            ("id", &step.id.to_string()),
+                            ("desc", &step.description),
+                            ("risk", &format!("{:?}", step.risk_level)),
+                        ],
                     )));
                     step_title.add_css_class("caption");
                     step_title.set_halign(gtk4::Align::Start);
@@ -1130,15 +1195,18 @@ pub fn build_complete_ai_assistant_panel(
                     c_lbl.set_halign(gtk4::Align::Start);
                     c_lbl.set_hexpand(true);
 
-                    let exec_step_btn = gtk4::Button::with_label("Aprovar & Executar");
+                    let exec_step_btn = gtk4::Button::with_label(&tr("Aprovar & Executar"));
                     exec_step_btn.add_css_class("flat");
                     let at = Rc::clone(&act_term);
                     let st_l = status.clone();
                     exec_step_btn.connect_clicked(move |btn| {
                         if let Some(term) = at() {
                             term.feed_child(format!("{cmd_joined}\n").as_bytes());
-                            btn.set_label("✅ Executado");
-                            st_l.set_text(&format!("Passo executado: {cmd_joined}"));
+                            btn.set_label(&tr("✅ Executado"));
+                            st_l.set_text(&tr_fmt(
+                                "Passo executado: {cmd}",
+                                &[("cmd", &cmd_joined)],
+                            ));
                         }
                     });
 
@@ -1167,11 +1235,11 @@ pub fn build_complete_ai_assistant_panel(
 
     // Populate Quick Prompts 3x2 Grid matching assistenteIAfix.png
     let quick_prompts_data = [
-        (0, 0, "📄", "Como faço para desfazer o último commit?", "Como faço para desfazer o último commit no Git mantendo as alterações locais?"),
+        (0, 0, "📄", "How do I undo last commit?", "Como faço para desfazer o último commit no Git mantendo as alterações locais?"),
         (0, 1, "📁", "Como faço para listar arquivos recursivamente?", "Como faço para listar arquivos recursivamente ordenados por tamanho?"),
-        (1, 0, "⏱️", "Como eu uso o watch?", "Como eu uso o comando watch para monitorar alterações no terminal periodicamente?"),
+        (1, 0, "⏱️", "How do I use watch?", "Como eu uso o comando watch para monitorar alterações no terminal periodicamente?"),
         (1, 1, "📦", "Como faço para puxar alterações do git?", "Como faço para puxar alterações do git com rebase?"),
-        (2, 0, "📡", "Como faço para verificar portas abertas?", "Como faço para verificar portas abertas e sockets de rede ativos?"),
+        (2, 0, "📡", "How do I check open ports?", "Como faço para verificar portas abertas e sockets de rede ativos?"),
         (2, 1, "🛡️", "Como faço para proteger arquivos confidenciais?", "Como faço para proteger arquivos confidenciais e definir permissões seguras no Linux?"),
     ];
 
@@ -1183,7 +1251,7 @@ pub fn build_complete_ai_assistant_panel(
         let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
         let icon_lbl = gtk4::Label::new(Some(icon));
         let text_lbl = gtk4::Label::builder()
-            .label(title)
+            .label(&tr(title))
             .halign(gtk4::Align::Start)
             .hexpand(true)
             .ellipsize(gtk4::pango::EllipsizeMode::End)
@@ -1193,7 +1261,7 @@ pub fn build_complete_ai_assistant_panel(
         btn.set_child(Some(&hbox));
 
         let sub = Rc::clone(&handle_submission);
-        let q = query.to_string();
+        let q = tr(query);
         btn.connect_clicked(move |_| {
             sub(&q, false);
         });
@@ -1210,7 +1278,7 @@ pub fn build_complete_ai_assistant_panel(
             let dlg = adw::Window::builder()
                 .transient_for(&win_ref)
                 .modal(true)
-                .title("Anexar Arquivo (Validação PathGuard)")
+                .title(&tr("Anexar Arquivo (Validação PathGuard)"))
                 .default_width(420)
                 .default_height(200)
                 .build();
@@ -1224,16 +1292,16 @@ pub fn build_complete_ai_assistant_panel(
             form.set_margin_top(8);
             form.set_margin_bottom(14);
 
-            let info = gtk4::Label::new(Some(
+            let info = gtk4::Label::new(Some(&tr(
                 "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):",
-            ));
+            )));
             info.set_wrap(true);
             info.set_halign(gtk4::Align::Start);
 
             let entry = gtk4::Entry::builder().text("/etc/os-release").build();
             entry.add_css_class("monospace");
 
-            let btn_ok = gtk4::Button::with_label("Validar & Anexar");
+            let btn_ok = gtk4::Button::with_label(&tr("Validar & Anexar"));
             btn_ok.add_css_class("suggested-action");
 
             form.append(&info);
@@ -1248,10 +1316,16 @@ pub fn build_complete_ai_assistant_panel(
                 let raw_path = entry.text().trim().to_string();
                 let guard = PathGuard::default();
                 if !guard.can_read(&raw_path) {
-                    sl.set_text(&format!("🛑 PathGuard BLOQUEOU leitura de: {raw_path}"));
+                    sl.set_text(&tr_fmt(
+                        "🛑 PathGuard BLOQUEOU leitura de: {path}",
+                        &[("path", &raw_path)],
+                    ));
                 } else {
                     *ctx_inner.borrow_mut() = Some(raw_path.clone());
-                    sl.set_text(&format!("📎 Anexado com segurança: {raw_path}"));
+                    sl.set_text(&tr_fmt(
+                        "📎 Anexado com segurança: {path}",
+                        &[("path", &raw_path)],
+                    ));
                 }
                 d_close.close();
             });
@@ -1301,7 +1375,7 @@ pub fn build_complete_ai_assistant_panel(
                 move |_conv_id| {
                     rc_render();
                     rc_sync();
-                    st.set_text("Conversa carregada do histórico.");
+                    st.set_text(&tr("Conversa carregada do histórico."));
                 },
             );
         });
@@ -1329,7 +1403,7 @@ pub fn build_complete_ai_assistant_panel(
             }
             render_c();
             sync_h();
-            st.set_text("Nova conversa iniciada.");
+            st.set_text(&tr("Nova conversa iniciada."));
         });
     }
 
@@ -1366,7 +1440,7 @@ pub fn build_complete_ai_assistant_panel(
         btn_plan.connect_clicked(move |_| {
             let txt = pe.text().to_string();
             let query = if txt.trim().is_empty() {
-                "Diagnosticar e reiniciar serviço web".to_string()
+                tr("Diagnosticar e reiniciar serviço web")
             } else {
                 txt
             };

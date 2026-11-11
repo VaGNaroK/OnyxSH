@@ -17119,3 +17119,4099 @@ msgstr "🧠 Edistynyt profiili (monimutkaiset suunnitelmat / komentosarjat / di
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Aina edistynyt (päättely)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} salaisuus(ta) piilotettu)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ OnyxSH-päätteen vienti"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Tavoite / Konteksti"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Johtopäätökset ja opitut asiat"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Alustavat huomiot"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Vaiheittainen suoritus"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Istunnon tiedot"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Tulostetta ei syntynyt)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*OnyxSH-lokikirjan automaattisesti luoma asiakirja.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Tähän asiakirjaan ei ole valittu vaiheita.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Päivämäärä / Aika:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Isäntä:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Operaattori / Tekijä:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Istunto:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Tila:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Tallennettuja vaiheita yhteensä:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Tuloste ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (loppuosa tulosteesta katkaistu esikatselussa)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Laitteen luku / kirjoitus"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable ja Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 väriteemaa, tulosteen korostus ja komentokohtaiset säännöt"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Siirry ylempään hakemistoon (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Huomautus:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "Portti {port} on jo toisen prosessin varaama."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "VÄLILEHTI #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "Tekoälyavustaja: {state}"
+
+# 
+msgid "AI: "
+msgstr "Tekoäly: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Välilehti suljettu."
+
+# 
+msgid "Abaixo"
+msgstr "Alla"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Keskeytä nykyinen ristiriitojen ratkaisu"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Keskeytä rebase ja palaa alkuperäiseen haaraan"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Avaa Regex/Literaali-hakupalkin aktiivisessa välilehdessä (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Avaa tämän tunnelin automaattisesti yhdistettäessä SSH-isäntään"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Avaa uuden paikallisen päätteen (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Avaa vuorovaikutteisen komentotulkin käynnissä olevan Docker-kontin sisällä"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Avataan linkkiä: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Avaa resurssivalvonta (Cairo-pienkaaviot)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Avaa kansio"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Avaa ulkoisella sovelluksella"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Avaa tämä hakemisto päätteessä (cd)"
+
+# 
+msgid "Acima"
+msgstr "Yllä"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Seuraa Docker-kontin lokeja reaaliajassa"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Seuraa systemd-yksikön lokeja reaaliajassa"
+
+# 
+msgid "Active"
+msgstr "Aktiivinen"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Lisää upstream-seurantaviite"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Lisää uusi SSH-tunneli"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Lisää mukautettu teema"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Ryhmittele luokittain (.7z ylhäällä)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Varaa kontin stdin-syötteeseen yhdistetty pseudo-TTY"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Salli palautus vanhempaan pakettiversioon"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Salli suojaamattomat TLS-yhteydet"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Auditoitu muutos luotu atomisella varmuuskopiolla."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Vaihda Zero-Trust-tekoälyavustaja"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Vaihda kaksipaneelinen tiedostonhallinta"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Vaihda muokkaustila (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Vaihda kaksoispaneeli (Jaa / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "Vaihda SSH-istuntojen sivupaneeli"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Flatpak-ympäristö"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Tuotantoympäristö (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Tuotantoympäristö — ProductionGuardin suojaama"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Muokkaa nykyisen haaran kärkeä"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Analysoi seuraavat lokitiedoston '{name}' viimeaikaiset viestit ja virheet sekä anna juurisyyanalyysi ja suositellut ratkaisut:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Analysoi projekti ja laadi tarvittavat korjaukset OpenCodella."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Analysoi nykyinen paketti ja raportoi virheet"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Liitä tiedosto (PathGuard-validointi)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Liitä tiedosto kontekstiin (PathGuardin tarkistama)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "Pyyntösi analyysi on valmis (`SecretRedactor` ja `<untrusted>`-eristys otettu käyttöön).\n\nSuositeltu komento:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Analyysi pyydetty tekoälyavustajalta."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Käyttää syntaksikorostusta 'cat'-komennon tulosteeseen"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Käyttää kontekstisääntöjä automaattisesti havaitessaan suoritettavan komennon"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Käytä tulosteen korostusta SSH-yhteyksiin"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Käytä tulosteen korostusta paikallisiin pääteistuntoihin"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Sovellus & Ikkuna"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Sovellus tai tunnus"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Ota piilotettu tila käyttöön ja säilytä stash-luettelossa"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Ota piilotettu tila käyttöön ja poista stash-luettelosta"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Hyväksy ja suorita"
+
+# 
+msgid "Aproximar"
+msgstr "Zoomaa sisään"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Arch Linux / Manjaro -paketinhallintatyökalu"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Arkistotila (säilyttää oikeudet, aikaleimat ja symboliset linkit)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Edellinen tiedosto (Nuoli ylös / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Binääritiedosto: {name}\nPolku: {path}\nKoko: {size}\nOikeudet: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Arkistotiedosto"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Tiedosto kopioitu siirtoa varten: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Tiedosto luotu: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Datatiedosto"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Videotiedosto"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Äänitiedosto"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Tiedosto poistettu: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Tiedosto merkitty siirrettäväksi: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Tiedosto ladattu uudelleen levyltä."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Tiedosto nimetty uudelleen nimelle '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Tiedosto palautettu peruutuksen jälkeen: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Tiedosto tallennettu pääkäyttäjän (Root) oikeuksilla!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Tiedosto tallennettu onnistuneesti pääkäyttäjän (Root) oikeuksilla!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Tiedosto tallennettu onnistuneesti!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Tiedosto: {name} (Koko: {size} tavua)\nOte:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Tiedostot ryhmitelty luokan mukaan (.7z ylhäällä)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Tiedostot järjestetty muokkauspäivän mukaan"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Tiedostot järjestetty nimen mukaan"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Tiedostot järjestetty koon mukaan"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Tiedostot järjestetty tyypin / päätteen mukaan"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Lähdetiedostot/-kansiot"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "OpenCode-koodiavustaja"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust-tekoälyavustaja"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "Tekoälyavustaja ei ole yhdistetty."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Hyväksy riski ja suorita"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "Pikanäppäin '{name}' päivitetty: {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "Pikanäppäin '{name}' poistettu."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Pikanäppäimet (34 mukautettavaa toimintoa)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Järjestelmän pikakuvakkeet ja suosikit"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Ota käyttöön / poista käytöstä tuotantoympäristön suoja (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "Ota 'cat'-komennon väritys käyttöön"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Ota komentotulkin syötteen korostus käyttöön"
+
+# 
+msgid "Ativar Todos"
+msgstr "Ota kaikki käyttöön"
+
+# 
+msgid "Ativo"
+msgstr "Aktiivinen"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Aktiivinen (kuuntelee kohteessa {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Nykyinen: {curr}\nUusi: (paina näppäimiä)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Nykyinen: {curr}\nUusi: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Nykyinen: {curr}\nUusi: {new} (ristiriidassa {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Päivitä (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Päivitä luettelo (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Tietoturva-auditointi tekoälyllä"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Tämän hakemiston tietoturva-auditointi tekoälyllä"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "Kohteen '{name}' tietoturva-auditointi lähetetty tekoälyavustajalle."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "Hakemiston '{path}' tarkastus lähetetty tekoälyavustajalle."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Suurenna fonttia (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Todennus:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Auto: mukautuu päätteen taustaan. Manuaalinen: kiinteä teema."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Auto: tunnistaa taustan kontrastin automaattisesti"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Automaattisesti täydennetty: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Älykäs automaattinen täydennys (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Älykäs automaattinen täydennys — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Automaattinen täydennys otettu käyttöön: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Automaattinen kyllä"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Poista tarpeettomat riippuvuudet automaattisesti"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Suorittaa automaattisesti vain luku -diagnostiikan ilman manuaalista vahvistusta."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Siirtyy seuraavaan välilehteen (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Toiminto"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "SHA-256-varmuuskopio luotu ({count} tiedostoa): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "SHA-256-varmuuskopio tallennettu ({count} tiedostoa): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Varmuuskopiota ei löytynyt polusta {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Varmuuskopio palautettu onnistuneesti ({count} tiedostoa vahvistettu SHA-256:lla)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Samanaikaisen suorituksen palkki (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Eräpoisto komennolla xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Estä ja peruuta (Suositeltu)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Yleislähetys lähetetty: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Lähetä kaikille"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Käännä kaikki työtilan paketit"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Käännä artefaktit julkaisutilassa"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Käännä artefaktit julkaisutilassa optimoinneilla"
+
+# 
+msgid "Busca"
+msgstr "Haku"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Yleishaku välilehdistä / Historia"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Yleishaku välilehdistä / Istunnot / Historia"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Yleishaku välilehdistä, istunnoista, historiasta ja koodikatkelmista (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Yleishaku lisäsi kehotteeseen: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Yleishaku sovelluksessa OnyxSH (Ctrl+Shift+G) — Välilehdet, istunnot, historia ja koodikatkelmat"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Yleishaku: kohdistettu välilehteen #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Etsii tiedostoja ja hakemistoja edistyneillä suodattimilla"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Sumea haku hakemiston, isännän ja suosikkien mukaan (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Etsi päätteestä (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Etsi nykyisestä päätteestä"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Etsi istuntoja tai isäntiä..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Etsi tekstiä päätteestä..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Ohita vahvistuskehotteet"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Lasketaan tiivisteitä taustalla..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Polku kopioitu: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Kansion polku (esim. Tuotanto tai Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Tiedoston polku (esim. /var/log/syslog tai ~/.ssh/id_rsa eston testaamiseen):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Polku lisätty päätteeseen: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Kirjainkoosta riippumaton tiedostonimimalli"
+
+# 
+msgid "Categoria"
+msgstr "Luokka"
+
+# 
+msgid "Categoria:"
+msgstr "Luokka:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Vaihda hakemistoon ennen toimintojen suorittamista"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH-avain / Salasana:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Tarkista .rpm-tiedoston GPG-allekirjoitus ja eheys"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Tarkista saatavilla olevat pakettipäivitykset asentamatta"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Tarkistaa paketin yleisten virheiden havaitsemiseksi"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Tarkistussummat ja eheyden varmistus — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Valitse nopeiden pilvipalveluntarjoajien tai paikallisten palvelimien välillä."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Tyhjennä kaikki pakettivälimuisti (poista kaikki ladatut paketit)"
+
+# 
+msgid "Clean local caches"
+msgstr "Tyhjennä paikalliset välimuistit"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Tyhjennä pakettivälimuisti (poista vanhat ladatut paketit)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Napsauta muuttaaksesi pikanäppäintä"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Napsauta yhdistääksesi uudessa välilehdessä (ja valitaksesi tämän istunnon)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Napsauta nähdäksesi, mitä kukin käyttöoikeustaso sallii tai rajoittaa"
+
+# 
+msgid "Colar"
+msgstr "Liitä"
+
+# 
+msgid "Colar Aqui"
+msgstr "Liitä tähän"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Liitä tähän kansioon"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Liitä ylle MD5-, SHA-1-, SHA-256- tai SHA-512-tiiviste aitouden varmistamiseksi."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Värittää komennot reaaliajassa kirjoittaessasi päätteeseen"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Värittää päätteen tulosteessa olevia malleja, kuten virheitä, varoituksia ja IP-osoitteita. Suuri määrä sääntöjä voi vaikuttaa hyvin laajoihin tulosteisiin."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "cat-komennon väritys"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Komento ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Komento / Malli:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Kirjautumisen jälkeinen komento:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Komento kopioitu leikepöydälle."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Operaattori on arvioinut tuotantokomennon."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Komento lähetetty päätteeseen: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Komento lähetetty: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Komento suoritettu historiasta: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Komento suoritettu paletin kautta: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Komento epäonnistui (koodi {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Komento lisätty kehotteeseen: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Pitkä komento valmistui onnistuneesti (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Sovita päätteen väreihin"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Komentovalikko (Ctrl+Shift+P) — Yhtenäinen haku"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Komentovalikko — Yhtenäinen haku (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Pakkaa"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Eheysvertailija"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Vertaa / Synkronoi hakemistoja (Vasen ⇄ Oikea)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Kaksoisnäkymän vertailu: {identical} samanlaista | {left_only} vain vasemmalla | {right_only} vain oikealla | {diff} eri kokoisia"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Yhteensopivuus Git- ja vanhojen tietovarastojen kanssa"
+
+# 
+msgid "Compile the current package"
+msgstr "Käännä nykyinen paketti"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Pakkaa tiedostodata siirron aikana"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Päätelmät ja opitut asiat"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Yhdistetty istuntoon: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Yhdistetään yleishaun kautta: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Yhdistetään komentovalikon kautta: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Yhdistä jaetussa näkymässä (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Yhdistä: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "Määritä tekoälyavustaja..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Määritä tämän komennon säännöt"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "Määritä tekoälyavustaja — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Määritä kaikki puretut mutta määrittämättömät paketit"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Määritä purettu paketti"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Määritä erilliset avaimet vaihtaaksesi palveluntarjoajaa ilman uudelleenmääritystä"
+
+# 
+msgid "Confirm"
+msgstr "Vahvista"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Vahvista poisto"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Ristiriita tai synkronointivirhe Git-tietovarastossa."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Konteksti-ikkunan koko (Tokenit)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Sisältö kopioitu leikepöydälle."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Jatka rebasea ristiriitojen ratkaisemisen jälkeen"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Keskustelu ladattu historiasta."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Kopioitu kohteeseen {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Kopioi tiedosto"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Kopioi ylähakemiston polku"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Kopioi kansio"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Kopioi valitut oikeaan ruutuun (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Kopioi valitut vasempaan ruutuun (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Kopioi leikepöydälle"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Kopioi yksityiskohtainen raportti Markdown-muodossa"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Värit ja korostukset"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Päätteen värit ja korostukset"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Päätteen vakiovärit (0-7 normaalit, 8-15 kirkkaat)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Luo yhdistämis-commit myös fast-forward-tilanteessa"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Luo kevyt klooni katkaistulla historialla"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Luo gzip-pakattu tar-arkisto yksityiskohtaisesti"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Luo pakattuja arkistoja tiedostoista ja kansioista"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Luo ja muokkaa parametrisoituja komentopainikkeita (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Luo uuden paikallisen haaran Git-tietovarastossa ja siirtyy siihen"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Luo testitiedoston hakemistoon /tmp atomisella varmuuskopiolla AuditLogger-järjestelmässä"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Luo mukautetun väriteeman aktiivisen teeman perusteella"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Luo asetusten varmuuskopio (SHA-256-paketti)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Luo istunto"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Luo paikallinen (-L), etä- (-R) tai dynaaminen SOCKS5 (-D) -tunneli porttien edelleenohjaukseen SSH:n yli."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Käyttäjä peruutti tarkistussumman laskennan."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Rust-koodi"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Koodi lisättiin aktiiviseen päätteeseen."
+
+# 
+msgid "Código-Fonte"
+msgstr "Lähdekoodi"
+
+# 
+msgid "Cópia de {name}"
+msgstr "Kopio kohteesta {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "Muokkauspäivämäärä"
+
+# 
+msgid "Date / Time"
+msgstr "Päivämäärä / Aika"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Päivämäärä: {date} | Mitat: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Debianin matalan tason paketinhallinta (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Oletus-API-avain"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Oletusmallin tunniste"
+
+# 
+msgid "Default Provider"
+msgstr "Oletuspalveluntarjoaja"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Määrittää ja suorittaa monikonttisovelluksia"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Aseta tiedoston käyttöoikeudet kohteelle: {name}\nNykyinen: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Poista palomuurisääntö"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Poista yhdistetty haara"
+
+# 
+msgid "Desativar Todos"
+msgstr "Poista kaikki käytöstä"
+
+# 
+msgid "Descrição:"
+msgstr "Kuvaus:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Shell-syötteen korostus"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Reaaliaikainen syntaksin korostus komentoja kirjoittaessasi"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Syntaksin korostus 'cat'-komennon tulosteelle (käyttäen Pygments/ANSI-moottoria)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Etäkohde"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Irrotettu tila: suorita komento taustalla"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Diagnosoi lokivirheet tekoälyllä"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Diagnosoi ja käynnistä verkkopalvelu uudelleen"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Heuristinen diagnoosi (**{title}**):\n{desc}\n\nPikakorjausehdotus:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Suojattu järjestelmädiagnostiikka — Telemetria ja tuki"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "Lokin '{name}' diagnostiikka lähetettiin tekoälyavustajalle."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Erota kirjainkoko"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Kirjoita komento (esim.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Kirjoita komento lähetettäväksi KAIKKIIN avoimiin päätteisiin..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Kirjoita toiminto, SSH-istunto tai parametrisoitu komento..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Pienennä fonttia (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Dynaaminen (-D) • SOCKS5-välityspalvelin SSH:n yli"
+
+# 
+msgid "Direita"
+msgstr "Oikea"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "Hakemisto '{path}' merkittiin suosikiksi."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Asetushakemisto"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Hakemisto lähetettiin päätteeseen: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Hakemisto: {name}\nPolku: {path}\nKäyttöoikeudet: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Sallitut hakemistot, PathGuard-eristys ja oletuksena esto -käytännöt"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Poista asennettu snap käytöstä"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Levy täynnä (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Levy (fyysinen I/O)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Näytä yksityiskohtaiset tiedot asennetusta paketista"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Näytä muisti megatavuina"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Näytä asennetun paketin tilatiedot"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Jakaa nykyisen välilehden ylös/alas (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Jakaa nykyisen välilehden vierekkäin (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Jaa vaakasuoraan"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Jaa pääte vaakasuunnassa"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Jaa pystysuunnassa"
+
+# 
+msgid "Divisão"
+msgstr "Jakaminen"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Älä kysy mitään, käytä oletusvastauksia"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Älä tarkista riippuvuuksia ennen poistamista"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Älä suorita etäkomentoa (vain portinohjaus)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Älä selvitä palveluiden nimiä"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Älä tallenna tilannevedosta snapin tiedoista"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Älä tarkista pakettien riippuvuuksia"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Älä tarkista pakettien riippuvuuksia ennen asennusta"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Älä tee mitään, jos samanniminen etävarasto on jo olemassa"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Tekstiasiakirja"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Lataa tuore kopio pakettitietokannoista"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Lataa vain paketit, älä asenna"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Piirrä tekstipohjainen graafinen commit-historia"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Poiston kuivaharjoitus tiedostoja poistamatta"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Asennuksen kuivaharjoitus järjestelmää muuttamatta"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Muokkaa komentoa: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Muokkaa tunnelin asetuksia"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Muokkaa väriteemaa"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Muokkaa valittua istuntoa"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Muokkaa istuntoa — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Muokkaa väriteemaa tai luo mukautettu muunnelma"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Laadin **Jäsennetyn toimintasuunnitelman**, jossa on `PolicyEngine`-validointi ja automaattinen suorituksen jälkeinen tarkistus (`verifier.rs`), kohteelle:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Moderni pääte-emulaattori paikallisiin ja etänä suoritettaviin Linux-työnkulkuihin, varustettuna ProductionGuardilla, kaksiruutuisella SFTP/TFTP:llä ja Zero-Trust-tekoälyavustajalla."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Ota käytöstä poistettu snap käyttöön"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "X11-edelleenohjaus (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Sulkee aktiivisen välilehden (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Etsi tiedostoja"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Lähettää komentoja samanaikaisesti useisiin päätteisiin (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Lähetä komento kaikille välilehdille"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Lähetä kysymys"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "Lähetä sha256sum-komento aktiiviseen päätevälilehteen"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Lähetä kaikille"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Poista asennettu RPM-paketti"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Virhe tiedostoa tallennettaessa"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Virhe muutettaessa kohteen '{name}' oikeuksia: {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Virhe tiivisteen laskennassa"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Virhe liitettäessä kohdetta: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Virhe luotaessa tiedostoa: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Virhe luotaessa varmuuskopiota: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Virhe luotaessa kansiota: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Virhe poistettaessa tiedostoa: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Virhe poistettaessa kansiota: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Virhe listattaessa polkua {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Virhe siirrettäessä kohdetta: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Virhe uudelleennimeämisessä: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Git-tietovaraston virhe"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Palautusvirhe: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Virhe: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Valitse paikallinen (-L), etä- (-R) tai dynaaminen SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Väriteema otettu käyttöön: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Väriteema tallennettu: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Tämä istunto tulee tiedostosta ~/.ssh/config (vain luku) tai se on jo poistettu."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Tämä tiedosto on vain luku -tilassa. Muutokset voidaan tallentaa pääkäyttäjän (Root) oikeuksilla."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Vaalea tyyli (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Tumma tyyli (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "Esim.: 10.0.0.15 tai srv.yritys.fi"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "Esim.: Tuotanto (jätä tyhjäksi juurelle)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "Esim.: Tuotanto Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "Esim.: root tai ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Poista kansio"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Poista pysyvästi"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Suoritettu päätteessä: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Suorita (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Suorita nyt"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Suorita sudolla päätteessä"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Suorita komento kaikissa päätteissä"
+
+# 
+msgid "Executar passo"
+msgstr "Suorita vaihe"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Suorita agentin suunnitelma"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Suorita kaikki yksikkö- ja integraatiotestit"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Näytä istuntopaneeli"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Selitä tiedosto tekoälyllä"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "Tiedoston '{name}' selitys pyydetty tekoälyavustajalta."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Selitä tiedoston '{name}' tarkoitus, rakenne ja toiminta.\nPolku: {path}\n\nAlkusisältö:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Vie tiedostot settings.json, sessions.json ja command_buttons.json SHA-256-tiivisteellä"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Vie koko puskurin tai aktiivisen päätevalinnan"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Viety kohteeseen {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Vie päätteen tuloste (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Vie istunto käyttökirjana (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "OnyxSH-päätteen vienti - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Ulkoisten yhteyksien hallinta ja tiukka tietojen eristys."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Pura gzip-pakattu tar-arkisto yksityiskohtaisesti"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Purkaa tiedostoja pakatuista arkistoista"
+
+# 
+msgid "Extrair"
+msgstr "Poista"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Tallentaminen Root-käyttäjänä epäonnistui"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Prosessi pkexec odottaminen epäonnistui: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Tarkistussummien laskenta epäonnistui: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Varmuuskopion luonti epäonnistui: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Tietojen kirjoittaminen pkexec-prosessin stdin-syötteeseen epäonnistui: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Etuoikeutetun pkexec-prosessin käynnistys epäonnistui: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Varmuuskopion palautus epäonnistui: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Tiedoston tallennus epäonnistui: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Siirto epäonnistui (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Siirto epäonnistui (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Nopea ja monipuolinen etä- ja paikallisten tiedostojen kopiointityökalu"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Lisää komento suosikkeihin / poista suosikeista"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Lisää nykyinen hakemisto suosikkeihin"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Suosikki poistettu: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Tekee muutoksista commitin Gitissä kuvaavalla viestillä"
+
+# 
+msgid "Fechar Aba"
+msgstr "Sulje välilehti"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Sulje aktiivinen paneeli"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "Fedora/RHEL/Rocky/AlmaLinux RPM-paketinhallinta"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Nouda toisesta tietovarastosta ja yhdistä siihen"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Siirtojono — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Siirtojono on tyhjä (0 käynnissä olevaa tehtävää)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Tiedoston tietoja muokattu n*24 tuntia sitten"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Tiedostotyyppi (f tavallinen tiedosto, d hakemisto, l symbolinen linkki)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Suodata arkisto gzipin kautta (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Selvitä, mikä paketti tarjoaa tietyn tiedoston tai ominaisuuden"
+
+# 
+msgid "Focar janela existente"
+msgstr "Kohdista olemassa olevaan ikkunaan"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Tarkenna ruutu alas"
+
+# 
+msgid "Focar painel acima"
+msgstr "Tarkennusruutu ylös"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Tarkennusruutu oikealle"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Tarkennusruutu vasen"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Kohdistus siirretty ensimmäiseen ruutuun."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Kohdistus siirretty toiseen ruutuun."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Seuraa tulostetta reaaliaikaisesti tiedoston kasvaessa"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Fontti, väripaletti, läpinäkyvyys ja tekoäly (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Pakota poisto, vaikka sovellukset riippuisivat siitä"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Pakota asennus, vaikka paketti tai tiedostot ovat jo olemassa"
+
+# 
+msgid "Force upgrade"
+msgstr "Pakota päivitys"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Muotoile kyselyn tuloste mukautetulla queryformat-muodolla"
+
+# 
+msgid "Formato"
+msgstr "Muoto"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "Päivitä RPM-paketit (päivitä vain, jos ne on jo asennettu)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Luo jäsennelty toimintasuunnitelma (ActionPlan)"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Hallitsee järjestelmäpalveluja systemctl-komennolla"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Tiedostohallinta"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Kaksiruutuinen tiedostonhallinta"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Komentohallinta"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Komentojen hallinta ja dynaamiset lomakkeet"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Välilehti- ja paneelihallinta"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak-sovellus ja ajonajan hallinta"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Ehdota Conventional Commit -viestiä"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: nykyinen hakemisto ei ole Git-tietovarasto."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Suuri kontekstikapasiteetti"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Kuvakeruudukko"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Huippunopea LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Reaaliaikaiset kaaviot suorittimesta, RAM-muistista, levy-I/O:sta ja verkosta/GPU:sta"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Korkean päättelykyvyn malli ja palveluntarjoaja monivaiheisille suunnitelmille"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Rikastettu komentohistoria (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Keskusteluhistoria"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Siirtohistoria"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Historia: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Isäntä / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Etäisäntä (IP / toimialue)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Etäisäntä sidonnalle (Bind)"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Isäntä ei voi olla tyhjä"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Virheellinen isäntä tai IP-osoite."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Identiteettitiedosto (yksityinen avain) julkisen avaimen todennukseen"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Ohita kirjainkoon erot"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Ohita tiedostojen varmuuskopiomääritykset (poista asetustiedostot)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Ohita olemattomat tiedostot, älä kysy koskaan"
+
+# 
+msgid "Imagem"
+msgstr "Kuva"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "Tuo ASCII-armored-muotoinen julkinen GPG-avain RPM-avainnippuun"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Tuo etälähteen asetukset .flatpakrepo-tiedostosta"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Tuo istunnot (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "Sisällytä HTTP-vastausotsikot tulosteeseen"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Suurentaa päätteen fonttikokoa (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Päättelee ja ehdottaa automaattisia tarkistuksia (palvelun tila, asetusten syntaksi) tilaa muuttavien komentojen jälkeen."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "Käynnistä TFTP-palvelin"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Lisää (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Lisää polku päätteeseen"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Tarkistaa nykyisen Git-tietovaraston ja ehdottaa commit-viestiä"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Tarkastele isännän aktiivisia pistokkeita ja portteja"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Asenna paikallinen .deb-pakettitiedosto"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Asenna RPM-pakettitiedosto yksityiskohtaisella edistymisnäytöllä"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Asenna epäsuorana riippuvuutena"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Asenna beta-kanavalta"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Asenna edge-kanavalta"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Asenna vakaalta kanavalta (stable)"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Asenna yksi tai useampi RPM-paketti"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Asenna snap-paketteja järjestelmään"
+
+# 
+msgid "Interactive rebase"
+msgstr "Interaktiivinen rebase"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Valitse korjauksen osat (hunks) vuorovaikutteisesti"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Päätteeseen vuorovaikutus"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Paikallinen liitäntä / Bind-IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Paikallinen kuunteluliitäntä"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Tulkitse malli laajennettuna säännöllisenä lausekkeena (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Viiveen tarkistusväli"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Väli sekunteina KeepAlive-kyselypakettien lähettämiseen"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Virheellinen SSH-käyttäjänimi"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Virheellinen isäntänimi tai IP-osoite"
+
+# 
+msgid "Invalid local port"
+msgstr "Virheellinen paikallinen portti"
+
+# 
+msgid "Invalid port number"
+msgstr "Virheellinen porttinumero"
+
+# 
+msgid "Invalid remote host"
+msgstr "Virheellinen etäisäntä"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Tutki pistokkeita (moderni netstat-korvaaja)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Siirry välilehteen"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Tämä palauttaa kaikki pikanäppäimet oletusarvoihinsa. Haluatko jatkaa?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Kohde liitetty sijaintiin: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Kohde siirretty sijaintiin: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "{n_pages} välilehden asettelu tallennettu polkuun {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Tyhjentää aktiivisen istunnon näytön ja vierityspuskurin (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Tyhjennä valmiit"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Tyhjennä ei-suosikkihistoria"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Tyhjennä istunto"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Tyhjennä pääteistunto"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Linkki kopioitu leikepöydälle."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Luettele kaikki asennetulle RPM-paketille kuuluvat tiedostot"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Listaa etälähteessä saatavilla olevat sovellukset ja ajonaikaiset ympäristöt"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Listaa tämän .rpm-paketin vaatimat ominaisuudet"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Listaa asennetun paketin asetustiedostot"
+
+# 
+msgid "List configuration files only"
+msgstr "Listaa vain asetustiedostot"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Listaa asennetun paketin vaatimat riippuvuudet"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Listaa .rpm-arkiston sisältämät tiedostot"
+
+# 
+msgid "List files installed by package"
+msgstr "Listaa paketin asentamat tiedostot"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Listaa ulkoiset paketit (esim. AUR:sta)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Listaa kaavaa vastaavat asennetut paketit"
+
+# 
+msgid "List installed snaps"
+msgstr "Listaa asennetut snap-paketit"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Listaa asennetut yksikkötiedostot ja niiden käyttöönottotila"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Listaa orvot paketit (riippuvuudet, joita ei enää tarvita)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Listaa riippuvuuksina asennetut paketit"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Listaa tällä hetkellä tallennetut kätköt (stash)"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Yksityiskohtainen luettelo"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Listaa hakemiston sisällön yksityiskohtineen (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Luettelo, pikkukuvaruudukko, puu ja Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Luettelo tiedostoista"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Paikallinen (Ollama / LM Studio) • Täysi GPU/CPU-yksityisyys"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Paikallisen palvelimen perus-URL"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Pitkä muoto, kaikki tiedostot, helppolukuiset koot"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Pienen viiveen malli ja tarjoaja päivittäisiin komentorivikysymyksiin"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Luo ylähakemistot tarpeen mukaan"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Mallille lähetettävän kontekstimuistin enimmäisvaraus"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Muisti (RAM ja Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "RAM-muisti"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Commit-viesti"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Tiukasti offline-tila aktiivinen (Ei pilveä)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Verkkotila älykkäällä reitityksellä aktiivinen."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Tekstinvalintatila otettu käyttöön."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Tekstinvalintatila poistettu käytöstä."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Lähetystila (Broadcast kaikille välilehdille)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Teematila"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Reaaliaikainen resurssimonitori (Cairo-pienkaaviot)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Reaaliaikainen resurssimonitori — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Näyttää tai piilottaa SSH-istuntopuun (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Näytä piilotiedostot (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Moottori"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Nimi ja valinnaisesti tunniste muodossa 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Leikepöydällä ei ole liitettäviä kohteita."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Ei vielä tarkastuslokeja. Napsauta 'Simuloi tarkastettua muutosta' testataksesi atomista palautusta."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Erillistä GPU:ta ei havaittu sysfs/nvidia-smi-rajapinnan kautta"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Istuntoa ei ole valittu"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "Istunnossa ei ole kirjattuja siirtoja."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Verkko (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Verkko (/proc/net/dev) • Reaaliaikainen RX / TX"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Verkko (RX / TX) ja GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Älä koskaan kysy kysymyksiä"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Nimi (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Uuden haaran nimi"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Istunnon nimi:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Uuden kansion nimi:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Virheellinen tiedostonimi leikepöydällä."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "SSH-käyttäjänimi sisältää virheellisiä merkkejä."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Kohdetiedoston nimi"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Palvelun nimi"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Komennon nimi (esim. Käynnistä Nginx uudelleen)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Uuden tiedoston nimi:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Kuvakkeen nimi (esim. utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Säiliön nimi tai tunnus (ID)"
+
+# 
+msgid "Nome:"
+msgstr "Nimi:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Ei-vuorovaikutteinen tila"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Uusi päätevälilehti"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Uusi päätevälilehti (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Uusi kansio tähän..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Uusi istuntokansio"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Uusi kansio..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Uusi istunto — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Uusi keskustelu aloitettu."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Uusi tiedosto tähän..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Uusi tiedosto..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Uusi väriteema"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Uusi kansion nimi:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Uusi tiedoston nimi:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Kohdetta ei voitu ladata: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Muutoksia ei voitu tallentaa: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Tiedostojärjestelmässä ei ole tarpeeksi vapaata tilaa."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Taso 0 (Luku)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Taso 1 (Kirjoitus)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Taso 2 (Järjestelmänvalvoja)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Taso 3 (Kriittinen)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Taso 4 (Estetty)"
+
+# 
+msgid "Nível {n}"
+msgstr "Taso {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Yritysten määrä ennen automaattisesta uudelleenyhdistämisestä luopumista"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "Binääritiedostoa '{bin}' ei ole asennettu tai se ei ole $PATH-polussa."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "Komento päättyi virhekoodiin."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "Päätteessä suoritettu komento epäonnistui. Analysoi projektin tiedostot ja laadi tarvittavat korjaukset OpenCode-työkalulla:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "Komento epäonnistui pääkäyttäjän (root) oikeuksien puuttumisen vuoksi."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "Istunnon nimi ei voi olla tyhjä."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Hämärretty / Base64-purettu suoritusputki"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Edellinen esiintymä (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Päätteestä löytyneet esiintymät"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Oktaali: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Valmis"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Ilmoitustesti"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode käynnistetty päätteessä."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Yhdistetty monimalliluettelo"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Operaattori: {author} | Isäntä: {host} | Päivämäärä: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Toimi kaikille työtilan paketeille"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "Käyttäjä peruutti tai esti toiminnon."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Toiminnot Arch Linux -pakettienhallinnalla"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Toiminnot Debian/Ubuntu-pakettienhallinnalla"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Toiminnot Fedora/RHEL-pakettienhallinnalla"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Tiedosto-operaatiot"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Nouseva järjestys"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Laskeva järjestys"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Nouseva lajittelu käytössä"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Laskeva lajittelu käytössä"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Järjestä asennetut paketit asennusajan mukaan (uusin ensin)"
+
+# 
+msgid "Organizar por"
+msgstr "Lajittele"
+
+# 
+msgid "Origem (Local)"
+msgstr "Lähde (Paikallinen)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Tulosta luvut helppolukuisessa muodossa"
+
+# 
+msgid "Output package names only"
+msgstr "Tulosta vain pakettien nimet"
+
+# 
+msgid "Pacote"
+msgstr "Paketti"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Asennuspaketti"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Nimikaava (esim. *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Istunnot-paneeli"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Ruutu/välilehti suljettu."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Koko sana"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16-värinen ANSI-paletti"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "Pysäytä TFTP-palvelin ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Parametrit — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Vaihe #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Vaihe suoritettu: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "Kansio '{path}' luotiin onnistuneesti."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Kansio / Hakemisto"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Kansio kopioitu leikepöydälle: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Kansio luotu: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Kansio poistettu: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Kansio merkitty siirrettäväksi: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Kansio poistettiin suosikeista."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Kansio nimettiin uudelleen: '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Kansio · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Kansio:"
+
+# 
+msgid "Pause"
+msgstr "Keskeytä"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Reititysprofiili vaihdettu: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Suorita jakelupäivitys (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Kysy AI-avustajalta"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Kysy tai liitä päätevirhe..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Käyttöoikeudet (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "Kohteen '{name}' käyttöoikeudet vaihdettu muotoon {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Oikeudet {name} varten"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Hae kaikista avoimista välilehdistä, SSH-istunnoista, historiasta ja katkelmista (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Rekursiivinen haku alihakemistoista"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Etsi terminaalista"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Hae tekstiä kaikista avoimista päätevälilehdistä, SSH-istunnoista, historiasta ja katkelmista..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Hae tunneleita nimen, portin tai isännän perusteella..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Putkitettu suoritus komentotulkille"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Zero-Trust-toimintasuunnitelma kohteelle: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Tausta"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Anna palvelun {provider} API-avain ennen testaamista."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Päätepisteet ja portit"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Analysoi seuraava päätteen valinta:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Analysoi ja selitä tiedoston '{name}' koodi/sisältö, sen tarkoitus, rakenne ja tärkeimmät kohdat:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Suorita yksityiskohtainen tietoturva- ja pääsynhallinta-auditointi nykyisessä hakemistossa '{path}'. Tarkista liian sallivat käyttöoikeudet, arkaluonteiset tiedostot (.env, yksityiset avaimet, paljastuneet tunnukset) ja suosittele Zero-Trust-käytäntöjä."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Suorita yksityiskohtainen tietoturva- ja käyttöoikeusauditointi tiedostolle '{name}'.\nPolku: {path}\nNykyiset käyttöoikeudet: {perms} ({oct})\nKoko: {size}\nSuosittele turvallisia chmod-asetuksia ja haavoittuvuuksien lieventämistä."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Suorita yksityiskohtainen tietoturva- ja käyttöoikeusauditointi hakemistolle '{name}'.\nPolku: {path}\nNykyiset käyttöoikeudet: {perms} ({oct})\nViimeksi muokattu: {date}\nSuosittele ihanteellisia chmod-asetuksia, rajoituksia ja Zero-Trust-vaatimustenmukaisuuden parhaita käytäntöjä."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Refaktoroi seuraava koodikatkelma OpenCoden avulla:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Portti kelvollisen alueen ulkopuolella (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Etäpalvelussa paljastettu portti (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Etäkohdeportti"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Paikallinen kuunteluportti (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "SOCKS5-välityspalvelimen portti (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Portti sallitun alueen ulkopuolella (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Portti:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Etä-PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Asetukset"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Lisää kunkin rivin alkuun 1-pohjainen rivinumero"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Komennon esikatselu:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Ensisijainen palveluntarjoaja ja yhteys"
+
+# 
+msgid "Print Git version"
+msgstr "Tulosta Git-versio"
+
+# 
+msgid "Print RPM version"
+msgstr "Tulosta RPM-versio"
+
+# 
+msgid "Print help synopsis"
+msgstr "Tulosta ohjetiivistelmä"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Tulosta koot luvun 1024 potensseina (esim. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Tulosta testin stdout/stderr suoraan"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Tulosta kokonaismäärä hakemistosyvyydellä 1"
+
+# 
+msgid "Print zypper version"
+msgstr "Tulosta zypper-versio"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Tuotanto / Verkkopalvelimet"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Protokolla:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Tulosta yksityiskohtainen tuloste"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Palveluntarjoaja, jota käytetään älykkään reitityksen ollessa pois käytöstä"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Reaaliaikainen esikatselu"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Seuraava osuma (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Seuraava tiedosto (Nuoli alas / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Siirry edelliseen kehotteeseen."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Siirry seuraavaan kehotteeseen."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Poista asennettu paketti täysin asetuksineen"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Aseta snap perinteiseen eristystilaan"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Rivien määrä (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Rivien määrä (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Tee kysely asentamattomasta paikallisesta .rpm-pakettitiedostosta"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Hae ja luettele kaikki asennetut RPM-paketit"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Hae pakettivaraston ehtoja vastaavia paketteja"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "Tarkista snap-pakettien tarjoamien palvelujen tila"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Selvitä, mille asennetulle RPM-paketille tiedostopolku kuuluu"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Esikatselu)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "RPM-pakettihallinnan matalan tason työkalu (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Lue kaikki tiedostot kustakin hakemistosta rekursiivisesti"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Luku: {read}/s • Kirjoitus: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Perustaa nykyinen haara uudelleen upstream-haaran päälle noudon jälkeen"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Rakenna RPM-tietokannan indeksit uudelleen asennetuista otsikkotiedoista"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Älykäs automaattinen uudelleenyhdistäminen katkosten yhteydessä"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Tallenna valmistellut muutokset tietovarastoon"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Leikkaa tiedosto"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Leikkaa kansio"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Palauttaa kaikki pikanäppäimet oletusarvoihin"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Nollaa zoomaus"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Pienentää päätteen kirjasinkokoa (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Zoomaa ulos"
+
+# 
+msgid "Refresh Interval"
+msgstr "Päivitysväli"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Päivitä kaikkien pakettivarastojen metatiedot"
+
+# 
+msgid "Refresh files database"
+msgstr "Päivitä tiedostotietokanta"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "AuditLogger-lokitietueet (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Yleiset korostussäännöt"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Käynnistä hallittu palvelu uudelleen ja ota asetukset käyttöön"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Asenna uudelleen, jos paketti on jo olemassa"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Täydellinen tiivisteraportti kopioitu leikepöydälle"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Puhdistettu OnyxSH-diagnostiikkaraportti"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Diagnostiikkaraportti kopioitu leikepöydälle."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Jäsennelty toimintaraportti vaiheineen, muistiinpanoineen, tavoitteineen ja johtopäätöksineen (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Puhdistettu raportti käyttöjärjestelmästä, RAM-muistista, GPU/VRAM-muistista ja Flatpak-ympäristöstä"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Lataa palvelu uudelleen tai käynnistä uudelleen, jos uudelleenlatausta ei tueta"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Etä (-R) • Paljasta paikallinen portti etäpalvelimella"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Poista yksittäinen stash-merkintä"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Poista kaikki paketit, jotka riippuvat kohteesta"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Poista kaikki stash-merkinnät"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Poista kaikki paketin versiot"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Poista asennettu paketti säilyttäen asetukset"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Poista hakemistot ja niiden sisältö rekursiivisesti"
+
+# 
+msgid "Remove installed packages"
+msgstr "Poista asennetut paketit"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Poista vanhentuneet etäseurantaviittaukset"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Poista yksi tai useampi paketti sekä käyttämättömät riippuvuudet"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Poista alun perin riippuvuuksina asennetut paketit, joita ei enää tarvita"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Poista snap-paketit järjestelmästä"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Poista käyttämättömät tiedot (kontit, verkot, levykuvat)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Poista valittu istunto"
+
+# 
+msgid "Remover Túnel"
+msgstr "Poista tunneli"
+
+# 
+msgid "Remover favorito"
+msgstr "Poista suosikki"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Poista nykyinen hakemisto suosikeista"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Nimeä tiedosto uudelleen"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Nimeä kansio uudelleen"
+
+# 
+msgid "Renomear..."
+msgstr "Nimeä uudelleen..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Tulosta tilannekuva nykyisistä prosesseista"
+
+# 
+msgid "Reportar Problema"
+msgstr "Ilmoita ongelmasta"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Palauta kirjasinkoko (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Ratkaistaan päätevirhettä OpenCoden / tekoälyn avulla..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Uudelleenkäynnistyskäytäntö kontin poistuessa"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Palauttaa oletuskirjasimen Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Palauta yleiset säännöt"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Palauta kaikki komennot"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Palauta alkuperäinen ohitettujen komentojen luettelo"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Palauta indeksi / poista tiedostot stage-tilasta"
+
+# 
+msgid "Resume"
+msgstr "Jatka"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Tiedoston sisällöstä lasketut vakiomuotoiset kryptografiset tiivisteet:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Nouda palvelujen lokit"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Diff-tarkistus ja Zero-Trust-auditointi (Atominen palautus)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Älykäs reititys: napsauta vaihtaaksesi profiilia (Auto, Nopea, Edistynyt, Turvallisuus)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Reititetty edistyneeseen/tietoturva-päättelyprofiiliin."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Reititetty nopeaan profiiliin (matalan viiveen yksinkertainen kysely)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Suorita paikallisen paketin binääri tai esimerkki"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Suorita ikään kuin git olisi käynnistetty polussa"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Suorita kirjautumiskomentotulkki kohdekäyttäjänä (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Suorita optimoitu julkaisubinääri"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Natiivi Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Rustin paketinhallinta ja käännöstyökalu"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH-ISTUNTO"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "SOCKS5-välityspalvelin"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Yrityksen SOCKS5-välityspalvelin"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Turvallinen pakotettu lähetys etäviitteen tarkistuksella"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Lopeta sovellus"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Tallenna ja sulje"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Tallenna muutokset"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "Tallenna OnyxSH-varmuuskopio"
+
+# 
+msgid "Salvar Comando"
+msgstr "Tallenna komento"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Tallenna nykyinen välilehtiasettelu"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Tallenna järjestelmänvalvojan / Root-oikeuksilla (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Tallennettu onnistuneesti: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Komentosarjan suoritus"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Etsi sekä kuvauksista että nimistä"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Etsi paketti, johon tiedostonimi kuuluu"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Etsi kaavaa vastaavia paketteja"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Etsi snap-paketteja kaupasta"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Etsi paikallisesti asennetuista paketeista"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Noudata järjestelmän tyyliä"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Seuraa reaaliajassa (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Sekuntia yhteyksien pitämiseksi aktiivisina (0 poistaa käytöstä)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Valittu: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "Valitse OnyxSH-varmuuskopiotiedosto"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Valitse sisällytettävät komennot ja lisää tekniset selittävät kommentit kullekin vaiheelle. ({count} tunnistettu)"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Valitse ladattava kohde oikeasta ruudusta (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Valitse lähetettävä kohde vasemmasta ruudusta (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Valitse ensin istunto luettelosta muokataksesi sitä."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Valitse ensin poistettava istunto."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Valitse valvottava isäntä"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Valitse täsmäämättömät rivit"
+
+# 
+msgid "Seleção copiada."
+msgstr "Valinta kopioitu."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Valinta lähetetty tekoälyavustajalle analysoitavaksi."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Valinta lähetetty refaktoroitavaksi OpenCode-työkalulla."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Piilota aina"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP-palvelin"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "Vain luku -TFTP-palvelin aktiivinen osoitteessa {addr} (juuri: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "TFTP-palvelimen tila vaihdettu."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP-palvelin pysäytetty."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Istunto: {session} | Isäntä: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "Istunto '{name}' poistettu."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "Istunto '{name}' tallennettu polkuun ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Linkitetty SSH-istunto"
+
+# 
+msgid "Sessão limpa."
+msgstr "Istunto tyhjennetty."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Tallennetut istunnot"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Istunnot synkronoitu tiedostoista ~/.config/onyxsh/sessions.json ja ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Suoritettava komentotulkki"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Näytä kaikki kuuntelevat TCP/UDP-pistokkeet prosessin ja numeeristen porttien kanssa"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Näytä kaikki asennettujen snap-pakettien versiot"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Näytä ja hallitse reititystä, verkkolaitteita ja liitäntöjä"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Näytä saatavilla olevat snap-päivitykset asentamatta niitä"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Näytä muutokset commitien, indeksin ja työpuun välillä"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Näytä tarkat tiedot snap-paketista"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Näytä tarkat tiedot asennetusta sovelluksesta tai ajonaikaisesta ympäristöstä"
+
+# 
+msgid "Show error message on failure"
+msgstr "Näytä virheilmoitus epäonnistuessa"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Näytä täydet tiedot määritetyistä paketeista"
+
+# 
+msgid "Show package metadata info"
+msgstr "Näytä paketin metatiedot"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Näytä tietyn tiedostopolun käyttöoikeudet"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Näytä asennusta ja poistoa edeltävät ja seuraavat komentosarjat"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Näytä edistyminen ja säilytä osittain siirretyt tiedostot"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Näytä tekoälyavustajan painike ja sivupaneeli yläpalkissa."
+
+# 
+msgid "Silent mode"
+msgstr "Hiljainen tila"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Simuloi auditoitua muutosta"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Synkronoi paikalliset tiedostot etäisäntään säilyttäen määritteet"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "Järjestelmä"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Käyttöjärjestelmä"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Ohita vahvistuskehote"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Älykäs reititys poistettu käytöstä: käytetään oletuksena määritettyä tarjoajaa."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, toimintasuunnitelmat ja atominen palautus (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "Tietoja OnyxSH:sta"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "Määritä HTTP-pyyntömenetelmä (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Määritä suoritettava paketti"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "Määritä käytettävä etäkomentotulkki (esim. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Jaa pääte"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Tallenna muutokset tilapäisesti (stash) muokatussa työhakemistossa"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Pysäytä 4 paketin lähettämisen jälkeen"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Tiukka offline-tila aktiivinen (vain paikallinen Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Ehdota alikomentoja ja parametreja työkaluille rpm, dnf, apt, pacman, flatpak, systemctl, docker, git ja yleisille työkaluille"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Ehdotukset työkaluille rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Koon yhteenveto luettavassa muodossa"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab tai → ota käyttöön • ↑/↓ selaa • Esc sulje"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Haluatko varmasti poistaa kansion '{name}' pysyvästi?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Haluatko varmasti poistaa tiedoston '{name}' pysyvästi?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Teema vaalealle taustalle"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Teema tummalle taustalle"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Teema, jota käytetään päätteen taustan ollessa vaalea"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Teema, jota käytetään päätteen taustan ollessa tumma"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Komentomalli (esim.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Yrittää yhdistää katkenneet SSH-istunnot uudelleen lähtölaskennalla ja näytöllä näkyvällä hälytyksellä"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Pääte: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Testaa kaikki työtilan paketit"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Testaa sieppausta"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Testaa Nginx-määrityksen syntaksin eheys"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Edustan teksti (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Tämä poistaa pysyvästi kaikki {count} keskustelut. Tätä toimintoa ei voida peruuttaa."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Tyyppi / Pääte"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Tiedostotyyppi"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Kaikki asetukset on palautettu oletusarvoihin."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Kaikki pikanäppäimet on palautettu oletusarvoihin."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Kaikki SSH-tunnelit on pysäytetty."
+
+# 
+msgid "Total Lines"
+msgstr "Rivejä yhteensä"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Jatkuva päätösten, komentojen ja atomisen palautuksen auditointipolku"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Ubuntun / Canonicalin Snap-paketinhallinta"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Uncomplicated Firewall -hallintatyökalu"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Yksikkö / Palvelu (valinnainen)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Päivitä asennetut paketit uudempiin versioihin"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Päivitä järjestelmän snap-paketit"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Päivitä sovellus/ajoympäristö, jos se on jo asennettu"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Päivitä RPM-pakettitiedosto (tai asenna, jos sitä ei ole)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Päivitä tai asenna paikallinen/etäpakettitiedosto (.pkg.tar.zst)"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Käyttää taitettavia lohkoja (&lt;details&gt;) yli 15 rivin tulosteille"
+
+# 
+msgid "Use a long listing format"
+msgstr "Käytä pitkää listausmuotoa"
+
+# 
+msgid "Use archive file or device"
+msgstr "Käytä arkistotiedostoa tai laitetta"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Käytä hakemistoa ylimmän tason juurena RPM-toiminnoille"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Etäkäyttäjä"
+
+# 
+msgid "Usuário SSH:"
+msgstr "SSH-käyttäjä:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Vahvista ja liitä"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Tarkista palvelun nykyinen tila ja riippuvuudet"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Tarkista, onko palvelu '{svc}' aktiivinen"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Tarkista, onko palvelu '{svc}' otettu käyttöön käynnistyksessä"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Tarkista, onko palvelu '{svc}' pysäytetty"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Tarkista tietty paketti .rpm-tiedostoa vasten"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Tarkista kaikkien asennettujen RPM-pakettien eheys tietokantaa vasten"
+
+# 
+msgid "Versão"
+msgstr "Versio"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Näytä seuraavaa commitia varten valmistellut muutokset"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Näyttää järjestelmälokit journalctl-komennolla"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Näyttää, muokkaa ja palauttaa kaikki OnyxSH:n pikanäppäimet"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Yhdistetty Diff-katselin (Ennen vs. Jälkeen):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Ruudukko- / pienoiskuvanäkymä"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Kuvakeruudukkonäkymä otettu käyttöön"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Yksityiskohtainen luettelonäkymä otettu käyttöön"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "Sinulla ei ole oikeuksia muokata kohdetta '{name}'. Haluatko tallentaa pääkäyttäjän (Root) oikeuksilla?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "Sinulla on tallentamattomia muutoksia tiedostossa '{fname}'. Mitä haluat tehdä ennen sulkemista?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "Sinulla on tässä tiedostossa tallentamattomia muutoksia, jotka menetetään. Haluatko varmasti hylätä ne?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Siirry takaisin edelliseen välilehteen (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Odotetaan näytettä..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Kirjoita tuloste paikalliseen tiedostoon etätiedoston nimellä"
+
+# 
+msgid "You: "
+msgstr "Sinä: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Zoomaus palautettu (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[JOHTOPÄÄTÖKSET JA HAVAINNOT]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Binäärinen tai saavuttamaton sisältö]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Lokitiedostoa ei voida lukea]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[TAVOITE / KONTEKSTI]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[SUORITETUT VAIHEET ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Riski: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Riski havaittu"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Vahvistettu"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` valmistui ajassa {secs}s."
+
+# 
+msgid "linha"
+msgstr "rivi"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "openSUSE / SLES -pakettienhallintatyökalu"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} komenttia • Napsauta laajentaaksesi/tiivistääksesi"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} komentoa"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} riviä"
+
+# 
+msgid "{count} regras"
+msgstr "{count} sääntöä"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} tulosta"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} loogista ydintä)"
+
+# 
+msgid "{days} days"
+msgstr "{days} päivää"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} hr"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} riviä • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} min"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Kopio)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (perustuu jakeluun {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Liitetty tiedosto]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "Palvelun {provider} API-avain määritettiin onnistuneesti."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Päätös: {decision} | Tila: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "{type}-tunneli"
+
+# 
+msgid "Ícone:"
+msgstr "Kuvake:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "OnyxSH-kuvakkeet (Sisäänrakennetut)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Lataa / Kopioi"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Lähetä / Kopioi"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Suorita   •   Tab Lisää kehotteeseen   •   ⭐ Suosikki   •   Esc Sulje"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Siirry välilehteen / Suorita • ↑/↓ Selaa • Esc Sulje"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Atominen palautus"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ ProductionGuard-varoitus ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Tuhoisa komento pysäytetty ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ Hitaammilla tietokoneilla värikuvioiden käsittely voi hieman hidastaa reagointia erittäin suurilla tulosteilla."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ OnyxSH-päätevienti"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Koodikatkelmat"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Komento suoritettu"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Kopioitu!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Suoritettu"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Atominen palautus valmis: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Komento epäonnistui (Paluuarvo {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ TIIVISTE EI TÄSMÄÄ! Liitetty arvo{hint} eroaa tiedoston lasketuista tiivisteistä. Tiedosto saattaa olla vioittunut tai muokattu."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ HISTORIA"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Online-tila aktiivinen.\nNapsauta ottaaksesi käyttöön tiukasti paikallisen offline-tilan."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Kaikki"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Tavoite / Konteksti"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Johtopäätökset & opitut asiat"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Sinä:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Sinä{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Muistiinpano:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Huomautus: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Nykyinen hakemisto"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x suoritusta"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Muokattu:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Analysoi levynkäyttö"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Kopioi puhdistettu raportti"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Kopioi tuloste"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Liitetty turvallisesti: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Historia"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Alustavat havainnot"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Yleislähetys (🛡️ ProductionGuard käytössä):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Komento lähetetty yleislähetyksenä {count} päätteeseen."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Koko:</b> {size} <span alpha='70%'>({bytes} tavua)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Tyyppi:</b> Kansio / Hakemisto"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 Asenna {bin}"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}s"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 SSH-istunnot"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 Tarkista git status"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Suorituksen jälkeinen tarkistus: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Käyttöoikeudet:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Testi-ilmoitus lähetetty työpöydälle."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Polku:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Korkea riski (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Päätevälilehdet"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Kriittinen hälytys — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 ProductionGuard esti yleislähetyksen: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard ESTI lukemisen: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ TUOTANTOTILA KÄYTÖSSÄ — ProductionGuard pysäyttää tuhoisat komennot (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Tiukka offline-tila käytössä (Zero Cloud).\nNapsauta vaihtaaksesi online-tilaan."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Offline (Paikallinen)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Turvallisuus"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Turvallinen komento"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Reitti: {route}"
+

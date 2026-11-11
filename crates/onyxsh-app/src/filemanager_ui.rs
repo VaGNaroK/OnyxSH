@@ -19,6 +19,7 @@ use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
 use onyxsh_core::config::AppSettings;
+use onyxsh_core::i18n::{tr, tr_fmt, tr_n};
 use onyxsh_core::platform;
 use onyxsh_filemanager::backend::{FileSystemBackend, LocalFsBackend};
 use onyxsh_filemanager::transfer::{TransferDirection, TransferItem, TransferStatus};
@@ -221,7 +222,7 @@ fn icon_for_entry(entry: &FileEntry) -> &'static str {
 /// Generates a rich, formatted Pango Markup tooltip for a file/directory row matching Python.
 fn build_entry_tooltip_markup(entry: &FileEntry) -> String {
     if entry.name == ".." {
-        return "<b>Subir para o diretório pai (..)</b>".to_string();
+        return tr("<b>Subir para o diretório pai (..)</b>");
     }
     let icon_emoji = if entry.is_dir {
         "📁"
@@ -231,7 +232,7 @@ fn build_entry_tooltip_markup(entry: &FileEntry) -> String {
         "📄"
     };
     let safe_name = glib::markup_escape_text(&entry.name);
-    let type_desc = glib::markup_escape_text(entry.type_description());
+    let type_desc = glib::markup_escape_text(&tr(entry.type_description()));
     let perms_sym = entry.formatted_permissions();
     let perms_oct = entry.permissions_octal_str();
     let mod_date = format_epoch_short(entry.modified_epoch);
@@ -242,23 +243,32 @@ fn build_entry_tooltip_markup(entry: &FileEntry) -> String {
     ];
 
     if entry.is_dir {
-        lines.push("📦 <b>Tipo:</b> Pasta / Diretório".to_string());
+        lines.push(tr("📦 <b>Tipo:</b> Pasta / Diretório"));
     } else {
-        lines.push(format!(
-            "📦 <b>Tamanho:</b> {} <span alpha='70%'>({} bytes)</span>",
-            entry.formatted_size(),
-            entry.size
+        lines.push(tr_fmt(
+            "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>",
+            &[
+                ("size", &entry.formatted_size()),
+                ("bytes", &entry.size.to_string()),
+            ],
         ));
     }
 
-    lines.push(format!("📅 <b>Modificado:</b> {mod_date}"));
-    lines.push(format!(
-        "🔒 <b>Permissões:</b> <tt>{perms_sym}</tt> <span alpha='70%'>({perms_oct})</span>"
+    lines.push(tr_fmt(
+        "📅 <b>Modificado:</b> {date}",
+        &[("date", &mod_date)],
+    ));
+    lines.push(tr_fmt(
+        "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>",
+        &[("sym", &perms_sym), ("oct", &perms_oct)],
     ));
 
     if entry.is_symlink {
         let safe_path = glib::markup_escape_text(&entry.path);
-        lines.push(format!("🔗 <b>Caminho:</b> <tt>{safe_path}</tt>"));
+        lines.push(tr_fmt(
+            "🔗 <b>Caminho:</b> <tt>{path}</tt>",
+            &[("path", safe_path.as_str())],
+        ));
     }
 
     lines.join("\n")
@@ -317,7 +327,7 @@ pub fn format_grid_subtitle(entry: &FileEntry) -> String {
     }
     let date_str = format_epoch_day_month(entry.modified_epoch);
     if entry.is_dir {
-        format!("Pasta · {date_str}")
+        tr_fmt("Pasta · {date}", &[("date", &date_str)])
     } else {
         format!("{} · {date_str}", entry.formatted_size_clean())
     }
@@ -334,7 +344,7 @@ pub fn format_tree_size_summary(entry: &FileEntry) -> String {
         return String::new();
     }
     let p = Path::new(&entry.path);
-    let mut count = 0;
+    let mut count = 0u64;
     let mut total_bytes = 0;
     if let Ok(entries) = std::fs::read_dir(p) {
         for e in entries.flatten() {
@@ -344,7 +354,7 @@ pub fn format_tree_size_summary(entry: &FileEntry) -> String {
             }
         }
     }
-    let items_str = if count == 1 { "item" } else { "itens" };
+    let items_str = tr_n("item", "itens", count);
     let size_str = format_bytes(total_bytes);
     format!("{size_str} ({count} {items_str})")
 }
@@ -373,7 +383,7 @@ pub fn show_transfer_queue_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Fila de Transferências — OnyxSH")
+        .title(&tr("Fila de Transferências — OnyxSH"))
         .default_width(600)
         .default_height(400)
         .build();
@@ -383,7 +393,7 @@ pub fn show_transfer_queue_dialog(
 
     let clear_btn = gtk4::Button::builder()
         .icon_name("edit-clear-all-symbolic")
-        .tooltip_text("Limpar Concluídos")
+        .tooltip_text(&tr("Limpar Concluídos"))
         .build();
     hb.pack_end(&clear_btn);
     vbox.append(&hb);
@@ -406,7 +416,9 @@ pub fn show_transfer_queue_dialog(
             lb.remove_all();
             let items = tx_rc.borrow();
             if items.is_empty() {
-                let empty = gtk4::Label::new(Some("Nenhuma transferência registrada na sessão."));
+                let empty = gtk4::Label::new(Some(&tr(
+                    "Nenhuma transferência registrada na sessão.",
+                )));
                 empty.add_css_class("dim-label");
                 empty.set_margin_top(24);
                 empty.set_margin_bottom(24);
@@ -423,8 +435,8 @@ pub fn show_transfer_queue_dialog(
 
                 let top_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
                 let dir_badge = match item.direction {
-                    TransferDirection::Upload => "→ Upload / Copy",
-                    TransferDirection::Download => "← Download / Copy",
+                    TransferDirection::Upload => tr("→ Upload / Copy"),
+                    TransferDirection::Download => tr("← Download / Copy"),
                 };
                 let name_lbl = gtk4::Label::new(Some(&format!(
                     "[{}] {} ({})",
@@ -528,13 +540,13 @@ fn execute_paste(
 ) {
     let clip = clipboard.borrow().clone();
     let Some(item) = clip else {
-        status_lbl.set_text("Nenhum item na área de transferência para colar.");
+        status_lbl.set_text(&tr("Nenhum item na área de transferência para colar."));
         return;
     };
     let file_name = match item.path.file_name() {
         Some(n) => n,
         None => {
-            status_lbl.set_text("Nome de arquivo inválido na área de transferência.");
+            status_lbl.set_text(&tr("Nome de arquivo inválido na área de transferência."));
             return;
         }
     };
@@ -543,7 +555,10 @@ fn execute_paste(
     if item.is_cut {
         match fs::rename(&item.path, &target) {
             Ok(()) => {
-                status_lbl.set_text(&format!("Item movido para: {}", target.display()));
+                status_lbl.set_text(&tr_fmt(
+                    "Item movido para: {path}",
+                    &[("path", &target.display().to_string())],
+                ));
                 *clipboard.borrow_mut() = None;
                 refresh_fn();
             }
@@ -557,11 +572,17 @@ fn execute_paste(
                 };
                 match res {
                     Ok(()) => {
-                        status_lbl.set_text(&format!("Item movido para: {}", target.display()));
+                        status_lbl.set_text(&tr_fmt(
+                            "Item movido para: {path}",
+                            &[("path", &target.display().to_string())],
+                        ));
                         *clipboard.borrow_mut() = None;
                         refresh_fn();
                     }
-                    Err(e) => status_lbl.set_text(&format!("Erro ao mover item: {e}")),
+                    Err(e) => status_lbl.set_text(&tr_fmt(
+                        "Erro ao mover item: {err}",
+                        &[("err", &e.to_string())],
+                    )),
                 }
             }
         }
@@ -573,10 +594,16 @@ fn execute_paste(
         };
         match res {
             Ok(()) => {
-                status_lbl.set_text(&format!("Item colado em: {}", target.display()));
+                status_lbl.set_text(&tr_fmt(
+                    "Item colado em: {path}",
+                    &[("path", &target.display().to_string())],
+                ));
                 refresh_fn();
             }
-            Err(e) => status_lbl.set_text(&format!("Erro ao colar item: {e}")),
+            Err(e) => status_lbl.set_text(&tr_fmt(
+                "Erro ao colar item: {err}",
+                &[("err", &e.to_string())],
+            )),
         }
     }
 }
@@ -669,7 +696,7 @@ fn add_organize_and_view_menu_items(
     menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
 
     let header_sort = gtk4::Label::builder()
-        .label("Organizar por")
+        .label(tr("Organizar por"))
         .xalign(0.0)
         .build();
     header_sort.add_css_class("dim-label");
@@ -690,11 +717,11 @@ fn add_organize_and_view_menu_items(
             menu_vbox,
             popover,
             "edit-find-symbolic",
-            "Nome (A-Z)",
+            &tr("Nome (A-Z)"),
             curr_col == SortColumn::Name,
             move || {
                 cs(SortColumn::Name, None);
-                st.set_text("Arquivos organizados por Nome");
+                st.set_text(&tr("Arquivos organizados por Nome"));
             },
         );
     }
@@ -707,11 +734,11 @@ fn add_organize_and_view_menu_items(
             menu_vbox,
             popover,
             "text-x-generic-symbolic",
-            "Tipo / Extensão",
+            &tr("Tipo / Extensão"),
             curr_col == SortColumn::Type,
             move || {
                 cs(SortColumn::Type, None);
-                st.set_text("Arquivos organizados por Tipo / Extensão");
+                st.set_text(&tr("Arquivos organizados por Tipo / Extensão"));
             },
         );
     }
@@ -724,11 +751,11 @@ fn add_organize_and_view_menu_items(
             menu_vbox,
             popover,
             "emblem-documents-symbolic",
-            "Tamanho",
+            &tr("Size"),
             curr_col == SortColumn::Size,
             move || {
                 cs(SortColumn::Size, None);
-                st.set_text("Arquivos organizados por Tamanho");
+                st.set_text(&tr("Arquivos organizados por Tamanho"));
             },
         );
     }
@@ -741,11 +768,11 @@ fn add_organize_and_view_menu_items(
             menu_vbox,
             popover,
             "x-office-calendar-symbolic",
-            "Data de Modificação",
+            &tr("Data de Modificação"),
             curr_col == SortColumn::Modified,
             move || {
                 cs(SortColumn::Modified, None);
-                st.set_text("Arquivos organizados por Data de Modificação");
+                st.set_text(&tr("Arquivos organizados por Data de Modificação"));
             },
         );
     }
@@ -758,11 +785,11 @@ fn add_organize_and_view_menu_items(
             menu_vbox,
             popover,
             "package-x-generic-symbolic",
-            "Agrupar por Categorias (.7z no topo)",
+            &tr("Agrupar por Categorias (.7z no topo)"),
             curr_col == SortColumn::GroupByType,
             move || {
                 cs(SortColumn::GroupByType, None);
-                st.set_text("Arquivos agrupados por Categoria (.7z no topo)");
+                st.set_text(&tr("Arquivos agrupados por Categoria (.7z no topo)"));
             },
         );
     }
@@ -777,11 +804,11 @@ fn add_organize_and_view_menu_items(
             menu_vbox,
             popover,
             "view-sort-ascending-symbolic",
-            "Ordem Crescente",
+            &tr("Ordem Crescente"),
             curr_asc,
             move || {
                 cs(curr_col, Some(true));
-                st.set_text("Ordenação crescente ativada");
+                st.set_text(&tr("Ordenação crescente ativada"));
             },
         );
     }
@@ -792,11 +819,11 @@ fn add_organize_and_view_menu_items(
             menu_vbox,
             popover,
             "view-sort-descending-symbolic",
-            "Ordem Decrescente",
+            &tr("Ordem Decrescente"),
             !curr_asc,
             move || {
                 cs(curr_col, Some(false));
-                st.set_text("Ordenação decrescente ativada");
+                st.set_text(&tr("Ordenação decrescente ativada"));
             },
         );
     }
@@ -804,7 +831,7 @@ fn add_organize_and_view_menu_items(
     menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
 
     let header_view = gtk4::Label::builder()
-        .label("Modo de Exibição")
+        .label(tr("Display Mode"))
         .xalign(0.0)
         .build();
     header_view.add_css_class("dim-label");
@@ -821,11 +848,11 @@ fn add_organize_and_view_menu_items(
             menu_vbox,
             popover,
             "view-grid-symbolic",
-            "Grade de Ícones",
+            &tr("Grade de Ícones"),
             curr_vm == FileManagerViewMode::Grid,
             move || {
                 vm_fn(FileManagerViewMode::Grid);
-                st.set_text("Visualização em Grade de Ícones ativada");
+                st.set_text(&tr("Visualização em Grade de Ícones ativada"));
             },
         );
     }
@@ -836,11 +863,11 @@ fn add_organize_and_view_menu_items(
             menu_vbox,
             popover,
             "view-list-symbolic",
-            "Lista Detalhada",
+            &tr("Lista Detalhada"),
             curr_vm == FileManagerViewMode::List,
             move || {
                 vm_fn(FileManagerViewMode::List);
-                st.set_text("Visualização em Lista Detalhada ativada");
+                st.set_text(&tr("Visualização em Lista Detalhada ativada"));
             },
         );
     }
@@ -855,7 +882,7 @@ fn show_confirm_delete_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Confirmar Exclusão")
+        .title(tr("Confirmar Exclusão"))
         .default_width(380)
         .default_height(160)
         .build();
@@ -866,11 +893,17 @@ fn show_confirm_delete_dialog(
     vbox.set_margin_top(16);
     vbox.set_margin_bottom(16);
 
-    let msg = format!(
-        "Tem certeza de que deseja excluir permanentemente {} '{}'?",
-        if entry.is_dir { "a pasta" } else { "o arquivo" },
-        entry.name
-    );
+    let msg = if entry.is_dir {
+        tr_fmt(
+            "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?",
+            &[("name", &entry.name)],
+        )
+    } else {
+        tr_fmt(
+            "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?",
+            &[("name", &entry.name)],
+        )
+    };
     let lbl = gtk4::Label::new(Some(&msg));
     lbl.set_wrap(true);
     lbl.set_halign(gtk4::Align::Start);
@@ -879,8 +912,8 @@ fn show_confirm_delete_dialog(
     let btn_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
     btn_box.set_halign(gtk4::Align::End);
 
-    let btn_cancel = gtk4::Button::with_label("Cancelar");
-    let btn_delete = gtk4::Button::with_label("Excluir Permanentemente");
+    let btn_cancel = gtk4::Button::with_label(&tr("Cancel"));
+    let btn_delete = gtk4::Button::with_label(&tr("Excluir Permanentemente"));
     btn_delete.add_css_class("destructive-action");
 
     btn_box.append(&btn_cancel);
@@ -967,7 +1000,7 @@ fn show_context_menu_for_entry(
     if entry.name == ".." {
         let cd = Rc::clone(cur_dir);
         let rf = Rc::clone(refresh_fn);
-        add_menu_item(&menu_vbox, &popover, "go-up-symbolic", "Subir um Nível", false, move || {
+        add_menu_item(&menu_vbox, &popover, "go-up-symbolic", &tr("Up One Level"), false, move || {
             if let Some(p) = cd.borrow().parent() {
                 *cd.borrow_mut() = p.to_path_buf();
                 rf();
@@ -976,7 +1009,7 @@ fn show_context_menu_for_entry(
 
         let cd = Rc::clone(cur_dir);
         let cd_cb = Rc::clone(cd_in_terminal_cb);
-        add_menu_item(&menu_vbox, &popover, "utilities-terminal-symbolic", "Abrir no Terminal (cd)", false, move || {
+        add_menu_item(&menu_vbox, &popover, "utilities-terminal-symbolic", &tr("Open in Terminal (cd)"), false, move || {
             if let Some(p) = cd.borrow().parent() {
                 cd_cb(p);
             }
@@ -984,12 +1017,12 @@ fn show_context_menu_for_entry(
 
         let cd = Rc::clone(cur_dir);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Caminho do Diretório Pai", false, move || {
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", &tr("Copiar Caminho do Diretório Pai"), false, move || {
             if let Some(p) = cd.borrow().parent() {
                 let path_str = p.to_string_lossy().to_string();
                 if let Some(cb) = gdk::Display::default().and_then(|d| Some(d.clipboard())) {
                     cb.set_text(&path_str);
-                    st.set_text(&format!("Caminho copiado: {path_str}"));
+                    st.set_text(&tr_fmt("Caminho copiado: {path}", &[("path", &path_str)]));
                 }
             }
         });
@@ -1012,33 +1045,33 @@ fn show_context_menu_for_entry(
         let path = PathBuf::from(&entry.path);
         let cd = Rc::clone(cur_dir);
         let rf = Rc::clone(refresh_fn);
-        add_menu_item(&menu_vbox, &popover, "folder-open-symbolic", "Abrir Pasta", false, move || {
+        add_menu_item(&menu_vbox, &popover, "folder-open-symbolic", &tr("Abrir Pasta"), false, move || {
             *cd.borrow_mut() = path.clone();
             rf();
         });
 
         let path = PathBuf::from(&entry.path);
         let cd_cb = Rc::clone(cd_in_terminal_cb);
-        add_menu_item(&menu_vbox, &popover, "utilities-terminal-symbolic", "Abrir no Terminal (cd)", false, move || {
+        add_menu_item(&menu_vbox, &popover, "utilities-terminal-symbolic", &tr("Open in Terminal (cd)"), false, move || {
             cd_cb(&path);
         });
 
         let path_str = entry.path.clone();
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Caminho Absoluto", false, move || {
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", &tr("Copy Absolute Path"), false, move || {
             if let Some(cb) = gdk::Display::default().and_then(|d| Some(d.clipboard())) {
                 cb.set_text(&path_str);
-                st.set_text(&format!("Caminho copiado: {path_str}"));
+                st.set_text(&tr_fmt("Caminho copiado: {path}", &[("path", &path_str)]));
             }
         });
 
         let path_str = entry.path.clone();
         let feed_cb = Rc::clone(feed_terminal_cb);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "insert-text-symbolic", "Inserir Caminho no Terminal", false, move || {
+        add_menu_item(&menu_vbox, &popover, "insert-text-symbolic", &tr("Inserir Caminho no Terminal"), false, move || {
             let escaped = format!("'{}' ", path_str.replace('\'', "'\\''"));
             feed_cb(&escaped);
-            st.set_text(&format!("Caminho inserido no terminal: {path_str}"));
+            st.set_text(&tr_fmt("Caminho inserido no terminal: {path}", &[("path", &path_str)]));
         });
 
         menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
@@ -1047,18 +1080,18 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "folder-new-symbolic", "Nova Pasta Aqui...", false, move || {
+        add_menu_item(&menu_vbox, &popover, "folder-new-symbolic", &tr("Nova Pasta Aqui..."), false, move || {
             let tdir = target_dir.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
-            show_simple_input_dialog(&win, "Nova Pasta", "Nome da nova pasta:", "nova_pasta", Rc::new(move |name| {
+            show_simple_input_dialog(&win, &tr("New Folder"), &tr("Nome da nova pasta:"), "nova_pasta", Rc::new(move |name| {
                 let p = tdir.join(name.trim());
                 match LocalFsBackend.mkdir(&p) {
                     Ok(()) => {
-                        st2.set_text(&format!("Pasta criada: {}", p.display()));
+                        st2.set_text(&tr_fmt("Pasta criada: {path}", &[("path", &p.display().to_string())]));
                         rf2();
                     }
-                    Err(e) => st2.set_text(&format!("Erro ao criar pasta: {e}")),
+                    Err(e) => st2.set_text(&tr_fmt("Erro ao criar pasta: {err}", &[("err", &e.to_string())])),
                 }
             }));
         });
@@ -1067,18 +1100,18 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "document-new-symbolic", "Novo Arquivo Aqui...", false, move || {
+        add_menu_item(&menu_vbox, &popover, "document-new-symbolic", &tr("Novo Arquivo Aqui..."), false, move || {
             let tdir = target_dir.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
-            show_simple_input_dialog(&win, "Novo Arquivo", "Nome do novo arquivo:", "novo_arquivo.txt", Rc::new(move |name| {
+            show_simple_input_dialog(&win, &tr("New File"), &tr("Nome do novo arquivo:"), "novo_arquivo.txt", Rc::new(move |name| {
                 let p = tdir.join(name.trim());
                 match fs::File::create(&p) {
                     Ok(_) => {
-                        st2.set_text(&format!("Arquivo criado: {}", p.display()));
+                        st2.set_text(&tr_fmt("Arquivo criado: {path}", &[("path", &p.display().to_string())]));
                         rf2();
                     }
-                    Err(e) => st2.set_text(&format!("Erro ao criar arquivo: {e}")),
+                    Err(e) => st2.set_text(&tr_fmt("Erro ao criar arquivo: {err}", &[("err", &e.to_string())])),
                 }
             }));
         });
@@ -1089,26 +1122,26 @@ fn show_context_menu_for_entry(
         let name = entry.name.clone();
         let clip = Rc::clone(clipboard);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Pasta", false, move || {
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", &tr("Copiar Pasta"), false, move || {
             *clip.borrow_mut() = Some(FileManagerClipboardItem {
                 path: p.clone(),
                 is_dir: true,
                 is_cut: false,
             });
-            st.set_text(&format!("Pasta copiada para transferência: {name}"));
+            st.set_text(&tr_fmt("Pasta copiada para transferência: {name}", &[("name", &name)]));
         });
 
         let p = PathBuf::from(&entry.path);
         let name = entry.name.clone();
         let clip = Rc::clone(clipboard);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "edit-cut-symbolic", "Recortar Pasta", false, move || {
+        add_menu_item(&menu_vbox, &popover, "edit-cut-symbolic", &tr("Recortar Pasta"), false, move || {
             *clip.borrow_mut() = Some(FileManagerClipboardItem {
                 path: p.clone(),
                 is_dir: true,
                 is_cut: true,
             });
-            st.set_text(&format!("Pasta marcada para mover: {name}"));
+            st.set_text(&tr_fmt("Pasta marcada para mover: {name}", &[("name", &name)]));
         });
 
         if clipboard.borrow().is_some() {
@@ -1116,7 +1149,7 @@ fn show_context_menu_for_entry(
             let clip = Rc::clone(clipboard);
             let st = status_lbl.clone();
             let rf = Rc::clone(refresh_fn);
-            add_menu_item(&menu_vbox, &popover, "edit-paste-symbolic", "Colar Dentro desta Pasta", false, move || {
+            add_menu_item(&menu_vbox, &popover, "edit-paste-symbolic", &tr("Colar Dentro desta Pasta"), false, move || {
                 execute_paste(&clip, &target_dir, &st, &rf);
             });
         }
@@ -1128,19 +1161,19 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "document-edit-symbolic", "Renomear...", false, move || {
+        add_menu_item(&menu_vbox, &popover, "document-edit-symbolic", &tr("Renomear..."), false, move || {
             let op = old_path.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
-            show_simple_input_dialog(&win, "Renomear Pasta", "Novo nome da pasta:", &old_name, Rc::new(move |new_name| {
+            show_simple_input_dialog(&win, &tr("Renomear Pasta"), &tr("Novo nome da pasta:"), &old_name, Rc::new(move |new_name| {
                 if let Some(parent) = op.parent() {
                     let np = parent.join(new_name.trim());
                     match LocalFsBackend.rename(&op, &np) {
                         Ok(()) => {
-                            st2.set_text(&format!("Pasta renomeada para '{}'", new_name.trim()));
+                            st2.set_text(&tr_fmt("Pasta renomeada para '{name}'", &[("name", new_name.trim())]));
                             rf2();
                         }
-                        Err(e) => st2.set_text(&format!("Erro ao renomear: {e}")),
+                        Err(e) => st2.set_text(&tr_fmt("Erro ao renomear: {err}", &[("err", &e.to_string())])),
                     }
                 }
             }));
@@ -1150,7 +1183,7 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", "Permissões (chmod)...", false, move || {
+        add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", &tr("Permissões (chmod)..."), false, move || {
             show_permissions_dialog(&win, &e_clone, Rc::clone(&rf), st.clone());
         });
 
@@ -1158,13 +1191,22 @@ fn show_context_menu_for_entry(
             let ai = Rc::clone(ai_cb);
             let e_clone = entry.clone();
             let st = status_lbl.clone();
-            add_menu_item(&menu_vbox, &popover, "security-high-symbolic", "Auditar Segurança com IA", false, move || {
-                let prompt = format!(
-                    "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{}'.\nCaminho: {}\nPermissões atuais: {} ({})\nÚltima modificação: {}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust.",
-                    e_clone.name, e_clone.path, e_clone.formatted_permissions(), e_clone.permissions_octal_str(), format_epoch_short(e_clone.modified_epoch)
+            add_menu_item(&menu_vbox, &popover, "security-high-symbolic", &tr("Auditar Segurança com IA"), false, move || {
+                let perms = e_clone.formatted_permissions();
+                let oct = e_clone.permissions_octal_str();
+                let mod_date = format_epoch_short(e_clone.modified_epoch);
+                let prompt = tr_fmt(
+                    "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust.",
+                    &[
+                        ("name", &e_clone.name),
+                        ("path", &e_clone.path),
+                        ("perms", &perms),
+                        ("oct", &oct),
+                        ("date", &mod_date),
+                    ],
                 );
                 ai(&prompt);
-                st.set_text(&format!("Auditoria de segurança de '{}' enviada ao Assistente de IA.", e_clone.name));
+                st.set_text(&tr_fmt("Auditoria de segurança de '{name}' enviada ao Assistente de IA.", &[("name", &e_clone.name)]));
             });
         }
 
@@ -1174,7 +1216,7 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "user-trash-symbolic", "Excluir Pasta", true, move || {
+        add_menu_item(&menu_vbox, &popover, "user-trash-symbolic", &tr("Excluir Pasta"), true, move || {
             let ec = e_clone.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
@@ -1183,10 +1225,10 @@ fn show_context_menu_for_entry(
             show_confirm_delete_dialog(&win, &ec, Rc::new(move || {
                 match LocalFsBackend.remove(&del_path) {
                     Ok(()) => {
-                        st2.set_text(&format!("Pasta excluída: {del_name}"));
+                        st2.set_text(&tr_fmt("Pasta excluída: {name}", &[("name", &del_name)]));
                         rf2();
                     }
-                    Err(e) => st2.set_text(&format!("Erro ao excluir pasta: {e}")),
+                    Err(e) => st2.set_text(&tr_fmt("Erro ao excluir pasta: {err}", &[("err", &e.to_string())])),
                 }
             }));
         });
@@ -1198,7 +1240,7 @@ fn show_context_menu_for_entry(
         let feed_cb = Rc::clone(feed_terminal_cb);
         let ai_cb = ai_prompt_cb.clone();
         let rf_cb = Rc::clone(refresh_fn);
-        add_menu_item(&menu_vbox, &popover, "find-location-symbolic", "Quick Look (Pré-visualizar)", false, move || {
+        add_menu_item(&menu_vbox, &popover, "find-location-symbolic", &tr("Quick Look (Pré-visualizar)"), false, move || {
             let entries = vis.borrow().clone();
             let idx = entries.iter().position(|e| e.path == path).unwrap_or(0);
             crate::quick_look_dialog::show_quick_look_dialog(
@@ -1220,7 +1262,7 @@ fn show_context_menu_for_entry(
             &menu_vbox,
             &popover,
             "accessories-calculator-symbolic",
-            "Calcular / Verificar Hash...",
+            &tr("Calculate / Verify Hash..."),
             false,
             move || {
                 crate::checksum_dialog::show_checksum_dialog(
@@ -1246,13 +1288,13 @@ fn show_context_menu_for_entry(
             };
             let feed_cb = Rc::clone(feed_terminal_cb);
             let cb_copy = cmd_base.clone();
-            add_menu_item(&menu_vbox, &popover, "media-playback-start-symbolic", "Executar no Terminal", false, move || {
+            add_menu_item(&menu_vbox, &popover, "media-playback-start-symbolic", &tr("Run in Terminal"), false, move || {
                 feed_cb(&cb_copy);
             });
 
             let feed_cb = Rc::clone(feed_terminal_cb);
             let sudo_cmd = format!("sudo {cmd_base}");
-            add_menu_item(&menu_vbox, &popover, "security-medium-symbolic", "Executar com sudo no Terminal", false, move || {
+            add_menu_item(&menu_vbox, &popover, "security-medium-symbolic", &tr("Executar com sudo no Terminal"), false, move || {
                 feed_cb(&sudo_cmd);
             });
         }
@@ -1262,7 +1304,7 @@ fn show_context_menu_for_entry(
             let name_escaped = entry.name.replace('\'', "'\\''");
             let tail_cmd = format!("tail -n 50 -f ./'{}'\n", name_escaped);
             let feed_cb = Rc::clone(feed_terminal_cb);
-            add_menu_item(&menu_vbox, &popover, "format-indent-more-symbolic", "Acompanhar Log (tail -f)", false, move || {
+            add_menu_item(&menu_vbox, &popover, "format-indent-more-symbolic", &tr("Follow Log (tail -f)"), false, move || {
                 feed_cb(&tail_cmd);
             });
 
@@ -1271,20 +1313,20 @@ fn show_context_menu_for_entry(
                 let p = entry.path.clone();
                 let n = entry.name.clone();
                 let st = status_lbl.clone();
-                add_menu_item(&menu_vbox, &popover, "system-search-symbolic", "Diagnosticar Erros do Log com IA", false, move || {
+                add_menu_item(&menu_vbox, &popover, "system-search-symbolic", &tr("Diagnosticar Erros do Log com IA"), false, move || {
                     let tail_sample = fs::read_to_string(&p)
                         .map(|s| {
                             let lines: Vec<&str> = s.lines().collect();
                             let start = lines.len().saturating_sub(60);
                             lines[start..].join("\n")
                         })
-                        .unwrap_or_else(|_| "[Incapaz de ler arquivo de log]".to_string());
-                    let prompt = format!(
-                        "Analise as seguintes mensagens e erros recentes do arquivo de log '{}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{}\n```",
-                        n, tail_sample
+                        .unwrap_or_else(|_| tr("[Incapaz de ler arquivo de log]"));
+                    let prompt = tr_fmt(
+                        "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```",
+                        &[("name", &n), ("log", &tail_sample)],
                     );
                     ai(&prompt);
-                    st.set_text(&format!("Diagnóstico do log '{n}' enviado ao Assistente de IA."));
+                    st.set_text(&tr_fmt("Diagnóstico do log '{name}' enviado ao Assistente de IA.", &[("name", &n)]));
                 });
             }
         }
@@ -1294,28 +1336,37 @@ fn show_context_menu_for_entry(
             let p = entry.path.clone();
             let n = entry.name.clone();
             let st = status_lbl.clone();
-            add_menu_item(&menu_vbox, &popover, "dialog-information-symbolic", "Explicar Arquivo com IA", false, move || {
+            add_menu_item(&menu_vbox, &popover, "dialog-information-symbolic", &tr("Explicar Arquivo com IA"), false, move || {
                 let sample = fs::read_to_string(&p)
                     .map(|s| s.lines().take(60).collect::<Vec<_>>().join("\n"))
-                    .unwrap_or_else(|_| "[Conteúdo binário ou inacessível]".to_string());
-                let prompt = format!(
-                    "Explique o propósito, estrutura e funcionamento do arquivo '{}'.\nCaminho: {}\n\nConteúdo inicial:\n```\n{}\n```",
-                    n, p, sample
+                    .unwrap_or_else(|_| tr("[Conteúdo binário ou inacessível]"));
+                let prompt = tr_fmt(
+                    "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```",
+                    &[("name", &n), ("path", &p), ("content", &sample)],
                 );
                 ai(&prompt);
-                st.set_text(&format!("Explicação do arquivo '{n}' solicitada ao Assistente de IA."));
+                st.set_text(&tr_fmt("Explicação do arquivo '{name}' solicitada ao Assistente de IA.", &[("name", &n)]));
             });
 
             let ai = Rc::clone(ai_cb);
             let e_clone = entry.clone();
             let st = status_lbl.clone();
-            add_menu_item(&menu_vbox, &popover, "security-high-symbolic", "Auditar Segurança com IA", false, move || {
-                let prompt = format!(
-                    "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{}'.\nCaminho: {}\nPermissões atuais: {} ({})\nTamanho: {}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades.",
-                    e_clone.name, e_clone.path, e_clone.formatted_permissions(), e_clone.permissions_octal_str(), e_clone.formatted_size()
+            add_menu_item(&menu_vbox, &popover, "security-high-symbolic", &tr("Auditar Segurança com IA"), false, move || {
+                let perms = e_clone.formatted_permissions();
+                let oct = e_clone.permissions_octal_str();
+                let size_str = e_clone.formatted_size();
+                let prompt = tr_fmt(
+                    "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades.",
+                    &[
+                        ("name", &e_clone.name),
+                        ("path", &e_clone.path),
+                        ("perms", &perms),
+                        ("oct", &oct),
+                        ("size", &size_str),
+                    ],
                 );
                 ai(&prompt);
-                st.set_text(&format!("Auditoria de segurança de '{}' enviada ao Assistente de IA.", e_clone.name));
+                st.set_text(&tr_fmt("Auditoria de segurança de '{name}' enviada ao Assistente de IA.", &[("name", &e_clone.name)]));
             });
         }
 
@@ -1323,20 +1374,20 @@ fn show_context_menu_for_entry(
 
         let path_str = entry.path.clone();
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Caminho Absoluto", false, move || {
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", &tr("Copy Absolute Path"), false, move || {
             if let Some(cb) = gdk::Display::default().and_then(|d| Some(d.clipboard())) {
                 cb.set_text(&path_str);
-                st.set_text(&format!("Caminho copiado: {path_str}"));
+                st.set_text(&tr_fmt("Caminho copiado: {path}", &[("path", &path_str)]));
             }
         });
 
         let path_str = entry.path.clone();
         let feed_cb = Rc::clone(feed_terminal_cb);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "insert-text-symbolic", "Inserir Caminho no Terminal", false, move || {
+        add_menu_item(&menu_vbox, &popover, "insert-text-symbolic", &tr("Inserir Caminho no Terminal"), false, move || {
             let escaped = format!("'{}' ", path_str.replace('\'', "'\\''"));
             feed_cb(&escaped);
-            st.set_text(&format!("Caminho inserido no terminal: {path_str}"));
+            st.set_text(&tr_fmt("Caminho inserido no terminal: {path}", &[("path", &path_str)]));
         });
 
         menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
@@ -1345,26 +1396,26 @@ fn show_context_menu_for_entry(
         let name = entry.name.clone();
         let clip = Rc::clone(clipboard);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Arquivo", false, move || {
+        add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", &tr("Copiar Arquivo"), false, move || {
             *clip.borrow_mut() = Some(FileManagerClipboardItem {
                 path: p.clone(),
                 is_dir: false,
                 is_cut: false,
             });
-            st.set_text(&format!("Arquivo copiado para transferência: {name}"));
+            st.set_text(&tr_fmt("Arquivo copiado para transferência: {name}", &[("name", &name)]));
         });
 
         let p = PathBuf::from(&entry.path);
         let name = entry.name.clone();
         let clip = Rc::clone(clipboard);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "edit-cut-symbolic", "Recortar Arquivo", false, move || {
+        add_menu_item(&menu_vbox, &popover, "edit-cut-symbolic", &tr("Recortar Arquivo"), false, move || {
             *clip.borrow_mut() = Some(FileManagerClipboardItem {
                 path: p.clone(),
                 is_dir: false,
                 is_cut: true,
             });
-            st.set_text(&format!("Arquivo marcado para mover: {name}"));
+            st.set_text(&tr_fmt("Arquivo marcado para mover: {name}", &[("name", &name)]));
         });
 
         menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
@@ -1374,19 +1425,19 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "document-edit-symbolic", "Renomear...", false, move || {
+        add_menu_item(&menu_vbox, &popover, "document-edit-symbolic", &tr("Renomear..."), false, move || {
             let op = old_path.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
-            show_simple_input_dialog(&win, "Renomear Arquivo", "Novo nome do arquivo:", &old_name, Rc::new(move |new_name| {
+            show_simple_input_dialog(&win, &tr("Renomear Arquivo"), &tr("Novo nome do arquivo:"), &old_name, Rc::new(move |new_name| {
                 if let Some(parent) = op.parent() {
                     let np = parent.join(new_name.trim());
                     match LocalFsBackend.rename(&op, &np) {
                         Ok(()) => {
-                            st2.set_text(&format!("Arquivo renomeado para '{}'", new_name.trim()));
+                            st2.set_text(&tr_fmt("Arquivo renomeado para '{name}'", &[("name", new_name.trim())]));
                             rf2();
                         }
-                        Err(e) => st2.set_text(&format!("Erro ao renomear: {e}")),
+                        Err(e) => st2.set_text(&tr_fmt("Erro ao renomear: {err}", &[("err", &e.to_string())])),
                     }
                 }
             }));
@@ -1396,7 +1447,7 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", "Permissões (chmod)...", false, move || {
+        add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", &tr("Permissões (chmod)..."), false, move || {
             show_permissions_dialog(&win, &e_clone, Rc::clone(&rf), st.clone());
         });
 
@@ -1406,7 +1457,7 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "user-trash-symbolic", "Excluir Arquivo", true, move || {
+        add_menu_item(&menu_vbox, &popover, "user-trash-symbolic", &tr("Delete File"), true, move || {
             let ec = e_clone.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
@@ -1415,10 +1466,13 @@ fn show_context_menu_for_entry(
             show_confirm_delete_dialog(&win, &ec, Rc::new(move || {
                 match LocalFsBackend.remove(&del_path) {
                     Ok(()) => {
-                        st2.set_text(&format!("Arquivo excluído: {del_name}"));
+                        st2.set_text(&tr_fmt("Arquivo excluído: {name}", &[("name", &del_name)]));
                         rf2();
                     }
-                    Err(e) => st2.set_text(&format!("Erro ao excluir arquivo: {e}")),
+                    Err(e) => st2.set_text(&tr_fmt(
+                        "Erro ao excluir arquivo: {err}",
+                        &[("err", &e.to_string())],
+                    )),
                 }
             }));
         });
@@ -1510,28 +1564,28 @@ fn show_context_menu_for_background(
 
     let cd = Rc::clone(cur_dir);
     let cd_cb = Rc::clone(cd_in_terminal_cb);
-    add_menu_item(&menu_vbox, &popover, "utilities-terminal-symbolic", "Abrir este Diretório no Terminal (cd)", false, move || {
+    add_menu_item(&menu_vbox, &popover, "utilities-terminal-symbolic", &tr("Abrir este Diretório no Terminal (cd)"), false, move || {
         cd_cb(&cd.borrow());
     });
 
     let cd = Rc::clone(cur_dir);
     let st = status_lbl.clone();
-    add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", "Copiar Caminho do Diretório", false, move || {
+    add_menu_item(&menu_vbox, &popover, "edit-copy-symbolic", &tr("Copy Directory Path"), false, move || {
         let path_str = cd.borrow().to_string_lossy().to_string();
         if let Some(cb) = gdk::Display::default().and_then(|d| Some(d.clipboard())) {
             cb.set_text(&path_str);
-            st.set_text(&format!("Caminho copiado: {path_str}"));
+            st.set_text(&tr_fmt("Caminho copiado: {path}", &[("path", &path_str)]));
         }
     });
 
     let cd = Rc::clone(cur_dir);
     let feed_cb = Rc::clone(feed_terminal_cb);
     let st = status_lbl.clone();
-    add_menu_item(&menu_vbox, &popover, "insert-text-symbolic", "Inserir Caminho no Terminal", false, move || {
+    add_menu_item(&menu_vbox, &popover, "insert-text-symbolic", &tr("Inserir Caminho no Terminal"), false, move || {
         let path_str = cd.borrow().to_string_lossy().to_string();
         let escaped = format!("'{}' ", path_str.replace('\'', "'\\''"));
         feed_cb(&escaped);
-        st.set_text(&format!("Caminho inserido no terminal: {path_str}"));
+        st.set_text(&tr_fmt("Caminho inserido no terminal: {path}", &[("path", &path_str)]));
     });
 
     menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
@@ -1540,18 +1594,18 @@ fn show_context_menu_for_background(
     let win = parent_window.clone();
     let rf = Rc::clone(refresh_fn);
     let st = status_lbl.clone();
-    add_menu_item(&menu_vbox, &popover, "folder-new-symbolic", "Nova Pasta...", false, move || {
+    add_menu_item(&menu_vbox, &popover, "folder-new-symbolic", &tr("Nova Pasta..."), false, move || {
         let tdir = cd.borrow().clone();
         let rf2 = Rc::clone(&rf);
         let st2 = st.clone();
-        show_simple_input_dialog(&win, "Nova Pasta", "Nome da nova pasta:", "nova_pasta", Rc::new(move |name| {
+        show_simple_input_dialog(&win, &tr("New Folder"), &tr("Nome da nova pasta:"), "nova_pasta", Rc::new(move |name| {
             let p = tdir.join(name.trim());
             match LocalFsBackend.mkdir(&p) {
                 Ok(()) => {
-                    st2.set_text(&format!("Pasta criada: {}", p.display()));
+                    st2.set_text(&tr_fmt("Pasta criada: {path}", &[("path", &p.display().to_string())]));
                     rf2();
                 }
-                Err(e) => st2.set_text(&format!("Erro ao criar pasta: {e}")),
+                Err(e) => st2.set_text(&tr_fmt("Erro ao criar pasta: {err}", &[("err", &e.to_string())])),
             }
         }));
     });
@@ -1560,18 +1614,18 @@ fn show_context_menu_for_background(
     let win = parent_window.clone();
     let rf = Rc::clone(refresh_fn);
     let st = status_lbl.clone();
-    add_menu_item(&menu_vbox, &popover, "document-new-symbolic", "Novo Arquivo...", false, move || {
+    add_menu_item(&menu_vbox, &popover, "document-new-symbolic", &tr("Novo Arquivo..."), false, move || {
         let tdir = cd.borrow().clone();
         let rf2 = Rc::clone(&rf);
         let st2 = st.clone();
-        show_simple_input_dialog(&win, "Novo Arquivo", "Nome do novo arquivo:", "novo_arquivo.txt", Rc::new(move |name| {
+        show_simple_input_dialog(&win, &tr("New File"), &tr("Nome do novo arquivo:"), "novo_arquivo.txt", Rc::new(move |name| {
             let p = tdir.join(name.trim());
             match fs::File::create(&p) {
                 Ok(_) => {
-                    st2.set_text(&format!("Arquivo criado: {}", p.display()));
+                    st2.set_text(&tr_fmt("Arquivo criado: {path}", &[("path", &p.display().to_string())]));
                     rf2();
                 }
-                Err(e) => st2.set_text(&format!("Erro ao criar arquivo: {e}")),
+                Err(e) => st2.set_text(&tr_fmt("Erro ao criar arquivo: {err}", &[("err", &e.to_string())])),
             }
         }));
     });
@@ -1581,7 +1635,7 @@ fn show_context_menu_for_background(
         let clip = Rc::clone(clipboard);
         let st = status_lbl.clone();
         let rf = Rc::clone(refresh_fn);
-        add_menu_item(&menu_vbox, &popover, "edit-paste-symbolic", "Colar Aqui", false, move || {
+        add_menu_item(&menu_vbox, &popover, "edit-paste-symbolic", &tr("Colar Aqui"), false, move || {
             execute_paste(&clip, &cd.borrow(), &st, &rf);
         });
     }
@@ -1592,19 +1646,22 @@ fn show_context_menu_for_background(
         let ai = Rc::clone(ai_cb);
         let cd = Rc::clone(cur_dir);
         let st = status_lbl.clone();
-        add_menu_item(&menu_vbox, &popover, "security-high-symbolic", "Auditar Segurança deste Diretório com IA", false, move || {
+        add_menu_item(&menu_vbox, &popover, "security-high-symbolic", &tr("Auditar Segurança deste Diretório com IA"), false, move || {
             let path_str = cd.borrow().to_string_lossy().to_string();
-            let prompt = format!(
-                "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust.",
-                path_str
+            let prompt = tr_fmt(
+                "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust.",
+                &[("path", &path_str)],
             );
             ai(&prompt);
-            st.set_text(&format!("Auditoria do diretório '{path_str}' enviada ao Assistente de IA."));
+            st.set_text(&tr_fmt(
+                "Auditoria do diretório '{path}' enviada ao Assistente de IA.",
+                &[("path", &path_str)],
+            ));
         });
     }
 
     let rf = Rc::clone(refresh_fn);
-    add_menu_item(&menu_vbox, &popover, "view-refresh-symbolic", "Atualizar Lista (F5)", false, move || {
+    add_menu_item(&menu_vbox, &popover, "view-refresh-symbolic", &tr("Atualizar Lista (F5)"), false, move || {
         rf();
     });
 
@@ -1757,7 +1814,7 @@ fn show_quick_jump_popover(
     popover_box.set_margin_end(6);
 
     // Section 1: ATALHOS DO SISTEMA
-    let header_shortcuts = gtk4::Label::new(Some("ATALHOS DO SISTEMA"));
+    let header_shortcuts = gtk4::Label::new(Some(&tr("System Shortcuts").to_uppercase()));
     header_shortcuts.set_halign(gtk4::Align::Start);
     header_shortcuts.add_css_class("quick-jump-header");
     popover_box.append(&header_shortcuts);
@@ -1768,22 +1825,22 @@ fn show_quick_jump_popover(
     let temp_str = std::env::temp_dir().to_string_lossy().to_string();
 
     let mut shortcuts = vec![
-        ("Início", home_str, "folder-symbolic"),
+        (tr("Home"), home_str, "folder-symbolic"),
     ];
 
     let active_path = cur_dir.borrow().clone();
     if let Some(git_root) = find_git_root(&active_path) {
         shortcuts.push((
-            "Raiz do Repositório Git",
+            tr("Git Repository Root"),
             git_root.to_string_lossy().to_string(),
             "utilities-terminal-symbolic",
         ));
     }
 
-    shortcuts.push(("Raiz do Sistema", "/".to_string(), "computer-symbolic"));
-    shortcuts.push(("Logs do Sistema", "/var/log".to_string(), "text-x-generic-symbolic"));
-    shortcuts.push(("Configurações", config_dir_str, "preferences-other-symbolic"));
-    shortcuts.push(("Temporário", temp_str, "user-trash-symbolic"));
+    shortcuts.push((tr("Root"), "/".to_string(), "computer-symbolic"));
+    shortcuts.push((tr("Logs"), "/var/log".to_string(), "text-x-generic-symbolic"));
+    shortcuts.push((tr("Config"), config_dir_str, "preferences-other-symbolic"));
+    shortcuts.push((tr("Temp"), temp_str, "user-trash-symbolic"));
 
     for (label, path_str, icon_name) in shortcuts {
         let item_btn = gtk4::Button::new();
@@ -1795,7 +1852,7 @@ fn show_quick_jump_popover(
         let icon = gtk4::Image::from_icon_name(icon_name);
         row.append(&icon);
 
-        let lbl = gtk4::Label::new(Some(label));
+        let lbl = gtk4::Label::new(Some(&label));
         lbl.set_halign(gtk4::Align::Start);
         lbl.set_hexpand(true);
         lbl.add_css_class("quick-jump-name");
@@ -1830,14 +1887,14 @@ fn show_quick_jump_popover(
     sep.set_margin_bottom(6);
     popover_box.append(&sep);
 
-    let header_bm = gtk4::Label::new(Some("FAVORITOS"));
+    let header_bm = gtk4::Label::new(Some(&tr("Bookmarks").to_uppercase()));
     header_bm.set_halign(gtk4::Align::Start);
     header_bm.add_css_class("quick-jump-header");
     popover_box.append(&header_bm);
 
     let bookmarks = load_bookmarks();
     if bookmarks.is_empty() {
-        let empty_lbl = gtk4::Label::new(Some("Nenhuma pasta favoritada ainda"));
+        let empty_lbl = gtk4::Label::new(Some(&tr("No bookmarked folders yet")));
         empty_lbl.set_halign(gtk4::Align::Start);
         empty_lbl.add_css_class("caption");
         empty_lbl.add_css_class("dim-label");
@@ -1888,7 +1945,7 @@ fn show_quick_jump_popover(
             let del_btn = gtk4::Button::builder()
                 .icon_name("user-trash-symbolic")
                 .has_frame(false)
-                .tooltip_text("Remover favorito")
+                .tooltip_text(tr("Remover favorito"))
                 .build();
             del_btn.add_css_class("flat");
 
@@ -1902,16 +1959,16 @@ fn show_quick_jump_popover(
                 let mut bms = load_bookmarks();
                 bms.retain(|b| b.path != bm_path_del);
                 save_bookmarks(&bms);
-                st.set_text("Pasta removida dos favoritos.");
+                st.set_text(&tr("Pasta removida dos favoritos."));
 
                 let cur_str = c_dir2.borrow().to_string_lossy().to_string();
                 let is_cur_bookmarked = bms.iter().any(|b| b.path == cur_str);
                 if is_cur_bookmarked {
                     btn_bm.add_css_class("bookmark-active-star");
-                    btn_bm.set_tooltip_text(Some("Remover favorito do diretório atual"));
+                    btn_bm.set_tooltip_text(Some(&tr("Remover favorito do diretório atual")));
                 } else {
                     btn_bm.remove_css_class("bookmark-active-star");
-                    btn_bm.set_tooltip_text(Some("Favoritar diretório atual"));
+                    btn_bm.set_tooltip_text(Some(&tr("Favoritar diretório atual")));
                 }
 
                 p_clone2.popdown();
@@ -2053,7 +2110,7 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
 
         if entry.is_symlink {
             let sym_icon = gtk4::Image::from_icon_name("emblem-symbolic-link-symbolic");
-            sym_icon.set_tooltip_text(Some("Link simbólico"));
+            sym_icon.set_tooltip_text(Some(&tr("Symbolic Link")));
             name_box.append(&sym_icon);
         }
 
@@ -2062,7 +2119,7 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
             let badge_exec = gtk4::Label::new(Some("+x"));
             badge_exec.add_css_class("badge-pill");
             badge_exec.add_css_class("badge-exec");
-            badge_exec.set_tooltip_text(Some("Arquivo executável"));
+            badge_exec.set_tooltip_text(Some(&tr("Executable file")));
             badges_box.append(&badge_exec);
         }
         if let Some((badge_text, badge_css)) = entry.file_type_badge() {
@@ -2089,7 +2146,10 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
         let perm_lbl = gtk4::Label::new(Some(&entry.formatted_permissions()));
         perm_lbl.add_css_class("file-detailed-col-perms");
         perm_lbl.add_css_class("monospace");
-        perm_lbl.set_tooltip_text(Some(&format!("Octal: {}", entry.permissions_octal_str())));
+        perm_lbl.set_tooltip_text(Some(&tr_fmt(
+            "Octal: {mode}",
+            &[("mode", &entry.permissions_octal_str())],
+        )));
         perm_lbl.set_width_request(110);
         perm_lbl.set_xalign(0.5);
 
@@ -2249,7 +2309,7 @@ fn populate_grid_card_badges(badges_box: &gtk4::Box, entry: &FileEntry) {
         let badge = gtk4::Label::new(Some("+x"));
         badge.add_css_class("badge-pill");
         badge.add_css_class("badge-exec");
-        badge.set_tooltip_text(Some("Arquivo executável"));
+        badge.set_tooltip_text(Some(&tr("Executable file")));
         badges_box.append(&badge);
         has_badge = true;
     }
@@ -2509,7 +2569,7 @@ pub fn build_file_pane(
     btn_sort_name.add_css_class("file-detailed-header-name");
     let name_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
     let lbl_name = gtk4::Label::builder()
-        .label("Nome")
+        .label(tr("Name"))
         .xalign(0.0)
         .hexpand(true)
         .build();
@@ -2534,7 +2594,7 @@ pub fn build_file_pane(
     icon_size_sort.add_css_class("dim-label");
     icon_size_sort.set_visible(false);
     let lbl_size = gtk4::Label::builder()
-        .label("Tamanho")
+        .label(tr("Size"))
         .xalign(1.0)
         .build();
     lbl_size.add_css_class("file-detailed-header-label");
@@ -2555,7 +2615,7 @@ pub fn build_file_pane(
     icon_mod_sort.add_css_class("dim-label");
     icon_mod_sort.set_visible(false);
     let lbl_mod = gtk4::Label::builder()
-        .label("Data Modificada")
+        .label(tr("Date Modified"))
         .xalign(0.5)
         .build();
     lbl_mod.add_css_class("file-detailed-header-label");
@@ -2576,7 +2636,7 @@ pub fn build_file_pane(
     icon_perm_sort.add_css_class("dim-label");
     icon_perm_sort.set_visible(false);
     let lbl_perm = gtk4::Label::builder()
-        .label("Permissões")
+        .label(tr("Permissions"))
         .xalign(0.5)
         .build();
     lbl_perm.add_css_class("file-detailed-header-label");
@@ -2597,7 +2657,7 @@ pub fn build_file_pane(
     icon_owner_sort.add_css_class("dim-label");
     icon_owner_sort.set_visible(false);
     let lbl_owner = gtk4::Label::builder()
-        .label("Proprietário")
+        .label(tr("Owner"))
         .xalign(0.0)
         .build();
     lbl_owner.add_css_class("file-detailed-header-label");
@@ -2664,28 +2724,28 @@ pub fn build_file_pane(
 
     let btn_refresh = gtk4::Button::builder()
         .icon_name("view-refresh-symbolic")
-        .tooltip_text("Atualizar (F5)")
+        .tooltip_text(tr("Atualizar (F5)"))
         .has_frame(false)
         .build();
     btn_refresh.add_css_class("flat");
 
     let btn_hidden = gtk4::ToggleButton::builder()
         .icon_name("view-reveal-symbolic")
-        .tooltip_text("Mostrar arquivos ocultos (.dotfiles)")
+        .tooltip_text(tr("Mostrar arquivos ocultos (.dotfiles)"))
         .has_frame(false)
         .build();
     btn_hidden.add_css_class("flat");
 
     let btn_bookmark = gtk4::Button::builder()
         .icon_name("starred-symbolic")
-        .tooltip_text("Favoritar diretório atual")
+        .tooltip_text(tr("Favoritar diretório atual"))
         .has_frame(false)
         .build();
     btn_bookmark.add_css_class("flat");
 
     let btn_quick_jump = gtk4::Button::builder()
         .icon_name("system-search-symbolic")
-        .tooltip_text("Atalhos do Sistema & Favoritos")
+        .tooltip_text(tr("Atalhos do Sistema & Favoritos"))
         .has_frame(false)
         .build();
     btn_quick_jump.add_css_class("flat");
@@ -2702,18 +2762,18 @@ pub fn build_file_pane(
     mode_box.add_css_class("linked");
     let btn_mode_list = gtk4::ToggleButton::builder()
         .icon_name("view-list-symbolic")
-        .tooltip_text("Visualização em Lista Detalhada")
+        .tooltip_text(tr("Detailed List View"))
         .active(initial_vm == FileManagerViewMode::List)
         .build();
     let btn_mode_grid = gtk4::ToggleButton::builder()
         .icon_name("view-grid-symbolic")
-        .tooltip_text("Visualização em Grade / Miniaturas")
+        .tooltip_text(tr("Visualização em Grade / Miniaturas"))
         .active(initial_vm == FileManagerViewMode::Grid)
         .group(&btn_mode_list)
         .build();
     let btn_mode_tree = gtk4::ToggleButton::builder()
         .icon_name("format-indent-more-symbolic")
-        .tooltip_text("Visualização em Árvore Hierárquica")
+        .tooltip_text(tr("Hierarchical Tree View"))
         .active(initial_vm == FileManagerViewMode::Tree)
         .group(&btn_mode_list)
         .build();
@@ -2724,7 +2784,7 @@ pub fn build_file_pane(
 
     let btn_toggle_dual = gtk4::ToggleButton::builder()
         .icon_name("view-dual-symbolic")
-        .tooltip_text("Alternar Painel Duplo (Dividir / Dual-Pane)")
+        .tooltip_text(tr("Alternar Painel Duplo (Dividir / Dual-Pane)"))
         .active(false)
         .has_frame(false)
         .build();
@@ -2749,26 +2809,26 @@ pub fn build_file_pane(
     switch_container.set_margin_start(4);
     switch_container.set_margin_end(4);
 
-    let recursive_lbl = gtk4::Label::new(Some("Recursivo"));
+    let recursive_lbl = gtk4::Label::new(Some(&tr("Recursive")));
     recursive_lbl.add_css_class("dim-label");
     recursive_lbl.set_valign(gtk4::Align::Center);
 
     let recursive_switch = gtk4::Switch::new();
     recursive_switch.set_active(false);
     recursive_switch.set_valign(gtk4::Align::Center);
-    recursive_switch.set_tooltip_text(Some("Pesquisa recursiva em subdiretórios"));
+    recursive_switch.set_tooltip_text(Some(&tr("Pesquisa recursiva em subdiretórios")));
 
     switch_container.append(&recursive_lbl);
     switch_container.append(&recursive_switch);
 
     let search_entry = gtk4::SearchEntry::builder()
-        .placeholder_text("Filtrar arquivos...")
+        .placeholder_text(tr("Filter files..."))
         .width_chars(14)
         .build();
 
     let btn_history = gtk4::Button::builder()
         .icon_name("document-open-recent-symbolic")
-        .tooltip_text("Histórico de Transferências")
+        .tooltip_text(tr("Histórico de Transferências"))
         .has_frame(false)
         .build();
     btn_history.add_css_class("flat");
@@ -3141,10 +3201,10 @@ pub fn build_file_pane(
             let is_bm = bms.iter().any(|b| b.path == cur_str);
             if is_bm {
                 btn_bm.add_css_class("bookmark-active-star");
-                btn_bm.set_tooltip_text(Some("Remover favorito do diretório atual"));
+                btn_bm.set_tooltip_text(Some(&tr("Remover favorito do diretório atual")));
             } else {
                 btn_bm.remove_css_class("bookmark-active-star");
-                btn_bm.set_tooltip_text(Some("Favoritar diretório atual"));
+                btn_bm.set_tooltip_text(Some(&tr("Favoritar diretório atual")));
             }
 
             // Rebuild Breadcrumbs with › separators
@@ -3183,7 +3243,13 @@ pub fn build_file_pane(
                 match backend.list_dir(&dir_path) {
                     Ok(list) => list,
                     Err(e) => {
-                        status.set_text(&format!("Erro ao listar {}: {e}", dir_path.display()));
+                        status.set_text(&tr_fmt(
+                            "Erro ao listar {path}: {err}",
+                            &[
+                                ("path", &dir_path.display().to_string()),
+                                ("err", &e.to_string()),
+                            ],
+                        ));
                         Vec::new()
                     }
                 }
@@ -3273,7 +3339,7 @@ pub fn build_file_pane(
 
                 if entry.is_symlink {
                     let sym_icon = gtk4::Image::from_icon_name("emblem-symbolic-link-symbolic");
-                    sym_icon.set_tooltip_text(Some("Link simbólico"));
+                    sym_icon.set_tooltip_text(Some(&tr("Symbolic Link")));
                     name_box.append(&sym_icon);
                 }
 
@@ -3282,7 +3348,7 @@ pub fn build_file_pane(
                     let badge_exec = gtk4::Label::new(Some("+x"));
                     badge_exec.add_css_class("badge-pill");
                     badge_exec.add_css_class("badge-exec");
-                    badge_exec.set_tooltip_text(Some("Arquivo executável"));
+                    badge_exec.set_tooltip_text(Some(&tr("Executable file")));
                     badges_box.append(&badge_exec);
                 }
                 if let Some((badge_text, badge_css)) = entry.file_type_badge() {
@@ -3308,7 +3374,10 @@ pub fn build_file_pane(
                 let perm_lbl = gtk4::Label::new(Some(&entry.formatted_permissions()));
                 perm_lbl.add_css_class("file-detailed-col-perms");
                 perm_lbl.add_css_class("monospace");
-                perm_lbl.set_tooltip_text(Some(&format!("Octal: {}", entry.permissions_octal_str())));
+                perm_lbl.set_tooltip_text(Some(&tr_fmt(
+                    "Octal: {mode}",
+                    &[("mode", &entry.permissions_octal_str())],
+                )));
                 perm_lbl.set_width_request(110);
                 perm_lbl.set_xalign(0.5);
 
@@ -3609,8 +3678,8 @@ pub fn build_file_pane(
                 bms.remove(pos);
                 save_bookmarks(&bms);
                 bm_btn.remove_css_class("bookmark-active-star");
-                bm_btn.set_tooltip_text(Some("Favoritar diretório atual"));
-                st.set_text(&format!("Favorito removido: '{}'", p.display()));
+                bm_btn.set_tooltip_text(Some(&tr("Favoritar diretório atual")));
+                st.set_text(&tr_fmt("Favorito removido: '{path}'", &[("path", &p.display().to_string())]));
             } else {
                 let name = p
                     .file_name()
@@ -3619,8 +3688,8 @@ pub fn build_file_pane(
                 bms.push(FileManagerBookmark { name, path: p_str });
                 save_bookmarks(&bms);
                 bm_btn.add_css_class("bookmark-active-star");
-                bm_btn.set_tooltip_text(Some("Remover favorito do diretório atual"));
-                st.set_text(&format!("Diretório '{}' marcado como favorito.", p.display()));
+                bm_btn.set_tooltip_text(Some(&tr("Remover favorito do diretório atual")));
+                st.set_text(&tr_fmt("Diretório '{path}' marcado como favorito.", &[("path", &p.display().to_string())]));
             }
             rf();
         });
@@ -3646,7 +3715,7 @@ pub fn build_file_pane(
     {
         let st = status_lbl.clone();
         btn_history.connect_clicked(move |_| {
-            st.set_text("Fila de transferências vazia (0 tarefas em andamento).");
+            st.set_text(&tr("Fila de transferências vazia (0 tarefas em andamento)."));
         });
     }
 
@@ -3812,20 +3881,23 @@ pub fn show_permissions_dialog(
         entry.name.clone()
     };
 
-    let title = format!("Permissões para {display_name}");
+    let title = tr_fmt("Permissões para {name}", &[("name", &display_name)]);
     let current_perms = entry.formatted_permissions();
-    let body = format!("Definir permissões de arquivo para: {display_name}\nAtual: {current_perms}");
+    let body = tr_fmt(
+        "Definir permissões de arquivo para: {name}\nAtual: {perms}",
+        &[("name", &display_name), ("perms", &current_perms)],
+    );
 
     let content_box = gtk4::Box::new(gtk4::Orientation::Vertical, 12);
     content_box.set_size_request(350, -1);
 
     // Group 1: Proprietário
-    let owner_group = adw::PreferencesGroup::builder().title("Proprietário").build();
+    let owner_group = adw::PreferencesGroup::builder().title(tr("Owner")).build();
     let owner_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
     owner_box.set_homogeneous(true);
-    let owner_read = gtk4::CheckButton::with_label("Ler");
-    let owner_write = gtk4::CheckButton::with_label("Escrever");
-    let owner_exec = gtk4::CheckButton::with_label("Executar");
+    let owner_read = gtk4::CheckButton::with_label(&tr("Read"));
+    let owner_write = gtk4::CheckButton::with_label(&tr("Write"));
+    let owner_exec = gtk4::CheckButton::with_label(&tr("Execute"));
     owner_box.append(&owner_read);
     owner_box.append(&owner_write);
     owner_box.append(&owner_exec);
@@ -3835,12 +3907,12 @@ pub fn show_permissions_dialog(
     content_box.append(&owner_group);
 
     // Group 2: Grupo
-    let group_group = adw::PreferencesGroup::builder().title("Grupo").build();
+    let group_group = adw::PreferencesGroup::builder().title(tr("Group")).build();
     let group_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
     group_box.set_homogeneous(true);
-    let group_read = gtk4::CheckButton::with_label("Ler");
-    let group_write = gtk4::CheckButton::with_label("Escrever");
-    let group_exec = gtk4::CheckButton::with_label("Executar");
+    let group_read = gtk4::CheckButton::with_label(&tr("Read"));
+    let group_write = gtk4::CheckButton::with_label(&tr("Write"));
+    let group_exec = gtk4::CheckButton::with_label(&tr("Execute"));
     group_box.append(&group_read);
     group_box.append(&group_write);
     group_box.append(&group_exec);
@@ -3850,12 +3922,12 @@ pub fn show_permissions_dialog(
     content_box.append(&group_group);
 
     // Group 3: Outros
-    let others_group = adw::PreferencesGroup::builder().title("Outros").build();
+    let others_group = adw::PreferencesGroup::builder().title(tr("Others")).build();
     let others_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
     others_box.set_homogeneous(true);
-    let others_read = gtk4::CheckButton::with_label("Ler");
-    let others_write = gtk4::CheckButton::with_label("Escrever");
-    let others_exec = gtk4::CheckButton::with_label("Executar");
+    let others_read = gtk4::CheckButton::with_label(&tr("Read"));
+    let others_write = gtk4::CheckButton::with_label(&tr("Write"));
+    let others_exec = gtk4::CheckButton::with_label(&tr("Execute"));
     others_box.append(&others_read);
     others_box.append(&others_write);
     others_box.append(&others_exec);
@@ -3913,7 +3985,7 @@ pub fn show_permissions_dialog(
         let cm = calc_mode.clone();
         Rc::new(move || {
             let (_, str_val) = cm();
-            ml.set_text(&format!("Modo numérico: {str_val}"));
+            ml.set_text(&tr_fmt("Modo numérico: {mode}", &[("mode", &str_val)]));
         })
     };
 
@@ -3942,8 +4014,8 @@ pub fn show_permissions_dialog(
         .extra_child(&content_box)
         .build();
 
-    dialog.add_response("cancel", "Cancelar");
-    dialog.add_response("apply", "Aplicar");
+    dialog.add_response("cancel", &tr("Cancel"));
+    dialog.add_response("apply", &tr("Apply"));
     dialog.set_response_appearance("apply", adw::ResponseAppearance::Suggested);
 
     let path = entry.path.clone();
@@ -3954,11 +4026,17 @@ pub fn show_permissions_dialog(
             let perms = fs::Permissions::from_mode(mode_val);
             match fs::set_permissions(&path, perms) {
                 Ok(()) => {
-                    status_lbl.set_text(&format!("Permissões de '{name}' alteradas para {mode_str}"));
+                    status_lbl.set_text(&tr_fmt(
+                        "Permissões de '{name}' alteradas para {mode}",
+                        &[("name", &name), ("mode", &mode_str)],
+                    ));
                     refresh_fn();
                 }
                 Err(e) => {
-                    status_lbl.set_text(&format!("Erro ao alterar permissões de '{name}': {e}"));
+                    status_lbl.set_text(&tr_fmt(
+                        "Erro ao alterar permissões de '{name}': {err}",
+                        &[("name", &name), ("err", &e.to_string())],
+                    ));
                 }
             }
         }
@@ -3998,7 +4076,7 @@ fn show_simple_input_dialog(
     let entry = gtk4::Entry::builder().text(initial_value).build();
     content.append(&entry);
 
-    let btn_ok = gtk4::Button::with_label("Confirmar");
+    let btn_ok = gtk4::Button::with_label(&tr("Confirm"));
     btn_ok.add_css_class("suggested-action");
     btn_ok.set_halign(gtk4::Align::End);
     content.append(&btn_ok);
@@ -4127,18 +4205,18 @@ pub fn build_complete_file_manager(
 
     let btn_copy_to_right = gtk4::Button::builder()
         .icon_name("go-next-symbolic")
-        .tooltip_text("Copiar Selecionado para o Painel Direito (→)")
+        .tooltip_text(tr("Copiar Selecionado para o Painel Direito (→)"))
         .build();
     btn_copy_to_right.add_css_class("suggested-action");
 
     let btn_copy_to_left = gtk4::Button::builder()
         .icon_name("go-previous-symbolic")
-        .tooltip_text("Copiar Selecionado para o Painel Esquerdo (←)")
+        .tooltip_text(tr("Copiar Selecionado para o Painel Esquerdo (←)"))
         .build();
 
     let btn_compare_dirs = gtk4::Button::builder()
         .icon_name("view-refresh-symbolic")
-        .tooltip_text("Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)")
+        .tooltip_text(tr("Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"))
         .build();
 
     center_transfer_bar.append(&btn_copy_to_right);
@@ -4175,17 +4253,23 @@ pub fn build_complete_file_manager(
 
         btn_copy_to_right.connect_clicked(move |_| {
             let Some(entry) = lp_sel.borrow().clone() else {
-                status.set_text("Selecione um item no painel esquerdo para enviar (→).");
+                status.set_text(&tr("Selecione um item no painel esquerdo para enviar (→)."));
                 return;
             };
             let dst_dir = rp_dir.borrow().clone();
             match copy_entry_and_record_transfer(&entry, &dst_dir, TransferDirection::Upload, &tx_rc)
             {
                 Ok(dst_path) => {
-                    status.set_text(&format!("Copiado para {}", dst_path.display()));
+                    status.set_text(&tr_fmt(
+                        "Copiado para {path}",
+                        &[("path", &dst_path.display().to_string())],
+                    ));
                     rp_refresh();
                 }
-                Err(e) => status.set_text(&format!("Falha na transferência (→): {e}")),
+                Err(e) => status.set_text(&tr_fmt(
+                    "Falha na transferência (→): {err}",
+                    &[("err", &e.to_string())],
+                )),
             }
         });
     }
@@ -4200,7 +4284,7 @@ pub fn build_complete_file_manager(
 
         btn_copy_to_left.connect_clicked(move |_| {
             let Some(entry) = rp_sel.borrow().clone() else {
-                status.set_text("Selecione um item no painel direito para baixar (←).");
+                status.set_text(&tr("Selecione um item no painel direito para baixar (←)."));
                 return;
             };
             let dst_dir = lp_dir.borrow().clone();
@@ -4211,10 +4295,16 @@ pub fn build_complete_file_manager(
                 &tx_rc,
             ) {
                 Ok(dst_path) => {
-                    status.set_text(&format!("Copiado para {}", dst_path.display()));
+                    status.set_text(&tr_fmt(
+                        "Copiado para {path}",
+                        &[("path", &dst_path.display().to_string())],
+                    ));
                     lp_refresh();
                 }
-                Err(e) => status.set_text(&format!("Falha na transferência (←): {e}")),
+                Err(e) => status.set_text(&tr_fmt(
+                    "Falha na transferência (←): {err}",
+                    &[("err", &e.to_string())],
+                )),
             }
         });
     }
@@ -4226,12 +4316,14 @@ pub fn build_complete_file_manager(
         let status = status_lbl.clone();
         btn_compare_dirs.connect_clicked(move |_| {
             let cmp = compare_directory_entries(&lp_vis.borrow(), &rp_vis.borrow());
-            status.set_text(&format!(
-                "Comparação Dual-Pane: {} idênticos | {} apenas na Esquerda | {} apenas na Direita | {} com tamanho diferente",
-                cmp.identical_count,
-                cmp.only_in_left.len(),
-                cmp.only_in_right.len(),
-                cmp.size_differs.len()
+            status.set_text(&tr_fmt(
+                "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente",
+                &[
+                    ("identical", &cmp.identical_count.to_string()),
+                    ("left_only", &cmp.only_in_left.len().to_string()),
+                    ("right_only", &cmp.only_in_right.len().to_string()),
+                    ("diff", &cmp.size_differs.len().to_string()),
+                ],
             ));
         });
     }
@@ -4374,7 +4466,7 @@ mod tests {
             owner: "vagnarok:vagnarok".to_string(),
         };
         assert_eq!(icon_for_entry(&parent), "folder-symbolic");
-        assert!(build_entry_tooltip_markup(&parent).contains("Subir para o diretório pai"));
+        assert!(build_entry_tooltip_markup(&parent).contains(&tr("<b>Subir para o diretório pai (..)</b>")));
 
         let parent_gicon = resolve_grid_item_gicon(&parent);
         let parent_themed = parent_gicon
@@ -4625,7 +4717,10 @@ mod tests {
             permissions_octal: 0o755,
             owner: "vagnarok:vagnarok".to_string(),
         };
-        assert_eq!(format_grid_subtitle(&dir_entry), "Pasta · 23/08 23:52");
+        assert_eq!(
+            format_grid_subtitle(&dir_entry),
+            tr_fmt("Pasta · {date}", &[("date", "23/08 23:52")])
+        );
 
         let file_entry = FileEntry {
             name: "Cargo.lock".to_string(),
@@ -4696,7 +4791,11 @@ mod tests {
             owner: "vagnarok:vagnarok".to_string(),
         };
         let summary = format_tree_size_summary(&dir_entry);
-        assert!(summary.contains("2 itens"), "Summary should contain item count: {summary}");
+        let expected_items = tr_n("item", "itens", 2);
+        assert!(
+            summary.contains(&format!("2 {expected_items}")),
+            "Summary should contain item count: {summary}"
+        );
 
         let _ = std::fs::remove_dir_all(&tmp_dir);
     }

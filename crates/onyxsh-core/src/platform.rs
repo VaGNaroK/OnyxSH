@@ -119,7 +119,10 @@ pub fn detect_os_context() -> String {
         && !os_name.to_lowercase().contains(&base_distro.to_lowercase())
         && !base_distro.to_lowercase().contains("freedesktop")
     {
-        format!("{os_name} (based on {base_distro})")
+        crate::i18n::tr_fmt(
+            "{os_name} (based on {base_distro})",
+            &[("os_name", &os_name), ("base_distro", &base_distro)],
+        )
     } else {
         os_name
     }

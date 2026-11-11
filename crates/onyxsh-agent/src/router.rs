@@ -1,6 +1,7 @@
 //! Smart Model Routing Engine and Task Complexity Classifier.
 //! Port of `src/onyxsh/agent/router.py`.
 
+use onyxsh_core::i18n::tr;
 use regex::RegexSet;
 use serde::{Deserialize, Serialize};
 use std::sync::OnceLock;
@@ -135,7 +136,7 @@ impl SmartRouter {
                 profile_used: RoutingProfile::Fast,
                 complexity_inferred: TaskComplexity::Simple,
                 offline: true,
-                reason: "Strict Offline Mode active (local Ollama/LM Studio only).".to_string(),
+                reason: tr("Strict Offline Mode active (local Ollama/LM Studio only)."),
             };
         }
 
@@ -149,7 +150,7 @@ impl SmartRouter {
                 profile_used: RoutingProfile::Auto,
                 complexity_inferred: complexity,
                 offline: false,
-                reason: "Smart routing disabled: using default configured provider.".to_string(),
+                reason: tr("Smart routing disabled: using default configured provider."),
             };
         }
 
@@ -169,7 +170,7 @@ impl SmartRouter {
                 profile_used: RoutingProfile::Fast,
                 complexity_inferred: complexity,
                 offline: false,
-                reason: "Routed to Fast profile (low-latency simple query).".to_string(),
+                reason: tr("Routed to Fast profile (low-latency simple query)."),
             },
             RoutingProfile::Advanced | RoutingProfile::Security | RoutingProfile::Auto => {
                 RouteDecision {
@@ -178,7 +179,7 @@ impl SmartRouter {
                     profile_used: effective_profile,
                     complexity_inferred: complexity,
                     offline: false,
-                    reason: "Routed to Advanced/Security reasoning profile.".to_string(),
+                    reason: tr("Routed to Advanced/Security reasoning profile."),
                 }
             }
         }

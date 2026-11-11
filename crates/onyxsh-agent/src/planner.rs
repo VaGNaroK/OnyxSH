@@ -3,6 +3,7 @@
 
 use crate::models::{ActionPlan, ActionStep, RiskLevel};
 use crate::policy_engine::PolicyEngine;
+use onyxsh_core::i18n::tr;
 use regex::Regex;
 use std::sync::OnceLock;
 
@@ -74,8 +75,8 @@ pub fn parse_action_plan(raw_text: &str, policy: &PolicyEngine) -> Option<Action
         .or_else(|| obj.get("intent"))
         .or_else(|| obj.get("summary"))
         .and_then(|v| v.as_str())
-        .unwrap_or("Executar plano do agente")
-        .to_string();
+        .map(String::from)
+        .unwrap_or_else(|| tr("Executar plano do agente"));
 
     let mut steps = Vec::new();
     if let Some(raw_steps) = obj.get("steps").and_then(|v| v.as_array()) {
@@ -88,8 +89,8 @@ pub fn parse_action_plan(raw_text: &str, policy: &PolicyEngine) -> Option<Action
             let description = item
                 .get("description")
                 .and_then(|v| v.as_str())
-                .unwrap_or("Executar passo")
-                .to_string();
+                .map(String::from)
+                .unwrap_or_else(|| tr("Executar passo"));
             let requires_admin = item
                 .get("requires_admin")
                 .and_then(|v| v.as_bool())

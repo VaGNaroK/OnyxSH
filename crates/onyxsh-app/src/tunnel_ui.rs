@@ -13,6 +13,7 @@ use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_terminal::tunnel_manager::{SshTunnel, SshTunnelRegistry};
 use std::cell::RefCell;
@@ -33,7 +34,7 @@ pub fn load_tunnel_registry() -> SshTunnelRegistry {
         // Register standard sample tunnels for first-time onboarding
         reg.register(SshTunnel {
             id: "tun_local_postgres".to_string(),
-            name: "PostgreSQL Remoto".to_string(),
+            name: tr("PostgreSQL Remoto"),
             session_name: "Bastion-Production".to_string(),
             tunnel_type: "local".to_string(),
             local_host: "127.0.0.1".to_string(),
@@ -46,7 +47,7 @@ pub fn load_tunnel_registry() -> SshTunnelRegistry {
         });
         reg.register(SshTunnel {
             id: "tun_socks_proxy".to_string(),
-            name: "SOCKS5 Proxy Corporativo".to_string(),
+            name: tr("SOCKS5 Proxy Corporativo"),
             session_name: "Edge-Router".to_string(),
             tunnel_type: "dynamic".to_string(),
             local_host: "127.0.0.1".to_string(),
@@ -71,7 +72,7 @@ pub fn show_tunnel_manager_window(
     let win = adw::Window::builder()
         .transient_for(parent)
         .modal(false)
-        .title("Gerenciador de Túneis SSH")
+        .title(&tr("SSH Tunnel Manager"))
         .default_width(720)
         .default_height(580)
         .build();
@@ -82,14 +83,14 @@ pub fn show_tunnel_manager_window(
     // Add Tunnel Button
     let btn_add = gtk4::Button::builder()
         .icon_name("list-add-symbolic")
-        .tooltip_text("Adicionar Novo Túnel SSH")
+        .tooltip_text(&tr("Adicionar Novo Túnel SSH"))
         .build();
     btn_add.add_css_class("suggested-action");
 
     // Stop All Tunnels Button
     let btn_stop_all = gtk4::Button::builder()
         .icon_name("media-playback-stop-symbolic")
-        .tooltip_text("Parar Todos os Túneis Ativos")
+        .tooltip_text(&tr("Stop All Active Tunnels"))
         .build();
     btn_stop_all.add_css_class("flat");
 
@@ -100,7 +101,7 @@ pub fn show_tunnel_manager_window(
     // Search Bar
     let search_bar = gtk4::SearchBar::new();
     let search_entry = gtk4::SearchEntry::builder()
-        .placeholder_text("Pesquisar túneis por nome, porta ou host...")
+        .placeholder_text(&tr("Pesquisar túneis por nome, porta ou host..."))
         .hexpand(true)
         .build();
     search_bar.set_child(Some(&search_entry));
@@ -126,8 +127,10 @@ pub fn show_tunnel_manager_window(
 
     let status_page = adw::StatusPage::builder()
         .icon_name("network-workgroup-symbolic")
-        .title("Nenhum Túnel SSH")
-        .description("Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH.")
+        .title(&tr("No SSH Tunnels"))
+        .description(&tr(
+            "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH.",
+        ))
         .vexpand(true)
         .build();
 
@@ -186,19 +189,25 @@ pub fn show_tunnel_manager_window(
                 match tunnel.status.as_str() {
                     "active" => {
                         dot.add_css_class("success");
-                        dot.set_tooltip_text(Some(&format!("Ativo (Ouvindo em {})", tunnel.display_source())));
+                        dot.set_tooltip_text(Some(&tr_fmt(
+                            "Ativo (Ouvindo em {src})",
+                            &[("src", &tunnel.display_source())],
+                        )));
                     }
                     "starting" => {
                         dot.add_css_class("warning");
-                        dot.set_tooltip_text(Some("Conectando..."));
+                        dot.set_tooltip_text(Some(&tr("Connecting...")));
                     }
                     "error" => {
                         dot.add_css_class("error");
-                        dot.set_tooltip_text(Some(&format!("Erro: {}", tunnel.error_message)));
+                        dot.set_tooltip_text(Some(&tr_fmt(
+                            "Erro: {err}",
+                            &[("err", &tunnel.error_message)],
+                        )));
                     }
                     _ => {
                         dot.add_css_class("dim-label");
-                        dot.set_tooltip_text(Some("Parado"));
+                        dot.set_tooltip_text(Some(&tr("Stopped")));
                     }
                 }
                 row.add_prefix(&dot);
@@ -207,7 +216,10 @@ pub fn show_tunnel_manager_window(
                 let btn_copy = gtk4::Button::builder()
                     .icon_name("edit-copy-symbolic")
                     .valign(gtk4::Align::Center)
-                    .tooltip_text(format!("Copiar endereço local (localhost:{})", tunnel.local_port))
+                    .tooltip_text(&tr_fmt(
+                        "Copiar endereço local (localhost:{port})",
+                        &[("port", &tunnel.local_port.to_string())],
+                    ))
                     .build();
                 btn_copy.add_css_class("flat");
                 btn_copy.add_css_class("circular");
@@ -223,7 +235,7 @@ pub fn show_tunnel_manager_window(
                 let btn_edit = gtk4::Button::builder()
                     .icon_name("document-edit-symbolic")
                     .valign(gtk4::Align::Center)
-                    .tooltip_text("Editar Configurações do Túnel")
+                    .tooltip_text(&tr("Editar Configurações do Túnel"))
                     .build();
                 btn_edit.add_css_class("flat");
                 btn_edit.add_css_class("circular");
@@ -257,7 +269,7 @@ pub fn show_tunnel_manager_window(
                 let btn_del = gtk4::Button::builder()
                     .icon_name("user-trash-symbolic")
                     .valign(gtk4::Align::Center)
-                    .tooltip_text("Remover Túnel")
+                    .tooltip_text(&tr("Remover Túnel"))
                     .build();
                 btn_del.add_css_class("flat");
                 btn_del.add_css_class("circular");
@@ -294,10 +306,13 @@ pub fn show_tunnel_manager_window(
                     dot_sw.remove_css_class("dim-label");
                     if state {
                         dot_sw.add_css_class("success");
-                        dot_sw.set_tooltip_text(Some(&format!("Ativo (Ouvindo em {src_display})")));
+                        dot_sw.set_tooltip_text(Some(&tr_fmt(
+                            "Ativo (Ouvindo em {src})",
+                            &[("src", &src_display)],
+                        )));
                     } else {
                         dot_sw.add_css_class("dim-label");
-                        dot_sw.set_tooltip_text(Some("Parado"));
+                        dot_sw.set_tooltip_text(Some(&tr("Stopped")));
                     }
                     glib::Propagation::Proceed
                 });
@@ -361,7 +376,7 @@ pub fn show_tunnel_manager_window(
             if let Some(f) = pop_ref.borrow().as_ref() {
                 f();
             }
-            status.set_text("Todos os túneis SSH foram parados.");
+            status.set_text(&tr("Todos os túneis SSH foram parados."));
         });
     }
 
@@ -382,7 +397,11 @@ pub fn show_tunnel_edit_dialog<F>(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title(if is_new { "Adicionar Túnel SSH" } else { "Editar Túnel SSH" })
+        .title(&if is_new {
+            tr("Add SSH Tunnel")
+        } else {
+            tr("Edit SSH Tunnel")
+        })
         .default_width(520)
         .default_height(560)
         .resizable(false)
@@ -391,8 +410,8 @@ pub fn show_tunnel_edit_dialog<F>(
     let toolbar_view = adw::ToolbarView::new();
     let header = adw::HeaderBar::new();
 
-    let btn_cancel = gtk4::Button::with_label("Cancelar");
-    let btn_save = gtk4::Button::with_label("Salvar");
+    let btn_cancel = gtk4::Button::with_label(&tr("Cancelar"));
+    let btn_save = gtk4::Button::with_label(&tr("Save"));
     btn_save.add_css_class("suggested-action");
 
     header.pack_start(&btn_cancel);
@@ -411,17 +430,18 @@ pub fn show_tunnel_edit_dialog<F>(
 
     // Group 1: Forwarding Mode
     let type_group = adw::PreferencesGroup::builder()
-        .title("Modo de Encaminhamento")
+        .title(&tr("Forwarding Mode"))
         .build();
     let type_combo = adw::ComboRow::builder()
-        .title("Tipo de Túnel")
-        .subtitle("Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)")
+        .title(&tr("Tunnel Type"))
+        .subtitle(&tr(
+            "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)",
+        ))
         .build();
-    let type_list = gtk4::StringList::new(&[
-        "Local (-L) • Conectar porta local a serviço remoto",
-        "Remoto (-R) • Expor porta local em servidor remoto",
-        "Dinâmico (-D) • Proxy SOCKS5 através de SSH",
-    ]);
+    let t_opt_local = tr("Local (-L) • Connect local port to remote service");
+    let t_opt_remote = tr("Remoto (-R) • Expor porta local em servidor remoto");
+    let t_opt_dynamic = tr("Dinâmico (-D) • Proxy SOCKS5 através de SSH");
+    let type_list = gtk4::StringList::new(&[&t_opt_local, &t_opt_remote, &t_opt_dynamic]);
     type_combo.set_model(Some(&type_list));
     type_combo.set_selected(match initial_data.tunnel_type.as_str() {
         "remote" => 1,
@@ -433,29 +453,29 @@ pub fn show_tunnel_edit_dialog<F>(
 
     // Group 2: Endpoints & Ports
     let config_group = adw::PreferencesGroup::builder()
-        .title("Pontos de Extremidade e Portas")
+        .title(&tr("Pontos de Extremidade e Portas"))
         .build();
 
     let name_row = adw::EntryRow::builder()
-        .title("Nome do Túnel")
+        .title(&tr("Tunnel Name"))
         .text(&initial_data.name)
         .build();
     config_group.add(&name_row);
 
     let session_row = adw::EntryRow::builder()
-        .title("Sessão SSH Vinculada")
+        .title(&tr("Sessão SSH Vinculada"))
         .text(&initial_data.session_name)
         .build();
     config_group.add(&session_row);
 
     let local_host_row = adw::EntryRow::builder()
-        .title("Interface Local / Bind IP")
+        .title(&tr("Interface Local / Bind IP"))
         .text(&initial_data.local_host)
         .build();
     config_group.add(&local_host_row);
 
     let local_port_row = adw::SpinRow::builder()
-        .title("Porta Local")
+        .title(&tr("Local Port"))
         .adjustment(&gtk4::Adjustment::new(
             initial_data.local_port as f64,
             1.0,
@@ -468,13 +488,13 @@ pub fn show_tunnel_edit_dialog<F>(
     config_group.add(&local_port_row);
 
     let remote_host_row = adw::EntryRow::builder()
-        .title("Host de Destino")
+        .title(&tr("Destination Host"))
         .text(&initial_data.remote_host)
         .build();
     config_group.add(&remote_host_row);
 
     let remote_port_row = adw::SpinRow::builder()
-        .title("Porta de Destino")
+        .title(&tr("Destination Port"))
         .adjustment(&gtk4::Adjustment::new(
             if initial_data.remote_port > 0 { initial_data.remote_port as f64 } else { 80.0 },
             1.0,
@@ -490,11 +510,11 @@ pub fn show_tunnel_edit_dialog<F>(
 
     // Group 3: Options
     let opt_group = adw::PreferencesGroup::builder()
-        .title("Opções")
+        .title(&tr("Options"))
         .build();
     let auto_start_row = adw::SwitchRow::builder()
-        .title("Iniciar Automaticamente com a Sessão")
-        .subtitle("Abre este túnel automaticamente ao conectar ao host SSH")
+        .title(&tr("Auto-start with Session"))
+        .subtitle(&tr("Abre este túnel automaticamente ao conectar ao host SSH"))
         .active(initial_data.auto_start)
         .build();
     opt_group.add(&auto_start_row);
@@ -514,24 +534,24 @@ pub fn show_tunnel_edit_dialog<F>(
                 // Dynamic SOCKS5
                 rh_row.set_visible(false);
                 rp_row.set_visible(false);
-                lh_row.set_title("Interface de Escuta SOCKS5");
-                lp_row.set_title("Porta do Proxy SOCKS5 (-D)");
+                lh_row.set_title(&tr("SOCKS5 Bind Interface"));
+                lp_row.set_title(&tr("Porta do Proxy SOCKS5 (-D)"));
             } else if idx == 1 {
                 // Remote
                 rh_row.set_visible(true);
                 rp_row.set_visible(true);
-                lh_row.set_title("IP de Origem Local");
-                lp_row.set_title("Porta de Origem Local");
-                rh_row.set_title("Host Remoto para Bind");
-                rp_row.set_title("Porta Exposta Remota (-R)");
+                lh_row.set_title(&tr("Local Source IP"));
+                lp_row.set_title(&tr("Local Source Port"));
+                rh_row.set_title(&tr("Host Remoto para Bind"));
+                rp_row.set_title(&tr("Porta Exposta Remota (-R)"));
             } else {
                 // Local
                 rh_row.set_visible(true);
                 rp_row.set_visible(true);
-                lh_row.set_title("Interface de Escuta Local");
-                lp_row.set_title("Porta de Escuta Local (-L)");
-                rh_row.set_title("Host de Destino Remoto");
-                rp_row.set_title("Porta de Destino Remota");
+                lh_row.set_title(&tr("Interface de Escuta Local"));
+                lp_row.set_title(&tr("Porta de Escuta Local (-L)"));
+                rh_row.set_title(&tr("Remote Destination Host"));
+                rp_row.set_title(&tr("Porta de Destino Remota"));
             }
         })
     };
@@ -572,7 +592,7 @@ pub fn show_tunnel_edit_dialog<F>(
 
             let name = name_row.text().to_string();
             let final_name = if name.trim().is_empty() {
-                format!("{} Tunnel", t_type.to_uppercase())
+                tr_fmt("{type} Tunnel", &[("type", &t_type.to_uppercase())])
             } else {
                 name.trim().to_string()
             };

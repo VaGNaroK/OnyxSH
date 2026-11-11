@@ -17119,3 +17119,4099 @@ msgstr "🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Sempre Avançado (Raciocínio)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} hemmelighet(er) skjult)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ OnyxSH-terminaleksport"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Mål / Kontekst"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Konklusjon og lærdom"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Innledende merknader"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Trinnvis kjøring"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Øktinformasjon"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Ingen utdata generert)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*Dokument automatisk generert av OnyxSH-loggbok.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Ingen trinn valgt for dette dokumentet.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Dato / Tid:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Vert:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Operatør / Forfatter:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Økt:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Status:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Totalt antall registrerte trinn:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Utdata ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (resten av utdataene er avkortet i forhåndsvisningen)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Enhetslesing / -skriving"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable og Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 fargeoppsett, utheving av utdata og regler per kommando"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Gå opp til overordnet mappe (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Notat:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "Port {port} er allerede tildelt en annen prosess."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "FANE #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "AI-assistent: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Fane lukket."
+
+# 
+msgid "Abaixo"
+msgstr "Under"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Avbryt gjeldende konfliktløsning"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Avbryt rebase og gå tilbake til opprinnelig gren"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Åpner søkelinjen for Regex/Bokstavelig i den aktive fanen (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Åpner denne tunnelen automatisk ved tilkobling til SSH-verten"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Åpner en ny lokal terminal (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Åpner et interaktivt skall inne i en kjørende Docker-beholder"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Åpner lenke: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Åpne ressursovervåker (Cairo-sparklines)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Åpne mappe"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Åpne med eksternt program"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Åpne denne katalogen i terminalen (cd)"
+
+# 
+msgid "Acima"
+msgstr "Over"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Følger logger for en Docker-beholder i sanntid"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Følger logger for en systemd-enhet i sanntid"
+
+# 
+msgid "Active"
+msgstr "Aktiv"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Legg til upstream-sporingsreferanse"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Legg til ny SSH-tunnel"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Legg til egendefinert oppsett"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Grupper etter kategorier (.7z øverst)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Tildel en pseudo-TTY koblet til beholderens stdin"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Tillat nedgradering til en eldre pakkeversjon"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Tillat usikre TLS-tilkoblinger"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Revidert endring opprettet med atomisk sikkerhetskopi."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Veksle Zero-Trust AI-assistent"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Veksle topanels filbehandler"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Veksle redigeringsmodus (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Veksle dobbelt panel (Del / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "Veksle sidepanel for SSH-økter"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Flatpak-miljø"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Produksjonsmiljø (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Produksjonsmiljø — beskyttet av ProductionGuard"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Endre spissen på gjeldende gren"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Analyser følgende nylige meldinger og feil fra loggfilen '{name}', og gi en rotårsaksdiagnose samt anbefalte løsninger:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Analyser prosjektet og utarbeid nødvendige rettelser med OpenCode."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Analyser gjeldende pakke og rapporter feil"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Legg ved fil (PathGuard-validering)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Legg ved fil til kontekst (validert av PathGuard)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "Analyse fullført for forespørselen din (`SecretRedactor` og `<untrusted>`-isolering brukt).\n\nAnbefalt kommando:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Analyse forespurt fra AI-assistenten."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Bruker syntaksutheving på utdata fra kommandoen 'cat'"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Bruker kontekstuelle regler automatisk når den kjørende kommandoen oppdages"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Bruk utheving av utdata på SSH-tilkoblinger"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Bruk utheving av utdata på lokale terminaløkter"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Applikasjon & Vindu"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Program eller ID"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Bruk lagret tilstand og behold i stash-listen"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Bruk lagret tilstand og fjern fra stash-listen"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Godkjenn og kjør"
+
+# 
+msgid "Aproximar"
+msgstr "Zoom inn"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Pakkebehandlingsverktøy for Arch Linux / Manjaro"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Arkivmodus (bevarer tillatelser, tidsstempler, symlinks)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Forrige fil (Pil opp / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Binærfil: {name}\nBane: {path}\nStørrelse: {size}\nTillatelser: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Arkivfil"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Fil kopiert for overføring: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Fil opprettet: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Datafil"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Videofil"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Lydfil"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Fil slettet: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Fil merket for flytting: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Fil lastet inn på nytt fra disk."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Filen ble omdøpt til '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Fil gjenopprettet etter tilbakerulling: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Fil lagret med administratorrettigheter (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Filen ble lagret med administratorrettigheter (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Filen ble lagret!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Fil: {name} (Størrelse: {size} byte)\nUtdrag:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Filer gruppert etter kategori (.7z øverst)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Filer sortert etter endringsdato"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Filer sortert etter navn"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Filer sortert etter størrelse"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Filer sortert etter type / filtype"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Kildefiler/-mapper"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "OpenCode-kodeassistent"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust AI-assistent"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "AI-assistenten er ikke tilkoblet."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Ta risikoen og kjør"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "Snarvei '{name}' oppdatert til {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "Snarvei '{name}' fjernet."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Tastatursnarveier (34 konfigurerbare handlinger)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Systemsnarveier og favoritter"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Aktiver / Deaktiver skjold for produksjonsmiljø (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "Aktiver fargelegging av 'cat'"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Aktiver utheving av skallinndata"
+
+# 
+msgid "Ativar Todos"
+msgstr "Aktiver alle"
+
+# 
+msgid "Ativo"
+msgstr "Aktiv"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Aktiv (lytter på {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Nåværende: {curr}\nNy: (trykk taster)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Nåværende: {curr}\nNy: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Nåværende: {curr}\nNy: {new} (Konflikter med {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Oppdater (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Oppdater liste (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Sikkerhetsrevisjon med AI"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Sikkerhetsrevisjon av denne katalogen med AI"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "Sikkerhetsrevisjon av '{name}' sendt til AI-assistenten."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "Revisjon av mappen '{path}' sendt til AI-assistenten."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Øk skriftstørrelse (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Autentisering:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Auto: tilpasser seg terminalbakgrunnen. Manuell: fast tema."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Auto: oppdager kontrast mot bakgrunnen automatisk"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Autofullført: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Smart autofullføring (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Smart autofullføring — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Autofullføring brukt: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Automatisk ja"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Fjern unødvendige avhengigheter automatisk"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Kjører automatisk skrivebeskyttet diagnostikk uten å kreve manuell bekreftelse."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Går til neste fane (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Handling"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "SHA-256-sikkerhetskopi opprettet ({count} filer): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "SHA-256-sikkerhetskopi lagret ({count} filer): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Sikkerhetskopi ikke funnet i {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Sikkerhetskopi gjenopprettet ({count} filer verifisert via SHA-256)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Linje for samtidig kjøring (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Satsvis sletting via xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Blokker og avbryt (Anbefalt)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Kringkasting sendt: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Send til alle"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Bygg alle pakker i arbeidsområdet"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Bygg artefakter i utgivelsesmodus"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Bygg artefakter i utgivelsesmodus med optimaliseringer"
+
+# 
+msgid "Busca"
+msgstr "Søk"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Globalt søk på tvers av faner / Historikk"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Globalt søk på tvers av faner / Økter / Historikk"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Globalt søk på tvers av faner, økter, historikk og snutter (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Globalt søk satt inn i ledetekst: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Globalt søk i OnyxSH (Ctrl+Shift+G) — Faner, økter, historikk og snutter"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Globalt søk: fokusert på fane #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Søker etter filer og mapper med avanserte filtre"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Uskarp søk etter mappe, vert og favoritter (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Søk i terminalen (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Søk i gjeldende terminal"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Søk etter økter eller verter..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Søk etter tekst i terminalen..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Hopp over bekreftelsesspørsmål"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Beregner hashes i bakgrunnen..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Sti kopiert: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Mappesti (f.eks. Produksjon eller Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Filsti (f.eks. /var/log/syslog eller ~/.ssh/id_rsa for å teste blokkering):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Sti satt inn i terminalen: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Filnavnmønster uavhengig av store og små bokstaver"
+
+# 
+msgid "Categoria"
+msgstr "Kategori"
+
+# 
+msgid "Categoria:"
+msgstr "Kategori:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Bytt til mappe før operasjoner utføres"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH-nøkkel / Passord:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Kontroller GPG-signatur og integritet for en .rpm-fil"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Se etter tilgjengelige pakkeoppgraderinger uten å installere"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Kontrollerer en pakke for å fange opp vanlige feil"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Sjekksummer og integritetskontroll — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Velg mellom høyhastighets skyleverandører eller lokale servere."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Tøm all pakkehurtigbuffer (fjern alle nedlastede pakker)"
+
+# 
+msgid "Clean local caches"
+msgstr "Tøm lokale hurtigbuffere"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Tøm pakkehurtigbuffer (fjern gamle nedlastede pakker)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Klikk for å endre tastatursnarveien"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Klikk for å koble til i ny fane (og velge denne økten)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Klikk for å forstå hva hvert tillatelsesnivå tillater eller begrenser"
+
+# 
+msgid "Colar"
+msgstr "Lim inn"
+
+# 
+msgid "Colar Aqui"
+msgstr "Lim inn her"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Lim inn i denne mappen"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Lim inn en MD5-, SHA-1-, SHA-256- eller SHA-512-hash ovenfor for å bekrefte ekthet."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Fargelegger kommandoer i sanntid mens du skriver i terminalen"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Fargelegger mønstre i terminalutdata, som feil, advarsler og IP-er. Mange regler kan påvirke svært store utdata."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "Fargelegging av kommandoen cat"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Kommando ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Kommando / Mal:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Kommando etter innlogging:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Kommando kopiert til utklippstavlen."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Produksjonskommando vurdert av operatøren."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Kommando sendt til terminalen: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Kommando sendt: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Kommando kjørt fra historikk: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Kommando kjørt via palett: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Kommando mislyktes (kode {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Kommando satt inn i ledetekst: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Lang kommando fullført (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Tilpass til terminalfarger"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Kommandopalett (Ctrl+Shift+P) — Samlet søk"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Kommandopalett — Samlet søk (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Komprimer"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Integritetssammenligner"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Sammenlign / Synkroniser mapper (Venstre ⇄ Høyre)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Sammenligning med to paneler: {identical} identiske | {left_only} kun til venstre | {right_only} kun til høyre | {diff} med ulik størrelse"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Kompatibilitet med Git- og eldre repositorier"
+
+# 
+msgid "Compile the current package"
+msgstr "Kompiler gjeldende pakke"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Komprimer fildata under overføring"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Konklusjon og lærdom"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Koblet til økt: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Kobler til via Globalt søk: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Kobler til via Kommandopalett: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Koble til i delt panel (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Koble til: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "Konfigurer AI-assistent..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Konfigurer regler for denne kommandoen"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "Konfigurer AI-assistent — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Konfigurer alle utpakkede, men ukonfigurerte pakker"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Konfigurer en utpakket pakke"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Konfigurer individuelle nøkler for å bytte leverandør uten å konfigurere på nytt"
+
+# 
+msgid "Confirm"
+msgstr "Bekreft"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Bekreft sletting"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Konflikt eller synkroniseringsfeil i Git-repositoriet."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Størrelse på kontekstvindu (Tokens)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Innhold kopiert til utklippstavlen."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Fortsett rebase etter å ha løst konflikter"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Samtale lastet fra historikk."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Kopiert til {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Kopier fil"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Kopier overordnet mappesti"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Kopier mappe"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Kopier valgte til høyre panel (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Kopier valgte til venstre panel (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Kopier til utklippstavlen"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Kopier detaljert rapport i Markdown-format"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Farger og uthevinger"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Farger og uthevinger i terminalen"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Standard terminalfarger (0-7 normale, 8-15 lyse)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Opprett en flette-commit selv ved fast-forward"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Opprett en grunn klone med avkortet historikk"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Opprett gzip-komprimert tar-arkiv med detaljert utdata"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Oppretter komprimerte arkiver fra filer og mapper"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Oppretter og redigerer parametriserte kommandoknapper (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Oppretter og bytter til en ny lokal gren i Git-repositoriet"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Oppretter en testfil i /tmp med atomisk sikkerhetskopi i AuditLogger"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Oppretter et egendefinert fargeskjema basert på det aktive skjemaet"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Opprett sikkerhetskopi av innstillinger (SHA-256-pakke)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Opprett økt"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Opprett en lokal (-L), ekstern (-R) eller dynamisk SOCKS5 (-D)-tunnel for å videresende porter over SSH."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Kontrollsumberegning avbrutt av bruker."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Rust-kode"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Kode satt inn i aktiv terminal."
+
+# 
+msgid "Código-Fonte"
+msgstr "Kildekode"
+
+# 
+msgid "Cópia de {name}"
+msgstr "Kopi av {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "Endringsdato"
+
+# 
+msgid "Date / Time"
+msgstr "Dato / Tid"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Dato: {date} | Dimensjoner: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Debian-pakkebehandler på lavt nivå (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Standard API-nøkkel"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Standard modell-identifikator"
+
+# 
+msgid "Default Provider"
+msgstr "Standardleverandør"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Definerer og kjører flerkontainerapplikasjoner"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Angi filtillatelser for: {name}\nGjeldende: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Slett en brannmurregel"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Slett en flettet gren"
+
+# 
+msgid "Desativar Todos"
+msgstr "Deaktiver alle"
+
+# 
+msgid "Descrição:"
+msgstr "Beskrivelse:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Utheving av Shell-inndata"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Sanntids syntaksutheving mens du skriver kommandoer"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Syntaksutheving for utdata fra 'cat'-kommandoen (med Pygments/ANSI-motor)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Eksternt mål"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Frakoblet modus: kjør kommando i bakgrunnen"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Diagnostiser loggfeil med AI"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Diagnostiser og start nettjeneste på nytt"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Heuristisk diagnostikk (**{title}**):\n{desc}\n\nForslag til rask løsning:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Sikker systemdiagnostikk — Telemetri og støtte"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "Loggdiagnostikk for '{name}' sendt til AI-assistenten."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Skill mellom store og små bokstaver"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Skriv inn en kommando (f.eks.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Skriv inn en kommando som skal sendes til ALLE åpne terminaler..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Skriv inn en handling, SSH-økt eller parametrisert kommando..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Reduser skriftstørrelse (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Dynamisk (-D) • SOCKS5-proxy over SSH"
+
+# 
+msgid "Direita"
+msgstr "Høyre"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "Mappen '{path}' merket som favoritt."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Konfigurasjonsmappe"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Mappe sendt til terminal: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Mappe: {name}\nSti: {path}\nTillatelser: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Tillatte mapper, PathGuard-isolasjon og standardavvisningsregler"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Deaktiver en installert snap"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Disken er full (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Disk (fysisk I/O)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Vis detaljert informasjon om en installert pakke"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Vis minne i megabyte"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Vis statusdetaljer for installert pakke"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Deler den gjeldende fanen oppe/nede (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Deler den gjeldende fanen side om side (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Del opp horisontalt"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Del terminal horisontalt"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Del opp vertikalt"
+
+# 
+msgid "Divisão"
+msgstr "Splitting"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Ikke spør om noe, bruk standardsvar"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Ikke kontroller avhengigheter før sletting"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Ikke utfør en ekstern kommando (kun portvideresending)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Ikke løs opp tjenestenavn"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Ikke lagre et øyeblikksbilde av snappens data"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Ikke bekreft pakkeavhengigheter"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Ikke bekreft pakkeavhengigheter før installering"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Ikke gjør noe hvis det finnes en ekstern kilde med samme navn"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Tekstdokument"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Last ned en fersk kopi av pakkedatabasene"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Last bare ned pakker, ikke installer"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Tegn tekstbasert grafisk commit-historikk"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Prøvekjøring av fjerning uten å slette filer"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Prøvekjøring av installering uten å endre systemet"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Rediger kommando: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Rediger tunnelinnstillinger"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Rediger fargeskjema"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Rediger valgt økt"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Rediger økt — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Rediger fargeskjema eller opprett en egendefinert variant"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Jeg har utarbeidet en **Strukturert handlingsplan** med validering av `PolicyEngine` og automatisk verifisering etter kjøring (`verifier.rs`) for:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Moderne terminalemulator for lokale og eksterne Linux-arbeidsflyter, med ProductionGuard, to-panels SFTP/TFTP og en Zero-Trust AI-assistent."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Aktiver en deaktivert snap"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "X11-videresending (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Lukker den gjeldende fanen (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Finn filer"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Sender kommandoer samtidig til flere terminaler (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Send kommando til alle faner"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Send spørsmål"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "Send sha256sum-kommando til den gjeldende terminalfanen"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Send til alle"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Slett (avinstaller) en installert RPM-pakke"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Feil ved lagring av fil"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Feil ved endring av tillatelser for '{name}': {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Feil ved beregning av hash"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Feil ved innliming av element: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Feil ved opprettelse av fil: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Feil ved opprettelse av sikkerhetskopi: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Feil ved opprettelse av mappe: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Feil ved sletting av fil: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Feil ved sletting av mappe: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Feil ved oppføring av {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Feil ved flytting av element: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Feil ved navneendring: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Feil i Git-repositorium"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Tilbakerullingsfeil: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Feil: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Velg mellom lokal (-L), ekstern (-R) eller dynamisk SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Fargeskjema brukt: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Fargeskjema lagret: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Denne økten kommer fra ~/.ssh/config (skrivebeskyttet) eller har allerede blitt fjernet."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Denne filen er skrivebeskyttet. Endringer kan lagres med administratorrettigheter (Root)."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Lys stil (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Mørk stil (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "F.eks.: 10.0.0.15 eller srv.bedrift.no"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "F.eks.: Produksjon (la stå tom for rot)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "F.eks.: Produksjon Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "F.eks.: root eller ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Slett mappe"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Slett permanent"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Kjørt i terminal: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Kjør (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Kjør nå"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Kjør med sudo i terminal"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Kjør kommando i alle terminaler"
+
+# 
+msgid "Executar passo"
+msgstr "Kjør trinn"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Kjør agentplan"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Kjør alle enhets- og integrasjonstester"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Vis øktpanel"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Forklar fil med KI"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "Forklaring av filen '{name}' forespurt fra KI-assistenten."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Forklar formålet, strukturen og virkemåten til filen '{name}'.\nSti: {path}\n\nInnledende innhold:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Eksporterer settings.json, sessions.json og command_buttons.json med SHA-256-hash"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Eksporterer hele bufferen eller den aktive terminalmarkeringen"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Eksportert til {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Eksporter terminalutdata (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Eksporter økt som driftsbok (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "OnyxSH-terminaleksport - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Kontroll av eksterne tilkoblinger og streng dataisolering."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Pakk ut gzip-komprimert tar-arkiv detaljert"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Pakker ut filer fra komprimerte arkiver"
+
+# 
+msgid "Extrair"
+msgstr "Ekstraher"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Kunne ikke lagre som Root"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Kunne ikke vente på pkexec-prosessen: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Kunne ikke beregne kontrollsummer: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Kunne ikke opprette sikkerhetskopi: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Kunne ikke skrive data til pkexecs stdin: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Kunne ikke starte den privilegerte pkexec-prosessen: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Kunne ikke gjenopprette sikkerhetskopi: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Kunne ikke lagre fil: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Overføring mislyktes (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Overføring mislyktes (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Raskt og allsidig verktøy for ekstern og lokal filkopiering"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Legg til / fjern kommando som favoritt"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Legg til gjeldende mappe som favoritt"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Favoritt fjernet: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Committer endringer i Git med en beskrivende melding"
+
+# 
+msgid "Fechar Aba"
+msgstr "Lukk fane"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Lukk aktiv rute"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "RPM-pakkebehandler for Fedora/RHEL/Rocky/AlmaLinux"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Hent fra og integrer med et annet depot"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Overføringskø — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Overføringskøen er tom (0 pågående oppgaver)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Fildata endret for n*24 timer siden"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Filtype (f vanlig fil, d mappe, l symbolsk lenke)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Filtrer arkivet gjennom gzip (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Finn hvilken pakke som gir en bestemt fil eller funksjon"
+
+# 
+msgid "Focar janela existente"
+msgstr "Fokuser eksisterende vindu"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Focus Pane Down"
+
+# 
+msgid "Focar painel acima"
+msgstr "Focus Pane Up"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Focus Pane Right"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Focus Pane Left"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Fokus byttet til første rute."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Fokus byttet til andre rute."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Følg utdata direkte etter hvert som filen vokser"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Skrift, fargepalett, gjennomsiktighet og KI (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Tving sletting selv om apper avhenger av den"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Tving installasjon selv om pakke/filer allerede finnes"
+
+# 
+msgid "Force upgrade"
+msgstr "Tving oppgradering"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Formater spørringsutdata med egendefinert queryformat"
+
+# 
+msgid "Formato"
+msgstr "Format"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "Oppfrisk RPM-pakker (oppgrader bare hvis de allerede er installert)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Generer strukturert handlingsplan (ActionPlan)"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Administrerer systemtjenester med systemctl"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Filbehandler"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Filbehandler med to ruter"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Kommandoadministrator"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Kommandobehandler og dynamiske skjemaer"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Fane- og panelhåndtering"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak application and runtime management"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Foreslå Conventional Commit"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: gjeldende mappe er ikke et Git-depot."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Høy kontekstkapasitet"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Ikonrutenett"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Ultrarask LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Sanntidsgrafer for CPU, RAM, disk-I/O og nettverk/GPU"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Modell og leverandør med høy resonneringsevne for flertrinnsplaner"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Utvidet kommandohistorikk (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Samtalehistorikk"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Overføringshistorikk"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Historikk: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Vert / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Ekstern vert (IP / domene)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Ekstern vert for Bind"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Vert kan ikke være tom"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Ugyldig vert eller IP-adresse."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Identitetsfil (privat nøkkel) for autentisering med offentlig nøkkel"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Ignorer forskjell på store og små bokstaver"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Ignorer sikkerhetskopieringsmerking for filer (fjern konfigurasjonsfiler)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Ignorer ikke-eksisterende filer, spør aldri"
+
+# 
+msgid "Imagem"
+msgstr "Bilde"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "Importer en ASCII-armored offentlig GPG-nøkkel til RPM-nøkkelring"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Importer ekstern konfigurasjon fra .flatpakrepo"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Importer økter (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "Ta med HTTP-svarhoder i utdata"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Øker skriftstørrelsen i terminalen (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Utleder og foreslår automatiske valideringer (tjenestestatus, konfigurasjonssyntaks) etter endrende kommandoer."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "Start TFTP-tjener"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Sett inn (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Sett inn sti i terminal"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Inspiserer gjeldende Git-depot og foreslår en commit-melding"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Inspiser aktive sokler og porter på verten"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Installer en lokal .deb-pakkefil"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Installer en RPM-pakkefil med detaljert fremdrift"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Installer som ikke-eksplisitt avhengighet"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Installer fra beta-kanalen"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Installer fra edge-kanalen"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Installer fra den stabile kanalen (stable)"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Installer én eller flere RPM-pakker"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Installer snaps på systemet"
+
+# 
+msgid "Interactive rebase"
+msgstr "Interaktiv rebase"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Velg interaktivt deler (hunks) av patchen"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Terminalinteraksjon"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Lokalt grensesnitt / Bind-IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Lokalt lyttegrensesnitt"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Tolk mønster som utvidet regulært uttrykk (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Intervall for latenssjekk"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Intervall i sekunder for sending av KeepAlive-sondepakker"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Ugyldig SSH-brukernavn"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Ugyldig vertsnavn eller IP-adresse"
+
+# 
+msgid "Invalid local port"
+msgstr "Ugyldig lokal port"
+
+# 
+msgid "Invalid port number"
+msgstr "Ugyldig portnummer"
+
+# 
+msgid "Invalid remote host"
+msgstr "Ugyldig ekstern vert"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Undersøk sokler (moderne erstatning for netstat)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Gå til fane"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Dette vil tilbakestille alle hurtigtaster til standardverdiene. Vil du fortsette?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Element limt inn i: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Element flyttet til: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "Oppsett for {n_pages} fane(r) lagret til {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Tømmer skjermen og rullebufferen for den aktive økten (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Tøm fullførte"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Tøm historikk som ikke er favoritt"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Tøm økt"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Tøm terminaløkt"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Lenke kopiert til utklippstavlen."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "List opp alle filer som eies av en installert RPM-pakke"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Vis applikasjoner og kjøretidsmiljøer tilgjengelig i et eksternt arkiv"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Vis kapabiliteter som kreves av denne .rpm-pakken"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Vis konfigurasjonsfiler for en installert pakke"
+
+# 
+msgid "List configuration files only"
+msgstr "Vis bare konfigurasjonsfiler"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Vis avhengigheter som kreves av en installert pakke"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Vis filer inneholdt i .rpm-arkivet"
+
+# 
+msgid "List files installed by package"
+msgstr "Vis filer installert av pakken"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Vis fremmede pakker (f.eks. fra AUR)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Vis installerte pakker som samsvarer med mønster"
+
+# 
+msgid "List installed snaps"
+msgstr "Vis installerte snaps"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Vis installerte enhetsfiler og aktiveringsstatusen deres"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Vis foreldreløse pakker (avhengigheter som ikke lenger trengs)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Vis pakker installert som avhengigheter"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Vis lagrede stashes"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Detaljert liste"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Lister opp kataloginnhold med detaljer (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Liste, miniatyrbilderutenett, tre og Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Liste filer"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Lokal (Ollama / LM Studio) • Fullt GPU/CPU-personvern"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Base-URL for lokal server"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Langt format, alle filer, lesbare størrelser"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Modell og leverandør med lav latens for daglige shell-spørsmål"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Opprett overordnede kataloger etter behov"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Maksimal tildeling av kontekstminne sendt til modellen"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Minne (RAM og Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "RAM-minne"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Commit-melding"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Streng frakoblet modus aktiv (Null sky)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Tilkoblet modus med smart ruting aktiv."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Tekstvalgmodus aktivert."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Tekstvalgmodus deaktivert."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Kringkastingsmodus (Broadcast til alle faner)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Temamodus"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Sanntids ressursovervåker (Cairo-sparklinjer)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Sanntids ressursovervåker — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Viser eller skjuler treet for SSH-økter (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Vis skjulte filer (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Motor"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Navn og eventuelt en tagg i formatet 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Ingen elementer på utklippstavlen å lime inn."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Ingen revisjonslogger ennå. Klikk på 'Simuler revidert endring' for å teste atomisk tilbakerulling."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Ingen dedikert GPU oppdaget via sysfs/nvidia-smi"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Ingen økt valgt"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "Ingen overføringer registrert i økten."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Nettverk (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Nettverk (/proc/net/dev) • Sanntids RX / TX"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Nettverk (RX / TX) og GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Aldri still spørsmål"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Navn (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Navn på ny gren"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Øktnavn:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Navn på ny mappe:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Ugyldig filnavn på utklippstavlen."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "SSH-brukernavnet inneholder ugyldige tegn."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Navn på målfil"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Tjenestenavn"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Navn på kommando (f.eks. Start Nginx på nytt)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Navn på ny fil:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Ikonnavn (f.eks. utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Containernavn eller -ID"
+
+# 
+msgid "Nome:"
+msgstr "Navn:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Ikke-interaktiv modus"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Ny terminalfane"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Ny terminalfane (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Ny mappe her..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Ny øktmappe"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Ny mappe..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Ny økt — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Ny samtale startet."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Ny fil her..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Ny fil..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Nytt fargeskjema"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Nytt mappenavn:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Nytt filnavn:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Kunne ikke laste inn elementet: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Kunne ikke lagre endringene: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Ikke nok ledig plass på filsystemet."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Nivå 0 (Lesing)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Nivå 1 (Skriving)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Nivå 2 (Admin)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Nivå 3 (Kritisk)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Nivå 4 (Blokkert)"
+
+# 
+msgid "Nível {n}"
+msgstr "Nivå {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Antall forsøk før automatisk tilkobling på nytt oppgis"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "Binærfilen '{bin}' er ikke installert eller er utenfor $PATH."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "Kommandoen avsluttet med en feilkode."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "Kommandoen som ble kjørt i terminalen mislyktes. Analyser prosjektfilene og utarbeid de nødvendige rettelsene med OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "Kommandoen mislyktes på grunn av manglende superbrukerrettigheter (root)."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "Øktnavnet kan ikke være tomt."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Tilslørt / Base64-dekodet kjøringsrørledning"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Forrige treff (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Treff funnet i terminalen"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Oktal: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Klar"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Varslingstest"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode startet i terminalen."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Samlet multimodellkatalog"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Operatør: {author} | Vert: {host} | Dato: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Utfør på alle pakker i arbeidsområdet"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "Operasjon avbrutt eller avslått av brukeren."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Operasjoner med Arch Linux-pakkebehandler"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Operasjoner med Debian/Ubuntu-pakkebehandler"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Operasjoner med Fedora/RHEL-pakkebehandler"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Filoperasjoner"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Stigende rekkefølge"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Synkende rekkefølge"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Stigende sortering aktivert"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Synkende sortering aktivert"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Sorter installerte pakker etter installasjonstidspunkt (nyeste først)"
+
+# 
+msgid "Organizar por"
+msgstr "Sorter etter"
+
+# 
+msgid "Origem (Local)"
+msgstr "Kilde (Lokal)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Skriv ut tall i lesbart format"
+
+# 
+msgid "Output package names only"
+msgstr "Skriv ut bare pakkenavn"
+
+# 
+msgid "Pacote"
+msgstr "Pakke"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Installasjonspakke"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Navnemønster (f.eks. *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Øktpanel"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Panel/fane lukket."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Helt ord"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16-fargers ANSI-palett"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "Stopp TFTP-server ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Parametere — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Trinn #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Trinn utført: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "Mappen '{path}' ble opprettet."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Mappe / Katalog"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Mappe kopiert til utklippstavlen: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Mappe opprettet: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Mappe slettet: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Mappe merket for flytting: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Mappen ble fjernet fra favoritter."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Mappe omdøpt til '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Mappe · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Mappe:"
+
+# 
+msgid "Pause"
+msgstr "Pause"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Rutingprofil endret til: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Utfør en distribusjonsoppgradering (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Spør AI-assistent"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Spør eller lim inn en terminalfeil..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Tillatelser (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "Tillatelser for '{name}' endret til {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Tillatelser for {name}"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Søk i alle åpne faner, SSH-økter, historikk og snutter (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Rekursivt søk i underkataloger"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Søk i Terminal"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Søk etter tekst i alle åpne terminalfaner, SSH-økter, historikk og snutter..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Søk etter tunneler etter navn, port eller vert..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Rørkoblet kjøring til skalltolk"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Zero-Trust-handlingsplan for: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Bakgrunn"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Vennligst skriv inn en {provider} API-nøkkel før testing."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Endepunkter og porter"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Vennligst analyser følgende terminalvalg:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Vennligst analyser og forklar koden/innholdet i filen '{name}', dens formål, struktur og viktige punkter:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Vennligst utfør en detaljert sikkerhets- og tilgangsstyringsrevisjon i gjeldende katalog '{path}'. Se etter for vide tillatelser, sensitive filer (.env, private nøkler, eksponert påloggingsinformasjon) og anbefal beste praksis for Zero-Trust."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Vennligst utfør en detaljert sikkerhets- og tilgangsrettighetsrevisjon av filen '{name}'.\nSti: {path}\nGjeldende tillatelser: {perms} ({oct})\nStørrelse: {size}\nAnbefal sikre chmod-innstillinger og tiltak mot sårbarheter."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Vennligst utfør en detaljert sikkerhets- og tilgangsrettighetsrevisjon av katalogen '{name}'.\nSti: {path}\nGjeldende tillatelser: {perms} ({oct})\nSist endret: {date}\nAnbefal ideelle chmod-innstillinger, begrensninger og beste praksis for Zero-Trust-samsvar."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Vennligst refaktorer følgende kodesnutt med OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Port utenfor gyldig område (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Ekstern eksponert port (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Ekstern målport"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Lokal lytteport (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "SOCKS5-proxyport (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Port utenfor tillatt område (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Port:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Ekstern PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Innstillinger"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Sett inn 1-basert linjenummer foran hver linje"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Forhåndsvisning av kommando:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Primærleverandør og tilkobling"
+
+# 
+msgid "Print Git version"
+msgstr "Skriv ut Git-versjon"
+
+# 
+msgid "Print RPM version"
+msgstr "Skriv ut RPM-versjon"
+
+# 
+msgid "Print help synopsis"
+msgstr "Skriv ut hjelpesammendrag"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Skriv ut størrelser i potenser av 1024 (f.eks. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Skriv ut testens stdout/stderr direkte"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Skriv ut total for katalogdybde 1"
+
+# 
+msgid "Print zypper version"
+msgstr "Skriv ut zypper-versjon"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Produksjon / Nettservere"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Protokoll:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Gi detaljert utdata"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Leverandør som brukes når smart ruting er deaktivert"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Sanntids forhåndsvisning"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Neste treff (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Neste fil (Pil ned / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Hopp til forrige ledetekst."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Hopp til neste ledetekst."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Fjern en installert pakke fullstendig inkludert konfigurasjon"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Sett snap i klassisk begrensningsmodus"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Antall linjer (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Antall linjer (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Spør en ikke-installert lokal .rpm-pakkefil"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Spør og list opp alle installerte RPM-pakker"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Spør pakker som samsvarer med pakkebrønnkriterier"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "Spør etter status for tjenester levert av snaps"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Spør hvilken installert RPM-pakke som eier en filsti"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Forhåndsvisning)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "Lavnivåverktøy for RPM Package Manager (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Les alle filer under hver katalog rekursivt"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Lesing: {read}/s • Skriving: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Rebaser gjeldende gren oppå oppstrømsgrenen etter henting"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Bygg opp RPM-databaseindeksene på nytt fra installerte hoder"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Smart automatisk gjenoppkobling ved brudd"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Registrer klargjorte endringer i pakkebrønnen"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Klipp ut fil"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Klipp ut mappe"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Tilbakestiller alle snarveier til standardverdier"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Tilbakestill zoom"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Reduserer skriftstørrelsen i terminalen (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Zoom ut"
+
+# 
+msgid "Refresh Interval"
+msgstr "Oppdateringsintervall"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Oppdater alle metadata for pakkebrønner"
+
+# 
+msgid "Refresh files database"
+msgstr "Oppdater fildatabasen"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "AuditLogger-oppføringer (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Globale uthevingsregler"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Start administrert tjeneste på nytt og bruk konfigurasjon"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Installer på nytt hvis pakken allerede er til stede"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Fullstendig hash-rapport kopiert til utklippstavlen"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Renset OnyxSH-diagnostikkrapport"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Diagnostikkrapport kopiert til utklippstavlen."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Strukturert driftsrapport med trinn, notater, mål og konklusjon (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Renset rapport for OS, RAM, GPU/VRAM og Flatpak-miljø"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Last inn tjenesten på nytt eller start på nytt hvis ny innlasting ikke støttes"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Ekstern (-R) • Eksponer lokal port på ekstern server"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Fjern én enkelt stash-oppføring"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Fjern alle pakker som er avhengige av målet"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Fjern alle stash-oppføringer"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Fjern alle versjoner av pakken"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Fjern en installert pakke og behold konfigurasjonen"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Fjern kataloger og innhold rekursivt"
+
+# 
+msgid "Remove installed packages"
+msgstr "Fjern installerte pakker"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Fjern foreldede eksterne sporingsreferanser"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Fjern én eller flere pakker og ubrukte avhengigheter"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Fjern pakker som opprinnelig ble installert som avhengigheter og ikke lenger trengs"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Fjern snaps fra systemet"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Fjern ubrukte data (containere, nettverk, bilder)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Fjern valgt økt"
+
+# 
+msgid "Remover Túnel"
+msgstr "Fjern tunnel"
+
+# 
+msgid "Remover favorito"
+msgstr "Fjern favoritt"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Fjern gjeldende katalog fra favoritter"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Gi nytt navn til fil"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Gi nytt navn til mappe"
+
+# 
+msgid "Renomear..."
+msgstr "Gi nytt navn..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Rapporter et øyeblikksbilde av gjeldende prosesser"
+
+# 
+msgid "Reportar Problema"
+msgstr "Rapporter problem"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Tilbakestill skriftstørrelse (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Løser terminalfeil med OpenCode / AI..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Omstartspolicy når containeren avslutter"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Gjenoppretter standardskriften Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Gjenopprett globale regler"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Gjenopprett alle kommandoer"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Gjenopprett opprinnelig liste over ignorerte kommandoer"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Gjenopprett indeks / fjern filer fra stage"
+
+# 
+msgid "Resume"
+msgstr "Gjenoppta"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Standard kryptografiske sjekksummer beregnet ut fra filinnholdet:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Hent logger for tjenester"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Diff-gjennomgang og Zero-Trust-revisjon (Atomisk tilbakerulling)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Smart ruting: klikk for å bytte profil (Auto, Rask, Avansert, Sikkerhet)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Rutert til avansert/sikkerhets-resonneringsprofil."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Rutert til rask profil (enkel spørring med lav forsinkelse)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Kjør en binærfil eller et eksempel fra den lokale pakken"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Kjør som om git ble startet i banen"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Kjør påloggingsskall som målbruker (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Kjør optimalisert utgivelsesbinær"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Innebygd Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Pakkebehandler og byggeverktøy for Rust"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH-ØKT"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "SOCKS5-proxy"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Bedrifts-SOCKS5-proxy"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Sikker tvungen push med verifisering av ekstern referanse"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Avslutt applikasjon"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Lagre og lukk"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Lagre endringer"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "Lagre sikkerhetskopi av OnyxSH"
+
+# 
+msgid "Salvar Comando"
+msgstr "Lagre kommando"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Lagre gjeldende faneoppsett"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Lagre med administrator- / Root-rettigheter (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Lagret: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Skriptkjøring"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Søk i beskrivelser så vel som navn"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Søk etter pakke som eier et filnavn"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Søk etter pakker som samsvarer med mønster"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Søk etter snaps i butikken"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Søk i lokalt installerte pakker"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Følg systemstil"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Følg i sanntid (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Sekunder for å holde tilkoblinger i live (0 for å deaktivere)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Valgt: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "Velg sikkerhetskopifil for OnyxSH"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Velg kommandoene som skal inkluderes, og legg til forklarende tekniske kommentarer for hvert trinn. ({count} identifisert)"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Velg et element i høyre rute for å laste ned (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Velg et element i venstre rute for å laste opp (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Velg en økt fra listen først for å redigere."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Velg en økt først for å fjerne."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Velg overvåket vert"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Velg linjer som ikke samsvarer"
+
+# 
+msgid "Seleção copiada."
+msgstr "Utvalg kopiert."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Utvalg sendt til AI-assistenten for analyse."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Utvalg sendt til refaktorering med OpenCode."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Skjul alltid"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP-tjener"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "Skrivebeskyttet TFTP-tjener aktiv på {addr} (rot: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "TFTP-tjener slått av/på."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP-tjener stoppet."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Økt: {session} | Vert: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "Økt '{name}' fjernet."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "Økt '{name}' lagret i ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Tilknyttet SSH-økt"
+
+# 
+msgid "Sessão limpa."
+msgstr "Økt tømt."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Lagrede økter"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Økter synkronisert fra ~/.config/onyxsh/sessions.json og ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Skall som skal kjøres"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Vis alle lyttende TCP/UDP-sokler med prosess og numeriske porter"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Vis alle revisjoner av installerte snaps"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Vis og håndter ruting, nettverksenheter og grensesnitt"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Vis tilgjengelige snap-oppdateringer uten å installere"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Vis endringer mellom commits, indeks og arbeidstre"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Vis detaljert informasjon om en snap"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Vis detaljert informasjon om en installert app eller kjøretidsmiljø"
+
+# 
+msgid "Show error message on failure"
+msgstr "Vis feilmelding ved feil"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Vis fullstendig informasjon for angitte pakker"
+
+# 
+msgid "Show package metadata info"
+msgstr "Vis pakkens metadatainformasjon"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Vis tillatelser for en bestemt filbane"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Vis skripter før/etter installering og avinstallering"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Vis fremdrift og behold delvis overførte filer"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Vis AI-assistentknappen og sidepanelet i topplinjen."
+
+# 
+msgid "Silent mode"
+msgstr "Stillemodus"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Simuler revidert endring"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Synkroniserer lokale filer til ekstern vert samtidig som attributter bevares"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "System"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Operativsystem"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Hopp over bekreftelsesforespørsel"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Smart ruting deaktivert: bruker standard konfigurert leverandør."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, handlingsplaner og atomisk tilbakerulling (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "Om OnyxSH"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "Angi HTTP-forespørselsmetode (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Angi pakke som skal kjøres"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "Angi eksternt skall som skal brukes (f.eks. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Del terminal"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Legg til side (stash) endringer i en endret arbeidskatalog"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Stopp etter sending av 4 pakker"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Streng frakoblet modus aktiv (kun lokal Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Foreslå underkommandoer og parametere for rpm, dnf, apt, pacman, flatpak, systemctl, docker, git og vanlige verktøy"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Forslag for rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Sammendrag av størrelse i lesbart format"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab eller → bruk • ↑/↓ naviger • Esc lukk"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Er du sikker på at du vil slette mappen '{name}' permanent?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Er du sikker på at du vil slette filen '{name}' permanent?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Tema for lys bakgrunn"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Tema for mørk bakgrunn"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Tema som brukes når terminalbakgrunnen er lys"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Tema som brukes når terminalbakgrunnen er mørk"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Kommandamal (f.eks.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Prøver å koble til igjen tapte SSH-økter med nedtelling og varsel på skjermen"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Terminal: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Test alle pakker i arbeidsområdet"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Test avskjæring"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Test integriteten til Nginx-konfigurasjonssyntaks"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Forgrunnstekst (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Dette vil permanent slette alle {count} samtaler. Denne handlingen kan ikke angres."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Type / Filtype"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Filtype"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Alle innstillinger er gjenopprettet til standard."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Alle hurtigtaster er gjenopprettet til standard."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Alle SSH-tunneler er stoppet."
+
+# 
+msgid "Total Lines"
+msgstr "Totalt antall linjer"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Kontinuerlig revisjonsspor for beslutninger, kommandoer og atomisk tilbakerulling"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Ubuntu / Canonical Snap-pakkebehandler"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Behandler for Uncomplicated Firewall"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Enhet / Tjeneste (valgfritt)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Oppdater installerte pakker med nyere versjoner"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Oppdater snap-pakker i systemet"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Oppdater appen/kjøretidsmiljøet hvis det allerede er installert"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Oppgrader en RPM-pakkefil (eller installer hvis den ikke finnes)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Oppgrader eller installer lokal/ekstern pakkefil (.pkg.tar.zst)"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Bruker sammenleggbare blokker (&lt;details&gt;) for utdata lengre enn 15 linjer"
+
+# 
+msgid "Use a long listing format"
+msgstr "Bruk et langt listeformat"
+
+# 
+msgid "Use archive file or device"
+msgstr "Bruk arkivfil eller enhet"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Bruk mappe som øverste rot for RPM-operasjoner"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Ekstern bruker"
+
+# 
+msgid "Usuário SSH:"
+msgstr "SSH-bruker:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Valider og legg ved"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Sjekk gjeldende tjenestestatus og avhengigheter"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Sjekk om tjenesten '{svc}' er aktiv"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Sjekk om tjenesten '{svc}' er aktivert ved oppstart"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Sjekk om tjenesten '{svc}' er stoppet"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Verifiser en bestemt pakke mot en .rpm-fil"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Verifiser integriteten til alle installerte RPM-pakker mot databasen"
+
+# 
+msgid "Versão"
+msgstr "Versjon"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Vis klargjorte endringer for neste commit"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Viser systemlogger med journalctl"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Viser, redigerer og gjenoppretter alle hurtigtaster i OnyxSH"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Visning av samlet diff (Før vs. Etter):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Rutenett- / miniatyrvisning"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Ikonrutenettvisning aktivert"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Detaljert listevisning aktivert"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "Du har ikke tillatelse til å endre '{name}'. Vil du lagre med administratorrettigheter (Root)?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "Du har ulagrede endringer i '{fname}'. Hva vil du gjøre før du lukker?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "Du har ulagrede endringer i denne filen som vil gå tapt. Er du sikker på at du vil forkaste dem?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Gå tilbake til forrige fane (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Venter på måling..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Skriv utdata til lokal fil med samme navn som den eksterne"
+
+# 
+msgid "You: "
+msgstr "Du: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Zoom tilbakestilt (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[KONKLUSJON & MERKNADER]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Binært eller utilgjengelig innhold]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Kan ikke lese loggfilen]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[MÅL / KONTEKST]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[UTFØRTE TRINN ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Risiko: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Risiko oppdaget"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Verifisert"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` ble fullført på {secs}s."
+
+# 
+msgid "linha"
+msgstr "linje"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "Pakkebehandlingsverktøy for openSUSE / SLES"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} kommando(er) • Klikk for å utvide/kolleapse"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} kommandoer"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} linjer"
+
+# 
+msgid "{count} regras"
+msgstr "{count} regler"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} resultater"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} logiske kjerner)"
+
+# 
+msgid "{days} days"
+msgstr "{days} dager"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} hr"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} linjer • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} min"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Kopi)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (basert på {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Vedlagt fil]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "API-nøkkel for {provider} ble konfigurert."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Beslutning: {decision} | Status: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "{type}-tunnel"
+
+# 
+msgid "Ícone:"
+msgstr "Ikon:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "OnyxSH-ikoner (Innebygde)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Last ned / Kopier"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Last opp / Kopier"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Kjør   •   Tab Sett inn i ledetekst   •   ⭐ Favoritt   •   Esc Lukk"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Gå til fane / Kjør • ↑/↓ Naviger • Esc Lukk"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Atomisk tilbakerulling"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ ProductionGuard-varsel ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Destruktiv kommando fanget opp ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ På tregere datamaskiner kan behandling av fargemønstre redusere responstiden noe ved svært store utdata."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ OnyxSH-terminaleksport"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Snutter"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Kommando fullført"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Kopiert!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Kjørt"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Atomisk tilbakerulling fullført: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Kommando mislyktes (Avslutningskode {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ HASH SAMSVARER IKKE! Den innlimte verdien{hint} avviker fra filens beregnede hash-verdier. Filen kan være skadet eller endret."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ HISTORIKK"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Tilkoblet modus aktiv.\nKlikk for å aktivere strengt lokal frakoblet modus."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Alle"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Mål / Kontekst"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Konklusjon og erfaringer"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Du:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Du{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Merknad:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Merk: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Gjeldende mappe"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x kjøringer"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Endret:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Analyser diskbruk"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Kopier renset rapport"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Kopier utdata"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Trygt lagt ved: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Historikk"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Foreløpige merknader"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Kringkasting (🛡️ ProductionGuard aktiv):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Kommando kringkastet til {count} terminal(er)."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Størrelse:</b> {size} <span alpha='70%'>({bytes} byte)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Type:</b> Mappe / Katalog"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 Installer {bin}"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}s"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 SSH-økter"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 Sjekk git status"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Etterkontroll etter kjøring: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Tillatelser:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Testvarsel sendt til skrivebordet."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Sti:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Høy risiko (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Terminalfaner"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Kritisk varsel — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Kringkasting blokkert av ProductionGuard: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard BLOKKERTE lesing av: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ PRODUKSJONSMODUS AKTIV — ProductionGuard fanger opp destruktive kommandoer (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Strengt frakoblet modus aktiv (Zero Cloud).\nKlikk for å bytte til tilkoblet modus."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Frakoblet (Lokal)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Sikkerhet"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Trygg kommando"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Rute: {route}"
+

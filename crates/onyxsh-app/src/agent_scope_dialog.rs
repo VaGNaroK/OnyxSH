@@ -7,6 +7,7 @@ use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
 use onyxsh_core::config::AppSettings;
+use onyxsh_core::i18n::tr;
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -47,7 +48,7 @@ pub fn show_agent_scope_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Configuração de Escopo e Segurança do Agente")
+        .title(&tr("Configuração de Escopo e Segurança do Agente"))
         .default_width(680)
         .default_height(520)
         .build();
@@ -60,13 +61,13 @@ pub fn show_agent_scope_dialog(
     header_bar.set_show_start_title_buttons(false);
 
     let title_lbl = gtk4::Label::builder()
-        .label("Configuração de Escopo e Segurança do Agente")
+        .label(&tr("Configuração de Escopo e Segurança do Agente"))
         .css_classes(["title", "heading"])
         .build();
     header_bar.set_title_widget(Some(&title_lbl));
 
     let btn_cancel = gtk4::Button::builder()
-        .label("Cancelar")
+        .label(&tr("Cancelar"))
         .css_classes(["flat"])
         .build();
     let d_close = dlg.clone();
@@ -84,10 +85,10 @@ pub fn show_agent_scope_dialog(
 
     // 1. Allowed Roots Group (matching python agent_scope_dialog.py)
     let roots_group = adw::PreferencesGroup::new();
-    roots_group.set_title("Diretórios Permitidos para Ações do Agente");
-    roots_group.set_description(Some(
+    roots_group.set_title(&tr("Diretórios Permitidos para Ações do Agente"));
+    roots_group.set_description(Some(&tr(
         "O agente tem permissão de leitura/escrita restrita apenas aos diretórios listados abaixo.",
-    ));
+    )));
 
     let st = settings.borrow();
     let allowed_roots = if st.ai_agent_allowed_roots.is_empty() {
@@ -105,16 +106,17 @@ pub fn show_agent_scope_dialog(
 
     // 2. Protection Policies Group (Default-Deny)
     let policy_group = adw::PreferencesGroup::new();
-    policy_group.set_title("Proteções Ativas (Default-Deny)");
+    policy_group.set_title(&tr("Proteções Ativas (Default-Deny)"));
 
     for rule in builtin_protection_rules() {
         let row = adw::ActionRow::builder()
-            .title(rule.title)
-            .subtitle(rule.subtitle)
+            .title(&tr(rule.title))
+            .subtitle(&tr(rule.subtitle))
             .build();
 
+        let badge_txt = format!("🛡️ {}", tr("Active"));
         let badge = gtk4::Label::builder()
-            .label(rule.badge)
+            .label(&badge_txt)
             .css_classes(["accent"])
             .build();
         row.add_suffix(&badge);

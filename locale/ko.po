@@ -17119,3 +17119,4099 @@ msgstr "🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Sempre Avançado (Raciocínio)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count}개의 비밀이 숨겨짐)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ OnyxSH 터미널 내보내기"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 목표 / 컨텍스트"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 결론 및 교훈"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 사전 참고 사항"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 단계별 실행"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 세션 정보"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(생성된 출력 없음)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*OnyxSH 런북에 의해 자동 생성된 문서입니다.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*이 문서에 선택된 단계가 없습니다.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **날짜 / 시간:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **호스트:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **운영자 / 작성자:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **세션:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **상태:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **기록된 총 단계 수:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- 출력 ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (나머지 출력은 미리보기에서 잘렸습니다)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — 장치 읽기 / 쓰기"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable 및 Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30가지 색상 테마, 출력 강조 및 명령어별 규칙"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>상위 디렉터리로 이동 (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **메모:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "포트 {port}은(는) 이미 다른 프로세스에 할당되어 있습니다."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "탭 #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "AI 어시스턴트: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "탭이 닫혔습니다."
+
+# 
+msgid "Abaixo"
+msgstr "아래"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "현재 충돌 해결 중단"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "리베이스를 중단하고 원래 브랜치로 돌아가기"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "활성 탭에서 정규식/리터럴 검색 표시줄을 엽니다 (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "SSH 호스트에 연결할 때 이 터널을 자동으로 엽니다"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "새 로컬 터미널을 엽니다 (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "실행 중인 Docker 컨테이너 내부에서 대화형 셸을 엽니다"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "링크 여는 중: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "리소스 모니터 열기 (Cairo 스파크라인)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "폴더 열기"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "외부 애플리케이션으로 열기"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "터미널에서 이 디렉터리 열기 (cd)"
+
+# 
+msgid "Acima"
+msgstr "위"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Docker 컨테이너의 로그를 실시간으로 추적합니다"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "systemd 유닛의 로그를 실시간으로 추적합니다"
+
+# 
+msgid "Active"
+msgstr "활성"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "upstream 추적 참조 추가"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "새 SSH 터널 추가"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "사용자 지정 테마 추가"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "범주별로 그룹화 (.7z 상단 표시)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "컨테이너 stdin에 연결된 pseudo-TTY 할당"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "이전 패키지 버전으로 다운그레이드 허용"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "안전하지 않은 TLS 연결 허용"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "원자적 백업과 함께 감사된 변경 사항이 생성되었습니다."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Zero-Trust AI 어시스턴트 전환"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "이중 창 파일 관리자 전환"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "편집 모드 전환 (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "이중 창 전환 (분할 / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "SSH 세션 측면 패널 전환"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Flatpak 환경"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "프로덕션 환경 (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "프로덕션 환경 — ProductionGuard로 보호됨"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "현재 브랜치의 끝부분 수정 (amend)"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "로그 파일 '{name}'의 다음 최근 메시지 및 오류를 분석하고 근본 원인 진단과 권장 해결 방법을 제공하세요:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "프로젝트를 분석하고 OpenCode로 필요한 수정 사항을 준비하세요."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "현재 패키지를 분석하고 오류 보고"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "파일 첨부 (PathGuard 검증)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "컨텍스트에 파일 첨부 (PathGuard로 검증됨)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "요청에 대한 분석이 완료되었습니다(`SecretRedactor` 및 `<untrusted>` 격리 적용됨).\n\n권장 명령어:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "AI 어시스턴트에게 분석을 요청했습니다."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "'cat' 명령어의 출력에 구문 강조를 적용합니다"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "실행 중인 명령어를 감지하면 컨텍스트 규칙을 자동으로 적용합니다"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "SSH 연결에 출력 강조 적용"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "로컬 터미널 세션에 출력 강조 적용"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "응용 프로그램 및 창"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "애플리케이션 또는 ID"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "스태시된 상태를 적용하고 스태시 목록에 유지"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "스태시된 상태를 적용하고 스태시 목록에서 제거"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "승인 및 실행"
+
+# 
+msgid "Aproximar"
+msgstr "확대"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Arch Linux / Manjaro 패키지 관리자 유틸리티"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "아카이브 모드(권한, 시간, 심볼릭 링크 유지)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "이전 파일 (위쪽 화살표 / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "바이너리 파일: {name}\n경로: {path}\n크기: {size}\n권한: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "아카이브 파일"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "전송을 위해 파일이 복사됨: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "파일 생성됨: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "데이터 파일"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "비디오 파일"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "오디오 파일"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "파일 삭제됨: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "이동할 파일로 표시됨: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "디스크에서 파일을 다시 불러왔습니다."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "파일 이름이 '{name}'(으)로 변경됨"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "롤백 후 파일이 복원됨: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "관리자(Root) 권한으로 파일이 저장되었습니다!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "관리자(Root) 권한으로 파일이 성공적으로 저장되었습니다!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "파일이 성공적으로 저장되었습니다!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "파일: {name} (크기: {size} 바이트)\n발췌:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "범주별로 그룹화된 파일 (.7z 상단 표시)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "수정 날짜별로 정렬된 파일"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "이름별로 정렬된 파일"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "크기별로 정렬된 파일"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "유형 / 확장자별로 정렬된 파일"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "원본 파일/폴더"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "OpenCode 코드 어시스턴트"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust AI 어시스턴트"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "AI 어시스턴트가 연결되어 있지 않습니다."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "위험을 감수하고 실행"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "단축키 '{name}'이(가) {label}(으)로 업데이트됨"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "단축키 '{name}'이(가) 제거되었습니다."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "키보드 단축키 (구성 가능한 작업 34개)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "시스템 바로가기 및 즐겨찾기"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "프로덕션 환경 보호막 활성화 / 비활성화 (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "'cat' 색상 강조 활성화"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "셸 입력 강조 활성화"
+
+# 
+msgid "Ativar Todos"
+msgstr "모두 활성화"
+
+# 
+msgid "Ativo"
+msgstr "활성"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "활성 ({src}에서 수신 대기 중)"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "현재: {curr}\n새로운: (키를 누르세요)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "현재: {curr}\n새로운: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "현재: {curr}\n새로운: {new} (충돌 발생: {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "새로 고침 (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "목록 새로 고침 (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "AI로 보안 감사"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "AI로 이 디렉터리의 보안 감사"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "'{name}'의 보안 감사가 AI 어시스턴트에게 전송되었습니다."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "'{path}' 디렉터리 감사를 AI 어시스턴트로 전송했습니다."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "글꼴 크기 키우기 (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "인증:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "자동: 터미널 배경에 맞춤. 수동: 고정 테마."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "자동: 배경과의 대비를 자동으로 감지"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "자동 완성됨: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "스마트 자동 완성 (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "스마트 자동 완성 — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "자동 완성 적용됨: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "자동 예"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "불필요한 종속성 자동 제거"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "수동 확인 없이 읽기 전용 진단을 자동으로 실행합니다."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "다음 탭으로 이동 (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "작업"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "SHA-256 백업 생성됨 ({count}개 파일): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "SHA-256 백업 저장됨 ({count}개 파일): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "{path}에서 백업을 찾을 수 없습니다"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "백업을 성공적으로 복원했습니다 ({count}개 파일 SHA-256 검증됨)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "동시 실행 표시줄 (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "xargs를 통한 일괄 삭제 (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "차단 및 취소 (권장)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "브로드캐스트 전송됨: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "모두에게 브로드캐스트"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "작업 영역의 모든 패키지 빌드"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "릴리스 모드에서 아티팩트 빌드"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "최적화를 적용하여 릴리스 모드에서 아티팩트 빌드"
+
+# 
+msgid "Busca"
+msgstr "검색"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "전역 다중 탭 검색 / 기록"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "전역 다중 탭 검색 / 세션 / 기록"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "탭, 세션, 기록 및 스니펫 전역 검색 (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "전역 검색이 프롬프트에 삽입됨: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "OnyxSH 전역 검색 (Ctrl+Shift+G) — 탭, 세션, 기록 및 스니펫"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "전역 검색: #{tab}번 탭에 포커스"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "고급 필터로 파일 및 디렉터리 검색"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "디렉터리, 호스트 및 즐겨찾기 퍼지 검색 (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "터미널에서 검색 (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "현재 터미널에서 검색"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "세션 또는 호스트 검색..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "터미널에서 텍스트 검색..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "확인 프롬프트 건너뛰기"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "백그라운드에서 해시 계산 중..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "경로 복사됨: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "폴더 경로 (예: 프로덕션 또는 Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "파일 경로 (예: 차단을 테스트하려면 /var/log/syslog 또는 ~/.ssh/id_rsa):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "터미널에 경로 삽입됨: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "대소문자를 구분하지 않는 파일 이름 패턴"
+
+# 
+msgid "Categoria"
+msgstr "카테고리"
+
+# 
+msgid "Categoria:"
+msgstr "카테고리:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "작업을 수행하기 전에 디렉터리 변경"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH 키 / 비밀번호:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr ".rpm 파일의 GPG 서명 및 무결성 확인"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "설치하지 않고 사용 가능한 패키지 업그레이드 확인"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "일반적인 실수를 잡기 위해 패키지를 검사합니다"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "체크섬 및 무결성 검증 — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "고속 클라우드 공급자 또는 로컬 서버 중에서 선택하세요."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "모든 패키지 캐시 정리 (다운로드한 모든 패키지 제거)"
+
+# 
+msgid "Clean local caches"
+msgstr "로컬 캐시 정리"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "패키지 캐시 정리 (오래된 다운로드 패키지 제거)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "클릭하여 키보드 단축키 변경"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "클릭하여 새 탭에서 연결 (및 이 세션 선택)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "클릭하여 각 권한 수준이 허용하거나 제한하는 내용 확인"
+
+# 
+msgid "Colar"
+msgstr "붙여넣기"
+
+# 
+msgid "Colar Aqui"
+msgstr "여기에 붙여넣기"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "이 폴더 안에 붙여넣기"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "진위를 확인하려면 위에 MD5, SHA-1, SHA-256 또는 SHA-512 해시를 붙여넣으세요."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "터미널에 입력하는 동안 실시간으로 명령어에 색상을 지정합니다"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "오류, 경고, IP 등 터미널 출력의 패턴에 색상을 지정합니다. 규칙이 너무 많으면 매우 긴 출력에 영향을 줄 수 있습니다."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "cat 명령어 색상 지정"
+
+# 
+msgid "Comando ({cat})"
+msgstr "명령어 ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "명령어 / 템플릿:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "로그인 후 명령어:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "명령어가 클립보드에 복사되었습니다."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "운영자가 프로덕션 명령을 평가했습니다."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "터미널에 명령 전송됨: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "명령 전송됨: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "기록에서 명령 실행됨: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "팔레트를 통해 명령 실행됨: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "명령 실패 (코드 {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "명령이 프롬프트에 삽입됨: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "긴 명령이 성공적으로 완료되었습니다 (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "터미널 색상과 일치"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "명령 팔레트 (Ctrl+Shift+P) — 통합 검색"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "명령 팔레트 — 통합 검색 (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "압축"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "무결성 비교기"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "디렉터리 비교 / 동기화 (왼쪽 ⇄ 오른쪽)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "듀얼 페인 비교: {identical}개 동일 | {left_only}개 왼쪽에만 있음 | {right_only}개 오른쪽에만 있음 | {diff}개 크기 다름"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Git 및 레거시 저장소와의 호환성"
+
+# 
+msgid "Compile the current package"
+msgstr "현재 패키지 컴파일"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "전송 중 파일 데이터 압축"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "결론 및 학습 내용"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "세션에 연결됨: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "전역 검색을 통해 연결 중: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "명령 팔레트를 통해 연결 중: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "분할 창에서 연결 (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "연결: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "AI 어시스턴트 구성..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "이 명령의 규칙 구성"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "AI 어시스턴트 구성 — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "압축 해제되었으나 구성되지 않은 모든 패키지 구성"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "압축 해제된 패키지 구성"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "재구성 없이 공급자를 전환할 수 있도록 개별 키를 구성하세요"
+
+# 
+msgid "Confirm"
+msgstr "확인"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "삭제 확인"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Git 저장소에서 충돌 또는 동기화 실패가 발생했습니다."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "컨텍스트 창 크기 (토큰)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "콘텐츠가 클립보드에 복사되었습니다."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "충돌 해결 후 리베이스 계속"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "기록에서 대화를 불러왔습니다."
+
+# 
+msgid "Copiado para {path}"
+msgstr "{path}(으)로 복사됨"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "파일 복사"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "상위 디렉터리 경로 복사"
+
+# 
+msgid "Copiar Pasta"
+msgstr "폴더 복사"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "선택 항목을 오른쪽 창으로 복사 (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "선택 항목을 왼쪽 창으로 복사 (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "클립보드에 복사"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "자세한 보고서를 Markdown 형식으로 복사"
+
+# 
+msgid "Cores e Destaques"
+msgstr "색상 및 강조"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "터미널 색상 및 강조"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "표준 터미널 색상 (0-7 일반, 8-15 밝음)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "fast-forward인 경우에도 병합 커밋 생성"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "기록이 잘린 얕은 클론 생성"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "자세한 출력과 함께 gzip 압축 tar 아카이브 생성"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "파일과 폴더에서 압축 아카이브를 생성합니다"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "매개변수화된 명령 버튼을 생성 및 편집합니다 (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Git 저장소에서 새 로컬 브랜치를 생성하고 전환합니다"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "AuditLogger의 원자적 백업과 함께 /tmp에 테스트 파일을 생성합니다"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "활성 스키마를 기반으로 사용자 지정 색상 스키마를 생성합니다"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "설정 백업 생성 (SHA-256 번들)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "세션 생성"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "SSH를 통해 포트를 전달하는 로컬 (-L), 원격 (-R) 또는 동적 SOCKS5 (-D) 터널을 생성합니다."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "체크섬 계산이 사용자에 의해 취소되었습니다."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Rust 코드"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "활성 터미널에 코드가 삽입되었습니다."
+
+# 
+msgid "Código-Fonte"
+msgstr "소스 코드"
+
+# 
+msgid "Cópia de {name}"
+msgstr "{name}의 사본"
+
+# 
+msgid "Data de Modificação"
+msgstr "수정 날짜"
+
+# 
+msgid "Date / Time"
+msgstr "날짜 / 시간"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "날짜: {date} | 크기: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Debian 저수준 패키지 관리자 (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "기본 API 키"
+
+# 
+msgid "Default Model Identifier"
+msgstr "기본 모델 식별자"
+
+# 
+msgid "Default Provider"
+msgstr "기본 공급자"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "다중 컨테이너 애플리케이션 정의 및 실행"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "다음 파일의 권한 설정: {name}\n현재: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "방화벽 규칙 삭제"
+
+# 
+msgid "Delete a merged branch"
+msgstr "병합된 브랜치 삭제"
+
+# 
+msgid "Desativar Todos"
+msgstr "모두 비활성화"
+
+# 
+msgid "Descrição:"
+msgstr "설명:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Shell 입력 강조 표시"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "명령을 입력하는 동안 실시간 구문 강조 표시"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "'cat' 명령 출력에 대한 구문 강조 표시 (Pygments/ANSI 엔진 사용)"
+
+# 
+msgid "Destino Remoto"
+msgstr "원격 대상"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "분리 모드: 백그라운드에서 명령 실행"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "AI로 로그 오류 진단"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "웹 서비스 진단 및 재시작"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "휴리스틱 진단 (**{title}**):\n{desc}\n\n빠른 수정 제안:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "보안 시스템 진단 — 원격 측정 및 지원"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "로그 '{name}'의 진단이 AI 도우미에게 전송되었습니다."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "대소문자 구분"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "명령을 입력하세요 (예: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "열려 있는 모든 터미널로 보낼 명령을 입력하세요..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "작업, SSH 세션 또는 매개변수화된 명령을 입력하세요..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "글꼴 크기 줄이기 (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "동적 (-D) • SSH를 통한 SOCKS5 프록시"
+
+# 
+msgid "Direita"
+msgstr "오른쪽"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "'{path}' 디렉터리가 즐겨찾기에 추가되었습니다."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "구성 디렉터리"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "터미널로 보낸 디렉터리: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "디렉터리: {name}\n경로: {path}\n권한: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "허용된 디렉터리, PathGuard 격리 및 기본 거부 정책"
+
+# 
+msgid "Disable an installed snap"
+msgstr "설치된 snap 비활성화"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "디스크 가득 참 (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "디스크 (물리적 I/O)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "설치된 패키지에 대한 자세한 정보 표시"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "메모리를 메가바이트 단위로 표시"
+
+# 
+msgid "Display status details of installed package"
+msgstr "설치된 패키지의 상태 세부 정보 표시"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "현재 탭을 위/아래로 분할합니다 (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "현재 탭을 나란히 분할합니다 (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "수평 분할"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "터미널 가로 분할"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "세로로 나누기"
+
+# 
+msgid "Divisão"
+msgstr "분할"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "묻지 않고 기본 응답 사용"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "삭제 전에 종속성 확인 안 함"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "원격 명령 실행 안 함 (포트 포워딩만 수행)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "서비스 이름 확인 안 함"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "snap 데이터의 스냅샷 저장 안 함"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "패키지 종속성 확인 안 함"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "설치 전에 패키지 종속성 확인 안 함"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "같은 이름의 원격 저장소가 이미 있으면 아무 작업도 하지 않음"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "텍스트 문서"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "패키지 데이터베이스의 최신 복사본 다운로드"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "패키지만 다운로드하고 설치하지 않음"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "텍스트 기반 그래픽 커밋 기록 그리기"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "파일을 삭제하지 않고 제거 모의 실행"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "시스템을 수정하지 않고 설치 테스트 모의 실행"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "명령 편집: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "터널 설정 편집"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "색상 스키마 편집"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "선택한 세션 편집"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "세션 편집 — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "색상 스키마를 편집하거나 사용자 지정 변형 생성"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "`PolicyEngine` 검증 및 실행 후 자동 확인 (`verifier.rs`)이 포함된 **구조화된 실행 계획**을 작성했습니다:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "ProductionGuard, 듀얼 창 SFTP/TFTP 및 Zero-Trust AI 도우미를 갖춘 Linux 로컬 및 원격 워크플로우용 최신 터미널 에뮬레이터입니다."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "비활성화된 snap 활성화"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "X11 전달 (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "활성 탭을 닫습니다 (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "파일 찾기"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "여러 터미널에 동시에 명령을 보냅니다 (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "모든 탭에 명령 보내기"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "질문 보내기"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "활성 터미널 탭으로 sha256sum 명령 보내기"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "모두에게 보내기"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "설치된 RPM 패키지 삭제(제거)"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "파일 저장 오류"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "'{name}'의 권한 변경 오류: {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "해시 계산 오류"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "항목 붙여넣기 오류: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "파일 생성 오류: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "백업 생성 오류: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "폴더 생성 오류: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "파일 삭제 오류: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "폴더 삭제 오류: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "{path} 나열 오류: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "항목 이동 오류: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "이름 바꾸기 오류: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Git 저장소 오류"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "롤백 오류: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "오류: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "로컬 (-L), 원격 (-R) 또는 동적 SOCKS5 (-D) 중에서 선택하세요"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "색상 스키마 적용됨: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "색상 스키마 저장됨: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "이 세션은 ~/.ssh/config(읽기 전용)에서 왔거나 이미 제거되었습니다."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "이 파일은 읽기 전용입니다. 편집 내용은 관리자(Root) 권한으로 저장할 수 있습니다."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "밝은 스타일 (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "어두운 스타일 (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "예: 10.0.0.15 또는 srv.company.com"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "예: 프로덕션 (루트의 경우 비워 두세요)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "예: 프로덕션 Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "예: root 또는 ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "폴더 삭제"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "영구 삭제"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "터미널에서 실행됨: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "실행 (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "지금 실행"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "터미널에서 sudo로 실행"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "모든 터미널에서 명령 실행"
+
+# 
+msgid "Executar passo"
+msgstr "단계 실행"
+
+# 
+msgid "Executar plano do agente"
+msgstr "에이전트 계획 실행"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "모든 단위 및 통합 테스트 실행"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "세션 패널 표시"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "AI로 파일 설명"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "AI 어시스턴트에게 '{name}' 파일 설명을 요청했습니다."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "'{name}' 파일의 목적, 구조 및 작동 방식을 설명하세요.\n경로: {path}\n\n초기 내용:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "settings.json, sessions.json 및 command_buttons.json을 SHA-256 해시와 함께 내보냅니다"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "전체 버퍼 또는 활성 터미널 선택 영역 내보내기"
+
+# 
+msgid "Exportado para {path}"
+msgstr "{path}(으)로 내보냈습니다"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "터미널 출력 내보내기 (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "세션을 런북(Runbook)으로 내보내기"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "OnyxSH 터미널 내보내기 - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "외부 연결 제어 및 엄격한 데이터 격리."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "gzip으로 압축된 tar 아카이브를 자세히 표시하며 추출"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "압축 아카이브에서 파일 추출"
+
+# 
+msgid "Extrair"
+msgstr "추출"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Root로 저장하지 못했습니다"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "pkexec 프로세스 대기에 실패했습니다: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "체크섬 계산에 실패했습니다: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "백업 생성에 실패했습니다: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "pkexec stdin에 데이터를 쓰지 못했습니다: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "권한이 상승된 pkexec 프로세스를 시작하지 못했습니다: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "백업 복원에 실패했습니다: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "파일 저장에 실패했습니다: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "전송 실패 (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "전송 실패 (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "빠르고 다재다능한 원격 및 로컬 파일 복사 도구"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "명령 즐겨찾기 추가 / 해제"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "현재 디렉터리를 즐겨찾기에 추가"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "즐겨찾기 제거됨: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "설명 메시지와 함께 Git에 변경 사항 커밋"
+
+# 
+msgid "Fechar Aba"
+msgstr "탭 닫기"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "활성 창 닫기"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "Fedora/RHEL/Rocky/AlmaLinux용 RPM 패키지 관리자"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "다른 저장소에서 가져와 통합"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "전송 대기열 — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "전송 대기열이 비어 있습니다 (진행 중인 작업 0개)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "파일 데이터가 n*24시간 전에 수정됨"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "파일 형식 (f 일반 파일, d 디렉터리, l 심볼릭 링크)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "gzip을 통해 아카이브 필터링 (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "지정된 파일이나 기능을 제공하는 패키지 찾기"
+
+# 
+msgid "Focar janela existente"
+msgstr "기존 창에 포커스"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Focus Pane Down"
+
+# 
+msgid "Focar painel acima"
+msgstr "Focus Pane Up"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Focus Pane Right"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Focus Pane Left"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "포커스가 첫 번째 창으로 전환되었습니다."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "포커스가 두 번째 창으로 전환되었습니다."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "파일이 커짐에 따라 출력을 실시간으로 추적"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "글꼴, 색상 팔레트, 투명도 및 AI (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "앱이 이에 의존하더라도 강제 삭제"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "패키지/파일이 이미 존재하더라도 강제 설치"
+
+# 
+msgid "Force upgrade"
+msgstr "강제 업그레이드"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "사용자 지정 queryformat으로 쿼리 출력 서식 지정"
+
+# 
+msgid "Formato"
+msgstr "형식"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "RPM 패키지 새로 고침 (이미 설치된 경우에만 업그레이드)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "구조화된 실행 계획(ActionPlan) 생성"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "systemctl로 시스템 서비스 관리"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "파일 관리자"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "이중 창 파일 관리자"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "명령 관리자"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "명령 관리자 및 동적 양식"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "탭 및 패널 관리"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak application and runtime management"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Conventional Commit 제안"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: 현재 디렉터리는 Git 저장소가 아닙니다."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • 대용량 컨텍스트 지원"
+
+# 
+msgid "Grade de Ícones"
+msgstr "아이콘 그리드"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • 초고속 LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "CPU, RAM, 디스크 I/O 및 네트워크/GPU 실시간 그래프"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "다단계 계획을 위한 고성능 추론 모델 및 공급자"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "확장 명령 기록 (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "대화 기록"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "전송 기록"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "기록: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "호스트 / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "원격 호스트 (IP / 도메인)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "바인드할 원격 호스트 (Bind)"
+
+# 
+msgid "Host cannot be empty"
+msgstr "호스트는 비워 둘 수 없습니다"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "잘못된 호스트 또는 IP 주소입니다."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "공개 키 인증용 ID 파일(개인 키)"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "대소문자 구분 무시"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "파일 백업 지정 무시 (구성 파일 제거)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "존재하지 않는 파일 무시, 확인 묻지 않음"
+
+# 
+msgid "Imagem"
+msgstr "이미지"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "ASCII-armored GPG 공개 키를 RPM 키링으로 가져오기"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr ".flatpakrepo에서 원격 구성 가져오기"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "세션 가져오기 (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "출력에 HTTP 응답 헤더 포함"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "터미널 글꼴 크기를 키웁니다 (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "상태를 변경하는 명령 실행 후 자동 검증(서비스 상태, 구성 구문)을 추론하여 제안합니다."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "TFTP 서버 시작"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "삽입 (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "터미널에 경로 삽입"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "현재 Git 저장소를 검사하고 커밋 메시지를 제안합니다"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "호스트의 활성 소켓 및 포트 검사"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "로컬 .deb 패키지 파일 설치"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "자세한 진행 상황을 표시하며 RPM 패키지 파일 설치"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "비명시적 종속성으로 설치"
+
+# 
+msgid "Install from the beta channel"
+msgstr "beta 채널에서 설치"
+
+# 
+msgid "Install from the edge channel"
+msgstr "edge 채널에서 설치"
+
+# 
+msgid "Install from the stable channel"
+msgstr "stable 채널에서 설치"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "하나 이상의 RPM 패키지 설치"
+
+# 
+msgid "Install snaps on the system"
+msgstr "시스템에 snap 설치"
+
+# 
+msgid "Interactive rebase"
+msgstr "대화형 리베이스"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "패치의 변경 조각(hunk)을 대화형으로 선택"
+
+# 
+msgid "Interação do Terminal"
+msgstr "터미널 상호작용"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "로컬 인터페이스 / 바인드 IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "로컬 수신 대기 인터페이스"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "패턴을 확장 정규식으로 해석"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "지연 시간 확인 간격"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "KeepAlive 프로브 패킷 전송 간격(초)"
+
+# 
+msgid "Invalid SSH username"
+msgstr "잘못된 SSH 사용자 이름"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "잘못된 호스트 이름 또는 IP 주소"
+
+# 
+msgid "Invalid local port"
+msgstr "잘못된 로컬 포트"
+
+# 
+msgid "Invalid port number"
+msgstr "잘못된 포트 번호"
+
+# 
+msgid "Invalid remote host"
+msgstr "잘못된 원격 호스트"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "소켓 조사 (최신 netstat 대체 도구)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "탭으로 이동"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "모든 키보드 단축키가 기본값으로 초기화됩니다. 계속하시겠습니까?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "항목 붙여넣기 위치: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "항목 이동 위치: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "{n_pages}개 탭의 레이아웃을 {path}에 저장했습니다"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "활성 세션의 화면 및 스크롤백을 지웁니다 (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "완료된 항목 지우기"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "즐겨찾기되지 않은 기록 지우기"
+
+# 
+msgid "Limpar Sessão"
+msgstr "세션 지우기"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "터미널 세션 지우기"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "링크가 클립보드에 복사되었습니다."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "설치된 RPM 패키지에 속한 모든 파일 나열"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "원격 저장소에서 사용 가능한 애플리케이션 및 런타임 나열"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "이 .rpm에서 요구하는 기능 나열"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "설치된 패키지의 구성 파일 나열"
+
+# 
+msgid "List configuration files only"
+msgstr "구성 파일만 나열"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "설치된 패키지에 필요한 종속성 나열"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr ".rpm 아카이브 내부에 포함된 파일 나열"
+
+# 
+msgid "List files installed by package"
+msgstr "패키지로 설치된 파일 나열"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "외부 패키지 나열(예: AUR)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "패턴과 일치하는 설치된 패키지 나열"
+
+# 
+msgid "List installed snaps"
+msgstr "설치된 snap 나열"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "설치된 유닛 파일 및 활성화 상태 나열"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "고아 패키지 나열(더 이상 필요하지 않은 종속성)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "종속성으로 설치된 패키지 나열"
+
+# 
+msgid "List stashes currently saved"
+msgstr "현재 저장된 스태시 나열"
+
+# 
+msgid "Lista Detalhada"
+msgstr "자세한 목록"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "디렉터리 내용을 자세히 나열합니다 (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "목록, 미리보기 격자, 트리 및 Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "파일 목록"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "로컬 (Ollama / LM Studio) • 완전한 GPU/CPU 개인정보 보호"
+
+# 
+msgid "Local Server Base URL"
+msgstr "로컬 서버 기본 URL"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "긴 형식, 모든 파일, 읽기 쉬운 크기"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "일상적인 셸 질문을 위한 저지연 모델 및 공급자"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "필요에 따라 상위 디렉터리 생성"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "모델에 전송되는 최대 컨텍스트 메모리 할당량"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "메모리 (RAM 및 Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "RAM 메모리"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "커밋 메시지"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "엄격한 오프라인 모드 활성화됨(클라우드 미사용)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "스마트 라우팅이 적용된 온라인 모드 활성화됨."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "텍스트 선택 모드가 활성화되었습니다."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "텍스트 선택 모드가 비활성화되었습니다."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "브로드캐스트 모드(모든 탭으로 전송)"
+
+# 
+msgid "Modo do Tema"
+msgstr "테마 모드"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "실시간 리소스 모니터 (Cairo 스파크라인)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "실시간 리소스 모니터 — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "SSH 세션 트리를 표시하거나 숨깁니다 (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "숨겨진 파일 표시 (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "엔진"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "이름 및 선택적 'name:tag' 형식의 태그"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "클립보드에 붙여넣을 항목이 없습니다."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "아직 감사 로그가 없습니다. 원자적 롤백을 테스트하려면 '감사된 변경 시뮬레이션'을 클릭하세요."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "sysfs/nvidia-smi를 통해 전용 GPU가 감지되지 않았습니다"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "선택된 세션 없음"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "세션에 기록된 전송이 없습니다."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "네트워크 (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "네트워크 (/proc/net/dev) • 실시간 RX / TX"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "네트워크 (RX / TX) 및 GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "질문하지 않기"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "이름 (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "새 브랜치 이름"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "세션 이름:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "새 폴더 이름:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "클립보드의 파일 이름이 잘못되었습니다."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "SSH 사용자 이름에 잘못된 문자가 포함되어 있습니다."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "대상 파일 이름"
+
+# 
+msgid "Nome do Serviço"
+msgstr "서비스 이름"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "명령 이름 (예: Nginx 다시 시작)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "새 파일 이름:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "아이콘 이름 (예: utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "컨테이너 이름 또는 ID"
+
+# 
+msgid "Nome:"
+msgstr "이름:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "비대화형 모드"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "새 터미널 탭"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "새 터미널 탭 (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "여기에 새 폴더..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "새 세션 폴더"
+
+# 
+msgid "Nova Pasta..."
+msgstr "새 폴더..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "새 세션 — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "새 대화가 시작되었습니다."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "여기에 새 파일..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "새 파일..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "새 색 구성표"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "새 폴더 이름:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "새 파일 이름:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "항목을 로드할 수 없습니다: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "변경 사항을 저장할 수 없습니다: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "파일 시스템에 여유 공간이 부족합니다."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "수준 0 (읽기)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "수준 1 (쓰기)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "수준 2 (관리자)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "수준 3 (치명적)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "수준 4 (차단됨)"
+
+# 
+msgid "Nível {n}"
+msgstr "수준 {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "자동 재연결을 포기하기 전 시도 횟수"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "바이너리 '{bin}'이(가) 설치되어 있지 않거나 $PATH 외부에 있습니다."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "명령이 오류 코드와 함께 종료되었습니다."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "터미널에서 실행된 명령이 실패했습니다. 프로젝트 파일을 분석하고 OpenCode로 필요한 수정 사항을 준비하세요:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "슈퍼유저(root) 권한 부족으로 인해 명령이 실패했습니다."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "세션 이름은 비워 둘 수 없습니다."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "난독화 / Base64 디코딩된 실행 파이프라인"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "이전 항목 (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "터미널에서 찾은 일치 항목"
+
+# 
+msgid "Octal: {mode}"
+msgstr "8진수: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — 준비됨"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — 알림 테스트"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "터미널에서 OpenCode가 시작되었습니다."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • 통합 멀티 모델 카탈로그"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "운영자: {author} | 호스트: {host} | 날짜: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "작업 영역의 모든 패키지에서 작업 수행"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "사용자가 작업을 취소하거나 거부했습니다."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Arch Linux 패키지 관리자 작업"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Debian/Ubuntu 패키지 관리자 작업"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Fedora/RHEL 패키지 관리자 작업"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "파일 작업"
+
+# 
+msgid "Ordem Crescente"
+msgstr "오름차순"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "내림차순"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "오름차순 정렬이 활성화되었습니다"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "내림차순 정렬이 활성화되었습니다"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "설치된 패키지를 설치 시간순으로 정렬(최신순)"
+
+# 
+msgid "Organizar por"
+msgstr "정렬 기준"
+
+# 
+msgid "Origem (Local)"
+msgstr "원본 (로컬)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "사람이 읽기 쉬운 형식으로 숫자 출력"
+
+# 
+msgid "Output package names only"
+msgstr "패키지 이름만 출력"
+
+# 
+msgid "Pacote"
+msgstr "패키지"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "설치 패키지"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "이름 패턴 (예: *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "세션 패널"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "창/탭이 닫혔습니다."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "단어 단위"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16색 ANSI 팔레트"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "TFTP 서버 중지 ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "매개변수 — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "단계 #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "실행된 단계: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "'{path}' 폴더가 생성되었습니다."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "폴더 / 디렉터리"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "폴더가 클립보드에 복사됨: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "폴더 생성됨: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "폴더 삭제됨: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "이동할 폴더로 표시됨: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "폴더가 즐겨찾기에서 제거되었습니다."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "폴더 이름이 '{name}'(으)로 변경됨"
+
+# 
+msgid "Pasta · {date}"
+msgstr "폴더 · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "폴더:"
+
+# 
+msgid "Pause"
+msgstr "일시 정지"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "라우팅 프로필이 변경됨: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "배포판 업그레이드 수행 (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "AI 어시스턴트에게 물어보세요"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "질문하거나 터미널 오류를 붙여넣으세요..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "권한 (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "'{name}'의 권한이 {mode}(으)로 변경됨"
+
+# 
+msgid "Permissões para {name}"
+msgstr "{name}에 대한 권한"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "열린 모든 탭, SSH 세션, 기록 및 스니펫에서 검색 (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "하위 디렉터리에서 재귀 검색"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "터미널에서 검색"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "열린 모든 터미널 탭, SSH 세션, 기록 및 스니펫에서 텍스트 검색..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "이름, 포트 또는 호스트로 터널 검색..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "셸 인터프리터로 파이프 실행"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Zero-Trust 실행 계획: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "배경"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "테스트하기 전에 {provider} API 키를 입력하세요."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "엔드포인트 및 포트"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "다음 터미널 선택 영역을 분석해 주세요:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "'{name}' 파일의 코드/내용, 목적, 구조 및 주요 사항을 분석하고 설명해 주세요:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "현재 디렉터리 '{path}'에 대해 상세한 보안 및 접근 거버넌스 감사를 수행해 주세요. 과도하게 허용된 권한, 민감한 파일(.env, 개인 키, 노출된 자격 증명)을 점검하고 Zero-Trust 모범 사례를 권장해 주세요."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "'{name}' 파일에 대한 상세한 보안 및 접근 권한 감사를 수행해 주세요.\n경로: {path}\n현재 권한: {perms} ({oct})\n크기: {size}\n안전한 chmod 설정과 취약점 완화 방안을 권장해 주세요."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "'{name}' 디렉터리에 대한 상세한 보안 및 접근 권한 감사를 수행해 주세요.\n경로: {path}\n현재 권한: {perms} ({oct})\n마지막 수정: {date}\n이상적인 chmod 설정, 제한 사항 및 Zero-Trust 규정 준수 모범 사례를 권장해 주세요."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "다음 코드 스니펫을 OpenCode로 리팩터링해 주세요:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "포트가 유효한 범위(1..=65535)를 벗어났습니다"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "원격 노출 포트 (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "원격 대상 포트"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "로컬 수신 포트 (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "SOCKS5 프록시 포트 (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "포트가 허용된 범위(1..65535)를 벗어났습니다."
+
+# 
+msgid "Porta:"
+msgstr "포트:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "원격 PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "환경 설정"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "각 줄 앞에 1부터 시작하는 줄 번호 붙이기"
+
+# 
+msgid "Preview do Comando:"
+msgstr "명령어 미리 보기:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "기본 제공업체 및 연결성"
+
+# 
+msgid "Print Git version"
+msgstr "Git 버전 출력"
+
+# 
+msgid "Print RPM version"
+msgstr "RPM 버전 출력"
+
+# 
+msgid "Print help synopsis"
+msgstr "도움말 요약 출력"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "크기를 1024의 거듭제곱 단위로 출력 (예: 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "테스트의 stdout/stderr 직접 출력"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "디렉터리 깊이 1에 대한 합계 출력"
+
+# 
+msgid "Print zypper version"
+msgstr "zypper 버전 출력"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "프로덕션 / 웹 서버"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "프로토콜:"
+
+# 
+msgid "Provide verbose output"
+msgstr "자세한 출력 제공"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "스마트 라우팅이 비활성화되었을 때 사용되는 제공업체"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "실시간 미리 보기"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "다음 일치 항목 (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "다음 파일 (아래쪽 화살표 / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "이전 프롬프트로 이동합니다."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "다음 프롬프트로 이동합니다."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "설치된 패키지를 설정 파일 포함하여 완전히 제거"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "snap을 클래식 제한 모드로 설정"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "줄 수 (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "줄 수 (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "설치되지 않은 로컬 .rpm 패키지 파일 조회"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "설치된 모든 RPM 패키지 조회 및 나열"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "저장소 기준과 일치하는 패키지 조회"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "snap에서 제공하는 서비스 상태 조회"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "파일 경로를 소유한 설치된 RPM 패키지 조회"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (미리 보기)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "RPM 패키지 관리자 저수준 도구 (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "각 디렉터리 아래의 모든 파일을 재귀적으로 읽기"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "읽기: {read}/s • 쓰기: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "가져오기 후 현재 브랜치를 업스트림 위로 리베이스"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "설치된 헤더에서 RPM 데이터베이스 인덱스 재구성"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "연결 끊김 시 스마트 자동 재연결"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "스테이징된 변경 사항을 저장소에 기록"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "파일 잘라내기"
+
+# 
+msgid "Recortar Pasta"
+msgstr "폴더 잘라내기"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "모든 단축키를 기본값으로 재설정합니다"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "줌 초기화"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "터미널 글꼴 크기를 줄입니다 (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "줌 아웃"
+
+# 
+msgid "Refresh Interval"
+msgstr "새로 고침 간격"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "모든 저장소 메타데이터 새로 고침"
+
+# 
+msgid "Refresh files database"
+msgstr "파일 데이터베이스 새로 고침"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "AuditLogger 기록 (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "전역 강조 규칙"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "관리되는 서비스를 다시 시작하고 구성 적용"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "패키지가 이미 존재하는 경우 다시 설치"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "전체 해시 보고서가 클립보드에 복사되었습니다"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "정제된 OnyxSH 진단 보고서"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "진단 보고서가 클립보드에 복사되었습니다."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "단계, 메모, 목표 및 결론이 포함된 구조화된 운영 보고서 (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "OS, RAM, GPU/VRAM 및 Flatpak 환경에 대한 정제된 보고서"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "서비스를 다시 로드하거나 다시 로드가 지원되지 않으면 재시작"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "원격 (-R) • 원격 서버에 로컬 포트 노출"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "단일 stash 항목 제거"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "대상에 의존하는 모든 패키지 제거"
+
+# 
+msgid "Remove all stash entries"
+msgstr "모든 stash 항목 제거"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "패키지의 모든 버전 제거"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "구성을 유지한 채 설치된 패키지 제거"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "디렉터리 및 내용을 재귀적으로 제거"
+
+# 
+msgid "Remove installed packages"
+msgstr "설치된 패키지 제거"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "더 이상 사용되지 않는 원격 추적 참조 제거"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "하나 이상의 패키지 및 사용하지 않는 종속성 제거"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "원래 종속성으로 설치되었으나 더 이상 필요하지 않은 패키지 제거"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "시스템에서 snap 제거"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "사용하지 않는 데이터(컨테이너, 네트워크, 이미지) 제거"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "선택한 세션 제거"
+
+# 
+msgid "Remover Túnel"
+msgstr "터널 제거"
+
+# 
+msgid "Remover favorito"
+msgstr "즐겨찾기 제거"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "현재 디렉터리 즐겨찾기 제거"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "파일 이름 바꾸기"
+
+# 
+msgid "Renomear Pasta"
+msgstr "폴더 이름 바꾸기"
+
+# 
+msgid "Renomear..."
+msgstr "이름 바꾸기..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "현재 프로세스의 스냅샷 보고"
+
+# 
+msgid "Reportar Problema"
+msgstr "문제 보고"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "글꼴 크기 재설정 (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "OpenCode / AI로 터미널 오류 해결 중..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "컨테이너 종료 시 재시작 정책"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "기본 글꼴 Monospace 11로 복원합니다 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "전역 규칙 복원"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "모든 명령 복원"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "원래 무시된 명령 목록 복원"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "인덱스 복원 / 파일 스테이징 해제"
+
+# 
+msgid "Resume"
+msgstr "재개"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "파일 내용에 대해 계산된 표준 암호화 다이제스트:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "서비스 로그 가져오기"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Diff 검토 및 제로 트러스트 감사 (원자적 롤백)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "스마트 라우팅: 클릭하여 프로필 전환 (자동, 빠름, 고급, 보안)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "고급/보안 추론 프로필로 라우팅되었습니다."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "빠른 프로필로 라우팅되었습니다 (저지연 단순 쿼리)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "로컬 패키지의 바이너리 또는 예제 실행"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "지정된 경로에서 git을 시작한 것처럼 실행"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "대상 사용자(root)로 로그인 셸 실행"
+
+# 
+msgid "Run optimized release binary"
+msgstr "최적화된 릴리스 바이너리 실행"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "네이티브 Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Rust 패키지 관리자 및 빌드 도구"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH 세션"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "SOCKS5 프록시"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "기업용 SOCKS5 프록시"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "원격 참조를 확인하는 안전한 강제 푸시"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "애플리케이션 종료"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "저장 및 닫기"
+
+# 
+msgid "Salvar Alterações"
+msgstr "변경 사항 저장"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "OnyxSH 백업 저장"
+
+# 
+msgid "Salvar Comando"
+msgstr "명령 저장"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "현재 탭 레이아웃 저장"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "관리자 / Root 권한으로 저장 (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "성공적으로 저장됨: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "스크립트 실행"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "이름뿐만 아니라 설명도 검색"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "파일 이름을 소유한 패키지 검색"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "패턴과 일치하는 패키지 검색"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "스토어에서 snap 검색"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "로컬에 설치된 패키지 검색"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "시스템 스타일 따르기"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "실시간으로 추적 (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "연결을 유지할 시간(초) (0은 비활성화)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "선택됨: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "OnyxSH 백업 파일 선택"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "포함할 명령을 선택하고 각 단계에 대한 기술적 설명 주석을 추가하세요. ({count}개 식별됨)"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "다운로드할 항목을 오른쪽 창에서 선택하세요 (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "업로드할 항목을 왼쪽 창에서 선택하세요 (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "편집하려면 먼저 목록에서 세션을 선택하세요."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "제거하려면 먼저 세션을 선택하세요."
+
+# 
+msgid "Select Monitored Host"
+msgstr "모니터링할 호스트 선택"
+
+# 
+msgid "Select non-matching lines"
+msgstr "일치하지 않는 줄 선택"
+
+# 
+msgid "Seleção copiada."
+msgstr "선택 영역이 복사되었습니다."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "선택 영역을 AI 어시스턴트 분석으로 보냈습니다."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "선택 영역을 OpenCode 리팩터링으로 보냈습니다."
+
+# 
+msgid "Sempre ocultar"
+msgstr "항상 숨기기"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP 서버"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "읽기 전용 TFTP 서버가 {addr}에서 활성 상태입니다 (루트: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "TFTP 서버가 전환되었습니다."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP 서버가 중지되었습니다."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "세션: {session} | 호스트: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "세션 '{name}'이(가) 제거되었습니다."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "세션 '{name}'을(를) ~/.config/onyxsh/sessions.json에 저장했습니다."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "연결된 SSH 세션"
+
+# 
+msgid "Sessão limpa."
+msgstr "세션이 지워졌습니다."
+
+# 
+msgid "Sessões Salvas"
+msgstr "저장된 세션"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "~/.config/onyxsh/sessions.json 및 ~/.ssh/config에서 세션을 동기화했습니다."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "실행할 셸"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "프로세스 및 숫자 포트와 함께 수신 대기 중인 모든 TCP/UDP 소켓 표시"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "설치된 snap의 모든 리비전 표시"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "라우팅, 네트워크 장치, 인터페이스 표시 및 조작"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "설치하지 않고 사용 가능한 snap 업데이트 표시"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "커밋, 인덱스 및 작업 트리 간의 변경 사항 표시"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "snap에 대한 자세한 정보 표시"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "설치된 앱 또는 런타임에 대한 자세한 정보 표시"
+
+# 
+msgid "Show error message on failure"
+msgstr "실패 시 오류 메시지 표시"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "지정된 패키지의 전체 정보 표시"
+
+# 
+msgid "Show package metadata info"
+msgstr "패키지 메타데이터 정보 표시"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "특정 파일 경로의 권한 표시"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "설치 및 제거 전/후 스크립트 표시"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "진행률을 표시하고 부분적으로 전송된 파일 유지"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "상단 표시줄에 AI 어시스턴트 버튼과 측면 패널을 표시합니다."
+
+# 
+msgid "Silent mode"
+msgstr "무음 모드"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "감사된 변경 시뮬레이션"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "속성을 유지하면서 로컬 파일을 원격 호스트로 동기화합니다"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "시스템"
+
+# 
+msgid "Sistema Operacional"
+msgstr "운영 체제"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "확인 프롬프트 건너뛰기"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "스마트 라우팅 비활성화됨: 기본으로 구성된 공급자를 사용합니다."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, 실행 계획 및 원자적 롤백 (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "OnyxSH 정보"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "HTTP 요청 메서드 지정 (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "실행할 패키지 지정"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "사용할 원격 셸 지정 (예: ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "터미널 분할"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "변경 사항이 있는 작업 디렉터리의 변경 내용 임시 저장 (stash)"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "패킷 4개 전송 후 중지"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "엄격한 오프라인 모드 활성 (로컬 Ollama/LM Studio만 사용)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "rpm, dnf, apt, pacman, flatpak, systemctl, docker, git 및 일반 도구의 하위 명령과 매개변수 제안"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git에 대한 제안"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "사람이 읽을 수 있는 형식의 크기 요약"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab 또는 → 적용 • ↑/↓ 탐색 • Esc 닫기"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "폴더 '{name}'을(를) 영구적으로 삭제하시겠습니까?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "파일 '{name}'을(를) 영구적으로 삭제하시겠습니까?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "밝은 배경용 테마"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "어두운 배경용 테마"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "터미널 배경이 밝을 때 사용되는 테마"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "터미널 배경이 어두울 때 사용되는 테마"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "명령 템플릿 (예: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "카운트다운 및 화면 알림과 함께 끊어진 SSH 세션을 다시 연결하려고 시도합니다"
+
+# 
+msgid "Terminal: {title}"
+msgstr "터미널: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "작업 영역의 모든 패키지 테스트"
+
+# 
+msgid "Testar Interceptação"
+msgstr "가로채기 테스트"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Nginx 구성 구문 무결성 테스트"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "전경 텍스트 (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "이 작업은 모든 {count} 대화를 영구적으로 삭제합니다. 이 작업은 취소할 수 없습니다."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "유형 / 확장자"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "파일 형식"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "모든 설정이 기본값으로 복원되었습니다."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "모든 키보드 단축키가 기본값으로 복원되었습니다."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "모든 SSH 터널이 중지되었습니다."
+
+# 
+msgid "Total Lines"
+msgstr "총 줄 수"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "결정, 명령 및 원자적 롤백에 대한 지속적인 감사 추적"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Ubuntu / Canonical Snap 패키지 관리자"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Uncomplicated Firewall 관리자"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "유닛 / 서비스 (선택 사항)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "설치된 패키지를 최신 버전으로 업데이트"
+
+# 
+msgid "Update snaps in the system"
+msgstr "시스템의 snap 패키지 업데이트"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "이미 설치된 경우 앱/런타임 업데이트"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "RPM 패키지 파일 업그레이드(없는 경우 설치)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "로컬/원격 패키지 파일(.pkg.tar.zst) 업그레이드 또는 설치"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "15줄 이상의 출력에 대해 접을 수 있는 블록(&lt;details&gt;)을 사용합니다"
+
+# 
+msgid "Use a long listing format"
+msgstr "자세한 목록 형식 사용"
+
+# 
+msgid "Use archive file or device"
+msgstr "아카이브 파일 또는 장치 사용"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "RPM 작업의 최상위 루트로 디렉터리 사용"
+
+# 
+msgid "Usuário Remoto"
+msgstr "원격 사용자"
+
+# 
+msgid "Usuário SSH:"
+msgstr "SSH 사용자:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "검증 및 첨부"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "현재 서비스 상태 및 종속성 확인"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "'{svc}' 서비스가 활성 상태인지 확인"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "'{svc}' 서비스가 부팅 시 활성화되어 있는지 확인"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "'{svc}' 서비스가 중지되었는지 확인"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr ".rpm 파일과 대조하여 특정 패키지 검증"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "데이터베이스와 대조하여 설치된 모든 RPM 패키지의 무결성 검증"
+
+# 
+msgid "Versão"
+msgstr "버전"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "다음 커밋을 위해 스테이징된 변경 사항 보기"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "journalctl로 시스템 로그 보기"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "모든 OnyxSH 키보드 단축키 보기, 편집 및 재설정"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "통합 Diff 뷰어(이전 vs. 이후):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "격자 / 썸네일 보기"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "아이콘 격자 보기 활성화됨"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "자세한 목록 보기 활성화됨"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "'{name}'을(를) 수정할 권한이 없습니다. 관리자(Root) 권한으로 저장하시겠습니까?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "'{fname}'에 저장되지 않은 변경 사항이 있습니다. 닫기 전에 어떻게 하시겠습니까?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "이 파일에 저장되지 않은 변경 사항이 있으며 손실됩니다. 정말로 삭제하시겠습니까?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "이전 탭으로 이동 (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "샘플 대기 중..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "원격 파일과 같은 이름의 로컬 파일에 출력 쓰기"
+
+# 
+msgid "You: "
+msgstr "나: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "확대/축소가 재설정되었습니다 (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[결론 및 관찰 사항]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[바이너리 또는 접근할 수 없는 콘텐츠]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[로그 파일을 읽을 수 없음]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[목표 / 컨텍스트]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[실행된 단계 ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (위험: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 위험 감지됨"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 검증됨"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}`이(가) {secs}초 만에 완료되었습니다."
+
+# 
+msgid "linha"
+msgstr "줄"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "openSUSE / SLES 패키지 관리자 유틸리티"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} 명령 • 클릭하여 확장/축소"
+
+# 
+msgid "{count} comandos"
+msgstr "{count}개 명령"
+
+# 
+msgid "{count} linhas"
+msgstr "{count}줄"
+
+# 
+msgid "{count} regras"
+msgstr "{count} 규칙"
+
+# 
+msgid "{count} resultados"
+msgstr "{count}개 결과"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} 논리 코어)"
+
+# 
+msgid "{days} days"
+msgstr "{days} 일"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} 시간"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines}줄 • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} 분"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (사본)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} ({base_distro} 기반)"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[첨부 파일]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "{provider} API 키가 성공적으로 구성되었습니다."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | 결정: {decision} | 상태: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "{type} 터널"
+
+# 
+msgid "Ícone:"
+msgstr "아이콘:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "OnyxSH 아이콘(내장)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← 다운로드 / 복사"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ 업로드 / 복사"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ 실행   •   Tab 프롬프트에 삽입   •   ⭐ 즐겨찾기   •   Esc 닫기"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ 탭으로 이동 / 실행 • ↑/↓ 탐색 • Esc 닫기"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ 원자적 롤백"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ ProductionGuard 경고 ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ 파괴적인 명령 차단됨 ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ 느린 컴퓨터에서는 색상 패턴 처리로 인해 매우 큰 출력의 응답성이 약간 저하될 수 있습니다."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ OnyxSH 터미널 내보내기"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ 스니펫"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ 명령 완료됨"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ 복사되었습니다!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ 실행됨"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ 원자적 롤백 완료: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ 명령 실패 (종료 코드 {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ 해시가 일치하지 않습니다! 붙여넣은 값{hint}이(가) 파일의 계산된 해시와 다릅니다. 파일이 손상되었거나 수정되었을 수 있습니다."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ 기록"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 온라인 모드 활성화됨.\n클릭하여 완전한 로컬 오프라인 모드를 활성화하세요."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 전체"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 목표 / 컨텍스트"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 결론 및 교훈"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 나:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 나{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 메모:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 참고: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 현재 디렉터리"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}회 실행"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>수정됨:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 디스크 사용량 분석"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 정제된 보고서 복사"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 출력 복사"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 안전하게 첨부됨: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 기록"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 예비 관찰 사항"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 브로드캐스트 (🛡️ ProductionGuard 활성):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 명령을 {count}개 터미널로 브로드캐스트했습니다."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>크기:</b> {size} <span alpha='70%'>({bytes}바이트)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>유형:</b> 폴더 / 디렉터리"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 {bin} 설치"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}초"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 SSH 세션"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 git status 확인"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 실행 후 확인: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>권한:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 데스크톱으로 테스트 알림을 보냈습니다."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>경로:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 높은 위험 (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ 터미널 탭"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 치명적 경고 — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 ProductionGuard에 의해 브로드캐스트 차단됨: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard가 읽기를 차단함: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ 운영 모드 활성 — ProductionGuard가 파괴적인 명령(rm -rf, mkfs, dd, DROP TABLE, subshells)을 차단 중입니다"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ 완전 오프라인 모드 활성화됨 (Zero Cloud).\n클릭하여 온라인 모드로 전환하세요."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ 오프라인 (로컬)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ 보안"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 안전한 명령"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 경로: {route}"
+

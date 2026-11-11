@@ -3,6 +3,7 @@
 
 use crate::path_guard::PathGuard;
 use crate::redactor::redact_secrets;
+use onyxsh_core::i18n::tr_fmt;
 use std::fs;
 use std::path::Path;
 
@@ -61,9 +62,13 @@ impl ContextManager {
         if provider_trust == "local" {
             Some(wrap_untrusted(&redacted, &format!("attachment:{name}")))
         } else {
-            let meta = format!(
-                "Arquivo: {name} (Tamanho: {} bytes)\nTrecho:\n{redacted}",
-                raw.len()
+            let meta = tr_fmt(
+                "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}",
+                &[
+                    ("name", name),
+                    ("size", &raw.len().to_string()),
+                    ("excerpt", &redacted),
+                ],
             );
             Some(wrap_untrusted(&meta, &format!("attachment:{name}")))
         }

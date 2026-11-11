@@ -1,5 +1,6 @@
 //! Relm4-style Unidirectional Application State Machine (`src/onyxsh/window.py`).
 
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::sessions::SessionItem;
 use onyxsh_core::window_state::{TabNodeState, WindowSessionState};
 use serde::{Deserialize, Serialize};
@@ -99,7 +100,7 @@ impl Default for AppModel {
             next_tab_id: 1,
         };
         model.update(AppInput::NewTab {
-            title: Some("Local Terminal".to_string()),
+            title: Some(tr("Local Terminal")),
             cwd: None,
             session_data: None,
         });
@@ -118,7 +119,7 @@ impl AppModel {
             } => {
                 let id = self.next_tab_id;
                 self.next_tab_id += 1;
-                let tab_title = title.unwrap_or_else(|| format!("Terminal {id}"));
+                let tab_title = title.unwrap_or_else(|| tr_fmt("Terminal {id}", &[("id", &id.to_string())]));
                 let session_type = session_data
                     .as_ref()
                     .map(|s| s.session_type.clone())

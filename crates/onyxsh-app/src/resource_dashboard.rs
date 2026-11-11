@@ -19,6 +19,7 @@ use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_core::sessions::SessionsStorageData;
 use onyxsh_filemanager::format_bytes;
@@ -172,7 +173,7 @@ pub fn show_resource_dashboard_dialog(parent: &adw::ApplicationWindow) {
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(false)
-        .title("Monitor de Recursos em Tempo Real — OnyxSH")
+        .title(&tr("Monitor de Recursos em Tempo Real — OnyxSH"))
         .default_width(760)
         .default_height(560)
         .build();
@@ -181,7 +182,7 @@ pub fn show_resource_dashboard_dialog(parent: &adw::ApplicationWindow) {
     let hb = adw::HeaderBar::new();
 
     // ── Control Toolbar inside HeaderBar ──────────────────────────────────────
-    let mut host_choices = vec!["Local (Este Computador)".to_string()];
+    let mut host_choices = vec![tr("Local (Este Computador)")];
     let sessions_path = platform::config_dir().join("sessions.json");
     if let Ok(storage) = SessionsStorageData::load_from_path(&sessions_path) {
         for s in storage.sessions.iter().filter(|s| s.session_type == "ssh") {
@@ -191,10 +192,10 @@ pub fn show_resource_dashboard_dialog(parent: &adw::ApplicationWindow) {
     let host_refs: Vec<&str> = host_choices.iter().map(String::as_str).collect();
     let host_list = gtk4::StringList::new(&host_refs);
     let host_dd = gtk4::DropDown::new(Some(host_list), gtk4::Expression::NONE);
-    host_dd.set_tooltip_text(Some("Selecionar Host Monitorado"));
+    host_dd.set_tooltip_text(Some(&tr("Select Monitored Host")));
     hb.pack_start(&host_dd);
 
-    let status_badge = gtk4::Label::new(Some("🟢 Ativo"));
+    let status_badge = gtk4::Label::new(Some(&tr("🟢 Ativo")));
     status_badge.add_css_class("caption");
     hb.pack_start(&status_badge);
 
@@ -202,11 +203,11 @@ pub fn show_resource_dashboard_dialog(parent: &adw::ApplicationWindow) {
     let rate_list = gtk4::StringList::new(&["1s", "2s", "5s"]);
     let rate_dd = gtk4::DropDown::new(Some(rate_list), gtk4::Expression::NONE);
     rate_dd.set_selected(0);
-    rate_dd.set_tooltip_text(Some("Intervalo de Atualização"));
+    rate_dd.set_tooltip_text(Some(&tr("Refresh Interval")));
 
     let btn_pause = gtk4::ToggleButton::builder()
         .icon_name("media-playback-pause-symbolic")
-        .label("Pausar")
+        .label(&tr("Pause"))
         .build();
 
     hb.pack_end(&btn_pause);
@@ -235,38 +236,45 @@ pub fn show_resource_dashboard_dialog(parent: &adw::ApplicationWindow) {
     // Card 1: Processor (CPU)
     let (cpu_model, cpu_cores) = read_cpu_hardware_summary();
     let (card_cpu, lbl_cpu_val, bar_cpu, canvas_cpu) = build_metric_card(
-        "Processador (CPU)",
-        &format!("{cpu_model} ({cpu_cores} núcleos lógicos)"),
+        &tr("Processador (CPU)"),
+        &tr_fmt(
+            "{cpu_model} ({cpu_cores} logical cores)",
+            &[("cpu_model", &cpu_model), ("cpu_cores", &cpu_cores.to_string())],
+        ),
         Rc::clone(&cpu_buf),
     );
     grid.attach(&card_cpu, 0, 0, 1, 1);
 
     // Card 2: Memory (RAM + Swap)
     let (card_ram, lbl_ram_val, bar_ram, canvas_ram) = build_metric_card(
-        "Memória (RAM & Swap)",
-        "/proc/meminfo — MemAvailable & Swap",
+        &tr("Memory (RAM & Swap)"),
+        &tr("/proc/meminfo — MemAvailable & Swap"),
         Rc::clone(&ram_buf),
     );
     grid.attach(&card_ram, 1, 0, 1, 1);
 
     // Card 3: Disk I/O
     let (card_disk, lbl_disk_val, bar_disk, canvas_disk) = build_metric_card(
-        "Disco (I/O Físico)",
-        "/proc/diskstats — Leitura / Escrita em Dispositivos",
+        &tr("Disk (Physical I/O)"),
+        &tr("/proc/diskstats — Device Read / Write"),
         Rc::clone(&disk_buf),
     );
     grid.attach(&card_disk, 0, 1, 1, 1);
 
     // Card 4: Network & GPU VRAM
     let vram_subtitle = match probe_local_gpu_vram() {
-        Some(v) => format!(
-            "Rede (/proc/net/dev) • GPU VRAM: {} / {} MB ({:.0}%)",
-            v.used_mb, v.total_mb, v.usage_percent
+        Some(v) => tr_fmt(
+            "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)",
+            &[
+                ("used", &v.used_mb.to_string()),
+                ("total", &v.total_mb.to_string()),
+                ("pct", &format!("{:.0}", v.usage_percent)),
+            ],
         ),
-        None => "Rede (/proc/net/dev) • RX / TX em Tempo Real".to_string(),
+        None => tr("Network (/proc/net/dev) • Real-Time RX / TX"),
     };
     let (card_net, lbl_net_val, bar_net, canvas_net) = build_metric_card(
-        "Rede (RX / TX) & GPU",
+        &tr("Network (RX / TX) & GPU"),
         &vram_subtitle,
         Rc::clone(&net_buf),
     );
@@ -303,11 +311,11 @@ pub fn show_resource_dashboard_dialog(parent: &adw::ApplicationWindow) {
             let active = btn.is_active();
             *paused.borrow_mut() = active;
             if active {
-                badge.set_text("⏸️ Pausado");
-                btn.set_label("Retomar");
+                badge.set_text(&tr("⏸️ Pausado"));
+                btn.set_label(&tr("Resume"));
             } else {
-                badge.set_text("🟢 Ativo");
-                btn.set_label("Pausar");
+                badge.set_text(&tr("🟢 Ativo"));
+                btn.set_label(&tr("Pause"));
             }
         });
     }
@@ -398,10 +406,12 @@ pub fn show_resource_dashboard_dialog(parent: &adw::ApplicationWindow) {
             // Normalize 100 MB/s = 100% on sparkline
             let disk_pct = (((r_bps + w_bps) / (100.0 * 1024.0 * 1024.0)) * 100.0).clamp(0.0, 100.0) as f32;
             disk_buf.borrow_mut().push(disk_pct);
-            lbl_disk_val.set_text(&format!(
-                "Leitura: {}/s • Escrita: {}/s",
-                format_bytes(r_bps as u64),
-                format_bytes(w_bps as u64)
+            lbl_disk_val.set_text(&tr_fmt(
+                "Read: {read}/s • Write: {write}/s",
+                &[
+                    ("read", &format_bytes(r_bps as u64)),
+                    ("write", &format_bytes(w_bps as u64)),
+                ],
             ));
             bar_disk.set_value((disk_pct as f64 / 100.0).clamp(0.0, 1.0));
             canvas_disk.queue_draw();
@@ -463,7 +473,7 @@ fn build_metric_card(
     title_lbl.set_halign(gtk4::Align::Start);
     title_lbl.set_hexpand(true);
 
-    let val_lbl = gtk4::Label::new(Some("Aguardando amostra..."));
+    let val_lbl = gtk4::Label::new(Some(&tr("Waiting for sample...")));
     val_lbl.add_css_class("monospace");
     val_lbl.add_css_class("caption");
     top_hbox.append(&title_lbl);

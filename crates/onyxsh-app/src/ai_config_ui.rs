@@ -13,6 +13,7 @@ use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
 use onyxsh_core::config::AppSettings;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -90,21 +91,21 @@ pub fn show_ai_config_window(
     let win = adw::PreferencesWindow::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Configurar Assistente de IA — OnyxSH")
+        .title(&tr("Configure AI Assistant — OnyxSH"))
         .default_width(750)
         .default_height(640)
         .build();
 
     let page = adw::PreferencesPage::builder()
-        .title("Assistente de IA")
+        .title(&tr("Assistente de IA"))
         .icon_name("avatar-default-symbolic")
         .build();
 
     // ── Group 1: Ativação Geral ───────────────────────────────────────────────
     let enable_group = adw::PreferencesGroup::new();
     let row_enable = adw::SwitchRow::builder()
-        .title("Ativar Assistente de IA")
-        .subtitle("Exibir o botão e o painel lateral do Assistente de IA na barra superior.")
+        .title(&tr("Enable AI Assistant"))
+        .subtitle(&tr("Show the AI Assistant button and side panel in the top bar."))
         .active(settings_rc.borrow().ai_enabled)
         .build();
     enable_group.add(&row_enable);
@@ -112,13 +113,13 @@ pub fn show_ai_config_window(
 
     // ── Group 2: Privacidade e Modo Offline ──────────────────────────────────
     let privacy_group = adw::PreferencesGroup::builder()
-        .title("Privacidade e Modo Offline")
-        .description("Controle de conexão externa e isolamento estrito de dados.")
+        .title(&tr("Privacidade e Modo Offline"))
+        .description(&tr("External connection control and strict data isolation."))
         .build();
 
     let row_offline = adw::SwitchRow::builder()
-        .title("Modo Estritamente Offline (Local-Only)")
-        .subtitle("Bloqueia qualquer requisição externa (Gemini, Groq, OpenRouter) e restringe a IA a modelos locais no Ollama ou LM Studio.")
+        .title(&tr("Modo Estritamente Offline (Local-Only)"))
+        .subtitle(&tr("Bloqueia qualquer requisição externa (Gemini, Groq, OpenRouter) e restringe a IA a modelos locais no Ollama ou LM Studio."))
         .active(settings_rc.borrow().ai_offline_mode)
         .build();
     privacy_group.add(&row_offline);
@@ -126,52 +127,51 @@ pub fn show_ai_config_window(
 
     // ── Group 3: Provedor Principal e Modelos ─────────────────────────────────
     let provider_group = adw::PreferencesGroup::builder()
-        .title("Provedor Principal e Conectividade")
-        .description("Escolha entre provedores na nuvem de alta velocidade ou servidores locais.")
+        .title(&tr("Primary Provider and Connectivity"))
+        .description(&tr("Choose between high-speed cloud providers or local servers."))
         .build();
 
     let row_provider = adw::ComboRow::builder()
-        .title("Provedor Padrão")
-        .subtitle("Provedor utilizado quando o Roteamento Inteligente estiver desativado")
+        .title(&tr("Default Provider"))
+        .subtitle(&tr("Provider used when Smart Routing is disabled"))
         .build();
-    let prov_list = gtk4::StringList::new(&[
-        "Groq • LPU Ultra-Rápido",
-        "Google Gemini • Alta Capacidade de Contexto",
-        "OpenRouter • Catálogo Unificado Multi-Modelo",
-        "Local (Ollama / LM Studio) • Privacidade Total na GPU/CPU",
-    ]);
+    let p_groq = tr("Groq • Ultra-Fast LPU");
+    let p_gemini = tr("Google Gemini • High Context Capacity");
+    let p_openrouter = tr("OpenRouter • Unified Multi-Model Catalog");
+    let p_local = tr("Local (Ollama / LM Studio) • Full GPU/CPU Privacy");
+    let prov_list = gtk4::StringList::new(&[&p_groq, &p_gemini, &p_openrouter, &p_local]);
     row_provider.set_model(Some(&prov_list));
     row_provider.set_selected(provider_to_index(&settings_rc.borrow().ai_provider));
     provider_group.add(&row_provider);
 
     let row_base_url = adw::EntryRow::builder()
-        .title("URL Base do Servidor Local")
+        .title(&tr("Local Server Base URL"))
         .text(&settings_rc.borrow().ai_local_base_url)
         .build();
     provider_group.add(&row_base_url);
 
     let row_preload = adw::SwitchRow::builder()
-        .title("Pré-carregar Modelo na VRAM ao Iniciar")
-        .subtitle("Carrega o modelo na GPU em segundo plano ao abrir o terminal para respostas imediatas.")
+        .title(&tr("Pré-carregar Modelo na VRAM ao Iniciar"))
+        .subtitle(&tr("Carrega o modelo na GPU em segundo plano ao abrir o terminal para respostas imediatas."))
         .active(settings_rc.borrow().ai_preload_local_model)
         .build();
     provider_group.add(&row_preload);
 
     let row_unload = adw::SwitchRow::builder()
-        .title("Liberar VRAM ao Fechar o Terminal")
-        .subtitle("Descarrega o modelo da memória GPU imediatamente ao fechar a aplicação.")
+        .title(&tr("Liberar VRAM ao Fechar o Terminal"))
+        .subtitle(&tr("Descarrega o modelo da memória GPU imediatamente ao fechar a aplicação."))
         .active(settings_rc.borrow().ai_unload_on_exit)
         .build();
     provider_group.add(&row_unload);
 
     let row_api_key = adw::PasswordEntryRow::builder()
-        .title("Chave de API Padrão (API Key)")
+        .title(&tr("Default API Key"))
         .text(&settings_rc.borrow().ai_api_key)
         .build();
     provider_group.add(&row_api_key);
 
     let row_model = adw::EntryRow::builder()
-        .title("Identificador do Modelo Padrão")
+        .title(&tr("Default Model Identifier"))
         .text(&settings_rc.borrow().ai_model)
         .build();
     provider_group.add(&row_model);
@@ -180,26 +180,25 @@ pub fn show_ai_config_window(
 
     // ── Group 4: Roteamento Inteligente (Smart Routing) ──────────────────────
     let routing_group = adw::PreferencesGroup::builder()
-        .title("Roteamento Inteligente de Modelos (Smart Routing)")
-        .description("Aloca automaticamente entre modelos rápidos e modelos avançados com base na complexidade da tarefa.")
+        .title(&tr("Roteamento Inteligente de Modelos (Smart Routing)"))
+        .description(&tr("Aloca automaticamente entre modelos rápidos e modelos avançados com base na complexidade da tarefa."))
         .build();
 
     let row_smart_routing = adw::SwitchRow::builder()
-        .title("Ativar Roteamento Inteligente")
-        .subtitle("Direciona consultas simples para o perfil rápido e planos/scripts complexos para o perfil avançado.")
+        .title(&tr("Ativar Roteamento Inteligente"))
+        .subtitle(&tr("Direciona consultas simples para o perfil rápido e planos/scripts complexos para o perfil avançado."))
         .active(settings_rc.borrow().ai_smart_routing)
         .build();
     routing_group.add(&row_smart_routing);
 
     let row_routing_mode = adw::ComboRow::builder()
-        .title("Modo de Roteamento Padrão")
-        .subtitle("Escolha se a IA deve alternar automaticamente ou fixar um perfil.")
+        .title(&tr("Modo de Roteamento Padrão"))
+        .subtitle(&tr("Escolha se a IA deve alternar automaticamente ou fixar um perfil."))
         .build();
-    let route_mode_list = gtk4::StringList::new(&[
-        "Automático (Classifica complexidade do prompt)",
-        "Sempre Rápido (Baixa latência / Groq / Local)",
-        "Sempre Avançado (Raciocínio profundo / Gemini / Claude)",
-    ]);
+    let rm_auto = tr("Automático (Classifica complexidade do prompt)");
+    let rm_fast = tr("Sempre Rápido (Baixa latência / Groq / Local)");
+    let rm_adv = tr("Sempre Avançado (Raciocínio profundo / Gemini / Claude)");
+    let route_mode_list = gtk4::StringList::new(&[&rm_auto, &rm_fast, &rm_adv]);
     row_routing_mode.set_model(Some(&route_mode_list));
     row_routing_mode.set_selected(match settings_rc.borrow().ai_routing_profile.as_str() {
         "fast" => 1,
@@ -210,18 +209,18 @@ pub fn show_ai_config_window(
 
     // Expander Perfil Rápido
     let exp_fast = adw::ExpanderRow::builder()
-        .title("⚡ Perfil Rápido (Consultas Pontuais / Sintaxe)")
-        .subtitle("Modelo e provedor de baixa latência para dúvidas diárias de shell")
+        .title(&tr("⚡ Perfil Rápido (Consultas Pontuais / Sintaxe)"))
+        .subtitle(&tr("Low-latency model and provider for daily shell questions"))
         .build();
     let row_fast_prov = adw::ComboRow::builder()
-        .title("Provedor Rápido")
+        .title(&tr("Provedor Rápido"))
         .build();
     row_fast_prov.set_model(Some(&prov_list));
     row_fast_prov.set_selected(provider_to_index(&settings_rc.borrow().ai_fast_provider));
     exp_fast.add_row(&row_fast_prov);
 
     let row_fast_model = adw::EntryRow::builder()
-        .title("Modelo Rápido")
+        .title(&tr("Modelo Rápido"))
         .text(&settings_rc.borrow().ai_fast_model)
         .build();
     exp_fast.add_row(&row_fast_model);
@@ -229,18 +228,18 @@ pub fn show_ai_config_window(
 
     // Expander Perfil Avançado
     let exp_adv = adw::ExpanderRow::builder()
-        .title("🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)")
-        .subtitle("Modelo e provedor de alto raciocínio para planos de múltiplos passos")
+        .title(&tr("🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"))
+        .subtitle(&tr("High-reasoning model and provider for multi-step plans"))
         .build();
     let row_adv_prov = adw::ComboRow::builder()
-        .title("Provedor Avançado")
+        .title(&tr("Provedor Avançado"))
         .build();
     row_adv_prov.set_model(Some(&prov_list));
     row_adv_prov.set_selected(provider_to_index(&settings_rc.borrow().ai_advanced_provider));
     exp_adv.add_row(&row_adv_prov);
 
     let row_adv_model = adw::EntryRow::builder()
-        .title("Modelo Avançado")
+        .title(&tr("Modelo Avançado"))
         .text(&settings_rc.borrow().ai_advanced_model)
         .build();
     exp_adv.add_row(&row_adv_model);
@@ -248,16 +247,16 @@ pub fn show_ai_config_window(
 
     // Expander Chaves de API Dedicadas
     let exp_keys = adw::ExpanderRow::builder()
-        .title("🔑 Chaves de API por Provedor")
-        .subtitle("Configure chaves individuais para alternar provedores sem reconfigurar")
+        .title(&tr("🔑 Chaves de API por Provedor"))
+        .subtitle(&tr("Configure individual keys to switch providers without reconfiguring"))
         .build();
 
     let row_key_gemini = adw::PasswordEntryRow::builder()
-        .title("Google Gemini API Key")
+        .title(&tr("Google Gemini API Key"))
         .text(&settings_rc.borrow().ai_api_key_gemini)
         .build();
     let btn_test_gemini = gtk4::Button::builder()
-        .label("Testar")
+        .label(&tr("Testar"))
         .valign(gtk4::Align::Center)
         .build();
     btn_test_gemini.add_css_class("flat");
@@ -265,11 +264,11 @@ pub fn show_ai_config_window(
     exp_keys.add_row(&row_key_gemini);
 
     let row_key_groq = adw::PasswordEntryRow::builder()
-        .title("Groq API Key")
+        .title(&tr("Groq API Key"))
         .text(&settings_rc.borrow().ai_api_key_groq)
         .build();
     let btn_test_groq = gtk4::Button::builder()
-        .label("Testar")
+        .label(&tr("Testar"))
         .valign(gtk4::Align::Center)
         .build();
     btn_test_groq.add_css_class("flat");
@@ -277,11 +276,11 @@ pub fn show_ai_config_window(
     exp_keys.add_row(&row_key_groq);
 
     let row_key_openrouter = adw::PasswordEntryRow::builder()
-        .title("OpenRouter API Key")
+        .title(&tr("OpenRouter API Key"))
         .text(&settings_rc.borrow().ai_api_key_openrouter)
         .build();
     let btn_test_openrouter = gtk4::Button::builder()
-        .label("Testar")
+        .label(&tr("Testar"))
         .valign(gtk4::Align::Center)
         .build();
     btn_test_openrouter.add_css_class("flat");
@@ -293,99 +292,97 @@ pub fn show_ai_config_window(
 
     // ── Group 5: Modo Agente Seguro e Contexto ───────────────────────────────
     let agent_group = adw::PreferencesGroup::builder()
-        .title("Modo Agente Seguro e Contexto")
-        .description("Parâmetros de proteção, níveis de autonomia e contexto do sistema.")
+        .title(&tr("Modo Agente Seguro e Contexto"))
+        .description(&tr("Parâmetros de proteção, níveis de autonomia e contexto do sistema."))
         .build();
 
     let row_risk = adw::ComboRow::builder()
-        .title("Nível Máximo de Autonomia Permitido")
-        .subtitle("Define o limite máximo de risco para comandos propostos pela IA.")
+        .title(&tr("Nível Máximo de Autonomia Permitido"))
+        .subtitle(&tr("Define o limite máximo de risco para comandos propostos pela IA."))
         .build();
-    let risk_list = gtk4::StringList::new(&[
-        "🟢 Nível 0: Somente Leitura (Diagnóstico e Inspeção)",
-        "🔵 Nível 1: Escrita no Usuário (Criar/Editar Scripts e Arquivos)",
-        "🟠 Nível 2: Administração Polkit (Serviços e Manutenção)",
-        "🔴 Nível 3: Operações Críticas (Pacotes e Sistema Global)",
-    ]);
+    let rl0 = tr("🟢 Nível 0: Somente Leitura (Diagnóstico e Inspeção)");
+    let rl1 = tr("🔵 Nível 1: Escrita no Usuário (Criar/Editar Scripts e Arquivos)");
+    let rl2 = tr("🟠 Nível 2: Administração Polkit (Serviços e Manutenção)");
+    let rl3 = tr("🔴 Nível 3: Operações Críticas (Pacotes e Sistema Global)");
+    let risk_list = gtk4::StringList::new(&[&rl0, &rl1, &rl2, &rl3]);
     row_risk.set_model(Some(&risk_list));
     row_risk.set_selected(settings_rc.borrow().ai_agent_max_risk_level.min(3) as u32);
     agent_group.add(&row_risk);
 
     let row_auto_l0 = adw::SwitchRow::builder()
-        .title("Auto-executar Comandos Seguros (Nível 0)")
-        .subtitle("Executa automaticamente diagnósticos somente-leitura sem exigir confirmação manual.")
+        .title(&tr("Auto-executar Comandos Seguros (Nível 0)"))
+        .subtitle(&tr("Automatically runs read-only diagnostics without requiring manual confirmation."))
         .active(settings_rc.borrow().ai_agent_auto_run_level0)
         .build();
     agent_group.add(&row_auto_l0);
 
     let row_post_verify = adw::SwitchRow::builder()
-        .title("Sugerir Verificação Pós-Execução (Sanity Loop)")
-        .subtitle("Infere e propõe validações automáticas (status de serviços, sintaxe de configs) após comandos mutantes.")
+        .title(&tr("Sugerir Verificação Pós-Execução (Sanity Loop)"))
+        .subtitle(&tr("Infers and proposes automatic validations (service status, config syntax) after mutating commands."))
         .active(settings_rc.borrow().ai_agent_post_verification)
         .build();
     agent_group.add(&row_post_verify);
 
     let row_auto_verify = adw::SwitchRow::builder()
-        .title("Executar Verificações Automaticamente")
-        .subtitle("Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar.")
+        .title(&tr("Executar Verificações Automaticamente"))
+        .subtitle(&tr("Dispara os testes de sanidade automaticamente sem exigir clique manual no botão de validar."))
         .active(settings_rc.borrow().ai_agent_auto_verify)
         .build();
     agent_group.add(&row_auto_verify);
 
     let row_sys_context = adw::SwitchRow::builder()
-        .title("Incluir Contexto do Sistema e Hardware")
-        .subtitle("Informa à IA a distribuição Linux, arquitetura e dados do sistema para comandos exatos.")
+        .title(&tr("Incluir Contexto do Sistema e Hardware"))
+        .subtitle(&tr("Informa à IA a distribuição Linux, arquitetura e dados do sistema para comandos exatos."))
         .active(settings_rc.borrow().ai_agent_include_system_context)
         .build();
     agent_group.add(&row_sys_context);
 
     let row_pwd_context = adw::SwitchRow::builder()
-        .title("Incluir Diretório Atual (PWD) no Contexto")
-        .subtitle("Permite que a IA use caminhos relativos ao diretório em que você está navegando.")
+        .title(&tr("Incluir Diretório Atual (PWD) no Contexto"))
+        .subtitle(&tr("Permite que a IA use caminhos relativos ao diretório em que você está navegando."))
         .active(settings_rc.borrow().ai_agent_include_pwd_context)
         .build();
     agent_group.add(&row_pwd_context);
 
     let row_context_size = adw::ComboRow::builder()
-        .title("Tamanho da Janela de Contexto (Tokens)")
-        .subtitle("Alocação máxima de memória de contexto enviada ao modelo")
+        .title(&tr("Context Window Size (Tokens)"))
+        .subtitle(&tr("Maximum context memory allocation sent to the model"))
         .build();
-    let ctx_list = gtk4::StringList::new(&[
-        CONTEXT_SIZES[0].1,
-        CONTEXT_SIZES[1].1,
-        CONTEXT_SIZES[2].1,
-        CONTEXT_SIZES[3].1,
-        CONTEXT_SIZES[4].1,
-        CONTEXT_SIZES[5].1,
-    ]);
+    let cs0 = tr(CONTEXT_SIZES[0].1);
+    let cs1 = tr(CONTEXT_SIZES[1].1);
+    let cs2 = tr(CONTEXT_SIZES[2].1);
+    let cs3 = tr(CONTEXT_SIZES[3].1);
+    let cs4 = tr(CONTEXT_SIZES[4].1);
+    let cs5 = tr(CONTEXT_SIZES[5].1);
+    let ctx_list = gtk4::StringList::new(&[&cs0, &cs1, &cs2, &cs3, &cs4, &cs5]);
     row_context_size.set_model(Some(&ctx_list));
     row_context_size.set_selected(context_size_to_index(settings_rc.borrow().ai_context_size));
     agent_group.add(&row_context_size);
 
     // Expander Guia dos Níveis de Risco
     let exp_guide = adw::ExpanderRow::builder()
-        .title("ℹ️ Guia dos Níveis de Risco do Contexto")
-        .subtitle("Clique para entender o que cada nível de permissão autoriza ou restringe")
+        .title(&tr("ℹ️ Guia dos Níveis de Risco do Contexto"))
+        .subtitle(&tr("Clique para entender o que cada nível de permissão autoriza ou restringe"))
         .build();
     let row_g0 = adw::ActionRow::builder()
-        .title("🟢 Nível 0: Somente Leitura (Diagnóstico)")
-        .subtitle("Comandos puramente informativos (lshw, df, free, ps, ls, cat). Risco zero.")
+        .title(&tr("🟢 Nível 0: Somente Leitura (Diagnóstico)"))
+        .subtitle(&tr("Comandos puramente informativos (lshw, df, free, ps, ls, cat). Risco zero."))
         .build();
     let row_g1 = adw::ActionRow::builder()
-        .title("🔵 Nível 1: Escrita no Espaço do Usuário")
-        .subtitle("Criação de scripts, edição de arquivos e git na pasta home. Requer 1 clique de aprovação.")
+        .title(&tr("🔵 Nível 1: Escrita no Espaço do Usuário"))
+        .subtitle(&tr("Criação de scripts, edição de arquivos e git na pasta home. Requer 1 clique de aprovação."))
         .build();
     let row_g2 = adw::ActionRow::builder()
-        .title("🟠 Nível 2: Administração Polkit")
-        .subtitle("Serviços e configurações do sistema (systemctl, journalctl). Requer autenticação segura.")
+        .title(&tr("🟠 Nível 2: Administração Polkit"))
+        .subtitle(&tr("Serviços e configurações do sistema (systemctl, journalctl). Requer autenticação segura."))
         .build();
     let row_g3 = adw::ActionRow::builder()
-        .title("🔴 Nível 3: Operações Críticas Globais")
-        .subtitle("Instalação/remoção de pacotes e arquivos em /etc (apt, dpkg). Exige confirmação explícita.")
+        .title(&tr("🔴 Nível 3: Operações Críticas Globais"))
+        .subtitle(&tr("Instalação/remoção de pacotes e arquivos em /etc (apt, dpkg). Exige confirmação explícita."))
         .build();
     let row_g4 = adw::ActionRow::builder()
-        .title("⛔ Nível 4: Ações Destrutivas (Bloqueado)")
-        .subtitle("Comandos perigosos (rm -rf /, mkfs, dd). Permanentemente bloqueados pelo motor de segurança.")
+        .title(&tr("⛔ Nível 4: Ações Destrutivas (Bloqueado)"))
+        .subtitle(&tr("Comandos perigosos (rm -rf /, mkfs, dd). Permanentemente bloqueados pelo motor de segurança."))
         .build();
     exp_guide.add_row(&row_g0);
     exp_guide.add_row(&row_g1);
@@ -404,7 +401,8 @@ pub fn show_ai_config_window(
         row_enable.connect_active_notify(move |r| {
             st.borrow_mut().ai_enabled = r.is_active();
             save_settings(&st.borrow());
-            status.set_text(&format!("Assistente de IA: {}", if r.is_active() { "Ativado" } else { "Desativado" }));
+            let state_str = if r.is_active() { tr("Enabled") } else { tr("Disabled") };
+            status.set_text(&tr_fmt("AI Assistant: {state}", &[("state", &state_str)]));
         });
     }
 
@@ -599,50 +597,22 @@ pub fn show_ai_config_window(
     }
 
     // Connect test buttons
-    {
+    let wire_key_test = |btn: &gtk4::Button, entry: &adw::PasswordEntryRow, provider: &'static str| {
         let win_c = win.clone();
-        let rk = row_key_gemini.clone();
-        btn_test_gemini.connect_clicked(move |_| {
+        let rk = entry.clone();
+        btn.connect_clicked(move |_| {
             let key = rk.text();
             let msg = if key.is_empty() {
-                "Informe uma chave do Google Gemini antes de testar."
+                tr_fmt("Please enter a {provider} API key before testing.", &[("provider", provider)])
             } else {
-                "Chave do Google Gemini configurada com sucesso."
+                tr_fmt("{provider} API key configured successfully.", &[("provider", provider)])
             };
-            let toast = adw::Toast::new(msg);
-            win_c.add_toast(toast);
+            win_c.add_toast(adw::Toast::new(&msg));
         });
-    }
-
-    {
-        let win_c = win.clone();
-        let rk = row_key_groq.clone();
-        btn_test_groq.connect_clicked(move |_| {
-            let key = rk.text();
-            let msg = if key.is_empty() {
-                "Informe uma chave da Groq antes de testar."
-            } else {
-                "Chave da Groq configurada com sucesso."
-            };
-            let toast = adw::Toast::new(msg);
-            win_c.add_toast(toast);
-        });
-    }
-
-    {
-        let win_c = win.clone();
-        let rk = row_key_openrouter.clone();
-        btn_test_openrouter.connect_clicked(move |_| {
-            let key = rk.text();
-            let msg = if key.is_empty() {
-                "Informe uma chave do OpenRouter antes de testar."
-            } else {
-                "Chave do OpenRouter configurada com sucesso."
-            };
-            let toast = adw::Toast::new(msg);
-            win_c.add_toast(toast);
-        });
-    }
+    };
+    wire_key_test(&btn_test_gemini, &row_key_gemini, "Google Gemini");
+    wire_key_test(&btn_test_groq, &row_key_groq, "Groq");
+    wire_key_test(&btn_test_openrouter, &row_key_openrouter, "OpenRouter");
 
     win.present();
 }

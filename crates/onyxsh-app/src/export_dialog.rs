@@ -22,6 +22,7 @@ use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_terminal::exporter::{format_direct_export, ExportMetadata};
 use onyxsh_terminal::osc7::create_display_path;
@@ -35,36 +36,36 @@ use vte4::prelude::*;
 pub const DIRECT_FORMAT_OPTIONS: &[(&str, &str, &str, &str, &str)] = &[
     (
         "txt",
-        "Texto Puro (.txt)",
-        "Saída do terminal limpa e sem formatação",
+        "Plain Text (.txt)",
+        "Clean unformatted terminal output",
         ".txt",
         "text/plain",
     ),
     (
         "log",
-        "Arquivo de Log (.log)",
-        "Saída com cabeçalhos de sessão, data e sistema",
+        "Log File (.log)",
+        "Output with session, date and system headers",
         ".log",
         "text/plain",
     ),
     (
         "md",
-        "Documento Markdown (.md)",
-        "Formatado com blocos de código e tabela de metadados",
+        "Markdown Document (.md)",
+        "Formatted with code blocks and metadata table",
         ".md",
         "text/markdown",
     ),
     (
         "html",
-        "Página HTML Estilizada (.html)",
-        "Página web autônoma com tema escuro moderno",
+        "Styled HTML Page (.html)",
+        "Self-contained modern dark-themed webpage",
         ".html",
         "text/html",
     ),
     (
         "cast",
-        "Gravação Asciinema (.cast)",
-        "Formato JSON Asciinema v2 para players web e CLI",
+        "Asciinema Recording (.cast)",
+        "Asciinema v2 JSON format for CLI & web players",
         ".cast",
         "application/json",
     ),
@@ -81,7 +82,7 @@ pub const RUNBOOK_FORMAT_OPTIONS: &[(&str, &str, &str, &str, &str)] = &[
     ),
     (
         "runbook_html",
-        "Relatório HTML Interativo (.html)",
+        "Interactive HTML Report (.html)",
         "Página web autônoma em tema escuro com estilo de impressão / PDF",
         ".html",
         "text/html",
@@ -89,7 +90,7 @@ pub const RUNBOOK_FORMAT_OPTIONS: &[(&str, &str, &str, &str, &str)] = &[
     (
         "runbook_log",
         "Log Estruturado de Caderno de Bordo (.log)",
-        "Relatório em texto para sistemas de chamados e anexos de auditoria",
+        "Text report for ticketing systems and audit attachments",
         ".log",
         "text/plain",
     ),
@@ -121,8 +122,8 @@ pub fn extract_terminal_export_metadata(term: &vte4::Terminal, tab_title: Option
 
     let session_name = tab_title
         .filter(|t| !t.trim().is_empty())
-        .unwrap_or("Terminal Local")
-        .to_string();
+        .map(str::to_string)
+        .unwrap_or_else(|| tr("Local Terminal"));
 
     let cols = (term.column_count().max(20)) as u32;
     let rows = (term.row_count().max(5)) as u32;
@@ -192,12 +193,12 @@ pub fn build_runbook_data_from_text(raw_text: &str, meta: &ExportMetadata) -> Ru
 
     RunbookData {
         metadata: RunbookMetadata {
-            title: "Procedimento Operacional / Runbook".to_string(),
+            title: tr("Procedimento Operacional / Runbook"),
             author,
             objective: String::new(),
             general_notes: String::new(),
             conclusion: String::new(),
-            status: "Concluído".to_string(),
+            status: tr("Concluído"),
             session_name: meta.session_name.clone(),
             host: meta.host.clone(),
             date_str: meta.timestamp.clone(),
@@ -214,8 +215,9 @@ pub fn build_preview_snippet(content: &str, max_lines: usize) -> String {
         content.to_string()
     } else {
         format!(
-            "{}\n\n... (restante da saída truncado na pré-visualização)",
-            lines[..max_lines].join("\n")
+            "{}\n\n{}",
+            lines[..max_lines].join("\n"),
+            tr("... (restante da saída truncado na pré-visualização)")
         )
     }
 }
@@ -261,7 +263,7 @@ pub fn show_export_terminal_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Exportar Terminal e Caderno de Bordo")
+        .title(&tr("Export Terminal & Runbook"))
         .default_width(720)
         .default_height(660)
         .build();
@@ -269,7 +271,7 @@ pub fn show_export_terminal_dialog(
     let toolbar_view = adw::ToolbarView::new();
     let header = adw::HeaderBar::new();
 
-    let btn_cancel_top = gtk4::Button::with_label("Cancelar");
+    let btn_cancel_top = gtk4::Button::with_label(&tr("Cancelar"));
     {
         let d = dlg.clone();
         btn_cancel_top.connect_clicked(move |_| d.close());
@@ -324,7 +326,7 @@ pub fn show_export_terminal_dialog(
 
     // 3. Shared Live Preview Card (created before pages so callbacks can refresh it)
     let preview_group = adw::PreferencesGroup::builder()
-        .title("Pré-visualização do Arquivo")
+        .title(&tr("Pré-visualização do Arquivo"))
         .build();
     let preview_card = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
     preview_card.add_css_class("card");
@@ -365,13 +367,15 @@ pub fn show_export_terminal_dialog(
     let direct_page = gtk4::Box::new(gtk4::Orientation::Vertical, 14);
 
     let scope_group = adw::PreferencesGroup::builder()
-        .title("Escopo da Exportação")
-        .description("Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa.")
+        .title(&tr("Escopo da Exportação"))
+        .description(&tr(
+            "Escolha entre exportar todo o histórico do terminal ou apenas a seleção ativa.",
+        ))
         .build();
 
     let scope_full_row = adw::ActionRow::builder()
-        .title("Buffer Completo do Terminal")
-        .subtitle("Todos os comandos e saídas gravados nesta sessão")
+        .title(&tr("Buffer Completo do Terminal"))
+        .subtitle(&tr("Todos os comandos e saídas gravados nesta sessão"))
         .build();
     let scope_full_check = gtk4::CheckButton::builder().active(true).build();
     scope_full_row.add_prefix(&scope_full_check);
@@ -379,13 +383,13 @@ pub fn show_export_terminal_dialog(
     scope_group.add(&scope_full_row);
 
     let scope_sel_subtitle = if has_selection {
-        "Apenas o trecho atualmente destacado no terminal"
+        tr("Apenas o trecho atualmente destacado no terminal")
     } else {
-        "Nenhum texto selecionado no terminal"
+        tr("Nenhum texto selecionado no terminal")
     };
     let scope_sel_row = adw::ActionRow::builder()
-        .title("Apenas Texto Selecionado")
-        .subtitle(scope_sel_subtitle)
+        .title(&tr("Apenas Texto Selecionado"))
+        .subtitle(&scope_sel_subtitle)
         .sensitive(has_selection)
         .build();
     let scope_sel_check = gtk4::CheckButton::builder()
@@ -418,15 +422,15 @@ pub fn show_export_terminal_dialog(
     direct_page.append(&scope_group);
 
     let format_group = adw::PreferencesGroup::builder()
-        .title("Formato do Arquivo")
-        .description("Selecione o formato de destino do texto exportado.")
+        .title(&tr("Formato do Arquivo"))
+        .description(&tr("Selecione o formato de destino do texto exportado."))
         .build();
 
     let mut first_fmt_check: Option<gtk4::CheckButton> = None;
     for &(fmt_id, title, desc, _ext, _mime) in DIRECT_FORMAT_OPTIONS {
         let row = adw::ActionRow::builder()
-            .title(title)
-            .subtitle(desc)
+            .title(&tr(title))
+            .subtitle(&tr(desc))
             .build();
         let check = if let Some(ref group_leader) = first_fmt_check {
             gtk4::CheckButton::builder()
@@ -457,40 +461,44 @@ pub fn show_export_terminal_dialog(
     }
 
     direct_page.append(&format_group);
-    stack.add_titled(&direct_page, Some("direct"), "📜 Exportação Direta");
+    stack.add_titled(&direct_page, Some("direct"), &tr("📜 Exportação Direta"));
 
     // ── Page 2: Caderno de Bordo / Runbook (`📘 Caderno de Bordo (Runbook)`) ──
     let runbook_page = gtk4::Box::new(gtk4::Orientation::Vertical, 14);
 
     // 2.1 Metadata Group
     let meta_group = adw::PreferencesGroup::builder()
-        .title("Metadados do Caderno de Bordo")
-        .description("Informações gerais para o cabeçalho do relatório operacional.")
+        .title(&tr("Metadados do Caderno de Bordo"))
+        .description(&tr(
+            "Informações gerais para o cabeçalho do relatório operacional.",
+        ))
         .build();
 
     let initial_meta = state_rc.borrow().runbook_data.metadata.clone();
 
     let rb_title_row = adw::EntryRow::builder()
-        .title("Título do Procedimento")
+        .title(&tr("Título do Procedimento"))
         .text(&initial_meta.title)
         .build();
     meta_group.add(&rb_title_row);
 
     let rb_author_row = adw::EntryRow::builder()
-        .title("Operador / Autor")
+        .title(&tr("Operador / Autor"))
         .text(&initial_meta.author)
         .build();
     meta_group.add(&rb_author_row);
 
     let rb_objective_row = adw::EntryRow::builder()
-        .title("Objetivo / Contexto")
+        .title(&tr("Objetivo / Contexto"))
         .text(&initial_meta.objective)
         .build();
     meta_group.add(&rb_objective_row);
 
-    let status_model = gtk4::StringList::new(RUNBOOK_STATUS_OPTIONS);
+    let status_labels: Vec<String> = RUNBOOK_STATUS_OPTIONS.iter().map(|s| tr(s)).collect();
+    let status_refs: Vec<&str> = status_labels.iter().map(String::as_str).collect();
+    let status_model = gtk4::StringList::new(&status_refs);
     let rb_status_row = adw::ComboRow::builder()
-        .title("Status do Procedimento")
+        .title(&tr("Status do Procedimento"))
         .model(&status_model)
         .selected(0)
         .build();
@@ -526,7 +534,7 @@ pub fn show_export_terminal_dialog(
         rb_status_row.connect_selected_notify(move |combo| {
             let idx = combo.selected() as usize;
             if let Some(&status_str) = RUNBOOK_STATUS_OPTIONS.get(idx) {
-                st_rc.borrow_mut().runbook_data.metadata.status = status_str.to_string();
+                st_rc.borrow_mut().runbook_data.metadata.status = tr(status_str);
                 up();
             }
         });
@@ -537,17 +545,19 @@ pub fn show_export_terminal_dialog(
     // 2.2 Steps & Annotations List Group
     let initial_steps = state_rc.borrow().runbook_data.steps.clone();
     let steps_group = adw::PreferencesGroup::builder()
-        .title("Etapas da Sessão e Anotações")
-        .description(&format!(
-            "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({} identificadas)",
-            initial_steps.len()
+        .title(&tr("Etapas da Sessão e Anotações"))
+        .description(&tr_fmt(
+            "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)",
+            &[("count", &initial_steps.len().to_string())],
         ))
         .build();
 
     if initial_steps.is_empty() {
         let empty_row = adw::ActionRow::builder()
-            .title("Nenhum comando registrado")
-            .subtitle("Nenhum comando foi executado nesta sessão do terminal ainda.")
+            .title(&tr("Nenhum comando registrado"))
+            .subtitle(&tr(
+                "Nenhum comando foi executado nesta sessão do terminal ainda.",
+            ))
             .build();
         steps_group.add(&empty_row);
     } else {
@@ -570,7 +580,7 @@ pub fn show_export_terminal_dialog(
             let status_str = step
                 .exit_code
                 .map(|c| format!("exit {c}"))
-                .unwrap_or_else(|| "OK".to_string());
+                .unwrap_or_else(|| tr("OK"));
             let dur_str = if step.duration_str.is_empty() {
                 String::new()
             } else {
@@ -607,7 +617,7 @@ pub fn show_export_terminal_dialog(
             expander.add_prefix(&check);
 
             let entry_row = adw::EntryRow::builder()
-                .title("Anotação / Comentário:")
+                .title(&tr("Anotação / Comentário:"))
                 .text(&step.annotation)
                 .build();
             {
@@ -633,9 +643,10 @@ pub fn show_export_terminal_dialog(
                     .collect();
                 let lines_count = out_snippet.lines().count();
                 let safe_first = glib::markup_escape_text(&first_line);
+                let lines_str = tr_fmt("{count} linhas", &[("count", &lines_count.to_string())]);
                 let out_row = adw::ActionRow::builder()
-                    .title("Saída do Comando")
-                    .subtitle(&format!("{safe_first}... ({lines_count} linhas)"))
+                    .title(&tr("Saída do Comando"))
+                    .subtitle(&format!("{safe_first}... ({lines_str})"))
                     .build();
                 expander.add_row(&out_row);
             }
@@ -651,10 +662,10 @@ pub fn show_export_terminal_dialog(
 
     // 2.3 Conclusion Group
     let conclusion_group = adw::PreferencesGroup::builder()
-        .title("Conclusão &amp; Lições Aprendidas")
+        .title(&tr("Conclusão &amp; Lições Aprendidas"))
         .build();
     let rb_conclusion_row = adw::EntryRow::builder()
-        .title("Notas Finais do Procedimento")
+        .title(&tr("Notas Finais do Procedimento"))
         .text(&initial_meta.conclusion)
         .build();
     {
@@ -670,14 +681,14 @@ pub fn show_export_terminal_dialog(
 
     // 2.4 Runbook Format & Export Options Group
     let rb_options_group = adw::PreferencesGroup::builder()
-        .title("Formato do Caderno de Bordo")
+        .title(&tr("Formato do Caderno de Bordo"))
         .build();
 
     let mut first_rb_check: Option<gtk4::CheckButton> = None;
     for &(fmt_id, title, desc, _ext, _mime) in RUNBOOK_FORMAT_OPTIONS {
         let row = adw::ActionRow::builder()
-            .title(title)
-            .subtitle(desc)
+            .title(&tr(title))
+            .subtitle(&tr(desc))
             .build();
         let check = if let Some(ref leader) = first_rb_check {
             gtk4::CheckButton::builder()
@@ -708,8 +719,10 @@ pub fn show_export_terminal_dialog(
     }
 
     let collapse_switch = adw::SwitchRow::builder()
-        .title("Recolher saídas longas de comandos")
-        .subtitle("Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas")
+        .title(&tr("Recolher saídas longas de comandos"))
+        .subtitle(&tr(
+            "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas",
+        ))
         .active(true)
         .build();
     {
@@ -726,7 +739,7 @@ pub fn show_export_terminal_dialog(
     stack.add_titled(
         &runbook_page,
         Some("runbook"),
-        "📘 Caderno de Bordo (Runbook)",
+        &tr("📘 Caderno de Bordo (Runbook)"),
     );
 
     if start_in_runbook_mode {
@@ -752,11 +765,11 @@ pub fn show_export_terminal_dialog(
     actions_box.set_margin_top(6);
 
     let copy_btn = gtk4::Button::builder()
-        .label("Copiar para a Área de Transferência")
+        .label(&tr("Copiar para a Área de Transferência"))
         .icon_name("edit-copy-symbolic")
         .build();
     let save_btn = gtk4::Button::builder()
-        .label("Salvar como Arquivo...")
+        .label(&tr("Salvar como Arquivo..."))
         .icon_name("document-save-symbolic")
         .build();
     save_btn.add_css_class("suggested-action");
@@ -770,17 +783,17 @@ pub fn show_export_terminal_dialog(
             let is_rb = st_rc.borrow().is_runbook_mode;
             if let Some(display) = gdk::Display::default() {
                 display.clipboard().set_text(&content);
-                copy_btn_ref.set_label("Copiado!");
+                copy_btn_ref.set_label(&tr("Copiado!"));
                 copy_btn_ref.set_icon_name("object-select-symbolic");
-                status.set_text(if is_rb {
-                    "Caderno de Bordo copiado para a área de transferência."
+                status.set_text(&if is_rb {
+                    tr("Caderno de Bordo copiado para a área de transferência.")
                 } else {
-                    "Saída do terminal copiada para a área de transferência."
+                    tr("Saída do terminal copiada para a área de transferência.")
                 });
 
                 let btn_restore = copy_btn_ref.clone();
                 glib::timeout_add_local_once(Duration::from_millis(2000), move || {
-                    btn_restore.set_label("Copiar para a Área de Transferência");
+                    btn_restore.set_label(&tr("Copiar para a Área de Transferência"));
                     btn_restore.set_icon_name("edit-copy-symbolic");
                 });
             }
@@ -809,13 +822,13 @@ pub fn show_export_terminal_dialog(
             };
             let default_filename = format!("{prefix}_{ts_str}{ext}");
             let title = if is_rb {
-                "Salvar Caderno de Bordo"
+                tr("Salvar Caderno de Bordo")
             } else {
-                "Salvar Saída do Terminal"
+                tr("Salvar Saída do Terminal")
             };
 
             let file_dialog = gtk4::FileDialog::builder()
-                .title(title)
+                .title(&title)
                 .initial_name(&default_filename)
                 .build();
 
@@ -826,7 +839,7 @@ pub fn show_export_terminal_dialog(
             filters.append(&active_filter);
 
             let all_filter = gtk4::FileFilter::new();
-            all_filter.set_name(Some("Todos os Arquivos"));
+            all_filter.set_name(Some(&tr("Todos os Arquivos")));
             all_filter.add_pattern("*");
             filters.append(&all_filter);
 
@@ -843,15 +856,17 @@ pub fn show_export_terminal_dialog(
                         if let Some(path) = file.path() {
                             match std::fs::write(&path, &content) {
                                 Ok(_) => {
-                                    status_inner.set_text(&format!(
-                                        "Salvo com sucesso: {}",
-                                        path.display()
+                                    status_inner.set_text(&tr_fmt(
+                                        "Salvo com sucesso: {path}",
+                                        &[("path", &path.display().to_string())],
                                     ));
                                     dlg_close.close();
                                 }
                                 Err(e) => {
-                                    status_inner
-                                        .set_text(&format!("Falha ao salvar arquivo: {e}"));
+                                    status_inner.set_text(&tr_fmt(
+                                        "Falha ao salvar arquivo: {err}",
+                                        &[("err", &e.to_string())],
+                                    ));
                                 }
                             }
                         }
@@ -909,7 +924,7 @@ mod tests {
         let (md_out, ext, mime) = state.compute_active_output();
         assert_eq!(ext, ".md");
         assert_eq!(mime, "text/markdown");
-        assert!(md_out.contains("# 🖥️ OnyxSH Terminal Export"));
+        assert!(md_out.contains(&tr("# 🖥️ OnyxSH Terminal Export")));
         assert!(md_out.contains("sudo dnf update"));
 
         state.selection_only = true;
@@ -942,14 +957,14 @@ mod tests {
         state.selected_runbook_format = "runbook_log".to_string();
         let (rb_log, log_ext, _) = state.compute_active_output();
         assert_eq!(log_ext, ".log");
-        assert!(rb_log.contains("[OBJETIVO / CONTEXTO]"));
-        assert!(rb_log.contains("Nota: Verificado pacotes DNF"));
+        assert!(rb_log.contains(&tr("[OBJETIVO / CONTEXTO]")));
+        assert!(rb_log.contains(&tr_fmt("💬 Nota: {note}", &[("note", "Verificado pacotes DNF")])));
 
         // 3. Preview truncation
         let long_text = (1..=40).map(|i| format!("Line {i}")).collect::<Vec<_>>().join("\n");
         let snippet = build_preview_snippet(&long_text, 25);
         assert!(snippet.contains("Line 25"));
         assert!(!snippet.contains("Line 26"));
-        assert!(snippet.contains("restante da saída truncado na pré-visualização"));
+        assert!(snippet.contains(&tr("... (restante da saída truncado na pré-visualização)")));
     }
 }

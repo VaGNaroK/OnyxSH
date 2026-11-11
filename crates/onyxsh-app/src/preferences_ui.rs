@@ -42,6 +42,7 @@ use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
 use onyxsh_core::config::AppSettings;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -158,7 +159,7 @@ pub fn show_preferences_window(
     status_lbl: &gtk4::Label,
 ) {
     let prefs_win = adw::PreferencesWindow::builder()
-        .title("Preferências")
+        .title(&tr("Preferences"))
         .transient_for(parent)
         .modal(false)
         .default_width(900)
@@ -180,7 +181,7 @@ pub fn show_preferences_window(
     // PAGE 1: Aparência (`preferences-desktop-display-symbolic`)
     // ══════════════════════════════════════════════════════════════════════════
     let appearance_page = adw::PreferencesPage::builder()
-        .title("Aparência")
+        .title(&tr("Appearance"))
         .icon_name("preferences-desktop-display-symbolic")
         .build();
 
@@ -188,7 +189,7 @@ pub fn show_preferences_window(
 
     // 1.1 Fonte do Terminal
     let font_row = adw::ActionRow::builder()
-        .title("Fonte do Terminal")
+        .title(&tr("Terminal Font"))
         .build();
     let font_dialog = gtk4::FontDialog::new();
     let initial_font_desc = pango::FontDescription::from_string(&settings_rc.borrow().font);
@@ -213,7 +214,7 @@ pub fn show_preferences_window(
 
     // 1.2 Espaçamento entre linhas
     let line_spacing_row = adw::ActionRow::builder()
-        .title("Espaçamento entre linhas")
+        .title(&tr("Line Spacing"))
         .build();
     let spacing_spin = gtk4::SpinButton::with_range(0.80, 2.00, 0.05);
     spacing_spin.set_digits(2);
@@ -237,7 +238,7 @@ pub fn show_preferences_window(
 
     // 1.3 Transparência do Terminal
     let transparency_row = adw::ActionRow::builder()
-        .title("Transparência do Terminal")
+        .title(&tr("Terminal Transparency"))
         .build();
     let transparency_scale = gtk4::Scale::with_range(gtk4::Orientation::Horizontal, 0.0, 100.0, 1.0);
     transparency_scale.set_digits(0);
@@ -260,7 +261,7 @@ pub fn show_preferences_window(
 
     // 1.4 Transparência da Barra de Cabeçalho
     let hb_transparency_row = adw::ActionRow::builder()
-        .title("Transparência da Barra de Cabeçalho")
+        .title(&tr("Headerbar Transparency"))
         .build();
     let hb_transparency_scale =
         gtk4::Scale::with_range(gtk4::Orientation::Horizontal, 0.0, 100.0, 1.0);
@@ -284,7 +285,7 @@ pub fn show_preferences_window(
 
     // 1.5 Use Cores Brilhantes para Texto em Negrito
     let bold_bright_row = adw::SwitchRow::builder()
-        .title("Use Cores Brilhantes para Texto em Negrito")
+        .title(&tr("Use Bright Colors for Bold Text"))
         .active(settings_rc.borrow().bold_is_bright)
         .build();
     {
@@ -299,8 +300,8 @@ pub fn show_preferences_window(
 
     // 1.6 Painel de Sessões com Ocultação Automática
     let auto_hide_row = adw::SwitchRow::builder()
-        .title("Painel de Sessões com Ocultação Automática")
-        .subtitle("Ocultar painel ao ativar sessões")
+        .title(&tr("Auto-Hide Sessions Panel"))
+        .subtitle(&tr("Hide panel when activating sessions"))
         .active(settings_rc.borrow().auto_hide_sidebar)
         .build();
     {
@@ -314,9 +315,11 @@ pub fn show_preferences_window(
     misc_group.add(&auto_hide_row);
 
     // 1.7 Texto Piscante
-    let text_blink_model = gtk4::StringList::new(&["Quando focado", "Sempre"]);
+    let tb0 = tr("When focused");
+    let tb1 = tr("Always");
+    let text_blink_model = gtk4::StringList::new(&[&tb0, &tb1]);
     let text_blink_row = adw::ComboRow::builder()
-        .title("Texto Piscante")
+        .title(&tr("Blinking Text"))
         .model(&text_blink_model)
         .selected(settings_rc.borrow().text_blink_mode.min(1))
         .build();
@@ -331,14 +334,16 @@ pub fn show_preferences_window(
     misc_group.add(&text_blink_row);
 
     // 1.8 Alinhamento de Guia
-    let tab_align_model = gtk4::StringList::new(&["Esquerda", "Centro"]);
+    let ta0 = tr("Left");
+    let ta1 = tr("Center");
+    let tab_align_model = gtk4::StringList::new(&[&ta0, &ta1]);
     let initial_align_idx = if settings_rc.borrow().tab_alignment == "left" {
         0
     } else {
         1
     };
     let tab_align_row = adw::ComboRow::builder()
-        .title("Alinhamento de Guia")
+        .title(&tr("Tab Alignment"))
         .model(&tab_align_model)
         .selected(initial_align_idx)
         .build();
@@ -357,15 +362,16 @@ pub fn show_preferences_window(
     misc_group.add(&tab_align_row);
 
     // 1.9 Tema de Ícone
-    let icon_theme_model =
-        gtk4::StringList::new(&["Ícones do OnyxSH (Embutidos)", "Ícones do Sistema"]);
+    let it0 = tr("Ícones do OnyxSH (Embutidos)");
+    let it1 = tr("System Icons");
+    let icon_theme_model = gtk4::StringList::new(&[&it0, &it1]);
     let initial_icon_idx = if settings_rc.borrow().icon_theme_strategy == "onyxsh" {
         0
     } else {
         1
     };
     let icon_theme_row = adw::ComboRow::builder()
-        .title("Tema de Ícone")
+        .title(&tr("Icon Theme"))
         .model(&icon_theme_model)
         .selected(initial_icon_idx)
         .build();
@@ -384,11 +390,10 @@ pub fn show_preferences_window(
     misc_group.add(&icon_theme_row);
 
     // 1.10 Botões da Janela Quando Maximizada
-    let hb_buttons_model = gtk4::StringList::new(&[
-        "Detectar automaticamente",
-        "Sempre ocultar",
-        "Nunca ocultar",
-    ]);
+    let hb0 = tr("Auto-detect");
+    let hb1 = tr("Sempre ocultar");
+    let hb2 = tr("Never hide");
+    let hb_buttons_model = gtk4::StringList::new(&[&hb0, &hb1, &hb2]);
     let initial_hb_btn_idx = match settings_rc
         .borrow()
         .hide_headerbar_buttons_when_maximized
@@ -399,8 +404,8 @@ pub fn show_preferences_window(
         _ => 0,
     };
     let hb_buttons_row = adw::ComboRow::builder()
-        .title("Botões da Janela Quando Maximizada")
-        .subtitle("Para integração com painéis do KDE Plasma")
+        .title(&tr("Window Buttons When Maximized"))
+        .subtitle(&tr("For KDE Plasma panel integration"))
         .model(&hb_buttons_model)
         .selected(initial_hb_btn_idx)
         .build();
@@ -425,24 +430,23 @@ pub fn show_preferences_window(
     // PAGE 2: Terminal (`utilities-terminal-symbolic`)
     // ══════════════════════════════════════════════════════════════════════════
     let terminal_page = adw::PreferencesPage::builder()
-        .title("Terminal")
+        .title(&tr("Terminal"))
         .icon_name("utilities-terminal-symbolic")
         .build();
 
     let behavior_group = adw::PreferencesGroup::new();
-    let instance_model = gtk4::StringList::new(&[
-        "Abrir uma nova aba",
-        "Abrir uma nova janela",
-        "Focar janela existente",
-    ]);
+    let inst0 = tr("Open a new tab");
+    let inst1 = tr("Open a new window");
+    let inst2 = tr("Focar janela existente");
+    let instance_model = gtk4::StringList::new(&[&inst0, &inst1, &inst2]);
     let initial_inst_idx = match settings_rc.borrow().new_instance_behavior.as_str() {
         "new_window" => 1,
         "focus_existing" => 2,
         _ => 0,
     };
     let instance_row = adw::ComboRow::builder()
-        .title("Quando já estiver em execução")
-        .subtitle("Ação quando o aplicativo é iniciado enquanto já está aberto")
+        .title(&tr("When Already Running"))
+        .subtitle(&tr("Action when the application is launched while already open"))
         .model(&instance_model)
         .selected(initial_inst_idx)
         .build();
@@ -463,9 +467,12 @@ pub fn show_preferences_window(
 
     // 2.2 Cursor Group
     let cursor_group = adw::PreferencesGroup::new();
-    let cursor_shape_model = gtk4::StringList::new(&["Bloco", "I-Beam", "Sublinhado"]);
+    let cs0 = tr("Block");
+    let cs1 = tr("I-Beam");
+    let cs2 = tr("Underline");
+    let cursor_shape_model = gtk4::StringList::new(&[&cs0, &cs1, &cs2]);
     let cursor_shape_row = adw::ComboRow::builder()
-        .title("Forma do Cursor")
+        .title(&tr("Cursor Shape"))
         .model(&cursor_shape_model)
         .selected(settings_rc.borrow().cursor_shape.min(2))
         .build();
@@ -479,9 +486,12 @@ pub fn show_preferences_window(
     }
     cursor_group.add(&cursor_shape_row);
 
-    let cursor_blink_model = gtk4::StringList::new(&["Seguir Sistema", "Ativado", "Desativado"]);
+    let cb0 = tr("Follow System");
+    let cb1 = tr("Enabled");
+    let cb2 = tr("Disabled");
+    let cursor_blink_model = gtk4::StringList::new(&[&cb0, &cb1, &cb2]);
     let cursor_blink_row = adw::ComboRow::builder()
-        .title("Cursor Piscando")
+        .title(&tr("Cursor Blinking"))
         .model(&cursor_blink_model)
         .selected(settings_rc.borrow().cursor_blink.min(2))
         .build();
@@ -500,8 +510,8 @@ pub fn show_preferences_window(
     let scrolling_group = adw::PreferencesGroup::new();
 
     let scrollback_row = adw::ActionRow::builder()
-        .title("Linhas de Rolagem")
-        .subtitle("0 para ilimitado")
+        .title(&tr("Scrollback Lines"))
+        .subtitle(&tr("0 for unlimited"))
         .build();
     let scrollback_spin = gtk4::SpinButton::with_range(0.0, 1_000_000.0, 1_000.0);
     scrollback_spin.set_valign(gtk4::Align::Center);
@@ -519,8 +529,8 @@ pub fn show_preferences_window(
     scrolling_group.add(&scrollback_row);
 
     let mouse_scroll_row = adw::ActionRow::builder()
-        .title("Sensibilidade de Rolagem do Mouse")
-        .subtitle("Mais baixo é mais lento")
+        .title(&tr("Mouse Scroll Sensitivity"))
+        .subtitle(&tr("Lower is slower"))
         .build();
     let mouse_scroll_spin = gtk4::SpinButton::with_range(1.0, 500.0, 1.0);
     mouse_scroll_spin.set_valign(gtk4::Align::Center);
@@ -538,8 +548,8 @@ pub fn show_preferences_window(
     scrolling_group.add(&mouse_scroll_row);
 
     let touchpad_scroll_row = adw::ActionRow::builder()
-        .title("Sensibilidade de Rolagem do Touchpad")
-        .subtitle("Mais baixo é mais lento")
+        .title(&tr("Touchpad Scroll Sensitivity"))
+        .subtitle(&tr("Lower is slower"))
         .build();
     let touchpad_scroll_spin = gtk4::SpinButton::with_range(1.0, 500.0, 1.0);
     touchpad_scroll_spin.set_valign(gtk4::Align::Center);
@@ -557,7 +567,7 @@ pub fn show_preferences_window(
     scrolling_group.add(&touchpad_scroll_row);
 
     let scroll_paste_row = adw::SwitchRow::builder()
-        .title("Rolagem ao Colar")
+        .title(&tr("Scroll on Paste"))
         .active(settings_rc.borrow().scroll_on_insert)
         .build();
     {
@@ -574,7 +584,7 @@ pub fn show_preferences_window(
     // 2.4 Shell & Bell Group
     let shell_group = adw::PreferencesGroup::new();
     let login_shell_row = adw::SwitchRow::builder()
-        .title("Executar Comando como um Shell de Login")
+        .title(&tr("Run Command as a Login Shell"))
         .active(settings_rc.borrow().use_login_shell)
         .build();
     {
@@ -588,7 +598,7 @@ pub fn show_preferences_window(
     shell_group.add(&login_shell_row);
 
     let bell_row = adw::SwitchRow::builder()
-        .title("Sino Audível")
+        .title(&tr("Audible Bell"))
         .active(settings_rc.borrow().bell_sound)
         .build();
     {
@@ -604,13 +614,13 @@ pub fn show_preferences_window(
 
     // 2.5 Command Notifications Group
     let notif_group = adw::PreferencesGroup::builder()
-        .title("Notificações de Comandos")
-        .description("Alertas nativos do desktop para comandos longos")
+        .title(&tr("Notificações de Comandos"))
+        .description(&tr("Alertas nativos do desktop para comandos longos"))
         .build();
 
     let notify_long_row = adw::SwitchRow::builder()
-        .title("Notificar Comandos Longos")
-        .subtitle("Emitir notificação desktop quando um comando demorado terminar em segundo plano ou em aba inativa")
+        .title(&tr("Notificar Comandos Longos"))
+        .subtitle(&tr("Emitir notificação desktop quando um comando demorado terminar em segundo plano ou em aba inativa"))
         .active(settings_rc.borrow().notify_long_commands)
         .build();
     {
@@ -624,8 +634,8 @@ pub fn show_preferences_window(
     notif_group.add(&notify_long_row);
 
     let threshold_row = adw::ActionRow::builder()
-        .title("Tempo Limite Mínimo (Segundos)")
-        .subtitle("Apenas comandos que demorarem mais que este tempo emitirão notificação")
+        .title(&tr("Tempo Limite Mínimo (Segundos)"))
+        .subtitle(&tr("Apenas comandos que demorarem mais que este tempo emitirão notificação"))
         .build();
     let threshold_spin = gtk4::SpinButton::with_range(3.0, 300.0, 1.0);
     threshold_spin.set_valign(gtk4::Align::Center);
@@ -642,18 +652,17 @@ pub fn show_preferences_window(
     threshold_row.set_activatable_widget(Some(&threshold_spin));
     notif_group.add(&threshold_row);
 
-    let cond_model = gtk4::StringList::new(&[
-        "Apenas quando a janela ou aba não estiver em foco",
-        "Sempre notificar",
-    ]);
+    let cnd0 = tr("Apenas quando a janela ou aba não estiver em foco");
+    let cnd1 = tr("Sempre notificar");
+    let cond_model = gtk4::StringList::new(&[&cnd0, &cnd1]);
     let initial_cond_idx = if settings_rc.borrow().notify_long_commands_condition == "always" {
         1
     } else {
         0
     };
     let cond_row = adw::ComboRow::builder()
-        .title("Condição de Notificação")
-        .subtitle("Quando a notificação desktop deve ser disparada")
+        .title(&tr("Condição de Notificação"))
+        .subtitle(&tr("Quando a notificação desktop deve ser disparada"))
         .model(&cond_model)
         .selected(initial_cond_idx)
         .build();
@@ -672,8 +681,8 @@ pub fn show_preferences_window(
     notif_group.add(&cond_row);
 
     let notify_sound_row = adw::SwitchRow::builder()
-        .title("Alerta Sonoro")
-        .subtitle("Tocar sino ou alerta sonoro ao concluir comando longo")
+        .title(&tr("Alerta Sonoro"))
+        .subtitle(&tr("Tocar sino ou alerta sonoro ao concluir comando longo"))
         .active(settings_rc.borrow().notify_long_commands_sound)
         .build();
     {
@@ -687,22 +696,21 @@ pub fn show_preferences_window(
     notif_group.add(&notify_sound_row);
 
     let test_notif_row = adw::ActionRow::builder()
-        .title("Testar Notificação")
-        .subtitle("Emitir uma notificação de teste agora para verificar o sistema")
+        .title(&tr("Testar Notificação"))
+        .subtitle(&tr("Emitir uma notificação de teste agora para verificar o sistema"))
         .build();
-    let test_notif_btn = gtk4::Button::with_label("Testar Notificação Agora");
+    let test_notif_btn = gtk4::Button::with_label(&tr("Testar Notificação Agora"));
     test_notif_btn.set_valign(gtk4::Align::Center);
     test_notif_btn.add_css_class("suggested-action");
     {
         let status = status_lbl.clone();
         test_notif_btn.connect_clicked(move |_| {
+            let summary = tr("OnyxSH — Teste de Notificação");
+            let body = tr("Comando longo finalizado com sucesso (exit 0 • 12.4s).");
             let _ = std::process::Command::new("notify-send")
-                .args([
-                    "OnyxSH — Teste de Notificação",
-                    "Comando longo finalizado com sucesso (exit 0 • 12.4s).",
-                ])
+                .args([&summary, &body])
                 .spawn();
-            status.set_text("🔔 Notificação de teste enviada para o desktop.");
+            status.set_text(&tr("🔔 Notificação de teste enviada para o desktop."));
         });
     }
     test_notif_row.add_suffix(&test_notif_btn);
@@ -712,13 +720,13 @@ pub fn show_preferences_window(
 
     // 2.6 Proactive Error Suggestions Group
     let error_group = adw::PreferencesGroup::builder()
-        .title("Sugestões Proativas para Erros de Terminal")
-        .description("Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA")
+        .title(&tr("Sugestões Proativas para Erros de Terminal"))
+        .description(&tr("Detecção inteligente de falhas no terminal com ações rápidas em 1 clique e diagnóstico por IA"))
         .build();
 
     let proactive_err_row = adw::SwitchRow::builder()
-        .title("Sugestões Proativas para Erros")
-        .subtitle("Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata")
+        .title(&tr("Sugestões Proativas para Erros"))
+        .subtitle(&tr("Detectar falhas de comandos (ex.: permissão negada, porta em uso, pacote ausente) e sugerir correção imediata"))
         .active(settings_rc.borrow().ai_proactive_error_suggestions)
         .build();
     {
@@ -731,19 +739,18 @@ pub fn show_preferences_window(
     }
     error_group.add(&proactive_err_row);
 
-    let err_mode_model = gtk4::StringList::new(&[
-        "Notificação (Toast) e Badge no Terminal",
-        "Apenas Badge no Terminal",
-        "Apenas Notificação (Toast)",
-    ]);
+    let em0 = tr("Notificação (Toast) e Badge no Terminal");
+    let em1 = tr("Apenas Badge no Terminal");
+    let em2 = tr("Apenas Notificação (Toast)");
+    let err_mode_model = gtk4::StringList::new(&[&em0, &em1, &em2]);
     let initial_err_mode_idx = match settings_rc.borrow().ai_error_suggestion_mode.as_str() {
         "badge_only" => 1,
         "toast_only" => 2,
         _ => 0,
     };
     let err_mode_row = adw::ComboRow::builder()
-        .title("Modo de Exibição das Sugestões")
-        .subtitle("Como as sugestões de erro e ações rápidas devem ser apresentadas")
+        .title(&tr("Modo de Exibição das Sugestões"))
+        .subtitle(&tr("Como as sugestões de erro e ações rápidas devem ser apresentadas"))
         .model(&err_mode_model)
         .selected(initial_err_mode_idx)
         .build();
@@ -762,8 +769,8 @@ pub fn show_preferences_window(
     error_group.add(&err_mode_row);
 
     let auto_exec_err_row = adw::SwitchRow::builder()
-        .title("Executar Ações Rápidas Imediatamente")
-        .subtitle("Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão")
+        .title(&tr("Executar Ações Rápidas Imediatamente"))
+        .subtitle(&tr("Se ativado, executa o comando de correção no terminal imediatamente ao clicar; se desativado, apenas insere no prompt para revisão"))
         .active(settings_rc.borrow().ai_error_auto_execute_quick_fix)
         .build();
     {
@@ -779,13 +786,13 @@ pub fn show_preferences_window(
 
     // 2.7 Autocomplete Group
     let ac_group = adw::PreferencesGroup::builder()
-        .title("Autocomplete e Sugestões Inteligentes")
-        .description("Sugestões preditivas inline e catálogo de comandos Linux")
+        .title(&tr("Autocomplete e Sugestões Inteligentes"))
+        .description(&tr("Sugestões preditivas inline e catálogo de comandos Linux"))
         .build();
 
     let ac_enable_row = adw::SwitchRow::builder()
-        .title("Ativar Autocomplete Inteligente")
-        .subtitle("Exibir sugestões de comandos enquanto digita no terminal")
+        .title(&tr("Ativar Autocomplete Inteligente"))
+        .subtitle(&tr("Exibir sugestões de comandos enquanto digita no terminal"))
         .active(settings_rc.borrow().autocomplete_enabled)
         .build();
     {
@@ -799,8 +806,8 @@ pub fn show_preferences_window(
     ac_group.add(&ac_enable_row);
 
     let ac_specs_row = adw::SwitchRow::builder()
-        .title("Catálogo de Comandos Linux (Specs)")
-        .subtitle("Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns")
+        .title(&tr("Catálogo de Comandos Linux (Specs)"))
+        .subtitle(&tr("Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"))
         .active(settings_rc.borrow().autocomplete_specs_enabled)
         .build();
     {
@@ -814,8 +821,8 @@ pub fn show_preferences_window(
     ac_group.add(&ac_specs_row);
 
     let ac_hist_row = adw::SwitchRow::builder()
-        .title("Sugerir a partir do Histórico")
-        .subtitle("Completar com comandos usados anteriormente no mesmo diretório ou host")
+        .title(&tr("Sugerir a partir do Histórico"))
+        .subtitle(&tr("Completar com comandos usados anteriormente no mesmo diretório ou host"))
         .active(settings_rc.borrow().autocomplete_history_enabled)
         .build();
     {
@@ -829,8 +836,8 @@ pub fn show_preferences_window(
     ac_group.add(&ac_hist_row);
 
     let ac_snip_row = adw::SwitchRow::builder()
-        .title("Sugerir Snippets Salvos")
-        .subtitle("Incluir templates do gerenciador de snippets nas sugestões")
+        .title(&tr("Sugerir Snippets Salvos"))
+        .subtitle(&tr("Incluir templates do gerenciador de snippets nas sugestões"))
         .active(settings_rc.borrow().autocomplete_snippets_enabled)
         .build();
     {
@@ -846,13 +853,13 @@ pub fn show_preferences_window(
 
     // 2.8 Selection & OSC 52 Group
     let sel_group = adw::PreferencesGroup::builder()
-        .title("Seleção de Texto")
-        .description("Ações rápidas flutuantes ao selecionar texto no terminal")
+        .title(&tr("Seleção de Texto"))
+        .description(&tr("Ações rápidas flutuantes ao selecionar texto no terminal"))
         .build();
 
     let sel_toolbar_row = adw::SwitchRow::builder()
-        .title("Barra Flutuante de Ações na Seleção")
-        .subtitle("Exibir menu rápido com Copiar, Perguntar à IA e Refatorar ao selecionar texto")
+        .title(&tr("Barra Flutuante de Ações na Seleção"))
+        .subtitle(&tr("Exibir menu rápido com Copiar, Perguntar à IA e Refatorar ao selecionar texto"))
         .active(settings_rc.borrow().show_selection_toolbar)
         .build();
     {
@@ -866,8 +873,8 @@ pub fn show_preferences_window(
     sel_group.add(&sel_toolbar_row);
 
     let osc52_row = adw::SwitchRow::builder()
-        .title("Ponte de Clipboard OSC 52")
-        .subtitle("Permitir que aplicações de terminal e TUIs (OpenCode, Neovim, Tmux) copiem texto para o clipboard do sistema")
+        .title(&tr("Ponte de Clipboard OSC 52"))
+        .subtitle(&tr("Permitir que aplicações de terminal e TUIs (OpenCode, Neovim, Tmux) copiem texto para o clipboard do sistema"))
         .active(settings_rc.borrow().enable_osc52_clipboard)
         .build();
     {
@@ -887,28 +894,31 @@ pub fn show_preferences_window(
     // PAGE 3: Perfis e Dados (`folder-saved-search-symbolic`)
     // ══════════════════════════════════════════════════════════════════════════
     let profiles_page = adw::PreferencesPage::builder()
-        .title("Perfis e Dados")
+        .title(&tr("Profiles & Data"))
         .icon_name("folder-saved-search-symbolic")
         .build();
 
     let startup_group = adw::PreferencesGroup::builder()
-        .title("Restauração de Sessão")
-        .description("Comportamento de inicialização e restauração de abas da sessão anterior")
+        .title(&tr("Restauração de Sessão"))
+        .description(&tr(
+            "Comportamento de inicialização e restauração de abas da sessão anterior",
+        ))
         .build();
 
-    let policy_model = gtk4::StringList::new(&[
-        "Sempre restaurar",
-        "Perguntar ao iniciar",
-        "Nunca restaurar",
-    ]);
+    let pol0 = tr("Sempre restaurar");
+    let pol1 = tr("Perguntar ao iniciar");
+    let pol2 = tr("Nunca restaurar");
+    let policy_model = gtk4::StringList::new(&[&pol0, &pol1, &pol2]);
     let initial_policy_idx = match settings_rc.borrow().session_restore_policy.as_str() {
         "always" => 0,
         "ask" => 1,
         _ => 2,
     };
     let restore_policy_row = adw::ComboRow::builder()
-        .title("Na Inicialização")
-        .subtitle("Escolha se o terminal deve recuperar as abas e divisões da última sessão")
+        .title(&tr("Na Inicialização"))
+        .subtitle(&tr(
+            "Escolha se o terminal deve recuperar as abas e divisões da última sessão",
+        ))
         .model(&policy_model)
         .selected(initial_policy_idx)
         .build();
@@ -927,8 +937,8 @@ pub fn show_preferences_window(
     startup_group.add(&restore_policy_row);
 
     let ssh_reconnect_row = adw::SwitchRow::builder()
-        .title("Reconectar sessões SSH automaticamente")
-        .subtitle("Tenta restabelecer conexões remotas que estavam abertas")
+        .title(&tr("Auto-reconnect SSH sessions"))
+        .subtitle(&tr("Automatically re-establish open remote connections"))
         .active(settings_rc.borrow().session_restore_ssh_auto_reconnect)
         .build();
     {
@@ -942,8 +952,8 @@ pub fn show_preferences_window(
     startup_group.add(&ssh_reconnect_row);
 
     let panels_restore_row = adw::SwitchRow::builder()
-        .title("Restaurar Painéis Laterais e Assistente de IA")
-        .subtitle("Lembrar visibilidade da barra lateral e do chat de IA")
+        .title(&tr("Restore Sidebars & AI Panel"))
+        .subtitle(&tr("Remember sidebar and AI assistant visibility"))
         .active(settings_rc.borrow().session_restore_ui_panels)
         .build();
     {
@@ -961,17 +971,17 @@ pub fn show_preferences_window(
     let backup_group = adw::PreferencesGroup::new();
 
     let backup_now_row = adw::ActionRow::builder()
-        .title("Criar Backup")
-        .subtitle("Backup criptografado de sessões e configurações")
+        .title(&tr("Create Backup"))
+        .subtitle(&tr("Encrypted backup of sessions and settings"))
         .build();
-    let backup_now_btn = gtk4::Button::with_label("Criar Backup...");
+    let backup_now_btn = gtk4::Button::with_label(&tr("Create Backup..."));
     backup_now_btn.set_valign(gtk4::Align::Center);
     {
         let pw_ref = prefs_win.clone();
         let status = status_lbl.clone();
         backup_now_btn.connect_clicked(move |_| {
             let file_dialog = gtk4::FileDialog::builder()
-                .title("Salvar Backup do OnyxSH")
+                .title(&tr("Salvar Backup do OnyxSH"))
                 .initial_name("onyxsh_config_backup.json")
                 .build();
             let status_inner = status.clone();
@@ -981,14 +991,19 @@ pub fn show_preferences_window(
                         let cfg_dir = platform::config_dir();
                         match onyxsh_core::backup::create_config_backup(&cfg_dir, &out_path) {
                             Ok(bundle) => {
-                                status_inner.set_text(&format!(
-                                    "Backup SHA-256 salvo ({} arquivos): {}",
-                                    bundle.files.len(),
-                                    out_path.display()
+                                status_inner.set_text(&tr_fmt(
+                                    "Backup SHA-256 salvo ({count} arquivos): {path}",
+                                    &[
+                                        ("count", &bundle.files.len().to_string()),
+                                        ("path", &out_path.display().to_string()),
+                                    ],
                                 ));
                             }
                             Err(e) => {
-                                status_inner.set_text(&format!("Falha ao criar backup: {e}"));
+                                status_inner.set_text(&tr_fmt(
+                                    "Falha ao criar backup: {err}",
+                                    &[("err", &e.to_string())],
+                                ));
                             }
                         }
                     }
@@ -1001,9 +1016,9 @@ pub fn show_preferences_window(
     backup_group.add(&backup_now_row);
 
     let restore_row = adw::ActionRow::builder()
-        .title("Restaurar a partir do Backup")
+        .title(&tr("Restore from Backup"))
         .build();
-    let restore_btn = gtk4::Button::with_label("Restaurar...");
+    let restore_btn = gtk4::Button::with_label(&tr("Restore..."));
     restore_btn.set_valign(gtk4::Align::Center);
     {
         let pw_ref = prefs_win.clone();
@@ -1012,7 +1027,7 @@ pub fn show_preferences_window(
         let status = status_lbl.clone();
         restore_btn.connect_clicked(move |_| {
             let file_dialog = gtk4::FileDialog::builder()
-                .title("Selecionar Arquivo de Backup do OnyxSH")
+                .title(&tr("Selecionar Arquivo de Backup do OnyxSH"))
                 .build();
             let st_inner = Rc::clone(&st_rc);
             let apply_inner = Rc::clone(&apply);
@@ -1028,12 +1043,16 @@ pub fn show_preferences_window(
                                     *st_inner.borrow_mut() = loaded;
                                     apply_inner();
                                 }
-                                status_inner.set_text(&format!(
-                                    "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+                                status_inner.set_text(&tr_fmt(
+                                    "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256).",
+                                    &[("count", &count.to_string())],
                                 ));
                             }
                             Err(e) => {
-                                status_inner.set_text(&format!("Falha ao restaurar backup: {e}"));
+                                status_inner.set_text(&tr_fmt(
+                                    "Falha ao restaurar backup: {err}",
+                                    &[("err", &e.to_string())],
+                                ));
                             }
                         }
                     }
@@ -1049,8 +1068,8 @@ pub fn show_preferences_window(
     // 3.3 Remote Editing Group
     let remote_edit_group = adw::PreferencesGroup::new();
     let use_tmp_row = adw::SwitchRow::builder()
-        .title("Usar Diretório Temporário do Sistema")
-        .subtitle("Use /tmp para edição remota de arquivos")
+        .title(&tr("Use System Temporary Directory"))
+        .subtitle(&tr("Use /tmp for remote editing files"))
         .active(settings_rc.borrow().use_system_tmp_for_edit)
         .build();
     {
@@ -1064,7 +1083,7 @@ pub fn show_preferences_window(
     remote_edit_group.add(&use_tmp_row);
 
     let clear_tmp_row = adw::SwitchRow::builder()
-        .title("Limpar Arquivos de Edição Remota ao Sair")
+        .title(&tr("Clear Remote Edit Files on Exit"))
         .active(settings_rc.borrow().clear_remote_edit_files_on_exit)
         .build();
     {
@@ -1080,12 +1099,14 @@ pub fn show_preferences_window(
 
     // 3.4 SSH & Health Check Group
     let ssh_group = adw::PreferencesGroup::builder()
-        .title("SSH e Verificação de Saúde")
+        .title(&tr("SSH & Health Check"))
         .build();
 
     let health_check_row = adw::SwitchRow::builder()
-        .title("Monitoramento de Saúde e Latência (RTT)")
-        .subtitle("Mede continuamente a latência e detecta perda de sinal nas conexões SSH")
+        .title(&tr("Health & Latency Monitoring (RTT)"))
+        .subtitle(&tr(
+            "Continuously measures latency and detects signal loss on SSH connections",
+        ))
         .active(settings_rc.borrow().ssh_health_check_enabled)
         .build();
     {
@@ -1099,8 +1120,8 @@ pub fn show_preferences_window(
     ssh_group.add(&health_check_row);
 
     let health_interval_row = adw::ActionRow::builder()
-        .title("Intervalo de Verificação de Latência")
-        .subtitle("Segundos entre medições de latência RTT em segundo plano")
+        .title(&tr("Intervalo de Verificação de Latência"))
+        .subtitle(&tr("Seconds between background RTT latency measurements"))
         .build();
     let health_interval_spin = gtk4::SpinButton::with_range(3.0, 60.0, 1.0);
     health_interval_spin.set_valign(gtk4::Align::Center);
@@ -1118,8 +1139,10 @@ pub fn show_preferences_window(
     ssh_group.add(&health_interval_row);
 
     let auto_reconn_row = adw::SwitchRow::builder()
-        .title("Reconexão Automática Inteligente em Quedas")
-        .subtitle("Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela")
+        .title(&tr("Reconexão Automática Inteligente em Quedas"))
+        .subtitle(&tr(
+            "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela",
+        ))
         .active(settings_rc.borrow().ssh_auto_reconnect_enabled)
         .build();
     {
@@ -1133,8 +1156,10 @@ pub fn show_preferences_window(
     ssh_group.add(&auto_reconn_row);
 
     let reconn_attempts_row = adw::ActionRow::builder()
-        .title("Tentativas Máximas de Reconexão")
-        .subtitle("Número de tentativas antes de desistir da reconexão automática")
+        .title(&tr("Max Reconnect Attempts"))
+        .subtitle(&tr(
+            "Número de tentativas antes de desistir da reconexão automática",
+        ))
         .build();
     let reconn_attempts_spin = gtk4::SpinButton::with_range(1.0, 20.0, 1.0);
     reconn_attempts_spin.set_valign(gtk4::Align::Center);
@@ -1152,8 +1177,8 @@ pub fn show_preferences_window(
     ssh_group.add(&reconn_attempts_row);
 
     let keepalive_row = adw::ActionRow::builder()
-        .title("SSH KeepAlive (ServerAliveInterval)")
-        .subtitle("Intervalo em segundos para enviar pacotes de sonda KeepAlive")
+        .title(&tr("SSH KeepAlive (ServerAliveInterval)"))
+        .subtitle(&tr("Intervalo em segundos para enviar pacotes de sonda KeepAlive"))
         .build();
     let keepalive_spin = gtk4::SpinButton::with_range(5.0, 120.0, 5.0);
     keepalive_spin.set_valign(gtk4::Align::Center);
@@ -1171,8 +1196,8 @@ pub fn show_preferences_window(
     ssh_group.add(&keepalive_row);
 
     let persist_row = adw::ActionRow::builder()
-        .title("Persistência de Conexão SSH")
-        .subtitle("Segundos para manter conexões ativas (0 para desativar)")
+        .title(&tr("SSH Connection Persistence"))
+        .subtitle(&tr("Segundos para manter conexões ativas (0 para desativar)"))
         .build();
     let persist_spin = gtk4::SpinButton::with_range(0.0, 3600.0, 60.0);
     persist_spin.set_valign(gtk4::Align::Center);
@@ -1196,15 +1221,15 @@ pub fn show_preferences_window(
     // PAGE 4: Avançado (`preferences-other-symbolic`)
     // ══════════════════════════════════════════════════════════════════════════
     let advanced_page = adw::PreferencesPage::builder()
-        .title("Avançado")
+        .title(&tr("Advanced"))
         .icon_name("preferences-other-symbolic")
         .build();
 
     let features_group = adw::PreferencesGroup::new();
 
     let bidi_row = adw::SwitchRow::builder()
-        .title("Suporte a Texto Bidirecional")
-        .subtitle("Para árabe e hebraico (afeta o desempenho)")
+        .title(&tr("Bidirectional Text Support"))
+        .subtitle(&tr("For Arabic and Hebrew (affects performance)"))
         .active(settings_rc.borrow().bidi_enabled)
         .build();
     {
@@ -1218,8 +1243,8 @@ pub fn show_preferences_window(
     features_group.add(&bidi_row);
 
     let shaping_row = adw::SwitchRow::builder()
-        .title("Ativar Formatação de Texto em Árabe")
-        .subtitle("Render ligaduras para o script árabe")
+        .title(&tr("Enable Arabic Text Shaping"))
+        .subtitle(&tr("Render ligatures for Arabic script"))
         .active(settings_rc.borrow().enable_shaping)
         .build();
     {
@@ -1233,8 +1258,8 @@ pub fn show_preferences_window(
     features_group.add(&shaping_row);
 
     let sixel_row = adw::SwitchRow::builder()
-        .title("Suporte a Gráficos SIXEL")
-        .subtitle("Exibir imagens SIXEL (experimental)")
+        .title(&tr("SIXEL Graphics Support"))
+        .subtitle(&tr("Display SIXEL images (experimental)"))
         .active(settings_rc.borrow().sixel_enabled)
         .build();
     {
@@ -1251,14 +1276,13 @@ pub fn show_preferences_window(
     // 4.2 Compatibility Group
     let compat_group = adw::PreferencesGroup::new();
 
-    let backspace_model = gtk4::StringList::new(&[
-        "Automático",
-        "ASCII BACKSPACE (^H)",
-        "ASCII DELETE",
-        "Sequência de Escape",
-    ]);
+    let bs0 = tr("Auto");
+    let bs1 = tr("ASCII BACKSPACE (^H)");
+    let bs2 = tr("ASCII DELETE");
+    let bs3 = tr("Escape Sequence");
+    let backspace_model = gtk4::StringList::new(&[&bs0, &bs1, &bs2, &bs3]);
     let backspace_row = adw::ComboRow::builder()
-        .title("Tecla Backspace")
+        .title(&tr("Backspace Key"))
         .model(&backspace_model)
         .selected(settings_rc.borrow().backspace_binding.min(3))
         .build();
@@ -1272,14 +1296,10 @@ pub fn show_preferences_window(
     }
     compat_group.add(&backspace_row);
 
-    let delete_model = gtk4::StringList::new(&[
-        "Automático",
-        "ASCII DELETE",
-        "Sequência de Escape",
-    ]);
+    let del_model = gtk4::StringList::new(&[&bs0, &bs2, &bs3]);
     let delete_row = adw::ComboRow::builder()
-        .title("Tecla Delete")
-        .model(&delete_model)
+        .title(&tr("Delete Key"))
+        .model(&del_model)
         .selected(settings_rc.borrow().delete_binding.min(2))
         .build();
     {
@@ -1292,17 +1312,16 @@ pub fn show_preferences_window(
     }
     compat_group.add(&delete_row);
 
-    let cjk_model = gtk4::StringList::new(&[
-        "Estreito (célula única)",
-        "Largo (célula dupla)",
-    ]);
+    let cjk0 = tr("Narrow (single-cell)");
+    let cjk1 = tr("Wide (double-cell)");
+    let cjk_model = gtk4::StringList::new(&[&cjk0, &cjk1]);
     let initial_cjk_idx = settings_rc
         .borrow()
         .cjk_ambiguous_width
         .saturating_sub(1)
         .min(1);
     let cjk_row = adw::ComboRow::builder()
-        .title("Caracteres de largura ambígua")
+        .title(&tr("Ambiguous-width Characters"))
         .model(&cjk_model)
         .selected(initial_cjk_idx)
         .build();
@@ -1320,7 +1339,7 @@ pub fn show_preferences_window(
     // 4.3 Word Characters Group
     let word_group = adw::PreferencesGroup::new();
     let word_chars_row = adw::EntryRow::builder()
-        .title("Caracteres de Palavra")
+        .title(&tr("Word Characters"))
         .text(&settings_rc.borrow().word_char_exceptions)
         .build();
     {
@@ -1337,7 +1356,7 @@ pub fn show_preferences_window(
     // 4.4 Logging Group
     let log_group = adw::PreferencesGroup::new();
     let log_to_file_row = adw::SwitchRow::builder()
-        .title("Salvar Logs em Arquivo")
+        .title(&tr("Save Logs to File"))
         .active(settings_rc.borrow().log_to_file)
         .build();
     {
@@ -1358,7 +1377,7 @@ pub fn show_preferences_window(
         .position(|&l| l == curr_lvl)
         .unwrap_or(3) as u32;
     let log_level_row = adw::ComboRow::builder()
-        .title("Nível de Log do Console")
+        .title(&tr("Console Log Level"))
         .model(&log_level_model)
         .selected(initial_lvl_idx)
         .build();
@@ -1377,15 +1396,19 @@ pub fn show_preferences_window(
 
     // 4.5 Diagnostics & Technical Support Group
     let diag_group = adw::PreferencesGroup::builder()
-        .title("Diagnóstico e Suporte Técnico")
-        .description("Gere um relatório técnico sanitizado do sistema para envio ao suporte e abertura de issues.")
+        .title(&tr("Diagnóstico e Suporte Técnico"))
+        .description(&tr(
+            "Gere um relatório técnico sanitizado do sistema para envio ao suporte e abertura de issues.",
+        ))
         .build();
 
     let diag_row = adw::ActionRow::builder()
-        .title("Gerar Diagnóstico Seguro do Sistema")
-        .subtitle("Coleta ambiente, GPU, bibliotecas e logs mascarando dados pessoais")
+        .title(&tr("Gerar Diagnóstico Seguro do Sistema"))
+        .subtitle(&tr(
+            "Coleta ambiente, GPU, bibliotecas e logs mascarando dados pessoais",
+        ))
         .build();
-    let diag_btn = gtk4::Button::with_label("Gerar...");
+    let diag_btn = gtk4::Button::with_label(&tr("Gerar..."));
     diag_btn.set_valign(gtk4::Align::Center);
     diag_btn.add_css_class("accent");
     {
@@ -1403,9 +1426,9 @@ pub fn show_preferences_window(
     // 4.6 Reset All Settings Group
     let reset_group = adw::PreferencesGroup::new();
     let reset_row = adw::ActionRow::builder()
-        .title("Redefinir Todas as Configurações")
+        .title(&tr("Reset All Settings"))
         .build();
-    let reset_btn = gtk4::Button::with_label("Redefinir");
+    let reset_btn = gtk4::Button::with_label(&tr("Reset"));
     reset_btn.set_valign(gtk4::Align::Center);
     reset_btn.add_css_class("destructive-action");
     {
@@ -1416,7 +1439,9 @@ pub fn show_preferences_window(
         reset_btn.connect_clicked(move |_| {
             *st_rc.borrow_mut() = AppSettings::default();
             apply();
-            status.set_text("Todas as configurações foram restauradas para o padrão.");
+            status.set_text(&tr(
+                "Todas as configurações foram restauradas para o padrão.",
+            ));
             pw_ref.close();
         });
     }

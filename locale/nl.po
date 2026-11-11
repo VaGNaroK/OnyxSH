@@ -17119,3 +17119,4099 @@ msgstr "🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Sempre Avançado (Raciocínio)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} geheim(en) verborgen)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ OnyxSH Terminal-export"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Doel / Context"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Conclusie & Geleerde lessen"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Voorafgaande opmerkingen"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Stapsgewijze uitvoering"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Sessie-informatie"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Geen uitvoer gegenereerd)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*Document automatisch gegenereerd door OnyxSH Logboek.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Geen stappen geselecteerd voor dit document.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Datum / Tijd:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Host:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Operator / Auteur:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Sessie:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Status:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Totaal geregistreerde stappen:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Uitvoer ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (resterende uitvoer afgekapt in voorbeeld)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Apparaat Lezen / Schrijven"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable en Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 kleurenschema's, uitvoermarkering en regels per opdracht"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Omhoog naar bovenliggende map (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Notitie:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "Poort {port} is al toegewezen aan een ander proces."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "TABBLAD #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "AI-assistent: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Tabblad gesloten."
+
+# 
+msgid "Abaixo"
+msgstr "Onder"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Huidige conflictoplossing afbreken"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Rebase afbreken en terugkeren naar oorspronkelijke branch"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Opent de Regex/Letterlijke zoekbalk in het actieve tabblad (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Opent deze tunnel automatisch bij verbinding met de SSH-host"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Opent een nieuwe lokale terminal (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Opent een interactieve shell in een actieve Docker-container"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Link openen: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Bronnenmonitor openen (Cairo-sparklines)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Map openen"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Openen met externe toepassing"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Deze map openen in terminal (cd)"
+
+# 
+msgid "Acima"
+msgstr "Boven"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Volgt logboeken van een Docker-container in realtime"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Volgt logboeken van een systemd-eenheid in realtime"
+
+# 
+msgid "Active"
+msgstr "Actief"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Upstream-volgreferentie toevoegen"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Nieuwe SSH-tunnel toevoegen"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Aangepast schema toevoegen"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Groeperen op categorieën (.7z bovenaan)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Een pseudo-TTY toewijzen dat is verbonden met stdin van de container"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Downgraden naar een oudere pakketversie toestaan"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Onveilige TLS-verbindingen toestaan"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Gecontroleerde wijziging gemaakt met atomaire back-up."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Zero-Trust AI-assistent in-/uitschakelen"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Tweepaneels bestandsbeheerder in-/uitschakelen"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Bewerkingsmodus in-/uitschakelen (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Dubbel paneel in-/uitschakelen (Splitsen / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "Zijpaneel voor SSH-sessies in-/uitschakelen"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Flatpak-omgeving"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Productieomgeving (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Productieomgeving — beschermd door ProductionGuard"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "De punt van de huidige branch wijzigen (amend)"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Analyseer de volgende recente berichten en fouten uit het logbestand '{name}' en geef een diagnose van de hoofdoorzaken en aanbevolen oplossingen:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Analyseer het project en stel de nodige oplossingen op met OpenCode."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Huidig pakket analyseren en fouten melden"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Bestand bijvoegen (PathGuard-validatie)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Bestand aan context toevoegen (gevalideerd door PathGuard)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "Analyse voltooid voor uw verzoek (`SecretRedactor` en `<untrusted>`-isolatie toegepast).\n\nAanbevolen opdracht:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Analyse aangevraagd bij de AI-assistent."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Past syntaxismarkering toe op de uitvoer van de opdracht 'cat'"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Past automatisch contextuele regels toe bij het detecteren van de actieve opdracht"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Uitvoermarkering toepassen op SSH-verbindingen"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Uitvoermarkering toepassen op lokale terminalsessies"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Toepassing & Venster"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Toepassing of ID"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Opgeslagen status toepassen en in stash-lijst bewaren"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Opgeslagen status toepassen en uit stash-lijst verwijderen"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Goedkeuren & Uitvoeren"
+
+# 
+msgid "Aproximar"
+msgstr "Inzoomen"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Pakketbeheerhulpprogramma voor Arch Linux / Manjaro"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Archiefmodus (behoudt rechten, tijdstempels, symlinks)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Vorig bestand (Pijl omhoog / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Binair bestand: {name}\nPad: {path}\nGrootte: {size}\nMachtigingen: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Archiefbestand"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Bestand gekopieerd voor overdracht: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Bestand aangemaakt: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Gegevensbestand"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Videobestand"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Audiobestand"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Bestand verwijderd: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Bestand gemarkeerd om te verplaatsen: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Bestand opnieuw geladen vanaf schijf."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Bestand hernoemd naar '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Bestand hersteld na rollback: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Bestand opgeslagen met beheerdersrechten (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Bestand succesvol opgeslagen met beheerdersrechten (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Bestand succesvol opgeslagen!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Bestand: {name} (Grootte: {size} bytes)\nFragment:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Bestanden gegroepeerd op categorie (.7z bovenaan)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Bestanden gesorteerd op wijzigingsdatum"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Bestanden gesorteerd op naam"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Bestanden gesorteerd op grootte"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Bestanden gesorteerd op type / extensie"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Bronbestanden/-mappen"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "OpenCode-codeassistent"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust AI-assistent"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "AI-assistent is niet verbonden."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Risico aanvaarden en uitvoeren"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "Sneltoets '{name}' bijgewerkt naar {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "Sneltoets '{name}' verwijderd."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Sneltoetsen (34 configureerbare acties)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Systeemsnelkoppelingen & Favorieten"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Productieomgevingsschild in- / uitschakelen (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "Kleurweergave van 'cat' inschakelen"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Markering van shell-invoer inschakelen"
+
+# 
+msgid "Ativar Todos"
+msgstr "Alles inschakelen"
+
+# 
+msgid "Ativo"
+msgstr "Actief"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Actief (luistert op {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Huidig: {curr}\nNieuw: (druk op toetsen)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Huidig: {curr}\nNieuw: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Huidig: {curr}\nNieuw: {new} (Conflicteert met {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Vernieuwen (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Lijst vernieuwen (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Beveiliging controleren met AI"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Beveiliging van deze map controleren met AI"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "Beveiligingsaudit van '{name}' verzonden naar de AI-assistent."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "Audit van map '{path}' verzonden naar de AI-assistent."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Lettertype vergroten (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Authenticatie:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Auto: past zich aan de terminalachtergrond aan. Handmatig: vast thema."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Auto: detecteert automatisch het contrast met de achtergrond"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Automatisch aangevuld: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Slim automatisch aanvullen (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Slim automatisch aanvullen — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Automatisch aanvullen toegepast: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Automatisch ja"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Onnodige afhankelijkheden automatisch verwijderen"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Voert automatisch alleen-lezen diagnostiek uit zonder handmatige bevestiging te vereisen."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Gaat naar het volgende tabblad (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Actie"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "SHA-256-back-up aangemaakt ({count} bestanden): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "SHA-256-back-up opgeslagen ({count} bestanden): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Back-up niet gevonden op {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Back-up succesvol hersteld ({count} bestanden geverifieerd via SHA-256)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Balk voor gelijktijdige uitvoering (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Batchverwijdering via xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Blokkeren en annuleren (Aanbevolen)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Uitzending verzonden: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Uitzenden naar alle"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Alle pakketten in de werkruimte bouwen"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Artefacten bouwen in release-modus"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Artefacten bouwen in release-modus met optimalisaties"
+
+# 
+msgid "Busca"
+msgstr "Zoeken"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Globaal zoeken over tabbladen / Geschiedenis"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Globaal zoeken over tabbladen / Sessies / Geschiedenis"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Globaal zoeken in tabbladen, sessies, geschiedenis & snippets (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Globaal zoeken ingevoegd in prompt: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Globaal zoeken in OnyxSH (Ctrl+Shift+G) — Tabbladen, sessies, geschiedenis & snippets"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Globaal zoeken: gericht op tabblad #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Zoekt bestanden en mappen met geavanceerde filters"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Fuzzy zoeken op map, host en favorieten (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Zoeken in terminal (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Zoeken in huidige terminal"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Sessies of hosts zoeken..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Tekst zoeken in terminal..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Bevestigingsprompts overslaan"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Hashes berekenen op de achtergrond..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Pad gekopieerd: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Mappad (bijv.: Productie of Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Bestandspad (bijv.: /var/log/syslog of ~/.ssh/id_rsa om blokkering te testen):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Pad ingevoegd in terminal: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Hoofdletterongevoelig bestandsnaampatroon"
+
+# 
+msgid "Categoria"
+msgstr "Categorie"
+
+# 
+msgid "Categoria:"
+msgstr "Categorie:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Wijzig naar map voordat bewerkingen worden uitgevoerd"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH-sleutel / Wachtwoord:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Controleer GPG-handtekening en integriteit van een .rpm-bestand"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Controleren op beschikbare pakketupgrades zonder te installeren"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Controleert een pakket om veelvoorkomende fouten op te sporen"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Controlesommen & integriteitsverificatie — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Kies tussen snelle cloudproviders of lokale servers."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Alle pakketcache opschonen (alle gedownloade pakketten verwijderen)"
+
+# 
+msgid "Clean local caches"
+msgstr "Lokale caches opschonen"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Pakketcache opschonen (oude gedownloade pakketten verwijderen)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Klik om de sneltoets te wijzigen"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Klik om in een nieuw tabblad te verbinden (en deze sessie te selecteren)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Klik om te begrijpen wat elk machtigingsniveau toestaat of beperkt"
+
+# 
+msgid "Colar"
+msgstr "Plakken"
+
+# 
+msgid "Colar Aqui"
+msgstr "Hier plakken"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Plakken in deze map"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Plak hierboven een MD5-, SHA-1-, SHA-256- of SHA-512-hash om de authenticiteit te verifiëren."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Kleurt opdrachten in realtime terwijl u in de terminal typt"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Kleurt patronen in de terminaluitvoer, zoals fouten, waarschuwingen en IP's. Veel regels kunnen zeer uitgebreide uitvoer beïnvloeden."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "Kleurmarkering van de opdracht cat"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Opdracht ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Opdracht / Sjabloon:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Opdracht na inloggen:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Opdracht gekopieerd naar klembord."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Productieopdracht beoordeeld door operator."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Opdracht verzonden naar terminal: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Opdracht verzonden: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Opdracht uitgevoerd vanuit geschiedenis: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Opdracht uitgevoerd via palet: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Opdracht mislukt (code {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Opdracht ingevoegd in prompt: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Lange opdracht succesvol voltooid (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Afstemmen op terminalkleuren"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Opdrachtenpalet (Ctrl+Shift+P) — Gecombineerd zoeken"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Opdrachtenpalet — Gecombineerd zoeken (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Comprimeren"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Integriteitsvergelijker"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Mappen vergelijken / synchroniseren (Links ⇄ Rechts)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Vergelijking met dubbel paneel: {identical} identiek | {left_only} alleen links | {right_only} alleen rechts | {diff} met verschillende grootte"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Compatibiliteit met Git- en verouderde repositories"
+
+# 
+msgid "Compile the current package"
+msgstr "Huidig pakket compileren"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Bestandsgegevens comprimeren tijdens overdracht"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Conclusie &amp; Geleerde lessen"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Verbonden met sessie: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Verbinden via Globaal zoeken: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Verbinden via Opdrachtenpalet: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Verbinden in gesplitst deelvenster (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Verbinden: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "AI-assistent configureren..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Regels voor deze opdracht configureren"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "AI-assistent configureren — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Alle uitgepakte maar niet-geconfigureerde pakketten configureren"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Een uitgepakt pakket configureren"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Configureer afzonderlijke sleutels om van provider te wisselen zonder opnieuw te configureren"
+
+# 
+msgid "Confirm"
+msgstr "Bevestigen"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Verwijdering bevestigen"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Conflict of synchronisatiefout in de Git-repository."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Grootte van contextvenster (Tokens)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Inhoud gekopieerd naar klembord."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Rebase hervatten na het oplossen van conflicten"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Gesprek geladen uit geschiedenis."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Gekopieerd naar {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Bestand kopiëren"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Pad van bovenliggende map kopiëren"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Map kopiëren"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Selectie kopiëren naar rechterdeelvenster (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Selectie kopiëren naar linkerdeelvenster (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Kopiëren naar klembord"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Gedetailleerd rapport kopiëren in Markdown-indeling"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Kleuren en markeringen"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Terminalkleuren en -markeringen"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Standaard terminalkleuren (0-7 normaal, 8-15 helder)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Maak ook bij fast-forward een merge-commit aan"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Een ondiepe kloon maken met ingekorte geschiedenis"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Gzip-gecomprimeerd tar-archief uitgebreid aanmaken"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Maakt gecomprimeerde archieven van bestanden en mappen"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Maakt en bewerkt geparametriseerde opdrachtknoppen (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Maakt een nieuwe lokale branch in de Git-repository en schakelt ernaar over"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Maakt een testbestand aan in /tmp met atomaire back-up in AuditLogger"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Maakt een aangepast kleurenschema op basis van het actieve schema"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Instellingenback-up maken (SHA-256-bundel)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Sessie aanmaken"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Maak een lokale (-L), externe (-R) of dynamische SOCKS5 (-D)-tunnel om poorten via SSH door te sturen."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Controlesomberekening geannuleerd door gebruiker."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Rust-code"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Code ingevoegd in actieve terminal."
+
+# 
+msgid "Código-Fonte"
+msgstr "Broncode"
+
+# 
+msgid "Cópia de {name}"
+msgstr "Kopie van {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "Wijzigingsdatum"
+
+# 
+msgid "Date / Time"
+msgstr "Datum / Tijd"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Datum: {date} | Afmetingen: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Debian low-level pakketbeheerder (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Standaard API-sleutel"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Standaard model-ID"
+
+# 
+msgid "Default Provider"
+msgstr "Standaardprovider"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Definieert en start multi-containerapplicaties"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Bestandsrechten instellen voor: {name}\nHuidig: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Een firewallregel verwijderen"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Een samengevoegde branch verwijderen"
+
+# 
+msgid "Desativar Todos"
+msgstr "Alles uitschakelen"
+
+# 
+msgid "Descrição:"
+msgstr "Beschrijving:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Shell-invoermarkering"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Realtime syntaxismarkering terwijl u opdrachten typt"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Syntaxismarkering voor uitvoer van de opdracht 'cat' (met Pygments/ANSI-engine)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Externe bestemming"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Losgekoppelde modus: opdracht op de achtergrond uitvoeren"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Logfouten diagnosticeren met AI"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Webservice diagnosticeren en herstarten"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Heuristische diagnose (**{title}**):\n{desc}\n\nSuggestie voor snelle oplossing:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Veilige systeemdiagnose — Telemetrie & ondersteuning"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "Logdiagnose voor '{name}' verzonden naar AI-assistent."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Hoofdlettergevoelig"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Voer een opdracht in (bijv.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Typ een opdracht om naar ALLE geopende terminals te sturen..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Typ een actie, SSH-sessie of geparametriseerde opdracht..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Lettertype verkleinen (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Dynamisch (-D) • SOCKS5-proxy via SSH"
+
+# 
+msgid "Direita"
+msgstr "Rechts"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "Map '{path}' gemarkeerd als favoriet."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Configuratiemap"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Map verzonden naar terminal: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Map: {name}\nPad: {path}\nRechten: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Toegestane mappen, PathGuard-isolatie en default-deny-beleid"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Een geïnstalleerde snap uitschakelen"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Schijf vol (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Schijf (fysieke I/O)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Gedetailleerde informatie over een geïnstalleerd pakket weergeven"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Geheugen weergeven in megabytes"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Statusgegevens van geïnstalleerd pakket weergeven"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Splitst het huidige tabblad boven/onder (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Splitst het huidige tabblad naast elkaar (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Horizontaal Splitsen"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Terminal horizontaal splitsen"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Verticaal Splitsen"
+
+# 
+msgid "Divisão"
+msgstr "Splitsen"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Niets vragen, standaardantwoorden gebruiken"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Afhankelijkheden niet controleren vóór verwijderen"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Geen externe opdracht uitvoeren (alleen poortdoorsturing)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Servicenamen niet omzetten"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Geen momentopname van de snap-gegevens opslaan"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Pakketafhankelijkheden niet verifiëren"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Pakketafhankelijkheden niet verifiëren vóór installeren"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Niets doen als er al een remote met dezelfde naam bestaat"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Tekstdocument"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Nieuwe kopie van pakketdatabases downloaden"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Alleen pakketten downloaden, niet installeren"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Op tekst gebaseerde grafische commit-geschiedenis tekenen"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Proefverwijdering zonder bestanden te wissen"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Proefinstallatie zonder het systeem te wijzigen"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Opdracht bewerken: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Tunnelinstellingen bewerken"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Kleurenschema bewerken"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Geselecteerde sessie bewerken"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Sessie bewerken — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Kleurenschema bewerken of een aangepaste variant maken"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Ik heb een **Gestructureerd Actieplan** opgesteld met validatie door `PolicyEngine` en automatische verificatie na uitvoering (`verifier.rs`) voor:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Moderne terminalemulator voor lokale en externe Linux-workflows, met ProductionGuard, Dual-Pane SFTP/TFTP en een Zero-Trust AI-assistent."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Een uitgeschakelde snap inschakelen"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "X11-doorsturing (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Sluit het actieve tabblad (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Bestanden zoeken"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Stuurt opdrachten gelijktijdig naar meerdere terminals (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Stuur opdracht naar alle tabbladen"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Vraag verzenden"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "Opdracht sha256sum naar het actieve terminaltabblad sturen"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Naar alles sturen"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Een geïnstalleerd RPM-pakket wissen (verwijderen)"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Fout bij opslaan van bestand"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Fout bij wijzigen van rechten voor '{name}': {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Fout bij berekenen van hash"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Fout bij plakken van item: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Fout bij aanmaken van bestand: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Fout bij maken van back-up: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Fout bij aanmaken van map: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Fout bij verwijderen van bestand: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Fout bij verwijderen van map: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Fout bij weergeven van {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Fout bij verplaatsen van item: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Fout bij hernoemen: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Git-repositoryfout"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Rollbackfout: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Fout: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Kies tussen Lokaal (-L), Extern (-R) of Dynamisch SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Kleurenschema toegepast: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Kleurenschema opgeslagen: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Deze sessie komt uit ~/.ssh/config (alleen-lezen) of is al verwijderd."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Dit bestand is alleen-lezen. Wijzigingen kunnen worden opgeslagen met beheerdersrechten (Root)."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Lichte stijl (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Donkere stijl (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "Bijv.: 10.0.0.15 of srv.bedrijf.nl"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "Bijv.: Productie (laat leeg voor hoofdmap)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "Bijv.: Productie Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "Bijv.: root of ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Map verwijderen"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Definitief verwijderen"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Uitgevoerd in terminal: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Uitvoeren (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Nu uitvoeren"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Uitvoeren met sudo in terminal"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Opdracht uitvoeren in alle terminals"
+
+# 
+msgid "Executar passo"
+msgstr "Stap uitvoeren"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Agentplan uitvoeren"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Alle unit- en integratietests uitvoeren"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Sessiepaneel weergeven"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Bestand uitleggen met AI"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "Uitleg van bestand '{name}' aangevraagd bij de AI-assistent."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Leg het doel, de structuur en de werking van het bestand '{name}' uit.\nPad: {path}\n\nBegininhoud:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Exporteert settings.json, sessions.json en command_buttons.json met SHA-256-hash"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Exporteert de volledige buffer of de actieve terminalselectie"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Geëxporteerd naar {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Terminaluitvoer exporteren (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Sessie exporteren als draaiboek (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "OnyxSH-terminalexport - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Controle op externe verbindingen en strikte gegevensisolatie."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Met gzip gecomprimeerd tar-archief uitgebreid uitpakken"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Pakt bestanden uit gecomprimeerde archieven uit"
+
+# 
+msgid "Extrair"
+msgstr "Extractie"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Opslaan als Root mislukt"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Wachten op pkexec-proces mislukt: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Berekenen van controlesommen mislukt: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Maken van back-up mislukt: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Schrijven van gegevens naar stdin van pkexec mislukt: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Starten van geprivilegieerd pkexec-proces mislukt: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Herstellen van back-up mislukt: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Opslaan van bestand mislukt: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Overdracht mislukt (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Overdracht mislukt (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Snel, veelzijdig hulpprogramma voor het kopiëren van externe en lokale bestanden"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Opdracht toevoegen aan / verwijderen uit favorieten"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Huidige map toevoegen aan favorieten"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Favoriet verwijderd: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Commit wijzigingen in Git met een beschrijvend bericht"
+
+# 
+msgid "Fechar Aba"
+msgstr "Tabblad Sluiten"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Sluit Actief Paneel"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "RPM-pakketbeheerder voor Fedora/RHEL/Rocky/AlmaLinux"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Ophalen uit en integreren met een andere repository"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Overdrachtswachtrij — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Overdrachtswachtrij is leeg (0 actieve taken)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Bestandsgegevens n*24 uur geleden gewijzigd"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Bestandstype (f regulier bestand, d map, l symlink)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Archief filteren via gzip (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Zoeken welk pakket een bepaald bestand of functie biedt"
+
+# 
+msgid "Focar janela existente"
+msgstr "Bestaand venster focussen"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Focus Pane Down"
+
+# 
+msgid "Focar painel acima"
+msgstr "Focus Pane Up"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Focus Pane Right"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Focus Pane Left"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Focus verplaatst naar het eerste deelvenster."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Focus verplaatst naar het tweede deelvenster."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Uitvoer live volgen terwijl het bestand groeit"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Lettertype, kleurenpalet, transparantie en AI (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Verwijderen forceren zelfs als apps ervan afhankelijk zijn"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Installatie forceren zelfs als pakket/bestanden al bestaan"
+
+# 
+msgid "Force upgrade"
+msgstr "Upgrade forceren"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Query-uitvoer opmaken met aangepast queryformat"
+
+# 
+msgid "Formato"
+msgstr "Indeling"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "RPM-pakketten verversen (alleen upgraden als ze al zijn geïnstalleerd)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Gestructureerd actieplan (ActionPlan) genereren"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Beheert systeemservices met systemctl"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Bestandsbeheerder"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Bestandsbeheerder met twee deelvensters"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Opdrachtbeheerder"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Opdrachtbeheer & dynamische formulieren"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Tab- en Paneelbeheer"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak application and runtime management"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Conventional Commit voorstellen"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: huidige map is geen Git-repository."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Hoge contextcapaciteit"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Pictogramraster"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Ultrasnelle LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Realtime grafieken van CPU, RAM, schijf-I/O en netwerk/GPU"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Model en provider met hoog redeneervermogen voor plannen met meerdere stappen"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Verrijkte opdrachtgeschiedenis (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Gespreksgeschiedenis"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Overdrachtsgeschiedenis"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Geschiedenis: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Host / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Externe host (IP / domein)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Externe host voor Bind"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Host mag niet leeg zijn"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Ongeldige host of ongeldig IP-adres."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Identiteitsbestand (privésleutel) voor authenticatie met openbare sleutel"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Hoofdlettergevoeligheid negeren"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Bestandsback-upaanduidingen negeren (configuratiebestanden verwijderen)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Niet-bestaande bestanden negeren, nooit om bevestiging vragen"
+
+# 
+msgid "Imagem"
+msgstr "Afbeelding"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "Een ASCII-armored openbare GPG-sleutel importeren in de RPM-sleutelbos"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Externe configuratie importeren uit .flatpakrepo"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Sessies importeren (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "HTTP-antwoordheaders opnemen in uitvoer"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Vergroot de tekengrootte van de terminal (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Leidt automatische validaties (servicestatus, configuratiesyntaxis) af en stelt deze voor na wijzigende opdrachten."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "TFTP-server starten"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Invoegen (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Pad invoegen in terminal"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Inspecteert de huidige Git-repository en stelt een commit-bericht voor"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Actieve sockets en poorten op de host inspecteren"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Een lokaal .deb-pakketbestand installeren"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Een RPM-pakketbestand installeren met uitgebreide voortgang"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Installeren als niet-expliciete afhankelijkheid"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Installeren vanuit het bètakanaal"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Installeren vanuit het edge-kanaal"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Installeren vanuit het stabiele kanaal"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Een of meer RPM-pakketten installeren"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Snaps op het systeem installeren"
+
+# 
+msgid "Interactive rebase"
+msgstr "Interactieve rebase"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Interactief delen (hunks) van de patch kiezen"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Terminalinteractie"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Lokale interface / Bind-IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Lokale luisterinterface"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Patroon interpreteren als uitgebreide regex"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Interval voor latentiecontrole"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Interval in seconden voor het verzenden van KeepAlive-sondepakketten"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Ongeldige SSH-gebruikersnaam"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Ongeldige hostnaam of ongeldig IP-adres"
+
+# 
+msgid "Invalid local port"
+msgstr "Ongeldige lokale poort"
+
+# 
+msgid "Invalid port number"
+msgstr "Ongeldig poortnummer"
+
+# 
+msgid "Invalid remote host"
+msgstr "Ongeldige externe host"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Sockets onderzoeken (moderne vervanger van netstat)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Ga naar tabblad"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Hiermee worden alle sneltoetsen teruggezet naar de standaardwaarden. Wilt u doorgaan?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Item geplakt op: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Item verplaatst naar: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "Indeling van {n_pages} tabblad(en) opgeslagen in {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Wist het scherm en de terugscrollbuffer van de actieve sessie (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Voltooide wissen"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Niet-favoriete geschiedenis wissen"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Sessie wissen"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Terminalsessie wissen"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Link gekopieerd naar het klembord."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Alle bestanden weergeven die bij een geïnstalleerd RPM-pakket horen"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Lijst van applicaties en runtimes die beschikbaar zijn in een externe bron"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Vereiste mogelijkheden van dit .rpm-bestand weergeven"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Configuratiebestanden van een geïnstalleerd pakket weergeven"
+
+# 
+msgid "List configuration files only"
+msgstr "Alleen configuratiebestanden weergeven"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Afhankelijkheden van een geïnstalleerd pakket weergeven"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Bestanden in het .rpm-archief weergeven"
+
+# 
+msgid "List files installed by package"
+msgstr "Bestanden geïnstalleerd door pakket weergeven"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Externe pakketten weergeven (bijv. uit AUR)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Geïnstalleerde pakketten weergeven die overeenkomen met patroon"
+
+# 
+msgid "List installed snaps"
+msgstr "Geïnstalleerde snaps weergeven"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Geïnstalleerde unit-bestanden en hun inschakelstatus weergeven"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Verweesde pakketten weergeven (afhankelijkheden die niet meer nodig zijn)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Pakketten geïnstalleerd als afhankelijkheden weergeven"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Momenteel opgeslagen stashes weergeven"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Gedetailleerde lijst"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Somt de inhoud van de map met details op (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Lijst, miniatuurraster, boomstructuur & Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Lijst Bestanden"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Lokaal (Ollama / LM Studio) • Volledige GPU/CPU-privacy"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Basis-URL van lokale server"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Uitgebreid formaat, alle bestanden, leesbare groottes"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Model en provider met lage latentie voor dagelijkse shell-vragen"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Bovenliggende mappen indien nodig aanmaken"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Maximale toewijzing van contextgeheugen verzonden naar het model"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Geheugen (RAM & Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "RAM-geheugen"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Commit-bericht"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Strikt offline-modus actief (Geen cloud)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Onlinemodus met slimme routering actief."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Tekstselectiemodus ingeschakeld."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Tekstselectiemodus uitgeschakeld."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Uitzendmodus (Broadcast naar alle tabbladen)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Themamodus"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Realtime bronnenmonitor (Cairo Sparklines)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Realtime bronnenmonitor — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Toont of verbergt de SSH-sessiestructuur (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Verborgen bestanden weergeven (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Engine"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Naam en optioneel een tag in het formaat 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Geen items op het klembord om te plakken."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Nog geen auditlogboeken. Klik op 'Gecontroleerde wijziging simuleren' om atomische rollback te testen."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Geen dedicated GPU gedetecteerd via sysfs/nvidia-smi"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Geen sessie geselecteerd"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "Geen overdrachten geregistreerd in de sessie."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Netwerk (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Netwerk (/proc/net/dev) • Realtime RX / TX"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Netwerk (RX / TX) & GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Nooit vragen stellen"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Naam (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Naam van nieuwe branch"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Sessienaam:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Naam van nieuwe map:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Ongeldige bestandsnaam op het klembord."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "SSH-gebruikersnaam bevat ongeldige tekens."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Naam van doelbestand"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Servicenaam"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Opdrachtnaam (bijv. Nginx herstarten)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Naam van nieuw bestand:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Pictogramnaam (bijv. utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Containernaam of -ID"
+
+# 
+msgid "Nome:"
+msgstr "Naam:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Niet-interactieve modus"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Nieuw terminaltabblad"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Nieuw terminaltabblad (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Nieuwe map hier..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Nieuwe sessiemap"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Nieuwe map..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Nieuwe sessie — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Nieuw gesprek gestart."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Nieuw bestand hier..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Nieuw bestand..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Nieuw kleurenschema"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Nieuwe mapnaam:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Nieuwe bestandsnaam:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Kan item niet laden: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Kan wijzigingen niet opslaan: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Onvoldoende vrije ruimte op het bestandssysteem."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Niveau 0 (Lezen)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Niveau 1 (Schrijven)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Niveau 2 (Beheer)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Niveau 3 (Kritiek)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Niveau 4 (Geblokkeerd)"
+
+# 
+msgid "Nível {n}"
+msgstr "Niveau {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Aantal pogingen voordat automatisch opnieuw verbinden wordt opgegeven"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "Het binaire bestand '{bin}' is niet geïnstalleerd of staat buiten $PATH."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "De opdracht is afgesloten met een foutcode."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "De opdracht die in de terminal is uitgevoerd is mislukt. Analyseer de projectbestanden en bereid de nodige oplossingen voor met OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "De opdracht is mislukt wegens gebrek aan superuser-rechten (root)."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "De sessienaam mag niet leeg zijn."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Geobfusceerde / Base64-gedecodeerde uitvoeringspijplijn"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Vorige overeenkomst (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Overeenkomsten gevonden in terminal"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Octaal: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Gereed"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Meldingstest"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode gestart in terminal."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Geünificeerde multimodelcatalogus"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Operator: {author} | Host: {host} | Datum: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Toepassen op alle pakketten in de werkruimte"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "Bewerking geannuleerd of geweigerd door de gebruiker."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Bewerkingen met Arch Linux-pakketbeheerder"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Bewerkingen met Debian/Ubuntu-pakketbeheerder"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Bewerkingen met Fedora/RHEL-pakketbeheerder"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Bestandbewerkingen"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Oplopende volgorde"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Aflopende volgorde"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Oplopend sorteren ingeschakeld"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Aflopend sorteren ingeschakeld"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Geïnstalleerde pakketten sorteren op installatietijd (nieuwste eerst)"
+
+# 
+msgid "Organizar por"
+msgstr "Sorteren op"
+
+# 
+msgid "Origem (Local)"
+msgstr "Bron (Lokaal)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Getallen weergeven in leesbaar formaat"
+
+# 
+msgid "Output package names only"
+msgstr "Alleen pakketnamen weergeven"
+
+# 
+msgid "Pacote"
+msgstr "Pakket"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Installatiepakket"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Naampatroon (bijv. *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Sessiespaneel"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Deelvenster/Tabblad gesloten."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Heel woord"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16-kleuren ANSI-palet"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "TFTP-server stoppen ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Parameters — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Stap #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Stap uitgevoerd: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "Map '{path}' is aangemaakt."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Map / Directory"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Map gekopieerd naar klembord: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Map aangemaakt: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Map verwijderd: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Map gemarkeerd om te verplaatsen: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Map verwijderd uit favorieten."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Map hernoemd naar '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Map · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Map:"
+
+# 
+msgid "Pause"
+msgstr "Pauzeren"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Routeringsprofiel gewijzigd naar: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Voer een distributie-upgrade uit (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Vraag AI-assistent"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Stel een vraag of plak een terminalfout..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Machtigingen (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "Machtigingen van '{name}' gewijzigd naar {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Machtigingen voor {name}"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Zoeken in alle geopende tabbladen, SSH-sessies, geschiedenis en snippets (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Recursief zoeken in submappen"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Zoeken in Terminal"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Zoek tekst in alle geopende terminaltabbladen, SSH-sessies, geschiedenis en snippets..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Zoek tunnels op naam, poort of host..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Uitvoering via pipe naar shell-interpreter"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Zero-Trust-actieplan voor: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Achtergrond"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Voer een {provider} API-sleutel in voordat u test."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Eindpunten en poorten"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Analyseer de volgende terminalselectie:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Analyseer en leg de code/inhoud van bestand '{name}' uit, inclusief het doel, de structuur en de belangrijkste punten:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Voer een gedetailleerde beveiligings- en toegangsbeheeraudit uit op de huidige map '{path}'. Controleer op te ruime machtigingen, gevoelige bestanden (.env, privésleutels, blootgestelde inloggegevens) en doe aanbevelingen volgens Zero-Trust-best practices."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Voer een gedetailleerde beveiligings- en toegangsmachtigingenaudit uit voor bestand '{name}'.\nPad: {path}\nHuidige machtigingen: {perms} ({oct})\nGrootte: {size}\nBeveel veilige chmod-instellingen en kwetsbaarheidsbeperking aan."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Voer een gedetailleerde beveiligings- en toegangsmachtigingenaudit uit voor map '{name}'.\nPad: {path}\nHuidige machtigingen: {perms} ({oct})\nLaatst gewijzigd: {date}\nBeveel ideale chmod-instellingen, beperkingen en best practices voor Zero-Trust-naleving aan."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Refactor het volgende codefragment met OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Poort buiten geldig bereik (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Extern blootgestelde poort (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Externe doelpoort"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Lokale luisterpoort (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "SOCKS5-proxypoort (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Poort buiten toegestaan bereik (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Poort:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Externe PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Voorkeuren"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Elke regel voorafgaan door een regelnummer vanaf 1"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Voorbeeld van opdracht:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Primaire provider en connectiviteit"
+
+# 
+msgid "Print Git version"
+msgstr "Git-versie weergeven"
+
+# 
+msgid "Print RPM version"
+msgstr "RPM-versie weergeven"
+
+# 
+msgid "Print help synopsis"
+msgstr "Beknopte help-samenvatting weergeven"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Groottes weergeven in machten van 1024 (bijv. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Stdout/stderr van test direct weergeven"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Totaal weergeven voor mapdiepte 1"
+
+# 
+msgid "Print zypper version"
+msgstr "zypper-versie weergeven"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Productie / Webservers"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Protocol:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Uitgebreide uitvoer weergeven"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Provider gebruikt wanneer Slimme routering is uitgeschakeld"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Livevoorbeeld"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Volgende overeenkomst (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Volgend bestand (Pijl omlaag / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Spring naar de vorige prompt."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Spring naar de volgende prompt."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Een geïnstalleerd pakket volledig verwijderen inclusief configuratie"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Snap in klassieke isolatiemodus plaatsen"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Aantal regels (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Aantal regels (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Een niet-geïnstalleerd lokaal .rpm-pakketbestand opvragen"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Alle geïnstalleerde RPM-pakketten opvragen en weergeven"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Pakketten opvragen die voldoen aan repositorycriteria"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "De status opvragen van services die door snaps worden geleverd"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Opvragen welk geïnstalleerd RPM-pakket eigenaar is van een bestandspad"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Voorbeeld)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "Laagniveau-hulpmiddel van RPM Package Manager (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Alle bestanden onder elke map recursief lezen"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Lezen: {read}/s • Schrijven: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Huidige branch na ophalen rebasen op de upstream-branch"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "De RPM-database-indexen opnieuw opbouwen vanuit geïnstalleerde headers"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Slim automatisch opnieuw verbinden bij verbrekingen"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Gereedgezette wijzigingen vastleggen in de repository"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Bestand knippen"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Map knippen"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Zet alle sneltoetsen terug naar de standaardwaarden"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Zoom resetten"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Verkleint de lettergrootte van de terminal (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Inzoomen"
+
+# 
+msgid "Refresh Interval"
+msgstr "Vernieuwingsinterval"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Alle repositorymetadata vernieuwen"
+
+# 
+msgid "Refresh files database"
+msgstr "Bestandendatabase vernieuwen"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "AuditLogger-logbestanden (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Algemene markeringsregels"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Beheerde service herstarten en configuratie toepassen"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Opnieuw installeren als het pakket al aanwezig is"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Volledig hash-rapport gekopieerd naar klembord"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Geschoond OnyxSH-diagnoserapport"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Diagnoserapport gekopieerd naar klembord."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Gestructureerd operationeel rapport met stappen, notities, doel en conclusie (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Geschoond rapport van OS, RAM, GPU/VRAM en Flatpak-omgeving"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Service opnieuw laden of herstarten als opnieuw laden niet wordt ondersteund"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Extern (-R) • Lokale poort blootstellen op externe server"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Een enkele stash-vermelding verwijderen"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Alle pakketten verwijderen die afhankelijk zijn van het doel"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Alle stash-vermeldingen verwijderen"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Alle versies van het pakket verwijderen"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Een geïnstalleerd pakket verwijderen met behoud van configuratie"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Mappen en inhoud recursief verwijderen"
+
+# 
+msgid "Remove installed packages"
+msgstr "Geïnstalleerde pakketten verwijderen"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Verouderde remote-trackingreferenties verwijderen"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Een of meer pakketten en ongebruikte afhankelijkheden verwijderen"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Pakketten verwijderen die oorspronkelijk als afhankelijkheden zijn geïnstalleerd en niet meer nodig zijn"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Snaps van het systeem verwijderen"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Ongebruikte gegevens verwijderen (containers, netwerken, images)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Geselecteerde sessie verwijderen"
+
+# 
+msgid "Remover Túnel"
+msgstr "Tunnel verwijderen"
+
+# 
+msgid "Remover favorito"
+msgstr "Favoriet verwijderen"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Favoriet van huidige map verwijderen"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Bestand hernoemen"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Map hernoemen"
+
+# 
+msgid "Renomear..."
+msgstr "Hernoemen..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Een momentopname van de huidige processen weergeven"
+
+# 
+msgid "Reportar Problema"
+msgstr "Probleem melden"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Lettergrootte herstellen (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Terminalfout oplossen met OpenCode / AI..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Herstartbeleid wanneer container wordt afgesloten"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Herstelt het standaardlettertype Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Globale regels herstellen"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Alle opdrachten herstellen"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Oorspronkelijke lijst met genegeerde opdrachten herstellen"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Index herstellen / bestanden uit stage halen"
+
+# 
+msgid "Resume"
+msgstr "Hervatten"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Standaard cryptografische digests berekend over de bestandsinhoud:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Logboeken voor services ophalen"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Diff-beoordeling & Zero-Trust-audit (Atomaire rollback)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Slimme routering: klik om van profiel te wisselen (Auto, Snel, Geavanceerd, Beveiliging)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Gerouteerd naar het geavanceerde/beveiligingsredeneringsprofiel."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Gerouteerd naar het snelle profiel (eenvoudige zoekopdracht met lage latentie)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Een binair bestand of voorbeeld van het lokale pakket uitvoeren"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Uitvoeren alsof git in het pad is gestart"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Inlogshell uitvoeren als doelgebruiker (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Geoptimaliseerd release-binair bestand uitvoeren"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Native Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Rust-pakketbeheerder en build-tool"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH-SESSIE"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "SOCKS5-proxy"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Zakelijke SOCKS5-proxy"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Veilige force push met verificatie van externe referentie"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Toepassing afsluiten"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Opslaan en sluiten"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Wijzigingen opslaan"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "OnyxSH-back-up opslaan"
+
+# 
+msgid "Salvar Comando"
+msgstr "Opdracht opslaan"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Huidige tabbladindeling opslaan"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Opslaan met Administrator- / Root-rechten (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Succesvol opgeslagen: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Scriptuitvoering"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Zowel beschrijvingen als namen doorzoeken"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Zoeken naar het pakket dat eigenaar is van een bestandsnaam"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Zoeken naar pakketten die overeenkomen met het patroon"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Zoeken naar snaps in de store"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Lokaal geïnstalleerde pakketten doorzoeken"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Systeemstijl volgen"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "In realtime volgen (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Seconden om verbindingen actief te houden (0 om uit te schakelen)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Geselecteerd: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "Selecteer OnyxSH-back-upbestand"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Selecteer de opdrachten die u wilt opnemen en voeg verklarende technische opmerkingen toe voor elke stap. ({count} geïdentificeerd)"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Selecteer een item in het rechtervenster om te downloaden (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Selecteer een item in het linkervenster om te uploaden (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Selecteer eerst een sessie uit de lijst om te bewerken."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Selecteer eerst een sessie om te verwijderen."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Gemonitorde host selecteren"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Niet-overeenkomende regels selecteren"
+
+# 
+msgid "Seleção copiada."
+msgstr "Selectie gekopieerd."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Selectie verzonden naar de AI-assistent voor analyse."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Selectie verzonden voor refactoring met OpenCode."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Altijd verbergen"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP-server"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "Alleen-lezen TFTP-server actief op {addr} (hoofdmap: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "TFTP-server omgeschakeld."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP-server gestopt."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Sessie: {session} | Host: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "Sessie '{name}' verwijderd."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "Sessie '{name}' opgeslagen in ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Gekoppelde SSH-sessie"
+
+# 
+msgid "Sessão limpa."
+msgstr "Sessie gewist."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Opgeslagen sessies"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Sessies gesynchroniseerd vanuit ~/.config/onyxsh/sessions.json en ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Uit te voeren shell"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Alle luisterende TCP/UDP-sockets weergeven met proces en numerieke poorten"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Alle revisies van geïnstalleerde snaps weergeven"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Routering, netwerkapparaten en interfaces weergeven en beheren"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Beschikbare snap-updates weergeven zonder te installeren"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Wijzigingen tussen commits, index en werkboom weergeven"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Gedetailleerde informatie over een snap weergeven"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Gedetailleerde informatie over een geïnstalleerde app of runtime weergeven"
+
+# 
+msgid "Show error message on failure"
+msgstr "Foutmelding weergeven bij mislukken"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Volledige informatie voor opgegeven pakketten weergeven"
+
+# 
+msgid "Show package metadata info"
+msgstr "Metagegevens van pakket weergeven"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Rechten voor een specifiek bestandspad weergeven"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Pre-/post-installatie- en verwijderingscripts weergeven"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Voortgang weergeven en gedeeltelijk overgedragen bestanden behouden"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Knop en zijpaneel van de AI-assistent in de bovenste balk weergeven."
+
+# 
+msgid "Silent mode"
+msgstr "Stille modus"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Geauditeerde wijziging simuleren"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Synchroniseert lokale bestanden naar een externe host met behoud van kenmerken"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "Systeem"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Besturingssysteem"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Bevestigingsvraag overslaan"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Slimme routering uitgeschakeld: standaard geconfigureerde provider wordt gebruikt."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, actieplannen en atomaire rollback (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "Over OnyxSH"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "HTTP-aanvraagmethode opgeven (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Uit te voeren pakket opgeven"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "De te gebruiken externe shell opgeven (bijv. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Terminal splitsen"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Wijzigingen tijdelijk opslaan (stash) in een gewijzigde werkmap"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Stoppen na het verzenden van 4 pakketten"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Strikte offlinemodus actief (alleen lokale Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Subopdrachten en parameters voorstellen voor rpm, dnf, apt, pacman, flatpak, systemctl, docker, git en veelgebruikte hulpprogramma's"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Suggesties voor rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Samenvatting van de grootte in leesbaar formaat"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab of → toepassen • ↑/↓ navigeren • Esc sluiten"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Weet u zeker dat u de map '{name}' definitief wilt verwijderen?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Weet u zeker dat u het bestand '{name}' definitief wilt verwijderen?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Thema voor lichte achtergrond"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Thema voor donkere achtergrond"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Thema dat wordt gebruikt wanneer de terminalachtergrond licht is"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Thema dat wordt gebruikt wanneer de terminalachtergrond donker is"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Opdrachtsjabloon (bijv.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Probeert verbroken SSH-sessies opnieuw te verbinden met aftelling en melding op het scherm"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Terminalvenster: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Alle pakketten in de werkruimte testen"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Onderschepping testen"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Integriteit van de Nginx-configuratiesyntaxis testen"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Voorgrondtekst (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Dit zal alle {count} gesprekken permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Type / Extensie"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Bestandstype"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Alle instellingen zijn hersteld naar de standaardwaarden."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Alle sneltoetsen zijn hersteld naar de standaardwaarden."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Alle SSH-tunnels zijn gestopt."
+
+# 
+msgid "Total Lines"
+msgstr "Totaal aantal regels"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Doorlopend auditspoor van beslissingen, opdrachten en atomaire rollback"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Ubuntu / Canonical Snap-pakketbeheerder"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Beheerprogramma voor Uncomplicated Firewall"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Eenheid / Service (optioneel)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Geïnstalleerde pakketten bijwerken naar nieuwere versies"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Snaps op het systeem bijwerken"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "De app/runtime bijwerken indien al geïnstalleerd"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Een RPM-pakketbestand bijwerken (of installeren indien niet aanwezig)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Lokaal/extern pakketbestand (.pkg.tar.zst) bijwerken of installeren"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Gebruikt inklapbare blokken (&lt;details&gt;) voor uitvoer van meer dan 15 regels"
+
+# 
+msgid "Use a long listing format"
+msgstr "Een lang lijstformaat gebruiken"
+
+# 
+msgid "Use archive file or device"
+msgstr "Archiefbestand of apparaat gebruiken"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Map gebruiken als hoofddirectory voor RPM-bewerkingen"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Externe gebruiker"
+
+# 
+msgid "Usuário SSH:"
+msgstr "SSH-gebruiker:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Valideren en bijvoegen"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Huidige servicestatus en afhankelijkheden controleren"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Controleren of service '{svc}' actief is"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Controleren of service '{svc}' bij opstarten is ingeschakeld"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Controleren of service '{svc}' is gestopt"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Een specifiek pakket verifiëren aan de hand van een .rpm-bestand"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Integriteit van alle geïnstalleerde RPM-pakketten verifiëren met de database"
+
+# 
+msgid "Versão"
+msgstr "Versie"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Klaargezette wijzigingen voor de volgende commit bekijken"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Systeemlogboeken bekijken met journalctl"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Bekijk, bewerk en herstel alle sneltoetsen van OnyxSH"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Gecombineerde diff-viewer (Voor vs. Na):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Raster- / miniatuurweergave"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Pictogramrasterweergave ingeschakeld"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Gedetailleerde lijstweergave ingeschakeld"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "U hebt geen toestemming om '{name}' te wijzigen. Wilt u opslaan met beheerdersrechten (Root)?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "U hebt niet-opgeslagen wijzigingen in '{fname}'. Wat wilt u doen voordat u sluit?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "U hebt niet-opgeslagen wijzigingen in dit bestand die verloren gaan. Weet u zeker dat u ze wilt negeren?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Teruggaan naar het vorige tabblad (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Wachten op meting..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Uitvoer schrijven naar lokaal bestand met dezelfde naam als het externe bestand"
+
+# 
+msgid "You: "
+msgstr "Jij: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Zoom hersteld (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[CONCLUSIE & OPMERKINGEN]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Binaire of ontoegankelijke inhoud]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Kan logbestand niet lezen]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[DOEL / CONTEXT]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[UITGEVOERDE STAPPEN ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Risico: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Risico gedetecteerd"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Geverifieerd"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` voltooid in {secs}s."
+
+# 
+msgid "linha"
+msgstr "regel"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "Pakketbeheerprogramma voor openSUSE / SLES"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} opdracht(en) • Klik om uit te vouwen/samenvouwen"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} opdrachten"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} regels"
+
+# 
+msgid "{count} regras"
+msgstr "{count} regels"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} resultaten"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} logische kernen)"
+
+# 
+msgid "{days} days"
+msgstr "{days} dagen"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} hr"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} regels • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} min"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Kopie)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (gebaseerd op {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Bijgevoegd bestand]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "API-sleutel voor {provider} succesvol geconfigureerd."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Beslissing: {decision} | Status: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "{type}-tunnel"
+
+# 
+msgid "Ícone:"
+msgstr "Pictogram:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "OnyxSH-pictogrammen (Ingebouwd)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Downloaden / Kopiëren"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Uploaden / Kopiëren"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Uitvoeren   •   Tab Invoegen in prompt   •   ⭐ Favoriet   •   Esc Sluiten"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Ga naar tabblad / Uitvoeren • ↑/↓ Navigeren • Esc Sluiten"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Atomische terugdraaiing"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ ProductionGuard-waarschuwing ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Destructieve opdracht onderschept ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ Op tragere computers kan het verwerken van kleurpatronen de reactiesnelheid bij zeer grote uitvoer licht verminderen."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ OnyxSH-terminalexport"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Fragmenten"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Opdracht voltooid"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Gekopieerd!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Uitgevoerd"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Atomische terugdraaiing voltooid: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Opdracht mislukt (Exit {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ HASH KOMT NIET OVEREEN! De geplakte waarde{hint} wijkt af van de berekende hashes van het bestand. Het bestand is mogelijk beschadigd of gewijzigd."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ GESCHIEDENIS"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Onlinemodus actief.\nKlik om de strikt lokale offlinemodus in te schakelen."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Alles"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Doel / Context"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Conclusie & geleerde lessen"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Jij:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Jij{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Notitie:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Opmerking: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Huidige map"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x uitvoeringen"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Gewijzigd:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Schijfgebruik analyseren"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Opgeschoond rapport kopiëren"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Uitvoer kopiëren"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Veilig bijgevoegd: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Geschiedenis"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Voorlopige opmerkingen"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Broadcast (🛡️ ProductionGuard actief):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Opdracht uitgezonden naar {count} terminal(s)."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Grootte:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Type:</b> Map / Directory"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 {bin} installeren"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}s"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 SSH-sessies"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 git status controleren"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Controle na uitvoering: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Machtigingen:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Testmelding verzonden naar het bureaublad."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Pad:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Hoog risico (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Terminaltabbladen"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Kritieke waarschuwing — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Broadcast geblokkeerd door ProductionGuard: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard BLOKKEERDE het lezen van: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ PRODUCTIEMODUS ACTIEF — ProductionGuard onderschept destructieve opdrachten (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Strikt offlinemodus actief (Zero Cloud).\nKlik om naar de onlinemodus te schakelen."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Offline (Lokaal)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Beveiliging"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Veilige opdracht"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Route: {route}"
+

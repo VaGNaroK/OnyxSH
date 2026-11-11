@@ -1,6 +1,7 @@
 //! Terminal Content Exporter (Plain Text, Log, Markdown, Dark HTML, Asciinema v2 `.cast`).
 //! Port of `src/onyxsh/terminal/exporter.py`.
 
+use onyxsh_core::i18n::{tr, tr_fmt};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -63,14 +64,30 @@ pub fn export_plain_text(raw_text: &str) -> String {
 /// Exports terminal content as a structured `.log` file with header.
 pub fn export_log(raw_text: &str, meta: &ExportMetadata) -> String {
     let content = export_plain_text(raw_text);
+    let title = tr("OnyxSH Terminal Output Log");
+    let line_meta = tr_fmt(
+        "Session: {session} | Host: {host} | CWD: {cwd}",
+        &[
+            ("session", &meta.session_name),
+            ("host", &meta.host),
+            ("cwd", &meta.cwd),
+        ],
+    );
+    let line_dims = tr_fmt(
+        "Date: {date} | Dimensions: {cols}x{rows}",
+        &[
+            ("date", &meta.timestamp),
+            ("cols", &meta.cols.to_string()),
+            ("rows", &meta.rows.to_string()),
+        ],
+    );
     format!(
         "================================================================================\n\
-         \x20OnyxSH Terminal Output Log\n\
-         \x20Session: {} | Host: {} | CWD: {}\n\
-         \x20Date: {} | Dimensions: {}x{}\n\
+         \x20{title}\n\
+         \x20{line_meta}\n\
+         \x20{line_dims}\n\
          ================================================================================\n\n\
-         {}",
-        meta.session_name, meta.host, meta.cwd, meta.timestamp, meta.cols, meta.rows, content
+         {content}"
     )
 }
 
@@ -78,14 +95,21 @@ pub fn export_log(raw_text: &str, meta: &ExportMetadata) -> String {
 pub fn export_markdown(raw_text: &str, meta: &ExportMetadata) -> String {
     let content = export_plain_text(raw_text);
     let line_count = content.lines().count();
+    let heading = tr("# 🖥️ OnyxSH Terminal Export");
+    let lbl_session = tr("Session");
+    let lbl_host = tr("Host");
+    let lbl_dir = tr("Directory");
+    let lbl_datetime = tr("Date / Time");
+    let lbl_dims = tr("Dimensions");
+    let lbl_lines = tr("Total Lines");
     format!(
-        "# 🖥️ OnyxSH Terminal Export\n\n\
-         - **Session:** `{}`\n\
-         - **Host:** `{}`\n\
-         - **Directory:** `{}`\n\
-         - **Date / Time:** `{}`\n\
-         - **Dimensions:** `{} x {}`\n\
-         - **Total Lines:** `{}`\n\n\
+        "{heading}\n\n\
+         - **{lbl_session}:** `{}`\n\
+         - **{lbl_host}:** `{}`\n\
+         - **{lbl_dir}:** `{}`\n\
+         - **{lbl_datetime}:** `{}`\n\
+         - **{lbl_dims}:** `{} x {}`\n\
+         - **{lbl_lines}:** `{}`\n\n\
          ---\n\n\
          ```bash\n\
          {}\n\
@@ -108,14 +132,27 @@ pub fn export_html(raw_text: &str, meta: &ExportMetadata) -> String {
     let host_esc = escape_html(&meta.host);
     let cwd_esc = escape_html(&meta.cwd);
     let date_esc = escape_html(&meta.timestamp);
+    let page_title = escape_html(&tr_fmt(
+        "Exportação de Terminal OnyxSH - {session}",
+        &[("session", &meta.session_name)],
+    ));
+    let header_title = escape_html(&tr("⚡ Exportação de Terminal OnyxSH"));
+    let copy_btn_lbl = escape_html(&tr("📋 Copiar Saída"));
+    let copy_btn_js = tr("📋 Copiar Saída").replace('\\', "\\\\").replace('\'', "\\'");
+    let copied_js = tr("✅ Copiado!").replace('\\', "\\\\").replace('\'', "\\'");
+    let lbl_session = escape_html(&tr("Session"));
+    let lbl_host = escape_html(&tr("Host"));
+    let lbl_dir = escape_html(&tr("Directory"));
+    let lbl_date = escape_html(&tr("Date"));
+    let lbl_dims = escape_html(&tr("Dimensions"));
 
     format!(
         r#"<!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exportação de Terminal OnyxSH - {session_esc}</title>
+  <title>{page_title}</title>
   <style>
     :root {{
       --bg-color: #121418;
@@ -202,14 +239,14 @@ pub fn export_html(raw_text: &str, meta: &ExportMetadata) -> String {
 <body>
   <div class="container">
     <div class="header-card">
-      <div class="header-title">⚡ Exportação de Terminal OnyxSH</div>
-      <button class="copy-btn" onclick="copyTerminalText()">📋 Copiar Saída</button>
+      <div class="header-title">{header_title}</div>
+      <button class="copy-btn" onclick="copyTerminalText()">{copy_btn_lbl}</button>
       <div class="metadata-grid">
-        <div class="metadata-item">Sessão: <span>{session_esc}</span></div>
-        <div class="metadata-item">Host: <span>{host_esc}</span></div>
-        <div class="metadata-item">Diretório: <span>{cwd_esc}</span></div>
-        <div class="metadata-item">Data: <span>{date_esc}</span></div>
-        <div class="metadata-item">Dimensões: <span>{cols} x {rows}</span></div>
+        <div class="metadata-item">{lbl_session}: <span>{session_esc}</span></div>
+        <div class="metadata-item">{lbl_host}: <span>{host_esc}</span></div>
+        <div class="metadata-item">{lbl_dir}: <span>{cwd_esc}</span></div>
+        <div class="metadata-item">{lbl_date}: <span>{date_esc}</span></div>
+        <div class="metadata-item">{lbl_dims}: <span>{cols} x {rows}</span></div>
       </div>
     </div>
     <div class="terminal-container">
@@ -227,8 +264,8 @@ pub fn export_html(raw_text: &str, meta: &ExportMetadata) -> String {
       const el = document.getElementById('terminal-output');
       navigator.clipboard.writeText(el.innerText).then(() => {{
         const btn = document.querySelector('.copy-btn');
-        btn.innerText = '✅ Copiado!';
-        setTimeout(() => {{ btn.innerText = '📋 Copiar Saída'; }}, 2000);
+        btn.innerText = '{copied_js}';
+        setTimeout(() => {{ btn.innerText = '{copy_btn_js}'; }}, 2000);
       }});
     }}
   </script>
@@ -295,7 +332,7 @@ mod tests {
 
         assert_eq!(export_plain_text(raw), "$ uname -a\nLinux onyx 6.12\n");
         let md = export_markdown(raw, &meta);
-        assert!(md.contains("# 🖥️ OnyxSH Terminal Export"));
+        assert!(md.contains(&tr("# 🖥️ OnyxSH Terminal Export")));
         assert!(md.contains("```bash\n$ uname -a\nLinux onyx 6.12\n```"));
 
         let html = export_html(raw, &meta);

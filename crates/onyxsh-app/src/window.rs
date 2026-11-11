@@ -14,6 +14,7 @@ use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
 use onyxsh_core::config::AppSettings;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_core::sessions::SessionItem;
 use onyxsh_core::{
@@ -123,7 +124,7 @@ fn setup_terminal_window_actions(
         action.connect_activate(move |_, _| {
             if let Some(term) = act() {
                 term.copy_clipboard_format(vte4::Format::Text);
-                st.set_text("Seleção copiada.");
+                st.set_text(&tr("Seleção copiada."));
             }
         });
         window.add_action(&action);
@@ -194,7 +195,7 @@ fn setup_terminal_window_actions(
             if let Some(term) = act() {
                 term.reset(true, true);
                 term.feed_child(b"\x0c");
-                st.set_text("Sessão limpa.");
+                st.set_text(&tr("Sessão limpa."));
             }
         });
         window.add_action(&action);
@@ -211,7 +212,7 @@ fn setup_terminal_window_actions(
                     let step = adj.step_increment() * 5.0;
                     let new_val = (adj.value() - step).max(adj.lower());
                     adj.set_value(new_val);
-                    st.set_text("Pular para o prompt anterior.");
+                    st.set_text(&tr("Pular para o prompt anterior."));
                 }
             }
         });
@@ -229,7 +230,7 @@ fn setup_terminal_window_actions(
                     let step = adj.step_increment() * 5.0;
                     let new_val = (adj.value() + step).min(adj.upper() - adj.page_size());
                     adj.set_value(new_val);
-                    st.set_text("Pular para o próximo prompt.");
+                    st.set_text(&tr("Pular para o próximo prompt."));
                 }
             }
         });
@@ -257,17 +258,17 @@ fn setup_terminal_window_actions(
                     .collect::<Vec<&str>>()
                     .join("\n");
                 let prompt = if recent_lines.trim().is_empty() {
-                    "Analise o projeto e elabore as correções necessárias com OpenCode.".to_string()
+                    tr("Analise o projeto e elabore as correções necessárias com OpenCode.")
                 } else {
-                    format!(
-                        "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{}\n</untrusted>",
-                        recent_lines.trim()
+                    tr_fmt(
+                        "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>",
+                        &[("lines", recent_lines.trim())],
                     )
                 };
                 ai_w.set_visible(true);
                 ai_b.set_active(true);
                 sub_ai(&prompt);
-                st.set_text("Resolvendo erro do terminal com OpenCode / IA...");
+                st.set_text(&tr("Resolvendo erro do terminal com OpenCode / IA..."));
             }
         });
         window.add_action(&action);
@@ -287,14 +288,14 @@ fn setup_terminal_window_actions(
                     .text_selected(vte4::Format::Text)
                     .map(|g| g.to_string())
                     .unwrap_or_default();
-                let prompt = format!(
-                    "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{}\n</untrusted>",
-                    selected.trim()
+                let prompt = tr_fmt(
+                    "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>",
+                    &[("sel", selected.trim())],
                 );
                 ai_w.set_visible(true);
                 ai_b.set_active(true);
                 sub_ai(&prompt);
-                st.set_text("Seleção enviada para análise no Assistente de IA.");
+                st.set_text(&tr("Seleção enviada para análise no Assistente de IA."));
             }
         });
         window.add_action(&action);
@@ -314,14 +315,14 @@ fn setup_terminal_window_actions(
                     .text_selected(vte4::Format::Text)
                     .map(|g| g.to_string())
                     .unwrap_or_default();
-                let prompt = format!(
-                    "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{}\n</untrusted>",
-                    selected.trim()
+                let prompt = tr_fmt(
+                    "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>",
+                    &[("sel", selected.trim())],
                 );
                 ai_w.set_visible(true);
                 ai_b.set_active(true);
                 sub_ai(&prompt);
-                st.set_text("Seleção enviada para refatoração com OpenCode.");
+                st.set_text(&tr("Seleção enviada para refatoração com OpenCode."));
             }
         });
         window.add_action(&action);
@@ -335,7 +336,7 @@ fn setup_terminal_window_actions(
         action.connect_activate(move |_, _| {
             if let Some(url) = c_url.borrow().as_deref() {
                 let _ = gio::AppInfo::launch_default_for_uri(url, None::<&gio::AppLaunchContext>);
-                st.set_text(&format!("Abrindo link: {url}"));
+                st.set_text(&tr_fmt("Abrindo link: {url}", &[("url", url)]));
             }
         });
         window.add_action(&action);
@@ -350,7 +351,7 @@ fn setup_terminal_window_actions(
             if let Some(url) = c_url.borrow().as_deref() {
                 if let Some(display) = gdk::Display::default() {
                     display.clipboard().set_text(url);
-                    st.set_text("Link copiado para a área de transferência.");
+                    st.set_text(&tr("Link copiado para a área de transferência."));
                 }
             }
         });
@@ -386,7 +387,7 @@ fn setup_terminal_window_actions(
             if let Some(page) = tv.selected_page() {
                 if tv.n_pages() > 1 {
                     tv.close_page(&page);
-                    st.set_text("Painel/Aba encerrado.");
+                    st.set_text(&tr("Painel/Aba encerrado."));
                 }
             }
         });
@@ -491,21 +492,21 @@ pub fn build_main_window(
 
     let btn_sidebar = gtk4::ToggleButton::builder()
         .icon_name("sidebar-show-symbolic")
-        .tooltip_text("Exibir Painel de Sessões")
+        .tooltip_text(&tr("Exibir Painel de Sessões"))
         .active(false)
         .build();
     header_bar.pack_start(&btn_sidebar);
 
     let btn_fm = gtk4::ToggleButton::builder()
         .icon_name("folder-open-symbolic")
-        .tooltip_text("Gerenciador de Arquivos Dual-Pane")
+        .tooltip_text(&tr("Gerenciador de Arquivos Dual-Pane"))
         .active(false)
         .build();
     header_bar.pack_start(&btn_fm);
 
     let btn_ai = gtk4::ToggleButton::builder()
         .icon_name("avatar-default-symbolic")
-        .tooltip_text("Assistente de IA Zero-Trust")
+        .tooltip_text(&tr("Assistente de IA Zero-Trust"))
         .active(false)
         .build();
     header_bar.pack_start(&btn_ai);
@@ -513,69 +514,71 @@ pub fn build_main_window(
     // Phase 9: Search Toggle Button (Lupa)
     let btn_search = gtk4::ToggleButton::builder()
         .icon_name("edit-find-symbolic")
-        .tooltip_text("Buscar no Terminal (Ctrl+Shift+F)")
+        .tooltip_text(&tr("Buscar no Terminal (Ctrl+Shift+F)"))
         .active(false)
         .build();
     header_bar.pack_start(&btn_search);
 
     let btn_split = gtk4::Button::builder()
         .icon_name("view-dual-symbolic")
-        .tooltip_text("Dividir Terminal Horizontalmente")
+        .tooltip_text(&tr("Dividir Terminal Horizontalmente"))
         .build();
     header_bar.pack_start(&btn_split);
 
     // Phase 13: Command Manager Dialog Button (`utilities-terminal-symbolic`)
     let btn_cmd_manager = gtk4::Button::builder()
         .icon_name("utilities-terminal-symbolic")
-        .tooltip_text("Gerenciador de Comandos & Formulários Dinâmicos")
+        .tooltip_text(&tr("Gerenciador de Comandos & Formulários Dinâmicos"))
         .build();
     header_bar.pack_start(&btn_cmd_manager);
 
     // Phase 14: Real-Time Resource Monitor Button (`computer-symbolic`)
     let btn_resource_monitor = gtk4::Button::builder()
         .icon_name("computer-symbolic")
-        .tooltip_text("Monitor de Recursos em Tempo Real (Sparklines Cairo)")
+        .tooltip_text(&tr("Monitor de Recursos em Tempo Real (Sparklines Cairo)"))
         .build();
     header_bar.pack_start(&btn_resource_monitor);
 
     // Phase 16: Autocomplete Assistant Button (`insert-text-symbolic`)
     let btn_autocomplete = gtk4::Button::builder()
         .icon_name("insert-text-symbolic")
-        .tooltip_text("Autocompletar Inteligente (CompletionEngine)")
+        .tooltip_text(&tr("Autocompletar Inteligente (CompletionEngine)"))
         .build();
     header_bar.pack_start(&btn_autocomplete);
 
     // Global Multi-Tab / Multi-Source Search Button (`system-search-symbolic` — Ctrl+Shift+G)
     let btn_global_search = gtk4::Button::builder()
         .icon_name("system-search-symbolic")
-        .tooltip_text("Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)")
+        .tooltip_text(&tr(
+            "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)",
+        ))
         .build();
     header_bar.pack_start(&btn_global_search);
 
     // Enriched Command History Button (`document-open-recent-symbolic` — Ctrl+H)
     let btn_cmd_history = gtk4::Button::builder()
         .icon_name("document-open-recent-symbolic")
-        .tooltip_text("Histórico Enriquecido de Comandos (Ctrl+H)")
+        .tooltip_text(&tr("Histórico Enriquecido de Comandos (Ctrl+H)"))
         .build();
     header_bar.pack_start(&btn_cmd_history);
 
     // Phase 16: Command Palette Button (`preferences-system-search-symbolic`)
     let btn_palette = gtk4::Button::builder()
         .icon_name("preferences-system-search-symbolic")
-        .tooltip_text("Command Palette — Busca Unificada (Ctrl+Shift+P)")
+        .tooltip_text(&tr("Command Palette — Busca Unificada (Ctrl+Shift+P)"))
         .build();
     header_bar.pack_start(&btn_palette);
 
     // Phase 10: Main Hamburger Menu Button (`open-menu-symbolic`)
     let btn_menu = gtk4::MenuButton::builder()
         .icon_name("open-menu-symbolic")
-        .tooltip_text("Menu Principal")
+        .tooltip_text(&tr("Main Menu"))
         .build();
     header_bar.pack_end(&btn_menu);
 
     let btn_new_tab = gtk4::Button::builder()
         .icon_name("tab-new-symbolic")
-        .tooltip_text("Nova Aba de Terminal (Ctrl+Shift+T)")
+        .tooltip_text(&tr("Nova Aba de Terminal (Ctrl+Shift+T)"))
         .build();
     header_bar.pack_end(&btn_new_tab);
 
@@ -590,13 +593,13 @@ pub fn build_main_window(
 
     let search_entry = gtk4::SearchEntry::new();
     search_entry.set_hexpand(true);
-    search_entry.set_placeholder_text(Some("Buscar texto no terminal..."));
+    search_entry.set_placeholder_text(Some(&tr("Buscar texto no terminal...")));
     search_bar.connect_entry(&search_entry);
 
     let search_occurrence_label = gtk4::Label::new(Some("0/0"));
     search_occurrence_label.add_css_class("dim-label");
     search_occurrence_label.add_css_class("monospace");
-    search_occurrence_label.set_tooltip_text(Some("Ocorrências encontradas no terminal"));
+    search_occurrence_label.set_tooltip_text(Some(&tr("Ocorrências encontradas no terminal")));
 
     // Linked options box (`Aa`, `\b`, `.*`)
     let options_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 2);
@@ -604,29 +607,31 @@ pub fn build_main_window(
 
     let btn_case_sensitive = gtk4::ToggleButton::with_label("Aa");
     btn_case_sensitive.add_css_class("flat");
-    btn_case_sensitive.set_tooltip_text(Some("Diferenciar Maiúsculas/Minúsculas (Match Case)"));
+    btn_case_sensitive.set_tooltip_text(Some(&tr(
+        "Diferenciar Maiúsculas/Minúsculas (Match Case)",
+    )));
     btn_case_sensitive.set_active(settings_rc.borrow().search_case_sensitive);
     options_box.append(&btn_case_sensitive);
 
     let btn_whole_word = gtk4::ToggleButton::with_label(r"\b");
     btn_whole_word.add_css_class("flat");
-    btn_whole_word.set_tooltip_text(Some("Palavra Inteira (Whole Word)"));
+    btn_whole_word.set_tooltip_text(Some(&tr("Palavra Inteira (Whole Word)")));
     btn_whole_word.set_active(settings_rc.borrow().search_whole_word);
     options_box.append(&btn_whole_word);
 
     let btn_regex = gtk4::ToggleButton::with_label(".*");
     btn_regex.add_css_class("flat");
-    btn_regex.set_tooltip_text(Some("Usar Expressão Regular (Regex)"));
+    btn_regex.set_tooltip_text(Some(&tr("Use Regular Expression (Regex)")));
     btn_regex.set_active(settings_rc.borrow().search_use_regex);
     options_box.append(&btn_regex);
 
     let btn_search_prev = gtk4::Button::from_icon_name("go-up-symbolic");
     btn_search_prev.add_css_class("flat");
-    btn_search_prev.set_tooltip_text(Some("Ocorrência Anterior (Shift+Enter)"));
+    btn_search_prev.set_tooltip_text(Some(&tr("Ocorrência Anterior (Shift+Enter)")));
 
     let btn_search_next = gtk4::Button::from_icon_name("go-down-symbolic");
     btn_search_next.add_css_class("flat");
-    btn_search_next.set_tooltip_text(Some("Próxima Ocorrência (Enter)"));
+    btn_search_next.set_tooltip_text(Some(&tr("Próxima Ocorrência (Enter)")));
 
     search_hbox.append(&search_entry);
     search_hbox.append(&search_occurrence_label);
@@ -765,7 +770,7 @@ pub fn build_main_window(
     footer_box.set_margin_top(4);
     footer_box.set_margin_bottom(4);
 
-    let status_lbl = gtk4::Label::new(Some("OnyxSH Rust Engine v0.14.0 — Ready"));
+    let status_lbl = gtk4::Label::new(Some(&tr("OnyxSH Rust Engine v0.14.0 — Ready")));
     status_lbl.add_css_class("caption");
     status_lbl.set_halign(gtk4::Align::Start);
     status_lbl.set_hexpand(true);
@@ -840,7 +845,10 @@ pub fn build_main_window(
                 page.set_title(&title);
                 tv.set_selected_page(&page);
             }
-            status.set_text(&format!("Conectado à sessão: {}", sess.name));
+            status.set_text(&tr_fmt(
+                "Conectado à sessão: {name}",
+                &[("name", &sess.name)],
+            ));
         })
     };
 
@@ -892,10 +900,16 @@ pub fn build_main_window(
                         for t in terms_inner.borrow().iter() {
                             t.feed_child(payload.as_bytes());
                         }
-                        status_inner.set_text(&format!("Broadcast enviado: {cmd_str}"));
+                        status_inner.set_text(&tr_fmt(
+                            "Broadcast enviado: {cmd}",
+                            &[("cmd", cmd_str)],
+                        ));
                     } else if let Some(t) = act_inner() {
                         t.feed_child(payload.as_bytes());
-                        status_inner.set_text(&format!("Comando enviado: {cmd_str}"));
+                        status_inner.set_text(&tr_fmt(
+                            "Comando enviado: {cmd}",
+                            &[("cmd", cmd_str)],
+                        ));
                     }
                 });
             crate::command_manager_ui::show_command_manager_dialog(
@@ -971,7 +985,10 @@ pub fn build_main_window(
                 let escaped = dir_path.to_string_lossy().replace('\'', "'\\''");
                 let cmd = format!("cd '{escaped}'\n");
                 term.feed_child(cmd.as_bytes());
-                status.set_text(&format!("Diretório enviado ao terminal: {}", dir_path.display()));
+                status.set_text(&tr_fmt(
+                    "Diretório enviado ao terminal: {dir}",
+                    &[("dir", &dir_path.display().to_string())],
+                ));
             }
         })
     };
@@ -982,7 +999,10 @@ pub fn build_main_window(
         Rc::new(move |cmd_str: &str| {
             if let Some(term) = get_active_vte_terminal(&tv) {
                 term.feed_child(cmd_str.as_bytes());
-                status.set_text(&format!("Comando enviado ao terminal: {}", cmd_str.trim()));
+                status.set_text(&tr_fmt(
+                    "Comando enviado ao terminal: {cmd}",
+                    &[("cmd", cmd_str.trim())],
+                ));
             }
         })
     };
@@ -1067,28 +1087,28 @@ pub fn build_main_window(
         theme_hbox.set_halign(gtk4::Align::Center);
 
         let rb_system = gtk4::CheckButton::builder()
-            .tooltip_text("Seguir Estilo do Sistema")
+            .tooltip_text(&tr("Seguir Estilo do Sistema"))
             .build();
         rb_system.add_css_class("follow");
         rb_system.add_css_class("theme-selector");
 
         let rb_light = gtk4::CheckButton::builder()
             .group(&rb_system)
-            .tooltip_text("Estilo Claro (Light)")
+            .tooltip_text(&tr("Estilo Claro (Light)"))
             .build();
         rb_light.add_css_class("light");
         rb_light.add_css_class("theme-selector");
 
         let rb_dark = gtk4::CheckButton::builder()
             .group(&rb_system)
-            .tooltip_text("Estilo Escuro (Dark)")
+            .tooltip_text(&tr("Estilo Escuro (Dark)"))
             .build();
         rb_dark.add_css_class("dark");
         rb_dark.add_css_class("theme-selector");
 
         let rb_terminal = gtk4::CheckButton::builder()
             .group(&rb_system)
-            .tooltip_text("Combinar com Cores do Terminal")
+            .tooltip_text(&tr("Combinar com Cores do Terminal"))
             .build();
         rb_terminal.add_css_class("terminal");
         rb_terminal.add_css_class("theme-selector");
@@ -1165,19 +1185,19 @@ pub fn build_main_window(
 
         let btn_zoom_out = gtk4::Button::from_icon_name("zoom-out-symbolic");
         btn_zoom_out.add_css_class("flat");
-        btn_zoom_out.set_tooltip_text(Some("Diminuir Fonte (Ctrl+-)"));
+        btn_zoom_out.set_tooltip_text(Some(&tr("Diminuir Fonte (Ctrl+-)")));
 
         let (_, initial_pt) = parse_font_string(&settings_rc.borrow().font);
         let font_size_lbl = gtk4::Label::new(Some(&format!("{initial_pt} pt")));
         font_size_lbl.set_width_chars(6);
         let btn_zoom_reset = gtk4::Button::new();
         btn_zoom_reset.add_css_class("flat");
-        btn_zoom_reset.set_tooltip_text(Some("Resetar Tamanho da Fonte (12 pt)"));
+        btn_zoom_reset.set_tooltip_text(Some(&tr("Resetar Tamanho da Fonte (12 pt)")));
         btn_zoom_reset.set_child(Some(&font_size_lbl));
 
         let btn_zoom_in = gtk4::Button::from_icon_name("zoom-in-symbolic");
         btn_zoom_in.add_css_class("flat");
-        btn_zoom_in.set_tooltip_text(Some("Aumentar Fonte (Ctrl++)"));
+        btn_zoom_in.set_tooltip_text(Some(&tr("Aumentar Fonte (Ctrl++)")));
 
         let update_all_fonts = {
             let st_rc = Rc::clone(&settings_rc);
@@ -1242,7 +1262,7 @@ pub fn build_main_window(
         };
 
         // 1. Nova Janela
-        let mi_new_win = make_menu_btn("Nova Janela", Some("window-new-symbolic"), Some("Shift+Ctrl+N"));
+        let mi_new_win = make_menu_btn(&tr("Nova Janela"), Some("window-new-symbolic"), Some("Shift+Ctrl+N"));
         {
             let app_clone = app.clone();
             let st_rc = Rc::clone(&settings_rc);
@@ -1257,7 +1277,7 @@ pub fn build_main_window(
 
         // 2. Exportar Saída do Terminal & Caderno de Bordo (Runbook)
         let mi_export = make_menu_btn(
-            "Exportar Saída do Terminal...",
+            &tr("Export Terminal Output..."),
             Some("document-save-symbolic"),
             None,
         );
@@ -1283,7 +1303,7 @@ pub fn build_main_window(
         menu_vbox.append(&mi_export);
 
         let mi_runbook = make_menu_btn(
-            "Exportar Sessão como Caderno de Bordo (Runbook)...",
+            &tr("Exportar Sessão como Caderno de Bordo (Runbook)..."),
             Some("document-edit-symbolic"),
             None,
         );
@@ -1309,7 +1329,7 @@ pub fn build_main_window(
         menu_vbox.append(&mi_runbook);
 
         // 3. Preferências (4 Abas Completas — `adw::PreferencesWindow`)
-        let mi_prefs = make_menu_btn("Preferências", Some("preferences-system-symbolic"), Some("Shift+Ctrl+,"));
+        let mi_prefs = make_menu_btn(&tr("Preferences"), Some("preferences-system-symbolic"), Some("Shift+Ctrl+,"));
         {
             let win_clone = window.clone();
             let st_rc = Rc::clone(&settings_rc);
@@ -1332,7 +1352,7 @@ pub fn build_main_window(
 
         // 4. Cores (Abre HighlightDialog / coresfix.png)
         let mi_colors = make_menu_btn(
-            "Cores",
+            &tr("Colors"),
             Some("format-text-highlight-symbolic"),
             None,
         );
@@ -1357,7 +1377,7 @@ pub fn build_main_window(
         menu_vbox.append(&mi_colors);
 
         // 5. Assistente de IA
-        let mi_ai = make_menu_btn("Assistente de IA", Some("avatar-default-symbolic"), None);
+        let mi_ai = make_menu_btn(&tr("Assistente de IA"), Some("avatar-default-symbolic"), None);
         {
             let bai = btn_ai.clone();
             let pop = menu_popover.clone();
@@ -1370,7 +1390,7 @@ pub fn build_main_window(
 
         // 5b. Configurar Assistente de IA
         let mi_ai_cfg = make_menu_btn(
-            "Configurar Assistente de IA...",
+            &tr("Configurar Assistente de IA..."),
             Some("preferences-system-symbolic"),
             None,
         );
@@ -1388,7 +1408,7 @@ pub fn build_main_window(
 
         // 6. Atalhos de Teclado (Editável — 34 Ações)
         let mi_shortcuts = make_menu_btn(
-            "Atalhos de Teclado",
+            &tr("Atalhos de Teclado"),
             Some("preferences-desktop-keyboard-shortcuts-symbolic"),
             None,
         );
@@ -1412,7 +1432,7 @@ pub fn build_main_window(
 
         // 7. Importar Sessões (~/.ssh/config)
         let mi_import = make_menu_btn(
-            "Importar Sessões (~/.ssh/config)",
+            &tr("Importar Sessões (~/.ssh/config)"),
             Some("document-open-symbolic"),
             None,
         );
@@ -1423,14 +1443,16 @@ pub fn build_main_window(
             mi_import.connect_clicked(move |_| {
                 pop.popdown();
                 pop_sess();
-                status.set_text("Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config.");
+                status.set_text(&tr(
+                    "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config.",
+                ));
             });
         }
         menu_vbox.append(&mi_import);
 
         // 8. Gerenciador de Túneis SSH
         let mi_tunnels = make_menu_btn(
-            "Gerenciador de Túneis SSH",
+            &tr("SSH Tunnel Manager"),
             Some("network-vpn-symbolic"),
             None,
         );
@@ -1446,7 +1468,7 @@ pub fn build_main_window(
         menu_vbox.append(&mi_tunnels);
 
         // 9. Iniciar / Parar Servidor TFTP
-        let tftp_lbl = gtk4::Label::new(Some("Iniciar Servidor TFTP"));
+        let tftp_lbl = gtk4::Label::new(Some(&tr("Iniciar Servidor TFTP")));
         tftp_lbl.set_halign(gtk4::Align::Start);
         tftp_lbl.set_hexpand(true);
         let mi_tftp = gtk4::Button::new();
@@ -1465,8 +1487,8 @@ pub fn build_main_window(
                 let mut guard = tftp_rc.borrow_mut();
                 if guard.is_some() {
                     *guard = None;
-                    lbl_clone.set_text("Iniciar Servidor TFTP");
-                    status.set_text("Servidor TFTP encerrado.");
+                    lbl_clone.set_text(&tr("Iniciar Servidor TFTP"));
+                    status.set_text(&tr("Servidor TFTP encerrado."));
                 } else {
                     let root = platform::home_dir();
                     if let Ok(srv) = UdpTftpServer::bind("127.0.0.1:0", &root) {
@@ -1474,10 +1496,16 @@ pub fn build_main_window(
                             .local_addr()
                             .map(|a| a.to_string())
                             .unwrap_or_else(|_| "127.0.0.1:6969".to_string());
-                        lbl_clone.set_text(&format!("Parar Servidor TFTP ({addr})"));
-                        status.set_text(&format!(
-                            "Servidor TFTP Read-Only ativo em {addr} (raiz: {})",
-                            root.display()
+                        lbl_clone.set_text(&tr_fmt(
+                            "Parar Servidor TFTP ({addr})",
+                            &[("addr", &addr)],
+                        ));
+                        status.set_text(&tr_fmt(
+                            "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})",
+                            &[
+                                ("addr", &addr),
+                                ("root", &root.display().to_string()),
+                            ],
                         ));
                         *guard = Some(srv);
                     }
@@ -1487,7 +1515,7 @@ pub fn build_main_window(
         menu_vbox.append(&mi_tftp);
 
         // 10. Sobre
-        let mi_about = make_menu_btn("Sobre o OnyxSH", Some("help-about-symbolic"), None);
+        let mi_about = make_menu_btn(&tr("Sobre o OnyxSH"), Some("help-about-symbolic"), None);
         {
             let win_clone = window.clone();
             let pop = menu_popover.clone();
@@ -1530,15 +1558,14 @@ pub fn build_main_window(
                     .website(WEBSITE)
                     .issue_url(ISSUE_URL)
                     .license_type(gtk4::License::Gpl30)
-                    .comments(
-                        "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, \
-                         com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust.",
-                    )
+                    .comments(&tr(
+                        "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust.",
+                    ))
                     .debug_info(&debug_info)
                     .build();
 
-                about.add_link("Código-Fonte", WEBSITE);
-                about.add_link("Reportar Problema", ISSUE_URL);
+                about.add_link(&tr("Código-Fonte"), WEBSITE);
+                about.add_link(&tr("Reportar Problema"), ISSUE_URL);
 
                 about.present();
             });
@@ -1548,7 +1575,7 @@ pub fn build_main_window(
         menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
 
         // 11. Sair
-        let mi_quit = make_menu_btn("Sair", Some("application-exit-symbolic"), Some("Shift+Ctrl+Q"));
+        let mi_quit = make_menu_btn(&tr("Quit"), Some("application-exit-symbolic"), Some("Shift+Ctrl+Q"));
         {
             let app_clone = app.clone();
             mi_quit.connect_clicked(move |_| {
@@ -1613,10 +1640,10 @@ pub fn build_main_window(
             } else {
                 "sidebar-show-symbolic"
             });
-            btn.set_tooltip_text(Some(if active {
-                "Ocultar Painel de Sessões"
+            btn.set_tooltip_text(Some(&if active {
+                tr("Hide Sessions Panel")
             } else {
-                "Exibir Painel de Sessões"
+                tr("Exibir Painel de Sessões")
             }));
         });
     }
@@ -1920,7 +1947,7 @@ pub fn build_main_window(
             paned.set_start_child(Some(&t1));
             paned.set_end_child(Some(&t2));
             let page = tv.append(&paned);
-            page.set_title("Split Terminal");
+            page.set_title(&tr("Split Terminal"));
             tv.set_selected_page(&page);
         });
     }
@@ -1956,7 +1983,10 @@ pub fn build_main_window(
                         let cmd = format!("ssh -p {} {}\n", sess.port, sess.connection_string());
                         term.feed_child(cmd.as_bytes());
                     }
-                    st_sess.set_text(&format!("Conectando via Busca Global: {}", sess.name));
+                    st_sess.set_text(&tr_fmt(
+                        "Conectando via Busca Global: {name}",
+                        &[("name", &sess.name)],
+                    ));
                 }
             });
             crate::global_search_and_shortcuts::show_global_search_dialog(
@@ -2074,7 +2104,7 @@ pub fn build_main_window(
                     if let Some(term) = at_act() {
                         term.reset(true, true);
                         term.feed_child(b"\x0c");
-                        st_act.set_text("Sessão do terminal limpa.");
+                        st_act.set_text(&tr("Terminal session cleared."));
                     }
                 }
                 "toggle-broadcast" => b_bc_c.set_active(!b_bc_c.is_active()),
@@ -2137,19 +2167,26 @@ pub fn build_main_window(
                         }
                         st_act.set_text(&format!("Git Assistant: {commit_msg}"));
                     } else {
-                        st_act.set_text("Git Assistant: diretório atual não é um repositório Git.");
+                        st_act.set_text(&tr(
+                            "Git Assistant: diretório atual não é um repositório Git.",
+                        ));
                     }
                 }
                 "backup-config" => {
                     let cfg_dir = platform::config_dir();
                     let out_path = platform::home_dir().join("onyxsh_config_backup.json");
                     match onyxsh_core::backup::create_config_backup(&cfg_dir, &out_path) {
-                        Ok(bundle) => st_act.set_text(&format!(
-                            "Backup SHA-256 criado ({} arquivos): {}",
-                            bundle.files.len(),
-                            out_path.display()
+                        Ok(bundle) => st_act.set_text(&tr_fmt(
+                            "Backup SHA-256 criado ({count} arquivos): {path}",
+                            &[
+                                ("count", &bundle.files.len().to_string()),
+                                ("path", &out_path.display().to_string()),
+                            ],
                         )),
-                        Err(e) => st_act.set_text(&format!("Erro ao criar backup: {e}")),
+                        Err(e) => st_act.set_text(&tr_fmt(
+                            "Erro ao criar backup: {err}",
+                            &[("err", &e.to_string())],
+                        )),
                     }
                 }
                 "show-tunnel-manager" => {
@@ -2175,7 +2212,10 @@ pub fn build_main_window(
                         let cmd = format!("ssh -p {} {}\n", sess.port, sess.connection_string());
                         term.feed_child(cmd.as_bytes());
                     }
-                    st_1.set_text(&format!("Conectando via Command Palette: {}", sess.name));
+                    st_1.set_text(&tr_fmt(
+                        "Conectando via Command Palette: {name}",
+                        &[("name", &sess.name)],
+                    ));
                 }
             });
 
@@ -2184,7 +2224,10 @@ pub fn build_main_window(
             let on_cmd: Rc<dyn Fn(&str)> = Rc::new(move |cmd_tpl: &str| {
                 if let Some(term) = at_2() {
                     term.feed_child(format!("{cmd_tpl}\n").as_bytes());
-                    st_2.set_text(&format!("Comando executado via Palette: {cmd_tpl}"));
+                    st_2.set_text(&tr_fmt(
+                        "Comando executado via Palette: {cmd}",
+                        &[("cmd", cmd_tpl)],
+                    ));
                 }
             });
 
@@ -2264,7 +2307,7 @@ pub fn build_main_window(
                 if let Some(page) = tv_k.selected_page() {
                     if tv_k.n_pages() > 1 {
                         tv_k.close_page(&page);
-                        status_k.set_text("Aba encerrada.");
+                        status_k.set_text(&tr("Aba encerrada."));
                     }
                 }
                 return glib::Propagation::Stop;
@@ -2296,7 +2339,7 @@ pub fn build_main_window(
                 if let Some(page) = tv_k.selected_page() {
                     if tv_k.n_pages() > 1 {
                         tv_k.close_page(&page);
-                        status_k.set_text("Painel/Aba encerrado.");
+                        status_k.set_text(&tr("Painel/Aba encerrado."));
                     }
                 }
                 return glib::Propagation::Stop;
@@ -2306,7 +2349,7 @@ pub fn build_main_window(
                     if let Ok(paned) = page.child().downcast::<gtk4::Paned>() {
                         if let Some(w) = paned.start_child() {
                             w.grab_focus();
-                            status_k.set_text("Foco alterado para o primeiro painel.");
+                            status_k.set_text(&tr("Foco alterado para o primeiro painel."));
                             return glib::Propagation::Stop;
                         }
                     }
@@ -2317,7 +2360,7 @@ pub fn build_main_window(
                     if let Ok(paned) = page.child().downcast::<gtk4::Paned>() {
                         if let Some(w) = paned.end_child() {
                             w.grab_focus();
-                            status_k.set_text("Foco alterado para o segundo painel.");
+                            status_k.set_text(&tr("Foco alterado para o segundo painel."));
                             return glib::Propagation::Stop;
                         }
                     }
@@ -2366,7 +2409,7 @@ pub fn build_main_window(
             if matches_action("opencode-launcher") {
                 if let Some(term) = act_term_k() {
                     term.feed_child(b"opencode\n");
-                    status_k.set_text("OpenCode iniciado no terminal.");
+                    status_k.set_text(&tr("OpenCode iniciado no terminal."));
                 }
                 return glib::Propagation::Stop;
             }
@@ -2374,10 +2417,10 @@ pub fn build_main_window(
                 if let Some(term) = act_term_k() {
                     let mode = !term.is_mouse_autohide();
                     term.set_mouse_autohide(mode);
-                    status_k.set_text(if mode {
-                        "Modo Seleção de Texto ativado."
+                    status_k.set_text(&if mode {
+                        tr("Modo Seleção de Texto ativado.")
                     } else {
-                        "Modo Seleção de Texto desativado."
+                        tr("Modo Seleção de Texto desativado.")
                     });
                 }
                 return glib::Propagation::Stop;
@@ -2387,7 +2430,7 @@ pub fn build_main_window(
                     if let Some(adj) = term.vadjustment() {
                         let new_val = (adj.value() - adj.step_increment() * 5.0).max(adj.lower());
                         adj.set_value(new_val);
-                        status_k.set_text("Pular para o prompt anterior.");
+                        status_k.set_text(&tr("Pular para o prompt anterior."));
                     }
                 }
                 return glib::Propagation::Stop;
@@ -2397,7 +2440,7 @@ pub fn build_main_window(
                     if let Some(adj) = term.vadjustment() {
                         let new_val = (adj.value() + adj.step_increment() * 5.0).min(adj.upper() - adj.page_size());
                         adj.set_value(new_val);
-                        status_k.set_text("Pular para o próximo prompt.");
+                        status_k.set_text(&tr("Pular para o próximo prompt."));
                     }
                 }
                 return glib::Propagation::Stop;
@@ -2411,7 +2454,7 @@ pub fn build_main_window(
                 return glib::Propagation::Stop;
             }
             if matches_action("toggle-tftp-server") {
-                status_k.set_text("Servidor TFTP alternado.");
+                status_k.set_text(&tr("Servidor TFTP alternado."));
                 return glib::Propagation::Stop;
             }
 
@@ -2419,7 +2462,7 @@ pub fn build_main_window(
             if matches_action("copy") {
                 if let Some(term) = act_term_k() {
                     term.copy_clipboard_format(vte4::Format::Text);
-                    status_k.set_text("Seleção copiada.");
+                    status_k.set_text(&tr("Seleção copiada."));
                 }
                 return glib::Propagation::Stop;
             }
@@ -2439,7 +2482,7 @@ pub fn build_main_window(
                 if let Some(term) = act_term_k() {
                     term.reset(true, true);
                     term.feed_child(b"\x0c");
-                    status_k.set_text("Sessão limpa.");
+                    status_k.set_text(&tr("Sessão limpa."));
                 }
                 return glib::Propagation::Stop;
             }
@@ -2471,7 +2514,7 @@ pub fn build_main_window(
                 for term in terms_k.borrow().iter() {
                     apply_terminal_appearance(term, &st);
                 }
-                status_k.set_text("Zoom restaurado (11 pt).");
+                status_k.set_text(&tr("Zoom restaurado (11 pt)."));
                 return glib::Propagation::Stop;
             }
 

@@ -19,6 +19,7 @@ use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
 use md5::Md5;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use sha1::Sha1;
 use sha2::{Digest, Sha256, Sha512};
 use std::cell::RefCell;
@@ -95,7 +96,7 @@ where
         if cancel_flag.load(Ordering::Relaxed) {
             return Err(std::io::Error::new(
                 std::io::ErrorKind::Interrupted,
-                "Cálculo de checksum cancelado pelo usuário.",
+                tr("Cálculo de checksum cancelado pelo usuário."),
             ));
         }
 
@@ -209,7 +210,7 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Checksums & Verificação de Integridade — OnyxSH")
+        .title(&tr("Checksums & Verificação de Integridade — OnyxSH"))
         .default_width(700)
         .default_height(620)
         .build();
@@ -225,7 +226,7 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
 
     let toolbar_view = adw::ToolbarView::new();
     let header = adw::HeaderBar::new();
-    let btn_close = gtk4::Button::with_label("Fechar");
+    let btn_close = gtk4::Button::with_label(&tr("Close"));
     {
         let d = dlg.clone();
         btn_close.connect_clicked(move |_| d.close());
@@ -260,7 +261,7 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
     let progress_box = gtk4::Box::new(gtk4::Orientation::Vertical, 6);
     let progress_bar = gtk4::ProgressBar::builder()
         .show_text(true)
-        .text("Calculando hashes...")
+        .text(&tr("Calculating hashes..."))
         .fraction(0.0)
         .build();
     progress_box.append(&progress_bar);
@@ -268,15 +269,17 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
 
     // 3. Cryptographic Hashes Group
     let hashes_group = adw::PreferencesGroup::builder()
-        .title("Hashes Criptográficos")
-        .description("Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:")
+        .title(&tr("Cryptographic Hashes"))
+        .description(&tr(
+            "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:",
+        ))
         .build();
 
     let algos = [
-        ("sha256", "SHA-256 (SHA256)", "Padrão moderno para integridade e downloads"),
-        ("sha512", "SHA-512 (SHA512)", "Resumo criptográfico de alta segurança de 512 bits"),
-        ("md5", "MD5 (MD5)", "Checksum legado para verificação rápida"),
-        ("sha1", "SHA-1 (SHA1)", "Compatibilidade com repositórios Git e legado"),
+        ("sha256", "SHA-256 (SHA256)", tr("Modern standard for integrity and downloads")),
+        ("sha512", "SHA-512 (SHA512)", tr("High security 512-bit cryptographic digest")),
+        ("md5", "MD5 (MD5)", tr("Legacy checksum for fast verification")),
+        ("sha1", "SHA-1 (SHA1)", tr("Compatibilidade com repositórios Git e legado")),
     ];
 
     let computed_hashes_rc = Rc::new(RefCell::new(None::<FileChecksums>));
@@ -286,11 +289,11 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
     for (algo_id, title, desc) in algos {
         let row = adw::ActionRow::builder()
             .title(title)
-            .subtitle(desc)
+            .subtitle(&desc)
             .build();
 
         let lbl = gtk4::Label::builder()
-            .label("Calculando...")
+            .label(&tr("Calculating..."))
             .selectable(true)
             .ellipsize(gtk4::pango::EllipsizeMode::Middle)
             .xalign(0.0)
@@ -300,7 +303,7 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
 
         let copy_btn = gtk4::Button::builder()
             .icon_name("edit-copy-symbolic")
-            .tooltip_text("Copiar hash para a área de transferência")
+            .tooltip_text(&tr("Copy hash to clipboard"))
             .build();
         copy_btn.add_css_class("flat");
 
@@ -313,9 +316,9 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
                     if let Some(val) = ch.get(&algo_str) {
                         if let Some(display) = gdk::Display::default() {
                             display.clipboard().set_text(val);
-                            overlay.add_toast(adw::Toast::new(&format!(
-                                "Hash {} copiado para a área de transferência",
-                                algo_str.to_ascii_uppercase()
+                            overlay.add_toast(adw::Toast::new(&tr_fmt(
+                                "Hash {algo} copiado para a área de transferência",
+                                &[("algo", &algo_str.to_ascii_uppercase())],
                             )));
                         }
                     }
@@ -334,12 +337,14 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
 
     // 4. Integrity Matcher & Comparison Group
     let matcher_group = adw::PreferencesGroup::builder()
-        .title("Comparador de Integridade")
-        .description("Cole o hash esperado fornecido pelo autor para verificar autenticidade:")
+        .title(&tr("Comparador de Integridade"))
+        .description(&tr(
+            "Paste the expected hash provided by the author to verify authenticity:",
+        ))
         .build();
 
     let match_entry = adw::EntryRow::builder()
-        .title("Hash Esperado")
+        .title(&tr("Expected Hash"))
         .build();
     matcher_group.add(&match_entry);
 
@@ -356,7 +361,9 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
     status_icon.set_margin_bottom(10);
 
     let status_label = gtk4::Label::builder()
-        .label("Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade.")
+        .label(&tr(
+            "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade.",
+        ))
         .wrap(true)
         .xalign(0.0)
         .margin_end(12)
@@ -396,7 +403,7 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
                 Some(c) => c,
                 None => {
                     s_icon.set_icon_name(Some("dialog-information-symbolic"));
-                    s_lbl.set_text("Calculando hashes em segundo plano...");
+                    s_lbl.set_text(&tr("Calculando hashes em segundo plano..."));
                     return;
                 }
             };
@@ -407,9 +414,9 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
             if is_match && matched_algo.is_some() {
                 let algo = matched_algo.unwrap();
                 s_icon.set_icon_name(Some("emblem-ok-symbolic"));
-                s_lbl.set_text(&format!(
-                    "✅ HASH CORRESPONDE ({})! O arquivo é autêntico e íntegro.",
-                    algo.to_ascii_uppercase()
+                s_lbl.set_text(&tr_fmt(
+                    "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro.",
+                    &[("algo", &algo.to_ascii_uppercase())],
                 ));
                 if let Some(row) = rows_map.borrow().get(algo) {
                     row.add_css_class("accent");
@@ -419,8 +426,9 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
                     .map(|d| format!(" ({})", d.to_ascii_uppercase()))
                     .unwrap_or_default();
                 s_icon.set_icon_name(Some("dialog-warning-symbolic"));
-                s_lbl.set_text(&format!(
-                    "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+                s_lbl.set_text(&tr_fmt(
+                    "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado.",
+                    &[("hint", &hint)],
                 ));
             }
         })
@@ -439,9 +447,9 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
     actions_box.set_margin_top(10);
 
     let copy_report_btn = gtk4::Button::builder()
-        .label("Copiar Relatório Completo")
+        .label(&tr("Copy Full Report"))
         .icon_name("edit-copy-symbolic")
-        .tooltip_text("Copiar relatório detalhado em formato Markdown")
+        .tooltip_text(&tr("Copiar relatório detalhado em formato Markdown"))
         .build();
 
     {
@@ -456,18 +464,18 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
                 let report = format_checksum_report(&fname, &fpath, &fsize, ch);
                 if let Some(display) = gdk::Display::default() {
                     display.clipboard().set_text(&report);
-                    overlay.add_toast(adw::Toast::new(
+                    overlay.add_toast(adw::Toast::new(&tr(
                         "Relatório completo de hashes copiado para a área de transferência",
-                    ));
+                    )));
                 }
             }
         });
     }
 
     let terminal_btn = gtk4::Button::builder()
-        .label("Inserir sha256sum no Terminal")
+        .label(&tr("Insert sha256sum into Terminal"))
         .icon_name("utilities-terminal-symbolic")
-        .tooltip_text("Enviar comando sha256sum para a aba ativa do terminal")
+        .tooltip_text(&tr("Enviar comando sha256sum para a aba ativa do terminal"))
         .build();
 
     {
@@ -563,10 +571,13 @@ pub fn show_checksum_dialog<W: IsA<gtk4::Window>>(
                             }
                             Err(e) => {
                                 for lbl in labels_map.borrow().values() {
-                                    lbl.set_text("Erro ao calcular hash");
+                                    lbl.set_text(&tr("Erro ao calcular hash"));
                                 }
                                 s_icon.set_icon_name(Some("dialog-error-symbolic"));
-                                s_lbl.set_text(&format!("Falha ao calcular checksums: {e}"));
+                                s_lbl.set_text(&tr_fmt(
+                                    "Falha ao calcular checksums: {err}",
+                                    &[("err", &e)],
+                                ));
                             }
                         }
                         should_continue = false;

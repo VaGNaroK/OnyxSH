@@ -17119,3 +17119,4099 @@ msgstr "🧠 Haladó profil (komplex tervek / szkriptek / diagnosztika)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Mindig haladó (okoskodás)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} titok elrejtve)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ OnyxSH terminálexport"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Cél / Kontextus"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Összegzés és tanulságok"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Előzetes megjegyzések"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Lépésről lépésre végrehajtás"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Munkamenet információk"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Nem keletkezett kimenet)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*Az OnyxSH munkanapló által automatikusan létrehozott dokumentum.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Nincs kiválasztott lépés ehhez a dokumentumhoz.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Dátum / Idő:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Gazdagép:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Operátor / Szerző:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Munkamenet:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Állapot:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Rögzített lépések összesen:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Kimenet ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (a kimenet fennmaradó része levágva az előnézetben)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Eszköz olvasása / írása"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable és Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 színséma, kimenetkiemelés és parancsonkénti szabályok"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Ugrás a szülőkönyvtárba (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Megjegyzés:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "A(z) {port} portot már egy másik folyamat használja."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "LAP #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "MI-asszisztens: {state}"
+
+# 
+msgid "AI: "
+msgstr "MI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Lap bezárva."
+
+# 
+msgid "Abaixo"
+msgstr "Lent"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Jelenlegi ütközésfeloldás megszakítása"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Rebase megszakítása és visszatérés az eredeti ágra"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Megnyitja a Regex/Literál keresősávot az aktív lapon (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Automatikusan megnyitja ezt az alagutat az SSH-gazdagéphez való csatlakozáskor"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Megnyit egy új helyi terminált (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Interaktív héjat nyit egy futó Docker-konténeren belül"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Hivatkozás megnyitása: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Erőforrás-figyelő megnyitása (Cairo sparkline-ok)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Mappa megnyitása"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Megnyitás külső alkalmazással"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Könyvtár megnyitása a terminálban (cd)"
+
+# 
+msgid "Acima"
+msgstr "Fent"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Valós időben követi egy Docker-konténer naplóit"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Valós időben követi egy systemd-egység naplóit"
+
+# 
+msgid "Active"
+msgstr "Aktív"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Upstream követési hivatkozás hozzáadása"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Új SSH-alagút hozzáadása"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Egyéni séma hozzáadása"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Csoportosítás kategóriák szerint (.7z felül)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "A konténer stdin bemenetéhez csatlakoztatott pseudo-TTY lefoglalása"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Régebbi csomagverzióra való visszaállítás engedélyezése"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Nem biztonságos TLS-kapcsolatok engedélyezése"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Auditált módosítás létrehozva atomi biztonsági mentéssel."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Zero-Trust MI-asszisztens váltása"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Kétpaneles fájlkezelő váltása"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Szerkesztési mód váltása (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Kettős panel váltása (Osztás / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "SSH-munkamenetek oldalsávjának váltása"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Flatpak környezet"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Éles környezet (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Éles környezet — a ProductionGuard által védve"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Az aktuális ág csúcsának módosítása (amend)"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Elemezze a(z) '{name}' naplófájl alábbi legutóbbi üzeneteit és hibáit, és adjon gyökérok-diagnózist és javasolt megoldásokat:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Elemezze a projektet, és készítse elő a szükséges javításokat az OpenCode segítségével."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Aktuális csomag elemzése és hibák jelentése"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Fájl csatolása (PathGuard-ellenőrzés)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Fájl csatolása a kontextushoz (a PathGuard által ellenőrizve)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "A kérés elemzése befejeződött (`SecretRedactor` és `<untrusted>` elkülönítés alkalmazva).\n\nAjánlott parancs:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Elemzés kérve az MI-asszisztenstől."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Szintaxiskiemelést alkalmaz a 'cat' parancs kimenetére"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Automatikusan alkalmazza a kontextusfüggő szabályokat a futó parancs észlelésekor"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Kimenetkiemelés alkalmazása SSH-kapcsolatokra"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Kimenetkiemelés alkalmazása helyi terminálmunkamenetekre"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Alkalmazás & Ablak"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Alkalmazás vagy azonosító"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Félretett állapot alkalmazása és megtartása a stash-listában"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Félretett állapot alkalmazása és eltávolítása a stash-listából"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Jóváhagyás és futtatás"
+
+# 
+msgid "Aproximar"
+msgstr "Nagyítás"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Arch Linux / Manjaro csomagkezelő segédprogram"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Archívum mód (megőrzi a jogosultságokat, időbélyegeket, szimbolikus linkeket)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Előző fájl (Fel nyíl / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Bináris fájl: {name}\nElérési út: {path}\nMéret: {size}\nJogosultságok: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Archív fájl"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Fájl másolva átvitelhez: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Fájl létrehozva: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Adatfájl"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Videófájl"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Hangfájl"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Fájl törölve: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Fájl áthelyezésre megjelölve: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Fájl újratöltve a lemezről."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Fájl átnevezve erre: '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Fájl visszaállítva visszagörgetés után: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Fájl elmentve rendszergazdai (Root) jogosultságokkal!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Fájl sikeresen elmentve rendszergazdai (Root) jogosultságokkal!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Fájl sikeresen elmentve!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Fájl: {name} (Méret: {size} bájt)\nRészlet:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Fájlok kategória szerint csoportosítva (.7z felül)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Fájlok módosítás dátuma szerint rendezve"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Fájlok név szerint rendezve"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Fájlok méret szerint rendezve"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Fájlok típus / kiterjesztés szerint rendezve"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Forrásfájlok/-mappák"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "OpenCode kódasszisztens"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust MI-asszisztens"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "Az MI-asszisztens nincs csatlakoztatva."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Kockázat vállalása és futtatás"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "A(z) '{name}' gyorsbillentyű frissítve erre: {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "A(z) '{name}' gyorsbillentyű eltávolítva."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Gyorsbillentyűk (34 konfigurálható művelet)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Rendszerparancsikonok és kedvencek"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Éles környezeti pajzs engedélyezése / letiltása (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "A 'cat' színezésének engedélyezése"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Héjbemenet-kiemelés engedélyezése"
+
+# 
+msgid "Ativar Todos"
+msgstr "Összes engedélyezése"
+
+# 
+msgid "Ativo"
+msgstr "Aktív"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Aktív (figyelés itt: {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Jelenlegi: {curr}\nÚj: (nyomja meg a billentyűket)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Jelenlegi: {curr}\nÚj: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Jelenlegi: {curr}\nÚj: {new} (Ütközik a {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Frissítés (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Lista frissítése (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Biztonsági audit MI-vel"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Ezen könyvtár biztonsági auditja MI-vel"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "A(z) '{name}' biztonsági auditja elküldve az MI-asszisztensnek."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "A(z) '{path}' könyvtár vizsgálata elküldve az AI-asszisztensnek."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Betűméret növelése (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Hitelesítés:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Auto: igazodik a terminál hátteréhez. Kézi: rögzített téma."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Auto: automatikusan érzékeli a háttér kontrasztját"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Automatikusan kiegészítve: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Intelligens automatikus kiegészítés (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Intelligens automatikus kiegészítés — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Automatikus kiegészítés alkalmazva: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Automatikus igen"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Szükségtelen függőségek automatikus eltávolítása"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Automatikusan futtatja a csak olvasható diagnosztikát manuális megerősítés nélkül."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Ugrás a következő lapra (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Művelet"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "SHA-256 biztonsági mentés létrehozva ({count} fájl): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "SHA-256 biztonsági mentés mentve ({count} fájl): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Biztonsági mentés nem található itt: {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Biztonsági mentés sikeresen visszaállítva ({count} fájl ellenőrizve SHA-256-tal)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Egyidejű végrehajtási sáv (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Kötegelt törlés xargs használatával (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Blokkolás és megszakítás (Ajánlott)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Szórás elküldve: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Küldés mindenkinek"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "A munkaterület összes csomagjának fordítása"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Összetevők fordítása kiadási módban"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Összetevők fordítása kiadási módban optimalizálással"
+
+# 
+msgid "Busca"
+msgstr "Keresés"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Globális több-lapos keresés / Előzmények"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Globális több-lapos keresés / Munkamenetek / Előzmények"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Globális keresés lapokon, munkameneteken, előzményeken és kódrészleteken (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "A globális keresés beillesztette a parancssorba: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Globális keresés az OnyxSH-ban (Ctrl+Shift+G) — Lapok, munkamenetek, előzmények és kódrészletek"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Globális keresés: fókuszban a(z) #{tab} lap"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Fájlok és könyvtárak keresése speciális szűrőkkel"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Közelítő (fuzzy) keresés könyvtár, kiszolgáló és kedvencek alapján (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Keresés a terminálban (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Keresés az aktuális terminálban"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Munkamenetek vagy kiszolgálók keresése..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Szöveg keresése a terminálban..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Megerősítési kérések kihagyása"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Hashek számítása a háttérben..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Útvonal másolva: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Mappa útvonala (pl.: Éles környezet vagy Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Fájl útvonala (pl.: /var/log/syslog vagy ~/.ssh/id_rsa a blokkolás teszteléséhez):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Útvonal beillesztve a terminálba: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Kis- és nagybetűtől független fájlnévminta"
+
+# 
+msgid "Categoria"
+msgstr "Kategória"
+
+# 
+msgid "Categoria:"
+msgstr "Kategória:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Könyvtárváltás a műveletek végrehajtása előtt"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH-kulcs / Jelszó:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Egy .rpm fájl GPG-aláírásának és integritásának ellenőrzése"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Elérhető csomagfrissítések ellenőrzése telepítés nélkül"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Ellenőrzi a csomagot a gyakori hibák kiszűrésére"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Ellenőrzőösszegek és integritásellenőrzés — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Válasszon a nagy sebességű felhőszolgáltatók vagy a helyi szerverek közül."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Teljes csomaggyorsítótár törlése (minden letöltött csomag eltávolítása)"
+
+# 
+msgid "Clean local caches"
+msgstr "Helyi gyorsítótárak törlése"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Csomaggyorsítótár törlése (régi letöltött csomagok eltávolítása)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Kattintson a billentyűparancs módosításához"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Kattintson az új lapon való csatlakozáshoz (és a munkamenet kiválasztásához)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Kattintson annak megértéséhez, mit engedélyez vagy korlátoz az egyes jogosultsági szintek"
+
+# 
+msgid "Colar"
+msgstr "Beillesztés"
+
+# 
+msgid "Colar Aqui"
+msgstr "Beillesztés ide"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Beillesztés ebbe a mappába"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Illesszen be felül egy MD5, SHA-1, SHA-256 vagy SHA-512 hasht a hitelesség ellenőrzéséhez."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Valós időben színezi a parancsokat gépelés közben a terminálban"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Színezi a terminál kimenetében található mintákat, például hibákat, figyelmeztetéseket és IP-címeket. Sok szabály lassíthatja a nagyon hosszú kimeneteket."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "A cat parancs színezése"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Parancs ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Parancs / Sablon:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Bejelentkezés utáni parancs:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Parancs a vágólapra másolva."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Az éles parancsot az operátor kiértékelte."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Parancs elküldve a terminálba: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Parancs elküldve: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Parancs végrehajtva az előzményekből: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Parancs végrehajtva a palettán keresztül: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "A parancs sikertelen (kód: {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Parancs beillesztve a parancssorba: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Hosszú parancs sikeresen befejeződött (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Illesztés a terminál színeihez"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Parancspaletta (Ctrl+Shift+P) — Egységes keresés"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Parancspaletta — Egységes keresés (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Tömörít"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Integritás-összehasonlító"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Könyvtárak összehasonlítása / szinkronizálása (Bal ⇄ Jobb)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Kétpaneles összehasonlítás: {identical} azonos | {left_only} csak bal oldalon | {right_only} csak jobb oldalon | {diff} eltérő méretű"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Kompatibilitás a Git-tel és régi tárolókkal"
+
+# 
+msgid "Compile the current package"
+msgstr "Az aktuális csomag fordítása"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Fájladatok tömörítése átvitel közben"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Következtetés és tanulságok"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Csatlakozva a munkamenethez: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Csatlakozás globális keresésen keresztül: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Csatlakozás parancspalettán keresztül: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Csatlakozás osztott panelen (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Csatlakozás: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "AI-asszisztens beállítása..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "A parancs szabályainak beállítása"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "AI-asszisztens beállítása — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Az összes kicsomagolt, de beállítatlan csomag konfigurálása"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Kicsomagolt csomag konfigurálása"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Állítson be egyedi kulcsokat a szolgáltatók újbóli beállítás nélküli váltásához"
+
+# 
+msgid "Confirm"
+msgstr "Megerősítés"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Törlés megerősítése"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Ütközés vagy szinkronizálási hiba a Git-tárolóban."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Kontextusablak mérete (Tokenek)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Tartalom a vágólapra másolva."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Rebase folytatása az ütközések feloldása után"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Beszélgetés betöltve az előzményekből."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Másolva ide: {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Fájl másolása"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Szülőkönyvtár útvonalának másolása"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Mappa másolása"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Kijelöltek másolása a jobb panelre (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Kijelöltek másolása a bal panelre (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Másolás a vágólapra"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Részletes jelentés másolása Markdown formátumban"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Színek és kiemelések"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "A terminál színei és kiemelései"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Alapértelmezett terminálszínek (0-7 normál, 8-15 világos)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Egyesítési commit létrehozása még fast-forward esetén is"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Sekély klón létrehozása csonkolt előzményekkel"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Gzippel tömörített tar archívum létrehozása részletes kimenettel"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Tömörített archívumokat hoz létre fájlokból és mappákból"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Paraméterezett parancsgombokat hoz létre és szerkeszt (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Új helyi ágat hoz létre a Git tárolóban és átvált rá"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Tesztfájlt hoz létre a /tmp mappában atomi biztonsági mentéssel az AuditLogger-ben"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Egyéni színsémát hoz létre az aktív séma alapján"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Beállítások biztonsági mentése (SHA-256 csomag)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Munkamenet létrehozása"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Hozzon létre helyi (-L), távoli (-R) vagy dinamikus SOCKS5 (-D) alagutat portok SSH-n keresztüli továbbításához."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Az ellenőrző összeg számítását a felhasználó megszakította."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Rust kód"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "A kód beillesztve az aktív terminálba."
+
+# 
+msgid "Código-Fonte"
+msgstr "Forráskód"
+
+# 
+msgid "Cópia de {name}"
+msgstr "{name} másolata"
+
+# 
+msgid "Data de Modificação"
+msgstr "Módosítás dátuma"
+
+# 
+msgid "Date / Time"
+msgstr "Dátum / Idő"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Dátum: {date} | Méretek: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Debian alacsony szintű csomagkezelő (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Alapértelmezett API-kulcs"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Alapértelmezett modellazonosító"
+
+# 
+msgid "Default Provider"
+msgstr "Alapértelmezett szolgáltató"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Többkonténeres alkalmazások definiálása és futtatása"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Fájlengedélyek beállítása ehhez: {name}\nJelenlegi: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Tűzfalszabály törlése"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Egyesített ág törlése"
+
+# 
+msgid "Desativar Todos"
+msgstr "Összes letiltása"
+
+# 
+msgid "Descrição:"
+msgstr "Leírás:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Shell-bevitel kiemelése"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Valós idejű szintaxiskiemelés parancsok gépelése közben"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Szintaxiskiemelés a 'cat' parancs kimenetéhez (Pygments/ANSI motor használatával)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Távoli cél"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Leválasztott mód: parancs futtatása a háttérben"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Naplóhibák diagnosztizálása AI-val"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Webszolgáltatás diagnosztizálása és újraindítása"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Heurisztikus diagnózis (**{title}**):\n{desc}\n\nGyorsjavítási javaslat:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Biztonságos rendszerdiagnosztika — Telemetria és támogatás"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "A(z) '{name}' napló diagnosztikája elküldve az AI asszisztensnek."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Kis- és nagybetűk megkülönböztetése"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Írjon be egy parancsot (pl.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Írjon be egy parancsot az ÖSSZES nyitott terminálnak való küldéshez..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Írjon be egy műveletet, SSH-munkamenetet vagy paraméterezett parancsot..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Betűméret csökkentése (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Dinamikus (-D) • SOCKS5 proxy SSH-n keresztül"
+
+# 
+msgid "Direita"
+msgstr "Jobb"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "A(z) '{path}' könyvtár kedvencként megjelölve."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Konfigurációs könyvtár"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Könyvtár elküldve a terminálba: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Könyvtár: {name}\nÚtvonal: {path}\nEngedélyek: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Engedélyezett könyvtárak, PathGuard elkülönítés és alapértelmezett tiltási házirendek"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Telepített snap letiltása"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "A lemez megtelt (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Lemez (fizikai I/O)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Részletes adatok megjelenítése egy telepített csomagról"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Memória megjelenítése megabájtban"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Telepített csomag állapotadatainak megjelenítése"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Felosztja az aktuális lapot felülre/alulra (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Felosztja az aktuális lapot egymás mellé (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Függőleges felosztás"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Terminál felosztása vízszintesen"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Függőleges felosztás"
+
+# 
+msgid "Divisão"
+msgstr "Felbontás"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Ne kérdezzen semmit, használja az alapértelmezett válaszokat"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Ne ellenőrizze a függőségeket törlés előtt"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Ne hajtson végre távoli parancsot (csak porttovábbítás)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Ne oldja fel a szolgáltatásneveket"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Ne mentsen pillanatképet a snap adatairól"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Ne ellenőrizze a csomagfüggőségeket"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Ne ellenőrizze a csomagfüggőségeket telepítés előtt"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Ne tegyen semmit, ha már létezik azonos nevű távoli tároló"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Szöveges dokumentum"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Csomagadatbázisok friss másolatának letöltése"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Csak csomagok letöltése, ne telepítse"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Szövegalapú grafikus commit-előzmények kirajzolása"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Eltávolítás próbaüzeme fájlok törlése nélkül"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Telepítési próbaüzem a rendszer módosítása nélkül"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Parancs szerkesztése: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Alagút beállításainak szerkesztése"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Színséma szerkesztése"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Kijelölt munkamenet szerkesztése"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Munkamenet szerkesztése — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Színséma szerkesztése vagy egyéni változat létrehozása"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Készítettem egy **Strukturált cselekvési tervet** a `PolicyEngine` általi ellenőrzéssel és automatikus végrehajtás utáni hitelesítéssel (`verifier.rs`) a következőhöz:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Modern terminálemulátor helyi és távoli Linux munkafolyamatokhoz, ProductionGuard védelemmel, kétpaneles SFTP/TFTP-vel és Zero-Trust AI asszisztenssel."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Letiltott snap engedélyezése"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "X11 továbbítás (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Bezárja az aktív lapot (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Fájlok keresése"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Parancsokat küld egyszerre több terminálba (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Parancs küldése az összes fülnek"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Kérdés küldése"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "sha256sum parancs küldése az aktív terminállapra"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Küldés mindenkinek"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Telepített RPM csomag törlése (eltávolítása)"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Hiba a fájl mentésekor"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Hiba '{name}' engedélyeinek módosításakor: {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Hiba a hash kiszámításakor"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Hiba az elem beillesztésekor: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Hiba a fájl létrehozásakor: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Hiba a biztonsági mentés létrehozásakor: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Hiba a mappa létrehozásakor: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Hiba a fájl törlésekor: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Hiba a mappa törlésekor: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Hiba a(z) {path} listázásakor: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Hiba az elem áthelyezésekor: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Hiba átnevezéskor: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Git tárolóhiba"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Visszaállítási hiba: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Hiba: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Válasszon a helyi (-L), távoli (-R) vagy dinamikus SOCKS5 (-D) között"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Színséma alkalmazva: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Színséma elmentve: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Ez a munkamenet a ~/.ssh/config fájlból származik (csak olvasható), vagy már eltávolították."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Ez a fájl csak olvasható. A módosítások rendszergazdai (Root) jogosultsággal menthetők."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Világos stílus (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Sötét stílus (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "Pl.: 10.0.0.15 vagy srv.ceg.hu"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "Pl.: Éles környezet (hagyja üresen a gyökérhez)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "Pl.: Éles Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "Pl.: root vagy ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Mappa törlése"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Végleges törlés"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Végrehajtva a terminálban: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Futtatás (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Futtatás most"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Futtatás sudo-val a terminálban"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Parancs futtatása minden terminálban"
+
+# 
+msgid "Executar passo"
+msgstr "Lépés futtatása"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Ügynök tervének futtatása"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Összes egység- és integrációs teszt futtatása"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Munkamenet-panel megjelenítése"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Fájl magyarázata AI-val"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "A(z) '{name}' fájl magyarázata kérve az AI-asszisztenstől."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Magyarázza el a(z) '{name}' fájl célját, felépítését és működését.\nÚtvonal: {path}\n\nKezdeti tartalom:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Exportálja a settings.json, sessions.json és command_buttons.json fájlokat SHA-256 hash-sel"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Exportálja a teljes puffert vagy az aktív terminálkijelölést"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Exportálva ide: {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Terminál kimenet exportálása (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Munkamenet exportálása üzemeltetési naplóként (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "OnyxSH terminálexport - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Külső kapcsolatok szabályozása és szigorú adatszigetelés."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Gzippel tömörített tar archívum részletes kibontása"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Fájlokat bont ki tömörített archívumokból"
+
+# 
+msgid "Extrair"
+msgstr "Kivonás"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Nem sikerült Rootként menteni"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Nem sikerült megvárni a pkexec folyamatot: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Nem sikerült kiszámítani az ellenőrző összegeket: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Nem sikerült biztonsági mentést létrehozni: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Nem sikerült adatokat írni a pkexec stdin bemenetére: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Nem sikerült elindítani a kiemelt jogosultságú pkexec folyamatot: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Nem sikerült visszaállítani a biztonsági mentést: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Nem sikerült menteni a fájlt: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Sikertelen átvitel (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Sikertelen átvitel (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Gyors, sokoldalú távoli és helyi fájlmásoló eszköz"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Parancs hozzáadása a kedvencekhez / eltávolítása"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Jelenlegi könyvtár felvétele a kedvencek közé"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Kedvenc eltávolítva: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Leíró üzenettel véglegesíti (commit) a változtatásokat a Gitben"
+
+# 
+msgid "Fechar Aba"
+msgstr "Fül bezárása"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Aktív panel bezárása"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "Fedora/RHEL/Rocky/AlmaLinux RPM csomagkezelő"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Lekérés és integrálás egy másik tárolóból"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Átviteli sor — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Az átviteli sor üres (0 folyamatban lévő feladat)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Fájladatok módosítva n*24 órája"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Fájltípus (f normál fájl, d könyvtár, l szimbolikus link)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Archívum szűrése gzipen keresztül (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Annak megkeresése, melyik csomag biztosít egy adott fájlt vagy funkciót"
+
+# 
+msgid "Focar janela existente"
+msgstr "Meglévő ablak fókuszálása"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Fókusz panel le"
+
+# 
+msgid "Focar painel acima"
+msgstr "Fókusz panel felfelé"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Fókusz panel jobbra"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Fókuszablak balra"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "A fókusz átváltott az első panelre."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "A fókusz átváltott a második panelre."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Kimenet élő követése a fájl növekedésével"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Betűtípus, színpaletta, átlátszóság és AI (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Törlés kényszerítése akkor is, ha alkalmazások függnek tőle"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Telepítés kényszerítése akkor is, ha a csomag/fájlok már léteznek"
+
+# 
+msgid "Force upgrade"
+msgstr "Frissítés kényszerítése"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Lekérdezés kimenetének formázása egyéni queryformat megadásával"
+
+# 
+msgid "Formato"
+msgstr "Formátum"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "RPM csomagok frissítése (csak ha már telepítve vannak)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Strukturált cselekvési terv (ActionPlan) létrehozása"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Rendszerszolgáltatásokat kezel a systemctl segítségével"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Fájlkezelő"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Kétpaneles fájlkezelő"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Parancskezelő"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Parancskezelő és dinamikus űrlapok"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Fülek és Panelkezelés"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak alkalmazás és futásidejű menedzsment"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Conventional Commit javaslata"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: a jelenlegi könyvtár nem Git-tároló."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Nagy kontextuskapacitás"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Ikonrács"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Ultragyors LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Valós idejű grafikonok a CPU, RAM, lemez I/O és hálózat/GPU használatáról"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Magas szintű érvelésre képes modell és szolgáltató többlépéses tervekhez"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Bővített parancselőzmények (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Beszélgetési előzmények"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Átviteli előzmények"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Előzmény: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Gazdagép / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Távoli gazdagép (IP / tartomány)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Távoli gazdagép a Bind-hoz"
+
+# 
+msgid "Host cannot be empty"
+msgstr "A gazdagép nem lehet üres"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Érvénytelen gazdagép vagy IP-cím."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Azonosító fájl (privát kulcs) nyilvános kulcsú hitelesítéshez"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Kis- és nagybetűk közötti különbségek figyelmen kívül hagyása"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Fájl biztonsági mentési kijelölések figyelmen kívül hagyása (konfigurációs fájlok eltávolítása)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Nem létező fájlok figyelmen kívül hagyása, soha ne kérdezzen"
+
+# 
+msgid "Imagem"
+msgstr "Kép"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "ASCII-armored GPG nyilvános kulcs importálása az RPM kulcstartóba"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Távoli konfiguráció importálása .flatpakrepo fájlból"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Munkamenetek importálása (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "HTTP-válaszfejlécek felvétele a kimenetbe"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Növeli a terminál betűméretét (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Automatikus ellenőrzéseket (szolgáltatás állapota, konfiguráció szintaxisa) következtet ki és javasol módosító parancsok után."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "TFTP-kiszolgáló indítása"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Beszúrás (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Útvonal beszúrása a terminálba"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Megvizsgálja az aktuális Git-tárolót és commit üzenetet javasol"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Aktív socketek és portok vizsgálata a gazdagépen"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Helyi .deb csomagfájl telepítése"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "RPM csomagfájl telepítése részletes folyamatjelzéssel"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Telepítés nem explicit függőségként"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Telepítés a beta csatornáról"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Telepítés az edge csatornáról"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Telepítés a stabil csatornáról (stable)"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Egy vagy több RPM csomag telepítése"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Snap csomagok telepítése a rendszerre"
+
+# 
+msgid "Interactive rebase"
+msgstr "Interaktív rebase"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "A javítás szakaszainak (hunks) interaktív kiválasztása"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Terminál Interakció"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Helyi interfész / Bind IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Helyi figyelő interfész"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Minta értelmezése kiterjesztett reguláris kifejezésként (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Késleltetés-ellenőrzési időköz"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Időköz másodpercben a KeepAlive próbacsomagok küldéséhez"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Érvénytelen SSH felhasználónév"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Érvénytelen gazdagépnév vagy IP-cím"
+
+# 
+msgid "Invalid local port"
+msgstr "Érvénytelen helyi port"
+
+# 
+msgid "Invalid port number"
+msgstr "Érvénytelen portszám"
+
+# 
+msgid "Invalid remote host"
+msgstr "Érvénytelen távoli gazdagép"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Socketek vizsgálata (a netstat modern utódja)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Ugrás a lapra"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Ez minden billentyűparancsot visszaállít az alapértelmezett értékekre. Folytatja?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Elem beillesztve ide: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Elem áthelyezve ide: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "{n_pages} lap elrendezése mentve ide: {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Törli az aktív munkamenet képernyőjét és visszagörgetési pufferét (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Befejezettek törlése"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Nem kedvenc előzmények törlése"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Munkamenet törlése"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Terminálmunkamenet törlése"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Hivatkozás vágólapra másolva."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Egy telepített RPM csomaghoz tartozó összes fájl listázása"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Távoli tárolóban elérhető alkalmazások és futtatókörnyezetek listázása"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Az .rpm által igényelt képességek listázása"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Telepített csomag konfigurációs fájljainak listázása"
+
+# 
+msgid "List configuration files only"
+msgstr "Csak a konfigurációs fájlok listázása"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Telepített csomag által igényelt függőségek listázása"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Az .rpm archívumban található fájlok listázása"
+
+# 
+msgid "List files installed by package"
+msgstr "A csomag által telepített fájlok listázása"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Idegen csomagok listázása (pl. az AUR-ból)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "A mintának megfelelő telepített csomagok listázása"
+
+# 
+msgid "List installed snaps"
+msgstr "Telepített snap csomagok listázása"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Telepített unit fájlok és engedélyezési állapotuk listázása"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Árva csomagok listázása (már nem szükséges függőségek)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Függőségként telepített csomagok listázása"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Jelenleg mentett stashek listázása"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Részletes lista"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Listázza a könyvtár tartalmát részletekkel (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Lista, bélyegképrács, fa és Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Fájlok listázása"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Helyi (Ollama / LM Studio) • Teljes GPU/CPU adatvédelem"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Helyi kiszolgáló alap URL-je"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Hosszú formátum, összes fájl, olvasható méretek"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Alacsony késleltetésű modell és szolgáltató napi shell-kérdésekhez"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Szülőkönyvtárak létrehozása szükség szerint"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "A modellnek küldött maximális kontextusmemória-foglalás"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Memória (RAM és Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "RAM memória"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Commit üzenet"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Szigorúan offline mód aktív (Nulla felhő)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Online mód intelligens útválasztással aktív."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Szövegkijelölési mód engedélyezve."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Szövegkijelölési mód letiltva."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Szórási mód (Broadcast az összes lapra)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Téma mód"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Valós idejű erőforrás-figyelő (Cairo szikravonalak)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Valós idejű erőforrás-figyelő — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Megjeleníti vagy elrejti az SSH-munkamenetek fáját (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Rejtett fájlok megjelenítése (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Motor"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Név és opcionálisan címke 'name:tag' formátumban"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Nincs beilleszthető elem a vágólapon."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Még nincsenek naplóbejegyzések. Kattintson az 'Auditált változás szimulálása' gombra az atomi visszaállítás teszteléséhez."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Nem észlelhető dedikált GPU a sysfs/nvidia-smi segítségével"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Nincs kiválasztott munkamenet"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "Nem történt átvitel a munkamenetben."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Hálózat (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Hálózat (/proc/net/dev) • Valós idejű RX / TX"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Hálózat (RX / TX) és GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Soha ne tegyen fel kérdéseket"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Név (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Új ág neve"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Munkamenet neve:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Az új mappa neve:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Érvénytelen fájlnév a vágólapon."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "Az SSH-felhasználónév érvénytelen karaktereket tartalmaz."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Célfájl neve"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Szolgáltatás neve"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Parancs neve (pl.: Nginx újraindítása)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Az új fájl neve:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Ikon neve (pl.: utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Konténer neve vagy azonosítója (ID)"
+
+# 
+msgid "Nome:"
+msgstr "Név:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Nem interaktív mód"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Új terminállap"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Új terminállap (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Új mappa itt..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Új munkamenet-mappa"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Új mappa..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Új munkamenet — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Új beszélgetés elindítva."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Új fájl itt..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Új fájl..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Új színséma"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Új mappanév:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Új fájlnév:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Nem sikerült betölteni az elemet: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Nem sikerült menteni a módosításokat: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Nincs elég szabad hely a fájlrendszeren."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "0. szint (Olvasás)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "1. szint (Írás)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "2. szint (Admin)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "3. szint (Kritikus)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "4. szint (Zárolva)"
+
+# 
+msgid "Nível {n}"
+msgstr "{n}. szint"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Próbálkozások száma az automatikus újracsatlakozás feladása előtt"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "A(z) '{bin}' bináris fájl nincs telepítve, vagy nincs a $PATH-ban."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "A parancs hibakóddal lépett ki."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "A terminálban futtatott parancs meghiúsult. Elemezze a projekt fájljait, és készítse el a szükséges javításokat az OpenCode segítségével:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "A parancs rendszergazdai (root) jogosultságok hiánya miatt meghiúsult."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "A munkamenet neve nem lehet üres."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Obfuszkált / Base64-dekódolt végrehajtási folyamat"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Előző előfordulás (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "A terminálban talált előfordulások"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Oktális: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Kész"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Értesítési teszt"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "Az OpenCode elindult a terminálban."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Egységes többmodelles katalógus"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Üzemeltető: {author} | Gazdagép: {host} | Dátum: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Művelet végrehajtása a munkaterület összes csomagján"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "A műveletet a felhasználó megszakította vagy elutasította."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Műveletek az Arch Linux csomagkezelőjével"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Műveletek a Debian/Ubuntu csomagkezelőjével"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Műveletek a Fedora/RHEL csomagkezelőjével"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Fájlműveletek"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Növekvő sorrend"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Csökkenő sorrend"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Növekvő rendezés engedélyezve"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Csökkenő rendezés engedélyezve"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Telepített csomagok rendezése telepítési idő szerint (legújabb elöl)"
+
+# 
+msgid "Organizar por"
+msgstr "Rendezés alapja"
+
+# 
+msgid "Origem (Local)"
+msgstr "Forrás (Helyi)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Számok megjelenítése olvasható formátumban"
+
+# 
+msgid "Output package names only"
+msgstr "Csak a csomagnevek megjelenítése"
+
+# 
+msgid "Pacote"
+msgstr "Csomag"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Telepítőcsomag"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Névminta (pl.: *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Ülések panel"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Panel/Lap bezárva."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Teljes szó"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16 színű ANSI paletta"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "TFTP-kiszolgáló leállítása ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Paraméterek — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "{id}. lépés: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Végrehajtott lépés: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "A(z) '{path}' mappa sikeresen létrejött."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Mappa / Könyvtár"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Mappa a vágólapra másolva: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Mappa létrehozva: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Mappa törölve: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Mappa áthelyezésre kijelölve: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Mappa eltávolítva a kedvencekből."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Mappa átnevezve erre: '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Mappa · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Mappa:"
+
+# 
+msgid "Pause"
+msgstr "Szünet"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Útválasztási profil módosítva erre: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Disztribúciófrissítés végrehajtása (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Kérdezd az AI Asszisztenst"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Kérdezzen vagy illesszen be egy terminálhibát..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Jogosultságok (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "A(z) '{name}' jogosultságai módosítva erre: {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Engedélyek {name} számára"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Keresés az összes nyitott lapon, SSH-munkamenetben, előzményben és kódrészletben (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Rekurzív keresés az alkönyvtárakban"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Keresés a Terminálban"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Szöveg keresése az összes nyitott terminállapon, SSH-munkamenetben, előzményben és kódrészletben..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Alagutak keresése név, port vagy kiszolgáló alapján..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Csővezetékes végrehajtás parancsértelmezőbe"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Zero-Trust cselekvési terv ehhez: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Háttér"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Kérjük, a tesztelés előtt adjon meg egy {provider} API-kulcsot."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Végpontok és portok"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Kérjük, elemezze a következő terminálkijelölést:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Kérjük, elemezze és magyarázza el a(z) '{name}' fájl kódját/tartalmát, célját, szerkezetét és fontosabb pontjait:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Kérjük, végezzen részletes biztonsági és hozzáférés-irányítási auditot a(z) '{path}' aktuális könyvtárban. Ellenőrizze a túl megengedő jogosultságokat, az érzékeny fájlokat (.env, privát kulcsok, kitett hitelesítő adatok), és ajánljon Zero-Trust bevált gyakorlatokat."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Kérjük, végezzen részletes biztonsági és hozzáférési jogosultsági auditot a(z) '{name}' fájlon.\nÚtvonal: {path}\nJelenlegi jogosultságok: {perms} ({oct})\nMéret: {size}\nAjánljon biztonságos chmod-beállításokat és sebezhetőségi kockázatcsökkentést."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Kérjük, végezzen részletes biztonsági és hozzáférési jogosultsági auditot a(z) '{name}' könyvtáron.\nÚtvonal: {path}\nJelenlegi jogosultságok: {perms} ({oct})\nUtoljára módosítva: {date}\nAjánljon ideális chmod-beállításokat, korlátozásokat és Zero-Trust megfelelőségi bevált gyakorlatokat."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Kérjük, refaktorálja a következő kódrészletet az OpenCode segítségével:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "A port az érvényes tartományon kívül esik (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Távoli kitett port (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Távoli célport"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Helyi figyelőport (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "SOCKS5 proxyport (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "A port a megengedett tartományon kívül esik (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Port:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Távoli PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Beállítások"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Minden sor elé 1-alapú sorszám illesztése"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Parancs előnézete:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Elsődleges szolgáltató és kapcsolat"
+
+# 
+msgid "Print Git version"
+msgstr "Git-verzió kiírása"
+
+# 
+msgid "Print RPM version"
+msgstr "RPM-verzió kiírása"
+
+# 
+msgid "Print help synopsis"
+msgstr "Rövid súgóáttekintés kiírása"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Méretek kiírása 1024 hatványaiban (pl. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Teszt stdout/stderr közvetlen kiírása"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Összeg kiírása 1-es könyvtármélységhez"
+
+# 
+msgid "Print zypper version"
+msgstr "zypper-verzió kiírása"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Éles környezet / Webszerverek"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Protokoll:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Részletes kimenet biztosítása"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Használt szolgáltató az Intelligens útválasztás kikapcsolásakor"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Élő előnézet"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Következő találat (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Következő fájl (Lefelé nyíl / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Ugrás az előző parancssorra."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Ugrás a következő parancssorra."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Telepített csomag teljes eltávolítása a konfigurációval együtt"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "A snap klasszikus elkülönítési módba helyezése"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Sorok száma (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Sorok száma (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Nem telepített helyi .rpm csomagfájl lekérdezése"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Az összes telepített RPM-csomag lekérdezése és listázása"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "A tároló feltételeinek megfelelő csomagok lekérdezése"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "A snap csomagok által biztosított szolgáltatások állapotának lekérdezése"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Lekérdezés, hogy melyik telepített RPM-csomaghoz tartozik egy fájlútvonal"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Előnézet)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "Alacsony szintű RPM csomagkezelő eszköz (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Az összes fájl rekurzív olvasása minden könyvtár alatt"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Olvasás: {read}/s • Írás: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Az aktuális ág újraalapozása az upstream tetejére letöltés után"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Az RPM-adatbázis indexeinek újraépítése a telepített fejlécekből"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Intelligens automatikus újracsatlakozás kapcsolatvesztéskor"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Előkészített módosítások rögzítése a tárolóba"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Fájl kivágása"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Mappa kivágása"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Minden gyorsbillentyűt visszaállít az alapértelmezett értékekre"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Zoom visszaállítása"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Csökkenti a terminál betűméretét (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Kicsinyítés"
+
+# 
+msgid "Refresh Interval"
+msgstr "Frissítési időköz"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Az összes tároló metaadatainak frissítése"
+
+# 
+msgid "Refresh files database"
+msgstr "Fájladatbázis frissítése"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "AuditLogger-bejegyzések (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Globális kiemelési szabályok"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Kezelt szolgáltatás újraindítása és konfiguráció alkalmazása"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Újratelepítés, ha a csomag már jelen van"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "A teljes hash-jelentés a vágólapra másolva"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Tisztított OnyxSH diagnosztikai jelentés"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "A diagnosztikai jelentés a vágólapra másolva."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Strukturált üzemeltetési jelentés lépésekkel, jegyzetekkel, céllal és következtetéssel (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Tisztított jelentés az operációs rendszerről, RAM-ról, GPU/VRAM-ról és Flatpak-környezetről"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Szolgáltatás újratöltése vagy újraindítása, ha az újratöltés nem támogatott"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Távoli (-R) • Helyi port kitétele távoli kiszolgálón"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Egyetlen stash-bejegyzés eltávolítása"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "A céltól függő összes csomag eltávolítása"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Az összes stash-bejegyzés eltávolítása"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "A csomag összes verziójának eltávolítása"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Telepített csomag eltávolítása a konfiguráció megtartásával"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Könyvtárak és tartalmuk rekurzív eltávolítása"
+
+# 
+msgid "Remove installed packages"
+msgstr "Telepített csomagok eltávolítása"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Elavult távoli nyomkövetési hivatkozások eltávolítása"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Egy vagy több csomag és a nem használt függőségek eltávolítása"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Eredetileg függőségként telepített, már nem szükséges csomagok eltávolítása"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Snapek eltávolítása a rendszerről"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Nem használt adatok eltávolítása (konténerek, hálózatok, lemezképek)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Kijelölt munkamenet eltávolítása"
+
+# 
+msgid "Remover Túnel"
+msgstr "Alagút eltávolítása"
+
+# 
+msgid "Remover favorito"
+msgstr "Kedvenc eltávolítása"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Aktuális könyvtár eltávolítása a kedvencekből"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Fájl átnevezése"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Mappa átnevezése"
+
+# 
+msgid "Renomear..."
+msgstr "Átnevezés..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Pillanatkép megjelenítése az aktuális folyamatokról"
+
+# 
+msgid "Reportar Problema"
+msgstr "Probléma jelentése"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Betűméret visszaállítása (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Terminálhiba megoldása az OpenCode / AI segítségével..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Újraindítási házirend a konténer kilépésekor"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Visszaállítja az alapértelmezett Monospace 11 betűtípust (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Globális szabályok visszaállítása"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Összes parancs visszaállítása"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Eredeti figyelmen kívül hagyott parancsok listájának visszaállítása"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Index visszaállítása / fájlok eltávolítása a stage-ről"
+
+# 
+msgid "Resume"
+msgstr "Folytatás"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "A fájl tartalma alapján számított szabványos kriptográfiai kivonatok:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Szolgáltatások naplóinak lekérése"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Diff ellenőrzés és Zero-Trust audit (Atomi visszaállítás)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Intelligens útválasztás: kattintson a profilváltáshoz (Auto, Gyors, Haladó, Biztonság)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Átirányítva a Haladó/Biztonsági érvelési profilra."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Átirányítva a Gyors profilra (alacsony késleltetésű egyszerű lekérdezés)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "A helyi csomag binárisának vagy példájának futtatása"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Futtatás, mintha a git a megadott útvonalon indult volna"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Bejelentkezési shell futtatása célfelhasználóként (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Optimalizált kiadási bináris futtatása"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Natív Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Rust csomagkezelő és fordítóeszköz"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH-MUNKAMENET"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "SOCKS5 proxy"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Vállalati SOCKS5 proxy"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Biztonságos kényszerített push a távoli referencia ellenőrzésével"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Alkalmazás bezárása"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Mentés és bezárás"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Módosítások mentése"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "OnyxSH biztonsági mentés mentése"
+
+# 
+msgid "Salvar Comando"
+msgstr "Parancs mentése"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Jelenlegi lap-elrendezés mentése"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Mentés rendszergazdai / Root jogosultsággal (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Sikeresen mentve: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Szkript futtatása"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Keresés a leírásokban és a nevekben is"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "A fájlnévhez tartozó csomag keresése"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Mintára illeszkedő csomagok keresése"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Snap csomagok keresése az áruházban"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Helyileg telepített csomagok keresése"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Rendszerstílus követése"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Követés valós időben (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Másodpercek a kapcsolatok ébren tartásához (0 a kikapcsoláshoz)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Kijelölve: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "OnyxSH biztonsági mentési fájl kiválasztása"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Válassza ki a felvenni kívánt parancsokat, és adjon meg magyarázó technikai megjegyzéseket az egyes lépésekhez. ({count} azonosítva)"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Válasszon ki egy elemet a jobb oldali panelen a letöltéshez (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Válasszon ki egy elemet a bal oldali panelen a feltöltéshez (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "A szerkesztéshez először válasszon ki egy munkamenetet a listából."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Először válasszon ki egy munkamenetet az eltávolításhoz."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Figyelt kiszolgáló kiválasztása"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Nem egyező sorok kijelölése"
+
+# 
+msgid "Seleção copiada."
+msgstr "Kijelölés másolva."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "A kijelölés elküldve elemzésre az AI-asszisztensnek."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "A kijelölés elküldve refaktorálásra az OpenCode segítségével."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Mindig elrejtés"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP-kiszolgáló"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "Csak olvasható TFTP-kiszolgáló aktív itt: {addr} (gyökér: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "TFTP-kiszolgáló átkapcsolva."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP-kiszolgáló leállítva."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Munkamenet: {session} | Kiszolgáló: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "A(z) „{name}” munkamenet eltávolítva."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "A(z) „{name}” munkamenet mentve ide: ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Csatolt SSH-munkamenet"
+
+# 
+msgid "Sessão limpa."
+msgstr "Munkamenet törölve."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Mentett munkamenetek"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Munkamenetek szinkronizálva innen: ~/.config/onyxsh/sessions.json és ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Futtatandó shell"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Összes figyelő TCP/UDP socket megjelenítése folyamattal és numerikus portokkal"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "A telepített snap csomagok összes revíziójának megjelenítése"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Útválasztás, hálózati eszközök és interfészek megjelenítése és kezelése"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Elérhető snap frissítések megjelenítése telepítés nélkül"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Változások megjelenítése a commitok, az index és a munkafa között"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Részletes információk megjelenítése egy snap csomagról"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Részletes információk megjelenítése egy telepített alkalmazásról vagy futtatókörnyezetről"
+
+# 
+msgid "Show error message on failure"
+msgstr "Hibaüzenet megjelenítése sikertelenség esetén"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Teljes információ megjelenítése a megadott csomagokról"
+
+# 
+msgid "Show package metadata info"
+msgstr "Csomag metaadatainak megjelenítése"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Engedélyek megjelenítése egy adott fájlútvonalhoz"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Telepítés és eltávolítás előtti/utáni szkriptek megjelenítése"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Folyamat megjelenítése és a részlegesen átvitt fájlok megtartása"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Az AI-asszisztens gombjának és oldalsó paneljének megjelenítése a felső sávban."
+
+# 
+msgid "Silent mode"
+msgstr "Csendes mód"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Auditált módosítás szimulálása"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Helyi fájlok szinkronizálása távoli kiszolgálóra az attribútumok megőrzésével"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "Rendszer"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Operációs rendszer"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Megerősítő kérés kihagyása"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Intelligens útválasztás kikapcsolva: az alapértelmezettként beállított szolgáltató használata."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, cselekvési tervek és atomi visszaállítás (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "Az OnyxSH névjegye"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "HTTP-kérési metódus megadása (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Futtatandó csomag megadása"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "A használandó távoli shell megadása (pl. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Terminál felosztása"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Változások félretétele (stash) egy módosított munkakönyvtárban"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Leállítás 4 csomag elküldése után"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Szigorú offline mód aktív (csak helyi Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Alparancsok és paraméterek javaslása: rpm, dnf, apt, pacman, flatpak, systemctl, docker, git és gyakori eszközök"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Javaslatok: rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Méretösszegzés emberi olvasásra alkalmas formátumban"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab vagy → alkalmaz • ↑/↓ navigálás • Esc bezárás"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Biztosan véglegesen törli a(z) „{name}” mappát?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Biztosan véglegesen törli a(z) „{name}” fájlt?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Téma világos háttérhez"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Téma sötét háttérhez"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Használt téma, amikor a terminál háttere világos"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Használt téma, amikor a terminál háttere sötét"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Parancssablon (pl.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Megpróbálja újracsatlakoztatni a megszakadt SSH-munkameneteket visszaszámlálással és képernyőn megjelenő figyelmeztetéssel"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Terminál: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Az összes csomag tesztelése a munkaterületen"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Elfogás tesztelése"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Az Nginx konfigurációs szintaxisának ellenőrzése"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Előtér szöveg (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Ez véglegesen törli az összes {count} beszélgetést. Ez a művelet nem vonható vissza."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Típus / Kiterjesztés"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Fájl típus"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Minden beállítás visszaállítva az alapértelmezettre."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Minden billentyűparancs visszaállítva az alapértelmezettre."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Minden SSH-alagút leállítva."
+
+# 
+msgid "Total Lines"
+msgstr "Összes sor"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "A döntések, parancsok és az atomi visszaállítás folyamatos auditnaplója"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Ubuntu / Canonical Snap csomagkezelő"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Uncomplicated Firewall kezelő"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Egység / Szolgáltatás (opcionális)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Telepített csomagok frissítése újabb verziókra"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Snap csomagok frissítése a rendszerben"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Az alkalmazás/futtatókörnyezet frissítése, ha már telepítve van"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "RPM csomagfájl frissítése (vagy telepítése, ha nincs jelen)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Helyi/távoli csomagfájl (.pkg.tar.zst) frissítése vagy telepítése"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Összecsukható blokkokat (&lt;details&gt;) használ a 15 sornál hosszabb kimenetekhez"
+
+# 
+msgid "Use a long listing format"
+msgstr "Hosszú listázási formátum használata"
+
+# 
+msgid "Use archive file or device"
+msgstr "Archív fájl vagy eszköz használata"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Könyvtár használata legfelső szintű gyökérként az RPM műveletekhez"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Távoli felhasználó"
+
+# 
+msgid "Usuário SSH:"
+msgstr "SSH felhasználó:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Ellenőrzés és csatolás"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "A szolgáltatás jelenlegi állapotának és függőségeinek ellenőrzése"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Ellenőrzés, hogy a(z) '{svc}' szolgáltatás aktív-e"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Ellenőrzés, hogy a(z) '{svc}' szolgáltatás engedélyezve van-e rendszerindításkor"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Ellenőrzés, hogy a(z) '{svc}' szolgáltatás leállt-e"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Egy adott csomag ellenőrzése egy .rpm fájlhoz képest"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Az összes telepített RPM csomag integritásának ellenőrzése az adatbázis alapján"
+
+# 
+msgid "Versão"
+msgstr "Verzió"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "A következő commithoz előkészített módosítások megtekintése"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Rendszernaplók megjelenítése a journalctl segítségével"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Az OnyxSH összes billentyűparancsának megtekintése, szerkesztése és visszaállítása"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Egyesített diff-megjelenítő (Előtte vs. Utána):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Rács- / bélyegkép nézet"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Ikonrács nézet engedélyezve"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Részletes lista nézet engedélyezve"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "Nincs jogosultsága a(z) '{name}' módosításához. Szeretné rendszergazdai (Root) jogosultságokkal menteni?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "Mentetlen módosításai vannak a(z) '{fname}' fájlban. Mit szeretne tenni bezárás előtt?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "Mentetlen módosításai vannak ebben a fájlban, amelyek elvesznek. Biztosan elveti őket?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Visszalépés az előző lapra (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Várakozás mintára..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Kimenet írása a távoli fájllal azonos nevű helyi fájlba"
+
+# 
+msgid "You: "
+msgstr "Ön: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Nagyítás visszaállítva (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[ÖSSZEGZÉS ÉS MEGJEGYZÉSEK]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Bináris vagy hozzáférhetetlen tartalom]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[A naplófájl nem olvasható]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[CÉL / KONTEXTUS]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[VÉGREHAJTOTT LÉPÉSEK ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Kockázat: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Kockázat észlelve"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Ellenőrizve"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` befejeződött {secs} mp alatt."
+
+# 
+msgid "linha"
+msgstr "sor"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "openSUSE / SLES csomagkezelő segédprogram"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} parancs • Kattintson a kibővítéshez/összehúzáshoz"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} parancs"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} sor"
+
+# 
+msgid "{count} regras"
+msgstr "{count} szabály"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} találat"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} logikai mag)"
+
+# 
+msgid "{days} days"
+msgstr "{days} nap"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} hr"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} sor • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} perc"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Másolat)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} ({base_distro} alapú)"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Csatolt fájl]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "A(z) {provider} API-kulcs sikeresen beállítva."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Döntés: {decision} | Állapot: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "{type} alagút"
+
+# 
+msgid "Ícone:"
+msgstr "Ikon:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "OnyxSH ikonok (Beépített)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Letöltés / Másolás"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Feltöltés / Másolás"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Futtatás   •   Tab Beszúrás a promptba   •   ⭐ Kedvenc   •   Esc Bezárás"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Ugrás a lapra / Futtatás • ↑/↓ Navigálás • Esc Bezárás"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Atomi visszaállítás"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ ProductionGuard riasztás ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Romboló parancs feltartóztatva ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ Lassabb számítógépeken a színminták feldolgozása kissé csökkentheti a reakciókészséget nagyon nagy kimenetek esetén."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ OnyxSH terminál exportálás"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Kódrészletek"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Parancs befejezve"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Másolva!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Végrehajtva"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Atomi visszaállítás kész: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ A parancs sikertelen (Kilépés: {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ A HASH NEM EGYEZIK! A beillesztett érték{hint} eltér a fájl számított hash értékeitől. A fájl sérült vagy módosított lehet."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ ELŐZMÉNYEK"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Online mód aktív.\nKattintson a szigorúan helyi offline mód bekapcsolásához."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Mind"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Cél / Kontextus"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Összegzés és tanulságok"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Ön:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Ön{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Megjegyzés:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Megjegyzés: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Jelenlegi könyvtár"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x futtatás"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Módosítva:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Lemezhasználat elemzése"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Tisztított jelentés másolása"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Kimenet másolása"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Biztonságosan csatolva: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Előzmények"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Előzetes megjegyzések"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Üzenetszórás (🛡️ ProductionGuard aktív):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Parancs elküldve üzenetszórással {count} terminálra."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Méret:</b> {size} <span alpha='70%'>({bytes} bájt)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Típus:</b> Mappa / Könyvtár"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 {bin} telepítése"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs} mp"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 SSH munkamenetek"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 git status ellenőrzése"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Végrehajtás utáni ellenőrzés: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Jogosultságok:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Tesztértesítés elküldve az asztalra."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Elérési út:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Magas kockázat (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Terminál lapok"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Kritikus riasztás — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Az üzenetszórást a ProductionGuard blokkolta: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 A PathGuard BLOKKOLTA az olvasást: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ ÉLES ÜZEMMÓD AKTÍV — A ProductionGuard feltartóztatja a romboló parancsokat (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Szigorúan offline mód aktív (Zero Cloud).\nKattintson az online módra váltáshoz."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Offline (Helyi)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Biztonság"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Biztonságos parancs"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Útvonal: {route}"
+

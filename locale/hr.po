@@ -17119,3 +17119,4099 @@ msgstr "🧠 Napredni profil (složeni planovi / skripte / dijagnostika)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Uvijek napredni (Razumovanje)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} tajni skriveno)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ Izvoz terminala OnyxSH"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Cilj / Kontekst"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Zaključak i naučene lekcije"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Preliminarne napomene"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Izvršavanje korak po korak"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Informacije o sesiji"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Nema generiranog izlaza)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*Dokument automatski generiran putem OnyxSH dnevnika rada.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Nijedan korak nije odabran za ovaj dokument.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Datum / Vrijeme:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Poslužitelj:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Operater / Autor:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Sesija:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Stanje:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Ukupno zabilježenih koraka:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Izlaz ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (ostatak izlaza skraćen u pregledu)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Čitanje / Pisanje uređaja"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable i Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 shema boja, isticanje izlaza i pravila po naredbi"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Idi gore u nadređeni direktorij (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Bilješka:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "Port {port} je već dodijeljen drugom procesu."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "KARTICA #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "AI asistent: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Kartica zatvorena."
+
+# 
+msgid "Abaixo"
+msgstr "Ispod"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Prekini trenutno rješavanje sukoba"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Prekini rebase i vrati se na izvornu granu"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Otvara traku za pretraživanje Regex/Doslovno u aktivnoj kartici (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Automatski otvara ovaj tunel pri povezivanju s SSH poslužiteljem"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Otvara novi lokalni terminal (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Otvara interaktivnu ljusku unutar pokrenutog Docker spremnika"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Otvaranje poveznice: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Otvori nadzornik resursa (Cairo sparkline grafikoni)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Otvori mapu"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Otvori vanjskom aplikacijom"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Otvori ovaj direktorij u terminalu (cd)"
+
+# 
+msgid "Acima"
+msgstr "Iznad"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Prati zapisnike Docker spremnika u stvarnom vremenu"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Prati zapisnike systemd jedinice u stvarnom vremenu"
+
+# 
+msgid "Active"
+msgstr "Aktivno"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Dodaj upstream referencu praćenja"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Dodaj novi SSH tunel"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Dodaj prilagođenu shemu"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Grupiraj po kategorijama (.7z na vrhu)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Dodijeli pseudo-TTY povezan sa stdin spremnika"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Dopusti vraćanje na stariju verziju paketa"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Dopusti nesigurne TLS veze"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Revidirana promjena stvorena uz atomsku sigurnosnu kopiju."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Uključi/isključi Zero-Trust AI asistenta"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Uključi/isključi dvookenski upravitelj datoteka"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Uključi/isključi način uređivanja (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Uključi/isključi dvostruko okno (Podijeli / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "Uključi/isključi bočnu ploču SSH sesija"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Flatpak okruženje"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Produkcijsko okruženje (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Produkcijsko okruženje — zaštićeno sustavom ProductionGuard"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Izmijeni vrh trenutne grane"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Analizirajte sljedeće nedavne poruke i pogreške iz datoteke zapisnika '{name}' te pružite dijagnozu temeljnih uzroka i preporučena rješenja:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Analizirajte projekt i pripremite potrebne ispravke pomoću OpenCodea."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Analiziraj trenutni paket i prijavi pogreške"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Priloži datoteku (PathGuard provjera)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Priloži datoteku kontekstu (provjerio PathGuard)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "Analiza za vaš zahtjev je dovršena (primijenjeni su `SecretRedactor` i izolacija `<untrusted>`).\n\nPreporučena naredba:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Analiza zatražena od AI asistenta."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Primjenjuje isticanje sintakse na izlaz naredbe 'cat'"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Automatski primjenjuje kontekstualna pravila pri prepoznavanju pokrenute naredbe"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Primijeni isticanje izlaza na SSH veze"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Primijeni isticanje izlaza na lokalne sesije terminala"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Aplikacija & Prozor"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Aplikacija ili ID"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Primijeni spremljeno stanje i zadrži ga na popisu stash"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Primijeni spremljeno stanje i ukloni ga s popisa stash"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Odobri i pokreni"
+
+# 
+msgid "Aproximar"
+msgstr "Povećaj"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Alat za upravljanje paketima za Arch Linux / Manjaro"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Arhivski način rada (čuva dozvole, vremena, simboličke veze)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Prethodna datoteka (Strelica gore / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Binarna datoteka: {name}\nPutanja: {path}\nVeličina: {size}\nDozvole: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Arhivska datoteka"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Datoteka kopirana za prijenos: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Datoteka stvorena: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Datoteka podataka"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Video datoteka"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Audio datoteka"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Datoteka izbrisana: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Datoteka označena za premještanje: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Datoteka ponovno učitana s diska."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Datoteka preimenovana u '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Datoteka vraćena nakon poništavanja promjena: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Datoteka spremljena s administratorskim (Root) ovlastima!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Datoteka uspješno spremljena s administratorskim (Root) ovlastima!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Datoteka uspješno spremljena!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Datoteka: {name} (Veličina: {size} bajtova)\nIsječak:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Datoteke grupirane po kategorijama (.7z na vrhu)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Datoteke poredane po datumu izmjene"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Datoteke poredane po nazivu"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Datoteke poredane po veličini"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Datoteke poredane po vrsti / nastavku"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Izvorne datoteke/mape"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "OpenCode asistent za kodiranje"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust AI asistent"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "AI asistent nije povezan."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Prihvati rizik i pokreni"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "Prečac '{name}' ažuriran na {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "Prečac '{name}' uklonjen."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Tipkovni prečaci (34 podesive radnje)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Prečaci sustava i favoriti"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Omogući / Onemogući štit produkcijskog okruženja (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "Omogući bojanje naredbe 'cat'"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Omogući isticanje unosa ljuske"
+
+# 
+msgid "Ativar Todos"
+msgstr "Omogući sve"
+
+# 
+msgid "Ativo"
+msgstr "Aktivno"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Aktivno (sluša na {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Trenutno: {curr}\nNovo: (pritisnite tipke)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Trenutno: {curr}\nNovo: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Trenutno: {curr}\nNovo: {new} (Sukob s {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Osvježi (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Osvježi popis (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Sigurnosna revizija s AI"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Sigurnosna revizija ovog direktorija s AI"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "Sigurnosna revizija za '{name}' poslana je AI asistentu."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "Revizija direktorija '{path}' poslana je AI pomoćniku."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Povećaj font (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Autentifikacija:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Auto: prilagođava se pozadini terminala. Ručno: fiksna tema."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Auto: automatski prepoznaje kontrast s pozadinom"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Automatski dovršeno: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Pametno automatsko dovršavanje (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Pametno automatsko dovršavanje — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Primijenjeno automatsko dovršavanje: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Automatsko da"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Automatski ukloni nepotrebne ovisnosti"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Automatski pokreće dijagnostiku samo za čitanje bez potrebe za ručnom potvrdom."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Prelazi na sljedeću karticu (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Akcija"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "SHA-256 sigurnosna kopija stvorena ({count} datoteka): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "SHA-256 sigurnosna kopija spremljena ({count} datoteka): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Sigurnosna kopija nije pronađena na {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Sigurnosna kopija uspješno vraćena ({count} datoteka provjereno putem SHA-256)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Traka istovremenog izvršavanja (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Skupno brisanje putem xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Blokiraj i otkaži (Preporučeno)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Emitiranje poslano: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Emitiraj svima"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Izgradi sve pakete u radnom prostoru"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Izgradi artefakte u načinu izdanja"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Izgradi artefakte u načinu izdanja s optimizacijama"
+
+# 
+msgid "Busca"
+msgstr "Pretraživanje"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Globalno pretraživanje po karticama / Povijest"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Globalno pretraživanje po karticama / Sesije / Povijest"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Globalno pretraživanje kartica, sesija, povijesti i isječaka (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Globalno pretraživanje umetnulo je u odzivnik: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Globalno pretraživanje u OnyxSH (Ctrl+Shift+G) — Kartice, sesije, povijest i isječci"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Globalno pretraživanje: fokus na kartici #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Pretražuje datoteke i direktorije pomoću naprednih filtara"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Neizrazito pretraživanje po direktoriju, poslužitelju i favoritima (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Pretraži u terminalu (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Pretraži u trenutnom terminalu"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Pretraži sesije ili poslužitelje..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Pretraži tekst u terminalu..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Preskoči upite za potvrdu"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Izračunavanje sažetaka (hash) u pozadini..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Putanja kopirana: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Putanja mape (npr.: Produkcija ili Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Putanja datoteke (npr.: /var/log/syslog ili ~/.ssh/id_rsa za testiranje blokade):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Putanja umetnuta u terminal: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Uzorak naziva datoteke neosjetljiv na veličinu slova"
+
+# 
+msgid "Categoria"
+msgstr "Kategorija"
+
+# 
+msgid "Categoria:"
+msgstr "Kategorija:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Promijeni direktorij prije izvođenja operacija"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH ključ / Lozinka:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Provjeri GPG potpis i cjelovitost .rpm datoteke"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Provjeri dostupne nadogradnje paketa bez instaliranja"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Provjerava paket radi otkrivanja čestih pogrešaka"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Kontrolni zbrojevi i provjera cjelovitosti — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Odaberite između brzih pružatelja usluga u oblaku ili lokalnih poslužitelja."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Očisti cijelu predmemoriju paketa (ukloni sve preuzete pakete)"
+
+# 
+msgid "Clean local caches"
+msgstr "Očisti lokalne predmemorije"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Očisti predmemoriju paketa (ukloni stare preuzete pakete)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Kliknite za promjenu tipkovničkog prečaca"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Kliknite za povezivanje u novoj kartici (i odabir ove sesije)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Kliknite kako biste razumjeli što svaka razina dopuštenja odobrava ili ograničava"
+
+# 
+msgid "Colar"
+msgstr "Zalijepi"
+
+# 
+msgid "Colar Aqui"
+msgstr "Zalijepi ovdje"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Zalijepi u ovu mapu"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Zalijepite MD5, SHA-1, SHA-256 ili SHA-512 sažetak iznad za provjeru autentičnosti."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Boji naredbe u stvarnom vremenu dok tipkate u terminalu"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Boji uzorke u izlazu terminala, poput pogrešaka, upozorenja i IP adresa. Mnogo pravila može utjecati na vrlo opsežne izlaze."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "Bojenje naredbe cat"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Naredba ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Naredba / Predložak:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Naredba nakon prijave:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Naredba kopirana u međuspremnik."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Produkcijsku naredbu procijenio je operater."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Naredba poslana u terminal: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Naredba poslana: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Naredba izvršena iz povijesti: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Naredba izvršena putem palete: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Naredba nije uspjela (kôd {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Naredba umetnuta u odzivnik: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Duga naredba uspješno dovršena (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Uskladi s bojama terminala"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Paleta naredbi (Ctrl+Shift+P) — Objedinjeno pretraživanje"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Paleta naredbi — Objedinjeno pretraživanje (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Kompresirati"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Uspoređivač cjelovitosti"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Usporedi / Sinkroniziraj direktorije (Lijevi ⇄ Desni)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Usporedba dvaju okna: {identical} identičnih | {left_only} samo lijevo | {right_only} samo desno | {diff} različite veličine"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Kompatibilnost s Git i naslijeđenim repozitorijima"
+
+# 
+msgid "Compile the current package"
+msgstr "Kompajliraj trenutni paket"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Sažmi podatke datoteka tijekom prijenosa"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Zaključak i pouke"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Povezano sa sesijom: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Povezivanje putem Globalnog pretraživanja: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Povezivanje putem Palete naredbi: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Poveži u podijeljenom oknu (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Poveži: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "Konfiguriraj AI pomoćnika..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Konfiguriraj pravila za ovu naredbu"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "Konfiguriraj AI pomoćnika — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Konfiguriraj sve raspakirane, ali nekonfigurirane pakete"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Konfiguriraj raspakirani paket"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Konfigurirajte pojedinačne ključeve za promjenu pružatelja usluga bez ponovnog konfiguriranja"
+
+# 
+msgid "Confirm"
+msgstr "Potvrdi"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Potvrdi brisanje"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Sukob ili neuspjela sinkronizacija u Git repozitoriju."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Veličina kontekstnog prozora (Tokeni)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Sadržaj kopiran u međuspremnik."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Nastavi rebase nakon rješavanja sukoba"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Razgovor učitan iz povijesti."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Kopirano u {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Kopiraj datoteku"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Kopiraj putanju nadređenog direktorija"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Kopiraj mapu"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Kopiraj odabrano u desno okno (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Kopiraj odabrano u lijevo okno (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Kopiraj u međuspremnik"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Kopiraj detaljno izvješće u formatu Markdown"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Boje i isticanja"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Boje i isticanja terminala"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Standardne boje terminala (0-7 normalne, 8-15 svijetle)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Stvori commit spajanja čak i kod fast-forward"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Stvori plitki klon sa skraćenom poviješću"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Stvori gzip-komprimiranu tar arhivu s detaljnim ispisom"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Stvara komprimirane arhive iz datoteka i mapa"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Stvara i uređuje parametrizirane gumbe naredbi (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Stvara i prebacuje se na novu lokalnu granu u Git repozitoriju"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Stvara probnu datoteku u /tmp s atomskom sigurnosnom kopijom u AuditLogger"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Stvara prilagođenu shemu boja na temelju aktivne sheme"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Stvori sigurnosnu kopiju postavki (SHA-256 paket)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Stvori sesiju"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Stvorite lokalni (-L), udaljeni (-R) ili dinamički SOCKS5 (-D) tunel za prosljeđivanje portova putem SSH."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Korisnik je otkazao izračun kontrolnog zbroja."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Rust kôd"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Kôd je umetnut u aktivni terminal."
+
+# 
+msgid "Código-Fonte"
+msgstr "Izvorni kôd"
+
+# 
+msgid "Cópia de {name}"
+msgstr "Kopija datoteke {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "Datum izmjene"
+
+# 
+msgid "Date / Time"
+msgstr "Datum / Vrijeme"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Datum: {date} | Dimenzije: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Debian upravitelj paketa niske razine (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Zadani API ključ"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Zadani identifikator modela"
+
+# 
+msgid "Default Provider"
+msgstr "Zadani pružatelj"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Definira i pokreće višekontejnerske aplikacije"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Postavi dozvole datoteke za: {name}\nTrenutno: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Izbriši pravilo vatrozida"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Izbriši spojenu granu"
+
+# 
+msgid "Desativar Todos"
+msgstr "Onemogući sve"
+
+# 
+msgid "Descrição:"
+msgstr "Opis:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Isticanje unosa u Shellu"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Isticanje sintakse u stvarnom vremenu dok upisujete naredbe"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Isticanje sintakse za izlaz naredbe 'cat' (pomoću pogona Pygments/ANSI)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Udaljeno odredište"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Odvojeni način: pokreni naredbu u pozadini"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Dijagnosticiraj greške zapisnika pomoću AI"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Dijagnosticiraj i ponovno pokreni web servis"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Heuristička dijagnostika (**{title}**):\n{desc}\n\nPrijedlog brzog popravka:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Sigurna dijagnostika sustava — Telemetrija i podrška"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "Dijagnostika zapisnika '{name}' poslana je AI pomoćniku."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Razlikuj velika i mala slova"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Unesite naredbu (npr.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Unesite naredbu za slanje na SVE otvorene terminale..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Unesite radnju, SSH sesiju ili parametriziranu naredbu..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Smanji font (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Dinamički (-D) • SOCKS5 proxy putem SSH"
+
+# 
+msgid "Direita"
+msgstr "Desno"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "Direktorij '{path}' označen je kao favorit."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Konfiguracijski direktorij"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Direktorij poslan u terminal: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Direktorij: {name}\nPutanja: {path}\nDozvole: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Dopušteni direktoriji, PathGuard izolacija i zadane politike odbijanja"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Onemogući instalirani snap"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Disk je pun (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Disk (fizički U/I)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Prikaži detaljne informacije o instaliranom paketu"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Prikaži memoriju u megabajtima"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Prikaži pojedinosti statusa instaliranog paketa"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Dijeli trenutnu karticu gore/dolje (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Dijeli trenutnu karticu jednu uz drugu (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Podijeli horizontalno"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Podijeli terminal vodoravno"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Podijeli vertikalno"
+
+# 
+msgid "Divisão"
+msgstr "Dijeljenje"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Ne pitaj ništa, koristi zadane odgovore"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Ne provjeravaj ovisnosti prije brisanja"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Ne izvršavaj udaljenu naredbu (samo prosljeđivanje portova)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Ne razrješavaj nazive servisa"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Ne spremaj snimku stanja podataka snap paketa"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Ne provjeravaj ovisnosti paketa"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Ne provjeravaj ovisnosti paketa prije instalacije"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Ne čini ništa ako već postoji udaljeni repozitorij istog naziva"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Tekstni dokument"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Preuzmi svježu kopiju baza podataka paketa"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Samo preuzmi pakete, nemoj instalirati"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Nacrtaj tekstualni grafički prikaz povijesti commitova"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Probno uklanjanje bez brisanja datoteka"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Probna instalacija bez izmjene sustava"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Uredi naredbu: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Uredi postavke tunela"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Uredi shemu boja"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Uredi odabranu sesiju"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Uredi sesiju — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Uredi shemu boja ili stvori prilagođenu varijantu"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Izradio sam **Strukturirani akcijski plan** s provjerom putem `PolicyEngine` i automatskom verifikacijom nakon izvršavanja (`verifier.rs`) za:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Moderan emulator terminala za lokalne i udaljene radne procese na Linuxu, uz ProductionGuard, dvopanelni SFTP/TFTP i Zero-Trust AI pomoćnika."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Omogući onemogućeni snap"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "X11 prosljeđivanje (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Zatvara aktivnu karticu (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Pronađi datoteke"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Šalje naredbe istovremeno na više terminala (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Pošalji naredbu svim karticama"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Pošalji pitanje"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "Pošalji naredbu sha256sum na aktivnu karticu terminala"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Pošalji svima"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Izbriši (deinstaliraj) instalirani RPM paket"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Greška pri spremanju datoteke"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Greška pri promjeni dozvola za '{name}': {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Greška pri izračunu sažetka (hash)"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Greška pri lijepljenju stavke: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Greška pri stvaranju datoteke: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Greška pri stvaranju sigurnosne kopije: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Greška pri stvaranju mape: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Greška pri brisanju datoteke: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Greška pri brisanju mape: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Greška pri ispisu {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Greška pri premještanju stavke: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Greška pri preimenovanju: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Greška Git repozitorija"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Greška pri vraćanju stanja: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Greška: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Odaberite između Lokalnog (-L), Udaljenog (-R) ili Dinamičkog SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Primijenjena shema boja: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Shema boja spremljena: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Ova sesija dolazi iz ~/.ssh/config (samo za čitanje) ili je već uklonjena."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Ova je datoteka samo za čitanje. Izmjene se mogu spremiti s ovlastima administratora (Root)."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Svijetli stil (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Tamni stil (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "Npr.: 10.0.0.15 ili srv.tvrtka.hr"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "Npr.: Produkcija (ostavite prazno za korijen)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "Npr.: Produkcija Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "Npr.: root ili ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Izbriši mapu"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Trajno izbriši"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Izvršeno u terminalu: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Pokreni (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Pokreni sada"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Pokreni uz sudo u terminalu"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Izvrši naredbu u svim terminalima"
+
+# 
+msgid "Executar passo"
+msgstr "Izvrši korak"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Izvrši plan agenta"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Izvrši sve jedinične i integracijske testove"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Prikaži ploču sesija"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Objasni datoteku pomoću AI-ja"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "Zatraženo je objašnjenje datoteke '{name}' od AI asistenta."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Objasnite svrhu, strukturu i rad datoteke '{name}'.\nPutanja: {path}\n\nPočetni sadržaj:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Izvozi settings.json, sessions.json i command_buttons.json sa SHA-256 sažetkom"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Izvozi cijeli međuspremnik ili aktivni odabir terminala"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Izvezeno u {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Izvezi izlaz terminala (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Izvezi sesiju kao operativni priručnik (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "Izvoz terminala OnyxSH - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Kontrola vanjskih veza i stroga izolacija podataka."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Detaljno raspakiraj tar arhivu komprimiranu gzipom"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Izdvaja datoteke iz komprimiranih arhiva"
+
+# 
+msgid "Extrair"
+msgstr "Izvuci"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Spremanje kao Root nije uspjelo"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Čekanje na proces pkexec nije uspjelo: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Izračun kontrolnih zbrojeva nije uspio: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Stvaranje sigurnosne kopije nije uspjelo: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Pisanje podataka u stdin procesa pkexec nije uspjelo: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Pokretanje povlaštenog procesa pkexec nije uspjelo: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Vraćanje sigurnosne kopije nije uspjelo: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Spremanje datoteke nije uspjelo: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Prijenos nije uspio (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Prijenos nije uspio (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Brz i svestran alat za kopiranje udaljenih i lokalnih datoteka"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Dodaj / ukloni naredbu iz favorita"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Dodaj trenutačni direktorij u favorite"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Favorit uklonjen: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Radi commit promjena u Gitu s opisnom porukom"
+
+# 
+msgid "Fechar Aba"
+msgstr "Zatvori karticu"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Zatvori aktivnu ploču"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "RPM upravitelj paketa za Fedora/RHEL/Rocky/AlmaLinux"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Dohvati iz drugog repozitorija i integriraj"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Red čekanja prijenosa — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Red čekanja prijenosa je prazan (0 aktivnih zadataka)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Podaci datoteke izmijenjeni prije n*24 sata"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Vrsta datoteke (f obična datoteka, d direktorij, l simbolička veza)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Filtriraj arhivu kroz gzip (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Pronađi koji paket pruža zadanu datoteku ili značajku"
+
+# 
+msgid "Focar janela existente"
+msgstr "Fokusiraj postojeći prozor"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Okno fokusa dolje"
+
+# 
+msgid "Focar painel acima"
+msgstr "Focus Pane Up"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Okno fokusa desno"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Lijevo okno fokusa"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Fokus je prebačen na prvo okno."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Fokus je prebačen na drugo okno."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Prati izlaz uživo kako datoteka raste"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Font, paleta boja, prozirnost i AI (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Prisili brisanje čak i ako aplikacije ovise o tome"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Prisili instalaciju čak i ako paket/datoteke već postoje"
+
+# 
+msgid "Force upgrade"
+msgstr "Prisili nadogradnju"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Formatiraj izlaz upita pomoću prilagođenog queryformat obrasca"
+
+# 
+msgid "Formato"
+msgstr "Formatirati"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "Osvježi RPM pakete (nadogradi samo ako su već instalirani)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Generiraj strukturirani akcijski plan (ActionPlan)"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Upravlja sistemskim servisima pomoću systemctl"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Upravitelj datoteka"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Dvokrilni upravitelj datoteka"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Upravitelj naredbi"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Upravitelj naredbi i dinamičkih obrazaca"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Upravljanje karticama i oknima"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak aplikacija i upravljanje vremenom izvođenja"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Predloži Conventional Commit"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: trenutačni direktorij nije Git repozitorij."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Visok kapacitet konteksta"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Mreža ikona"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • Ultrabrzi LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Grafovi u stvarnom vremenu za CPU, RAM, disk I/O i mrežu/GPU"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Model i pružatelj s naprednim zaključivanjem za višekoračne planove"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Obogaćena povijest naredbi (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Povijest razgovora"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Povijest prijenosa"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Povijest: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Računalo / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Udaljeno računalo (IP / domena)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Udaljeno računalo za Bind"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Računalo ne može biti prazno"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Nevažeće računalo ili IP adresa."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Datoteka identiteta (privatni ključ) za provjeru autentičnosti javnim ključem"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Zanemari razliku između velikih i malih slova"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Zanemari oznake sigurnosnih kopija datoteka (ukloni konfiguracijske datoteke)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Zanemari nepostojeće datoteke, nikad ne pitaj"
+
+# 
+msgid "Imagem"
+msgstr "Slika"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "Uvezi ASCII-armored GPG javni ključ u RPM privjesak ključeva"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Uvezi udaljenu konfiguraciju iz .flatpakrepo"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Uvezi sesije (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "Uključi zaglavlja HTTP odgovora u izlaz"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Povećava veličinu fonta terminala (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Zaključuje i predlaže automatske provjere (status servisa, sintaksa konfiguracije) nakon naredbi koje mijenjaju stanje."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "Pokreni TFTP poslužitelj"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Umetni (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Umetni putanju u terminal"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Pregledava trenutačni Git repozitorij i predlaže poruku commita"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Pregledaj aktivne utičnice i portove na računalu"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Instaliraj lokalnu datoteku .deb paketa"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Instaliraj datoteku RPM paketa s detaljnim napretkom"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Instaliraj kao neeksplicitnu ovisnost"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Instaliraj iz kanala beta"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Instaliraj iz kanala edge"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Instaliraj iz stabilnog kanala (stable)"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Instaliraj jedan ili više RPM paketa"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Instaliraj snap pakete na sustav"
+
+# 
+msgid "Interactive rebase"
+msgstr "Interaktivni rebase"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Interaktivno odaberi dijelove (hunks) zakrpe"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Interakcija s terminalom"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Lokalno sučelje / Bind IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Lokalno sučelje za slušanje"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Tumači uzorak kao prošireni regularni izraz (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Interval provjere latencije"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Interval u sekundama za slanje KeepAlive probnih paketa"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Nevažeće SSH korisničko ime"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Nevažeće ime računala ili IP adresa"
+
+# 
+msgid "Invalid local port"
+msgstr "Nevažeći lokalni port"
+
+# 
+msgid "Invalid port number"
+msgstr "Nevažeći broj porta"
+
+# 
+msgid "Invalid remote host"
+msgstr "Nevažeće udaljeno računalo"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Istraži utičnice (moderna zamjena za netstat)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Idi na karticu"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Ovo će vratiti sve tipkovničke prečace na zadane vrijednosti. Želite li nastaviti?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Stavka zalijepljena na: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Stavka premještena na: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "Raspored {n_pages} kartice/a spremljen u {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Briše zaslon i povijest pomicanja aktivne sesije (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Očisti dovršene"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Očisti neomiljenu povijest"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Očisti sesiju"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Očisti sesiju terminala"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Veza je kopirana u međuspremnik."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Ispiši sve datoteke koje pripadaju instaliranom RPM paketu"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Ispiši aplikacije i izvođenja dostupna u udaljenom spremištu"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Ispiši mogućnosti koje zahtijeva ovaj .rpm"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Ispiši konfiguracijske datoteke instaliranog paketa"
+
+# 
+msgid "List configuration files only"
+msgstr "Ispiši samo konfiguracijske datoteke"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Ispiši ovisnosti koje zahtijeva instalirani paket"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Ispiši datoteke sadržane unutar .rpm arhive"
+
+# 
+msgid "List files installed by package"
+msgstr "Ispiši datoteke koje je instalirao paket"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Ispiši vanjske pakete (npr. iz AUR-a)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Ispiši instalirane pakete koji odgovaraju uzorku"
+
+# 
+msgid "List installed snaps"
+msgstr "Ispiši instalirane snapove"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Ispiši instalirane datoteke jedinica i njihov status omogućenosti"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Ispiši napuštene pakete (ovisnosti koje više nisu potrebne)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Ispiši pakete instalirane kao ovisnosti"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Ispiši trenutno spremljene stasheve"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Detaljni popis"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Ispisuje sadržaj direktorija s pojedinostima (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Popis, mreža minijatura, stablo i Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Popis datoteka"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Lokalno (Ollama / LM Studio) • Potpuna GPU/CPU privatnost"
+
+# 
+msgid "Local Server Base URL"
+msgstr "Osnovni URL lokalnog poslužitelja"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Dugi format, sve datoteke, čitljive veličine"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Model i pružatelj niske latencije za svakodnevna shell pitanja"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Stvori nadređene direktorije po potrebi"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Maksimalna dodjela kontekstne memorije poslane modelu"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Memorija (RAM i Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "RAM memorija"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Poruka commita"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Strogo izvanmrežni način aktivan (Bez oblaka)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Mrežni način s pametnim usmjeravanjem aktivan."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Način odabira teksta omogućen."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Način odabira teksta onemogućen."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Način emitiranja (Broadcast na sve kartice)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Način teme"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Nadzornik resursa u stvarnom vremenu (Cairo sparklines)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Nadzornik resursa u stvarnom vremenu — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Prikazuje ili skriva stablo SSH sesija (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Prikaži skrivene datoteke (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Pogon"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Naziv i opcionalno oznaka u formatu 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Nema stavki u međuspremniku za lijepljenje."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Još nema zapisa revizije. Kliknite 'Simuliraj revidiranu promjenu' za testiranje atomskog vraćanja."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Nije otkriven namjenski GPU putem sysfs/nvidia-smi"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Nije odabrana nijedna sesija"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "U sesiji nisu zabilježeni prijenosi."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Mreža (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Mreža (/proc/net/dev) • RX / TX u stvarnom vremenu"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Mreža (RX / TX) i GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Nikada ne postavljaj pitanja"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Naziv (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Naziv nove grane"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Naziv sesije:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Naziv nove mape:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Nevažeći naziv datoteke u međuspremniku."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "SSH korisničko ime sadrži nevažeće znakove."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Naziv odredišne datoteke"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Naziv usluge"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Naziv naredbe (npr. Ponovno pokreni Nginx)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Naziv nove datoteke:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Naziv ikone (npr. utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Naziv ili ID spremnika"
+
+# 
+msgid "Nome:"
+msgstr "Naziv:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Neinteraktivni način"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Nova kartica terminala"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Nova kartica terminala (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Nova mapa ovdje..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Nova mapa sesija"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Nova mapa..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Nova sesija — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Započet je novi razgovor."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Nova datoteka ovdje..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Nova datoteka..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Nova shema boja"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Novi naziv mape:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Novi naziv datoteke:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Nije moguće učitati stavku: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Nije moguće spremiti promjene: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Nema dovoljno slobodnog prostora na datotečnom sustavu."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Razina 0 (Čitanje)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Razina 1 (Pisanje)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Razina 2 (Admin)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Razina 3 (Kritično)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Razina 4 (Blokirano)"
+
+# 
+msgid "Nível {n}"
+msgstr "Razina {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Broj pokušaja prije odustajanja od automatskog ponovnog povezivanja"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "Binarna datoteka '{bin}' nije instalirana ili je izvan $PATH-a."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "Naredba je završila s kodom pogreške."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "Naredba izvršena u terminalu nije uspjela. Analizirajte datoteke projekta i pripremite potrebne ispravke pomoću OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "Naredba nije uspjela zbog nedostatka ovlasti superkorisnika (root)."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "Naziv sesije ne može biti prazan."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Zamagljeni / Base64 dekodirani cjevovod izvršavanja"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Prethodno pojavljivanje (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Pojavljivanja pronađena u terminalu"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Oktalno: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Spremno"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Test obavijesti"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode je pokrenut u terminalu."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Jedinstveni katalog više modela"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Operater: {author} | Poslužitelj: {host} | Datum: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Primijeni na sve pakete u radnom prostoru"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "Korisnik je otkazao ili odbio radnju."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Operacije s upraviteljem paketa za Arch Linux"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Operacije s upraviteljem paketa za Debian/Ubuntu"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Operacije s upraviteljem paketa za Fedora/RHEL"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Operacije datoteka"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Uzlazni redoslijed"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Silazni redoslijed"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Uzlazno sortiranje omogućeno"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Silazno sortiranje omogućeno"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Poredaj instalirane pakete po vremenu instalacije (najnoviji prvi)"
+
+# 
+msgid "Organizar por"
+msgstr "Razvrstaj po"
+
+# 
+msgid "Origem (Local)"
+msgstr "Izvor (lokalno)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Ispiši brojeve u čitljivom formatu"
+
+# 
+msgid "Output package names only"
+msgstr "Ispiši samo nazive paketa"
+
+# 
+msgid "Pacote"
+msgstr "Paket"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Instalacijski paket"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Uzorak naziva (npr. *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Panel sesija"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Okno/Kartica zatvorena."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Cijela riječ"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "ANSI paleta od 16 boja"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "Zaustavi TFTP poslužitelj ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Parametri — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Korak #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Izvršen korak: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "Mapa '{path}' uspješno je stvorena."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Mapa / Direktorij"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Mapa kopirana u međuspremnik: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Stvorena mapa: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Izbrisana mapa: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Mapa označena za premještanje: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Mapa uklonjena iz favorita."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Mapa preimenovana u '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Mapa · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Mapa:"
+
+# 
+msgid "Pause"
+msgstr "Pauziraj"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Profil usmjeravanja promijenjen u: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Izvrši nadogradnju distribucije (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Pitaj AI asistenta"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Pitajte ili zalijepite pogrešku terminala..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Dozvole (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "Dozvole za '{name}' promijenjene u {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Dozvole za {name}"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Pretraži sve otvorene kartice, SSH sesije, povijest i isječke (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Rekurzivno pretraživanje u poddirektorijima"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Pretraži u Terminalu"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Pretraži tekst u svim otvorenim karticama terminala, SSH sesijama, povijesti i isječcima..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Pretraži tunele po nazivu, portu ili poslužitelju..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Izvršavanje putem cjevovoda u interpreter ljuske"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Akcijski plan Zero-Trust za: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Pozadina"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Unesite {provider} API ključ prije testiranja."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Krajnje točke i portovi"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Molimo analizirajte sljedeći odabir iz terminala:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Molimo analizirajte i objasnite kôd/sadržaj datoteke '{name}', njezinu svrhu, strukturu i važne točke:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Molimo izvršite detaljnu reviziju sigurnosti i upravljanja pristupom u trenutnom direktoriju '{path}'. Provjerite previše popustljive dozvole, osjetljive datoteke (.env, privatne ključeve, izložene vjerodajnice) i preporučite najbolje prakse Zero-Trust."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Molimo izvršite detaljnu reviziju sigurnosti i dozvola pristupa za datoteku '{name}'.\nPutanja: {path}\nTrenutačne dozvole: {perms} ({oct})\nVeličina: {size}\nPreporučite sigurne chmod postavke i ublažavanje ranjivosti."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Molimo izvršite detaljnu reviziju sigurnosti i dozvola pristupa za direktorij '{name}'.\nPutanja: {path}\nTrenutačne dozvole: {perms} ({oct})\nZadnja izmjena: {date}\nPreporučite idealne chmod postavke, ograničenja i najbolje prakse usklađenosti sa Zero-Trust načelima."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Molimo refaktorirajte sljedeći isječak koda pomoću OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Port izvan valjanog raspona (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Udaljeni izloženi port (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Udaljeni odredišni port"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Lokalni port za slušanje (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "Port SOCKS5 proxyja (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Port je izvan dopuštenog raspona (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Port:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "Udaljeni PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "Postavke"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Dodaj broj retka počevši od 1 na početak svakog retka"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Pregled naredbe:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Primarni pružatelj i povezivost"
+
+# 
+msgid "Print Git version"
+msgstr "Ispiši verziju alata Git"
+
+# 
+msgid "Print RPM version"
+msgstr "Ispiši verziju alata RPM"
+
+# 
+msgid "Print help synopsis"
+msgstr "Ispiši kratki sažetak pomoći"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Ispiši veličine u potencijama broja 1024 (npr. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Ispiši stdout/stderr testa izravno"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Ispiši ukupno za dubinu direktorija 1"
+
+# 
+msgid "Print zypper version"
+msgstr "Ispiši verziju alata zypper"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Produkcija / Web poslužitelji"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Protokol:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Prikaži opširan izlaz"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Pružatelj koji se koristi kada je pametno usmjeravanje onemogućeno"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Pregled uživo"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Sljedeće podudaranje (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Sljedeća datoteka (Strelica dolje / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Skoči na prethodni upit."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Skoči na sljedeći upit."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Potpuno ukloni instalirani paket uključujući konfiguraciju"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Postavi snap u klasični način ograničenja"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Broj redaka (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Broj redaka (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Upitaj neinstaliranu lokalnu .rpm datoteku paketa"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Upitaj i popiši sve instalirane RPM pakete"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Pretraži pakete koji odgovaraju kriterijima repozitorija"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "Provjeri status servisa koje pružaju snap paketi"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Provjeri kojem instaliranom RPM paketu pripada putanja datoteke"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Brzi pregled)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "Alat niske razine za upravljanje RPM paketima (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Rekurzivno pročitaj sve datoteke unutar svakog direktorija"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Čitanje: {read}/s • Pisanje: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Prebaci trenutnu granu na vrh upstream grane nakon dohvaćanja"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Ponovno izgradi indekse RPM baze podataka iz instaliranih zaglavlja"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Pametno automatsko ponovno povezivanje pri prekidima"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Zapiši pripremljene promjene u repozitorij"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Izreži datoteku"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Izreži mapu"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Vraća sve prečace na zadane vrijednosti"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Poništi zumiranje"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Smanjuje veličinu fonta terminala (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Povećaj udaljenost"
+
+# 
+msgid "Refresh Interval"
+msgstr "Interval osvježavanja"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Osvježi sve metapodatke repozitorija"
+
+# 
+msgid "Refresh files database"
+msgstr "Osvježi bazu podataka datoteka"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "Zapisi sustava AuditLogger (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Globalna pravila isticanja"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Ponovno pokreni upravljani servis i primijeni konfiguraciju"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Ponovno instaliraj ako je paket već prisutan"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Potpuno izvješće sažetaka kopirano u međuspremnik"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Pročišćeno dijagnostičko izvješće OnyxSH"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Dijagnostičko izvješće kopirano u međuspremnik."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Strukturirano operativno izvješće s koracima, bilješkama, ciljem i zaključkom (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Pročišćeno izvješće o OS-u, RAM-u, GPU/VRAM-u i Flatpak okruženju"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Ponovno učitaj servis ili ga ponovno pokreni ako ponovno učitavanje nije podržano"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "Udaljeno (-R) • Izloži lokalni port na udaljenom poslužitelju"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Ukloni jedan unos iz stash pohrane"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Ukloni sve pakete koji ovise o cilju"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Ukloni sve unose iz stash pohrane"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Ukloni sve verzije paketa"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Ukloni instalirani paket uz zadržavanje konfiguracije"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Rekurzivno ukloni direktorije i njihov sadržaj"
+
+# 
+msgid "Remove installed packages"
+msgstr "Ukloni instalirane pakete"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Ukloni zastarjele udaljene prateće reference"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Ukloni jedan ili više paketa i neiskorištene ovisnosti"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Ukloni pakete izvorno instalirane kao ovisnosti koji više nisu potrebni"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Ukloni snap pakete iz sustava"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Ukloni neiskorištene podatke (kontejnere, mreže, slike)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Ukloni odabranu sesiju"
+
+# 
+msgid "Remover Túnel"
+msgstr "Ukloni tunel"
+
+# 
+msgid "Remover favorito"
+msgstr "Ukloni favorit"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Ukloni trenutni direktorij iz favorita"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Preimenuj datoteku"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Preimenuj mapu"
+
+# 
+msgid "Renomear..."
+msgstr "Preimenuj..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Prikaži snimku trenutačnih procesa"
+
+# 
+msgid "Reportar Problema"
+msgstr "Prijavi problem"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Poništi veličinu fonta (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Rješavanje pogreške terminala pomoću OpenCode / AI..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Pravilo ponovnog pokretanja pri izlasku kontejnera"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Vraća zadani font Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Vrati globalna pravila"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Vrati sve naredbe"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Vrati izvorni popis zanemarenih naredbi"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Vrati indeks / ukloni datoteke iz stagea"
+
+# 
+msgid "Resume"
+msgstr "Nastavi"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Standardni kriptografski sažeci izračunati nad sadržajem datoteke:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Dohvati zapisnike za servise"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Pregled Diffa i Zero-Trust revizija (Atomski povrat)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Pametno usmjeravanje: kliknite za promjenu profila (Auto, Brzi, Napredni, Sigurnost)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Usmjereno na napredni/sigurnosni profil zaključivanja."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Usmjereno na brzi profil (jednostavan upit niske latencije)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Pokreni binarnu datoteku ili primjer lokalnog paketa"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Pokreni kao da je git pokrenut u putanji"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Pokreni ljusku prijave kao ciljni korisnik (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Pokreni optimiziranu release binarnu datoteku"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Izvorni Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Upravitelj paketa i alat za izgradnju za Rust"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH SESIJA"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "SOCKS5 proxy"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Korporativni SOCKS5 proxy"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Sigurno prisilno slanje uz provjeru udaljene reference"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Zatvori aplikaciju"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Spremi i zatvori"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Spremi promjene"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "Spremi sigurnosnu kopiju OnyxSH"
+
+# 
+msgid "Salvar Comando"
+msgstr "Spremi naredbu"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Spremi trenutni raspored kartica"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Spremi s ovlastima administratora / Roota (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Uspješno spremljeno: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Izvršavanje skripte"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Pretražuj i opise i nazive"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Potraži paket koji posjeduje naziv datoteke"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Potraži pakete koji odgovaraju uzorku"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Potraži snap pakete u trgovini"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Pretraži lokalno instalirane pakete"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Prati stil sustava"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Prati u stvarnom vremenu (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Sekunde za održavanje veza aktivnima (0 za onemogućavanje)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Odabrano: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "Odaberi datoteku sigurnosne kopije OnyxSH"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Odaberite naredbe za uključivanje i dodajte tehničke komentare s objašnjenjem za svaki korak. (prepoznato: {count})"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Odaberite stavku u desnom oknu za preuzimanje (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Odaberite stavku u lijevom oknu za slanje (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Prvo odaberite sesiju s popisa za uređivanje."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Prvo odaberite sesiju za uklanjanje."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Odaberi nadzirano računalo"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Odaberi retke koji se ne podudaraju"
+
+# 
+msgid "Seleção copiada."
+msgstr "Odabir je kopiran."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Odabir je poslan AI pomoćniku na analizu."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Odabir je poslan na refaktoriranje pomoću OpenCode."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Uvijek sakrij"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP poslužitelj"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "TFTP poslužitelj samo za čitanje aktivan na {addr} (korijen: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "Stanje TFTP poslužitelja promijenjeno."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP poslužitelj zaustavljen."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Sesija: {session} | Računalo: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "Sesija '{name}' uklonjena."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "Sesija '{name}' spremljena u ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Povezana SSH sesija"
+
+# 
+msgid "Sessão limpa."
+msgstr "Sesija je očišćena."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Spremljene sesije"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Sesije sinkronizirane iz ~/.config/onyxsh/sessions.json i ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Ljuska za izvršavanje"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Prikaži sve aktivne TCP/UDP utičnice s procesom i numeričkim portovima"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Prikaži sve revizije instaliranih snap paketa"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Prikaži i upravljaj usmjeravanjem, mrežnim uređajima i sučeljima"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Prikaži dostupna ažuriranja za snap bez instaliranja"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Prikaži promjene između commita, indeksa i radnog stabla"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Prikaži detaljne informacije o snap paketu"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Prikaži detaljne informacije o instaliranoj aplikaciji ili izvodnom okruženju"
+
+# 
+msgid "Show error message on failure"
+msgstr "Prikaži poruku o pogrešci pri neuspjehu"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Prikaži potpune informacije za navedene pakete"
+
+# 
+msgid "Show package metadata info"
+msgstr "Prikaži informacije o metapodacima paketa"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Prikaži dozvole za određenu putanju datoteke"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Prikaži skripte prije/nakon instalacije i deinstalacije"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Prikaži napredak i zadrži djelomično prenesene datoteke"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Prikaži gumb i bočnu ploču AI pomoćnika na gornjoj traci."
+
+# 
+msgid "Silent mode"
+msgstr "Tihi način"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Simuliraj revidiranu promjenu"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Sinkronizira lokalne datoteke na udaljeno računalo uz očuvanje atributa"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "Sustav"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Operacijski sustav"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Preskoči upit za potvrdu"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Pametno usmjeravanje onemogućeno: koristi se zadani konfigurirani pružatelj."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, akcijski planovi i atomski povrat (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "O programu OnyxSH"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "Navedi metodu HTTP zahtjeva (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Navedi paket za pokretanje"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "Navedi udaljenu ljusku za korištenje (npr. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Podijeli terminal"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Spremi promjene u stash u izmijenjenom radnom direktoriju"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Zaustavi nakon slanja 4 paketa"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Aktivan je strogi izvanmrežni način rada (samo lokalni Ollama/LM Studio)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Predloži podnaredbe i parametre za rpm, dnf, apt, pacman, flatpak, systemctl, docker, git i uobičajene alate"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Prijedlozi za rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Sažetak veličine u formatu čitljivom ljudima"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab ili → primijeni • ↑/↓ navigiraj • Esc zatvori"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Jeste li sigurni da želite trajno izbrisati mapu '{name}'?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Jeste li sigurni da želite trajno izbrisati datoteku '{name}'?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Tema za svijetlu pozadinu"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Tema za tamnu pozadinu"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Tema koja se koristi kada je pozadina terminala svijetla"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Tema koja se koristi kada je pozadina terminala tamna"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Predložak naredbe (npr.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Pokušava ponovno povezati prekinute SSH sesije uz odbrojavanje i upozorenje na zaslonu"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Terminal: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Testiraj sve pakete u radnom prostoru"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Testiraj presretanje"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Testiraj cjelovitost sintakse konfiguracije za Nginx"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Tekst prednjeg plana (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Ovo će trajno izbrisati sve {count} razgovore. Ova radnja se ne može poništiti."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Vrsta / Ekstenzija"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Tip datoteke"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Sve postavke su vraćene na zadane vrijednosti."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Svi tipkovnički prečaci su vraćeni na zadane vrijednosti."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Svi SSH tuneli su zaustavljeni."
+
+# 
+msgid "Total Lines"
+msgstr "Ukupno redaka"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Kontinuirani revizijski trag odluka, naredbi i atomskog povrata"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Ubuntu / Canonical Snap upravitelj paketa"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Upravitelj vatrozida Uncomplicated Firewall"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Jedinica / Servis (neobavezno)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Ažuriraj instalirane pakete novijim verzijama"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Ažuriraj snap pakete u sustavu"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Ažuriraj aplikaciju/izvršnu okolinu ako je već instalirana"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Nadogradi RPM datoteku paketa (ili instaliraj ako nije prisutna)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Nadogradi ili instaliraj lokalnu/udaljenu datoteku paketa (.pkg.tar.zst)"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Koristi sklopive blokove (&lt;details&gt;) za izlaze dulje od 15 redaka"
+
+# 
+msgid "Use a long listing format"
+msgstr "Koristi dugi format ispisa"
+
+# 
+msgid "Use archive file or device"
+msgstr "Koristi datoteku arhive ili uređaj"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Koristi direktorij kao vršni korijen za RPM operacije"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Udaljeni korisnik"
+
+# 
+msgid "Usuário SSH:"
+msgstr "SSH korisnik:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Provjeri i priloži"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Provjeri trenutačno stanje servisa i ovisnosti"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Provjeri je li servis '{svc}' aktivan"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Provjeri je li servis '{svc}' omogućen pri pokretanju"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Provjeri je li servis '{svc}' zaustavljen"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Provjeri određeni paket u odnosu na .rpm datoteku"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Provjeri cjelovitost svih instaliranih RPM paketa u odnosu na bazu podataka"
+
+# 
+msgid "Versão"
+msgstr "Verzija"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Prikaži pripremljene promjene za sljedeći commit"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Pregledava sistemske zapisnike pomoću journalctl"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Pregledava, uređuje i vraća sve tipkovničke prečace za OnyxSH"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Preglednik objedinjenog diffa (Prije i Poslije):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Prikaz mreže / minijatura"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Prikaz mreže ikona omogućen"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Detaljni prikaz popisa omogućen"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "Nemate dopuštenje za izmjenu '{name}'. Želite li spremiti s administratorskim (Root) ovlastima?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "Imate nespremljene promjene u '{fname}'. Što želite učiniti prije zatvaranja?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "Imate nespremljene promjene u ovoj datoteci koje će biti izgubljene. Želite li ih doista odbaciti?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Povratak na prethodnu karticu (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Čekanje uzorka..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Zapiši izlaz u lokalnu datoteku nazvanu kao udaljena"
+
+# 
+msgid "You: "
+msgstr "Vi: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Uvećanje vraćeno (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[ZAKLJUČAK I NAPOMENE]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Binarni ili nedostupni sadržaj]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Nije moguće pročitati datoteku zapisnika]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[CILJ / KONTEKST]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[IZVRŠENI KORACI ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Rizik: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Otkriven rizik"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Provjereno"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` je završio za {secs}s."
+
+# 
+msgid "linha"
+msgstr "redak"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "Alat za upravljanje paketima za openSUSE / SLES"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} naredbi • Kliknite za proširenje/smanjenje"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} naredbi"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} redaka"
+
+# 
+msgid "{count} regras"
+msgstr "{count} pravila"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} rezultata"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} logičkih jezgri)"
+
+# 
+msgid "{days} days"
+msgstr "{days} dana"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} h"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} redaka • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} min"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Kopija)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (temeljeno na {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Priložena datoteka]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "API ključ za {provider} uspješno je konfiguriran."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Odluka: {decision} | Status: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "{type} tunel"
+
+# 
+msgid "Ícone:"
+msgstr "Ikona:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "OnyxSH ikone (Ugrađene)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Preuzmi / Kopiraj"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Prenesi / Kopiraj"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Pokreni   •   Tab Umetni u upit   •   ⭐ Favorit   •   Esc Zatvori"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Idi na karticu / Pokreni • ↑/↓ Kreći se • Esc Zatvori"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Atomsko vraćanje"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ Upozorenje ProductionGuard ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Presretnuta destruktivna naredba ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ Na sporijim računalima obrada uzoraka boja može blago smanjiti odziv kod vrlo opsežnih izlaza."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ Izvoz terminala OnyxSH"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Isječci"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Naredba dovršena"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Kopirano!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Izvršeno"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Atomsko vraćanje dovršeno: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Naredba nije uspjela (Izlaz {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ HASH SE NE PODUDARA! Zalijepljena vrijednost{hint} razlikuje se od izračunatih sažetaka datoteke. Datoteka je možda oštećena ili izmijenjena."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ POVIJEST"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Mrežni način je aktivan.\nKliknite za uključivanje strogo lokalnog izvanmrežnog načina."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Sve"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Cilj / Kontekst"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Zaključak i naučene lekcije"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Vi:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Vi{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Bilješka:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Napomena: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Trenutačni direktorij"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x izvođenja"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Izmijenjeno:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Analiziraj zauzeće diska"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Kopiraj pročišćeno izvješće"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Kopiraj izlaz"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Sigurno priloženo: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Povijest"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Preliminarna zapažanja"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Emitiranje (🛡️ ProductionGuard aktivan):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Naredba emitirana u {count} terminal(a)."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Veličina:</b> {size} <span alpha='70%'>({bytes} bajtova)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Vrsta:</b> Mapa / Direktorij"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 Instaliraj {bin}"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}s"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 SSH sesije"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 Provjeri git status"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Provjera nakon izvršavanja: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Dopuštenja:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Probna obavijest poslana na radnu površinu."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Putanja:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Visoki rizik (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ Kartice terminala"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Kritično upozorenje — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Emitiranje blokirao ProductionGuard: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard je BLOKIRAO čitanje: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ PRODUKCIJSKI NAČIN AKTIVAN — ProductionGuard presreće destruktivne naredbe (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Strogo izvanmrežni način aktivan (Zero Cloud).\nKliknite za prebacivanje u mrežni način."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Izvanmrežno (Lokalno)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Sigurnost"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Sigurna naredba"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Ruta: {route}"
+

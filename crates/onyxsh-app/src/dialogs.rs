@@ -2,6 +2,7 @@
 //! (`src/onyxsh/ui/quick_connect_dialog.py`, `session_dialog.py`, `tunnels_dialog.py`,
 //! `snippet_dialog.py`, `preferences.py`).
 
+use onyxsh_core::i18n::tr;
 use onyxsh_core::security::{is_valid_host, is_valid_port, is_valid_username};
 use onyxsh_core::snippets::{extract_variables, resolve_template, SnippetVariable};
 use onyxsh_terminal::tunnel_manager::SshTunnel;
@@ -20,10 +21,10 @@ pub struct QuickConnectDialogState {
 
 impl QuickConnectDialogState {
     /// Parses `[user@]host[:port]` and validates according to RFC-1123 and SSH username rules.
-    pub fn parse_and_validate(target: &str, default_port: u16) -> Result<Self, &'static str> {
+    pub fn parse_and_validate(target: &str, default_port: u16) -> Result<Self, String> {
         let trimmed = target.trim();
         if trimmed.is_empty() {
-            return Err("Host cannot be empty");
+            return Err(tr("Host cannot be empty"));
         }
 
         let (user_part, host_port_part) = match trimmed.rsplit_once('@') {
@@ -33,15 +34,15 @@ impl QuickConnectDialogState {
 
         if let Some(u) = user_part {
             if !is_valid_username(u) {
-                return Err("Invalid SSH username");
+                return Err(tr("Invalid SSH username"));
             }
         }
 
         let (host_str, port) = match host_port_part.rsplit_once(':') {
             Some((h, p_str)) if !h.contains(':') => {
-                let p = p_str.parse::<u16>().map_err(|_| "Invalid port number")?;
+                let p = p_str.parse::<u16>().map_err(|_| tr("Invalid port number"))?;
                 if !is_valid_port(p as u32) {
-                    return Err("Port out of valid range (1..=65535)");
+                    return Err(tr("Port out of valid range (1..=65535)"));
                 }
                 (h.trim(), p)
             }
@@ -49,7 +50,7 @@ impl QuickConnectDialogState {
         };
 
         if !is_valid_host(host_str) {
-            return Err("Invalid hostname or IP address");
+            return Err(tr("Invalid hostname or IP address"));
         }
 
         Ok(Self {
@@ -106,12 +107,12 @@ pub struct TunnelDialogState {
 }
 
 impl TunnelDialogState {
-    pub fn build_tunnel(&self, id: &str) -> Result<SshTunnel, &'static str> {
+    pub fn build_tunnel(&self, id: &str) -> Result<SshTunnel, String> {
         if !is_valid_host(&self.remote_host) {
-            return Err("Invalid remote host");
+            return Err(tr("Invalid remote host"));
         }
         if !is_valid_port(self.local_port as u32) {
-            return Err("Invalid local port");
+            return Err(tr("Invalid local port"));
         }
         Ok(SshTunnel {
             id: id.to_string(),

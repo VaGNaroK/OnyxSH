@@ -1,6 +1,7 @@
 //! Heuristic Error Pattern Matcher and Zero-Latency Quick-Fix Engine.
 //! Port of `src/onyxsh/agent/error_matcher.py`.
 
+use onyxsh_core::i18n::{tr, tr_fmt};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::sync::OnceLock;
@@ -95,17 +96,14 @@ pub fn match_terminal_error(
     let has_sudo = cmd.starts_with("sudo ") || cmd.starts_with("pkexec ") || cmd.starts_with("doas ");
     if re.perm_re.is_match(&combined) {
         let (qf_cmd, qf_label) = if !has_sudo && !cmd.is_empty() {
-            (
-                Some(format!("sudo {cmd}")),
-                Some("⚡ Executar com sudo".to_string()),
-            )
+            (Some(format!("sudo {cmd}")), Some(tr("⚡ Executar com sudo")))
         } else {
-            (None, Some("🤖 Diagnosticar com IA".to_string()))
+            (None, Some(tr("🤖 Diagnosticar com IA")))
         };
         return Some(ErrorMatch {
             category: ErrorCategory::PermissionDenied,
-            title: "Permissão Negada".to_string(),
-            description: "O comando falhou por falta de privilégios de superusuário (root).".to_string(),
+            title: tr("Permissão Negada"),
+            description: tr("O comando falhou por falta de privilégios de superusuário (root)."),
             quick_fix_command: qf_cmd,
             quick_fix_label: qf_label,
             extracted_target: None,
@@ -127,10 +125,13 @@ pub fn match_terminal_error(
         };
         return Some(ErrorMatch {
             category: ErrorCategory::CommandNotFound,
-            title: "Comando Não Encontrado".to_string(),
-            description: format!("O binário '{missing_bin}' não está instalado ou fora do $PATH."),
+            title: tr("Comando Não Encontrado"),
+            description: tr_fmt(
+                "O binário '{bin}' não está instalado ou fora do $PATH.",
+                &[("bin", missing_bin)],
+            ),
             quick_fix_command: Some(install_cmd),
-            quick_fix_label: Some(format!("📦 Instalar {missing_bin}")),
+            quick_fix_label: Some(tr_fmt("📦 Instalar {bin}", &[("bin", missing_bin)])),
             extracted_target: Some(missing_bin.to_string()),
             exit_code,
             command: cmd.to_string(),
@@ -146,10 +147,13 @@ pub fn match_terminal_error(
             .unwrap_or("8080");
         return Some(ErrorMatch {
             category: ErrorCategory::PortInUse,
-            title: "Porta Já em Uso".to_string(),
-            description: format!("A porta {port} já está alocada por outro processo."),
+            title: tr("Porta Já em Uso"),
+            description: tr_fmt(
+                "A porta {port} já está alocada por outro processo.",
+                &[("port", port)],
+            ),
             quick_fix_command: Some(format!("sudo ss -tulpn | grep :{port}")),
-            quick_fix_label: Some(format!("🔍 Inspecionar porta {port}")),
+            quick_fix_label: Some(tr_fmt("🔍 Inspecionar Porta {port}", &[("port", port)])),
             extracted_target: Some(port.to_string()),
             exit_code,
             command: cmd.to_string(),
@@ -160,10 +164,10 @@ pub fn match_terminal_error(
     if re.space_re.is_match(&combined) {
         return Some(ErrorMatch {
             category: ErrorCategory::NoSpaceLeft,
-            title: "Disco Cheio (ENOSPC)".to_string(),
-            description: "Não há espaço livre suficiente no sistema de arquivos.".to_string(),
+            title: tr("Disco Cheio (ENOSPC)"),
+            description: tr("Não há espaço livre suficiente no sistema de arquivos."),
             quick_fix_command: Some("df -h && du -sh * 2>/dev/null | sort -hr | head -n 10".to_string()),
-            quick_fix_label: Some("📊 Analisar uso de disco".to_string()),
+            quick_fix_label: Some(tr("📊 Analisar uso de disco")),
             extracted_target: None,
             exit_code,
             command: cmd.to_string(),
@@ -174,10 +178,10 @@ pub fn match_terminal_error(
     if re.git_re.is_match(&combined) {
         return Some(ErrorMatch {
             category: ErrorCategory::GitError,
-            title: "Erro de Repositório Git".to_string(),
-            description: "Conflito ou falha de sincronização no repositório Git.".to_string(),
+            title: tr("Erro de Repositório Git"),
+            description: tr("Conflito ou falha de sincronização no repositório Git."),
             quick_fix_command: Some("git status".to_string()),
-            quick_fix_label: Some("🔍 Verificar git status".to_string()),
+            quick_fix_label: Some(tr("🔍 Verificar git status")),
             extracted_target: None,
             exit_code,
             command: cmd.to_string(),
@@ -186,10 +190,13 @@ pub fn match_terminal_error(
 
     Some(ErrorMatch {
         category: ErrorCategory::GenericError,
-        title: format!("Comando falhou (código {exit_code})"),
-        description: "O comando encerrou com código de erro.".to_string(),
+        title: tr_fmt(
+            "Comando falhou (código {code})",
+            &[("code", &exit_code.to_string())],
+        ),
+        description: tr("O comando encerrou com código de erro."),
         quick_fix_command: None,
-        quick_fix_label: Some("🤖 Diagnosticar com IA".to_string()),
+        quick_fix_label: Some(tr("🤖 Diagnosticar com IA")),
         extracted_target: None,
         exit_code,
         command: cmd.to_string(),

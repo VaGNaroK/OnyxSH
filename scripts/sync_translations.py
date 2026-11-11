@@ -14826,6 +14826,7 @@ trans_modules = [
     ("docker_trans", "DOCKER_TRANSLATIONS"),
     ("git_trans", "GIT_TRANSLATIONS"),
     ("pacman_trans", "PACMAN_TRANSLATIONS"),
+    ("rust_ui_trans", "RUST_UI_TRANSLATIONS"),
 ]
 
 for mod_name, dict_name in trans_modules:
@@ -14974,26 +14975,220 @@ def compile_mo_files() -> int:
     return count
 
 
-def main() -> None:
-    print("🌐 Sincronizando traduções em todos os 28 idiomas...")
-    total_added = 0
-    files_updated = 0
+import argparse
+import re
 
-    for po_file in sorted(LOCALE_DIR.glob("*.po")):
-        added = sync_language_po(po_file)
-        if added > 0:
-            files_updated += 1
-            total_added += added
-            print(f"  ✓ {po_file.name}: +{added} chaves traduzidas")
-        else:
-            print(f"  ✓ {po_file.name}: já sincronizado")
+_RUST_TR_CALL_RE = re.compile(
+    r'\b(?:tr|tr_fmt)\s*\(\s*(?:r#"((?:[^"]|"(?!#))*)"#|r"([^"]*)"|"((?:[^"\\]|\\.)*)")',
+    re.DOTALL,
+)
+_RUST_TR_N_RE = re.compile(
+    r'\btr_n\s*\(\s*"((?:[^"\\]|\\.)*)"\s*,\s*"((?:[^"\\]|\\.)*)"',
+    re.DOTALL,
+)
 
-    print(f"\n📊 Total: {files_updated} arquivos .po atualizados com {total_added} novas traduções.")
 
-    print("\n🔨 Compilando catálogos binários .mo...")
-    compiled_count = compile_mo_files()
-    print(f"✅ {compiled_count} catálogos .mo compilados com sucesso.")
+def _unescape_rust_str(raw: str) -> str:
+    return (
+        raw.replace('\\"', '"')
+        .replace("\\n", "\n")
+        .replace("\\t", "\t")
+        .replace("\\r", "\r")
+        .replace("\\\\", "\\")
+    )
+
+
+def _extract_dynamic_rust_keys(root: Path) -> Dict[str, List[str]]:
+    """Extract UI/spec strings stored in static Rust tables and passed dynamically to `tr(...)`."""
+    found: Dict[str, List[str]] = {}
+
+    def _add(rel: str, key: str) -> None:
+        if key:
+            found.setdefault(key, []).append(rel)
+
+    cfg_path = root / "onyxsh-core" / "src" / "config.rs"
+    if cfg_path.is_file():
+        rel = str(cfg_path.relative_to(REPO_ROOT))
+        cfg_txt = cfg_path.read_text(encoding="utf-8")
+        if "pub fn shortcut_groups()" in cfg_txt and "pub fn accelerator_to_label" in cfg_txt:
+            blk = cfg_txt.split("pub fn shortcut_groups()", 1)[1].split("pub fn accelerator_to_label", 1)[0]
+            for m in re.finditer(r'"([^"]+)",\s*\n\s*vec!\[', blk):
+                _add(rel, m.group(1))
+            for m in re.finditer(r'\("[^"]+",\s*"([^"]+)"\)', blk):
+                _add(rel, m.group(1))
+
+    cmd_path = root / "onyxsh-app" / "src" / "command_manager_ui.rs"
+    if cmd_path.is_file():
+        rel = str(cmd_path.relative_to(REPO_ROOT))
+        cmd_txt = cmd_path.read_text(encoding="utf-8")
+        if "pub fn default_command_buttons()" in cmd_txt and "pub fn load_command_buttons" in cmd_txt:
+            blk = cmd_txt.split("pub fn default_command_buttons()", 1)[1].split("pub fn load_command_buttons", 1)[0]
+            for field in ("name:", "description:", "category:", "label:"):
+                for m in re.finditer(rf'\b{field}\s*"([^"]+)"', blk):
+                    _add(rel, m.group(1))
+            for m in re.finditer(r'CommandParamField::new\([^,]+,\s*"([^"]+)"', blk):
+                _add(rel, m.group(1))
+
+    fm_lib = root / "onyxsh-filemanager" / "src" / "lib.rs"
+    if fm_lib.is_file():
+        rel = str(fm_lib.relative_to(REPO_ROOT))
+        fm_txt = fm_lib.read_text(encoding="utf-8")
+        if "pub fn type_description" in fm_txt and "pub fn formatted_permissions" in fm_txt:
+            blk = fm_txt.split("pub fn type_description", 1)[1].split("pub fn formatted_permissions", 1)[0]
+            for m in re.finditer(r'(?:return|=>)\s*"([^"]+)"', blk):
+                _add(rel, m.group(1))
+
+    pg_path = root / "onyxsh-terminal" / "src" / "production_guard.rs"
+    if pg_path.is_file():
+        rel = str(pg_path.relative_to(REPO_ROOT))
+        pg_txt = pg_path.read_text(encoding="utf-8")
+        if "let file_delete =" in pg_txt and "let wrappers =" in pg_txt:
+            pg_blk = pg_txt.split("let file_delete =", 1)[1].split("let wrappers =", 1)[0]
+            for m in re.finditer(r',\s*\n\s*"([^"]+)"', pg_blk):
+                _add(rel, m.group(1))
+        if "categories: vec![" in pg_txt and "wrapper_regexes," in pg_txt:
+            cat_blk = pg_txt.split("categories: vec![", 1)[1].split("wrapper_regexes,", 1)[0]
+            for m in re.finditer(r'\(\s*"([^"]+)"\s*,', cat_blk):
+                _add(rel, m.group(1))
+
+    comp_path = root / "onyxsh-terminal" / "src" / "completion.rs"
+    if comp_path.is_file():
+        rel = str(comp_path.relative_to(REPO_ROOT))
+        comp_txt = comp_path.read_text(encoding="utf-8").split("#[cfg(test)]", 1)[0]
+        for m in re.finditer(r'OptionSpec::new\(\s*&\[[^\]]+\]\s*,\s*"([^"]+)"\s*,?\s*\)', comp_txt):
+            _add(rel, m.group(1))
+        for m in re.finditer(r'(?:SubcommandSpec|CommandSpec)::new\(\s*"[^"]+"\s*,\s*"([^"]+)"\s*,?\s*\)', comp_txt):
+            _add(rel, m.group(1))
+
+    tun_path = root / "onyxsh-terminal" / "src" / "tunnel_manager.rs"
+    if tun_path.is_file():
+        rel = str(tun_path.relative_to(REPO_ROOT))
+        tun_txt = tun_path.read_text(encoding="utf-8")
+        if "pub fn type_label" in tun_txt:
+            blk = tun_txt.split("pub fn type_label", 1)[1].split("}", 1)[0]
+            for m in re.finditer(r'=>\s*"([^"]+)"', blk):
+                _add(rel, m.group(1))
+
+    for rel_sub in ("onyxsh-app/src/export_dialog.rs", "onyxsh-app/src/preferences_ui.rs"):
+        p = root / rel_sub
+        if p.is_file():
+            rel = str(p.relative_to(REPO_ROOT))
+            txt = p.read_text(encoding="utf-8").split("#[cfg(test)]", 1)[0]
+            for m in re.finditer(r'\(\s*"[a-z_]+"\s*,\s*"([^"]+)"\s*\)', txt):
+                _add(rel, m.group(1))
+
+    return found
+
+
+def extract_rust_tr_keys(crates_dir: Path | None = None) -> Dict[str, List[str]]:
+    """Scan all `.rs` source files (outside `#[cfg(test)]`) for `tr`/`tr_fmt`/`tr_n` and table keys."""
+    root = crates_dir or (REPO_ROOT / "crates")
+    found: Dict[str, List[str]] = {}
+    if not root.is_dir():
+        return found
+
+    for rs_file in sorted(root.rglob("*.rs")):
+        text = rs_file.read_text(encoding="utf-8")
+        non_test = text.split("#[cfg(test)]", 1)[0]
+        # Strip single-line comments so doc comments/examples do not cause false positives
+        cleaned = re.sub(r"//[^\n]*", "", non_test)
+        rel = str(rs_file.relative_to(REPO_ROOT))
+
+        for m in _RUST_TR_CALL_RE.finditer(cleaned):
+            if m.group(1) is not None:
+                key = m.group(1)
+            elif m.group(2) is not None:
+                key = m.group(2)
+            else:
+                key = _unescape_rust_str(m.group(3) or "")
+            if key:
+                found.setdefault(key, []).append(rel)
+
+        for m in _RUST_TR_N_RE.finditer(cleaned):
+            for grp in (m.group(1), m.group(2)):
+                key = _unescape_rust_str(grp)
+                if key:
+                    found.setdefault(key, []).append(rel)
+
+    for key, rels in _extract_dynamic_rust_keys(root).items():
+        for rel in rels:
+            found.setdefault(key, []).append(rel)
+
+    return found
+
+
+def audit_rust_translations(strict: bool = False) -> int:
+    """Verify every Rust `tr(...)` / `tr_fmt(...)` key exists across all 28 `.po` files."""
+    keys = extract_rust_tr_keys()
+    po_files = sorted(LOCALE_DIR.glob("*.po"))
+    missing_by_lang: Dict[str, List[str]] = {}
+
+    for po_file in po_files:
+        _, entries = _parse_po_content(po_file)
+        po_map = {mid: mstr for _, mid, mstr in entries if mid}
+        missing = [k for k in sorted(keys) if k not in po_map or not po_map[k]]
+        if missing:
+            missing_by_lang[po_file.stem] = missing
+
+    print(f"🦀 Chaves encontradas em crates/: {len(keys)} únicas")
+    if not missing_by_lang:
+        print(f"✅ Todas as {len(keys)} chaves Rust estão presentes e traduzidas nos {len(po_files)} idiomas!")
+        return 0
+
+    for lang, missing in sorted(missing_by_lang.items()):
+        preview = ", ".join(repr(m) for m in missing[:5])
+        suffix = f" (+{len(missing) - 5} mais)" if len(missing) > 5 else ""
+        print(f"  ⚠️  {lang}.po: {len(missing)} chave(s) ausente(s)/vazia(s): {preview}{suffix}")
+    return 1 if strict else 0
+
+
+def main(argv: List[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="OnyxSH 28-language translation sync & compiler")
+    parser.add_argument(
+        "--compile-only",
+        action="store_true",
+        help="Only compile .po catalogs into .mo files without editing .po files",
+    )
+    parser.add_argument(
+        "--audit-rust",
+        action="store_true",
+        help="Scan Rust crates/ for tr(...) / tr_fmt(...) keys and verify 28-language .po coverage",
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Exit with code 1 if --audit-rust finds any missing or untranslated keys",
+    )
+    args = parser.parse_args(argv)
+
+    if args.compile_only:
+        print("🔨 Compilando catálogos binários .mo...")
+        compiled_count = compile_mo_files()
+        print(f"✅ {compiled_count} catálogos .mo compilados com sucesso.")
+    elif not args.audit_rust:
+        print("🌐 Sincronizando traduções em todos os 28 idiomas...")
+        total_added = 0
+        files_updated = 0
+
+        for po_file in sorted(LOCALE_DIR.glob("*.po")):
+            added = sync_language_po(po_file)
+            if added > 0:
+                files_updated += 1
+                total_added += added
+                print(f"  ✓ {po_file.name}: +{added} chaves traduzidas")
+            else:
+                print(f"  ✓ {po_file.name}: já sincronizado")
+
+        print(f"\n📊 Total: {files_updated} arquivos .po atualizados com {total_added} novas traduções.")
+
+        print("\n🔨 Compilando catálogos binários .mo...")
+        compiled_count = compile_mo_files()
+        print(f"✅ {compiled_count} catálogos .mo compilados com sucesso.")
+
+    if args.audit_rust:
+        return audit_rust_translations(strict=args.strict)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

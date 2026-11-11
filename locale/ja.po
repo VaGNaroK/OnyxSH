@@ -17119,3 +17119,4099 @@ msgstr "🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Sempre Avançado (Raciocínio)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} 件のシークレットを非表示)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ OnyxSH ターミナルエクスポート"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 目的 / コンテキスト"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 結論と学んだ教訓"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 事前のメモ"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 ステップごとの実行"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 セッション情報"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(出力は生成されませんでした)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*OnyxSH ランブックによって自動生成されたドキュメント。*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*このドキュメントに選択された手順はありません。*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **日時:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **ホスト:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **オペレーター / 作成者:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **セッション:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **ステータス:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **記録された合計ステップ数:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- 出力 ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (残りの出力はプレビューで省略されました)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — デバイス読み取り / 書き込み"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable と Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30種類のカラースキーム、出力ハイライト、コマンドごとのルール"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>親ディレクトリへ移動 (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **メモ:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "ポート {port} は既に別のプロセスに割り当てられています。"
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "タブ #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "AI アシスタント: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "タブを閉じました。"
+
+# 
+msgid "Abaixo"
+msgstr "下"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "現在の競合解決を中止"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "リベースを中止して元のブランチに戻る"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "アクティブなタブで正規表現/リテラル検索バーを開きます (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "SSH ホストへの接続時にこのトンネルを自動的に開きます"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "新しいローカルターミナルを開きます (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "実行中の Docker コンテナ内で対話型シェルを開きます"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "リンクを開いています: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "リソースモニターを開く (Cairo スパークライン)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "フォルダーを開く"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "外部アプリケーションで開く"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "このディレクトリをターミナルで開く (cd)"
+
+# 
+msgid "Acima"
+msgstr "上"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Docker コンテナのログをリアルタイムで追跡します"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "systemd ユニットのログをリアルタイムで追跡します"
+
+# 
+msgid "Active"
+msgstr "アクティブ"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "upstream 追跡参照を追加"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "新しい SSH トンネルを追加"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "カスタムスキームを追加"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "カテゴリ別にグループ化 (.7z を先頭に)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "コンテナの stdin に接続された pseudo-TTY を割り当てる"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "古いパッケージバージョンへのダウングレードを許可する"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "安全でない TLS 接続を許可する"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "アトミックバックアップを伴う監査済み変更が作成されました。"
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Zero-Trust AI アシスタントを切り替え"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "2ペインファイルマネージャーを切り替え"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "編集モードを切り替え (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "デュアルペインを切り替え (分割 / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "SSH セッションサイドパネルを切り替え"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Flatpak 環境"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "本番環境 (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "本番環境 — ProductionGuard により保護"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "現在のブランチの先端を修正 (amend)"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "ログファイル '{name}' の以下の最近のメッセージとエラーを分析し、根本原因の診断と推奨される解決策を提示してください:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "プロジェクトを分析し、OpenCode で必要な修正を作成してください。"
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "現在のパッケージを分析してエラーを報告する"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "ファイルを添付 (PathGuard 検証)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "コンテキストにファイルを添付 (PathGuard により検証済み)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "リクエストの分析が完了しました (`SecretRedactor` および `<untrusted>` 分離が適用されました)。\n\n推奨コマンド:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "AI アシスタントに分析をリクエストしました。"
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "'cat' コマンドの出力にシンタックスハイライトを適用します"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "実行中のコマンドを検出するとコンテキストルールを自動的に適用します"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "SSH 接続に出力ハイライトを適用する"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "ローカルターミナルセッションに出力ハイライトを適用する"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "アプリケーション & ウィンドウ"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "アプリケーションまたは ID"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "スタッシュされた状態を適用し、スタッシュ一覧に保持する"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "スタッシュされた状態を適用し、スタッシュ一覧から削除する"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "承認して実行"
+
+# 
+msgid "Aproximar"
+msgstr "ズームイン"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Arch Linux / Manjaro パッケージマネージャーユーティリティ"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "アーカイブモード（パーミッション、タイムスタンプ、シンボリックリンクを保持）"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "前のファイル (上矢印 / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "バイナリファイル: {name}\nパス: {path}\nサイズ: {size}\nパーミッション: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "アーカイブファイル"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "転送用にファイルをコピーしました: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "ファイルを作成しました: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "データファイル"
+
+# 
+msgid "Arquivo de Log"
+msgstr "ログ ファイル"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "動画ファイル"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "音声ファイル"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "ファイルを削除しました: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "移動対象としてマークされたファイル: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "ディスクからファイルを再読み込みしました。"
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "ファイル名を '{name}' に変更しました"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "ロールバック後にファイルを復元しました: {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "管理者 (Root) 権限でファイルを保存しました！"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "管理者 (Root) 権限でファイルを正常に保存しました！"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "ファイルを保存しました！"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "ファイル: {name} (サイズ: {size} バイト)\n抜粋:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "カテゴリ別にグループ化されたファイル (.7z を先頭に)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "更新日時順に並べ替えられたファイル"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "名前順に並べ替えられたファイル"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "サイズ順に並べ替えられたファイル"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "種類 / 拡張子順に並べ替えられたファイル"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "ソースファイル/フォルダー"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "OpenCode コードアシスタント"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Zero-Trust AI アシスタント"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "AI アシスタントが接続されていません。"
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "リスクを受け入れて実行"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "ショートカット '{name}' を {label} に更新しました"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "ショートカット '{name}' を削除しました。"
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "キーボードショートカット (34 個の設定可能なアクション)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "システムショートカットとお気に入り"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "本番環境シールドを有効化 / 無効化 (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "'cat' のカラー表示を有効にする"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "シェル入力ハイライトを有効にする"
+
+# 
+msgid "Ativar Todos"
+msgstr "すべて有効にする"
+
+# 
+msgid "Ativo"
+msgstr "アクティブ"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "アクティブ ({src} で待機中)"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "現在: {curr}\n新しい: (キーを押す)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "現在: {curr}\n新しい: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "現在: {curr}\n新しい: {new} ({conflict}と競合しています)"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "更新 (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "リストを更新 (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "AI でセキュリティを監査"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "AI でこのディレクトリのセキュリティを監査"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "'{name}' のセキュリティ監査を AI アシスタントに送信しました。"
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "ディレクトリ '{path}' の監査を AI アシスタントに送信しました。"
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "フォントサイズを拡大 (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "認証:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "自動: ターミナルの背景に適応。手動: 固定テーマ。"
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "自動: 背景とのコントラストを自動検出"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "自動補完: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "スマート自動補完 (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "スマート自動補完 — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "自動補完を適用しました: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "自動的に「はい」と応答"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "不要な依存関係を自動的に削除"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "手動確認を必要とせず、読み取り専用の診断を自動的に実行します。"
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "次のタブへ移動 (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "アクション"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "SHA-256 バックアップを作成しました ({count} ファイル): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "SHA-256 バックアップを保存しました ({count} ファイル): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "{path} にバックアップが見つかりません"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "バックアップを正常に復元しました ({count} ファイルを SHA-256 で検証済み)。"
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "同時実行バー (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "xargs による一括削除 (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "ブロックしてキャンセル (推奨)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "ブロードキャスト送信済み: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "すべてにブロードキャスト"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "ワークスペース内のすべてのパッケージをビルド"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "リリースモードで成果物をビルド"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "最適化を有効にしてリリースモードで成果物をビルド"
+
+# 
+msgid "Busca"
+msgstr "検索"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "グローバルマルチタブ検索 / 履歴"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "グローバルマルチタブ検索 / セッション / 履歴"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "タブ・セッション・履歴・スニペットのグローバル検索 (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "グローバル検索がプロンプトに挿入しました: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "OnyxSH グローバル検索 (Ctrl+Shift+G) — タブ・セッション・履歴・スニペット"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "グローバル検索: タブ #{tab} にフォーカス"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "高度なフィルターでファイルやディレクトリを検索"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "ディレクトリ、ホスト、お気に入りによるあいまい検索 (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "ターミナル内を検索 (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "現在のターミナル内を検索"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "セッションまたはホストを検索..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "ターミナル内のテキストを検索..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "確認プロンプトをバイパス"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ ヘッダー"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "バックグラウンドでハッシュを計算中..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "パスをコピーしました: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "フォルダーパス (例: 本番 または Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "ファイルパス (例: ブロックをテストする場合は /var/log/syslog または ~/.ssh/id_rsa):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "パスをターミナルに挿入しました: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "大文字・小文字を区別しないファイル名パターン"
+
+# 
+msgid "Categoria"
+msgstr "カテゴリ"
+
+# 
+msgid "Categoria:"
+msgstr "カテゴリ:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "操作を実行する前にディレクトリを変更"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "SSH 鍵 / パスワード:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr ".rpm ファイルの GPG 署名と整合性を確認"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "インストールせずに利用可能なパッケージのアップグレードを確認"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "一般的なミスを検出するためにパッケージをチェックします"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "チェックサムと整合性検証 — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "高速なクラウドプロバイダーまたはローカルサーバーから選択してください。"
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "すべてのパッケージキャッシュを消去 (ダウンロード済みのすべてのパッケージを削除)"
+
+# 
+msgid "Clean local caches"
+msgstr "ローカルキャッシュを消去"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "パッケージキャッシュを消去 (古いダウンロード済みパッケージを削除)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "クリックしてキーボードショートカットを変更"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "クリックして新しいタブで接続 (およびこのセッションを選択)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "クリックして各権限レベルで許可または制限される内容を確認"
+
+# 
+msgid "Colar"
+msgstr "貼り付け"
+
+# 
+msgid "Colar Aqui"
+msgstr "ここに貼り付け"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "このフォルダー内に貼り付け"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "真正性を確認するには、上に MD5、SHA-1、SHA-256、または SHA-512 ハッシュを貼り付けてください。"
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "ターミナルで入力中にリアルタイムでコマンドに色を付けます"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "エラー、警告、IP などのターミナル出力のパターンに色を付けます。ルールが多すぎると非常に長い出力に影響する場合があります。"
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "cat コマンドの色付け"
+
+# 
+msgid "Comando ({cat})"
+msgstr "コマンド ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "コマンド / テンプレート:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "ログイン後コマンド:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "コマンドをクリップボードにコピーしました。"
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "本番コマンドがオペレーターによって評価されました。"
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "ターミナルにコマンドを送信しました: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "コマンドを送信しました: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "履歴からコマンドを実行しました: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "パレット経由でコマンドを実行しました: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "コマンドが失敗しました (コード {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "コマンドをプロンプトに挿入しました: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "長時間コマンドが正常に完了しました (exit 0 • 12.4s)。"
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "ターミナルの色に合わせる"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "コマンドパレット (Ctrl+Shift+P) — 統合検索"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "コマンドパレット — 統合検索 (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "圧縮"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "整合性比較ツール"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "ディレクトリを比較 / 同期 (左 ⇄ 右)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "デュアルペイン比較: {identical} 一致 | {left_only} 左のみ | {right_only} 右のみ | {diff} サイズ相違"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Git およびレガシーリポジトリとの互換性"
+
+# 
+msgid "Compile the current package"
+msgstr "現在のパッケージをコンパイル"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "転送中にファイルデータを圧縮"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "結論と教訓"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "セッションに接続しました: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "グローバル検索経由で接続中: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "コマンドパレット経由で接続中: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "分割ペインで接続 (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "接続: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "AI アシスタントを設定..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "このコマンドのルールを設定"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "AI アシスタントの設定 — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "展開済みだが未設定のすべてのパッケージを設定"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "展開済みのパッケージを設定"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "再設定せずにプロバイダーを切り替えられるよう個別のキーを設定します"
+
+# 
+msgid "Confirm"
+msgstr "確認"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "削除の確認"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Git リポジトリで競合または同期エラーが発生しました。"
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "コンテキストウィンドウサイズ (トークン)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "コンテンツをクリップボードにコピーしました。"
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "競合の解決後にリベースを続行"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "履歴から会話を読み込みました。"
+
+# 
+msgid "Copiado para {path}"
+msgstr "{path} にコピーしました"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "ファイルをコピー"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "親ディレクトリのパスをコピー"
+
+# 
+msgid "Copiar Pasta"
+msgstr "フォルダーをコピー"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "選択項目を右ペインにコピー (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "選択項目を左ペインにコピー (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "ローカルアドレスをコピー (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "クリップボードにコピー"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "詳細レポートを Markdown 形式でコピー"
+
+# 
+msgid "Cores e Destaques"
+msgstr "色とハイライト"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "ターミナルの色とハイライト"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "標準ターミナル色 (0-7 通常、8-15 高輝度)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "fast-forward 時でもマージコミットを作成"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "履歴を切り詰めたシャロークローンを作成"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "詳細出力付きで gzip 圧縮された tar アーカイブを作成"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "ファイルやフォルダから圧縮アーカイブを作成します"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "パラメータ付きコマンドボタンを作成・編集します (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Git リポジトリで新しいローカルブランチを作成して切り替えます"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "AuditLogger でのアトミックバックアップ付きで /tmp にテストファイルを作成します"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "アクティブなスキームに基づいてカスタムカラースキームを作成します"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "設定のバックアップを作成 (SHA-256 バンドル)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "新しい Git ブランチを作成"
+
+# 
+msgid "Criar Sessão"
+msgstr "セッションを作成"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "SSH 経由でポートを転送するローカル (-L)、リモート (-R)、または動的 SOCKS5 (-D) トンネルを作成します。"
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "チェックサムの計算がユーザーによってキャンセルされました。"
+
+# 
+msgid "Código Fonte C"
+msgstr "C ソースコード"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ ソースコード"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go ソースコード"
+
+# 
+msgid "Código Rust"
+msgstr "Rust コード"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "アクティブなターミナルにコードを挿入しました。"
+
+# 
+msgid "Código-Fonte"
+msgstr "ソースコード"
+
+# 
+msgid "Cópia de {name}"
+msgstr "{name} のコピー"
+
+# 
+msgid "Data de Modificação"
+msgstr "更新日時"
+
+# 
+msgid "Date / Time"
+msgstr "日付 / 時刻"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "日付: {date} | サイズ: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Debian 低レベルパッケージマネージャー (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "デフォルトの API キー"
+
+# 
+msgid "Default Model Identifier"
+msgstr "デフォルトのモデル識別子"
+
+# 
+msgid "Default Provider"
+msgstr "デフォルトのプロバイダー"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "マルチコンテナアプリケーションを定義して実行します"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "次のファイルの権限を設定: {name}\n現在: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "ファイアウォールルールを削除"
+
+# 
+msgid "Delete a merged branch"
+msgstr "マージ済みブランチを削除"
+
+# 
+msgid "Desativar Todos"
+msgstr "すべて無効化"
+
+# 
+msgid "Descrição:"
+msgstr "説明:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Shell 入力のハイライト"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "コマンド入力時のリアルタイム構文ハイライト"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "'cat' コマンド出力の構文ハイライト (Pygments/ANSI エンジンを使用)"
+
+# 
+msgid "Destino Remoto"
+msgstr "リモート宛先"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "デタッチモード: コマンドをバックグラウンドで実行"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "デタッチドモード: コンテナをバックグラウンドで実行"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "AI でログエラーを診断"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Web サービスの診断と再起動"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "ヒューリスティック診断 (**{title}**):\n{desc}\n\nクイック修正の提案:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "セキュアなシステム診断 — テレメトリとサポート"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "ログ '{name}' の診断を AI アシスタントに送信しました。"
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "大文字と小文字を区別"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "コマンドを入力してください (例: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "開いているすべてのターミナルに送信するコマンドを入力..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "アクション、SSH セッション、またはパラメータ付きコマンドを入力..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "フォントサイズを縮小 (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "動的 (-D) • SSH 経由の SOCKS5 プロキシ"
+
+# 
+msgid "Direita"
+msgstr "右"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "ディレクトリ '{path}' をお気に入りに登録しました。"
+
+# 
+msgid "Diretório Inicial"
+msgstr "ホームディレクトリ"
+
+# 
+msgid "Diretório Pai"
+msgstr "親ディレクトリ"
+
+# 
+msgid "Diretório de Config"
+msgstr "設定ディレクトリ"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "ディレクトリをターミナルに送信しました: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "ディレクトリ: {name}\nパス: {path}\n権限: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "許可されたディレクトリ、PathGuard 分離、およびデフォルト拒否ポリシー"
+
+# 
+msgid "Disable an installed snap"
+msgstr "インストール済みの snap を無効化"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "ディスク容量不足 (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "ディスク (物理 I/O)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "インストール済みパッケージの詳細情報を表示"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "メモリをメガバイト単位で表示"
+
+# 
+msgid "Display status details of installed package"
+msgstr "インストール済みパッケージの状態の詳細を表示"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "現在のタブを上下に分割します (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "現在のタブを左右に分割します (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "水平分割"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "ターミナルを水平に分割"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "垂直分割"
+
+# 
+msgid "Divisão"
+msgstr "分割"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "何も確認せず、デフォルトの回答を使用する"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "削除前に依存関係を確認しない"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "リモートコマンドを実行しない (ポート転送のみ)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "サービス名を名前解決しない"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "snap データのスナップショットを保存しない"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "パッケージの依存関係を検証しない"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "インストール前にパッケージの依存関係を検証しない"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "同じ名前のリモートが既に存在する場合は何もしない"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON ドキュメント"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown ドキュメント"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF ドキュメント"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML ドキュメント"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML ドキュメント"
+
+# 
+msgid "Documento de Texto"
+msgstr "テキストドキュメント"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "パッケージデータベースの最新コピーをダウンロード"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "パッケージのダウンロードのみ行い、インストールしない"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "テキストベースのグラフィカルなコミット履歴を描画"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "ファイルを削除せずに削除の予行演習を実行"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "システムを変更せずにインストールのテストを予行実行"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "コマンドを編集: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "トンネル設定を編集"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "カラースキームを編集"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "選択したセッションを編集"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "セッションを編集 — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "カラースキームを編集するかカスタムバリエーションを作成します"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "`PolicyEngine` による検証と実行後の自動検証 (`verifier.rs`) を備えた **構造化アクションプラン** を作成しました:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "ProductionGuard、デュアルペイン SFTP/TFTP、Zero-Trust AI アシスタントを備えた、Linux のローカルおよびリモートワークフロー向けの最新ターミナルエミュレータ。"
+
+# 
+msgid "Enable a disabled snap"
+msgstr "無効化された snap を有効化"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "X11 フォワーディング (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "アクティブなタブを閉じます (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "ファイルを検索"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "複数のターミナルに同時にコマンドを送信します (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "すべてのタブにコマンドを送信"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "質問を送信"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "アクティブなターミナルタブに sha256sum コマンドを送信"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "すべてに送信"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "インストール済みの RPM パッケージを削除 (アンインストール)"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "ファイルの保存エラー"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "'{name}' の権限変更エラー: {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "ハッシュの計算エラー"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "項目の貼り付けエラー: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "ファイルの作成エラー: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "バックアップの作成エラー: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "フォルダの作成エラー: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "ファイルの削除エラー: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "フォルダの削除エラー: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "{path} の一覧取得エラー: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "項目の移動エラー: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "名前の変更エラー: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Git リポジトリエラー"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "ロールバックエラー: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "エラー: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "ローカル (-L)、リモート (-R)、または動的 SOCKS5 (-D) から選択してください"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "カラースキームを適用しました: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "カラースキームを保存しました: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "このセッションは ~/.ssh/config（読み取り専用）由来であるか、すでに削除されています。"
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "このファイルは読み取り専用です。編集内容は管理者 (Root) 権限で保存できます。"
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "ライトスタイル (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "ダークスタイル (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "例: 10.0.0.15 または srv.company.com"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "例: 本番 (ルートの場合は空欄)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "例: 本番 Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "例: root または ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "フォルダを削除"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "完全に削除"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "ターミナルで実行しました: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "実行 (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "今すぐ実行"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "ターミナルで sudo を付けて実行"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "すべてのターミナルでコマンドを実行"
+
+# 
+msgid "Executar passo"
+msgstr "ステップを実行"
+
+# 
+msgid "Executar plano do agente"
+msgstr "エージェントプランを実行"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "すべての単体テストおよび統合テストを実行"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "セッションパネルを表示"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "AIでファイルを説明"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "ファイル '{name}' の説明を AI アシスタントにリクエストしました。"
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "ファイル '{name}' の目的、構造、動作を説明してください。\nパス: {path}\n\n先頭の内容:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "settings.json、sessions.json、command_buttons.json を SHA-256 ハッシュ付きでエクスポート"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "バッファ全体またはアクティブなターミナル選択範囲をエクスポート"
+
+# 
+msgid "Exportado para {path}"
+msgstr "{path} にエクスポートしました"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "ターミナル出力をエクスポート (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "セッションをランブック (Runbook) としてエクスポート"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "OnyxSH ターミナルエクスポート - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "外部接続の制御と厳格なデータ分離。"
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "gzip 圧縮された tar アーカイブを詳細表示で展開"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "圧縮アーカイブからファイルを抽出"
+
+# 
+msgid "Extrair"
+msgstr "抽出"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Root として保存できませんでした"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "pkexec プロセスの待機に失敗しました: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "チェックサムの計算に失敗しました: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "バックアップの作成に失敗しました: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "pkexec の stdin へのデータ書き込みに失敗しました: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "特権プロセス pkexec の起動に失敗しました: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "バックアップの復元に失敗しました: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "ファイルの保存に失敗しました: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "転送に失敗しました (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "転送に失敗しました (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "高速で多機能なリモートおよびローカルのファイルコピー用ツール"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "コマンドをお気に入りに登録 / 解除"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "現在のディレクトリをお気に入りに追加"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "お気に入りを削除しました: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "説明的なメッセージ付きで Git に変更をコミット"
+
+# 
+msgid "Fechar Aba"
+msgstr "タブを閉じる"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "アクティブペインを閉じる"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "Fedora/RHEL/Rocky/AlmaLinux 用 RPM パッケージマネージャー"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "別のリポジトリから取得して統合"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "転送キュー — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "転送キューは空です (進行中のタスク 0 件)。"
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "ファイルデータが n*24 時間前に変更された"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "ファイル種別 (f 通常ファイル、d ディレクトリ、l シンボリックリンク)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "アーカイブを gzip でフィルタリング (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "指定されたファイルや機能を提供するパッケージを検索"
+
+# 
+msgid "Focar janela existente"
+msgstr "既存のウィンドウにフォーカス"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Focus Pane Down"
+
+# 
+msgid "Focar painel acima"
+msgstr "Focus Pane Up"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Focus Pane Right"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Focus Pane Left"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "フォーカスを最初のペインに切り替えました。"
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "フォーカスを 2 番目のペインに切り替えました。"
+
+# 
+msgid "Follow output live as file grows"
+msgstr "ファイルの増加に合わせて出力をリアルタイムで追跡"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "フォント、カラーパレット、透明度、AI (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "他のアプリが依存していても強制削除"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "パッケージやファイルが既に存在していても強制インストール"
+
+# 
+msgid "Force upgrade"
+msgstr "強制アップグレード"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "カスタム queryformat でクエリ出力を整形"
+
+# 
+msgid "Formato"
+msgstr "フォーマット"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "RPM パッケージの更新（既にインストールされている場合のみアップグレード）"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "構造化されたアクションプラン (ActionPlan) を生成"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "systemctl でシステムサービスを管理"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "ファイルマネージャー"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "デュアルペイン ファイルマネージャー"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "コマンドマネージャー"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "コマンドマネージャー＆動的フォーム"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH トンネルマネージャー"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "タブとペインの管理"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak アプリとランタイムの管理"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Conventional Commit を提案"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: 現在のディレクトリは Git リポジトリではありません。"
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • 大容量コンテキスト"
+
+# 
+msgid "Grade de Ícones"
+msgstr "アイコングリッド"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • 超高速 LPU"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "CPU、RAM、ディスク I/O、ネットワーク/GPU のリアルタイムグラフ"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} ハッシュをクリップボードにコピーしました"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "マルチステップ計画向けの高度な推論モデルとプロバイダー"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "拡張コマンド履歴 (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "会話履歴"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "転送履歴"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "履歴: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "ホスト / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "リモートホスト (IP / ドメイン)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "バインド先リモートホスト (Bind)"
+
+# 
+msgid "Host cannot be empty"
+msgstr "ホストを空にすることはできません"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "無効なホストまたは IP アドレスです。"
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "公開鍵認証用の ID ファイル（秘密鍵）"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "大文字と小文字を区別しない"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "ファイルのバックアップ指定を無視（設定ファイルを削除）"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "存在しないファイルを無視し、確認を求めない"
+
+# 
+msgid "Imagem"
+msgstr "画像"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "ASCII-armored 形式の GPG 公開鍵を RPM キーリングにインポート"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr ".flatpakrepo からリモート設定をインポート"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "セッションをインポート (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "出力に HTTP レスポンスヘッダーを含める"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "ターミナルのフォントサイズを大きくします (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "状態を変更するコマンドの後に自動検証（サービス状態、設定構文）を推論して提案します。"
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "TFTP サーバーを起動"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "挿入 (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "ターミナルにパスを挿入"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "現在の Git リポジトリを検査してコミットメッセージを提案します"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "ホスト上のアクティブなソケットとポートを検査"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "ローカルの .deb パッケージファイルをインストール"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "詳細な進行状況を表示して RPM パッケージファイルをインストール"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "非明示的な依存関係としてインストール"
+
+# 
+msgid "Install from the beta channel"
+msgstr "beta チャネルからインストール"
+
+# 
+msgid "Install from the edge channel"
+msgstr "edge チャネルからインストール"
+
+# 
+msgid "Install from the stable channel"
+msgstr "stable チャネルからインストール"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "1 つ以上の RPM パッケージをインストール"
+
+# 
+msgid "Install snaps on the system"
+msgstr "システムに snap をインストール"
+
+# 
+msgid "Interactive rebase"
+msgstr "対話型リベース"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "パッチのハンクを対話的に選択"
+
+# 
+msgid "Interação do Terminal"
+msgstr "ターミナルインタラクション"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "ローカルインターフェース / Bind IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "ローカルリッスンインターフェース"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "パターンを拡張正規表現として解釈"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "レイテンシ確認間隔"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "KeepAlive プローブパケットを送信する間隔（秒）"
+
+# 
+msgid "Invalid SSH username"
+msgstr "無効な SSH ユーザー名"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "無効なホスト名または IP アドレス"
+
+# 
+msgid "Invalid local port"
+msgstr "無効なローカルポート"
+
+# 
+msgid "Invalid port number"
+msgstr "無効なポート番号"
+
+# 
+msgid "Invalid remote host"
+msgstr "無効なリモートホスト"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "ソケットの調査（netstat のモダンな代替）"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "タブへ移動"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "これにより、すべてのキーボードショートカットが既定値にリセットされます。続行しますか？"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "項目を貼り付けました: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "項目を移動しました: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "{n_pages} 個のタブのレイアウトを {path} に保存しました"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "アクティブセッションの画面とスクロールバックを消去します (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "完了済みを消去"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "お気に入り以外の履歴を消去"
+
+# 
+msgid "Limpar Sessão"
+msgstr "セッションをクリア"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "ターミナルセッションを消去"
+
+# 
+msgid "Link Simbólico"
+msgstr "シンボリック リンク"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "リンクをクリップボードにコピーしました。"
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "インストール済み RPM パッケージに属するすべてのファイルを一覧表示"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "リモートリポジトリで利用可能なアプリケーションとランタイムを一覧表示"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "この .rpm が必要とする機能を一覧表示"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "インストール済みパッケージの設定ファイルを一覧表示"
+
+# 
+msgid "List configuration files only"
+msgstr "設定ファイルのみを一覧表示"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "インストール済みパッケージに必要な依存関係を一覧表示"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr ".rpm アーカイブ内に含まれるファイルを一覧表示"
+
+# 
+msgid "List files installed by package"
+msgstr "パッケージによってインストールされたファイルを一覧表示"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "外部パッケージを一覧表示（例: AUR から）"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "パターンに一致するインストール済みパッケージを一覧表示"
+
+# 
+msgid "List installed snaps"
+msgstr "インストール済み snap を一覧表示"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "インストール済みのユニットファイルと有効化状態を一覧表示"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "孤立したパッケージを一覧表示（不要になった依存関係）"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "依存関係としてインストールされたパッケージを一覧表示"
+
+# 
+msgid "List stashes currently saved"
+msgstr "現在保存されているスタッシュを一覧表示"
+
+# 
+msgid "Lista Detalhada"
+msgstr "詳細リスト"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "ディレクトリの内容を詳細付きで一覧表示します (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "リスト、サムネイルグリッド、ツリー & Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "ファイルの一覧"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "ローカル (Ollama / LM Studio) • 完全な GPU/CPU プライバシー"
+
+# 
+msgid "Local Server Base URL"
+msgstr "ローカルサーバーのベース URL"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd サービスログ"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "詳細形式、すべてのファイル、読みやすいサイズ"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "日常のシェル質問向けの低遅延モデルとプロバイダー"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "必要に応じて親ディレクトリを作成"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "モデルに送信される最大コンテキストメモリ割り当て"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "メモリ (RAM と Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "RAM メモリ"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "コミットメッセージ"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "完全オフラインモードが有効です（クラウド未使用）。"
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "スマートルーティング付きオンラインモードが有効です。"
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "テキスト選択モードが有効になりました。"
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "テキスト選択モードが無効になりました。"
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "ブロードキャストモード（すべてのタブへ送信）"
+
+# 
+msgid "Modo do Tema"
+msgstr "テーマモード"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "数値モード: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "リアルタイムリソースモニター (Cairo スパークライン)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "リアルタイムリソースモニター — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "SSH セッションツリーを表示または非表示にします (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "隠しファイルを表示 (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "エンジン"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "名前と（任意で）'name:tag' 形式のタグ"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "クリップボードに貼り付ける項目がありません。"
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "監査ログはまだありません。アトミックロールバックをテストするには「監査対象の変更をシミュレート」をクリックしてください。"
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "sysfs/nvidia-smi 経由で専用 GPU が検出されませんでした"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "セッションが選択されていません"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "セッションに記録された転送はありません。"
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "ネットワーク (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "ネットワーク (/proc/net/dev) • リアルタイム RX / TX"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "ネットワーク (RX / TX) と GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "確認の質問を行わない"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "名前 (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "新しいブランチ名"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "セッション名:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "新しいフォルダー名:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "クリップボードに無効なファイル名があります。"
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "SSH ユーザー名に無効な文字が含まれています。"
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "出力先ファイル名"
+
+# 
+msgid "Nome do Serviço"
+msgstr "サービス名"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "コマンド名 (例: Nginx を再起動)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "新しいファイル名:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "アイコン名 (例: utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "コンテナー名または ID"
+
+# 
+msgid "Nome:"
+msgstr "名前:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "非対話型モード"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "新しいターミナルタブ"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "新しいターミナルタブ (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "ここに新しいフォルダー..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "新しいセッションフォルダー"
+
+# 
+msgid "Nova Pasta..."
+msgstr "新しいフォルダー..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "新しいセッション — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "新しい会話を開始しました。"
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "ここに新しいファイル..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "新しいファイル..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "新しいカラースキーム"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "新しいフォルダー名:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "新しいファイル名:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "項目を読み込めませんでした: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "変更を書き込めませんでした: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "ファイルシステムに十分な空き容量がありません。"
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "レベル 0 (読み取り)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "レベル 1 (書き込み)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "レベル 2 (管理者)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "レベル 3 (重大)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "レベル 4 (ブロック済み)"
+
+# 
+msgid "Nível {n}"
+msgstr "レベル {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "自動再接続を諦めるまでの試行回数"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "バイナリ '{bin}' がインストールされていないか、$PATH にありません。"
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "コマンドはエラーコードで終了しました。"
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "ターミナルで実行されたコマンドが失敗しました。プロジェクトファイルを分析し、OpenCode で必要な修正を作成してください:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "スーパーユーザー (root) 権限が不足しているため、コマンドが失敗しました。"
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "セッション名を空にすることはできません。"
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "難読化 / Base64 デコードされた実行パイプライン"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "前の一致 (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "ターミナルで見つかった一致"
+
+# 
+msgid "Octal: {mode}"
+msgstr "8進数: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — 準備完了"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — 通知テスト"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "ターミナルで OpenCode を起動しました。"
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • 統合マルチモデルカタログ"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "オペレーター: {author} | ホスト: {host} | 日付: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "ワークスペース内のすべてのパッケージに対して操作する"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "操作はユーザーによってキャンセルまたは拒否されました。"
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Arch Linux パッケージマネージャーの操作"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Debian/Ubuntu パッケージマネージャーの操作"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Fedora/RHEL パッケージマネージャーの操作"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "ファイル操作"
+
+# 
+msgid "Ordem Crescente"
+msgstr "昇順"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "降順"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "昇順ソートが有効になりました"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "降順ソートが有効になりました"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "インストール済みパッケージをインストール日時順に並べ替え（新しい順）"
+
+# 
+msgid "Organizar por"
+msgstr "並べ替え"
+
+# 
+msgid "Origem (Local)"
+msgstr "ソース (ローカル)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "数値を読みやすい形式で出力"
+
+# 
+msgid "Output package names only"
+msgstr "パッケージ名のみを出力"
+
+# 
+msgid "Pacote"
+msgstr "パッケージ"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "インストールパッケージ"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "名前パターン (例: *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "セッションパネル"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "ペイン/タブを閉じました。"
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "単語全体"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "16色 ANSI パレット"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "TFTP サーバーを停止 ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "パラメーター — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "ステップ #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "実行済みステップ: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "フォルダ '{path}' を作成しました。"
+
+# 
+msgid "Pasta / Diretório"
+msgstr "フォルダ / ディレクトリ"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "フォルダをクリップボードにコピーしました: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "作成されたフォルダ: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "削除されたフォルダ: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "移動対象としてマークされたフォルダ: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "フォルダをお気に入りから削除しました。"
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "フォルダ名を '{name}' に変更しました"
+
+# 
+msgid "Pasta · {date}"
+msgstr "フォルダ · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "フォルダ:"
+
+# 
+msgid "Pause"
+msgstr "一時停止"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "ルーティングプロファイルを変更しました: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "ディストリビューションのアップグレードを実行する (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "AIアシスタントに聞く"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "質問するか、ターミナルのエラーを貼り付けてください..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "アクセス権 (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "'{name}' のアクセス権を {mode} に変更しました"
+
+# 
+msgid "Permissões para {name}"
+msgstr "{name}の権限"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "開いているすべてのタブ、SSH セッション、履歴、スニペットを検索 (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "サブディレクトリを再帰的に検索"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "ターミナルで検索"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "開いているすべてのターミナルタブ、SSH セッション、履歴、スニペットからテキストを検索..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "名前、ポート、またはホストでトンネルを検索..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "シェルインタプリタへのパイプ実行"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Zero-Trust アクションプラン: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "背景"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "テストする前に {provider} の API キーを入力してください。"
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "エンドポイントとポート"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "次のターミナル選択内容を分析してください:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "ファイル '{name}' のコード・内容、目的、構造、重要なポイントを分析して説明してください:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "現在のディレクトリ '{path}' に対して詳細なセキュリティおよびアクセスガバナンス監査を実施してください。過剰なアクセス権、機密ファイル（.env、秘密鍵、露出した認証情報）を確認し、Zero-Trust のベストプラクティスを推奨してください。"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "ファイル '{name}' のセキュリティとアクセス権に関する詳細な監査を実施してください。\nパス: {path}\n現在の権限: {perms} ({oct})\nサイズ: {size}\n安全な chmod 設定と脆弱性の軽減策を推奨してください。"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "ディレクトリ '{name}' のセキュリティとアクセス権に関する詳細な監査を実施してください。\nパス: {path}\n現在の権限: {perms} ({oct})\n最終更新日時: {date}\n理想的な chmod 設定、制限、Zero-Trust 準拠のベストプラクティスを推奨してください。"
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "次のコードスニペットを OpenCode でリファクタリングしてください:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "ポートが有効範囲外です (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "リモート公開ポート (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "リモート宛先ポート"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "ローカル待ち受けポート (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "SOCKS5 プロキシポート (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "ポートが許可範囲外です (1..65535)。"
+
+# 
+msgid "Porta:"
+msgstr "ポート:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "リモート PostgreSQL"
+
+# 
+msgid "Preferências"
+msgstr "設定"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "各行の先頭に 1 始まりの行番号を付与する"
+
+# 
+msgid "Preview do Comando:"
+msgstr "コマンドのプレビュー:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "プライマリプロバイダーと接続性"
+
+# 
+msgid "Print Git version"
+msgstr "Git のバージョンを表示"
+
+# 
+msgid "Print RPM version"
+msgstr "RPM のバージョンを表示"
+
+# 
+msgid "Print help synopsis"
+msgstr "ヘルプの概要を表示"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "サイズを 1024 のべき乗で表示 (例: 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "テストの stdout/stderr を直接表示"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "ディレクトリ深さ 1 の合計を表示"
+
+# 
+msgid "Print zypper version"
+msgstr "zypper のバージョンを表示"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "本番環境 / Web サーバー"
+
+# 
+msgid "Programa Executável"
+msgstr "実行可能プログラム"
+
+# 
+msgid "Protocolo:"
+msgstr "プロトコル:"
+
+# 
+msgid "Provide verbose output"
+msgstr "詳細な出力を表示する"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "スマートルーティングが無効な場合に使用されるプロバイダー"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "ライブプレビュー"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "次の一致 (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "次のファイル (下矢印 / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "前のプロンプトへ移動します。"
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "次のプロンプトへ移動します。"
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "インストール済みパッケージを設定ごと完全に削除する"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "snap をクラシック封じ込めモードにする"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "行数 (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "行数 (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "未インストールのローカル .rpm パッケージファイルを照会する"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "インストール済みのすべての RPM パッケージを照会して一覧表示する"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "リポジトリの条件に一致するパッケージを照会する"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "snap が提供するサービスのステータスを照会する"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "指定したファイルパスを所有するインストール済み RPM パッケージを照会する"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look（プレビュー）"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "RPM パッケージマネージャーの低レベルツール (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "各ディレクトリ配下のすべてのファイルを再帰的に読み取る"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "読取: {read}/s • 書込: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "フェッチ後に現在のブランチをアップストリームの先頭にリベースする"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "インストール済みヘッダーから RPM データベースのインデックスを再構築する"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "切断時のスマート自動再接続"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "ステージングされた変更をリポジトリに記録する"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "ファイルを切り取り"
+
+# 
+msgid "Recortar Pasta"
+msgstr "フォルダを切り取り"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "すべてのショートカットをデフォルト値にリセットします"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "ズームをリセット"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "ターミナルのフォントサイズを小さくします (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "ズームアウト"
+
+# 
+msgid "Refresh Interval"
+msgstr "更新間隔"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "すべてのリポジトリメタデータを更新する"
+
+# 
+msgid "Refresh files database"
+msgstr "ファイルデータベースを更新する"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "AuditLogger レコード (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "グローバルハイライトルール"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "管理対象サービスを再起動して設定を適用する"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "パッケージが既に存在する場合に再インストールする"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "完全なハッシュレポートをクリップボードにコピーしました"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "サニタイズ済み OnyxSH 診断レポート"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "診断レポートをクリップボードにコピーしました。"
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "手順、メモ、目的、結論を含む構造化された運用レポート (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "OS、RAM、GPU/VRAM、Flatpak 環境のサニタイズ済みレポート"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "サービスを再読み込みし、未対応の場合は再起動する"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "リモート (-R) • リモートサーバー上にローカルポートを公開"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "単一の stash エントリを削除する"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "ターゲットに依存するすべてのパッケージを削除する"
+
+# 
+msgid "Remove all stash entries"
+msgstr "すべての stash エントリを削除する"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "パッケージのすべてのバージョンを削除する"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "設定を残したままインストール済みパッケージを削除する"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "ディレクトリとその内容を再帰的に削除する"
+
+# 
+msgid "Remove installed packages"
+msgstr "インストール済みパッケージを削除する"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "不要になったリモート追跡参照を削除する"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "1 つ以上のパッケージと未使用の依存関係を削除する"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "依存関係として最初にインストールされ、不要になったパッケージを削除する"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "システムから snap を削除する"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "未使用のデータ（コンテナ、ネットワーク、イメージ）を削除する"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "選択したセッションを削除"
+
+# 
+msgid "Remover Túnel"
+msgstr "トンネルを削除"
+
+# 
+msgid "Remover favorito"
+msgstr "お気に入りを削除"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "現在のディレクトリをお気に入りから削除"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "ファイル名を変更"
+
+# 
+msgid "Renomear Pasta"
+msgstr "フォルダ名を変更"
+
+# 
+msgid "Renomear..."
+msgstr "名前を変更..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "現在のプロセスのスナップショットを報告する"
+
+# 
+msgid "Reportar Problema"
+msgstr "問題を報告"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "フォントサイズをリセット (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "OpenCode / AI でターミナルエラーを解決中..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "コンテナ終了時の再起動ポリシー"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "デフォルトのフォント Monospace 11 に戻します (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "グローバルルールを復元"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "すべてのコマンドを復元"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "元の無視コマンド一覧を復元"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "インデックスを復元 / ファイルをアンステージ"
+
+# 
+msgid "Resume"
+msgstr "再開"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "ファイル内容から計算された標準暗号化ダイジェスト:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "サービスのログを取得"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Diff レビューとゼロトラスト監査 (アトミックロールバック)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "スマートルーティング: クリックしてプロファイルを切替 (自動、高速、高度、セキュリティ)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "高度/セキュリティ推論プロファイルにルーティングされました。"
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "高速プロファイルにルーティングされました (低遅延の簡易クエリ)。"
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "ローカルパッケージのバイナリまたはサンプルを実行"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "指定パスで git を起動したかのように実行"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "ターゲットユーザー (root) としてログインシェルを実行"
+
+# 
+msgid "Run optimized release binary"
+msgstr "最適化されたリリースバイナリを実行"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "ネイティブ Rust (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Rust パッケージマネージャーおよびビルドツール"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SSH セッション"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "SOCKS5 プロキシ"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "企業向け SOCKS5 プロキシ"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "リモート参照を検証する安全なフォースプッシュ"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "アプリケーションを終了"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "保存して閉じる"
+
+# 
+msgid "Salvar Alterações"
+msgstr "変更を保存"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "OnyxSH バックアップを保存"
+
+# 
+msgid "Salvar Comando"
+msgstr "コマンドを保存"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "現在のタブレイアウトを保存"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "管理者 / Root 権限で保存 (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "正常に保存されました: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "スクリプトの実行"
+
+# 
+msgid "Script Python"
+msgstr "Python スクリプト"
+
+# 
+msgid "Script Shell"
+msgstr "シェル スクリプト"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "名前だけでなく説明も検索"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "ファイル名を所有するパッケージを検索"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "パターンに一致するパッケージを検索"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "ストアで snap を検索"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "ローカルにインストールされたパッケージを検索"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "システムスタイルに従う"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "リアルタイムで追跡 (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "接続を維持する秒数 (0 で無効)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "選択済み: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "OnyxSH バックアップファイルを選択"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "含めるコマンドを選択し、各ステップに技術的な解説コメントを追加してください。(検出数: {count})"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "右ペインでダウンロードする項目を選択してください (←)。"
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "左ペインでアップロードする項目を選択してください (→)。"
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "編集するには、まず一覧からセッションを選択してください。"
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "削除するには、まずセッションを選択してください。"
+
+# 
+msgid "Select Monitored Host"
+msgstr "監視対象ホストを選択"
+
+# 
+msgid "Select non-matching lines"
+msgstr "一致しない行を選択"
+
+# 
+msgid "Seleção copiada."
+msgstr "選択範囲をコピーしました。"
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "選択範囲を AI アシスタントの分析に送信しました。"
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "選択範囲を OpenCode でのリファクタリングに送信しました。"
+
+# 
+msgid "Sempre ocultar"
+msgstr "常に非表示"
+
+# 
+msgid "Servidor TFTP"
+msgstr "TFTP サーバー"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "読み取り専用 TFTP サーバーが {addr} で稼働中 (ルート: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "TFTP サーバーを切り替えました。"
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "TFTP サーバーを停止しました。"
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "セッション: {session} | ホスト: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "セッション '{name}' を削除しました。"
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "セッション '{name}' を ~/.config/onyxsh/sessions.json に保存しました。"
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "リンクされた SSH セッション"
+
+# 
+msgid "Sessão limpa."
+msgstr "セッションをクリアしました。"
+
+# 
+msgid "Sessões Salvas"
+msgstr "保存済みセッション"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "~/.config/onyxsh/sessions.json および ~/.ssh/config からセッションを同期しました。"
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker 対話型シェル (Exec)"
+
+# 
+msgid "Shell a Executar"
+msgstr "実行するシェル"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "プロセスと数値ポート付きで待機中のすべての TCP/UDP ソケットを表示"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "インストール済み snap の全リビジョンを表示"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "ルーティング、ネットワークデバイス、インターフェースの表示と操作"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "インストールせずに利用可能な snap の更新を表示"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "コミット、インデックス、作業ツリー間の変更を表示"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "snap の詳細情報を表示"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "インストール済みアプリまたはランタイムの詳細情報を表示"
+
+# 
+msgid "Show error message on failure"
+msgstr "失敗時にエラーメッセージを表示"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "指定したパッケージの完全な情報を表示"
+
+# 
+msgid "Show package metadata info"
+msgstr "パッケージのメタデータ情報を表示"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "指定したファイルパスの権限を表示"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "インストール・アンインストール前後のスクリプトを表示"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "進捗を表示し部分的に転送されたファイルを保持"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "トップバーに AI アシスタントのボタンとサイドパネルを表示します。"
+
+# 
+msgid "Silent mode"
+msgstr "サイレントモード"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "監査対象の変更をシミュレート"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "属性を保持したままローカルファイルをリモートホストへ同期します"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync でファイルを同期"
+
+# 
+msgid "Sistema"
+msgstr "システム"
+
+# 
+msgid "Sistema Operacional"
+msgstr "オペレーティングシステム"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "確認プロンプトをスキップ"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "スマートルーティング無効: デフォルトで設定されたプロバイダーを使用します。"
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter、アクションプラン、アトミックロールバック (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "OnyxSH について"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "HTTP リクエストメソッドを指定 (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "実行するパッケージを指定"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "使用するリモートシェルを指定 (例: ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "ターミナルを分割"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "変更のある作業ディレクトリの変更を一時退避 (stash)"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "4 パケット送信後に停止"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "厳格なオフラインモードが有効 (ローカルの Ollama/LM Studio のみ)。"
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "rpm, dnf, apt, pacman, flatpak, systemctl, docker, git および一般的なツールのサブコマンドとパラメーターを提案"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git の候補"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "人間が読める形式でのサイズ概要"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab または → 適用 • ↑/↓ 移動 • Esc 閉じる"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "フォルダ '{name}' を完全に削除してもよろしいですか？"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "ファイル '{name}' を完全に削除してもよろしいですか？"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "ライト背景用テーマ"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "ダーク背景用テーマ"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "ターミナルの背景が明るい場合に使用されるテーマ"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "ターミナルの背景が暗い場合に使用されるテーマ"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "コマンドテンプレート (例: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "切断された SSH セッションをカウントダウンと画面上の警告付きで再接続しようとします"
+
+# 
+msgid "Terminal: {title}"
+msgstr "ターミナル: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "ワークスペース内のすべてのパッケージをテスト"
+
+# 
+msgid "Testar Interceptação"
+msgstr "インターセプトをテスト"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Nginx 設定構文の整合性をテスト"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "前景色テキスト (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "この操作はすべての{count}会話を永久に削除します。このアクションは元に戻すことができません。"
+
+# 
+msgid "Tipo / Extensão"
+msgstr "種類 / 拡張子"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "ファイルタイプ"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "すべての設定をデフォルトに復元しました。"
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "すべてのキーボードショートカットをデフォルトに復元しました。"
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "すべての SSH トンネルを停止しました。"
+
+# 
+msgid "Total Lines"
+msgstr "合計行数"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "決定、コマンド、アトミックロールバックの継続的な監査証跡"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Ubuntu / Canonical Snap パッケージマネージャー"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Uncomplicated Firewall マネージャー"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "ユニット / サービス (任意)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "インストール済みパッケージを新しいバージョンに更新"
+
+# 
+msgid "Update snaps in the system"
+msgstr "システム内の snap パッケージを更新"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "既にインストールされている場合はアプリ/ランタイムを更新"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "RPM パッケージファイルをアップグレード（未インストールの場合はインストール）"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "ローカル/リモートのパッケージファイル (.pkg.tar.zst) をアップグレードまたはインストール"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "15行を超える出力には折りたたみブロック (&lt;details&gt;) を使用します"
+
+# 
+msgid "Use a long listing format"
+msgstr "詳細なリスト形式を使用"
+
+# 
+msgid "Use archive file or device"
+msgstr "アーカイブファイルまたはデバイスを使用"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "ディレクトリを RPM 操作の最上位ルートとして使用"
+
+# 
+msgid "Usuário Remoto"
+msgstr "リモートユーザー"
+
+# 
+msgid "Usuário SSH:"
+msgstr "SSH ユーザー:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "検証して添付"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "現在のサービス状態と依存関係を確認"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "サービス '{svc}' がアクティブか確認"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "サービス '{svc}' が起動時に有効化されているか確認"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "サービス '{svc}' が停止したか確認"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "特定のパッケージを .rpm ファイルと照合して検証"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "インストール済みの全 RPM パッケージの整合性をデータベースと照合して検証"
+
+# 
+msgid "Versão"
+msgstr "バージョン"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "次のコミット用にステージされた変更を表示"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "journalctl でシステムログを表示します"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "OnyxSH のすべてのキーボードショートカットを表示、編集、復元します"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "統合 Diff ビューア（変更前 vs. 変更後）:"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "グリッド / サムネイル表示"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "アイコングリッド表示を有効にしました"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "詳細リスト表示を有効にしました"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "'{name}' を変更する権限がありません。管理者 (Root) 権限を使用して保存しますか？"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "'{fname}' に未保存の変更があります。閉じる前にどうしますか？"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "このファイルには未保存の変更があり、失われます。本当に破棄しますか？"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "前のタブに戻る (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "サンプルを待機中..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "リモートと同じ名前のローカルファイルに出力を書き込む"
+
+# 
+msgid "You: "
+msgstr "あなた: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "ズームをリセットしました (11 pt)。"
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[結論と所見]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[バイナリまたはアクセス不可のコンテンツ]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[ログファイルを読み取れません]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[目的 / コンテキスト]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[実行されたステップ ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (リスク: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 リスクを検出"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 検証済み"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` は {secs}秒で終了しました。"
+
+# 
+msgid "linha"
+msgstr "行"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "openSUSE / SLES パッケージマネージャーユーティリティ"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} コマンド • クリックして展開/折りたたむ"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} 個のコマンド"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} 行"
+
+# 
+msgid "{count} regras"
+msgstr "{count} ルール"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} 件の結果"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} 論理コア)"
+
+# 
+msgid "{days} days"
+msgstr "{days} 日"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} 時間"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} 行 • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} 分"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (コピー)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} ({base_distro} ベース)"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[添付ファイル]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "{provider} API キーが正常に設定されました。"
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | 判定: {decision} | ステータス: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "{type} トンネル"
+
+# 
+msgid "Ícone:"
+msgstr "アイコン:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "OnyxSH アイコン（内蔵）"
+
+# 
+msgid "← Download / Copy"
+msgstr "← ダウンロード / コピー"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ アップロード / コピー"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ 実行   •   Tab プロンプトに挿入   •   ⭐ お気に入り   •   Esc 閉じる"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ タブへ移動 / 実行 • ↑/↓ 移動 • Esc 閉じる"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ アトミックロールバック"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ ProductionGuard アラート ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ 破壊的なコマンドをブロックしました ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ 低速なコンピューターでは、カラーパターンの処理により非常に大量の出力時の応答性がわずかに低下する場合があります。"
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ OnyxSH ターミナルエクスポート"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ スニペット"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ コマンド完了"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ コピーしました！"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ 実行済み"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ ハッシュが一致しました ({algo})! ファイルは本物で完全です。"
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ アトミックロールバックが完了しました: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ コマンドが失敗しました (終了コード {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ ハッシュが一致しません！貼り付けられた値{hint}は、ファイルの計算済みハッシュと異なります。ファイルが破損または改変されている可能性があります。"
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ 履歴"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 オンラインモードが有効です。\nクリックして完全ローカルのオフラインモードを有効にします。"
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 すべて"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 目的 / コンテキスト"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 結論と学んだ教訓"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 あなた:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 あなた{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 メモ:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 注記: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 現在のディレクトリ"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}回実行"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>更新日時:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 ディスク使用量を分析"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 サニタイズ済みレポートをコピー"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 出力をコピー"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 安全に添付されました: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 履歴"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 予備所見"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 ブロードキャスト (🛡️ ProductionGuard 有効):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 コマンドを {count} 個のターミナルにブロードキャストしました。"
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>サイズ:</b> {size} <span alpha='70%'>({bytes} バイト)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>種類:</b> フォルダー / ディレクトリ"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 {bin} をインストール"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}秒"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 SSH セッション"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 git status を確認"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 実行後チェック: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>権限:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 テスト通知をデスクトップに送信しました。"
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>パス:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 高リスク (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ ターミナルタブ"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 重大なアラート — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 ブロードキャストは ProductionGuard によりブロックされました: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard が読み取りをブロックしました: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ 本番モード有効 — ProductionGuard が破壊的なコマンド (rm -rf, mkfs, dd, DROP TABLE, subshells) をブロックしています"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ 完全オフラインモードが有効です (Zero Cloud)。\nクリックしてオンラインモードに切り替えます。"
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ オフライン (ローカル)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ セキュリティ"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 安全なコマンド"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 ルート: {route}"
+

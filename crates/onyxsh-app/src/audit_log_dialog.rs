@@ -6,6 +6,7 @@
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -60,12 +61,12 @@ pub struct BackupManifest {
 /// Returns the formatted Pango markup string for risk level badges matching `registrodeauditoria.png`.
 pub fn risk_badge_markup(risk: i32) -> String {
     match risk {
-        0 => "<span foreground=\"#2ecc71\"><b>🟢 Nível 0 (Leitura)</b></span>".to_string(),
-        1 => "<span foreground=\"#3498db\"><b>🔵 Nível 1 (Escrita)</b></span>".to_string(),
-        2 => "<span foreground=\"#e67e22\"><b>🟠 Nível 2 (Admin)</b></span>".to_string(),
-        3 => "<span foreground=\"#e74c3c\"><b>🔴 Nível 3 (Crítico)</b></span>".to_string(),
-        4 => "<span foreground=\"#95a5a6\"><b>⛔ Nível 4 (Bloqueado)</b></span>".to_string(),
-        other => format!("<b>Nível {other}</b>"),
+        0 => format!("<span foreground=\"#2ecc71\"><b>🟢 {}</b></span>", tr("Nível 0 (Leitura)")),
+        1 => format!("<span foreground=\"#3498db\"><b>🔵 {}</b></span>", tr("Nível 1 (Escrita)")),
+        2 => format!("<span foreground=\"#e67e22\"><b>🟠 {}</b></span>", tr("Nível 2 (Admin)")),
+        3 => format!("<span foreground=\"#e74c3c\"><b>🔴 {}</b></span>", tr("Nível 3 (Crítico)")),
+        4 => format!("<span foreground=\"#95a5a6\"><b>⛔ {}</b></span>", tr("Nível 4 (Bloqueado)")),
+        other => format!("<b>{}</b>", tr_fmt("Nível {n}", &[("n", &other.to_string())])),
     }
 }
 
@@ -134,7 +135,7 @@ pub fn rollback_backup_manifest(manifest: &BackupManifest) -> std::io::Result<()
     if !backup.exists() {
         return Err(std::io::Error::new(
             std::io::ErrorKind::NotFound,
-            format!("Backup não encontrado em {}", backup.display()),
+            tr_fmt("Backup não encontrado em {path}", &[("path", &backup.display().to_string())]),
         ));
     }
     if let Some(parent) = target.parent() {
@@ -151,7 +152,7 @@ pub fn show_audit_log_dialog(parent: &adw::ApplicationWindow, status_lbl: &gtk4:
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Registro de Auditoria do Agente")
+        .title(&tr("Registro de Auditoria do Agente"))
         .default_width(850)
         .default_height(560)
         .build();
@@ -164,13 +165,13 @@ pub fn show_audit_log_dialog(parent: &adw::ApplicationWindow, status_lbl: &gtk4:
     header_bar.set_show_start_title_buttons(false);
 
     let title_lbl = gtk4::Label::builder()
-        .label("Registro de Auditoria do Agente")
+        .label(&tr("Registro de Auditoria do Agente"))
         .css_classes(["title", "heading"])
         .build();
     header_bar.set_title_widget(Some(&title_lbl));
 
     let btn_cancel = gtk4::Button::builder()
-        .label("Cancelar")
+        .label(&tr("Cancelar"))
         .css_classes(["flat"])
         .build();
     let d_close = dlg.clone();
@@ -188,24 +189,24 @@ pub fn show_audit_log_dialog(parent: &adw::ApplicationWindow, status_lbl: &gtk4:
 
     // Header description matching Python markup and screenshot
     let desc_label = gtk4::Label::new(None);
-    desc_label.set_markup(
+    desc_label.set_markup(&tr(
         "Trilha contínua de auditoria das decisões, comandos avaliados e ações executadas pelo <b>Modo Agente Seguro</b>.",
-    );
+    ));
     desc_label.set_halign(gtk4::Align::Start);
     desc_label.set_wrap(true);
     content_vbox.append(&desc_label);
 
     // Preferences group / list
     let list_group = adw::PreferencesGroup::new();
-    list_group.set_title("Histórico de Ações");
+    list_group.set_title(&tr("Histórico de Ações"));
 
     let records = load_audit_records();
     let backups = list_file_backups();
 
     if records.is_empty() {
         let row = adw::ActionRow::builder()
-            .title("Nenhum registro de auditoria encontrado")
-            .subtitle("As ações executadas pelo agente serão registradas aqui automaticamente.")
+            .title(&tr("Nenhum registro de auditoria encontrado"))
+            .subtitle(&tr("As ações executadas pelo agente serão registradas aqui automaticamente."))
             .build();
         list_group.add(&row);
     } else {
@@ -222,16 +223,20 @@ pub fn show_audit_log_dialog(parent: &adw::ApplicationWindow, status_lbl: &gtk4:
 
             let row = adw::ActionRow::builder()
                 .title(&cmd_display)
-                .subtitle(&format!(
-                    "{} | Decisão: {} | Status: {}",
-                    rec.timestamp, rec.user_decision, rec.result_status
+                .subtitle(&tr_fmt(
+                    "{timestamp} | Decisão: {decision} | Status: {status}",
+                    &[
+                        ("timestamp", &rec.timestamp),
+                        ("decision", &rec.user_decision),
+                        ("status", &rec.result_status),
+                    ],
                 ))
                 .build();
 
             // Check if record has associated backup for rollback
             if let Some(backup) = backups.get(&rec.plan_id) {
                 let btn_rollback = gtk4::Button::builder()
-                    .label("Desfazer")
+                    .label(&tr("Desfazer"))
                     .valign(gtk4::Align::Center)
                     .css_classes(["destructive-action"])
                     .build();
@@ -240,10 +245,10 @@ pub fn show_audit_log_dialog(parent: &adw::ApplicationWindow, status_lbl: &gtk4:
                 btn_rollback.connect_clicked(move |btn| {
                     if let Ok(()) = rollback_backup_manifest(&b_manifest) {
                         btn.set_sensitive(false);
-                        btn.set_label("Restaurado ✓");
-                        st.set_text(&format!(
-                            "Arquivo restaurado pós-rollback: {}",
-                            b_manifest.target_path
+                        btn.set_label(&tr("Restaurado ✓"));
+                        st.set_text(&tr_fmt(
+                            "Arquivo restaurado pós-rollback: {path}",
+                            &[("path", &b_manifest.target_path)],
                         ));
                     }
                 });
@@ -275,14 +280,14 @@ mod tests {
 
     #[test]
     fn test_risk_badge_markup() {
-        assert!(risk_badge_markup(0).contains("Nível 0 (Leitura)"));
+        assert!(risk_badge_markup(0).contains(&tr("Nível 0 (Leitura)")));
         assert!(risk_badge_markup(0).contains("#2ecc71"));
-        assert!(risk_badge_markup(1).contains("Nível 1 (Escrita)"));
+        assert!(risk_badge_markup(1).contains(&tr("Nível 1 (Escrita)")));
         assert!(risk_badge_markup(1).contains("#3498db"));
-        assert!(risk_badge_markup(2).contains("Nível 2 (Admin)"));
-        assert!(risk_badge_markup(3).contains("Nível 3 (Crítico)"));
-        assert!(risk_badge_markup(4).contains("Nível 4 (Bloqueado)"));
-        assert!(risk_badge_markup(9).contains("Nível 9"));
+        assert!(risk_badge_markup(2).contains(&tr("Nível 2 (Admin)")));
+        assert!(risk_badge_markup(3).contains(&tr("Nível 3 (Crítico)")));
+        assert!(risk_badge_markup(4).contains(&tr("Nível 4 (Bloqueado)")));
+        assert!(risk_badge_markup(9).contains(&tr_fmt("Nível {n}", &[("n", "9")])));
     }
 
     #[test]

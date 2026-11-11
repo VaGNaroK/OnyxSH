@@ -69,10 +69,11 @@ pub fn load_local_preview(path: &Path) -> std::io::Result<QuickLookPreview> {
 
     if meta.is_dir() {
         let count = std::fs::read_dir(path).map(|it| it.count()).unwrap_or(0);
+        let item_word = onyxsh_core::i18n::tr_n("item", "itens", count as u64);
         return Ok(QuickLookPreview {
             kind: PreviewKind::Directory,
             title,
-            subtitle: format!("{count} items"),
+            subtitle: format!("{count} {item_word}"),
             text_content: None,
             truncated: false,
         });

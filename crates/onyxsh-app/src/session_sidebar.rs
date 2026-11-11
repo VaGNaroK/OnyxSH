@@ -11,6 +11,7 @@ use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
 use onyxsh_core::crypto::{encrypt_session_password, is_securecrt_v2_password};
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_core::security::{is_valid_host, is_valid_port, is_valid_username};
 use onyxsh_core::sessions::{SessionFolder, SessionItem, SessionsStorageData};
@@ -78,7 +79,7 @@ pub fn filter_and_group_sessions(
     if !root_sessions.is_empty() {
         groups.push(SessionFolderGroup {
             folder_path: String::new(),
-            display_name: "Sessões Salvas".to_string(),
+            display_name: tr("Sessões Salvas"),
             sessions: root_sessions,
             expanded: true,
             is_readonly_ssh_config: false,
@@ -229,7 +230,7 @@ fn show_folder_create_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Nova Pasta de Sessões")
+        .title(&tr("Nova Pasta de Sessões"))
         .default_width(400)
         .default_height(200)
         .build();
@@ -243,15 +244,17 @@ fn show_folder_create_dialog(
     content.set_margin_top(8);
     content.set_margin_bottom(16);
 
-    let lbl = gtk4::Label::new(Some("Caminho da Pasta (ex: Produção ou Cloud/AWS):"));
+    let lbl = gtk4::Label::new(Some(&tr(
+        "Caminho da Pasta (ex: Produção ou Cloud/AWS):",
+    )));
     lbl.set_halign(gtk4::Align::Start);
     content.append(&lbl);
 
     let entry = gtk4::Entry::new();
-    entry.set_placeholder_text(Some("Produção/Servidores Web"));
+    entry.set_placeholder_text(Some(&tr("Produção/Servidores Web")));
     content.append(&entry);
 
-    let btn_save = gtk4::Button::with_label("Criar Pasta");
+    let btn_save = gtk4::Button::with_label(&tr("Create Folder"));
     btn_save.add_css_class("suggested-action");
 
     let dlg_clone = dlg.clone();
@@ -263,7 +266,10 @@ fn show_folder_create_dialog(
             let _ = st.save_to_path(&sessions_path);
             drop(st);
             on_saved();
-            status_lbl.set_text(&format!("Pasta '{}' criada com sucesso.", path.trim()));
+            status_lbl.set_text(&tr_fmt(
+                "Pasta '{path}' criada com sucesso.",
+                &[("path", path.trim())],
+            ));
             dlg_clone.close();
         }
     });
@@ -289,10 +295,10 @@ pub fn show_session_edit_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title(if is_edit {
-            "Editar Sessão — OnyxSH"
+        .title(&if is_edit {
+            tr("Editar Sessão — OnyxSH")
         } else {
-            "Nova Sessão — OnyxSH"
+            tr("Nova Sessão — OnyxSH")
         })
         .default_width(540)
         .default_height(560)
@@ -312,11 +318,11 @@ pub fn show_session_edit_dialog(
 
     // 1. Session Name
     let name_entry = gtk4::Entry::new();
-    name_entry.set_placeholder_text(Some("Ex: Produção Web-01"));
+    name_entry.set_placeholder_text(Some(&tr("Ex: Produção Web-01")));
     if is_edit {
         name_entry.set_text(&seed.name);
     }
-    form.append(&labeled_row("Nome da Sessão:", &name_entry));
+    form.append(&labeled_row(&tr("Nome da Sessão:"), &name_entry));
 
     // 2. Protocol Dropdown (ssh, local, telnet, serial)
     let proto_list = gtk4::StringList::new(&["ssh", "local", "telnet", "serial"]);
@@ -327,61 +333,61 @@ pub fn show_session_edit_dialog(
         "serial" => 3,
         _ => 0,
     });
-    form.append(&labeled_row("Protocolo:", &proto_dd));
+    form.append(&labeled_row(&tr("Protocolo:"), &proto_dd));
 
     // 3. Folder Path
     let folder_entry = gtk4::Entry::new();
-    folder_entry.set_placeholder_text(Some("Ex: Produção (deixe vazio para raiz)"));
+    folder_entry.set_placeholder_text(Some(&tr("Ex: Produção (deixe vazio para raiz)")));
     folder_entry.set_text(&seed.folder_path);
-    form.append(&labeled_row("Pasta:", &folder_entry));
+    form.append(&labeled_row(&tr("Pasta:"), &folder_entry));
 
     // 4. Host / IP
     let host_entry = gtk4::Entry::new();
-    host_entry.set_placeholder_text(Some("Ex: 10.0.0.15 ou srv.empresa.com"));
+    host_entry.set_placeholder_text(Some(&tr("Ex: 10.0.0.15 ou srv.empresa.com")));
     host_entry.set_text(&seed.host);
-    form.append(&labeled_row("Host / IP:", &host_entry));
+    form.append(&labeled_row(&tr("Host / IP:"), &host_entry));
 
     // 5. Port
     let port_spin = gtk4::SpinButton::with_range(1.0, 65535.0, 1.0);
     port_spin.set_value(if seed.port == 0 { 22.0 } else { seed.port as f64 });
-    form.append(&labeled_row("Porta:", &port_spin));
+    form.append(&labeled_row(&tr("Porta:"), &port_spin));
 
     // 6. Username
     let user_entry = gtk4::Entry::new();
-    user_entry.set_placeholder_text(Some("Ex: root ou ubuntu"));
+    user_entry.set_placeholder_text(Some(&tr("Ex: root ou ubuntu")));
     user_entry.set_text(&seed.user);
-    form.append(&labeled_row("Usuário SSH:", &user_entry));
+    form.append(&labeled_row(&tr("Usuário SSH:"), &user_entry));
 
     // 7. Auth Type (key, password)
     let auth_list = gtk4::StringList::new(&["key", "password"]);
     let auth_dd = gtk4::DropDown::new(Some(auth_list), gtk4::Expression::NONE);
     auth_dd.set_selected(if seed.auth_type == "password" { 1 } else { 0 });
-    form.append(&labeled_row("Autenticação:", &auth_dd));
+    form.append(&labeled_row(&tr("Autenticação:"), &auth_dd));
 
     // 8. Key Path or Password
     let auth_val_entry = gtk4::PasswordEntry::new();
     auth_val_entry.set_show_peek_icon(true);
     auth_val_entry.set_text(&seed.auth_value);
-    form.append(&labeled_row("Chave SSH / Senha:", &auth_val_entry));
+    form.append(&labeled_row(&tr("Chave SSH / Senha:"), &auth_val_entry));
 
     // 9. Post-login Command
     let post_cmd_entry = gtk4::Entry::new();
     post_cmd_entry.set_placeholder_text(Some("Ex: tmux attach || tmux new"));
     post_cmd_entry.set_text(&seed.post_login_command);
-    form.append(&labeled_row("Comando Pós-Login:", &post_cmd_entry));
+    form.append(&labeled_row(&tr("Comando Pós-Login:"), &post_cmd_entry));
 
     // 10. X11 Forwarding Switch
     let x11_sw = gtk4::Switch::new();
     x11_sw.set_valign(gtk4::Align::Center);
     x11_sw.set_active(seed.x11_forwarding);
-    form.append(&labeled_row("Encaminhamento X11 (-X):", &x11_sw));
+    form.append(&labeled_row(&tr("Encaminhamento X11 (-X):"), &x11_sw));
 
     // 11. Production Environment Switch (`is_production`)
     let prod_sw = gtk4::Switch::new();
     prod_sw.set_valign(gtk4::Align::Center);
     prod_sw.set_active(seed.is_production);
     form.append(&labeled_row(
-        "Ambiente de Produção (ProductionGuard):",
+        &tr("Ambiente de Produção (ProductionGuard):"),
         &prod_sw,
     ));
 
@@ -390,10 +396,10 @@ pub fn show_session_edit_dialog(
     err_lbl.set_halign(gtk4::Align::Start);
     form.append(&err_lbl);
 
-    let btn_save = gtk4::Button::with_label(if is_edit {
-        "Salvar Alterações"
+    let btn_save = gtk4::Button::with_label(&if is_edit {
+        tr("Salvar Alterações")
     } else {
-        "Criar Sessão"
+        tr("Criar Sessão")
     });
     btn_save.add_css_class("suggested-action");
 
@@ -401,7 +407,7 @@ pub fn show_session_edit_dialog(
     btn_save.connect_clicked(move |_| {
         let name = name_entry.text().trim().to_string();
         if name.is_empty() {
-            err_lbl.set_text("O nome da sessão não pode estar vazio.");
+            err_lbl.set_text(&tr("O nome da sessão não pode estar vazio."));
             return;
         }
         let session_type = match proto_dd.selected() {
@@ -418,15 +424,15 @@ pub fn show_session_edit_dialog(
 
         if session_type == "ssh" || session_type == "telnet" {
             if !is_valid_host(&host) {
-                err_lbl.set_text("Host ou endereço IP inválido.");
+                err_lbl.set_text(&tr("Host ou endereço IP inválido."));
                 return;
             }
             if !is_valid_port(port as u32) {
-                err_lbl.set_text("Porta fora do intervalo permitido (1..65535).");
+                err_lbl.set_text(&tr("Porta fora do intervalo permitido (1..65535)."));
                 return;
             }
             if !user.is_empty() && !is_valid_username(&user) {
-                err_lbl.set_text("Nome de usuário SSH contém caracteres inválidos.");
+                err_lbl.set_text(&tr("Nome de usuário SSH contém caracteres inválidos."));
                 return;
             }
         }
@@ -457,7 +463,10 @@ pub fn show_session_edit_dialog(
             let _ = st.save_to_path(&sessions_path);
         }
         on_saved();
-        status_lbl.set_text(&format!("Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."));
+        status_lbl.set_text(&tr_fmt(
+            "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json.",
+            &[("name", &name)],
+        ));
         dlg_clone.close();
     });
 
@@ -507,24 +516,24 @@ pub fn build_session_sidebar(
 
     let btn_add_session = gtk4::Button::from_icon_name("list-add-symbolic");
     btn_add_session.add_css_class("flat");
-    btn_add_session.set_tooltip_text(Some("Adicionar Sessão"));
+    btn_add_session.set_tooltip_text(Some(&tr("Add Session")));
 
     let btn_add_folder = gtk4::Button::from_icon_name("folder-new-symbolic");
     btn_add_folder.add_css_class("flat");
-    btn_add_folder.set_tooltip_text(Some("Adicionar Pasta"));
+    btn_add_folder.set_tooltip_text(Some(&tr("Add Folder")));
 
     let btn_edit_selected = gtk4::Button::from_icon_name("document-edit-symbolic");
     btn_edit_selected.add_css_class("flat");
-    btn_edit_selected.set_tooltip_text(Some("Editar Sessão Selecionada"));
+    btn_edit_selected.set_tooltip_text(Some(&tr("Editar Sessão Selecionada")));
 
     let btn_save_layout = gtk4::Button::from_icon_name("document-save-symbolic");
     btn_save_layout.add_css_class("flat");
-    btn_save_layout.set_tooltip_text(Some("Salvar Layout Atual de Abas"));
+    btn_save_layout.set_tooltip_text(Some(&tr("Salvar Layout Atual de Abas")));
 
     let btn_remove_selected = gtk4::Button::from_icon_name("user-trash-symbolic");
     btn_remove_selected.add_css_class("flat");
     btn_remove_selected.add_css_class("destructive-action");
-    btn_remove_selected.set_tooltip_text(Some("Remover Sessão Selecionada"));
+    btn_remove_selected.set_tooltip_text(Some(&tr("Remover Sessão Selecionada")));
 
     toolbar.append(&btn_add_session);
     toolbar.append(&btn_add_folder);
@@ -534,7 +543,7 @@ pub fn build_session_sidebar(
     sidebar_box.append(&toolbar);
 
     // Selected indicator label
-    let selected_lbl = gtk4::Label::new(Some("Nenhuma sessão selecionada"));
+    let selected_lbl = gtk4::Label::new(Some(&tr("Nenhuma sessão selecionada")));
     selected_lbl.add_css_class("caption");
     selected_lbl.add_css_class("dim-label");
     selected_lbl.set_halign(gtk4::Align::Start);
@@ -549,7 +558,7 @@ pub fn build_session_sidebar(
 
     // ── 3. Bottom Search Entry (`sidebar_search_entry`) ───────────────────────
     let sidebar_search_entry = gtk4::SearchEntry::new();
-    sidebar_search_entry.set_placeholder_text(Some("Buscar sessões ou hosts..."));
+    sidebar_search_entry.set_placeholder_text(Some(&tr("Buscar sessões ou hosts...")));
     sidebar_box.append(&sidebar_search_entry);
 
     // Tree rebuild closure
@@ -604,25 +613,25 @@ pub fn build_session_sidebar(
                     name_btn.add_css_class("flat");
                     name_btn.set_hexpand(true);
                     name_btn.set_halign(gtk4::Align::Start);
-                    name_btn.set_tooltip_text(Some(
+                    name_btn.set_tooltip_text(Some(&tr(
                         "Clique para conectar na nova aba (e selecionar esta sessão)",
-                    ));
+                    )));
                     top_hbox.append(&name_btn);
 
                     if sess.is_production {
                         let prod_badge = gtk4::Label::new(Some("PROD"));
                         prod_badge.add_css_class("error");
                         prod_badge.add_css_class("caption");
-                        prod_badge.set_tooltip_text(Some(
+                        prod_badge.set_tooltip_text(Some(&tr(
                             "Ambiente de Produção — Protegido pelo ProductionGuard",
-                        ));
+                        )));
                         top_hbox.append(&prod_badge);
                     }
 
                     // Split connect button
                     let split_btn = gtk4::Button::from_icon_name("view-dual-symbolic");
                     split_btn.add_css_class("flat");
-                    split_btn.set_tooltip_text(Some("Conectar em Painel Dividido (Split)"));
+                    split_btn.set_tooltip_text(Some(&tr("Conectar em Painel Dividido (Split)")));
                     top_hbox.append(&split_btn);
 
                     row_vbox.append(&top_hbox);
@@ -647,7 +656,10 @@ pub fn build_session_sidebar(
                         let sel_lbl = selected_lbl.clone();
                         let spawn_cb = Rc::clone(&on_spawn);
                         name_btn.connect_clicked(move |_| {
-                            sel_lbl.set_text(&format!("Selecionado: {}", sess_clone.name));
+                            sel_lbl.set_text(&tr_fmt(
+                                "Selecionado: {name}",
+                                &[("name", &sess_clone.name)],
+                            ));
                             *sel_rc.borrow_mut() = Some(sess_clone.clone());
                             spawn_cb(&sess_clone, false);
                         });
@@ -658,7 +670,10 @@ pub fn build_session_sidebar(
                         let sel_lbl = selected_lbl.clone();
                         let spawn_cb = Rc::clone(&on_spawn);
                         split_btn.connect_clicked(move |_| {
-                            sel_lbl.set_text(&format!("Selecionado: {}", sess_clone.name));
+                            sel_lbl.set_text(&tr_fmt(
+                                "Selecionado: {name}",
+                                &[("name", &sess_clone.name)],
+                            ));
                             *sel_rc.borrow_mut() = Some(sess_clone.clone());
                             spawn_cb(&sess_clone, true);
                         });
@@ -727,7 +742,7 @@ pub fn build_session_sidebar(
                     status.clone(),
                 );
             } else {
-                status.set_text("Selecione uma sessão na lista primeiro para editar.");
+                status.set_text(&tr("Selecione uma sessão na lista primeiro para editar."));
             }
         });
     }
@@ -756,9 +771,12 @@ pub fn build_session_sidebar(
             };
             let state_path = platform::config_dir().join("state.json");
             if win_state.save_to_path(&state_path).is_ok() {
-                status.set_text(&format!(
-                    "Layout de {n_pages} aba(s) salvo em {}",
-                    state_path.display()
+                status.set_text(&tr_fmt(
+                    "Layout de {n_pages} aba(s) salvo em {path}",
+                    &[
+                        ("n_pages", &n_pages.to_string()),
+                        ("path", &state_path.display().to_string()),
+                    ],
                 ));
             }
         });
@@ -780,16 +798,19 @@ pub fn build_session_sidebar(
                     let _ = st.save_to_path(&sessions_path);
                     drop(st);
                     *sel_rc.borrow_mut() = None;
-                    sel_lbl.set_text("Nenhuma sessão selecionada");
+                    sel_lbl.set_text(&tr("Nenhuma sessão selecionada"));
                     rt();
-                    status.set_text(&format!("Sessão '{}' removida.", sess.name));
+                    status.set_text(&tr_fmt(
+                        "Sessão '{name}' removida.",
+                        &[("name", &sess.name)],
+                    ));
                 } else {
-                    status.set_text(
+                    status.set_text(&tr(
                         "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida.",
-                    );
+                    ));
                 }
             } else {
-                status.set_text("Selecione uma sessão primeiro para remover.");
+                status.set_text(&tr("Selecione uma sessão primeiro para remover."));
             }
         });
     }

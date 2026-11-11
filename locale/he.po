@@ -17119,3 +17119,4099 @@ msgstr "🧠 פרופיל מתקדם (תוכניות מורכבות / סקריפ
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 תמיד מתקדם (היגיון)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} סודות הוסתרו)"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ ייצוא מסוף OnyxSH"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 מטרה / הקשר"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 סיכום ולקחים שנלמדו"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 הערות מקדימות"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 ביצוע שלב אחר שלב"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 פרטי ההפעלה"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(לא נוצר פלט)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*מסמך זה נוצר אוטומטית על ידי יומן הפעילות של OnyxSH.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*לא נבחרו שלבים עבור מסמך זה.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **תאריך / שעה:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **מארח:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **מפעיל / מחבר:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **הפעלה:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **מצב:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **סה״כ שלבים מתועדים:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- פלט ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (יתר הפלט נקטע בתצוגה המקדימה)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — קריאה / כתיבה של התקן"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable ו-Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 ערכות צבעים, הדגשת פלט וכללים לפי פקודה"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>עלה לספריית האב (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **הערה:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "יציאה {port} כבר מוקצית על ידי תהליך אחר."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "לשונית #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "עוזר AI: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "הלשונית נסגרה."
+
+# 
+msgid "Abaixo"
+msgstr "מתחת"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "בטל את פתרון ההתנגשויות הנוכחי"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "בטל rebase וחזור לענף המקורי"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "פותח את סרגל החיפוש Regex/מילולי בלשונית הפעילה (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "פותח מנהרה זו אוטומטית בעת התחברות למארח ה-SSH"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "פותח מסוף מקומי חדש (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "פותח מעטפת אינטראקטיבית בתוך מכולת Docker פעילה"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "פותח קישור: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "פתח את צג המשאבים (גרפי Cairo Sparklines)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "פתח תיקייה"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "פתח באמצעות יישום חיצוני"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "פתח ספרייה זו במסוף (cd)"
+
+# 
+msgid "Acima"
+msgstr "מעל"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "עוקב אחר יומני מכולת Docker בזמן אמת"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "עוקב אחר יומני יחידת systemd בזמן אמת"
+
+# 
+msgid "Active"
+msgstr "פעיל"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "הוסף הפניית מעקב upstream"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "הוסף מנהרת SSH חדשה"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "הוסף ערכה מותאמת אישית"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "קבץ לפי קטגוריות (.7z בראש)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "הקצה pseudo-TTY מחובר ל-stdin של המכולה"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "אפשר שנמוך לגרסת חבילה ישנה יותר"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "אפשר חיבורי TLS לא מאובטחים"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "נוצר שינוי מבוקר עם גיבוי אטומי."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "הפעל/כבה עוזר AI Zero-Trust"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "הפעל/כבה מנהל קבצים דו-חלוני"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "הפעל/כבה מצב עריכה (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "הפעל/כבה חלונית כפולה (פיצול / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "הפעל/כבה חלונית צד של הפעלות SSH"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "סביבת Flatpak"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "סביבת ייצור (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "סביבת ייצור — מוגן על ידי ProductionGuard"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "תקן את קצה הענף הנוכחי"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "נתח את ההודעות והשגיאות האחרונות הבאות מקובץ היומן '{name}' וספק אבחון של גורמי השורש ופתרונות מומלצים:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "נתח את הפרויקט והכן את התיקונים הנדרשים באמצעות OpenCode."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "נתח את החבילה הנוכחית ודווח על שגיאות"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "צרף קובץ (אימות PathGuard)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "צרף קובץ להקשר (מאומת על ידי PathGuard)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "הניתוח עבור בקשתך הושלם (הוחלו `SecretRedactor` ובידוד `<untrusted>`).\n\nפקודה מומלצת:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "הניתוח התבקש מעוזר ה-AI."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "מחיל הדגשת תחביר על הפלט של הפקודה 'cat'"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "מחיל כללים הקשריים אוטומטית בעת זיהוי הפקודה הפעילה"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "החל הדגשת פלט על חיבורי SSH"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "החל הדגשת פלט על הפעלות מסוף מקומיות"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "יישום וחלון"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "יישום או מזהה"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "החל מצב שמור (stash) והשאר ברשימת ה-stash"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "החל מצב שמור (stash) והסר מרשימת ה-stash"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "אשר והפעל"
+
+# 
+msgid "Aproximar"
+msgstr "זום פנימה"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "כלי לניהול חבילות עבור Arch Linux / Manjaro"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "מצב ארכיון (משמר הרשאות, זמנים וקישורים סימבוליים)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "הקובץ הקודם (חץ למעלה / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "קובץ בינארי: {name}\nנתיב: {path}\nגודל: {size}\nהרשאות: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "קובץ ארכיון"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "הקובץ הועתק להעברה: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "הקובץ נוצר: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "קובץ נתונים"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "קובץ וידאו"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "קובץ שמע"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "הקובץ נמחק: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "הקובץ סומן להעברה: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "הקובץ נטען מחדש מהדיסק."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "שם הקובץ שונה ל-'{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "הקובץ שוחזר לאחר החזרה לאחור (rollback): {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "הקובץ נשמר עם הרשאות מנהל (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "הקובץ נשמר בהצלחה עם הרשאות מנהל (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "הקובץ נשמר בהצלחה!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "קובץ: {name} (גודל: {size} בתים)\nקטע:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "קבצים מקובצים לפי קטגוריה (.7z בראש)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "קבצים ממוינים לפי תאריך שינוי"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "קבצים ממוינים לפי שם"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "קבצים ממוינים לפי גודל"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "קבצים ממוינים לפי סוג / סיומת"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "קבצי/תיקיות מקור"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "עוזר הקוד OpenCode"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "עוזר AI Zero-Trust"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "עוזר ה-AI אינו מחובר."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "קבל סיכון והפעל"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "קיצור הדרך '{name}' עודכן ל-{label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "קיצור הדרך '{name}' הוסר."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "קיצורי מקלדת (34 פעולות הניתנות להגדרה)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "קיצורי מערכת ומועדפים"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "הפעל / השבת מגן סביבת ייצור (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "הפעל צביעה עבור 'cat'"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "הפעל הדגשת קלט מעטפת"
+
+# 
+msgid "Ativar Todos"
+msgstr "הפעל הכל"
+
+# 
+msgid "Ativo"
+msgstr "פעיל"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "פעיל (מאזין ב-{src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "נוכחי: {curr}\nחדש: (לחץ על מקשים)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "נוכחי: {curr}\nחדש: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "נוכחי: {curr}\nחדש: {new} (נוגד עם {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "רענן (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "רענן רשימה (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "ביקורת אבטחה עם AI"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "ביקורת אבטחה של ספרייה זו עם AI"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "ביקורת האבטחה של '{name}' נשלחה לעוזר ה-AI."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "ביקורת התיקייה '{path}' נשלחה אל עוזר ה-AI."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "הגדל גופן (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "אימות:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "אוטומטי: מותאם לרקע המסוף. ידני: ערכת נושא קבועה."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "אוטומטי: מזהה ניגודיות מול הרקע באופן אוטומטי"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "הושלם אוטומטית: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "השלמה אוטומטית חכמה (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "השלמה אוטומטית חכמה — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "השלמה אוטומטית הוחלה: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "כן אוטומטי"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "הסר אוטומטית תלויות מיותרות"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "מריץ אוטומטית אבחון לקריאה בלבד ללא צורך באישור ידני."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "עובר ללשונית הבאה (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "פעולה"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "נוצר גיבוי SHA-256 ({count} קבצים): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "גיבוי SHA-256 נשמר ({count} קבצים): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "גיבוי לא נמצא ב-{path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "הגיבוי שוחזר בהצלחה ({count} קבצים אומתו באמצעות SHA-256)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "סרגל הרצה בו-זמנית (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "מחיקה באצווה באמצעות xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "חסום ובטל (מומלץ)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "השידור נשלח: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "שדר לכולם"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "בנה את כל החבילות בסביבת העבודה"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "בנה תוצרים במצב שחרור (release)"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "בנה תוצרים במצב שחרור עם מיטובים"
+
+# 
+msgid "Busca"
+msgstr "חיפוש"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "חיפוש גלובלי בין לשוניות / היסטוריה"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "חיפוש גלובלי בין לשוניות / הפעלות / היסטוריה"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "חיפוש גלובלי בלשוניות, הפעלות, היסטוריה וקטעי קוד (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "החיפוש הגלובלי הוסיף לשורת הפקודה: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "חיפוש גלובלי ב-OnyxSH (Ctrl+Shift+G) — לשוניות, הפעלות, היסטוריה וקטעי קוד"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "חיפוש גלובלי: מיקוד בלשונית #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "חיפוש קבצים ותיקיות עם מסננים מתקדמים"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "חיפוש מטושטש (fuzzy) לפי תיקייה, מארח ומועדפים (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "חפש במסוף (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "חפש במסוף הנוכחי"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "חפש הפעלות או מארחים..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "חפש טקסט במסוף..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "עקוף בקשות אישור"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "מחשב גיבובים (hashes) ברקע..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "הנתיב הועתק: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "נתיב התיקייה (לדוגמה: ייצור או Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "נתיב הקובץ (לדוגמה: /var/log/syslog או ~/.ssh/id_rsa לבדיקת חסימה):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "הנתיב הוכנס למסוף: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "תבנית שם קובץ לא תלוית רישיות"
+
+# 
+msgid "Categoria"
+msgstr "קטגוריה"
+
+# 
+msgid "Categoria:"
+msgstr "קטגוריה:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "עבור לתיקייה לפני ביצוע פעולות"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "מפתח SSH / סיסמה:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "בדוק חתימת GPG ושלמות של קובץ .rpm"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "בדוק אם קיימים שדרוגי חבילות זמינים ללא התקנה"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "בודק חבילה כדי לאתר טעויות נפוצות"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "סכומי ביקורת ואימות שלמות — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "בחר בין ספקי ענן מהירים לבין שרתים מקומיים."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "נקה את כל מטמון החבילות (הסר את כל החבילות שהורדו)"
+
+# 
+msgid "Clean local caches"
+msgstr "נקה מטמונים מקומיים"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "נקה מטמון חבילות (הסר חבילות ישנות שהורדו)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "לחץ כדי לשנות את קיצור המקלדת"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "לחץ כדי להתחבר בלשונית חדשה (ולבחור הפעלה זו)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "לחץ כדי להבין מה כל רמת הרשאה מתירה או מגבילה"
+
+# 
+msgid "Colar"
+msgstr "הדבק"
+
+# 
+msgid "Colar Aqui"
+msgstr "הדבק כאן"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "הדבק בתוך תיקייה זו"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "הדבק למעלה גיבוב MD5, SHA-1, SHA-256 או SHA-512 כדי לאמת מקוריות."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "צובע פקודות בזמן אמת תוך כדי הקלדה במסוף"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "צובע תבניות בפלט המסוף, כגון שגיאות, אזהרות וכתובות IP. ריבוי כללים עלול להשפיע על פלטים ארוכים מאוד."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "צביעת פקודת cat"
+
+# 
+msgid "Comando ({cat})"
+msgstr "פקודה ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "פקודה / תבנית:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "פקודה לאחר התחברות:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "הפקודה הועתקה ללוח."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "פקודת הייצור נבדקה על ידי המפעיל."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "הפקודה נשלחה למסוף: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "הפקודה נשלחה: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "הפקודה הופעלה מההיסטוריה: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "הפקודה הופעלה דרך לוח הפקודות: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "הפקודה נכשלה (קוד {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "הפקודה הוכנסה לשורת הפקודה: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "פקודה ארוכה הסתיימה בהצלחה (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "התאם לצבעי המסוף"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "לוח פקודות (Ctrl+Shift+P) — חיפוש מאוחד"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "לוח פקודות — חיפוש מאוחד (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "דחוס"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "משווה שלמות"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "השווה / סנכרן תיקיות (שמאל ⇄ ימין)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "השוואת חלונית כפולה: {identical} זהים | {left_only} בשמאל בלבד | {right_only} בימין בלבד | {diff} בגודל שונה"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "תאימות למאגרי Git ומאגרים מדור קודם"
+
+# 
+msgid "Compile the current package"
+msgstr "הדר את החבילה הנוכחית"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "דחס נתוני קבצים במהלך ההעברה"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "מסקנות ולקחים שנלמדו"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "מחובר להפעלה: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "מתחבר דרך חיפוש גלובלי: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "מתחבר דרך לוח הפקודות: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "התחבר בחלונית מפוצלת (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "התחבר: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "הגדר את עוזר ה-AI..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "הגדר כללים עבור פקודה זו"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "הגדרת עוזר AI — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "הגדר את כל החבילות שנפרסו אך טרם הוגדרו"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "הגדר חבילה שנפרסה"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "הגדר מפתחות נפרדים להחלפת ספקים ללא הגדרה מחדש"
+
+# 
+msgid "Confirm"
+msgstr "אשר"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "אשר מחיקה"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "התנגשות או כשל סנכרון במאגר ה-Git."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "גודל חלון הקשר (Tokens)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "התוכן הועתק ללוח."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "המשך rebase לאחר פתרון התנגשויות"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "השיחה נטענה מההיסטוריה."
+
+# 
+msgid "Copiado para {path}"
+msgstr "הועתק אל {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "העתק קובץ"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "העתק את נתיב תיקיית האב"
+
+# 
+msgid "Copiar Pasta"
+msgstr "העתק תיקייה"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "העתק את הנבחרים לחלונית הימנית (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "העתק את הנבחרים לחלונית השמאלית (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "העתק ללוח"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "העתק דוח מפורט בפורמט Markdown"
+
+# 
+msgid "Cores e Destaques"
+msgstr "צבעים והדגשות"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "צבעים והדגשות של המסוף"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "צבעי מסוף רגילים (0-7 רגילים, 8-15 בהירים)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "צור commit מיזוג גם במקרה של fast-forward"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "צור שכפול רדוד (shallow clone) עם היסטוריה מקוצרת"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "צור ארכיון tar דחוס ב-gzip עם פלט מפורט"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "יוצר ארכיונים דחוסים מקבצים ותיקיות"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "יוצר ועורך לחצני פקודות עם פרמטרים (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "יוצר ענף מקומי חדש במאגר Git ועובר אליו"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "יוצר קובץ בדיקה ב-/tmp עם גיבוי אטומי ב-AuditLogger"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "יוצר ערכת צבעים מותאמת אישית על בסיס הערכה הפעילה"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "צור גיבוי הגדרות (חבילת SHA-256)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "צור הפעלה"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "צור מנהרה מקומית (-L), מרוחקת (-R) או דינמית SOCKS5 (-D) להעברת פורטים דרך SSH."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "חישוב סכום הביקורת בוטל על ידי המשתמש."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "קוד Rust"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "הקוד הוכנס למסוף הפעיל."
+
+# 
+msgid "Código-Fonte"
+msgstr "קוד מקור"
+
+# 
+msgid "Cópia de {name}"
+msgstr "עותק של {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "תאריך שינוי"
+
+# 
+msgid "Date / Time"
+msgstr "תאריך / שעה"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "תאריך: {date} | ממדים: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "מנהל חבילות ברמה נמוכה עבור Debian (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "מפתח API ברירת מחדל"
+
+# 
+msgid "Default Model Identifier"
+msgstr "מזהה מודל ברירת מחדל"
+
+# 
+msgid "Default Provider"
+msgstr "ספק ברירת מחדל"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "מגדיר ומריץ יישומים מרובי קונטיינרים"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "הגדר הרשאות קובץ עבור: {name}\nנוכחי: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "מחק כלל חומת אש"
+
+# 
+msgid "Delete a merged branch"
+msgstr "מחק ענף ממוזג"
+
+# 
+msgid "Desativar Todos"
+msgstr "השבת הכל"
+
+# 
+msgid "Descrição:"
+msgstr "תיאור:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "הדגשת קלט Shell"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "הדגשת תחביר בזמן אמת בזמן הקלדת פקודות"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "הדגשת תחביר עבור פלט הפקודה 'cat' (באמצעות מנוע Pygments/ANSI)"
+
+# 
+msgid "Destino Remoto"
+msgstr "יעד מרוחק"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "מצב מנותק: הרץ פקודה ברקע"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "אבחן שגיאות יומן באמצעות בינה מלאכותית"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "אבחן והפעל מחדש שירות אינטרנט"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "אבחון היוריסטי (**{title}**):\n{desc}\n\nהצעה לתיקון מהיר:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "אבחון מערכת מאובטח — טלמטריה ותמיכה"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "אבחון היומן '{name}' נשלח לעוזר הבינה המלאכותית."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "התאם רישיות"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "הזן פקודה (לדוגמה: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "הקלד פקודה לשליחה אל כל המסופים הפתוחים..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "הקלד פעולה, הפעלת SSH או פקודה עם פרמטרים..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "הקטן גופן (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "דינמי (-D) • פרוקסי SOCKS5 דרך SSH"
+
+# 
+msgid "Direita"
+msgstr "ימין"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "התיקייה '{path}' סומנה כמועדפת."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "תיקיית תצורה"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "התיקייה נשלחה למסוף: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "תיקייה: {name}\nנתיב: {path}\nהרשאות: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "תיקיות מותרות, בידוד PathGuard ומדיניות דחייה כברירת מחדל"
+
+# 
+msgid "Disable an installed snap"
+msgstr "השבת snap מותקן"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "הדיסק מלא (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "דיסק (קלט/פלט פיזי)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "הצג מידע מפורט על חבילה מותקנת"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "הצג זיכרון במגה-בייט"
+
+# 
+msgid "Display status details of installed package"
+msgstr "הצג פרטי מצב של חבילה מותקנת"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "מפצל את הלשונית הנוכחית למעלה/למטה (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "מפצל את הלשונית הנוכחית זה לצד זה (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "חלק אופקית"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "פצל מסוף אופקית"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "חלק אנכית"
+
+# 
+msgid "Divisão"
+msgstr "חיתוך"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "אל תשאל דבר, השתמש בתשובות ברירת המחדל"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "אל תבדוק תלויות לפני המחיקה"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "אל תריץ פקודה מרוחקת (העברת פורטים בלבד)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "אל תפתור שמות שירותים"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "אל תשמור תמונת מצב של נתוני ה-snap"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "אל תאמת תלויות של חבילות"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "אל תאמת תלויות של חבילות לפני ההתקנה"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "אל תעשה דבר אם קיים מאגר מרוחק באותו שם"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "מסמך טקסט"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "הורד עותק עדכני של מסדי נתוני החבילות"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "הורד חבילות בלבד, אל תתקין"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "צייר היסטוריית commit גרפית מבוססת טקסט"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "הרצת ניסיון להסרה ללא מחיקת קבצים"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "הרצת ניסיון להתקנה ללא שינוי המערכת"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "ערוך פקודה: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "ערוך הגדרות מנהרה"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "ערוך ערכת צבעים"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "ערוך הפעלה נבחרת"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "ערוך הפעלה — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "ערוך ערכת צבעים או צור גרסה מותאמת אישית"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "הכנתי **תוכנית פעולה מובנית** עם אימות על ידי `PolicyEngine` ובדיקה אוטומטית לאחר הביצוע (`verifier.rs`) עבור:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "אמולטור מסוף מודרני לתהליכי עבודה מקומיים ומרוחקים ב-Linux, עם ProductionGuard, SFTP/TFTP דו-חלוני ועוזר בינה מלאכותית Zero-Trust."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "הפעל snap מושבת"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "העברת X11 (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "סוגר את הלשונית הפעילה (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "מצא קבצים"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "שולח פקודות בו-זמנית למספר מסופים (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "שלח פקודה לכל הכרטיסיות"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "שלח שאלה"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "שלח פקודת sha256sum ללשונית המסוף הפעילה"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "שלח לכולם"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "מחק (הסר התקנה) חבילת RPM מותקנת"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "שגיאה בשמירת הקובץ"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "שגיאה בשינוי הרשאות עבור '{name}': {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "שגיאה בחישוב ה-hash"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "שגיאה בהדבקת הפריט: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "שגיאה ביצירת הקובץ: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "שגיאה ביצירת הגיבוי: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "שגיאה ביצירת התיקייה: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "שגיאה במחיקת הקובץ: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "שגיאה במחיקת התיקייה: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "שגיאה בהצגת הרשימה של {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "שגיאה בהעברת הפריט: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "שגיאה בשינוי השם: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "שגיאת מאגר Git"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "שגיאה בשחזור לאחור: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "שגיאה: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "בחר בין מקומי (-L), מרוחק (-R) או דינמי SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "ערכת הצבעים הוחלה: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "ערכת הצבעים נשמרה: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "הפעלה זו מגיעה מ-~/.ssh/config (קריאה בלבד) או שכבר הוסרה."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "קובץ זה הוא לקריאה בלבד. ניתן לשמור עריכות עם הרשאות מנהל (Root)."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "סגנון בהיר (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "סגנון כהה (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "לדוגמה: 10.0.0.15 או srv.company.com"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "לדוגמה: ייצור (השאר ריק לשורש)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "לדוגמה: ייצור Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "לדוגמה: root או ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "מחק תיקייה"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "מחק לצמיתות"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "הורץ במסוף: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "הפעל (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "הפעל כעת"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "הפעל עם sudo במסוף"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "הרץ פקודה בכל המסופים"
+
+# 
+msgid "Executar passo"
+msgstr "הפעל שלב"
+
+# 
+msgid "Executar plano do agente"
+msgstr "הרץ את תוכנית הסוכן"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "הפעל את כל בדיקות היחידה והאינטגרציה"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "הצג לוח הפעלות"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "הסבר קובץ באמצעות בינה מלאכותית"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "התבקש הסבר על הקובץ '{name}' מעוזר הבינה המלאכותית."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "הסבר את המטרה, המבנה והפעולה של הקובץ '{name}'.\nנתיב: {path}\n\nתוכן ראשוני:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "מייצא את settings.json, sessions.json ו-command_buttons.json עם גיבוב SHA-256"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "מייצא את כל המאגר או את הבחירה הפעילה במסוף"
+
+# 
+msgid "Exportado para {path}"
+msgstr "יוצא אל {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "ייצוא פלט מסוף (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "ייצא הפעלה כמדריך תפעול (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "ייצוא מסוף OnyxSH - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "בקרת חיבורים חיצוניים ובידוד נתונים קפדני."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "חלץ ארכיון tar דחוס ב-gzip עם פירוט"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "מחלץ קבצים מארכיונים דחוסים"
+
+# 
+msgid "Extrair"
+msgstr "להוציא"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "השמירה כ-Root נכשלה"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "ההמתנה לתהליך pkexec נכשלה: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "חישוב סכומי הבקרה נכשל: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "יצירת הגיבוי נכשלה: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "כתיבת נתונים ל-stdin של pkexec נכשלה: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "הפעלת תהליך pkexec בעל הרשאות מוגברות נכשלה: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "שחזור הגיבוי נכשל: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "שמירת הקובץ נכשלה: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "העברה נכשלה (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "העברה נכשלה (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "כלי מהיר ורב-תכליתי להעתקת קבצים מקומיים ומרוחקים"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "הוסף / הסר פקודה מהמועדפים"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "הוסף את התיקייה הנוכחית למועדפים"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "המועדף הוסר: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "מבצע commit לשינויים ב-Git עם הודעה תיאורית"
+
+# 
+msgid "Fechar Aba"
+msgstr "סגור טאב"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "סגור פאנל פעיל"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "מנהל חבילות RPM עבור Fedora/RHEL/Rocky/AlmaLinux"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "משוך ממאגר אחר ומזג עמו"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "תור העברות — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "תור ההעברות ריק (0 משימות פעילות)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "נתוני הקובץ שונו לפני n*24 שעות"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "סוג קובץ (f קובץ רגיל, d תיקייה, l קישור סימבולי)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "סנן את הארכיון דרך gzip (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "מצא איזו חבילה מספקת קובץ או תכונה נתונים"
+
+# 
+msgid "Focar janela existente"
+msgstr "מקד חלון קיים"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "פוקוס חלונית למטה"
+
+# 
+msgid "Focar painel acima"
+msgstr "פוקוס חלונית למעלה"
+
+# 
+msgid "Focar painel à direita"
+msgstr "חלונית פוקוס ימינה"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "חלונית מיקוד משמאל"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "המיקוד עבר לחלונית הראשונה."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "המיקוד עבר לחלונית השנייה."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "עקוב אחר הפלט בזמן אמת כשהקובץ גדל"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "גופן, פלטת צבעים, שקיפות ובינה מלאכותית (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "אלץ מחיקה גם אם יישומים תלויים בכך"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "אלץ התקנה גם אם החבילה/הקבצים כבר קיימים"
+
+# 
+msgid "Force upgrade"
+msgstr "אלץ שדרוג"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "עצב את פלט השאילתה עם queryformat מותאם אישית"
+
+# 
+msgid "Formato"
+msgstr "פורמט"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "רענן חבילות RPM (שדרג רק אם הן כבר מותקנות)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "צור תוכנית פעולה מובנית (ActionPlan)"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "מנהל שירותי מערכת באמצעות systemctl"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "מנהל קבצים"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "מנהל קבצים דו-חלוני"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "מנהל פקודות"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "מנהל פקודות וטפסים דינמיים"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "ניהול טאבים ופאנלים"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "ניהול אפליקציות וזמן ריצה של Flatpak"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — הצע Conventional Commit"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: התיקייה הנוכחית אינה מאגר Git."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • קיבולת הקשר גבוהה"
+
+# 
+msgid "Grade de Ícones"
+msgstr "רשת סמלים"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • LPU מהיר במיוחד"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "גרפים בזמן אמת של מעבד, זיכרון RAM, קלט/פלט דיסק ורשת/GPU"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "מודל וספק בעלי יכולת הסקה גבוהה לתוכניות מרובות שלבים"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "היסטוריית פקודות מועשרת (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "היסטוריית שיחות"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "היסטוריית העברות"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "היסטוריה: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "מארח / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "מארח מרוחק (IP / דומיין)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "מארח מרוחק עבור Bind"
+
+# 
+msgid "Host cannot be empty"
+msgstr "המארח אינו יכול להיות ריק"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "מארח או כתובת IP לא חוקיים."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "קובץ זהות (מפתח פרטי) לאימות באמצעות מפתח ציבורי"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "התעלם מהבדלי אותיות גדולות וקטנות"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "התעלם מסימוני גיבוי קבצים (הסר קובצי תצורה)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "התעלם מקבצים שאינם קיימים, אל תבקש אישור לעולם"
+
+# 
+msgid "Imagem"
+msgstr "תמונה"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "ייבא מפתח ציבורי מסוג GPG בפורמט ASCII-armored אל צרור המפתחות של RPM"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "ייבא תצורה מרוחקת מתוך .flatpakrepo"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "ייבוא הפעלות (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "כלול כותרות תגובת HTTP בפלט"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "מגדיל את גודל הגופן במסוף (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "מסיק ומציע אימותים אוטומטיים (מצב שירות, תחביר תצורה) לאחר פקודות משנות מצב."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "הפעל שרת TFTP"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "הוסף (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "הכנס נתיב למסוף"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "בודק את מאגר ה-Git הנוכחי ומציע הודעת commit"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "בדוק שקעים ויציאות פעילות במארח"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "התקן קובץ חבילת .deb מקומי"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "התקן קובץ חבילת RPM עם תצוגת התקדמות מפורטת"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "התקן כתלות לא מפורשת"
+
+# 
+msgid "Install from the beta channel"
+msgstr "התקן מערוץ ה-beta"
+
+# 
+msgid "Install from the edge channel"
+msgstr "התקן מערוץ ה-edge"
+
+# 
+msgid "Install from the stable channel"
+msgstr "התקן מהערוץ היציב (stable)"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "התקן חבילת RPM אחת או יותר"
+
+# 
+msgid "Install snaps on the system"
+msgstr "התקן חבילות snap במערכת"
+
+# 
+msgid "Interactive rebase"
+msgstr "ביצוע rebase אינטראקטיבי"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "בחר באופן אינטראקטיבי חלקים (hunks) מהטלאי"
+
+# 
+msgid "Interação do Terminal"
+msgstr "אינטראקציה עם הטרמינל"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "ממשק מקומי / כתובת IP לקישור (Bind)"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "ממשק האזנה מקומי"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "פרש תבנית כביטוי רגולרי מורחב (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "מרווח בדיקת השהיה"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "מרווח בשניות לשליחת חבילות בדיקה מסוג KeepAlive"
+
+# 
+msgid "Invalid SSH username"
+msgstr "שם משתמש SSH לא חוקי"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "שם מארח או כתובת IP לא חוקיים"
+
+# 
+msgid "Invalid local port"
+msgstr "יציאה מקומית לא חוקית"
+
+# 
+msgid "Invalid port number"
+msgstr "מספר יציאה לא חוקי"
+
+# 
+msgid "Invalid remote host"
+msgstr "מארח מרוחק לא חוקי"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "חקור שקעים (תחליף מודרני ל-netstat)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "עבור ללשונית"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "פעולה זו תאפס את כל קיצורי המקלדת לערכי ברירת המחדל שלהם. האם ברצונך להמשיך?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "הפריט הודבק ב: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "הפריט הועבר אל: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "הפריסה של {n_pages} לשוניות נשמרה ב-{path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "מנקה את המסך ואת מאגר הגלילה של ההפעלה הפעילה (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "נקה משימות שהושלמו"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "נקה היסטוריה שאינה במועדפים"
+
+# 
+msgid "Limpar Sessão"
+msgstr "נקה סשן"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "נקה הפעלת מסוף"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "הקישור הועתק ללוח."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "הצג את כל הקבצים השייכים לחבילת RPM מותקנת"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "הצג יישומים וסביבות ריצה הזמינים במאגר מרוחק"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "הצג יכולות הנדרשות על ידי קובץ .rpm זה"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "הצג קובצי תצורה של חבילה מותקנת"
+
+# 
+msgid "List configuration files only"
+msgstr "הצג קובצי תצורה בלבד"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "הצג תלויות הנדרשות על ידי חבילה מותקנת"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "הצג קבצים הכלולים בתוך ארכיון ה-.rpm"
+
+# 
+msgid "List files installed by package"
+msgstr "הצג קבצים שהותקנו על ידי החבילה"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "הצג חבילות חיצוניות (למשל מ-AUR)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "הצג חבילות מותקנות התואמות לתבנית"
+
+# 
+msgid "List installed snaps"
+msgstr "הצג חבילות snap מותקנות"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "הצג קובצי יחידה מותקנים ואת מצב ההפעלה שלהם"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "הצג חבילות יתומות (תלויות שאינן נדרשות עוד)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "הצג חבילות שהותקנו כתלויות"
+
+# 
+msgid "List stashes currently saved"
+msgstr "הצג רשימת stash שמורים כעת"
+
+# 
+msgid "Lista Detalhada"
+msgstr "רשימה מפורטת"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "מציג את תוכן התיקייה עם פרטים (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "רשימה, רשת תמונות ממוזערות, עץ ו-Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "רשימת קבצים"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "מקומי (Ollama / LM Studio) • פרטיות מלאה ב-GPU/CPU"
+
+# 
+msgid "Local Server Base URL"
+msgstr "כתובת URL בסיסית של השרת המקומי"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "פורמט ארוך, כל הקבצים, גדלים קריאים לאדם"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "מודל וספק עם השהיה נמוכה לשאלות shell יומיומיות"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "צור תיקיות אב לפי הצורך"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "הקצאת זיכרון הקשר מרבית הנשלחת למודל"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "זיכרון (RAM ו-Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "זיכרון RAM"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "הודעת Commit"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "מצב לא מקוון מחמיר פעיל (ללא ענן כלל)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "מצב מקוון עם ניתוב חכם פעיל."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "מצב בחירת טקסט הופעל."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "מצב בחירת טקסט הושבת."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "מצב שידור (Broadcast לכל הכרטיסיות)"
+
+# 
+msgid "Modo do Tema"
+msgstr "מצב ערכת נושא"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "מוניטור משאבים בזמן אמת (Sparklines של Cairo)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "מוניטור משאבים בזמן אמת — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "מציג או מסתיר את עץ הפעלות ה-SSH (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "הצג קבצים מוסתרים (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "מנוע"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "שם ובאופן אופציונלי תג בפורמט 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "אין פריטים בלוח להדבקה."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "אין רשומות ביקורת עדיין. לחץ על 'הדמיית שינוי מבוקר' כדי לבדוק שחזור אטומי."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "לא זוהה מעבד גרפי ייעודי דרך sysfs/nvidia-smi"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "לא נבחרה הפעלה"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "לא נרשמו העברות בהפעלה."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "רשת (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "רשת (/proc/net/dev) • RX / TX בזמן אמת"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "רשת (RX / TX) ו-GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "אל תשאל שאלות לעולם"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "שם (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "שם הענף החדש"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "שם ההפעלה:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "שם התיקייה החדשה:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "שם קובץ לא חוקי בלוח."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "שם המשתמש של SSH מכיל תווים לא חוקיים."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "שם קובץ היעד"
+
+# 
+msgid "Nome do Serviço"
+msgstr "שם שירות"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "שם הפקודה (למשל: הפעלת Nginx מחדש)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "שם הקובץ החדש:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "שם הסמל (למשל: utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "שם או מזהה (ID) של המכולה"
+
+# 
+msgid "Nome:"
+msgstr "שם:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "מצב לא אינטראקטיבי"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "כרטיסיית מסוף חדשה"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "כרטיסיית מסוף חדשה (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "תיקייה חדשה כאן..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "תיקיית הפעלות חדשה"
+
+# 
+msgid "Nova Pasta..."
+msgstr "תיקייה חדשה..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "הפעלה חדשה — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "הותחלה שיחה חדשה."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "קובץ חדש כאן..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "קובץ חדש..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "ערכת צבעים חדשה"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "שם חדש לתיקייה:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "שם חדש לקובץ:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "לא ניתן היה לטעון את הפריט: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "לא ניתן היה לשמור את השינויים: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "אין מספיק שטח פנוי במערכת הקבצים."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "רמה 0 (קריאה)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "רמה 1 (כתיבה)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "רמה 2 (מנהל)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "רמה 3 (קריטית)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "רמה 4 (חסומה)"
+
+# 
+msgid "Nível {n}"
+msgstr "רמה {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "מספר ניסיונות לפני ויתור על התחברות מחדש אוטומטית"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "הקובץ הבינארי '{bin}' אינו מותקן או נמצא מחוץ ל-$PATH."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "הפקודה הסתיימה עם קוד שגיאה."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "הפקודה שהורצה במסוף נכשלה. נתח את קובצי הפרויקט והכן את התיקונים הנדרשים באמצעות OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "הפקודה נכשלה עקב חוסר בהרשאות משתמש-על (root)."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "שם ההפעלה אינו יכול להיות ריק."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "צינור ביצוע מעורפל / מפוענח ב-Base64"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "המופע הקודם (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "מופעים שנמצאו במסוף"
+
+# 
+msgid "Octal: {mode}"
+msgstr "אוקטלי: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — מוכן"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — בדיקת התראה"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode הופעל במסוף."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • קטלוג מאוחד רב-מודלים"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "מפעיל: {author} | מארח: {host} | תאריך: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "פעל על כל החבילות בסביבת העבודה"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "הפעולה בוטלה או נדחתה על ידי המשתמש."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "פעולות עם מנהל החבילות של Arch Linux"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "פעולות עם מנהל החבילות של Debian/Ubuntu"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "פעולות עם מנהל החבילות של Fedora/RHEL"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "פעולות קובץ"
+
+# 
+msgid "Ordem Crescente"
+msgstr "סדר עולה"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "סדר יורד"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "מיון עולה הופעל"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "מיון יורד הופעל"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "סדר חבילות מותקנות לפי זמן התקנה (החדשות ביותר תחילה)"
+
+# 
+msgid "Organizar por"
+msgstr "מיין לפי"
+
+# 
+msgid "Origem (Local)"
+msgstr "מקור (מקומי)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "פלט מספרים בפורמט קריא לאדם"
+
+# 
+msgid "Output package names only"
+msgstr "פלט שמות חבילות בלבד"
+
+# 
+msgid "Pacote"
+msgstr "חבילה"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "חבילת התקנה"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "תבנית שם (למשל: *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "לוח הבקרה של המפגשים"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "החלונית/הכרטיסייה נסגרה."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "מילה שלמה"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "לוח צבעים ANSI של 16 צבעים"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "עצור שרת TFTP ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "פרמטרים — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "שלב #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "שלב בוצע: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "התיקייה '{path}' נוצרה בהצלחה."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "תיקייה / ספרייה"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "התיקייה הועתקה ללוח: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "תיקייה נוצרה: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "תיקייה נמחקה: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "התיקייה סומנה להעברה: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "התיקייה הוסרה מהמועדפים."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "שם התיקייה שונה ל-'{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "תיקייה · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "תיקייה:"
+
+# 
+msgid "Pause"
+msgstr "השהיה"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "פרופיל הניתוב שונה ל: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "ביצוע שדרוג הפצה (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "שאל את העוזר הבינה המלאכותית"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "שאלו או הדביקו שגיאת מסוף..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "הרשאות (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "ההרשאות של '{name}' שונו ל-{mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "הרשאות עבור {name}"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "חיפוש בכל הלשוניות הפתוחות, הפעלות SSH, היסטוריה וקטעי קוד (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "חיפוש רקורסיבי בתת-ספריות"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "חפש בטרמינל"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "חיפוש טקסט בכל לשוניות המסוף הפתוחות, הפעלות SSH, היסטוריה וקטעי קוד..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "חיפוש מנהרות לפי שם, יציאה או מארח..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "הרצה בצנרת למפרש המעטפת"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "תוכנית פעולה Zero-Trust עבור: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "רקע"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "נא להזין מפתח API של {provider} לפני הבדיקה."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "נקודות קצה ויציאות"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "נא לנתח את הבחירה הבאה מהמסוף:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "נא לנתח ולהסביר את הקוד/תוכן של הקובץ '{name}', מטרתו, המבנה שלו ונקודות חשובות:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "נא לבצע ביקורת מפורטת של אבטחה וממשל גישה בספרייה הנוכחית '{path}'. בדקו הרשאות רחבות מדי, קבצים רגישים (.env, מפתחות פרטיים, אישורים חשופים) והמליצו על שיטות עבודה מומלצות של Zero-Trust."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "נא לבצע ביקורת מפורטת של אבטחה והרשאות גישה לקובץ '{name}'.\nנתיב: {path}\nהרשאות נוכחיות: {perms} ({oct})\nגודל: {size}\nהמליצו על הגדרות chmod מאובטחות והפחתת פגיעויות."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "נא לבצע ביקורת מפורטת של אבטחה והרשאות גישה לספרייה '{name}'.\nנתיב: {path}\nהרשאות נוכחיות: {perms} ({oct})\nשינוי אחרון: {date}\nהמליצו על הגדרות chmod אידיאליות, הגבלות ושיטות עבודה מומלצות לתאימות Zero-Trust."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "נא לבצע רפקטורינג לקטע הקוד הבא באמצעות OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "היציאה מחוץ לטווח החוקי (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "יציאה חשופה מרוחקת (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "יציאת יעד מרוחקת"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "יציאת האזנה מקומית (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "יציאת פרוקסי SOCKS5 (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "היציאה מחוץ לטווח המותר (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "יציאה:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "PostgreSQL מרוחק"
+
+# 
+msgid "Preferências"
+msgstr "העדפות"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "הוספת מספר שורה המתחיל מ-1 בתחילת כל שורה"
+
+# 
+msgid "Preview do Comando:"
+msgstr "תצוגה מקדימה של הפקודה:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "ספק ראשי וקישוריות"
+
+# 
+msgid "Print Git version"
+msgstr "הדפסת גרסת Git"
+
+# 
+msgid "Print RPM version"
+msgstr "הדפסת גרסת RPM"
+
+# 
+msgid "Print help synopsis"
+msgstr "הדפסת תקציר עזרה"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "הדפסת גדלים בחזקות של 1024 (למשל 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "הדפסת stdout/stderr של הבדיקה ישירות"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "הדפסת סך הכול עבור עומק ספרייה 1"
+
+# 
+msgid "Print zypper version"
+msgstr "הדפסת גרסת zypper"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "ייצור / שרתי אינטרנט"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "פרוטוקול:"
+
+# 
+msgid "Provide verbose output"
+msgstr "הצגת פלט מפורט"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "הספק שבשימוש כאשר ניתוב חכם מושבת"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "תצוגה מקדימה חיה"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "ההתאמה הבאה (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "הקובץ הבא (חץ למטה / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "קפיצה להנחיה הקודמת."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "קפיצה להנחיה הבאה."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "הסרה מלאה של חבילה מותקנת כולל תצורה"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "הגדרת snap במצב בידוד קלאסי"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "מספר שורות (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "מספר שורות (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "שאילתה על קובץ חבילת .rpm מקומי שאינו מותקן"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "שאילתה והצגת רשימת כל חבילות ה-RPM המותקנות"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "שאילתת חבילות התואמות לקריטריוני המאגר"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "בדיקת מצב השירותים המסופקים על ידי snaps"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "בדיקה איזו חבילת RPM מותקנת מחזיקה בנתיב קובץ"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (תצוגה מקדימה)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "כלי ברמה נמוכה של מנהל החבילות RPM (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "קריאת כל הקבצים תחת כל ספרייה באופן רקורסיבי"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "קריאה: {read}/s • כתיבה: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "ביצוע rebase לענף הנוכחי מעל ענף ה-upstream לאחר משיכה"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "בנייה מחדש של אינדקסי מסד הנתונים של RPM מתוך כותרות מותקנות"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "חיבור מחדש אוטומטי חכם בעת ניתוקים"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "תיעוד שינויים מוכנים במאגר"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "גזור קובץ"
+
+# 
+msgid "Recortar Pasta"
+msgstr "גזור תיקייה"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "איפוס כל קיצורי הדרך לערכי ברירת המחדל"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "איפוס זום"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "הקטנת גודל הגופן של המסוף (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "זום החוצה"
+
+# 
+msgid "Refresh Interval"
+msgstr "מרווח רענון"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "רענון כל המטא-נתונים של המאגרים"
+
+# 
+msgid "Refresh files database"
+msgstr "רענון מסד נתוני הקבצים"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "רשומות AuditLogger (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "כללי הדגשה גלובליים"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "הפעלה מחדש של שירות מנוהל והחלת התצורה"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "התקנה מחדש אם החבילה כבר קיימת"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "דוח הגיבובים המלא הועתק ללוח"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "דוח אבחון מטוהר של OnyxSH"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "דוח האבחון הועתק ללוח."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "דוח תפעולי מובנה עם שלבים, הערות, יעד ומסקנה (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "דוח מטוהר של מערכת הפעלה, RAM, GPU/VRAM וסביבת Flatpak"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "טעינה מחדש של השירות או הפעלה מחדש אם טעינה מחדש אינה נתמכת"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "מרוחק (-R) • חשיפת יציאה מקומית בשרת מרוחק"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "הסרת רשומת stash בודדת"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "הסרת כל החבילות התלויות ביעד"
+
+# 
+msgid "Remove all stash entries"
+msgstr "הסרת כל רשומות ה-stash"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "הסרת כל הגרסאות של החבילה"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "הסרת חבילה מותקנת תוך שמירת התצורה"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "הסרת ספריות ותכולתן באופן רקורסיבי"
+
+# 
+msgid "Remove installed packages"
+msgstr "הסרת חבילות מותקנות"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "הסרת הפניות מעקב מרוחקות מיושנות"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "הסרת חבילה אחת או יותר ותלויות שאינן בשימוש"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "הסרת חבילות שהותקנו במקור כתלויות ושאינן נדרשות עוד"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "הסרת snaps מהמערכת"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "הסרת נתונים שאינם בשימוש (קונטיינרים, רשתות, אימג'ים)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "הסרת הפעלה נבחרת"
+
+# 
+msgid "Remover Túnel"
+msgstr "הסרת מנהרה"
+
+# 
+msgid "Remover favorito"
+msgstr "הסרת מועדף"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "הסרת הספרייה הנוכחית מהמועדפים"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "שינוי שם קובץ"
+
+# 
+msgid "Renomear Pasta"
+msgstr "שינוי שם תיקייה"
+
+# 
+msgid "Renomear..."
+msgstr "שינוי שם..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "דיווח תמונת מצב של התהליכים הנוכחיים"
+
+# 
+msgid "Reportar Problema"
+msgstr "דיווח על בעיה"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "איפוס גודל גופן (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "פותר שגיאת מסוף באמצעות OpenCode / AI..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "מדיניות הפעלה מחדש בעת יציאת הקונטיינר"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "שחזור גופן ברירת המחדל Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "שחזור כללים גלובליים"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "שחזור כל הפקודות"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "שחזור הרשימה המקורית של פקודות מתעלמות"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "שחזור אינדקס / הסרת קבצים מ-stage"
+
+# 
+msgid "Resume"
+msgstr "המשך"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "תקצירי הצפנה תקניים שחושבו על תוכן הקובץ:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "אחזור יומנים עבור שירותים"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "סקירת Diff וביקורת Zero-Trust (שחזור אטומי)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "ניתוב חכם: לחץ להחלפת פרופיל (אוטומטי, מהיר, מתקדם, אבטחה)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "נותב לפרופיל חשיבה מתקדם/אבטחה."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "נותב לפרופיל מהיר (שאילתה פשוטה בהשהיה נמוכה)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "הפעלת קובץ בינארי או דוגמה של החבילה המקומית"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "הרצה כאילו git הופעל בנתיב"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "הפעלת מעטפת התחברות כמשתמש היעד (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "הרצת קובץ הפצה בינארי ממוטב"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Rust מקורי (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "מנהל חבילות וכלי בנייה עבור Rust"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "הפעלת SSH"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "פרוקסי SOCKS5"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "פרוקסי SOCKS5 ארגוני"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "דחיפה כפויה בטוחה תוך אימות הפניה מרוחקת"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "סגור יישום"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "שמירה וסגירה"
+
+# 
+msgid "Salvar Alterações"
+msgstr "שמירת שינויים"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "שמירת גיבוי OnyxSH"
+
+# 
+msgid "Salvar Comando"
+msgstr "שמירת פקודה"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "שמירת פריסת הכרטיסיות הנוכחית"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "שמירה בהרשאות מנהל / Root (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "נשמר בהצלחה: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "הרצת סקריפט"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "חיפוש בתיאורים וגם בשמות"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "חיפוש חבילה שבעלת שם קובץ"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "חיפוש חבילות התואמות לתבנית"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "חיפוש חבילות snap בחנות"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "חיפוש בחבילות המותקנות מקומית"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "עקוב אחר סגנון המערכת"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "מעקב בזמן אמת (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "שניות לשמירת חיבורים פעילים (0 להשבתה)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "נבחר: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "בחירת קובץ גיבוי של OnyxSH"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "בחר את הפקודות להכללה והוסף הערות טכניות מסבירות לכל שלב. (זוהו {count})"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "בחר פריט בחלונית הימנית להורדה (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "בחר פריט בחלונית השמאלית להעלאה (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "בחר תחילה הפעלה מהרשימה כדי לערוך."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "בחר תחילה הפעלה להסרה."
+
+# 
+msgid "Select Monitored Host"
+msgstr "בחירת מארח מנוטר"
+
+# 
+msgid "Select non-matching lines"
+msgstr "בחירת שורות שאינן תואמות"
+
+# 
+msgid "Seleção copiada."
+msgstr "הבחירה הועתקה."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "הבחירה נשלחה לניתוח בעוזר ה-AI."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "הבחירה נשלחה לשיפור מבנה (Refactoring) באמצעות OpenCode."
+
+# 
+msgid "Sempre ocultar"
+msgstr "הסתר תמיד"
+
+# 
+msgid "Servidor TFTP"
+msgstr "שרת TFTP"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "שרת TFTP לקריאה בלבד פעיל ב-{addr} (שורש: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "מצב שרת TFTP הוחלף."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "שרת TFTP הופסק."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "הפעלה: {session} | מארח: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "ההפעלה '{name}' הוסרה."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "ההפעלה '{name}' נשמרה בקובץ ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "הפעלת SSH מקושרת"
+
+# 
+msgid "Sessão limpa."
+msgstr "ההפעלה נוקתה."
+
+# 
+msgid "Sessões Salvas"
+msgstr "הפעלות שמורות"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "ההפעלות סונכרנו מתוך ~/.config/onyxsh/sessions.json ו-~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "מעטפת להרצה"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "הצגת כל שקעי ה-TCP/UDP המאזינים עם תהליך ויציאות מספריות"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "הצגת כל הגרסאות של חבילות snap מותקנות"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "הצגה וניהול של ניתוב, התקני רשת וממשקים"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "הצגת עדכוני snap זמינים ללא התקנה"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "הצגת שינויים בין commits, אינדקס ועץ העבודה"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "הצגת מידע מפורט על חבילת snap"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "הצגת מידע מפורט על אפליקציה או סביבת ריצה מותקנת"
+
+# 
+msgid "Show error message on failure"
+msgstr "הצגת הודעת שגיאה במקרה של כשל"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "הצגת מידע מלא עבור חבילות שצוינו"
+
+# 
+msgid "Show package metadata info"
+msgstr "הצגת פרטי מטא-נתונים של חבילה"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "הצגת הרשאות עבור נתיב קובץ מסוים"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "הצגת סקריפטים לפני/אחרי התקנה והסרה"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "הצגת התקדמות ושמירת קבצים שהועברו חלקית"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "הצגת כפתור עוזר ה-AI והחלונית הצדדית בסרגל העליון."
+
+# 
+msgid "Silent mode"
+msgstr "מצב שקט"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "הדמיית שינוי מבוקר"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "מסנכרן קבצים מקומיים למארח מרוחק תוך שמירה על מאפיינים"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "מערכת"
+
+# 
+msgid "Sistema Operacional"
+msgstr "מערכת הפעלה"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "דילוג על בקשת האישור"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "ניתוב חכם מושבת: נעשה שימוש בספק ברירת המחדל שהוגדר."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, תוכניות פעולה ושחזור אטומי (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "אודות OnyxSH"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "ציון שיטת בקשת HTTP (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "ציון חבילה להפעלה"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "ציון המעטפת המרוחקת לשימוש (למשל ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "פיצול מסוף"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "אחסון שינויים זמנית (stash) בתיקיית עבודה עם שינויים"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "עצירה לאחר שליחת 4 מנות"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "מצב לא מקוון מחמיר פעיל (Ollama/LM Studio מקומי בלבד)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "הצעת תת-פקודות ופרמטרים עבור rpm, dnf, apt, pacman, flatpak, systemctl, docker, git וכלים נפוצים"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "הצעות עבור rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "סיכום גודל בפורמט קריא לאדם"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab או → החל • ↑/↓ נווט • Esc סגור"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "האם אתה בטוח שברצונך למחוק לצמיתות את התיקייה '{name}'?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "האם אתה בטוח שברצונך למחוק לצמיתות את הקובץ '{name}'?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "ערכת נושא לרקע בהיר"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "ערכת נושא לרקע כהה"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "ערכת נושא בשימוש כאשר רקע המסוף בהיר"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "ערכת נושא בשימוש כאשר רקע המסוף כהה"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "תבנית פקודה (למשל: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "מנסה לחבר מחדש הפעלות SSH שנותקו עם ספירה לאחור והתראה על המסך"
+
+# 
+msgid "Terminal: {title}"
+msgstr "מסוף: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "בדיקת כל החבילות בסביבת העבודה"
+
+# 
+msgid "Testar Interceptação"
+msgstr "בדיקת יירוט"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "בדיקת תקינות התחביר של תצורת Nginx"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "טקסט חזית (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "זה ימחק לצמיתות את כל השיחות {count}. פעולה זו אינה ניתנת לביטול."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "סוג / סיומת"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "סוג קובץ"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "כל ההגדרות שוחזרו לברירת המחדל."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "כל קיצורי המקלדת שוחזרו לברירת המחדל."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "כל מנהרות ה-SSH הופסקו."
+
+# 
+msgid "Total Lines"
+msgstr "סה\"כ שורות"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "נתיב ביקורת רציף של החלטות, פקודות ושחזור אטומי"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "מנהל החבילות Snap של Ubuntu / Canonical"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "מנהל חומת האש Uncomplicated Firewall"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "יחידה / שירות (אופציונלי)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "עדכון חבילות מותקנות לגרסאות חדשות יותר"
+
+# 
+msgid "Update snaps in the system"
+msgstr "עדכן חבילות snap במערכת"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "עדכן את האפליקציה/סביבת הריצה אם כבר מותקנת"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "שדרג קובץ חבילת RPM (או התקן אם אינו קיים)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "שדרג או התקן קובץ חבילה מקומי/מרוחק (.pkg.tar.zst)"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "משתמש בבלוקים מתקפלים (&lt;details&gt;) עבור פלטים שאורכם מעל 15 שורות"
+
+# 
+msgid "Use a long listing format"
+msgstr "השתמש בתצוגת רשימה מפורטת"
+
+# 
+msgid "Use archive file or device"
+msgstr "השתמש בקובץ ארכיון או בהתקן"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "השתמש בתיקייה כשורש עליון עבור פעולות RPM"
+
+# 
+msgid "Usuário Remoto"
+msgstr "משתמש מרוחק"
+
+# 
+msgid "Usuário SSH:"
+msgstr "משתמש SSH:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "אמת וצרף"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "בדוק את המצב הנוכחי של השירות והתלויות"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "בדוק אם השירות '{svc}' פעיל"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "בדוק אם השירות '{svc}' מופעל באתחול"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "בדוק אם השירות '{svc}' נעצר"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "אמת חבילה ספציפית מול קובץ .rpm"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "אמת את שלמות כל חבילות ה-RPM המותקנות מול מסד הנתונים"
+
+# 
+msgid "Versão"
+msgstr "גרסה"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "הצג שינויים מוכנים (staged) עבור ה-commit הבא"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "מציג יומני מערכת באמצעות journalctl"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "הצג, ערוך ושחזר את כל קיצורי המקלדת של OnyxSH"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "מציג Diff מאוחד (לפני לעומת אחרי):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "תצוגת רשת / תמונות ממוזערות"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "תצוגת רשת סמלים הופעלה"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "תצוגת רשימה מפורטת הופעלה"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "אין לך הרשאה לשנות את '{name}'. האם ברצונך לשמור באמצעות הרשאות מנהל (Root)?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "יש לך שינויים שלא נשמרו ב-'{fname}'. מה ברצונך לעשות לפני הסגירה?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "יש לך שינויים שלא נשמרו בקובץ זה שיאבדו. האם אתה בטוח שברצונך לבטל אותם?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "חזור ללשונית הקודמת (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "ממתין לדגימה..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "כתוב פלט לקובץ מקומי בשם זהה לקובץ המרוחק"
+
+# 
+msgid "You: "
+msgstr "אתה: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "הזום אופס (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[סיכום והערות]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[תוכן בינארי או בלתי נגיש]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[לא ניתן לקרוא את קובץ היומן]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[מטרה / הקשר]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[שלבים שבוצעו ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (סיכון: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 זוהה סיכון"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 מאומת"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` הסתיים תוך {secs} ש'."
+
+# 
+msgid "linha"
+msgstr "שורה"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "כלי ניהול חבילות עבור openSUSE / SLES"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} פקודה/פקודות • לחץ להרחבה/צמצום"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} פקודות"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} שורות"
+
+# 
+msgid "{count} regras"
+msgstr "{count} כללים"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} תוצאות"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} ליבות לוגיות)"
+
+# 
+msgid "{days} days"
+msgstr "{days} ימים"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} ש'"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} שורות • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} דק"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (עותק)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (מבוסס על {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[קובץ מצורף]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "מפתח ה-API של {provider} הוגדר בהצלחה."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | החלטה: {decision} | מצב: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "מנהרת {type}"
+
+# 
+msgid "Ícone:"
+msgstr "סמל:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "סמלי OnyxSH (מובנים)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← הורדה / העתקה"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ העלאה / העתקה"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ הפעל   •   Tab הוסף להנחיה   •   ⭐ מועדף   •   Esc סגור"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ עבור ללשונית / הפעל • ↑/↓ נווט • Esc סגור"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ שחזור אטומי"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ התראת ProductionGuard ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ פקודה הרסנית יורטה ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ במחשבים איטיים יותר, עיבוד דפוסי צבע עלול להפחית במעט את התגובתיות בפלטים גדולים מאוד."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ ייצוא מסוף OnyxSH"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ קטעי קוד"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ הפקודה הושלמה"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ הועתק!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ בוצע"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ השחזור האטומי הושלם: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ הפקודה נכשלה (יציאה {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ הגיבוב אינו תואם! הערך שהודבק{hint} שונה מהגיבובים המחושבים של הקובץ. ייתכן שהקובץ פגום או שונה."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ היסטוריה"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 מצב מקוון פעיל.\nלחץ כדי להפעיל מצב לא מקוון מקומי בלבד."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 הכל"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 מטרה / הקשר"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 סיכום ותובנות שנלמדו"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 אתה:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 אתה{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 הערה:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 הערה: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 תיקייה נוכחית"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x הרצות"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>שונה:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 נתח שימוש בדיסק"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 העתק דוח מנוקה"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 העתק פלט"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 צורף בבטחה: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 היסטוריה"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 הערות מקדימות"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 שידור (🛡️ ProductionGuard פעיל):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 הפקודה שודרה אל {count} מסוף/ים."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>גודל:</b> {size} <span alpha='70%'>({bytes} בתים)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>סוג:</b> תיקייה / ספרייה"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 התקן את {bin}"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs} ש'"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 הפעלות SSH"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 בדוק git status"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 בדיקה לאחר ביצוע: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>הרשאות:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 התראת בדיקה נשלחה לשולחן העבודה."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>נתיב:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 סיכון גבוה (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ לשוניות מסוף"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 התראה קריטית — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 השידור נחסם על ידי ProductionGuard: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard חסם קריאה של: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ מצב ייצור פעיל — ProductionGuard מיירט פקודות הרסניות (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ מצב לא מקוון בלבד פעיל (Zero Cloud).\nלחץ כדי לעבור למצב מקוון."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ לא מקוון (מקומי)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ אבטחה"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 פקודה בטוחה"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 נתיב: {route}"
+

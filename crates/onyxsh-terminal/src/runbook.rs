@@ -1,6 +1,7 @@
 //! Runbook / Caderno de Bordo Engine for OnyxSH.
 //! Port of `src/onyxsh/terminal/runbook.py`.
 
+use onyxsh_core::i18n::{tr, tr_fmt, tr_n};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::sync::OnceLock;
@@ -110,50 +111,63 @@ impl RunbookData {
         let included_steps: Vec<&RunbookStep> = self.steps.iter().filter(|s| s.included).collect();
 
         let title = if meta.title.trim().is_empty() {
-            "Caderno de Bordo / Runbook"
+            tr("Caderno de Bordo / Runbook")
         } else {
-            meta.title.trim()
+            meta.title.trim().to_string()
         };
         let status_badge = if meta.status.trim().is_empty() {
-            "Concluído"
+            tr("Concluído")
         } else {
-            meta.status.trim()
+            meta.status.trim().to_string()
         };
 
         let mut lines: Vec<String> = Vec::new();
         lines.push(format!("# 📘 {title}\n"));
-        lines.push("### 📌 Informações da Sessão".to_string());
-        lines.push(format!("- **Status:** `{status_badge}`"));
-        if !meta.author.trim().is_empty() {
-            lines.push(format!("- **Operador / Autor:** `{}`", meta.author.trim()));
-        }
-        lines.push(format!(
-            "- **Host:** `{}`",
-            if meta.host.is_empty() { "localhost" } else { &meta.host }
+        lines.push(tr("### 📌 Informações da Sessão"));
+        lines.push(tr_fmt(
+            "- **Status:** `{status}`",
+            &[("status", &status_badge)],
         ));
-        if !meta.session_name.trim().is_empty() {
-            lines.push(format!("- **Sessão:** `{}`", meta.session_name.trim()));
+        if !meta.author.trim().is_empty() {
+            lines.push(tr_fmt(
+                "- **Operador / Autor:** `{author}`",
+                &[("author", meta.author.trim())],
+            ));
         }
-        lines.push(format!("- **Data / Hora:** `{}`", meta.date_str));
+        let host_display = if meta.host.is_empty() { "localhost" } else { &meta.host };
+        lines.push(tr_fmt("- **Host:** `{host}`", &[("host", host_display)]));
+        if !meta.session_name.trim().is_empty() {
+            lines.push(tr_fmt(
+                "- **Sessão:** `{session}`",
+                &[("session", meta.session_name.trim())],
+            ));
+        }
+        lines.push(tr_fmt(
+            "- **Data / Hora:** `{date}`",
+            &[("date", &meta.date_str)],
+        ));
         lines.push(format!(
-            "- **Total de Etapas Registradas:** `{}`\n",
-            included_steps.len()
+            "{}\n",
+            tr_fmt(
+                "- **Total de Etapas Registradas:** `{count}`",
+                &[("count", &included_steps.len().to_string())],
+            )
         ));
 
         if !meta.objective.trim().is_empty() {
-            lines.push("## 🎯 Objetivo / Contexto".to_string());
+            lines.push(tr("## 🎯 Objetivo / Contexto"));
             lines.push(format!("{}\n", meta.objective.trim()));
         }
 
         if !meta.general_notes.trim().is_empty() {
-            lines.push("## 📝 Observações Preliminares".to_string());
+            lines.push(tr("## 📝 Observações Preliminares"));
             lines.push(format!("{}\n", meta.general_notes.trim()));
         }
 
-        lines.push("## 🚀 Passo a Passo da Execução".to_string());
+        lines.push(tr("## 🚀 Passo a Passo da Execução"));
 
         if included_steps.is_empty() {
-            lines.push("*Nenhuma etapa selecionada para este documento.*\n".to_string());
+            lines.push(format!("{}\n", tr("*Nenhuma etapa selecionada para este documento.*")));
         } else {
             for (idx, step) in included_steps.iter().enumerate() {
                 let step_num = idx + 1;
@@ -174,15 +188,23 @@ impl RunbookData {
                     lines.push(format!("> {}\n", badges.join(" ")));
                 }
                 if !step.annotation.trim().is_empty() {
-                    lines.push(format!("> 💬 **Anotação:** {}\n", step.annotation.trim()));
+                    lines.push(format!(
+                        "{}\n",
+                        tr_fmt(
+                            "> 💬 **Anotação:** {note}",
+                            &[("note", step.annotation.trim())],
+                        )
+                    ));
                 }
 
                 let out_content = step.output.trim();
                 if !out_content.is_empty() {
                     let out_lines_count = out_content.lines().count();
                     if collapse_long_outputs && out_lines_count > max_preview_lines {
+                        let line_word = tr_n("linha", "linhas", out_lines_count as u64);
+                        let summary_label = tr("Saída do Comando");
                         lines.push(format!(
-                            "<details>\n<summary>📄 <b>Saída do Comando</b> ({out_lines_count} linhas)</summary>\n"
+                            "<details>\n<summary>📄 <b>{summary_label}</b> ({out_lines_count} {line_word})</summary>\n"
                         ));
                         lines.push("```bash".to_string());
                         lines.push(out_content.to_string());
@@ -193,17 +215,20 @@ impl RunbookData {
                         lines.push("```\n".to_string());
                     }
                 } else {
-                    lines.push("*(Sem saída gerada)*\n".to_string());
+                    lines.push(format!("{}\n", tr("*(Sem saída gerada)*")));
                 }
             }
         }
 
         if !meta.conclusion.trim().is_empty() {
-            lines.push("## 🏁 Conclusão & Lições Aprendidas".to_string());
+            lines.push(tr("## 🏁 Conclusão & Lições Aprendidas"));
             lines.push(format!("{}\n", meta.conclusion.trim()));
         }
 
-        lines.push("---\n*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*".to_string());
+        lines.push(format!(
+            "---\n{}",
+            tr("*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*")
+        ));
         format!("{}\n", lines.join("\n"))
     }
 
@@ -270,8 +295,9 @@ impl RunbookData {
 
             let annotation_box = if !step.annotation.trim().is_empty() {
                 let ann_escaped = escape_html(step.annotation.trim()).replace('\n', "<br>");
+                let ann_lbl = escape_html(&tr("💬 Anotação:"));
                 format!(
-                    r#"<div class="annotation-box"><strong>💬 Anotação:</strong> {ann_escaped}</div>"#
+                    r#"<div class="annotation-box"><strong>{ann_lbl}</strong> {ann_escaped}</div>"#
                 )
             } else {
                 String::new()
@@ -286,11 +312,14 @@ impl RunbookData {
             };
 
             let out_block = if output_escaped.is_empty() {
-                r#"<div class="no-output"><em>(Sem saída gerada)</em></div>"#.to_string()
+                let no_out = escape_html(&tr("(Sem saída gerada)"));
+                format!(r#"<div class="no-output"><em>{no_out}</em></div>"#)
             } else if collapse_long_outputs && out_lines_count > max_preview_lines {
+                let line_word = escape_html(&tr_n("linha", "linhas", out_lines_count as u64));
+                let summary_lbl = escape_html(&tr("Saída do Comando"));
                 format!(
                     r#"<details class="collapsible-output" open>
-  <summary>📄 Saída do Comando ({out_lines_count} linhas)</summary>
+  <summary>📄 {summary_lbl} ({out_lines_count} {line_word})</summary>
   <pre class="terminal-box"><code>{output_escaped}</code></pre>
 </details>"#
                 )
@@ -314,15 +343,17 @@ impl RunbookData {
         }
 
         let steps_joined = if steps_html.is_empty() {
-            "<p><em>Nenhuma etapa selecionada.</em></p>".to_string()
+            let empty_msg = escape_html(&tr("Nenhuma etapa selecionada."));
+            format!("<p><em>{empty_msg}</em></p>")
         } else {
             steps_html.join("\n")
         };
 
         let objective_section = if !meta.objective.trim().is_empty() {
             let obj_escaped = escape_html(meta.objective.trim()).replace('\n', "<br>");
+            let obj_hdr = escape_html(&tr("🎯 Objetivo / Contexto"));
             format!(
-                r#"<div class="card section-card"><h2>🎯 Objetivo / Contexto</h2><p>{obj_escaped}</p></div>"#
+                r#"<div class="card section-card"><h2>{obj_hdr}</h2><p>{obj_escaped}</p></div>"#
             )
         } else {
             String::new()
@@ -330,8 +361,9 @@ impl RunbookData {
 
         let notes_section = if !meta.general_notes.trim().is_empty() {
             let notes_escaped = escape_html(meta.general_notes.trim()).replace('\n', "<br>");
+            let notes_hdr = escape_html(&tr("📝 Observações Preliminares"));
             format!(
-                r#"<div class="card section-card"><h2>📝 Observações Preliminares</h2><p>{notes_escaped}</p></div>"#
+                r#"<div class="card section-card"><h2>{notes_hdr}</h2><p>{notes_escaped}</p></div>"#
             )
         } else {
             String::new()
@@ -339,8 +371,9 @@ impl RunbookData {
 
         let conclusion_section = if !meta.conclusion.trim().is_empty() {
             let conc_escaped = escape_html(meta.conclusion.trim()).replace('\n', "<br>");
+            let conc_hdr = escape_html(&tr("🏁 Conclusão & Lições Aprendidas"));
             format!(
-                r#"<div class="card section-card"><h2>🏁 Conclusão &amp; Lições Aprendidas</h2><p>{conc_escaped}</p></div>"#
+                r#"<div class="card section-card"><h2>{conc_hdr}</h2><p>{conc_escaped}</p></div>"#
             )
         } else {
             String::new()
@@ -516,29 +549,39 @@ impl RunbookData {
             meta.title.trim()
         };
         let status = if meta.status.trim().is_empty() {
-            "Concluído"
+            tr("Concluído")
         } else {
-            meta.status.trim()
+            meta.status.trim().to_string()
         };
 
         let mut lines = vec![
             "=".repeat(80),
             format!(" {title} [{status}]"),
             format!(
-                " Operador: {} | Host: {} | Data: {}",
-                meta.author, meta.host, meta.date_str
+                " {}",
+                tr_fmt(
+                    "Operador: {author} | Host: {host} | Data: {date}",
+                    &[
+                        ("author", &meta.author),
+                        ("host", &meta.host),
+                        ("date", &meta.date_str),
+                    ],
+                )
             ),
             "=".repeat(80),
             String::new(),
         ];
 
         if !meta.objective.trim().is_empty() {
-            lines.push("[OBJETIVO / CONTEXTO]".to_string());
+            lines.push(tr("[OBJETIVO / CONTEXTO]"));
             lines.push(meta.objective.trim().to_string());
             lines.push(String::new());
         }
 
-        lines.push(format!("[PASSOS EXECUTADOS ({})]", included_steps.len()));
+        lines.push(tr_fmt(
+            "[PASSOS EXECUTADOS ({count})]",
+            &[("count", &included_steps.len().to_string())],
+        ));
         lines.push("-".repeat(80));
 
         for (idx, step) in included_steps.iter().enumerate() {
@@ -555,22 +598,25 @@ impl RunbookData {
             lines.push(format!("#{step_num} $ {} [{status_str}]{dur}", step.command));
 
             if !step.annotation.trim().is_empty() {
-                lines.push(format!("   💬 Nota: {}", step.annotation.trim()));
+                lines.push(format!(
+                    "   {}",
+                    tr_fmt("💬 Nota: {note}", &[("note", step.annotation.trim())])
+                ));
             }
 
             if !step.output.trim().is_empty() {
-                lines.push("   --- Saída ---".to_string());
+                lines.push(format!("   {}", tr("--- Saída ---")));
                 for out_line in step.output.trim().lines() {
                     lines.push(format!("   | {out_line}"));
                 }
                 lines.push("   -------------\n".to_string());
             } else {
-                lines.push("   (Sem saída)\n".to_string());
+                lines.push(format!("   {}\n", tr("(Sem saída)")));
             }
         }
 
         if !meta.conclusion.trim().is_empty() {
-            lines.push("[CONCLUSÃO & OBSERVAÇÕES]".to_string());
+            lines.push(tr("[CONCLUSÃO & OBSERVAÇÕES]"));
             lines.push(meta.conclusion.trim().to_string());
             lines.push(String::new());
         }

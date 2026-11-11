@@ -7,6 +7,11 @@ cd "$PROJECT_ROOT"
 
 CARGO_BIN="${CARGO_BIN:-$(command -v cargo || echo "$HOME/.cargo/bin/cargo")}"
 
+if [ -f "scripts/sync_translations.py" ] && command -v msgfmt >/dev/null 2>&1; then
+  echo "==> [0/3] Compiling i18n .mo catalogs across all 28 languages..."
+  python3 scripts/sync_translations.py --compile-only
+fi
+
 echo "==> [1/3] Running Rust Workspace Unit Tests..."
 "$CARGO_BIN" test --workspace
 

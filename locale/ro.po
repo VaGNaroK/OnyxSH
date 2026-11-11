@@ -17119,3 +17119,4099 @@ msgstr "🧠 Perfil Avançado (Planos Complexos / Scripts / Diagnósticos)"
 msgid "🧠 Sempre Avançado (Raciocínio)"
 msgstr "🧠 Sempre Avançado (Raciocínio)"
 
+# 
+msgid " ({count} segredo(s) ocultado(s))"
+msgstr " ({count} secret(e) ascuns(e))"
+
+# 
+msgid "# 🖥️ OnyxSH Terminal Export"
+msgstr "# 🖥️ Export terminal OnyxSH"
+
+# 
+msgid "## 🎯 Objetivo / Contexto"
+msgstr "## 🎯 Obiectiv / Context"
+
+# 
+msgid "## 🏁 Conclusão & Lições Aprendidas"
+msgstr "## 🏁 Concluzie și lecții învățate"
+
+# 
+msgid "## 📝 Observações Preliminares"
+msgstr "## 📝 Observații preliminare"
+
+# 
+msgid "## 🚀 Passo a Passo da Execução"
+msgstr "## 🚀 Execuție pas cu pas"
+
+# 
+msgid "### 📌 Informações da Sessão"
+msgstr "### 📌 Informații despre sesiune"
+
+# 
+msgid "*(Sem saída gerada)*"
+msgstr "*(Nicio ieșire generată)*"
+
+# 
+msgid "*Documento gerado automaticamente pelo OnyxSH Caderno de Bordo.*"
+msgstr "*Document generat automat de jurnalul de bord OnyxSH.*"
+
+# 
+msgid "*Nenhuma etapa selecionada para este documento.*"
+msgstr "*Nicio etapă selectată pentru acest document.*"
+
+# 
+msgid "- **Data / Hora:** `{date}`"
+msgstr "- **Dată / Oră:** `{date}`"
+
+# 
+msgid "- **Host:** `{host}`"
+msgstr "- **Gazdă:** `{host}`"
+
+# 
+msgid "- **Operador / Autor:** `{author}`"
+msgstr "- **Operator / Autor:** `{author}`"
+
+# 
+msgid "- **Sessão:** `{session}`"
+msgstr "- **Sesiune:** `{session}`"
+
+# 
+msgid "- **Status:** `{status}`"
+msgstr "- **Stare:** `{status}`"
+
+# 
+msgid "- **Total de Etapas Registradas:** `{count}`"
+msgstr "- **Total etape înregistrate:** `{count}`"
+
+# 
+msgid "--- Saída ---"
+msgstr "--- Ieșire ---"
+
+# 
+msgid "... (restante da saída truncado na pré-visualização)"
+msgstr "... (restul ieșirii a fost trunchiat în previzualizare)"
+
+# 
+msgid "/proc/diskstats — Device Read / Write"
+msgstr "/proc/diskstats — Citire / Scriere dispozitiv"
+
+# 
+msgid "/proc/meminfo — MemAvailable & Swap"
+msgstr "/proc/meminfo — MemAvailable și Swap"
+
+# 
+msgid "30 esquemas de cores, destaque de saída e regras por comando"
+msgstr "30 de scheme de culori, evidențierea ieșirii și reguli per comandă"
+
+# 
+msgid "<b>Subir para o diretório pai (..)</b>"
+msgstr "<b>Urcă la directorul părinte (..)</b>"
+
+# 
+msgid "> 💬 **Anotação:** {note}"
+msgstr "> 💬 **Notă:** {note}"
+
+# 
+msgid "A porta {port} já está alocada por outro processo."
+msgstr "Portul {port} este deja alocat de un alt proces."
+
+# 
+msgid "ABA #{tab} (L{line})"
+msgstr "FILĂ #{tab} (L{line})"
+
+# 
+msgid "AI Assistant: {state}"
+msgstr "Asistent AI: {state}"
+
+# 
+msgid "AI: "
+msgstr "AI: "
+
+# 
+msgid "Aba encerrada."
+msgstr "Filă închisă."
+
+# 
+msgid "Abaixo"
+msgstr "Jos"
+
+# 
+msgid "Abort current conflict resolution"
+msgstr "Abandonează rezolvarea curentă a conflictelor"
+
+# 
+msgid "Abort rebase and return to original branch"
+msgstr "Abandonează rebase și revino la ramura originală"
+
+# 
+msgid "Abre a barra de busca Regex/Literal na aba ativa (Ctrl+Shift+F)"
+msgstr "Deschide bara de căutare Regex/Literal în fila activă (Ctrl+Shift+F)"
+
+# 
+msgid "Abre este túnel automaticamente ao conectar ao host SSH"
+msgstr "Deschide acest tunel automat la conectarea la gazda SSH"
+
+# 
+msgid "Abre um novo terminal local (Ctrl+Shift+T)"
+msgstr "Deschide un nou terminal local (Ctrl+Shift+T)"
+
+# 
+msgid "Abre um shell interativo dentro de um container Docker em execução"
+msgstr "Deschide un shell interactiv într-un container Docker aflat în execuție"
+
+# 
+msgid "Abrindo link: {url}"
+msgstr "Se deschide linkul: {url}"
+
+# 
+msgid "Abrir Monitor de Recursos (Sparklines Cairo)"
+msgstr "Deschide monitorul de resurse (Sparklines Cairo)"
+
+# 
+msgid "Abrir Pasta"
+msgstr "Deschide dosarul"
+
+# 
+msgid "Abrir com aplicativo externo"
+msgstr "Deschide cu o aplicație externă"
+
+# 
+msgid "Abrir este Diretório no Terminal (cd)"
+msgstr "Deschide acest director în terminal (cd)"
+
+# 
+msgid "Acima"
+msgstr "Sus"
+
+# 
+msgid "Acompanha logs de um container Docker em tempo real"
+msgstr "Urmărește jurnalele unui container Docker în timp real"
+
+# 
+msgid "Acompanha logs de uma unidade do systemd em tempo real"
+msgstr "Urmărește jurnalele unei unități systemd în timp real"
+
+# 
+msgid "Active"
+msgstr "Activ"
+
+# 
+msgid "Add upstream tracking reference"
+msgstr "Adaugă referință de urmărire upstream"
+
+# 
+msgid "Adicionar Novo Túnel SSH"
+msgstr "Adaugă tunel SSH nou"
+
+# 
+msgid "Adicionar esquema personalizado"
+msgstr "Adaugă schemă personalizată"
+
+# 
+msgid "Agrupar por Categorias (.7z no topo)"
+msgstr "Grupează după categorii (.7z în vârf)"
+
+# 
+msgid "Allocate a pseudo-TTY connected to container stdin"
+msgstr "Alocă un pseudo-TTY conectat la stdin-ul containerului"
+
+# 
+msgid "Allow downgrading to an older package version"
+msgstr "Permite retrogradarea la o versiune mai veche a pachetului"
+
+# 
+msgid "Allow insecure TLS connections"
+msgstr "Permite conexiuni TLS nesigure"
+
+# 
+msgid "Alteração auditada criada com backup atômico."
+msgstr "Modificare auditată creată cu copie de rezervă atomică."
+
+# 
+msgid "Alternar Assistente de IA Zero-Trust"
+msgstr "Comută asistentul AI Zero-Trust"
+
+# 
+msgid "Alternar Gerenciador de Arquivos Dual-Pane"
+msgstr "Comută managerul de fișiere cu panou dublu"
+
+# 
+msgid "Alternar Modo Edição (Ctrl+E)"
+msgstr "Comută modul de editare (Ctrl+E)"
+
+# 
+msgid "Alternar Painel Duplo (Dividir / Dual-Pane)"
+msgstr "Comută panoul dublu (Împarte / Dual-Pane)"
+
+# 
+msgid "Alternar Painel Lateral de Sessões SSH"
+msgstr "Comută panoul lateral al sesiunilor SSH"
+
+# 
+msgid "Ambiente Flatpak"
+msgstr "Mediu Flatpak"
+
+# 
+msgid "Ambiente de Produção (ProductionGuard):"
+msgstr "Mediu de producție (ProductionGuard):"
+
+# 
+msgid "Ambiente de Produção — Protegido pelo ProductionGuard"
+msgstr "Mediu de producție — protejat de ProductionGuard"
+
+# 
+msgid "Amend the tip of the current branch"
+msgstr "Modifică (amend) vârful ramurii curente"
+
+# 
+msgid "Analise as seguintes mensagens e erros recentes do arquivo de log '{name}' e forneça diagnóstico das causas raízes e soluções recomendadas:\n```\n{log}\n```"
+msgstr "Analizează următoarele mesaje și erori recente din fișierul jurnal '{name}' și oferă un diagnostic al cauzelor principale și soluții recomandate:\n```\n{log}\n```"
+
+# 
+msgid "Analise o projeto e elabore as correções necessárias com OpenCode."
+msgstr "Analizează proiectul și pregătește remedierile necesare cu OpenCode."
+
+# 
+msgid "Analyze the current package and report errors"
+msgstr "Analizează pachetul curent și raportează erorile"
+
+# 
+msgid "Anexar Arquivo (Validação PathGuard)"
+msgstr "Atașează fișier (validare PathGuard)"
+
+# 
+msgid "Anexar Arquivo ao Contexto (Validado pelo PathGuard)"
+msgstr "Atașează fișierul la context (validat de PathGuard)"
+
+# 
+msgid "Análise concluída para sua solicitação (`SecretRedactor` e isolamento `<untrusted>` aplicados).\n\nComando recomendado:\n```bash\n{cmd}\n```"
+msgstr "Analiză finalizată pentru solicitarea dvs. (s-au aplicat `SecretRedactor` și izolarea `<untrusted>`).\n\nComandă recomandată:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Análise solicitada ao Assistente de IA."
+msgstr "Analiză solicitată de la asistentul AI."
+
+# 
+msgid "Aplica destaque de sintaxe à saída do comando 'cat'"
+msgstr "Aplică evidențierea sintaxei pentru ieșirea comenzii 'cat'"
+
+# 
+msgid "Aplica regras contextuais automaticamente ao detectar o comando em execução"
+msgstr "Aplică automat reguli contextuale la detectarea comenzii în curs de execuție"
+
+# 
+msgid "Aplicar destaque de saída a conexões SSH"
+msgstr "Aplică evidențierea ieșirii pentru conexiunile SSH"
+
+# 
+msgid "Aplicar destaque de saída a sessões de terminal locais"
+msgstr "Aplică evidențierea ieșirii pentru sesiunile de terminal locale"
+
+# 
+msgid "Aplicativo e Janela"
+msgstr "Aplicație & Fereastră"
+
+# 
+msgid "Aplicativo ou ID"
+msgstr "Aplicație sau ID"
+
+# 
+msgid "Apply stashed state and keep in stash list"
+msgstr "Aplică starea salvată și păstreaz-o în lista stash"
+
+# 
+msgid "Apply stashed state and remove from stash list"
+msgstr "Aplică starea salvată și elimin-o din lista stash"
+
+# 
+msgid "Aprovar & Executar"
+msgstr "Aprobă și execută"
+
+# 
+msgid "Aproximar"
+msgstr "Mărire"
+
+# 
+msgid "Arch Linux / Manjaro package manager utility"
+msgstr "Utilitar de gestionare a pachetelor pentru Arch Linux / Manjaro"
+
+# 
+msgid "Archive mode (preserves permissions, times, symlinks)"
+msgstr "Mod arhivă (păstrează permisiunile, timpii și legăturile simbolice)"
+
+# 
+msgid "Arquivo Anterior (Seta Cima / k)"
+msgstr "Fișierul anterior (Săgeată sus / k)"
+
+# 
+msgid "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}"
+msgstr "Fișier binar: {name}\nCale: {path}\nDimensiune: {size}\nPermisiuni: {perms}"
+
+# 
+msgid "Arquivo Compactado"
+msgstr "Fișier arhivă"
+
+# 
+msgid "Arquivo copiado para transferência: {name}"
+msgstr "Fișier copiat pentru transfer: {name}"
+
+# 
+msgid "Arquivo criado: {path}"
+msgstr "Fișier creat: {path}"
+
+# 
+msgid "Arquivo de Dados"
+msgstr "Fișier de date"
+
+# 
+msgid "Arquivo de Log"
+msgstr "Log File"
+
+# 
+msgid "Arquivo de Vídeo"
+msgstr "Fișier video"
+
+# 
+msgid "Arquivo de Áudio"
+msgstr "Fișier audio"
+
+# 
+msgid "Arquivo excluído: {name}"
+msgstr "Fișier șters: {name}"
+
+# 
+msgid "Arquivo marcado para mover: {name}"
+msgstr "Fișier marcat pentru mutare: {name}"
+
+# 
+msgid "Arquivo recarregado do disco."
+msgstr "Fișier reîncărcat de pe disc."
+
+# 
+msgid "Arquivo renomeado para '{name}'"
+msgstr "Fișier redenumit în '{name}'"
+
+# 
+msgid "Arquivo restaurado pós-rollback: {path}"
+msgstr "Fișier restaurat după revenire (rollback): {path}"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (Root)!"
+msgstr "Fișier salvat cu privilegii de Administrator (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso com privilégios de Administrador (Root)!"
+msgstr "Fișier salvat cu succes cu privilegii de Administrator (Root)!"
+
+# 
+msgid "Arquivo salvo com sucesso!"
+msgstr "Fișier salvat cu succes!"
+
+# 
+msgid "Arquivo: {name} (Tamanho: {size} bytes)\nTrecho:\n{excerpt}"
+msgstr "Fișier: {name} (Dimensiune: {size} octeți)\nExtras:\n{excerpt}"
+
+# 
+msgid "Arquivos agrupados por Categoria (.7z no topo)"
+msgstr "Fișiere grupate după categorie (.7z în vârf)"
+
+# 
+msgid "Arquivos organizados por Data de Modificação"
+msgstr "Fișiere sortate după data modificării"
+
+# 
+msgid "Arquivos organizados por Nome"
+msgstr "Fișiere sortate după nume"
+
+# 
+msgid "Arquivos organizados por Tamanho"
+msgstr "Fișiere sortate după dimensiune"
+
+# 
+msgid "Arquivos organizados por Tipo / Extensão"
+msgstr "Fișiere sortate după tip / extensie"
+
+# 
+msgid "Arquivos/Pastas de Origem"
+msgstr "Fișiere/dosare sursă"
+
+# 
+msgid "Assistente de Código OpenCode"
+msgstr "Asistent de cod OpenCode"
+
+# 
+msgid "Assistente de IA Zero-Trust"
+msgstr "Asistent AI Zero-Trust"
+
+# 
+msgid "Assistente de IA não está conectado."
+msgstr "Asistentul AI nu este conectat."
+
+# 
+msgid "Assumir Risco e Executar"
+msgstr "Asumă riscul și execută"
+
+# 
+msgid "Atalho '{name}' atualizado para {label}"
+msgstr "Scurtătura '{name}' a fost actualizată la {label}"
+
+# 
+msgid "Atalho '{name}' removido."
+msgstr "Scurtătura '{name}' a fost eliminată."
+
+# 
+msgid "Atalhos de Teclado (34 Ações Configuráveis)"
+msgstr "Scurtături de tastatură (34 de acțiuni configurabile)"
+
+# 
+msgid "Atalhos do Sistema & Favoritos"
+msgstr "Scurtături de sistem și favorite"
+
+# 
+msgid "Ativar / Desativar Escudo de Ambiente de Produção (ProductionBanner)"
+msgstr "Activează / Dezactivează scutul pentru mediul de producție (ProductionBanner)"
+
+# 
+msgid "Ativar Colorização do 'cat'"
+msgstr "Activează colorarea pentru 'cat'"
+
+# 
+msgid "Ativar Destaque de Entrada do Shell"
+msgstr "Activează evidențierea intrării shell"
+
+# 
+msgid "Ativar Todos"
+msgstr "Activează tot"
+
+# 
+msgid "Ativo"
+msgstr "Activ"
+
+# 
+msgid "Ativo (Ouvindo em {src})"
+msgstr "Activ (ascultă pe {src})"
+
+# 
+msgid "Atual: {curr}\nNovo: (pressione as teclas)"
+msgstr "Curent: {curr}\nNou: (apăsați tastele)"
+
+# 
+msgid "Atual: {curr}\nNovo: {new}"
+msgstr "Curent: {curr}\nNou: {new}"
+
+# 
+msgid "Atual: {curr}\nNovo: {new} (Conflita com {conflict})"
+msgstr "Curent: {curr}\nNou: {new} (Conflictează cu {conflict})"
+
+# 
+msgid "Atualizar (F5)"
+msgstr "Reîmprospătează (F5)"
+
+# 
+msgid "Atualizar Lista (F5)"
+msgstr "Reîmprospătează lista (F5)"
+
+# 
+msgid "Auditar Segurança com IA"
+msgstr "Auditează securitatea cu AI"
+
+# 
+msgid "Auditar Segurança deste Diretório com IA"
+msgstr "Auditează securitatea acestui director cu AI"
+
+# 
+msgid "Auditoria de segurança de '{name}' enviada ao Assistente de IA."
+msgstr "Auditul de securitate pentru '{name}' a fost trimis asistentului AI."
+
+# 
+msgid "Auditoria do diretório '{path}' enviada ao Assistente de IA."
+msgstr "Auditul directorului '{path}' a fost trimis către Asistentul AI."
+
+# 
+msgid "Aumentar Fonte (Ctrl++)"
+msgstr "Mărește fontul (Ctrl++)"
+
+# 
+msgid "Autenticação:"
+msgstr "Autentificare:"
+
+# 
+msgid "Auto: adapta ao fundo do terminal. Manual: tema fixo."
+msgstr "Auto: se adaptează la fundalul terminalului. Manual: temă fixă."
+
+# 
+msgid "Auto: detecta contraste com o fundo automaticamente"
+msgstr "Auto: detectează automat contrastul cu fundalul"
+
+# 
+msgid "Autocompletado: {cmd}"
+msgstr "Completat automat: {cmd}"
+
+# 
+msgid "Autocompletar Inteligente (CompletionEngine)"
+msgstr "Completare automată inteligentă (CompletionEngine)"
+
+# 
+msgid "Autocompletar Inteligente — OnyxSH CompletionEngine"
+msgstr "Completare automată inteligentă — OnyxSH CompletionEngine"
+
+# 
+msgid "Autocompletar aplicado: {cmd}"
+msgstr "Completare automată aplicată: {cmd}"
+
+# 
+msgid "Automatic yes"
+msgstr "Da automat"
+
+# 
+msgid "Automatically remove unneeded dependencies"
+msgstr "Elimină automat dependențele inutile"
+
+# 
+msgid "Automatically runs read-only diagnostics without requiring manual confirmation."
+msgstr "Rulează automat diagnosticarea doar în citire fără a solicita confirmare manuală."
+
+# 
+msgid "Avança para a próxima aba (Alt+Page Down)"
+msgstr "Trece la fila următoare (Alt+Page Down)"
+
+# 
+msgid "Ação"
+msgstr "Acțiune"
+
+# 
+msgid "Backup SHA-256 criado ({count} arquivos): {path}"
+msgstr "Copie de rezervă SHA-256 creată ({count} fișiere): {path}"
+
+# 
+msgid "Backup SHA-256 salvo ({count} arquivos): {path}"
+msgstr "Copie de rezervă SHA-256 salvată ({count} fișiere): {path}"
+
+# 
+msgid "Backup não encontrado em {path}"
+msgstr "Copia de rezervă nu a fost găsită la {path}"
+
+# 
+msgid "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256)."
+msgstr "Copia de rezervă a fost restaurată cu succes ({count} fișiere verificate prin SHA-256)."
+
+# 
+msgid "Barra de Execução Simultânea (Multi-Terminal Broadcast)"
+msgstr "Bară de execuție simultană (Multi-Terminal Broadcast)"
+
+# 
+msgid "Batch deletion via xargs (xargs rm)"
+msgstr "Ștergere în lot prin xargs (xargs rm)"
+
+# 
+msgid "Bloquear e Cancelar (Recomendado)"
+msgstr "Blochează și anulează (Recomandat)"
+
+# 
+msgid "Broadcast enviado: {cmd}"
+msgstr "Difuzare trimisă: {cmd}"
+
+# 
+msgid "Broadcast p/ Todos"
+msgstr "Difuzare către toți"
+
+# 
+msgid "Build all packages in the workspace"
+msgstr "Compilează toate pachetele din spațiul de lucru"
+
+# 
+msgid "Build artifacts in release mode"
+msgstr "Compilează artefactele în modul release"
+
+# 
+msgid "Build artifacts in release mode with optimizations"
+msgstr "Compilează artefactele în modul release cu optimizări"
+
+# 
+msgid "Busca"
+msgstr "Căutare"
+
+# 
+msgid "Busca Global Multi-Abas / Histórico"
+msgstr "Căutare globală în file / Istoric"
+
+# 
+msgid "Busca Global Multi-Abas / Sessões / Histórico"
+msgstr "Căutare globală în file / Sesiuni / Istoric"
+
+# 
+msgid "Busca Global Multi-Abas, Sessões, Histórico & Snippets (Ctrl+Shift+G)"
+msgstr "Căutare globală în file, sesiuni, istoric și fragmente (Ctrl+Shift+G)"
+
+# 
+msgid "Busca Global inseriu no prompt: {cmd}"
+msgstr "Căutarea globală a inserat în prompt: {cmd}"
+
+# 
+msgid "Busca Global no OnyxSH (Ctrl+Shift+G) — Abas, Sessões, Histórico & Snippets"
+msgstr "Căutare globală în OnyxSH (Ctrl+Shift+G) — File, sesiuni, istoric și fragmente"
+
+# 
+msgid "Busca Global: focado na Aba #{tab}"
+msgstr "Căutare globală: focalizat pe fila #{tab}"
+
+# 
+msgid "Busca arquivos e diretórios com filtros avançados"
+msgstr "Caută fișiere și directoare cu filtre avansate"
+
+# 
+msgid "Busca fuzzy por diretório, host e favoritos (Ctrl+H)"
+msgstr "Căutare aproximativă (fuzzy) după director, gazdă și favorite (Ctrl+H)"
+
+# 
+msgid "Buscar no Terminal (Ctrl+Shift+F)"
+msgstr "Caută în terminal (Ctrl+Shift+F)"
+
+# 
+msgid "Buscar no Terminal Atual"
+msgstr "Caută în terminalul curent"
+
+# 
+msgid "Buscar sessões ou hosts..."
+msgstr "Caută sesiuni sau gazde..."
+
+# 
+msgid "Buscar texto no terminal..."
+msgstr "Caută text în terminal..."
+
+# 
+msgid "Bypass confirmation prompts"
+msgstr "Omite solicitările de confirmare"
+
+# 
+msgid "Cabeçalho C/C++"
+msgstr "C/C++ Header"
+
+# 
+msgid "Calculando hashes em segundo plano..."
+msgstr "Se calculează hash-urile în fundal..."
+
+# 
+msgid "Caminho copiado: {path}"
+msgstr "Cale copiată: {path}"
+
+# 
+msgid "Caminho da Pasta (ex: Produção ou Cloud/AWS):"
+msgstr "Calea folderului (ex.: Producție sau Cloud/AWS):"
+
+# 
+msgid "Caminho do arquivo (ex: /var/log/syslog ou ~/.ssh/id_rsa para testar bloqueio):"
+msgstr "Calea fișierului (ex.: /var/log/syslog sau ~/.ssh/id_rsa pentru a testa blocarea):"
+
+# 
+msgid "Caminho inserido no terminal: {path}"
+msgstr "Calea a fost inserată în terminal: {path}"
+
+# 
+msgid "Case-insensitive file name pattern"
+msgstr "Model de nume de fișier insensibil la majuscule/minuscule"
+
+# 
+msgid "Categoria"
+msgstr "Categorie"
+
+# 
+msgid "Categoria:"
+msgstr "Categorie:"
+
+# 
+msgid "Change to directory before performing operations"
+msgstr "Schimbă directorul înainte de a efectua operațiunile"
+
+# 
+msgid "Chave SSH / Senha:"
+msgstr "Cheie SSH / Parolă:"
+
+# 
+msgid "Check GPG signature and integrity of an .rpm file"
+msgstr "Verifică semnătura GPG și integritatea unui fișier .rpm"
+
+# 
+msgid "Check for available package upgrades without installing"
+msgstr "Verifică actualizările disponibile ale pachetelor fără a instala"
+
+# 
+msgid "Checks a package to catch common mistakes"
+msgstr "Verifică un pachet pentru a depista greșelile frecvente"
+
+# 
+msgid "Checksums & Verificação de Integridade — OnyxSH"
+msgstr "Sume de control și verificare a integrității — OnyxSH"
+
+# 
+msgid "Choose between high-speed cloud providers or local servers."
+msgstr "Alege între furnizori cloud de mare viteză sau servere locale."
+
+# 
+msgid "Clean all package cache (remove all downloaded packages)"
+msgstr "Curăță tot cache-ul de pachete (elimină toate pachetele descărcate)"
+
+# 
+msgid "Clean local caches"
+msgstr "Curăță cache-urile locale"
+
+# 
+msgid "Clean package cache (remove old downloaded packages)"
+msgstr "Curăță cache-ul de pachete (elimină pachetele descărcate vechi)"
+
+# 
+msgid "Clique para alterar o atalho de teclado"
+msgstr "Fă clic pentru a schimba scurtătura de tastatură"
+
+# 
+msgid "Clique para conectar na nova aba (e selecionar esta sessão)"
+msgstr "Fă clic pentru a te conecta într-o filă nouă (și a selecta această sesiune)"
+
+# 
+msgid "Clique para entender o que cada nível de permissão autoriza ou restringe"
+msgstr "Fă clic pentru a înțelege ce autorizează sau restricționează fiecare nivel de permisiune"
+
+# 
+msgid "Colar"
+msgstr "Lipire"
+
+# 
+msgid "Colar Aqui"
+msgstr "Lipește aici"
+
+# 
+msgid "Colar Dentro desta Pasta"
+msgstr "Lipește în acest folder"
+
+# 
+msgid "Cole um hash MD5, SHA-1, SHA-256 ou SHA-512 acima para verificar autenticidade."
+msgstr "Lipește mai sus un hash MD5, SHA-1, SHA-256 sau SHA-512 pentru a verifica autenticitatea."
+
+# 
+msgid "Colore comandos em tempo real enquanto você digita no terminal"
+msgstr "Colorează comenzile în timp real pe măsură ce tastezi în terminal"
+
+# 
+msgid "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas."
+msgstr "Colorează tipare în ieșirea terminalului, precum erori, avertismente și IP-uri. Prea multe reguli pot afecta ieșirile foarte extinse."
+
+# 
+msgid "Colorização do Comando cat"
+msgstr "Colorarea comenzii cat"
+
+# 
+msgid "Comando ({cat})"
+msgstr "Comandă ({cat})"
+
+# 
+msgid "Comando / Template:"
+msgstr "Comandă / Șablon:"
+
+# 
+msgid "Comando Pós-Login:"
+msgstr "Comandă după autentificare:"
+
+# 
+msgid "Comando copiado para a área de transferência."
+msgstr "Comanda a fost copiată în clipboard."
+
+# 
+msgid "Comando de produção avaliado pelo operador."
+msgstr "Comanda de producție a fost evaluată de operator."
+
+# 
+msgid "Comando enviado ao terminal: {cmd}"
+msgstr "Comandă trimisă la terminal: {cmd}"
+
+# 
+msgid "Comando enviado: {cmd}"
+msgstr "Comandă trimisă: {cmd}"
+
+# 
+msgid "Comando executado do histórico: {cmd}"
+msgstr "Comandă executată din istoric: {cmd}"
+
+# 
+msgid "Comando executado via Palette: {cmd}"
+msgstr "Comandă executată prin paletă: {cmd}"
+
+# 
+msgid "Comando falhou (código {code})"
+msgstr "Comanda a eșuat (cod {code})"
+
+# 
+msgid "Comando inserido no prompt: {cmd}"
+msgstr "Comandă inserată în prompt: {cmd}"
+
+# 
+msgid "Comando longo finalizado com sucesso (exit 0 • 12.4s)."
+msgstr "Comanda lungă s-a finalizat cu succes (exit 0 • 12.4s)."
+
+# 
+msgid "Combinar com Cores do Terminal"
+msgstr "Potrivește cu culorile terminalului"
+
+# 
+msgid "Command Palette (Ctrl+Shift+P) — Busca Unificada"
+msgstr "Paletă de comenzi (Ctrl+Shift+P) — Căutare unificată"
+
+# 
+msgid "Command Palette — Busca Unificada (Ctrl+Shift+P)"
+msgstr "Paletă de comenzi — Căutare unificată (Ctrl+Shift+P)"
+
+# 
+msgid "Compactar"
+msgstr "Compresie"
+
+# 
+msgid "Comparador de Integridade"
+msgstr "Comparator de integritate"
+
+# 
+msgid "Comparar / Sincronizar Diretórios (Esquerdo ⇄ Direito)"
+msgstr "Compară / Sincronizează directoarele (Stânga ⇄ Dreapta)"
+
+# 
+msgid "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente"
+msgstr "Comparație cu panou dublu: {identical} identice | {left_only} doar în stânga | {right_only} doar în dreapta | {diff} cu dimensiune diferită"
+
+# 
+msgid "Compatibilidade com repositórios Git e legado"
+msgstr "Compatibilitate cu depozitele Git și moștenite"
+
+# 
+msgid "Compile the current package"
+msgstr "Compilează pachetul curent"
+
+# 
+msgid "Compress file data during transfer"
+msgstr "Comprimă datele fișierelor în timpul transferului"
+
+# 
+msgid "Conclusão &amp; Lições Aprendidas"
+msgstr "Concluzii și lecții învățate"
+
+# 
+msgid "Conectado à sessão: {name}"
+msgstr "Conectat la sesiunea: {name}"
+
+# 
+msgid "Conectando via Busca Global: {name}"
+msgstr "Se conectează prin Căutare globală: {name}"
+
+# 
+msgid "Conectando via Command Palette: {name}"
+msgstr "Se conectează prin Paleta de comenzi: {name}"
+
+# 
+msgid "Conectar em Painel Dividido (Split)"
+msgstr "Conectează în panou divizat (Split)"
+
+# 
+msgid "Conectar: {name}"
+msgstr "Conectare: {name}"
+
+# 
+msgid "Configurar Assistente de IA..."
+msgstr "Configurează Asistentul AI..."
+
+# 
+msgid "Configurar regras deste comando"
+msgstr "Configurează regulile acestei comenzi"
+
+# 
+msgid "Configure AI Assistant — OnyxSH"
+msgstr "Configurare Asistent AI — OnyxSH"
+
+# 
+msgid "Configure all unpacked but unconfigured packages"
+msgstr "Configurează toate pachetele despachetate, dar neconfigurate"
+
+# 
+msgid "Configure an unpacked package"
+msgstr "Configurează un pachet despachetat"
+
+# 
+msgid "Configure individual keys to switch providers without reconfiguring"
+msgstr "Configurează chei individuale pentru a schimba furnizorii fără reconfigurare"
+
+# 
+msgid "Confirm"
+msgstr "Confirmă"
+
+# 
+msgid "Confirmar Exclusão"
+msgstr "Confirmă ștergerea"
+
+# 
+msgid "Conflito ou falha de sincronização no repositório Git."
+msgstr "Conflict sau eroare de sincronizare în depozitul Git."
+
+# 
+msgid "Context Window Size (Tokens)"
+msgstr "Dimensiunea ferestrei de context (Tokeni)"
+
+# 
+msgid "Conteúdo copiado para a área de transferência."
+msgstr "Conținutul a fost copiat în clipboard."
+
+# 
+msgid "Continue rebase after resolving conflicts"
+msgstr "Continuă rebase după rezolvarea conflictelor"
+
+# 
+msgid "Conversa carregada do histórico."
+msgstr "Conversație încărcată din istoric."
+
+# 
+msgid "Copiado para {path}"
+msgstr "Copiat în {path}"
+
+# 
+msgid "Copiar Arquivo"
+msgstr "Copiază fișierul"
+
+# 
+msgid "Copiar Caminho do Diretório Pai"
+msgstr "Copiază calea directorului părinte"
+
+# 
+msgid "Copiar Pasta"
+msgstr "Copiază folderul"
+
+# 
+msgid "Copiar Selecionado para o Painel Direito (→)"
+msgstr "Copiază selecția în panoul drept (→)"
+
+# 
+msgid "Copiar Selecionado para o Painel Esquerdo (←)"
+msgstr "Copiază selecția în panoul stâng (←)"
+
+# 
+msgid "Copiar endereço local (localhost:{port})"
+msgstr "Copy local address (localhost:{port})"
+
+# 
+msgid "Copiar para Área de Transferência"
+msgstr "Copiază în clipboard"
+
+# 
+msgid "Copiar relatório detalhado em formato Markdown"
+msgstr "Copiază raportul detaliat în format Markdown"
+
+# 
+msgid "Cores e Destaques"
+msgstr "Culori și evidențieri"
+
+# 
+msgid "Cores e Destaques do Terminal"
+msgstr "Culorile și evidențierile terminalului"
+
+# 
+msgid "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)"
+msgstr "Culorile standard ale terminalului (0-7 normale, 8-15 luminoase)"
+
+# 
+msgid "Create a merge commit even on fast-forward"
+msgstr "Creează un commit de îmbinare chiar și la fast-forward"
+
+# 
+msgid "Create a shallow clone with truncated history"
+msgstr "Creează o clonă superficială cu istoric trunchiat"
+
+# 
+msgid "Create gzipped tar archive verbosely"
+msgstr "Creează o arhivă tar comprimată cu gzip cu afișare detaliată"
+
+# 
+msgid "Cria arquivos compactados a partir de arquivos e pastas"
+msgstr "Creează arhive comprimate din fișiere și foldere"
+
+# 
+msgid "Cria e edita botões de comando parametrizados (Ctrl+Shift+M)"
+msgstr "Creează și editează butoane de comandă parametrizate (Ctrl+Shift+M)"
+
+# 
+msgid "Cria e muda para uma nova branch local no repositório Git"
+msgstr "Creează și comută la o nouă ramură locală în depozitul Git"
+
+# 
+msgid "Cria um arquivo de teste em /tmp com backup atômico no AuditLogger"
+msgstr "Creează un fișier de test în /tmp cu copie de rezervă atomică în AuditLogger"
+
+# 
+msgid "Cria um esquema de cores personalizado com base no esquema ativo"
+msgstr "Creează o schemă de culori personalizată pe baza schemei active"
+
+# 
+msgid "Criar Backup de Configurações (Bundle SHA-256)"
+msgstr "Creează copie de rezervă a setărilor (Pachet SHA-256)"
+
+# 
+msgid "Criar Nova Branch no Git"
+msgstr "Git New Branch"
+
+# 
+msgid "Criar Sessão"
+msgstr "Creează sesiune"
+
+# 
+msgid "Crie um túnel Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D) para encaminhar portas via SSH."
+msgstr "Creează un tunel local (-L), la distanță (-R) sau dinamic SOCKS5 (-D) pentru redirecționarea porturilor prin SSH."
+
+# 
+msgid "Cálculo de checksum cancelado pelo usuário."
+msgstr "Calcularea sumei de control a fost anulată de utilizator."
+
+# 
+msgid "Código Fonte C"
+msgstr "C Source Code"
+
+# 
+msgid "Código Fonte C++"
+msgstr "C++ Source Code"
+
+# 
+msgid "Código Fonte Go"
+msgstr "Go Source Code"
+
+# 
+msgid "Código Rust"
+msgstr "Cod Rust"
+
+# 
+msgid "Código inserido no terminal ativo."
+msgstr "Cod inserat în terminalul activ."
+
+# 
+msgid "Código-Fonte"
+msgstr "Cod sursă"
+
+# 
+msgid "Cópia de {name}"
+msgstr "Copie a {name}"
+
+# 
+msgid "Data de Modificação"
+msgstr "Data modificării"
+
+# 
+msgid "Date / Time"
+msgstr "Dată / Oră"
+
+# 
+msgid "Date: {date} | Dimensions: {cols}x{rows}"
+msgstr "Dată: {date} | Dimensiuni: {cols}x{rows}"
+
+# 
+msgid "Debian low-level package manager (.deb)"
+msgstr "Manager de pachete de nivel scăzut Debian (.deb)"
+
+# 
+msgid "Default API Key"
+msgstr "Cheie API implicită"
+
+# 
+msgid "Default Model Identifier"
+msgstr "Identificator de model implicit"
+
+# 
+msgid "Default Provider"
+msgstr "Furnizor implicit"
+
+# 
+msgid "Define and run multi-container applications"
+msgstr "Definește și rulează aplicații multi-container"
+
+# 
+msgid "Definir permissões de arquivo para: {name}\nAtual: {perms}"
+msgstr "Setează permisiunile fișierului pentru: {name}\nActual: {perms}"
+
+# 
+msgid "Delete a firewall rule"
+msgstr "Șterge o regulă de firewall"
+
+# 
+msgid "Delete a merged branch"
+msgstr "Șterge o ramură îmbinată"
+
+# 
+msgid "Desativar Todos"
+msgstr "Dezactivează tot"
+
+# 
+msgid "Descrição:"
+msgstr "Descriere:"
+
+# 
+msgid "Destaque de Entrada do Shell"
+msgstr "Evidențiere intrare Shell"
+
+# 
+msgid "Destaque de sintaxe em tempo real enquanto você digita comandos"
+msgstr "Evidențiere de sintaxă în timp real pe măsură ce tastezi comenzi"
+
+# 
+msgid "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)"
+msgstr "Evidențiere de sintaxă pentru ieșirea comenzii 'cat' (folosind motorul Pygments/ANSI)"
+
+# 
+msgid "Destino Remoto"
+msgstr "Destinație la distanță"
+
+# 
+msgid "Detached mode: run command in background"
+msgstr "Mod detașat: rulează comanda în fundal"
+
+# 
+msgid "Detached mode: run containers in background"
+msgstr "Detached mode: Run containers in background"
+
+# 
+msgid "Diagnosticar Erros do Log com IA"
+msgstr "Diagnostichează erorile jurnalului cu AI"
+
+# 
+msgid "Diagnosticar e reiniciar serviço web"
+msgstr "Diagnostichează și repornește serviciul web"
+
+# 
+msgid "Diagnóstico Heurístico (**{title}**):\n{desc}\n\nSugestão de correção rápida:\n```bash\n{cmd}\n```"
+msgstr "Diagnostic euristic (**{title}**):\n{desc}\n\nSugestie de remediere rapidă:\n```bash\n{cmd}\n```"
+
+# 
+msgid "Diagnóstico Seguro do Sistema — Telemetria & Suporte"
+msgstr "Diagnostic securizat al sistemului — Telemetrie și asistență"
+
+# 
+msgid "Diagnóstico do log '{name}' enviado ao Assistente de IA."
+msgstr "Diagnosticul jurnalului '{name}' a fost trimis către Asistentul AI."
+
+# 
+msgid "Diferenciar Maiúsculas/Minúsculas (Match Case)"
+msgstr "Potrivire majuscule/minuscule"
+
+# 
+msgid "Digite um comando (ex: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+msgstr "Introdu o comandă (de ex.: 'sudo rpm -', 'sudo dnf install ', 'apt ', 'pacman -', 'flatpak ', 'zypper ', 'snap '):"
+
+# 
+msgid "Digite um comando para enviar a TODOS os terminais abertos..."
+msgstr "Tastează o comandă pentru a o trimite către TOATE terminalele deschise..."
+
+# 
+msgid "Digite uma ação, sessão SSH ou comando parametrizado..."
+msgstr "Tastează o acțiune, o sesiune SSH sau o comandă parametrizată..."
+
+# 
+msgid "Diminuir Fonte (Ctrl+-)"
+msgstr "Micșorează fontul (Ctrl+-)"
+
+# 
+msgid "Dinâmico (-D) • Proxy SOCKS5 através de SSH"
+msgstr "Dinamic (-D) • Proxy SOCKS5 prin SSH"
+
+# 
+msgid "Direita"
+msgstr "Dreapta"
+
+# 
+msgid "Diretório '{path}' marcado como favorito."
+msgstr "Directorul '{path}' a fost marcat ca favorit."
+
+# 
+msgid "Diretório Inicial"
+msgstr "Home Directory"
+
+# 
+msgid "Diretório Pai"
+msgstr "Parent Directory"
+
+# 
+msgid "Diretório de Config"
+msgstr "Director de configurare"
+
+# 
+msgid "Diretório enviado ao terminal: {dir}"
+msgstr "Director trimis în terminal: {dir}"
+
+# 
+msgid "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}"
+msgstr "Director: {name}\nCale: {path}\nPermisiuni: {perms}"
+
+# 
+msgid "Diretórios permitidos, isolamento PathGuard e políticas default-deny"
+msgstr "Directoare permise, izolare PathGuard și politici de refuz implicit"
+
+# 
+msgid "Disable an installed snap"
+msgstr "Dezactivează un snap instalat"
+
+# 
+msgid "Disco Cheio (ENOSPC)"
+msgstr "Disc plin (ENOSPC)"
+
+# 
+msgid "Disk (Physical I/O)"
+msgstr "Disc (I/E fizic)"
+
+# 
+msgid "Display detailed information about an installed package"
+msgstr "Afișează informații detaliate despre un pachet instalat"
+
+# 
+msgid "Display memory in megabytes"
+msgstr "Afișează memoria în megabytes"
+
+# 
+msgid "Display status details of installed package"
+msgstr "Afișează detaliile stării pachetului instalat"
+
+# 
+msgid "Divide a aba atual acima/abaixo (Ctrl+Shift+))"
+msgstr "Împarte fila curentă sus/jos (Ctrl+Shift+))"
+
+# 
+msgid "Divide a aba atual lado a lado (Ctrl+Shift+()"
+msgstr "Împarte fila curentă una lângă alta (Ctrl+Shift+()"
+
+# 
+msgid "Dividir Horizontalmente"
+msgstr "Împărțiți orizontal"
+
+# 
+msgid "Dividir Terminal Horizontalmente"
+msgstr "Împarte terminalul orizontal"
+
+# 
+msgid "Dividir Verticalmente"
+msgstr "Împărțiți vertical"
+
+# 
+msgid "Divisão"
+msgstr "Împărțire"
+
+# 
+msgid "Do not ask anything, use default answers"
+msgstr "Nu întreba nimic, folosește răspunsurile implicite"
+
+# 
+msgid "Do not check dependencies before erasing"
+msgstr "Nu verifica dependențele înainte de ștergere"
+
+# 
+msgid "Do not execute a remote command (port forwarding only)"
+msgstr "Nu executa o comandă la distanță (doar redirecționare de porturi)"
+
+# 
+msgid "Do not resolve service names"
+msgstr "Nu rezolva numele serviciilor"
+
+# 
+msgid "Do not save a snapshot of the snap's data"
+msgstr "Nu salva un instantaneu al datelor pachetului snap"
+
+# 
+msgid "Do not verify package dependencies"
+msgstr "Nu verifica dependențele pachetelor"
+
+# 
+msgid "Do not verify package dependencies before installing"
+msgstr "Nu verifica dependențele pachetelor înainte de instalare"
+
+# 
+msgid "Do nothing if remote with same name exists"
+msgstr "Nu face nimic dacă există deja un depozit la distanță cu același nume"
+
+# 
+msgid "Documento JSON"
+msgstr "JSON Document"
+
+# 
+msgid "Documento Markdown"
+msgstr "Markdown Document"
+
+# 
+msgid "Documento PDF"
+msgstr "PDF Document"
+
+# 
+msgid "Documento TOML"
+msgstr "TOML Document"
+
+# 
+msgid "Documento YAML"
+msgstr "YAML Document"
+
+# 
+msgid "Documento de Texto"
+msgstr "Document text"
+
+# 
+msgid "Download fresh copy of package databases"
+msgstr "Descarcă o copie nouă a bazelor de date cu pachete"
+
+# 
+msgid "Download packages only, do not install"
+msgstr "Descarcă doar pachetele, nu instala"
+
+# 
+msgid "Draw text-based graphical commit history"
+msgstr "Desenează istoricul grafic al commit-urilor în mod text"
+
+# 
+msgid "Dry-run removal without deleting files"
+msgstr "Simulare de eliminare fără ștergerea fișierelor"
+
+# 
+msgid "Dry-run test installation without modifying system"
+msgstr "Simulare de testare a instalării fără a modifica sistemul"
+
+# 
+msgid "Editar Comando: {name}"
+msgstr "Editează comanda: {name}"
+
+# 
+msgid "Editar Configurações do Túnel"
+msgstr "Editează setările tunelului"
+
+# 
+msgid "Editar Esquema de Cores"
+msgstr "Editează schema de culori"
+
+# 
+msgid "Editar Sessão Selecionada"
+msgstr "Editează sesiunea selectată"
+
+# 
+msgid "Editar Sessão — OnyxSH"
+msgstr "Editează sesiunea — OnyxSH"
+
+# 
+msgid "Editar esquema de cores ou criar variante personalizada"
+msgstr "Editează schema de culori sau creează o variantă personalizată"
+
+# 
+msgid "Elaborei um **Plano de Ação Estruturado** com validação pelo `PolicyEngine` e verificação automática pós-execução (`verifier.rs`) para:\n> {prompt}"
+msgstr "Am elaborat un **Plan de acțiune structurat** cu validare prin `PolicyEngine` și verificare automată post-execuție (`verifier.rs`) pentru:\n> {prompt}"
+
+# 
+msgid "Emulador de terminal moderno para fluxos de trabalho locais e remotos no Linux, com ProductionGuard, Dual-Pane SFTP/TFTP e Assistente de IA Zero-Trust."
+msgstr "Emulator de terminal modern pentru fluxuri de lucru locale și la distanță în Linux, cu ProductionGuard, SFTP/TFTP cu panou dublu și Asistent AI Zero-Trust."
+
+# 
+msgid "Enable a disabled snap"
+msgstr "Activează un snap dezactivat"
+
+# 
+msgid "Encaminhamento X11 (-X):"
+msgstr "Redirecționare X11 (-X):"
+
+# 
+msgid "Encerra a aba ativa (Ctrl+Shift+W)"
+msgstr "Închide fila activă (Ctrl+Shift+W)"
+
+# 
+msgid "Encontrar Arquivos"
+msgstr "Găsește fișierele"
+
+# 
+msgid "Envia comandos simultaneamente para múltiplos terminais (Ctrl+Shift+B)"
+msgstr "Trimite comenzi simultan către mai multe terminale (Ctrl+Shift+B)"
+
+# 
+msgid "Enviar Comando para Todas as Abas"
+msgstr "Trimite comanda către toate tab-urile"
+
+# 
+msgid "Enviar Pergunta"
+msgstr "Trimite întrebarea"
+
+# 
+msgid "Enviar comando sha256sum para a aba ativa do terminal"
+msgstr "Trimite comanda sha256sum către fila activă a terminalului"
+
+# 
+msgid "Enviar p/ Todos"
+msgstr "Trimite către toate"
+
+# 
+msgid "Erase (uninstall) an installed RPM package"
+msgstr "Șterge (dezinstalează) un pachet RPM instalat"
+
+# 
+msgid "Erro ao Salvar Arquivo"
+msgstr "Eroare la salvarea fișierului"
+
+# 
+msgid "Erro ao alterar permissões de '{name}': {err}"
+msgstr "Eroare la modificarea permisiunilor pentru '{name}': {err}"
+
+# 
+msgid "Erro ao calcular hash"
+msgstr "Eroare la calcularea hash-ului"
+
+# 
+msgid "Erro ao colar item: {err}"
+msgstr "Eroare la lipirea elementului: {err}"
+
+# 
+msgid "Erro ao criar arquivo: {err}"
+msgstr "Eroare la crearea fișierului: {err}"
+
+# 
+msgid "Erro ao criar backup: {err}"
+msgstr "Eroare la crearea copiei de rezervă: {err}"
+
+# 
+msgid "Erro ao criar pasta: {err}"
+msgstr "Eroare la crearea folderului: {err}"
+
+# 
+msgid "Erro ao excluir arquivo: {err}"
+msgstr "Eroare la ștergerea fișierului: {err}"
+
+# 
+msgid "Erro ao excluir pasta: {err}"
+msgstr "Eroare la ștergerea folderului: {err}"
+
+# 
+msgid "Erro ao listar {path}: {err}"
+msgstr "Eroare la listarea {path}: {err}"
+
+# 
+msgid "Erro ao mover item: {err}"
+msgstr "Eroare la mutarea elementului: {err}"
+
+# 
+msgid "Erro ao renomear: {err}"
+msgstr "Eroare la redenumire: {err}"
+
+# 
+msgid "Erro de Repositório Git"
+msgstr "Eroare depozit Git"
+
+# 
+msgid "Erro no rollback: {err}"
+msgstr "Eroare la revenire: {err}"
+
+# 
+msgid "Erro: {err}"
+msgstr "Eroare: {err}"
+
+# 
+msgid "Escolha entre Local (-L), Remoto (-R) ou Dinâmico SOCKS5 (-D)"
+msgstr "Alege între Local (-L), La distanță (-R) sau Dinamic SOCKS5 (-D)"
+
+# 
+msgid "Esquema de cores aplicado: {name}"
+msgstr "Schemă de culori aplicată: {name}"
+
+# 
+msgid "Esquema de cores salvo: {name}"
+msgstr "Schemă de culori salvată: {name}"
+
+# 
+msgid "Esta sessão vem do ~/.ssh/config (somente leitura) ou já foi removida."
+msgstr "Această sesiune provine din ~/.ssh/config (doar citire) sau a fost deja eliminată."
+
+# 
+msgid "Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."
+msgstr "Acest fișier este doar pentru citire. Modificările pot fi salvate cu privilegii de Administrator (Root)."
+
+# 
+msgid "Estilo Claro (Light)"
+msgstr "Stil luminos (Light)"
+
+# 
+msgid "Estilo Escuro (Dark)"
+msgstr "Stil întunecat (Dark)"
+
+# 
+msgid "Ex: 10.0.0.15 ou srv.empresa.com"
+msgstr "Ex.: 10.0.0.15 sau srv.companie.ro"
+
+# 
+msgid "Ex: Produção (deixe vazio para raiz)"
+msgstr "Ex.: Producție (lăsați gol pentru rădăcină)"
+
+# 
+msgid "Ex: Produção Web-01"
+msgstr "Ex.: Producție Web-01"
+
+# 
+msgid "Ex: root ou ubuntu"
+msgstr "Ex.: root sau ubuntu"
+
+# 
+msgid "Excluir Pasta"
+msgstr "Șterge folderul"
+
+# 
+msgid "Excluir Permanentemente"
+msgstr "Șterge permanent"
+
+# 
+msgid "Executado no terminal: {cmd}"
+msgstr "Executat în terminal: {cmd}"
+
+# 
+msgid "Executar (↵)"
+msgstr "Rulează (↵)"
+
+# 
+msgid "Executar Agora"
+msgstr "Rulează acum"
+
+# 
+msgid "Executar com sudo no Terminal"
+msgstr "Rulează cu sudo în terminal"
+
+# 
+msgid "Executar comando em todos os terminais"
+msgstr "Execută comanda în toate terminalele"
+
+# 
+msgid "Executar passo"
+msgstr "Execută pasul"
+
+# 
+msgid "Executar plano do agente"
+msgstr "Execută planul agentului"
+
+# 
+msgid "Execute all unit and integration tests"
+msgstr "Execută toate testele unitare și de integrare"
+
+# 
+msgid "Exibir Painel de Sessões"
+msgstr "Afișează panoul de sesiuni"
+
+# 
+msgid "Explicar Arquivo com IA"
+msgstr "Explică fișierul cu AI"
+
+# 
+msgid "Explicação do arquivo '{name}' solicitada ao Assistente de IA."
+msgstr "Explicația fișierului '{name}' a fost solicitată asistentului AI."
+
+# 
+msgid "Explique o propósito, estrutura e funcionamento do arquivo '{name}'.\nCaminho: {path}\n\nConteúdo inicial:\n```\n{content}\n```"
+msgstr "Explică scopul, structura și funcționarea fișierului '{name}'.\nCale: {path}\n\nConținut inițial:\n```\n{content}\n```"
+
+# 
+msgid "Exporta settings.json, sessions.json e command_buttons.json com hash SHA-256"
+msgstr "Exportă settings.json, sessions.json și command_buttons.json cu hash SHA-256"
+
+# 
+msgid "Exporta todo o buffer ou a seleção ativa do terminal"
+msgstr "Exportă întregul buffer sau selecția activă a terminalului"
+
+# 
+msgid "Exportado para {path}"
+msgstr "Exportat în {path}"
+
+# 
+msgid "Exportar Saída do Terminal (.txt, .log, .md, .html, .cast)"
+msgstr "Exportă ieșirea terminalului (.txt, .log, .md, .html, .cast)"
+
+# 
+msgid "Exportar Sessão como Caderno de Bordo (Runbook)"
+msgstr "Exportă sesiunea ca jurnal operațional (Runbook)"
+
+# 
+msgid "Exportação de Terminal OnyxSH - {session}"
+msgstr "Export terminal OnyxSH - {session}"
+
+# 
+msgid "External connection control and strict data isolation."
+msgstr "Controlul conexiunilor externe și izolarea strictă a datelor."
+
+# 
+msgid "Extract gzipped tar archive verbosely"
+msgstr "Extrage arhiva tar comprimată cu gzip cu detalii"
+
+# 
+msgid "Extrai arquivos de arquivos compactados"
+msgstr "Extrage fișiere din arhive comprimate"
+
+# 
+msgid "Extrair"
+msgstr "Extrage"
+
+# 
+msgid "Falha ao Salvar como Root"
+msgstr "Eșec la salvarea ca Root"
+
+# 
+msgid "Falha ao aguardar processo pkexec: {err}"
+msgstr "Eșec la așteptarea procesului pkexec: {err}"
+
+# 
+msgid "Falha ao calcular checksums: {err}"
+msgstr "Eșec la calcularea sumelor de control: {err}"
+
+# 
+msgid "Falha ao criar backup: {err}"
+msgstr "Eșec la crearea copiei de rezervă: {err}"
+
+# 
+msgid "Falha ao escrever dados no stdin de pkexec: {err}"
+msgstr "Eșec la scrierea datelor în stdin al pkexec: {err}"
+
+# 
+msgid "Falha ao iniciar processo privilegiado pkexec: {err}"
+msgstr "Eșec la pornirea procesului privilegiat pkexec: {err}"
+
+# 
+msgid "Falha ao restaurar backup: {err}"
+msgstr "Eșec la restaurarea copiei de rezervă: {err}"
+
+# 
+msgid "Falha ao salvar arquivo: {err}"
+msgstr "Eșec la salvarea fișierului: {err}"
+
+# 
+msgid "Falha na transferência (←): {err}"
+msgstr "Transfer eșuat (←): {err}"
+
+# 
+msgid "Falha na transferência (→): {err}"
+msgstr "Transfer eșuat (→): {err}"
+
+# 
+msgid "Fast, versatile, remote and local file-copying tool"
+msgstr "Instrument rapid și versatil pentru copierea fișierelor locale și la distanță"
+
+# 
+msgid "Favoritar / Desfavoritar comando"
+msgstr "Adaugă / elimină comanda la favorite"
+
+# 
+msgid "Favoritar diretório atual"
+msgstr "Adaugă directorul curent la favorite"
+
+# 
+msgid "Favorito removido: '{path}'"
+msgstr "Favorit eliminat: '{path}'"
+
+# 
+msgid "Faz commit das alterações no Git com mensagem descritiva"
+msgstr "Face commit modificărilor în Git cu un mesaj descriptiv"
+
+# 
+msgid "Fechar Aba"
+msgstr "Închide fila"
+
+# 
+msgid "Fechar Painel Ativo"
+msgstr "Închide Panoul Activ"
+
+# 
+msgid "Fedora/RHEL/Rocky/AlmaLinux RPM package manager"
+msgstr "Manager de pachete RPM pentru Fedora/RHEL/Rocky/AlmaLinux"
+
+# 
+msgid "Fetch from and integrate with another repository"
+msgstr "Preia și integrează dintr-un alt depozit"
+
+# 
+msgid "Fila de Transferências — OnyxSH"
+msgstr "Coadă de transferuri — OnyxSH"
+
+# 
+msgid "Fila de transferências vazia (0 tarefas em andamento)."
+msgstr "Coada de transferuri este goală (0 sarcini în desfășurare)."
+
+# 
+msgid "File data modified n*24 hours ago"
+msgstr "Datele fișierului modificate acum n*24 ore"
+
+# 
+msgid "File type (f regular file, d directory, l symlink)"
+msgstr "Tip fișier (f fișier obișnuit, d director, l legătură simbolică)"
+
+# 
+msgid "Filter the archive through gzip (.tar.gz)"
+msgstr "Filtrează arhiva prin gzip (.tar.gz)"
+
+# 
+msgid "Find which package provides a given file or feature"
+msgstr "Găsește pachetul care oferă un anumit fișier sau o funcționalitate"
+
+# 
+msgid "Focar janela existente"
+msgstr "Focalizează fereastra existentă"
+
+# 
+msgid "Focar painel abaixo"
+msgstr "Focus Pane Down"
+
+# 
+msgid "Focar painel acima"
+msgstr "Focus Pane Up"
+
+# 
+msgid "Focar painel à direita"
+msgstr "Focus Pane Right"
+
+# 
+msgid "Focar painel à esquerda"
+msgstr "Focus Pane Left"
+
+# 
+msgid "Foco alterado para o primeiro painel."
+msgstr "Focalizarea a fost mutată pe primul panou."
+
+# 
+msgid "Foco alterado para o segundo painel."
+msgstr "Focalizarea a fost mutată pe al doilea panou."
+
+# 
+msgid "Follow output live as file grows"
+msgstr "Urmărește ieșirea în timp real pe măsură ce fișierul crește"
+
+# 
+msgid "Fonte, paleta de cores, transparência e IA (F2)"
+msgstr "Font, paletă de culori, transparență și AI (F2)"
+
+# 
+msgid "Force deletion even if apps depend on it"
+msgstr "Forțează ștergerea chiar dacă aplicațiile depind de el"
+
+# 
+msgid "Force installation even if package/files already exist"
+msgstr "Forțează instalarea chiar dacă pachetul/fișierele există deja"
+
+# 
+msgid "Force upgrade"
+msgstr "Forțează actualizarea"
+
+# 
+msgid "Format query output with custom queryformat"
+msgstr "Formatează ieșirea interogării cu un queryformat personalizat"
+
+# 
+msgid "Formato"
+msgstr "Format"
+
+# 
+msgid "Freshen RPM packages (upgrade only if already installed)"
+msgstr "Reîmprospătează pachetele RPM (actualizează doar dacă sunt deja instalate)"
+
+# 
+msgid "Gerar Plano de Ação Estruturado (ActionPlan)"
+msgstr "Generează plan de acțiune structurat (ActionPlan)"
+
+# 
+msgid "Gerencia serviços do sistema com systemctl"
+msgstr "Gestionează serviciile de sistem cu systemctl"
+
+# 
+msgid "Gerenciador de Arquivos"
+msgstr "Manager de fișiere"
+
+# 
+msgid "Gerenciador de Arquivos Dual-Pane"
+msgstr "Manager de fișiere cu două panouri"
+
+# 
+msgid "Gerenciador de Comandos"
+msgstr "Manager de Comenzi"
+
+# 
+msgid "Gerenciador de Comandos & Formulários Dinâmicos"
+msgstr "Manager de comenzi și formulare dinamice"
+
+# 
+msgid "Gerenciador de Túneis SSH"
+msgstr "SSH Tunnel Manager"
+
+# 
+msgid "Gerenciamento de Abas e Painéis"
+msgstr "Gestionarea tab-urilor și panourilor"
+
+# 
+msgid "Gerenciamento de aplicativos e runtimes Flatpak"
+msgstr "Flatpak application and runtime management"
+
+# 
+msgid "Git Assistant — Sugerir Conventional Commit"
+msgstr "Git Assistant — Sugerează Conventional Commit"
+
+# 
+msgid "Git Assistant: diretório atual não é um repositório Git."
+msgstr "Git Assistant: directorul curent nu este un depozit Git."
+
+# 
+msgid "Google Gemini • High Context Capacity"
+msgstr "Google Gemini • Capacitate mare de context"
+
+# 
+msgid "Grade de Ícones"
+msgstr "Grilă de pictograme"
+
+# 
+msgid "Groq • Ultra-Fast LPU"
+msgstr "Groq • LPU ultrarapid"
+
+# 
+msgid "Gráficos em tempo real de CPU, RAM, Disco I/O e Rede/GPU"
+msgstr "Grafice în timp real pentru CPU, RAM, I/O disc și Rețea/GPU"
+
+# 
+msgid "Hash {algo} copiado para a área de transferência"
+msgstr "{algo} hash copied to clipboard"
+
+# 
+msgid "High-reasoning model and provider for multi-step plans"
+msgstr "Model și furnizor cu raționament avansat pentru planuri în mai mulți pași"
+
+# 
+msgid "Histórico Enriquecido de Comandos (Ctrl+H)"
+msgstr "Istoric îmbogățit al comenzilor (Ctrl+H)"
+
+# 
+msgid "Histórico de Conversas"
+msgstr "Istoricul conversațiilor"
+
+# 
+msgid "Histórico de Transferências"
+msgstr "Istoric transferuri"
+
+# 
+msgid "Histórico: {cmd}"
+msgstr "Istoric: {cmd}"
+
+# 
+msgid "Host / IP:"
+msgstr "Gazdă / IP:"
+
+# 
+msgid "Host Remoto (IP / Domínio)"
+msgstr "Gazdă la distanță (IP / domeniu)"
+
+# 
+msgid "Host Remoto para Bind"
+msgstr "Gazdă la distanță pentru Bind"
+
+# 
+msgid "Host cannot be empty"
+msgstr "Gazda nu poate fi goală"
+
+# 
+msgid "Host ou endereço IP inválido."
+msgstr "Gazdă sau adresă IP invalidă."
+
+# 
+msgid "Identity file (private key) for public key auth"
+msgstr "Fișier de identitate (cheie privată) pentru autentificarea cu cheie publică"
+
+# 
+msgid "Ignore case distinctions"
+msgstr "Ignoră diferența dintre majuscule și minuscule"
+
+# 
+msgid "Ignore file backup designations (remove config files)"
+msgstr "Ignoră desemnările de backup ale fișierelor (elimină fișierele de configurare)"
+
+# 
+msgid "Ignore nonexistent files, never prompt"
+msgstr "Ignoră fișierele inexistente, nu solicita confirmare"
+
+# 
+msgid "Imagem"
+msgstr "Imagine"
+
+# 
+msgid "Import an ASCII-armored GPG public key into RPM keyring"
+msgstr "Importă o cheie publică GPG în format ASCII-armored în inelul de chei RPM"
+
+# 
+msgid "Import remote configuration from .flatpakrepo"
+msgstr "Importă configurația la distanță din .flatpakrepo"
+
+# 
+msgid "Importar Sessões (~/.ssh/config)"
+msgstr "Importă sesiuni (~/.ssh/config)"
+
+# 
+msgid "Include HTTP response headers in output"
+msgstr "Include antetele de răspuns HTTP în ieșire"
+
+# 
+msgid "Incrementa o tamanho da fonte do terminal (Ctrl++)"
+msgstr "Mărește dimensiunea fontului terminalului (Ctrl++)"
+
+# 
+msgid "Infers and proposes automatic validations (service status, config syntax) after mutating commands."
+msgstr "Deduce și propune validări automate (starea serviciului, sintaxa configurației) după comenzi care modifică starea."
+
+# 
+msgid "Iniciar Servidor TFTP"
+msgstr "Pornește serverul TFTP"
+
+# 
+msgid "Inserir (Tab)"
+msgstr "Inserează (Tab)"
+
+# 
+msgid "Inserir Caminho no Terminal"
+msgstr "Inserează calea în terminal"
+
+# 
+msgid "Inspeciona repositório Git atual e sugere mensagem de commit"
+msgstr "Inspectează depozitul Git curent și sugerează un mesaj de commit"
+
+# 
+msgid "Inspecionar sockets e portas ativas no host"
+msgstr "Inspectează socketurile și porturile active pe gazdă"
+
+# 
+msgid "Install a local .deb package file"
+msgstr "Instalează un fișier de pachet .deb local"
+
+# 
+msgid "Install an RPM package file with verbose progress"
+msgstr "Instalează un fișier de pachet RPM cu progres detaliat"
+
+# 
+msgid "Install as non-explicit dependency"
+msgstr "Instalează ca dependență neexplicită"
+
+# 
+msgid "Install from the beta channel"
+msgstr "Instalează din canalul beta"
+
+# 
+msgid "Install from the edge channel"
+msgstr "Instalează din canalul edge"
+
+# 
+msgid "Install from the stable channel"
+msgstr "Instalează din canalul stabil"
+
+# 
+msgid "Install one or more RPM packages"
+msgstr "Instalează unul sau mai multe pachete RPM"
+
+# 
+msgid "Install snaps on the system"
+msgstr "Instalează pachete snap în sistem"
+
+# 
+msgid "Interactive rebase"
+msgstr "Rebase interactiv"
+
+# 
+msgid "Interactively choose hunks of patch"
+msgstr "Alege interactiv fragmentele (hunks) din patch"
+
+# 
+msgid "Interação do Terminal"
+msgstr "Interacțiune cu terminalul"
+
+# 
+msgid "Interface Local / Bind IP"
+msgstr "Interfață locală / Bind IP"
+
+# 
+msgid "Interface de Escuta Local"
+msgstr "Interfață locală de ascultare"
+
+# 
+msgid "Interpret pattern as extended regex"
+msgstr "Interpretează modelul ca expresie regulată extinsă (regex)"
+
+# 
+msgid "Intervalo de Verificação de Latência"
+msgstr "Interval de verificare a latenței"
+
+# 
+msgid "Intervalo em segundos para enviar pacotes de sonda KeepAlive"
+msgstr "Interval în secunde pentru trimiterea pachetelor de sondare KeepAlive"
+
+# 
+msgid "Invalid SSH username"
+msgstr "Nume de utilizator SSH invalid"
+
+# 
+msgid "Invalid hostname or IP address"
+msgstr "Nume de gazdă sau adresă IP invalidă"
+
+# 
+msgid "Invalid local port"
+msgstr "Port local invalid"
+
+# 
+msgid "Invalid port number"
+msgstr "Număr de port invalid"
+
+# 
+msgid "Invalid remote host"
+msgstr "Gazdă la distanță invalidă"
+
+# 
+msgid "Investigate sockets (modern netstat replacement)"
+msgstr "Investighează socketurile (înlocuitor modern pentru netstat)"
+
+# 
+msgid "Ir p/ Aba"
+msgstr "Mergi la filă"
+
+# 
+msgid "Isso redefinirá todos os atalhos de teclado para os valores padrão. Deseja continuar?"
+msgstr "Aceasta va reseta toate comenzile rapide de la tastatură la valorile implicite. Doriți să continuați?"
+
+# 
+msgid "Item colado em: {path}"
+msgstr "Element lipit în: {path}"
+
+# 
+msgid "Item movido para: {path}"
+msgstr "Element mutat în: {path}"
+
+# 
+msgid "JavaScript"
+msgstr "JavaScript"
+
+# 
+msgid "Layout de {n_pages} aba(s) salvo em {path}"
+msgstr "Aspectul pentru {n_pages} filă(e) a fost salvat în {path}"
+
+# 
+msgid "Limpa a tela e o scrollback da sessão ativa (Ctrl+Shift+L)"
+msgstr "Șterge ecranul și istoricul de derulare al sesiunii active (Ctrl+Shift+L)"
+
+# 
+msgid "Limpar Concluídos"
+msgstr "Șterge finalizate"
+
+# 
+msgid "Limpar Histórico Não-Favoritado"
+msgstr "Șterge istoricul nefavorit"
+
+# 
+msgid "Limpar Sessão"
+msgstr "Șterge sesiunea"
+
+# 
+msgid "Limpar Sessão do Terminal"
+msgstr "Curăță sesiunea de terminal"
+
+# 
+msgid "Link Simbólico"
+msgstr "Symbolic Link"
+
+# 
+msgid "Link copiado para a área de transferência."
+msgstr "Linkul a fost copiat în clipboard."
+
+# 
+msgid "List all files owned by an installed RPM package"
+msgstr "Listează toate fișierele care aparțin unui pachet RPM instalat"
+
+# 
+msgid "List applications and runtimes available in a remote"
+msgstr "Listează aplicațiile și mediile de execuție disponibile într-un depozit la distanță"
+
+# 
+msgid "List capabilities required by this .rpm"
+msgstr "Listează capabilitățile necesare acestui .rpm"
+
+# 
+msgid "List configuration files of an installed package"
+msgstr "Listează fișierele de configurare ale unui pachet instalat"
+
+# 
+msgid "List configuration files only"
+msgstr "Listează doar fișierele de configurare"
+
+# 
+msgid "List dependencies required by an installed package"
+msgstr "Listează dependențele necesare unui pachet instalat"
+
+# 
+msgid "List files contained inside the .rpm archive"
+msgstr "Listează fișierele conținute în arhiva .rpm"
+
+# 
+msgid "List files installed by package"
+msgstr "Listează fișierele instalate de pachet"
+
+# 
+msgid "List foreign packages (e.g. from AUR)"
+msgstr "Listează pachetele externe (de ex. din AUR)"
+
+# 
+msgid "List installed packages matching pattern"
+msgstr "Listează pachetele instalate care corespund șablonului"
+
+# 
+msgid "List installed snaps"
+msgstr "Listează pachetele snap instalate"
+
+# 
+msgid "List installed unit files and their enablement status"
+msgstr "Listează fișierele de unitate instalate și starea lor de activare"
+
+# 
+msgid "List orphaned packages (dependencies no longer required)"
+msgstr "Listează pachetele orfane (dependențe care nu mai sunt necesare)"
+
+# 
+msgid "List packages installed as dependencies"
+msgstr "Listează pachetele instalate ca dependențe"
+
+# 
+msgid "List stashes currently saved"
+msgstr "Listează stashes salvate în prezent"
+
+# 
+msgid "Lista Detalhada"
+msgstr "Listă detaliată"
+
+# 
+msgid "Lista conteúdos do diretório com detalhes (ls -lah)"
+msgstr "Listează conținutul directorului cu detalii (ls -lah)"
+
+# 
+msgid "Lista, Grade de Miniaturas, Árvore & Quick Look (Ctrl+Shift+E)"
+msgstr "Listă, grilă de miniaturi, arbore și Quick Look (Ctrl+Shift+E)"
+
+# 
+msgid "Listar Arquivos"
+msgstr "Listează fișierele"
+
+# 
+msgid "Local (Ollama / LM Studio) • Full GPU/CPU Privacy"
+msgstr "Local (Ollama / LM Studio) • Confidențialitate completă GPU/CPU"
+
+# 
+msgid "Local Server Base URL"
+msgstr "URL de bază al serverului local"
+
+# 
+msgid "Logs de Serviço do Systemd"
+msgstr "Systemd Service Logs"
+
+# 
+msgid "Long format, all files, human sizes"
+msgstr "Format lung, toate fișierele, dimensiuni lizibile"
+
+# 
+msgid "Low-latency model and provider for daily shell questions"
+msgstr "Model și furnizor cu latență redusă pentru întrebări zilnice de shell"
+
+# 
+msgid "Make parent directories as needed"
+msgstr "Creează directoarele părinte după cum este necesar"
+
+# 
+msgid "Maximum context memory allocation sent to the model"
+msgstr "Alocarea maximă a memoriei de context trimisă modelului"
+
+# 
+msgid "Memory (RAM & Swap)"
+msgstr "Memorie (RAM și Swap)"
+
+# 
+msgid "Memória RAM"
+msgstr "Memorie RAM"
+
+# 
+msgid "Mensagem do Commit"
+msgstr "Mesaj commit"
+
+# 
+msgid "Modo Estritamente Offline Ativo (Zero Cloud)."
+msgstr "Mod strict offline activ (Zero Cloud)."
+
+# 
+msgid "Modo Online com Roteamento Inteligente Ativo."
+msgstr "Mod online cu rutare inteligentă activ."
+
+# 
+msgid "Modo Seleção de Texto ativado."
+msgstr "Modul de selecție a textului a fost activat."
+
+# 
+msgid "Modo Seleção de Texto desativado."
+msgstr "Modul de selecție a textului a fost dezactivat."
+
+# 
+msgid "Modo Transmissão (Broadcast p/ Todas as Abas)"
+msgstr "Mod difuzare (Broadcast către toate filele)"
+
+# 
+msgid "Modo do Tema"
+msgstr "Mod temă"
+
+# 
+msgid "Modo numérico: {mode}"
+msgstr "Numeric mode: {mode}"
+
+# 
+msgid "Monitor de Recursos em Tempo Real (Sparklines Cairo)"
+msgstr "Monitor de resurse în timp real (Sparklines Cairo)"
+
+# 
+msgid "Monitor de Recursos em Tempo Real — OnyxSH"
+msgstr "Monitor de resurse în timp real — OnyxSH"
+
+# 
+msgid "Mostra ou oculta a árvore de sessões SSH (Ctrl+Shift+H)"
+msgstr "Afișează sau ascunde arborele de sesiuni SSH (Ctrl+Shift+H)"
+
+# 
+msgid "Mostrar arquivos ocultos (.dotfiles)"
+msgstr "Afișează fișierele ascunse (.dotfiles)"
+
+# 
+msgid "Motor"
+msgstr "Motor"
+
+# 
+msgid "Name and optionally a tag in 'name:tag' format"
+msgstr "Nume și opțional o etichetă în format 'name:tag'"
+
+# 
+msgid "Nenhum item na área de transferência para colar."
+msgstr "Niciun element în clipboard de lipit."
+
+# 
+msgid "Nenhum registro de auditoria ainda. Clique em 'Simular Alteração Auditada' para testar o Rollback Atômico."
+msgstr "Nu există încă jurnale de audit. Faceți clic pe 'Simulează modificare auditată' pentru a testa revenirea atomică."
+
+# 
+msgid "Nenhuma GPU dedicada detectada via sysfs/nvidia-smi"
+msgstr "Nicio placă GPU dedicată detectată prin sysfs/nvidia-smi"
+
+# 
+msgid "Nenhuma sessão selecionada"
+msgstr "Nicio sesiune selectată"
+
+# 
+msgid "Nenhuma transferência registrada na sessão."
+msgstr "Niciun transfer înregistrat în sesiune."
+
+# 
+msgid "Network (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+msgstr "Rețea (/proc/net/dev) • GPU VRAM: {used} / {total} MB ({pct}%)"
+
+# 
+msgid "Network (/proc/net/dev) • Real-Time RX / TX"
+msgstr "Rețea (/proc/net/dev) • RX / TX în timp real"
+
+# 
+msgid "Network (RX / TX) & GPU"
+msgstr "Rețea (RX / TX) și GPU"
+
+# 
+msgid "Never ask questions"
+msgstr "Nu pune niciodată întrebări"
+
+# 
+msgid "Nome (A-Z)"
+msgstr "Nume (A-Z)"
+
+# 
+msgid "Nome da Nova Branch"
+msgstr "Numele noii ramuri"
+
+# 
+msgid "Nome da Sessão:"
+msgstr "Nume sesiune:"
+
+# 
+msgid "Nome da nova pasta:"
+msgstr "Numele noului dosar:"
+
+# 
+msgid "Nome de arquivo inválido na área de transferência."
+msgstr "Nume de fișier nevalid în clipboard."
+
+# 
+msgid "Nome de usuário SSH contém caracteres inválidos."
+msgstr "Numele de utilizator SSH conține caractere nevalide."
+
+# 
+msgid "Nome do Arquivo de Destino"
+msgstr "Nume fișier destinație"
+
+# 
+msgid "Nome do Serviço"
+msgstr "Nume serviciu"
+
+# 
+msgid "Nome do comando (ex: Reiniciar Nginx)"
+msgstr "Numele comenzii (de ex.: Repornește Nginx)"
+
+# 
+msgid "Nome do novo arquivo:"
+msgstr "Numele noului fișier:"
+
+# 
+msgid "Nome do ícone (ex: utilities-terminal-symbolic)"
+msgstr "Nume pictogramă (de ex.: utilities-terminal-symbolic)"
+
+# 
+msgid "Nome ou ID do Container"
+msgstr "Numele sau ID-ul containerului"
+
+# 
+msgid "Nome:"
+msgstr "Nume:"
+
+# 
+msgid "Non-interactive mode"
+msgstr "Mod neinteractiv"
+
+# 
+msgid "Nova Aba de Terminal"
+msgstr "Filă nouă de terminal"
+
+# 
+msgid "Nova Aba de Terminal (Ctrl+Shift+T)"
+msgstr "Filă nouă de terminal (Ctrl+Shift+T)"
+
+# 
+msgid "Nova Pasta Aqui..."
+msgstr "Dosar nou aici..."
+
+# 
+msgid "Nova Pasta de Sessões"
+msgstr "Dosar nou de sesiuni"
+
+# 
+msgid "Nova Pasta..."
+msgstr "Dosar nou..."
+
+# 
+msgid "Nova Sessão — OnyxSH"
+msgstr "Sesiune nouă — OnyxSH"
+
+# 
+msgid "Nova conversa iniciada."
+msgstr "Conversație nouă începută."
+
+# 
+msgid "Novo Arquivo Aqui..."
+msgstr "Fișier nou aici..."
+
+# 
+msgid "Novo Arquivo..."
+msgstr "Fișier nou..."
+
+# 
+msgid "Novo Esquema de Cores"
+msgstr "Schemă de culori nouă"
+
+# 
+msgid "Novo nome da pasta:"
+msgstr "Noul nume al dosarului:"
+
+# 
+msgid "Novo nome do arquivo:"
+msgstr "Noul nume al fișierului:"
+
+# 
+msgid "Não foi possível carregar o item: {name}"
+msgstr "Nu s-a putut încărca elementul: {name}"
+
+# 
+msgid "Não foi possível gravar as alterações: {err}"
+msgstr "Nu s-au putut scrie modificările: {err}"
+
+# 
+msgid "Não há espaço livre suficiente no sistema de arquivos."
+msgstr "Nu există suficient spațiu liber pe sistemul de fișiere."
+
+# 
+msgid "Nível 0 (Leitura)"
+msgstr "Nivel 0 (Citire)"
+
+# 
+msgid "Nível 1 (Escrita)"
+msgstr "Nivel 1 (Scriere)"
+
+# 
+msgid "Nível 2 (Admin)"
+msgstr "Nivel 2 (Admin)"
+
+# 
+msgid "Nível 3 (Crítico)"
+msgstr "Nivel 3 (Critic)"
+
+# 
+msgid "Nível 4 (Bloqueado)"
+msgstr "Nivel 4 (Blocat)"
+
+# 
+msgid "Nível {n}"
+msgstr "Nivel {n}"
+
+# 
+msgid "Número de tentativas antes de desistir da reconexão automática"
+msgstr "Numărul de încercări înainte de a renunța la reconectarea automată"
+
+# 
+msgid "O binário '{bin}' não está instalado ou fora do $PATH."
+msgstr "Binarul '{bin}' nu este instalat sau se află în afara $PATH."
+
+# 
+msgid "O comando encerrou com código de erro."
+msgstr "Comanda s-a încheiat cu un cod de eroare."
+
+# 
+msgid "O comando executado no terminal falhou. Analise os arquivos do projeto e elabore as correções necessárias com OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+msgstr "Comanda executată în terminal a eșuat. Analizați fișierele proiectului și pregătiți remedierile necesare cu OpenCode:\n\n<untrusted>\n{lines}\n</untrusted>"
+
+# 
+msgid "O comando falhou por falta de privilégios de superusuário (root)."
+msgstr "Comanda a eșuat din cauza lipsei privilegiilor de superutilizator (root)."
+
+# 
+msgid "O nome da sessão não pode estar vazio."
+msgstr "Numele sesiunii nu poate fi gol."
+
+# 
+msgid "Obfuscated / Base64 decoded execution pipeline"
+msgstr "Conductă de execuție ofuscată / decodată în Base64"
+
+# 
+msgid "Ocorrência Anterior (Shift+Enter)"
+msgstr "Apariția anterioară (Shift+Enter)"
+
+# 
+msgid "Ocorrências encontradas no terminal"
+msgstr "Apariții găsite în terminal"
+
+# 
+msgid "Octal: {mode}"
+msgstr "Octal: {mode}"
+
+# 
+msgid "OnyxSH Rust Engine v0.14.0 — Ready"
+msgstr "OnyxSH Rust Engine v0.14.0 — Pregătit"
+
+# 
+msgid "OnyxSH — Teste de Notificação"
+msgstr "OnyxSH — Test de notificare"
+
+# 
+msgid "OpenCode iniciado no terminal."
+msgstr "OpenCode pornit în terminal."
+
+# 
+msgid "OpenRouter • Unified Multi-Model Catalog"
+msgstr "OpenRouter • Catalog unificat multimodel"
+
+# 
+msgid "Operador: {author} | Host: {host} | Data: {date}"
+msgstr "Operator: {author} | Gazdă: {host} | Dată: {date}"
+
+# 
+msgid "Operate on all packages in the workspace"
+msgstr "Operează pe toate pachetele din spațiul de lucru"
+
+# 
+msgid "Operação cancelada ou negada pelo usuário."
+msgstr "Operațiune anulată sau refuzată de utilizator."
+
+# 
+msgid "Operações com gerenciador de pacotes Arch Linux"
+msgstr "Operațiuni cu managerul de pachete Arch Linux"
+
+# 
+msgid "Operações com gerenciador de pacotes Debian/Ubuntu"
+msgstr "Operațiuni cu managerul de pachete Debian/Ubuntu"
+
+# 
+msgid "Operações com gerenciador de pacotes Fedora/RHEL"
+msgstr "Operațiuni cu managerul de pachete Fedora/RHEL"
+
+# 
+msgid "Operações de Arquivo"
+msgstr "Operațiuni fișier"
+
+# 
+msgid "Ordem Crescente"
+msgstr "Ordine crescătoare"
+
+# 
+msgid "Ordem Decrescente"
+msgstr "Ordine descrescătoare"
+
+# 
+msgid "Ordenação crescente ativada"
+msgstr "Sortare crescătoare activată"
+
+# 
+msgid "Ordenação decrescente ativada"
+msgstr "Sortare descrescătoare activată"
+
+# 
+msgid "Order installed packages by installation time (newest first)"
+msgstr "Ordonează pachetele instalate după timpul de instalare (cele mai noi mai întâi)"
+
+# 
+msgid "Organizar por"
+msgstr "Ordonează după"
+
+# 
+msgid "Origem (Local)"
+msgstr "Sursă (Local)"
+
+# 
+msgid "Output numbers in human-readable format"
+msgstr "Afișează numerele într-un format lizibil"
+
+# 
+msgid "Output package names only"
+msgstr "Afișează doar numele pachetelor"
+
+# 
+msgid "Pacote"
+msgstr "Pachet"
+
+# 
+msgid "Pacote de Instalação"
+msgstr "Pachet de instalare"
+
+# 
+msgid "Padrão de Nome (ex: *.log)"
+msgstr "Șablon de nume (de ex.: *.log)"
+
+# 
+msgid "Painel de Sessões"
+msgstr "Panoul de sesiuni"
+
+# 
+msgid "Painel/Aba encerrado."
+msgstr "Panou/Filă închisă."
+
+# 
+msgid "Palavra Inteira (Whole Word)"
+msgstr "Cuvânt întreg"
+
+# 
+msgid "Paleta ANSI de 16 Cores"
+msgstr "Paletă ANSI cu 16 culori"
+
+# 
+msgid "Parar Servidor TFTP ({addr})"
+msgstr "Oprește serverul TFTP ({addr})"
+
+# 
+msgid "Parâmetros — {name}"
+msgstr "Parametri — {name}"
+
+# 
+msgid "Passo #{id}: {desc} [{risk}]"
+msgstr "Pasul #{id}: {desc} [{risk}]"
+
+# 
+msgid "Passo executado: {cmd}"
+msgstr "Pas executat: {cmd}"
+
+# 
+msgid "Pasta '{path}' criada com sucesso."
+msgstr "Folderul '{path}' a fost creat cu succes."
+
+# 
+msgid "Pasta / Diretório"
+msgstr "Folder / Director"
+
+# 
+msgid "Pasta copiada para transferência: {name}"
+msgstr "Folder copiat în clipboard: {name}"
+
+# 
+msgid "Pasta criada: {path}"
+msgstr "Folder creat: {path}"
+
+# 
+msgid "Pasta excluída: {name}"
+msgstr "Folder șters: {name}"
+
+# 
+msgid "Pasta marcada para mover: {name}"
+msgstr "Folder marcat pentru mutare: {name}"
+
+# 
+msgid "Pasta removida dos favoritos."
+msgstr "Folderul a fost eliminat din favorite."
+
+# 
+msgid "Pasta renomeada para '{name}'"
+msgstr "Folder redenumit în '{name}'"
+
+# 
+msgid "Pasta · {date}"
+msgstr "Folder · {date}"
+
+# 
+msgid "Pasta:"
+msgstr "Folder:"
+
+# 
+msgid "Pause"
+msgstr "Pauză"
+
+# 
+msgid "Perfil de roteamento alterado para: {profile}"
+msgstr "Profilul de rutare a fost schimbat la: {profile}"
+
+# 
+msgid "Perform a distribution upgrade (Tumbleweed/Leap)"
+msgstr "Efectuează o actualizare a distribuției (Tumbleweed/Leap)"
+
+# 
+msgid "Perguntar ao Assistente de IA"
+msgstr "Întreabă Asistentul AI"
+
+# 
+msgid "Pergunte ou cole um erro do terminal..."
+msgstr "Întrebați sau lipiți o eroare din terminal..."
+
+# 
+msgid "Permissões (chmod)..."
+msgstr "Permisiuni (chmod)..."
+
+# 
+msgid "Permissões de '{name}' alteradas para {mode}"
+msgstr "Permisiunile pentru '{name}' au fost schimbate în {mode}"
+
+# 
+msgid "Permissões para {name}"
+msgstr "Permisiuni pentru {name}"
+
+# 
+msgid "Pesquisa em todas as abas abertas, sessões SSH, histórico e snippets (Ctrl+Shift+G)"
+msgstr "Caută în toate filele deschise, sesiunile SSH, istoric și fragmente (Ctrl+Shift+G)"
+
+# 
+msgid "Pesquisa recursiva em subdiretórios"
+msgstr "Căutare recursivă în subdirectoare"
+
+# 
+msgid "Pesquisar no Terminal"
+msgstr "Caută în Terminal"
+
+# 
+msgid "Pesquisar texto em todas as abas de terminal abertas, sessões SSH, histórico e snippets..."
+msgstr "Caută text în toate filele de terminal deschise, sesiunile SSH, istoric și fragmente..."
+
+# 
+msgid "Pesquisar túneis por nome, porta ou host..."
+msgstr "Caută tuneluri după nume, port sau gazdă..."
+
+# 
+msgid "Piped execution to shell interpreter"
+msgstr "Execuție prin pipe către interpretorul shell"
+
+# 
+msgid "Plano de Ação Zero-Trust para: {prompt}"
+msgstr "Plan de acțiune Zero-Trust pentru: {prompt}"
+
+# 
+msgid "Plano de Fundo (Background)"
+msgstr "Fundal"
+
+# 
+msgid "Please enter a {provider} API key before testing."
+msgstr "Vă rugăm să introduceți o cheie API {provider} înainte de testare."
+
+# 
+msgid "Pontos de Extremidade e Portas"
+msgstr "Puncte finale și porturi"
+
+# 
+msgid "Por favor, analise a seguinte seleção do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Vă rugăm să analizați următoarea selecție din terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```"
+msgstr "Vă rugăm să analizați și să explicați codul/conținutul fișierului '{name}', scopul, structura și punctele sale importante:\n```\n{code}\n```"
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e governança de acesso no diretório atual '{path}'. Verifique permissões permissivas, arquivos sensíveis (.env, chaves privadas, credenciais expostas) e recomende boas práticas Zero-Trust."
+msgstr "Vă rugăm să efectuați un audit detaliat de securitate și guvernanță a accesului în directorul curent '{path}'. Verificați permisiunile prea permisive, fișierele sensibile (.env, chei private, acreditări expuse) și recomandați cele mai bune practici Zero-Trust."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do arquivo '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nTamanho: {size}\nRecomende configurações seguras de chmod e mitigação de vulnerabilidades."
+msgstr "Vă rugăm să efectuați un audit detaliat de securitate și permisiuni de acces pentru fișierul '{name}'.\nCale: {path}\nPermisiuni curente: {perms} ({oct})\nDimensiune: {size}\nRecomandați setări chmod sigure și măsuri de atenuare a vulnerabilităților."
+
+# 
+msgid "Por favor, realize uma auditoria detalhada de segurança e permissões de acesso do diretório '{name}'.\nCaminho: {path}\nPermissões atuais: {perms} ({oct})\nÚltima modificação: {date}\nRecomende configurações ideais de chmod, restrições e boas práticas de conformidade Zero-Trust."
+msgstr "Vă rugăm să efectuați un audit detaliat de securitate și permisiuni de acces pentru directorul '{name}'.\nCale: {path}\nPermisiuni curente: {perms} ({oct})\nUltima modificare: {date}\nRecomandați setări chmod ideale, restricții și cele mai bune practici de conformitate Zero-Trust."
+
+# 
+msgid "Por favor, refatore o seguinte trecho de código com OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Vă rugăm să refactorizați următorul fragment de cod cu OpenCode:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Port out of valid range (1..=65535)"
+msgstr "Port în afara intervalului valid (1..=65535)"
+
+# 
+msgid "Porta Exposta Remota (-R)"
+msgstr "Port expus la distanță (-R)"
+
+# 
+msgid "Porta de Destino Remota"
+msgstr "Port de destinație la distanță"
+
+# 
+msgid "Porta de Escuta Local (-L)"
+msgstr "Port local de ascultare (-L)"
+
+# 
+msgid "Porta do Proxy SOCKS5 (-D)"
+msgstr "Port proxy SOCKS5 (-D)"
+
+# 
+msgid "Porta fora do intervalo permitido (1..65535)."
+msgstr "Port în afara intervalului permis (1..65535)."
+
+# 
+msgid "Porta:"
+msgstr "Port:"
+
+# 
+msgid "PostgreSQL Remoto"
+msgstr "PostgreSQL la distanță"
+
+# 
+msgid "Preferências"
+msgstr "Preferințe"
+
+# 
+msgid "Prefix each line with 1-based line number"
+msgstr "Prefixează fiecare linie cu numărul liniei începând de la 1"
+
+# 
+msgid "Preview do Comando:"
+msgstr "Previzualizare comandă:"
+
+# 
+msgid "Primary Provider and Connectivity"
+msgstr "Furnizor principal și conectivitate"
+
+# 
+msgid "Print Git version"
+msgstr "Afișează versiunea Git"
+
+# 
+msgid "Print RPM version"
+msgstr "Afișează versiunea RPM"
+
+# 
+msgid "Print help synopsis"
+msgstr "Afișează rezumatul ajutorului"
+
+# 
+msgid "Print sizes in powers of 1024 (e.g. 1G)"
+msgstr "Afișează dimensiunile în puteri ale lui 1024 (de ex. 1G)"
+
+# 
+msgid "Print test stdout/stderr directly"
+msgstr "Afișează direct stdout/stderr al testului"
+
+# 
+msgid "Print total for directory depth 1"
+msgstr "Afișează totalul pentru adâncimea de director 1"
+
+# 
+msgid "Print zypper version"
+msgstr "Afișează versiunea zypper"
+
+# 
+msgid "Produção/Servidores Web"
+msgstr "Producție / Servere web"
+
+# 
+msgid "Programa Executável"
+msgstr "Executable Program"
+
+# 
+msgid "Protocolo:"
+msgstr "Protocol:"
+
+# 
+msgid "Provide verbose output"
+msgstr "Oferă ieșire detaliată"
+
+# 
+msgid "Provider used when Smart Routing is disabled"
+msgstr "Furnizorul utilizat când rutarea inteligentă este dezactivată"
+
+# 
+msgid "Pré-visualização ao Vivo"
+msgstr "Previzualizare în timp real"
+
+# 
+msgid "Próxima Ocorrência (Enter)"
+msgstr "Următoarea potrivire (Enter)"
+
+# 
+msgid "Próximo Arquivo (Seta Baixo / j)"
+msgstr "Următorul fișier (Săgeată jos / j)"
+
+# 
+msgid "Pular para o prompt anterior."
+msgstr "Sari la promptul anterior."
+
+# 
+msgid "Pular para o próximo prompt."
+msgstr "Sari la promptul următor."
+
+# 
+msgid "Purge an installed package including configuration"
+msgstr "Elimină complet un pachet instalat, inclusiv configurația"
+
+# 
+msgid "Put snap in classic confinement mode"
+msgstr "Pune pachetul snap în modul de izolare clasic"
+
+# 
+msgid "Quantidade de Linhas (--tail)"
+msgstr "Număr de linii (--tail)"
+
+# 
+msgid "Quantidade de Linhas (-n)"
+msgstr "Număr de linii (-n)"
+
+# 
+msgid "Query an uninstalled local .rpm package file"
+msgstr "Interoghează un fișier de pachet .rpm local neinstalat"
+
+# 
+msgid "Query and list all installed RPM packages"
+msgstr "Interoghează și listează toate pachetele RPM instalate"
+
+# 
+msgid "Query packages matching repository criteria"
+msgstr "Interoghează pachetele care corespund criteriilor depozitului"
+
+# 
+msgid "Query the status of services provided by snaps"
+msgstr "Interoghează starea serviciilor furnizate de pachetele snap"
+
+# 
+msgid "Query which installed RPM package owns a file path"
+msgstr "Interoghează ce pachet RPM instalat deține o cale de fișier"
+
+# 
+msgid "Quick Look (Pré-visualizar)"
+msgstr "Quick Look (Previzualizare)"
+
+# 
+msgid "RPM Package Manager low-level tool (Fedora/RHEL/SUSE)"
+msgstr "Instrument de nivel scăzut pentru managerul de pachete RPM (Fedora/RHEL/SUSE)"
+
+# 
+msgid "Read all files under each directory recursively"
+msgstr "Citește recursiv toate fișierele din fiecare director"
+
+# 
+msgid "Read: {read}/s • Write: {write}/s"
+msgstr "Citire: {read}/s • Scriere: {write}/s"
+
+# 
+msgid "Rebase current branch on top of upstream after fetching"
+msgstr "Rebazează ramura curentă peste upstream după preluare"
+
+# 
+msgid "Rebuild the RPM database indices from installed headers"
+msgstr "Reconstruiește indecșii bazei de date RPM din anteturile instalate"
+
+# 
+msgid "Reconexão Automática Inteligente em Quedas"
+msgstr "Reconectare automată inteligentă la întreruperi"
+
+# 
+msgid "Record staged changes to the repository"
+msgstr "Înregistrează modificările pregătite în depozit"
+
+# 
+msgid "Recortar Arquivo"
+msgstr "Decupează fișierul"
+
+# 
+msgid "Recortar Pasta"
+msgstr "Decupează folderul"
+
+# 
+msgid "Redefine todos os atalhos para os valores padrão"
+msgstr "Resetează toate comenzile rapide la valorile implicite"
+
+# 
+msgid "Redefinir Zoom"
+msgstr "Resetare zoom"
+
+# 
+msgid "Reduz o tamanho da fonte do terminal (Ctrl+-)"
+msgstr "Micșorează dimensiunea fontului din terminal (Ctrl+-)"
+
+# 
+msgid "Reduzir Zoom"
+msgstr "Micșorați zoomul"
+
+# 
+msgid "Refresh Interval"
+msgstr "Interval de reîmprospătare"
+
+# 
+msgid "Refresh all repository metadata"
+msgstr "Reîmprospătează toate metadatele depozitelor"
+
+# 
+msgid "Refresh files database"
+msgstr "Reîmprospătează baza de date a fișierelor"
+
+# 
+msgid "Registros do AuditLogger (~/.config/onyxsh/audit.jsonl):"
+msgstr "Înregistrări AuditLogger (~/.config/onyxsh/audit.jsonl):"
+
+# 
+msgid "Regras Globais de Destaque"
+msgstr "Reguli globale de evidențiere"
+
+# 
+msgid "Reiniciar serviço gerenciado e aplicar configuração"
+msgstr "Repornește serviciul gestionat și aplică configurația"
+
+# 
+msgid "Reinstall if the package is already present"
+msgstr "Reinstalează dacă pachetul este deja prezent"
+
+# 
+msgid "Relatório completo de hashes copiado para a área de transferência"
+msgstr "Raportul complet al hash-urilor a fost copiat în clipboard"
+
+# 
+msgid "Relatório de Diagnóstico Sanitizado do OnyxSH"
+msgstr "Raport de diagnosticare curățat OnyxSH"
+
+# 
+msgid "Relatório de diagnóstico copiado para a área de transferência."
+msgstr "Raportul de diagnosticare a fost copiat în clipboard."
+
+# 
+msgid "Relatório operacional estruturado com etapas, anotações, objetivo e conclusão (.md, .html, .log)"
+msgstr "Raport operațional structurat cu pași, note, obiectiv și concluzie (.md, .html, .log)"
+
+# 
+msgid "Relatório sanitizado de SO, RAM, GPU/VRAM e ambiente Flatpak"
+msgstr "Raport curățat privind SO, RAM, GPU/VRAM și mediul Flatpak"
+
+# 
+msgid "Reload service or restart if reload is unsupported"
+msgstr "Reîncarcă serviciul sau repornește-l dacă reîncărcarea nu este suportată"
+
+# 
+msgid "Remoto (-R) • Expor porta local em servidor remoto"
+msgstr "La distanță (-R) • Expune portul local pe serverul la distanță"
+
+# 
+msgid "Remove a single stash entry"
+msgstr "Elimină o singură intrare stash"
+
+# 
+msgid "Remove all packages that depend on target"
+msgstr "Elimină toate pachetele care depind de țintă"
+
+# 
+msgid "Remove all stash entries"
+msgstr "Elimină toate intrările stash"
+
+# 
+msgid "Remove all versions of the package"
+msgstr "Elimină toate versiunile pachetului"
+
+# 
+msgid "Remove an installed package keeping configuration"
+msgstr "Elimină un pachet instalat păstrând configurația"
+
+# 
+msgid "Remove directories and contents recursively"
+msgstr "Elimină recursiv directoarele și conținutul acestora"
+
+# 
+msgid "Remove installed packages"
+msgstr "Elimină pachetele instalate"
+
+# 
+msgid "Remove obsolete remote-tracking references"
+msgstr "Elimină referințele învechite de urmărire la distanță"
+
+# 
+msgid "Remove one or more packages and unused dependencies"
+msgstr "Elimină unul sau mai multe pachete și dependențele neutilizate"
+
+# 
+msgid "Remove packages originally installed as dependencies no longer needed"
+msgstr "Elimină pachetele instalate inițial ca dependențe care nu mai sunt necesare"
+
+# 
+msgid "Remove snaps from the system"
+msgstr "Elimină pachetele snap din sistem"
+
+# 
+msgid "Remove unused data (containers, networks, images)"
+msgstr "Elimină datele neutilizate (containere, rețele, imagini)"
+
+# 
+msgid "Remover Sessão Selecionada"
+msgstr "Elimină sesiunea selectată"
+
+# 
+msgid "Remover Túnel"
+msgstr "Elimină tunelul"
+
+# 
+msgid "Remover favorito"
+msgstr "Elimină favoritul"
+
+# 
+msgid "Remover favorito do diretório atual"
+msgstr "Elimină directorul curent din favorite"
+
+# 
+msgid "Renomear Arquivo"
+msgstr "Redenumește fișierul"
+
+# 
+msgid "Renomear Pasta"
+msgstr "Redenumește folderul"
+
+# 
+msgid "Renomear..."
+msgstr "Redenumește..."
+
+# 
+msgid "Report a snapshot of current processes"
+msgstr "Afișează o imagine instantanee a proceselor curente"
+
+# 
+msgid "Reportar Problema"
+msgstr "Raportează o problemă"
+
+# 
+msgid "Resetar Tamanho da Fonte (12 pt)"
+msgstr "Resetează dimensiunea fontului (12 pt)"
+
+# 
+msgid "Resolvendo erro do terminal com OpenCode / IA..."
+msgstr "Se rezolvă eroarea din terminal cu OpenCode / AI..."
+
+# 
+msgid "Restart policy when container exits"
+msgstr "Politica de repornire la ieșirea containerului"
+
+# 
+msgid "Restaura a fonte padrão Monospace 11 (Ctrl+0)"
+msgstr "Restabilește fontul implicit Monospace 11 (Ctrl+0)"
+
+# 
+msgid "Restaurar Regras Globais"
+msgstr "Restaurează regulile globale"
+
+# 
+msgid "Restaurar Todos os Comandos"
+msgstr "Restaurează toate comenzile"
+
+# 
+msgid "Restaurar lista de comandos ignorados original"
+msgstr "Restaurează lista originală de comenzi ignorate"
+
+# 
+msgid "Restore index / unstage files"
+msgstr "Restaurează indexul / scoate fișierele din stage"
+
+# 
+msgid "Resume"
+msgstr "Reluare"
+
+# 
+msgid "Resumos criptográficos padrão calculados sobre o conteúdo do arquivo:"
+msgstr "Rezumate criptografice standard calculate pe conținutul fișierului:"
+
+# 
+msgid "Retrieve logs for services"
+msgstr "Preia jurnalele pentru servicii"
+
+# 
+msgid "Revisão de Diff & Auditoria Zero-Trust (Rollback Atômico)"
+msgstr "Revizuire Diff și audit Zero-Trust (Rollback atomic)"
+
+# 
+msgid "Roteamento Inteligente: clique para alternar perfil (Auto, Rápido, Avançado, Segurança)"
+msgstr "Rutare inteligentă: clic pentru a schimba profilul (Auto, Rapid, Avansat, Securitate)"
+
+# 
+msgid "Routed to Advanced/Security reasoning profile."
+msgstr "Direcționat către profilul de raționament Avansat/Securitate."
+
+# 
+msgid "Routed to Fast profile (low-latency simple query)."
+msgstr "Direcționat către profilul Rapid (interogare simplă cu latență redusă)."
+
+# 
+msgid "Run a binary or example of the local package"
+msgstr "Rulează un binar sau un exemplu al pachetului local"
+
+# 
+msgid "Run as if git was started in path"
+msgstr "Rulează ca și cum git ar fi fost pornit în cale"
+
+# 
+msgid "Run login shell as target user (root)"
+msgstr "Rulează shell-ul de autentificare ca utilizator țintă (root)"
+
+# 
+msgid "Run optimized release binary"
+msgstr "Rulează binarul de lansare optimizat"
+
+# 
+msgid "Rust Nativo (GTK4 + Libadwaita + VTE4)"
+msgstr "Rust nativ (GTK4 + Libadwaita + VTE4)"
+
+# 
+msgid "Rust package manager and build tool"
+msgstr "Manager de pachete și instrument de compilare pentru Rust"
+
+# 
+msgid "SESSÃO SSH"
+msgstr "SESIUNE SSH"
+
+# 
+msgid "SOCKS5 Proxy"
+msgstr "Proxy SOCKS5"
+
+# 
+msgid "SOCKS5 Proxy Corporativo"
+msgstr "Proxy SOCKS5 corporativ"
+
+# 
+msgid "Safe force push verifying remote ref"
+msgstr "Force push sigur cu verificarea referinței la distanță"
+
+# 
+msgid "Sair do Aplicativo"
+msgstr "Ieșire din aplicație"
+
+# 
+msgid "Salvar & Fechar"
+msgstr "Salvează și închide"
+
+# 
+msgid "Salvar Alterações"
+msgstr "Salvează modificările"
+
+# 
+msgid "Salvar Backup do OnyxSH"
+msgstr "Salvează copia de rezervă OnyxSH"
+
+# 
+msgid "Salvar Comando"
+msgstr "Salvează comanda"
+
+# 
+msgid "Salvar Layout Atual de Abas"
+msgstr "Salvează aspectul actual al filelor"
+
+# 
+msgid "Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"
+msgstr "Salvează cu privilegii de Administrator / Root (Ctrl+Shift+S)"
+
+# 
+msgid "Salvo com sucesso: {path}"
+msgstr "Salvat cu succes: {path}"
+
+# 
+msgid "Script Execution"
+msgstr "Execuție script"
+
+# 
+msgid "Script Python"
+msgstr "Python Script"
+
+# 
+msgid "Script Shell"
+msgstr "Shell Script"
+
+# 
+msgid "Search descriptions as well as names"
+msgstr "Caută atât în descrieri, cât și în nume"
+
+# 
+msgid "Search for package owning a filename"
+msgstr "Caută pachetul care deține un nume de fișier"
+
+# 
+msgid "Search for packages matching pattern"
+msgstr "Caută pachete care se potrivesc modelului"
+
+# 
+msgid "Search for snaps in the store"
+msgstr "Caută pachete snap în magazin"
+
+# 
+msgid "Search locally-installed packages"
+msgstr "Caută pachetele instalate local"
+
+# 
+msgid "Seguir Estilo do Sistema"
+msgstr "Urmează stilul sistemului"
+
+# 
+msgid "Seguir em tempo real (-f)"
+msgstr "Urmărește în timp real (-f)"
+
+# 
+msgid "Segundos para manter conexões ativas (0 para desativar)"
+msgstr "Secunde pentru menținerea conexiunilor active (0 pentru dezactivare)"
+
+# 
+msgid "Selecionado: {name}"
+msgstr "Selectat: {name}"
+
+# 
+msgid "Selecionar Arquivo de Backup do OnyxSH"
+msgstr "Selectează fișierul de backup OnyxSH"
+
+# 
+msgid "Selecione os comandos a incluir e adicione comentários técnicos explicativos para cada etapa. ({count} identificadas)"
+msgstr "Selectați comenzile de inclus și adăugați comentarii tehnice explicative pentru fiecare pas. ({count} identificate)"
+
+# 
+msgid "Selecione um item no painel direito para baixar (←)."
+msgstr "Selectați un element din panoul din dreapta pentru a-l descărca (←)."
+
+# 
+msgid "Selecione um item no painel esquerdo para enviar (→)."
+msgstr "Selectați un element din panoul din stânga pentru a-l încărca (→)."
+
+# 
+msgid "Selecione uma sessão na lista primeiro para editar."
+msgstr "Selectați mai întâi o sesiune din listă pentru a o edita."
+
+# 
+msgid "Selecione uma sessão primeiro para remover."
+msgstr "Selectați mai întâi o sesiune pentru a o elimina."
+
+# 
+msgid "Select Monitored Host"
+msgstr "Selectează gazda monitorizată"
+
+# 
+msgid "Select non-matching lines"
+msgstr "Selectează liniile care nu se potrivesc"
+
+# 
+msgid "Seleção copiada."
+msgstr "Selecția a fost copiată."
+
+# 
+msgid "Seleção enviada para análise no Assistente de IA."
+msgstr "Selecția a fost trimisă pentru analiză la Asistentul AI."
+
+# 
+msgid "Seleção enviada para refatoração com OpenCode."
+msgstr "Selecția a fost trimisă pentru refactorizare cu OpenCode."
+
+# 
+msgid "Sempre ocultar"
+msgstr "Ascunde întotdeauna"
+
+# 
+msgid "Servidor TFTP"
+msgstr "Server TFTP"
+
+# 
+msgid "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})"
+msgstr "Server TFTP doar-citire activ pe {addr} (rădăcină: {root})"
+
+# 
+msgid "Servidor TFTP alternado."
+msgstr "Server TFTP comutat."
+
+# 
+msgid "Servidor TFTP encerrado."
+msgstr "Serverul TFTP a fost oprit."
+
+# 
+msgid "Session: {session} | Host: {host} | CWD: {cwd}"
+msgstr "Sesiune: {session} | Gazdă: {host} | CWD: {cwd}"
+
+# 
+msgid "Sessão '{name}' removida."
+msgstr "Sesiunea '{name}' a fost eliminată."
+
+# 
+msgid "Sessão '{name}' salva em ~/.config/onyxsh/sessions.json."
+msgstr "Sesiunea '{name}' a fost salvată în ~/.config/onyxsh/sessions.json."
+
+# 
+msgid "Sessão SSH Vinculada"
+msgstr "Sesiune SSH asociată"
+
+# 
+msgid "Sessão limpa."
+msgstr "Sesiunea a fost curățată."
+
+# 
+msgid "Sessões Salvas"
+msgstr "Sesiuni salvate"
+
+# 
+msgid "Sessões sincronizadas a partir de ~/.config/onyxsh/sessions.json e ~/.ssh/config."
+msgstr "Sesiunile au fost sincronizate din ~/.config/onyxsh/sessions.json și ~/.ssh/config."
+
+# 
+msgid "Shell Interativo no Docker (Exec)"
+msgstr "Docker Exec Shell"
+
+# 
+msgid "Shell a Executar"
+msgstr "Shell de executat"
+
+# 
+msgid "Show all listening TCP/UDP sockets with process & numeric ports"
+msgstr "Afișează toate socketurile TCP/UDP care ascultă cu procesul și porturile numerice"
+
+# 
+msgid "Show all revisions of installed snaps"
+msgstr "Afișează toate reviziile pachetelor snap instalate"
+
+# 
+msgid "Show and manipulate routing, network devices, interfaces"
+msgstr "Afișează și gestionează rutarea, dispozitivele de rețea și interfețele"
+
+# 
+msgid "Show available snap updates without installing"
+msgstr "Afișează actualizările snap disponibile fără a le instala"
+
+# 
+msgid "Show changes between commits, index, and working tree"
+msgstr "Afișează modificările dintre commituri, index și arborele de lucru"
+
+# 
+msgid "Show detailed information about a snap"
+msgstr "Afișează informații detaliate despre un pachet snap"
+
+# 
+msgid "Show detailed information about an installed app or runtime"
+msgstr "Afișează informații detaliate despre o aplicație sau un runtime instalat"
+
+# 
+msgid "Show error message on failure"
+msgstr "Afișează mesajul de eroare în caz de eșec"
+
+# 
+msgid "Show full information for specified packages"
+msgstr "Afișează informații complete pentru pachetele specificate"
+
+# 
+msgid "Show package metadata info"
+msgstr "Afișează informațiile despre metadatele pachetului"
+
+# 
+msgid "Show permissions for a specific file path"
+msgstr "Afișează permisiunile pentru o cale de fișier specifică"
+
+# 
+msgid "Show pre/post install & uninstall scripts"
+msgstr "Afișează scripturile pre/post instalare și dezinstalare"
+
+# 
+msgid "Show progress and keep partially transferred files"
+msgstr "Afișează progresul și păstrează fișierele transferate parțial"
+
+# 
+msgid "Show the AI Assistant button and side panel in the top bar."
+msgstr "Afișează butonul și panoul lateral al Asistentului AI în bara de sus."
+
+# 
+msgid "Silent mode"
+msgstr "Mod silențios"
+
+# 
+msgid "Simular Alteração Auditada"
+msgstr "Simulează modificarea auditată"
+
+# 
+msgid "Sincroniza arquivos locais para host remoto preservando atributos"
+msgstr "Sincronizează fișierele locale către o gazdă la distanță păstrând atributele"
+
+# 
+msgid "Sincronizar Arquivos com Rsync"
+msgstr "Rsync Sync Files"
+
+# 
+msgid "Sistema"
+msgstr "Sistem"
+
+# 
+msgid "Sistema Operacional"
+msgstr "Sistem de operare"
+
+# 
+msgid "Skip confirmation prompt"
+msgstr "Omite solicitarea de confirmare"
+
+# 
+msgid "Smart routing disabled: using default configured provider."
+msgstr "Rutarea inteligentă dezactivată: se utilizează furnizorul implicit configurat."
+
+# 
+msgid "SmartRouter, Planos de Ação e Rollback Atômico (Ctrl+Shift+I)"
+msgstr "SmartRouter, planuri de acțiune și rollback atomic (Ctrl+Shift+I)"
+
+# 
+msgid "Sobre o OnyxSH"
+msgstr "Despre OnyxSH"
+
+# 
+msgid "Specify HTTP request method (GET, POST, PUT, DELETE)"
+msgstr "Specifică metoda cererii HTTP (GET, POST, PUT, DELETE)"
+
+# 
+msgid "Specify package to run"
+msgstr "Specifică pachetul de rulat"
+
+# 
+msgid "Specify the remote shell to use (e.g. ssh)"
+msgstr "Specifică shell-ul la distanță de utilizat (de ex. ssh)"
+
+# 
+msgid "Split Terminal"
+msgstr "Împarte terminalul"
+
+# 
+msgid "Stash changes in a dirty working directory"
+msgstr "Pune deoparte modificările (stash) într-un director de lucru modificat"
+
+# 
+msgid "Stop after sending 4 packets"
+msgstr "Oprește după trimiterea a 4 pachete"
+
+# 
+msgid "Strict Offline Mode active (local Ollama/LM Studio only)."
+msgstr "Mod offline strict activ (doar Ollama/LM Studio local)."
+
+# 
+msgid "Sugerir subcomandos e parâmetros para rpm, dnf, apt, pacman, flatpak, systemctl, docker, git e ferramentas comuns"
+msgstr "Sugerează subcomenzi și parametri pentru rpm, dnf, apt, pacman, flatpak, systemctl, docker, git și instrumente uzuale"
+
+# 
+msgid "Sugestões para rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+msgstr "Sugestii pentru rpm, dnf, apt, pacman, flatpak, zypper, snap, docker, git"
+
+# 
+msgid "Summary of size in human-readable format"
+msgstr "Rezumatul dimensiunii în format lizibil pentru om"
+
+# 
+msgid "Tab ou → aplicar • ↑/↓ navegar • Esc fechar"
+msgstr "Tab sau → aplică • ↑/↓ navighează • Esc închide"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente a pasta '{name}'?"
+msgstr "Sigur doriți să ștergeți definitiv folderul '{name}'?"
+
+# 
+msgid "Tem certeza de que deseja excluir permanentemente o arquivo '{name}'?"
+msgstr "Sigur doriți să ștergeți definitiv fișierul '{name}'?"
+
+# 
+msgid "Tema para Fundo Claro"
+msgstr "Temă pentru fundal deschis"
+
+# 
+msgid "Tema para Fundo Escuro"
+msgstr "Temă pentru fundal întunecat"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é claro"
+msgstr "Temă utilizată atunci când fundalul terminalului este deschis"
+
+# 
+msgid "Tema utilizado quando o fundo do terminal é escuro"
+msgstr "Temă utilizată atunci când fundalul terminalului este întunecat"
+
+# 
+msgid "Template do comando (ex: sudo systemctl restart nginx)"
+msgstr "Șablon de comandă (de ex.: sudo systemctl restart nginx)"
+
+# 
+msgid "Tenta reconectar sessões SSH caídas com contagem regressiva e alerta na tela"
+msgstr "Încearcă să reconecteze sesiunile SSH întrerupte cu numărătoare inversă și alertă pe ecran"
+
+# 
+msgid "Terminal: {title}"
+msgstr "Terminal: {title}"
+
+# 
+msgid "Test all packages in the workspace"
+msgstr "Testează toate pachetele din spațiul de lucru"
+
+# 
+msgid "Testar Interceptação"
+msgstr "Testează interceptarea"
+
+# 
+msgid "Testar integridade da sintaxe de configuração do Nginx"
+msgstr "Testează integritatea sintaxei de configurare Nginx"
+
+# 
+msgid "Texto de Primeiro Plano (Foreground)"
+msgstr "Text prim-plan (Foreground)"
+
+# 
+msgid "This will permanently delete all {count} conversations. This action cannot be undone."
+msgstr "Aceasta va șterge permanent toate conversațiile {count}. Această acțiune nu poate fi anulată."
+
+# 
+msgid "Tipo / Extensão"
+msgstr "Tip / Extensie"
+
+# 
+msgid "Tipo de Arquivo"
+msgstr "Tip fișier"
+
+# 
+msgid "Todas as configurações foram restauradas para o padrão."
+msgstr "Toate setările au fost restaurate la valorile implicite."
+
+# 
+msgid "Todos os atalhos de teclado foram restaurados para o padrão."
+msgstr "Toate comenzile rapide de la tastatură au fost restaurate la valorile implicite."
+
+# 
+msgid "Todos os túneis SSH foram parados."
+msgstr "Toate tunelurile SSH au fost oprite."
+
+# 
+msgid "Total Lines"
+msgstr "Total linii"
+
+# 
+msgid "Trilha contínua de auditoria das decisões, comandos e rollback atômico"
+msgstr "Jurnal continuu de audit al deciziilor, comenzilor și rollback-ului atomic"
+
+# 
+msgid "TypeScript"
+msgstr "TypeScript"
+
+# 
+msgid "Ubuntu / Canonical Snap package manager"
+msgstr "Manager de pachete Snap pentru Ubuntu / Canonical"
+
+# 
+msgid "Uncomplicated Firewall manager"
+msgstr "Manager pentru Uncomplicated Firewall"
+
+# 
+msgid "Unidade / Serviço (opcional)"
+msgstr "Unitate / Serviciu (opțional)"
+
+# 
+msgid "Update installed packages with newer versions"
+msgstr "Actualizează pachetele instalate la versiuni mai noi"
+
+# 
+msgid "Update snaps in the system"
+msgstr "Actualizează pachetele snap din sistem"
+
+# 
+msgid "Update the app/runtime if already installed"
+msgstr "Actualizează aplicația/mediul de execuție dacă este deja instalat"
+
+# 
+msgid "Upgrade an RPM package file (or install if not present)"
+msgstr "Actualizează un fișier pachet RPM (sau instalează-l dacă lipsește)"
+
+# 
+msgid "Upgrade or install local/remote package file (.pkg.tar.zst)"
+msgstr "Actualizează sau instalează fișierul de pachet local/la distanță (.pkg.tar.zst)"
+
+# 
+msgid "Usa blocos retráteis (&lt;details&gt;) para saídas com mais de 15 linhas"
+msgstr "Folosește blocuri pliabile (&lt;details&gt;) pentru ieșiri mai mari de 15 linii"
+
+# 
+msgid "Use a long listing format"
+msgstr "Folosește formatul de listare lung"
+
+# 
+msgid "Use archive file or device"
+msgstr "Folosește fișierul de arhivă sau dispozitivul"
+
+# 
+msgid "Use directory as top level root for RPM operations"
+msgstr "Folosește directorul ca rădăcină principală pentru operațiunile RPM"
+
+# 
+msgid "Usuário Remoto"
+msgstr "Utilizator la distanță"
+
+# 
+msgid "Usuário SSH:"
+msgstr "Utilizator SSH:"
+
+# 
+msgid "Validar & Anexar"
+msgstr "Validează și atașează"
+
+# 
+msgid "Verificar estado atual do serviço e dependências"
+msgstr "Verifică starea curentă a serviciului și dependențele"
+
+# 
+msgid "Verificar se o serviço '{svc}' está ativo"
+msgstr "Verifică dacă serviciul '{svc}' este activ"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi habilitado no boot"
+msgstr "Verifică dacă serviciul '{svc}' este activat la pornire"
+
+# 
+msgid "Verificar se o serviço '{svc}' foi parado"
+msgstr "Verifică dacă serviciul '{svc}' a fost oprit"
+
+# 
+msgid "Verify a specific package against an .rpm file"
+msgstr "Verifică un anumit pachet față de un fișier .rpm"
+
+# 
+msgid "Verify integrity of all installed RPM packages against database"
+msgstr "Verifică integritatea tuturor pachetelor RPM instalate față de baza de date"
+
+# 
+msgid "Versão"
+msgstr "Versiune"
+
+# 
+msgid "View staged changes for the next commit"
+msgstr "Vezi modificările pregătite pentru următorul commit"
+
+# 
+msgid "Visualiza logs do sistema com journalctl"
+msgstr "Vizualizează jurnalele de sistem cu journalctl"
+
+# 
+msgid "Visualiza, edita e restaura todos os atalhos de teclado do OnyxSH"
+msgstr "Vizualizează, editează și resetează toate comenzile rapide de la tastatură din OnyxSH"
+
+# 
+msgid "Visualizador de Diff Unificado (Antes vs. Depois):"
+msgstr "Vizualizator Diff unificat (Înainte vs. După):"
+
+# 
+msgid "Visualização em Grade / Miniaturas"
+msgstr "Vizualizare grilă / miniaturi"
+
+# 
+msgid "Visualização em Grade de Ícones ativada"
+msgstr "Vizualizarea în grilă de pictograme activată"
+
+# 
+msgid "Visualização em Lista Detalhada ativada"
+msgstr "Vizualizarea în listă detaliată activată"
+
+# 
+msgid "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?"
+msgstr "Nu aveți permisiunea de a modifica '{name}'. Doriți să salvați folosind privilegii de Administrator (Root)?"
+
+# 
+msgid "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+msgstr "Aveți modificări nesalvate în '{fname}'. Ce doriți să faceți înainte de închidere?"
+
+# 
+msgid "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?"
+msgstr "Aveți modificări nesalvate în acest fișier care vor fi pierdute. Sigur doriți să le renunțați?"
+
+# 
+msgid "Volta para a aba anterior (Alt+Page Up)"
+msgstr "Înapoi la fila anterioară (Alt+Page Up)"
+
+# 
+msgid "Waiting for sample..."
+msgstr "Se așteaptă eșantionul..."
+
+# 
+msgid "Write output to local file named like remote"
+msgstr "Scrie rezultatul într-un fișier local cu același nume ca cel la distanță"
+
+# 
+msgid "You: "
+msgstr "Tu: "
+
+# 
+msgid "Zoom restaurado (11 pt)."
+msgstr "Zoom resetat (11 pt)."
+
+# 
+msgid "[CONCLUSÃO & OBSERVAÇÕES]"
+msgstr "[CONCLUZIE ȘI OBSERVAȚII]"
+
+# 
+msgid "[Conteúdo binário ou inacessível]"
+msgstr "[Conținut binar sau inaccesibil]"
+
+# 
+msgid "[Incapaz de ler arquivo de log]"
+msgstr "[Nu se poate citi fișierul jurnal]"
+
+# 
+msgid "[OBJETIVO / CONTEXTO]"
+msgstr "[OBIECTIV / CONTEXT]"
+
+# 
+msgid "[PASSOS EXECUTADOS ({count})]"
+msgstr "[PAȘI EXECUTAȚI ({count})]"
+
+# 
+msgid "[{id}] {tool} — {cmd} (Risco: {risk})"
+msgstr "[{id}] {tool} — {cmd} (Risc: {risk})"
+
+# 
+msgid "[{lang}] 🔴 Risco Detectado"
+msgstr "[{lang}] 🔴 Risc detectat"
+
+# 
+msgid "[{lang}] 🟢 Verificado"
+msgstr "[{lang}] 🟢 Verificat"
+
+# 
+msgid "`{cmd}` finalizou em {secs}s."
+msgstr "`{cmd}` s-a încheiat în {secs}s."
+
+# 
+msgid "linha"
+msgstr "linie"
+
+# 
+msgid "openSUSE / SLES package manager utility"
+msgstr "Utilitar de gestionare a pachetelor openSUSE / SLES"
+
+# 
+msgid "{count} comando(s) • Clique para expandir/recolher"
+msgstr "{count} comandă(e) • Faceți clic pentru a extinde/colapsa"
+
+# 
+msgid "{count} comandos"
+msgstr "{count} comenzi"
+
+# 
+msgid "{count} linhas"
+msgstr "{count} linii"
+
+# 
+msgid "{count} regras"
+msgstr "{count} reguli"
+
+# 
+msgid "{count} resultados"
+msgstr "{count} rezultate"
+
+# 
+msgid "{cpu_model} ({cpu_cores} logical cores)"
+msgstr "{cpu_model} ({cpu_cores} nuclee logice)"
+
+# 
+msgid "{days} days"
+msgstr "{days} zile"
+
+# 
+msgid "{hours} hr"
+msgstr "{hours} hr"
+
+# 
+msgid "{lines} linhas • {size} • {mime} • UTF-8"
+msgstr "{lines} linii • {size} • {mime} • UTF-8"
+
+# 
+msgid "{mins} min"
+msgstr "{mins} min"
+
+# 
+msgid "{name} (Cópia)"
+msgstr "{name} (Copie)"
+
+# 
+msgid "{os_name} (based on {base_distro})"
+msgstr "{os_name} (bazat pe {base_distro})"
+
+# 
+msgid "{prompt}\n[Arquivo Anexado]: {att}"
+msgstr "{prompt}\n[Fișier atașat]: {att}"
+
+# 
+msgid "{provider} API key configured successfully."
+msgstr "Cheia API pentru {provider} a fost configurată cu succes."
+
+# 
+msgid "{timestamp} | Decisão: {decision} | Status: {status}"
+msgstr "{timestamp} | Decizie: {decision} | Stare: {status}"
+
+# 
+msgid "{type} Tunnel"
+msgstr "Tunel {type}"
+
+# 
+msgid "Ícone:"
+msgstr "Pictogramă:"
+
+# 
+msgid "Ícones do OnyxSH (Embutidos)"
+msgstr "Pictograme OnyxSH (Integrate)"
+
+# 
+msgid "← Download / Copy"
+msgstr "← Descărcare / Copiere"
+
+# 
+msgid "→ Upload / Copy"
+msgstr "→ Încărcare / Copiere"
+
+# 
+msgid "↵ Executar   •   Tab Inserir no Prompt   •   ⭐ Favoritar   •   Esc Fechar"
+msgstr "↵ Rulează   •   Tab Inserează în prompt   •   ⭐ Favorit   •   Esc Închide"
+
+# 
+msgid "↵ Ir para Aba / Executar • ↑/↓ Navegar • Esc Fechar"
+msgstr "↵ Mergi la filă / Rulează • ↑/↓ Navighează • Esc Închide"
+
+# 
+msgid "⏪ Rollback Atômico"
+msgstr "⏪ Revenire atomică"
+
+# 
+msgid "⚠️ Alerta ProductionGuard ({severity}): {risk}"
+msgstr "⚠️ Alertă ProductionGuard ({severity}): {risk}"
+
+# 
+msgid "⚠️ Comando Destrutivo Interceptado ({cat} / {sev})"
+msgstr "⚠️ Comandă distructivă interceptată ({cat} / {sev})"
+
+# 
+msgid "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas."
+msgstr "⚠️ Pe computerele mai lente, procesarea modelelor de culoare poate reduce ușor reactivitatea pentru ieșirile foarte voluminoase."
+
+# 
+msgid "⚡ Exportação de Terminal OnyxSH"
+msgstr "⚡ Export terminal OnyxSH"
+
+# 
+msgid "⚡ Snippets"
+msgstr "⚡ Fragmente"
+
+# 
+msgid "✅ Comando Concluído"
+msgstr "✅ Comandă finalizată"
+
+# 
+msgid "✅ Copiado!"
+msgstr "✅ Copiat!"
+
+# 
+msgid "✅ Executado"
+msgstr "✅ Executat"
+
+# 
+msgid "✅ HASH CORRESPONDE ({algo})! O arquivo é autêntico e íntegro."
+msgstr "✅ HASH MATCHES ({algo})! The file is authentic and intact."
+
+# 
+msgid "✅ Rollback atômico concluído: {target}"
+msgstr "✅ Revenirea atomică finalizată: {target}"
+
+# 
+msgid "❌ Comando Falhou (Exit {code})"
+msgstr "❌ Comanda a eșuat (Cod {code})"
+
+# 
+msgid "❌ HASH NÃO CORRESPONDE! O valor colado{hint} difere dos hashes calculados do arquivo. O arquivo pode estar corrompido ou modificado."
+msgstr "❌ HASH-UL NU CORESPUNDE! Valoarea lipită{hint} diferă de hash-urile calculate ale fișierului. Fișierul ar putea fi corupt sau modificat."
+
+# 
+msgid "⭐ HISTÓRICO"
+msgstr "⭐ ISTORIC"
+
+# 
+msgid "🌐 Modo Online Ativo.\nClique para ativar modo estritamente offline local."
+msgstr "🌐 Mod Online activ.\nFaceți clic pentru a activa modul strict local offline."
+
+# 
+msgid "🌐 Tudo"
+msgstr "🌐 Tot"
+
+# 
+msgid "🎯 Objetivo / Contexto"
+msgstr "🎯 Obiectiv / Context"
+
+# 
+msgid "🏁 Conclusão & Lições Aprendidas"
+msgstr "🏁 Concluzie și lecții învățate"
+
+# 
+msgid "👤 Você:\n{msg}"
+msgstr "👤 Tu:\n{msg}"
+
+# 
+msgid "👤 Você{note}:\n{msg}"
+msgstr "👤 Tu{note}:\n{msg}"
+
+# 
+msgid "💬 Anotação:"
+msgstr "💬 Adnotare:"
+
+# 
+msgid "💬 Nota: {note}"
+msgstr "💬 Notă: {note}"
+
+# 
+msgid "📁 Diretório Atual"
+msgstr "📁 Director curent"
+
+# 
+msgid "📁 {cwd} • {count}x execuções"
+msgstr "📁 {cwd} • {count}x execuții"
+
+# 
+msgid "📅 <b>Modificado:</b> {date}"
+msgstr "📅 <b>Modificat:</b> {date}"
+
+# 
+msgid "📊 Analisar uso de disco"
+msgstr "📊 Analizează utilizarea discului"
+
+# 
+msgid "📋 Copiar Relatório Sanitizado"
+msgstr "📋 Copiază raportul igienizat"
+
+# 
+msgid "📋 Copiar Saída"
+msgstr "📋 Copiază rezultatul"
+
+# 
+msgid "📎 Anexado com segurança: {path}"
+msgstr "📎 Atașat în siguranță: {path}"
+
+# 
+msgid "📜 Histórico"
+msgstr "📜 Istoric"
+
+# 
+msgid "📝 Observações Preliminares"
+msgstr "📝 Observații preliminare"
+
+# 
+msgid "📡 Broadcast (🛡️ ProductionGuard Ativo):"
+msgstr "📡 Difuzare (🛡️ ProductionGuard activ):"
+
+# 
+msgid "📡 Comando enviado em Broadcast para {count} terminal(is)."
+msgstr "📡 Comandă difuzată către {count} terminal(e)."
+
+# 
+msgid "📦 <b>Tamanho:</b> {size} <span alpha='70%'>({bytes} bytes)</span>"
+msgstr "📦 <b>Dimensiune:</b> {size} <span alpha='70%'>({bytes} octeți)</span>"
+
+# 
+msgid "📦 <b>Tipo:</b> Pasta / Diretório"
+msgstr "📦 <b>Tip:</b> Dosar / Director"
+
+# 
+msgid "📦 Instalar {bin}"
+msgstr "📦 Instalează {bin}"
+
+# 
+msgid "🔄 {secs}s"
+msgstr "🔄 {secs}s"
+
+# 
+msgid "🔌 Sessões SSH"
+msgstr "🔌 Sesiuni SSH"
+
+# 
+msgid "🔍 Verificar git status"
+msgstr "🔍 Verifică git status"
+
+# 
+msgid "🔍 Verificação pós-execução: `{cmd}`"
+msgstr "🔍 Verificare post-execuție: `{cmd}`"
+
+# 
+msgid "🔒 <b>Permissões:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+msgstr "🔒 <b>Permisiuni:</b> <tt>{sym}</tt> <span alpha='70%'>({oct})</span>"
+
+# 
+msgid "🔔 Notificação de teste enviada para o desktop."
+msgstr "🔔 Notificare de test trimisă pe desktop."
+
+# 
+msgid "🔗 <b>Caminho:</b> <tt>{path}</tt>"
+msgstr "🔗 <b>Cale:</b> <tt>{path}</tt>"
+
+# 
+msgid "🔴 Alto Risco (ProductionGuard)"
+msgstr "🔴 Risc ridicat (ProductionGuard)"
+
+# 
+msgid "🖥️ Abas de Terminal"
+msgstr "🖥️ File de terminal"
+
+# 
+msgid "🛑 Alerta Crítico — ProductionGuard"
+msgstr "🛑 Alertă critică — ProductionGuard"
+
+# 
+msgid "🛑 Broadcast bloqueado pelo ProductionGuard: {risk}"
+msgstr "🛑 Difuzare blocată de ProductionGuard: {risk}"
+
+# 
+msgid "🛑 PathGuard BLOQUEOU leitura de: {path}"
+msgstr "🛑 PathGuard A BLOCAT citirea: {path}"
+
+# 
+msgid "🛡️ MODO PRODUÇÃO ATIVO — ProductionGuard interceptando comandos destrutivos (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+msgstr "🛡️ MOD PRODUCȚIE ACTIV — ProductionGuard interceptează comenzile distructive (rm -rf, mkfs, dd, DROP TABLE, subshells)"
+
+# 
+msgid "🛡️ Modo Estritamente Offline Ativo (Zero Cloud).\nClique para alternar para modo Online."
+msgstr "🛡️ Mod strict offline activ (Zero Cloud).\nFaceți clic pentru a comuta la modul Online."
+
+# 
+msgid "🛡️ Offline (Local)"
+msgstr "🛡️ Offline (Local)"
+
+# 
+msgid "🛡️ Segurança"
+msgstr "🛡️ Securitate"
+
+# 
+msgid "🟠 {rtt}ms"
+msgstr "🟠 {rtt}ms"
+
+# 
+msgid "🟡 {rtt}ms"
+msgstr "🟡 {rtt}ms"
+
+# 
+msgid "🟢 Comando Seguro"
+msgstr "🟢 Comandă sigură"
+
+# 
+msgid "🟢 {rtt}ms"
+msgstr "🟢 {rtt}ms"
+
+# 
+msgid "🤖 Rota: {route}"
+msgstr "🤖 Rută: {route}"
+

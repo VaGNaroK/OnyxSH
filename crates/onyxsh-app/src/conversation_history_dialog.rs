@@ -16,6 +16,7 @@ use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
@@ -222,7 +223,7 @@ pub fn format_relative_time(created_at: &str) -> String {
 
     let diff_micros = now.difference(&dt);
     if diff_micros.0 < 0 {
-        return "Agora mesmo".to_string();
+        return tr("Just now");
     }
     let diff_secs = diff_micros.0 / 1_000_000;
     let diff_days = diff_secs / 86400;
@@ -232,77 +233,77 @@ pub fn format_relative_time(created_at: &str) -> String {
         if hours == 0 {
             let mins = (diff_secs % 3600) / 60;
             if mins < 2 {
-                "Agora mesmo".to_string()
+                tr("Just now")
             } else {
-                format!("{mins} min")
+                tr_fmt("{mins} min", &[("mins", &mins.to_string())])
             }
         } else {
-            format!("{hours} hr")
+            tr_fmt("{hours} hr", &[("hours", &hours.to_string())])
         }
     } else if diff_days == 1 {
-        "Ontem".to_string()
+        tr("Yesterday")
     } else if diff_days < 7 {
-        format!("{diff_days} dias")
+        tr_fmt("{days} days", &[("days", &diff_days.to_string())])
     } else {
-        let month_str = match dt.month() {
+        let month_key = match dt.month() {
             1 => "jan",
-            2 => "fev",
+            2 => "feb",
             3 => "mar",
-            4 => "abr",
-            5 => "mai",
+            4 => "apr",
+            5 => "may",
             6 => "jun",
             7 => "jul",
-            8 => "ago",
-            9 => "set",
-            10 => "out",
+            8 => "aug",
+            9 => "sep",
+            10 => "oct",
             11 => "nov",
-            12 => "dez",
+            12 => "dec",
             _ => "",
+        };
+        let month_str = if month_key.is_empty() {
+            String::new()
+        } else {
+            tr(month_key)
         };
         format!("{} {:02}", month_str, dt.day_of_month())
     }
 }
 
-/// Returns the time grouping label matching `historicoIA.png` and Python `_get_time_group`:
-/// - "Hoje"
-/// - "Ontem"
-/// - "Últimos 7 dias"
-/// - "Este mês"
-/// - "Mais velho"
-pub fn get_time_group(created_at: &str) -> &'static str {
+/// Returns the localized time grouping label matching `historicoIA.png` and Python `_get_time_group`.
+pub fn get_time_group(created_at: &str) -> String {
     let Some(dt) = parse_iso_datetime(created_at) else {
-        return "Mais velho";
+        return tr("Older");
     };
     let Ok(now) = glib::DateTime::now_local() else {
-        return "Mais velho";
+        return tr("Older");
     };
 
     if dt.year() == now.year()
         && dt.month() == now.month()
         && dt.day_of_month() == now.day_of_month()
     {
-        return "Hoje";
+        return tr("Today");
     }
 
     let diff_micros = now.difference(&dt);
     if diff_micros.0 < 0 {
-        return "Hoje";
+        return tr("Today");
     }
     let diff_secs = diff_micros.0 / 1_000_000;
     let diff_days = diff_secs / 86400;
 
     if diff_days == 1 {
-        "Ontem"
+        tr("Yesterday")
     } else if diff_days < 7 {
-        "Últimos 7 dias"
+        tr("Last 7 Days")
     } else if dt.year() == now.year() && dt.month() == now.month() {
-        "Este mês"
+        tr("This Month")
     } else {
-        "Mais velho"
+        tr("Older")
     }
 }
 
-/// Extracts a conversation title from its first user message, or defaults to "Nova Conversa".
+/// Extracts a conversation title from its first user message, or defaults to `tr("New Conversation")`.
 pub fn conversation_title(conv: &AiConversation) -> String {
     for msg in &conv.messages {
         if msg.role == "user" {
@@ -316,7 +317,7 @@ pub fn conversation_title(conv: &AiConversation) -> String {
             }
         }
     }
-    "Nova Conversa".to_string()
+    tr("New Conversation")
 }
 
 /// Extracts a preview subtitle from the last message in the conversation.
@@ -325,9 +326,9 @@ pub fn conversation_subtitle(conv: &AiConversation) -> String {
         let clean = last_msg.content.replace('\n', " ").trim().to_string();
         if !clean.is_empty() {
             let role_prefix = if last_msg.role == "user" {
-                "Você: "
+                tr("You: ")
             } else {
-                "IA: "
+                tr("AI: ")
             };
             let preview = if clean.chars().count() > 40 {
                 let truncated: String = clean.chars().take(40).collect();
@@ -421,7 +422,7 @@ pub fn show_conversation_history_dialog<F>(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Histórico de Conversa")
+        .title(&tr("Conversation History"))
         .default_width(420)
         .default_height(520)
         .build();
@@ -434,19 +435,19 @@ pub fn show_conversation_history_dialog<F>(
     header_bar.set_show_end_title_buttons(true);
     header_bar.set_show_start_title_buttons(false);
 
-    let title_widget = adw::WindowTitle::new("Histórico de Conversa", "");
+    let title_widget = adw::WindowTitle::new(&tr("Conversation History"), "");
     header_bar.set_title_widget(Some(&title_widget));
 
     let btn_new_conv = gtk4::Button::builder()
         .icon_name("list-add-symbolic")
-        .tooltip_text("Nova Conversa")
+        .tooltip_text(&tr("New Conversation"))
         .css_classes(["flat"])
         .build();
     header_bar.pack_start(&btn_new_conv);
 
     let btn_clear_all = gtk4::Button::builder()
         .icon_name("user-trash-symbolic")
-        .tooltip_text("Excluir Todas as Conversas")
+        .tooltip_text(&tr("Delete All Conversations"))
         .css_classes(["flat"])
         .build();
     header_bar.pack_end(&btn_clear_all);
@@ -461,7 +462,7 @@ pub fn show_conversation_history_dialog<F>(
     search_box.set_margin_bottom(6);
 
     let search_entry = gtk4::SearchEntry::builder()
-        .placeholder_text("Pesquisar...")
+        .placeholder_text(&tr("Search..."))
         .hexpand(true)
         .build();
     search_box.append(&search_entry);
@@ -488,8 +489,8 @@ pub fn show_conversation_history_dialog<F>(
 
     let empty_page = adw::StatusPage::builder()
         .icon_name("chat-symbolic")
-        .title("Nenhuma Conversa")
-        .description("Comece a conversar para criar sua primeira conversa")
+        .title(&tr("No Conversations"))
+        .description(&tr("Start chatting to create your first conversation"))
         .build();
     stack.add_named(&empty_page, Some("empty"));
 
@@ -497,17 +498,18 @@ pub fn show_conversation_history_dialog<F>(
     dlg.set_content(Some(&root_vbox));
 
     // ── Group Headers via header_func ─────────────────────────────────────────
-    let row_group_map: Rc<RefCell<HashMap<String, &'static str>>> =
+    let row_group_map: Rc<RefCell<HashMap<String, String>>> =
         Rc::new(RefCell::new(HashMap::new()));
     {
         let g_map = Rc::clone(&row_group_map);
+        let fallback_group = tr("Older");
         list_box.set_header_func(move |row, before| {
             let cur_id = row.widget_name().to_string();
             let cur_group = g_map
                 .borrow()
                 .get(&cur_id)
-                .copied()
-                .unwrap_or("Mais velho");
+                .cloned()
+                .unwrap_or_else(|| fallback_group.clone());
 
             let need_header = match before {
                 None => true,
@@ -516,14 +518,14 @@ pub fn show_conversation_history_dialog<F>(
                     let prev_group = g_map
                         .borrow()
                         .get(&prev_id)
-                        .copied()
-                        .unwrap_or("Mais velho");
+                        .cloned()
+                        .unwrap_or_else(|| fallback_group.clone());
                     prev_group != cur_group
                 }
             };
 
             if need_header {
-                let lbl = gtk4::Label::new(Some(cur_group));
+                let lbl = gtk4::Label::new(Some(&cur_group));
                 lbl.set_halign(gtk4::Align::Start);
                 lbl.add_css_class("caption");
                 lbl.add_css_class("dim-label");
@@ -613,7 +615,7 @@ pub fn show_conversation_history_dialog<F>(
                 let del_btn = gtk4::Button::builder()
                     .icon_name("user-trash-symbolic")
                     .valign(gtk4::Align::Center)
-                    .tooltip_text("Excluir")
+                    .tooltip_text(&tr("Delete"))
                     .css_classes(["flat", "circular"])
                     .build();
 
@@ -628,13 +630,13 @@ pub fn show_conversation_history_dialog<F>(
                             return;
                         };
                         let confirm = adw::MessageDialog::builder()
-                            .heading("Excluir Conversa?")
-                            .body("Esta conversa será excluída permanentemente.")
+                            .heading(&tr("Delete Conversation?"))
+                            .body(&tr("This conversation will be permanently deleted."))
                             .transient_for(&window)
                             .close_response("cancel")
                             .build();
-                        confirm.add_response("cancel", "Cancelar");
-                        confirm.add_response("delete", "Excluir");
+                        confirm.add_response("cancel", &tr("Cancelar"));
+                        confirm.add_response("delete", &tr("Delete"));
                         confirm.set_response_appearance(
                             "delete",
                             adw::ResponseAppearance::Destructive,
@@ -742,16 +744,16 @@ pub fn show_conversation_history_dialog<F>(
             }
 
             let confirm = adw::MessageDialog::builder()
-                .heading("Excluir Todas as Conversas?")
-                .body(&format!(
-                    "Isso excluirá permanentemente todas as {} conversas. Esta ação não pode ser desfeita.",
-                    count
+                .heading(&tr("Delete All Conversations?"))
+                .body(&tr_fmt(
+                    "This will permanently delete all {count} conversations. This action cannot be undone.",
+                    &[("count", &count.to_string())],
                 ))
                 .transient_for(&window)
                 .close_response("cancel")
                 .build();
-            confirm.add_response("cancel", "Cancelar");
-            confirm.add_response("delete", "Excluir Tudo");
+            confirm.add_response("cancel", &tr("Cancelar"));
+            confirm.add_response("delete", &tr("Delete All"));
             confirm.set_response_appearance(
                 "delete",
                 adw::ResponseAppearance::Destructive,
@@ -794,8 +796,7 @@ mod tests {
             messages: Vec::new(),
         };
 
-        // Empty conversation defaults to "Nova Conversa"
-        assert_eq!(conversation_title(&conv), "Nova Conversa");
+        assert_eq!(conversation_title(&conv), tr("New Conversation"));
         assert_eq!(conversation_subtitle(&conv), "");
 
         // User message becomes title
@@ -815,7 +816,7 @@ mod tests {
         );
         assert_eq!(
             conversation_subtitle(&conv),
-            "Você: Como listar arquivos ordenados por taman…"
+            format!("{}Como listar arquivos ordenados por taman…", tr("You: "))
         );
 
         // Assistant reply becomes subtitle
@@ -831,7 +832,7 @@ mod tests {
 
         assert_eq!(
             conversation_subtitle(&conv),
-            "IA: Use o comando `ls -lSh` no terminal."
+            format!("{}Use o comando `ls -lSh` no terminal.", tr("AI: "))
         );
     }
 
@@ -873,17 +874,17 @@ mod tests {
     #[test]
     fn test_time_grouping_and_relative_time() {
         let now_str = current_iso_timestamp();
-        assert_eq!(get_time_group(&now_str), "Hoje");
-        assert_eq!(format_relative_time(&now_str), "Agora mesmo");
+        assert_eq!(get_time_group(&now_str), tr("Today"));
+        assert_eq!(format_relative_time(&now_str), tr("Just now"));
 
         // Invalid or empty returns default
-        assert_eq!(get_time_group(""), "Mais velho");
+        assert_eq!(get_time_group(""), tr("Older"));
         assert_eq!(format_relative_time(""), "");
 
         // Far past date (August 15)
         let past = "2024-08-15T12:00:00";
-        assert_eq!(get_time_group(past), "Mais velho");
-        assert_eq!(format_relative_time(past), "ago 15");
+        assert_eq!(get_time_group(past), tr("Older"));
+        assert_eq!(format_relative_time(past), format!("{} 15", tr("aug")));
     }
 
     #[test]

@@ -2,6 +2,7 @@
 //! Port of `src/onyxsh/settings/config.py`, `src/onyxsh/settings/manager.py`,
 //! and `src/onyxsh/ui/dialogs/shortcuts_dialog.py`.
 
+use crate::i18n::tr;
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
 use std::fs;
@@ -279,7 +280,7 @@ pub fn shortcut_groups() -> Vec<(&'static str, Vec<(&'static str, &'static str)>
 /// Converts a GTK accelerator string (e.g. `<Control><Shift>t`) into a human-readable badge (`Shift+Ctrl+T`).
 pub fn accelerator_to_label(accel: &str) -> String {
     if accel.trim().is_empty() {
-        return "Não definido".to_string();
+        return tr("Not set");
     }
     let mut rest = accel.trim().to_string();
     let mut parts = Vec::new();
@@ -304,10 +305,10 @@ pub fn accelerator_to_label(accel: &str) -> String {
         "parenright" => ")".to_string(),
         "Page_Down" => "Page Down".to_string(),
         "Page_Up" => "Page Up".to_string(),
-        "Up" | "KP_Up" => "Acima".to_string(),
-        "Down" | "KP_Down" => "Abaixo".to_string(),
-        "Left" | "KP_Left" => "Esquerda".to_string(),
-        "Right" | "KP_Right" => "Direita".to_string(),
+        "Up" | "KP_Up" => tr("Acima"),
+        "Down" | "KP_Down" => tr("Abaixo"),
+        "Left" | "KP_Left" => tr("Left"),
+        "Right" | "KP_Right" => tr("Direita"),
         "Insert" => "Ins".to_string(),
         "Delete" => "Del".to_string(),
         "Return" | "KP_Enter" => "Enter".to_string(),

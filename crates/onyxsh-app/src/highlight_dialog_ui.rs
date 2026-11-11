@@ -17,6 +17,7 @@ use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
 use onyxsh_core::config::AppSettings;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -52,7 +53,7 @@ pub fn show_highlight_dialog(
     let win = adw::PreferencesWindow::builder()
         .transient_for(parent_window)
         .modal(false)
-        .title("Cores e Destaques")
+        .title(&tr("Cores e Destaques"))
         .default_width(880)
         .default_height(650)
         .search_enabled(true)
@@ -78,12 +79,12 @@ pub fn show_highlight_dialog(
     // 1. ABA 1: Cores do Terminal (Integrated Color Scheme Selector)
     // ──────────────────────────────────────────────────────────────────────────
     let page_terminal = adw::PreferencesPage::builder()
-        .title("Cores do Terminal")
+        .title(&tr("Terminal Colors"))
         .icon_name("preferences-color-symbolic")
         .build();
 
     let group_schemes = adw::PreferencesGroup::builder()
-        .title("Esquema de Cores")
+        .title(&tr("Color Scheme"))
         .build();
 
     let scheme_listbox = gtk4::ListBox::builder()
@@ -155,7 +156,7 @@ pub fn show_highlight_dialog(
         let edit_btn = gtk4::Button::builder()
             .icon_name("document-edit-symbolic")
             .valign(gtk4::Align::Center)
-            .tooltip_text("Editar esquema de cores ou criar variante personalizada")
+            .tooltip_text(&tr("Editar esquema de cores ou criar variante personalizada"))
             .build();
         edit_btn.add_css_class("flat");
 
@@ -224,7 +225,10 @@ pub fn show_highlight_dialog(
                     let _ = st.save_to_path(&cfg_path);
                 }
 
-                st_lbl.set_text(&format!("Esquema de cores aplicado: {}", chosen.name));
+                st_lbl.set_text(&tr_fmt(
+                    "Esquema de cores aplicado: {name}",
+                    &[("name", chosen.name)],
+                ));
             }
         });
     }
@@ -235,15 +239,17 @@ pub fn show_highlight_dialog(
     // Group 1b: Actions (Criar Novo Esquema)
     let group_actions = adw::PreferencesGroup::new();
     let new_scheme_row = adw::ActionRow::builder()
-        .title("Criar Novo Esquema")
-        .subtitle("Cria um esquema de cores personalizado com base no esquema ativo")
+        .title(&tr("Create New Scheme"))
+        .subtitle(&tr(
+            "Cria um esquema de cores personalizado com base no esquema ativo",
+        ))
         .activatable(true)
         .build();
 
     let new_btn = gtk4::Button::builder()
         .icon_name("list-add-symbolic")
         .valign(gtk4::Align::Center)
-        .tooltip_text("Adicionar esquema personalizado")
+        .tooltip_text(&tr("Adicionar esquema personalizado"))
         .build();
     new_btn.add_css_class("flat");
 
@@ -278,35 +284,33 @@ pub fn show_highlight_dialog(
     // 2. ABA 2: Destaque de Saída (Output Highlighting & Global Rules)
     // ──────────────────────────────────────────────────────────────────────────
     let page_output = adw::PreferencesPage::builder()
-        .title("Destaque de Saída")
+        .title(&tr("Output Highlighting"))
         .icon_name("view-list-symbolic")
         .build();
 
     let group_welcome = adw::PreferencesGroup::builder()
-        .description(
-            "Colore padrões na saída do terminal, como erros, avisos e IPs. \
-            Muitas regras podem afetar saídas muito extensas.",
-        )
+        .description(&tr(
+            "Colore padrões na saída do terminal, como erros, avisos e IPs. Muitas regras podem afetar saídas muito extensas.",
+        ))
         .build();
     page_output.add(&group_welcome);
 
     // 2.1 Ativação
     let group_activation = adw::PreferencesGroup::builder()
-        .title("Ativação")
-        .description(
-            "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode \
-            reduzir ligeiramente a responsividade de saídas muito volumosas.",
-        )
+        .title(&tr("Activation"))
+        .description(&tr(
+            "⚠️ Em computadores mais lentos, o processamento de padrões de cores pode reduzir ligeiramente a responsividade de saídas muito volumosas.",
+        ))
         .build();
 
     let row_local = adw::SwitchRow::builder()
-        .title("Terminais Locais")
-        .subtitle("Aplicar destaque de saída a sessões de terminal locais")
+        .title(&tr("Local Terminals"))
+        .subtitle(&tr("Aplicar destaque de saída a sessões de terminal locais"))
         .active(true)
         .build();
     let row_ssh = adw::SwitchRow::builder()
-        .title("Sessões SSH")
-        .subtitle("Aplicar destaque de saída a conexões SSH")
+        .title(&tr("Sessões SSH"))
+        .subtitle(&tr("Aplicar destaque de saída a conexões SSH"))
         .active(true)
         .build();
 
@@ -316,20 +320,24 @@ pub fn show_highlight_dialog(
 
     // 2.2 Colorização do comando cat (Pygments)
     let group_cat = adw::PreferencesGroup::builder()
-        .title("Colorização do Comando cat")
-        .description("Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)")
+        .title(&tr("Colorização do Comando cat"))
+        .description(&tr(
+            "Destaque de sintaxe para saída do comando 'cat' (utilizando motor Pygments/ANSI)",
+        ))
         .build();
 
     let row_cat_enable = adw::SwitchRow::builder()
-        .title("Ativar Colorização do 'cat'")
-        .subtitle("Aplica destaque de sintaxe à saída do comando 'cat'")
+        .title(&tr("Ativar Colorização do 'cat'"))
+        .subtitle(&tr("Aplica destaque de sintaxe à saída do comando 'cat'"))
         .active(true)
         .build();
 
-    let cat_mode_model = gtk4::StringList::new(&["Automático", "Manual"]);
+    let mode_auto = tr("Auto");
+    let mode_manual = tr("Manual");
+    let cat_mode_model = gtk4::StringList::new(&[&mode_auto, &mode_manual]);
     let row_cat_mode = adw::ComboRow::builder()
-        .title("Modo do Tema")
-        .subtitle("Auto: adapta ao fundo do terminal. Manual: tema fixo.")
+        .title(&tr("Modo do Tema"))
+        .subtitle(&tr("Auto: adapta ao fundo do terminal. Manual: tema fixo."))
         .model(&cat_mode_model)
         .selected(0)
         .build();
@@ -346,8 +354,8 @@ pub fn show_highlight_dialog(
     ];
     let cat_dark_model = gtk4::StringList::new(&dark_themes);
     let row_cat_dark = adw::ComboRow::builder()
-        .title("Tema para Fundo Escuro")
-        .subtitle("Tema utilizado quando o fundo do terminal é escuro")
+        .title(&tr("Tema para Fundo Escuro"))
+        .subtitle(&tr("Tema utilizado quando o fundo do terminal é escuro"))
         .model(&cat_dark_model)
         .selected(0)
         .build();
@@ -362,8 +370,8 @@ pub fn show_highlight_dialog(
     ];
     let cat_light_model = gtk4::StringList::new(&light_themes);
     let row_cat_light = adw::ComboRow::builder()
-        .title("Tema para Fundo Claro")
-        .subtitle("Tema utilizado quando o fundo do terminal é claro")
+        .title(&tr("Tema para Fundo Claro"))
+        .subtitle(&tr("Tema utilizado quando o fundo do terminal é claro"))
         .model(&cat_light_model)
         .selected(0)
         .build();
@@ -376,34 +384,38 @@ pub fn show_highlight_dialog(
 
     // 2.3 Destaque de Entrada do Shell (Shell Input Highlighting)
     let group_shell_input = adw::PreferencesGroup::builder()
-        .title("Destaque de Entrada do Shell")
-        .description("Destaque de sintaxe em tempo real enquanto você digita comandos")
+        .title(&tr("Destaque de Entrada do Shell"))
+        .description(&tr(
+            "Destaque de sintaxe em tempo real enquanto você digita comandos",
+        ))
         .build();
 
     let row_shell_input_enable = adw::SwitchRow::builder()
-        .title("Ativar Destaque de Entrada do Shell")
-        .subtitle("Colore comandos em tempo real enquanto você digita no terminal")
+        .title(&tr("Ativar Destaque de Entrada do Shell"))
+        .subtitle(&tr(
+            "Colore comandos em tempo real enquanto você digita no terminal",
+        ))
         .active(true)
         .build();
 
-    let shell_mode_model = gtk4::StringList::new(&["Automático", "Manual"]);
+    let shell_mode_model = gtk4::StringList::new(&[&mode_auto, &mode_manual]);
     let row_shell_mode = adw::ComboRow::builder()
-        .title("Modo do Tema")
-        .subtitle("Auto: detecta contraste com o fundo automaticamente")
+        .title(&tr("Modo do Tema"))
+        .subtitle(&tr("Auto: detecta contraste com o fundo automaticamente"))
         .model(&shell_mode_model)
         .selected(0)
         .build();
 
     let shell_dark_model = gtk4::StringList::new(&dark_themes);
     let row_shell_dark = adw::ComboRow::builder()
-        .title("Tema para Fundo Escuro")
+        .title(&tr("Tema para Fundo Escuro"))
         .model(&shell_dark_model)
         .selected(0)
         .build();
 
     let shell_light_model = gtk4::StringList::new(&light_themes);
     let row_shell_light = adw::ComboRow::builder()
-        .title("Tema para Fundo Claro")
+        .title(&tr("Tema para Fundo Claro"))
         .model(&shell_light_model)
         .selected(0)
         .build();
@@ -422,10 +434,10 @@ pub fn show_highlight_dialog(
     ];
 
     let expander_ignored = adw::ExpanderRow::builder()
-        .title("Comandos Ignorados")
-        .subtitle(&format!(
-            "{} comando(s) • Clique para expandir/recolher",
-            initial_ignored.len()
+        .title(&tr("Ignored Commands"))
+        .subtitle(&tr_fmt(
+            "{count} comando(s) • Clique para expandir/recolher",
+            &[("count", &initial_ignored.len().to_string())],
         ))
         .expanded(false)
         .build();
@@ -435,13 +447,13 @@ pub fn show_highlight_dialog(
     expander_ignored.add_prefix(&info_icon);
 
     let row_restore_ignored = adw::ActionRow::builder()
-        .title("Restaurar Padrões")
+        .title(&tr("Restore Defaults"))
         .activatable(true)
         .build();
     let btn_restore_ignored = gtk4::Button::builder()
         .icon_name("view-refresh-symbolic")
         .valign(gtk4::Align::Center)
-        .tooltip_text("Restaurar lista de comandos ignorados original")
+        .tooltip_text(&tr("Restaurar lista de comandos ignorados original"))
         .build();
     btn_restore_ignored.add_css_class("flat");
     row_restore_ignored.add_suffix(&btn_restore_ignored);
@@ -449,7 +461,7 @@ pub fn show_highlight_dialog(
     expander_ignored.add_row(&row_restore_ignored);
 
     let row_add_ignored = adw::ActionRow::builder()
-        .title("➕ Adicionar Comando Ignorado")
+        .title(&tr("➕ Add Ignored Command"))
         .activatable(true)
         .build();
     let btn_add_ignored = gtk4::Button::builder()
@@ -466,7 +478,7 @@ pub fn show_highlight_dialog(
         let del_btn = gtk4::Button::builder()
             .icon_name("user-trash-symbolic")
             .valign(gtk4::Align::Center)
-            .tooltip_text("Remover da lista de ignorados")
+            .tooltip_text(&tr("Remove from ignored list"))
             .build();
         del_btn.add_css_class("flat");
         let r_c = row_cmd.clone();
@@ -483,11 +495,11 @@ pub fn show_highlight_dialog(
 
     // 2.5 Regras Globais de Destaque
     let group_global_rules = adw::PreferencesGroup::builder()
-        .title("Regras Globais de Destaque")
+        .title(&tr("Regras Globais de Destaque"))
         .build();
 
     let row_add_rule = adw::ActionRow::builder()
-        .title("➕ Adicionar Nova Regra Global")
+        .title(&tr("➕ Add New Global Rule"))
         .activatable(true)
         .build();
     let btn_add_rule = gtk4::Button::builder()
@@ -500,7 +512,7 @@ pub fn show_highlight_dialog(
     group_global_rules.add(&row_add_rule);
 
     let row_reset_rules = adw::ActionRow::builder()
-        .title("Restaurar Regras Globais")
+        .title(&tr("Restaurar Regras Globais"))
         .activatable(true)
         .build();
     let btn_reset_rules = gtk4::Button::builder()
@@ -525,7 +537,7 @@ pub fn show_highlight_dialog(
     ];
 
     for (name, pattern, hex_col) in default_rules {
-        let escaped_name = glib::markup_escape_text(name);
+        let escaped_name = glib::markup_escape_text(&tr(name));
         let escaped_pattern = glib::markup_escape_text(pattern);
         let rule_row = adw::ActionRow::builder()
             .title(escaped_name.as_str())
@@ -573,28 +585,30 @@ pub fn show_highlight_dialog(
     // 3. ABA 3: Específico do Comando (Per-Command Context Highlighting)
     // ──────────────────────────────────────────────────────────────────────────
     let page_cmd = adw::PreferencesPage::builder()
-        .title("Específico do Comando")
+        .title(&tr("Command-Specific"))
         .icon_name("utilities-terminal-symbolic")
         .build();
 
     let group_cmd_settings = adw::PreferencesGroup::builder()
-        .title("Destaque por Comando")
+        .title(&tr("Per-Command Highlighting"))
         .build();
 
     let row_cmd_aware = adw::SwitchRow::builder()
-        .title("Ativar Detecção de Comando")
-        .subtitle("Aplica regras contextuais automaticamente ao detectar o comando em execução")
+        .title(&tr("Enable Command Detection"))
+        .subtitle(&tr(
+            "Aplica regras contextuais automaticamente ao detectar o comando em execução",
+        ))
         .active(true)
         .build();
     group_cmd_settings.add(&row_cmd_aware);
     page_cmd.add(&group_cmd_settings);
 
     let group_cmd_selector = adw::PreferencesGroup::builder()
-        .title("Comandos")
+        .title(&tr("Commands"))
         .build();
 
     let row_add_cmd = adw::ActionRow::builder()
-        .title("➕ Adicionar Comando")
+        .title(&tr("➕ Add Command"))
         .activatable(true)
         .build();
     let btn_add_cmd = gtk4::Button::builder()
@@ -607,14 +621,14 @@ pub fn show_highlight_dialog(
     group_cmd_selector.add(&row_add_cmd);
 
     let row_bulk = adw::ActionRow::builder()
-        .title("Ações em Massa")
+        .title(&tr("Bulk Actions"))
         .build();
 
-    let btn_enable_all = gtk4::Button::with_label("Ativar Todos");
+    let btn_enable_all = gtk4::Button::with_label(&tr("Ativar Todos"));
     btn_enable_all.set_valign(gtk4::Align::Center);
     btn_enable_all.add_css_class("suggested-action");
 
-    let btn_disable_all = gtk4::Button::with_label("Desativar Todos");
+    let btn_disable_all = gtk4::Button::with_label(&tr("Desativar Todos"));
     btn_disable_all.set_valign(gtk4::Align::Center);
     btn_disable_all.add_css_class("destructive-action");
 
@@ -623,7 +637,7 @@ pub fn show_highlight_dialog(
     group_cmd_selector.add(&row_bulk);
 
     let row_reset_cmds = adw::ActionRow::builder()
-        .title("Restaurar Todos os Comandos")
+        .title(&tr("Restaurar Todos os Comandos"))
         .activatable(true)
         .build();
     let btn_reset_cmds = gtk4::Button::builder()
@@ -638,7 +652,7 @@ pub fn show_highlight_dialog(
     page_cmd.add(&group_cmd_selector);
 
     let group_available_cmds = adw::PreferencesGroup::builder()
-        .title("Comandos Disponíveis")
+        .title(&tr("Available Commands"))
         .build();
 
     let contexts = [
@@ -660,13 +674,16 @@ pub fn show_highlight_dialog(
 
     for (cmd_name, desc, rule_count) in contexts {
         let escaped_cmd = glib::markup_escape_text(cmd_name);
-        let escaped_desc = glib::markup_escape_text(desc);
+        let escaped_desc = glib::markup_escape_text(&tr(desc));
         let row_ctx = adw::ActionRow::builder()
             .title(escaped_cmd.as_str())
             .subtitle(escaped_desc.as_str())
             .build();
 
-        let badge = gtk4::Label::new(Some(&format!("{rule_count} regras")));
+        let badge = gtk4::Label::new(Some(&tr_fmt(
+            "{count} regras",
+            &[("count", &rule_count.to_string())],
+        )));
         badge.add_css_class("dim-label");
         badge.add_css_class("caption");
         badge.set_valign(gtk4::Align::Center);
@@ -683,7 +700,7 @@ pub fn show_highlight_dialog(
         let cfg_btn = gtk4::Button::builder()
             .icon_name("go-next-symbolic")
             .valign(gtk4::Align::Center)
-            .tooltip_text("Configurar regras deste comando")
+            .tooltip_text(&tr("Configurar regras deste comando"))
             .build();
         cfg_btn.add_css_class("flat");
         row_ctx.add_suffix(&cfg_btn);
@@ -726,15 +743,15 @@ pub fn show_scheme_editor_dialog(
     status_lbl: &gtk4::Label,
 ) {
     let title = if is_new {
-        "Novo Esquema de Cores"
+        tr("Novo Esquema de Cores")
     } else {
-        "Editar Esquema de Cores"
+        tr("Editar Esquema de Cores")
     };
 
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title(title)
+        .title(&title)
         .default_width(700)
         .default_height(600)
         .build();
@@ -743,7 +760,7 @@ pub fn show_scheme_editor_dialog(
     let toolbar_view = adw::ToolbarView::new();
     let header = adw::HeaderBar::new();
 
-    let cancel_btn = gtk4::Button::with_label("Cancelar");
+    let cancel_btn = gtk4::Button::with_label(&tr("Cancelar"));
     cancel_btn.set_valign(gtk4::Align::Center);
     {
         let d_c = dlg.clone();
@@ -751,7 +768,7 @@ pub fn show_scheme_editor_dialog(
     }
     header.pack_start(&cancel_btn);
 
-    let save_btn = gtk4::Button::with_label("Salvar");
+    let save_btn = gtk4::Button::with_label(&tr("Save"));
     save_btn.set_valign(gtk4::Align::Center);
     save_btn.add_css_class("suggested-action");
     header.pack_end(&save_btn);
@@ -765,7 +782,7 @@ pub fn show_scheme_editor_dialog(
 
     // 1. Live Preview Area
     let group_preview = adw::PreferencesGroup::builder()
-        .title("Pré-visualização ao Vivo")
+        .title(&tr("Pré-visualização ao Vivo"))
         .build();
 
     let preview_area = gtk4::DrawingArea::builder()
@@ -814,23 +831,23 @@ pub fn show_scheme_editor_dialog(
 
     // 2. Cores Gerais
     let group_general = adw::PreferencesGroup::builder()
-        .title("Cores Gerais")
+        .title(&tr("General Colors"))
         .build();
 
     let name_val = if is_new {
-        format!("Cópia de {}", base_scheme.name)
+        tr_fmt("Cópia de {name}", &[("name", base_scheme.name)])
     } else {
         base_scheme.name.to_string()
     };
 
     let name_entry = adw::EntryRow::builder()
-        .title("Nome do Esquema")
+        .title(&tr("Scheme Name"))
         .text(&name_val)
         .build();
     group_general.add(&name_entry);
 
     let fg_entry = adw::EntryRow::builder()
-        .title("Texto de Primeiro Plano (Foreground)")
+        .title(&tr("Texto de Primeiro Plano (Foreground)"))
         .text(base_scheme.foreground)
         .build();
     fg_entry.add_css_class("monospace");
@@ -845,7 +862,7 @@ pub fn show_scheme_editor_dialog(
     group_general.add(&fg_entry);
 
     let bg_entry = adw::EntryRow::builder()
-        .title("Plano de Fundo (Background)")
+        .title(&tr("Plano de Fundo (Background)"))
         .text(base_scheme.background)
         .build();
     bg_entry.add_css_class("monospace");
@@ -860,7 +877,7 @@ pub fn show_scheme_editor_dialog(
     group_general.add(&bg_entry);
 
     let cursor_entry = adw::EntryRow::builder()
-        .title("Cursor")
+        .title(&tr("Cursor"))
         .text(base_scheme.cursor)
         .build();
     cursor_entry.add_css_class("monospace");
@@ -870,8 +887,10 @@ pub fn show_scheme_editor_dialog(
 
     // 3. Paleta ANSI de 16 Cores
     let group_palette = adw::PreferencesGroup::builder()
-        .title("Paleta ANSI de 16 Cores")
-        .description("Cores padrão do terminal (0-7 normais, 8-15 brilhantes)")
+        .title(&tr("Paleta ANSI de 16 Cores"))
+        .description(&tr(
+            "Cores padrão do terminal (0-7 normais, 8-15 brilhantes)",
+        ))
         .build();
 
     let grid = gtk4::Grid::builder()
@@ -899,7 +918,7 @@ pub fn show_scheme_editor_dialog(
             "#ffffff"
         };
         let p_row = adw::EntryRow::builder()
-            .title(color_names[i])
+            .title(&tr(color_names[i]))
             .text(col_hex)
             .build();
         p_row.add_css_class("monospace");
@@ -954,7 +973,10 @@ pub fn show_scheme_editor_dialog(
                 let _ = st.save_to_path(&cfg_path);
             }
 
-            st_lbl.set_text(&format!("Esquema de cores salvo: {new_name}"));
+            st_lbl.set_text(&tr_fmt(
+                "Esquema de cores salvo: {name}",
+                &[("name", &new_name)],
+            ));
             d_c.close();
         });
     }

@@ -2,6 +2,7 @@
 //! (`src/onyxsh/terminal/git_assistant.py`, `src/onyxsh/utils/git_utils.py`,
 //! and `src/onyxsh/terminal/desktop_notifier.py`).
 
+use onyxsh_core::i18n::{tr, tr_fmt};
 use serde::{Deserialize, Serialize};
 use std::path::Path;
 use std::process::Command;
@@ -189,11 +190,17 @@ pub fn evaluate_command_notification(
 
     let is_error = exit_code != 0;
     let title = if is_error {
-        format!("❌ Comando Falhou (Exit {exit_code})")
+        tr_fmt(
+            "❌ Comando Falhou (Exit {code})",
+            &[("code", &exit_code.to_string())],
+        )
     } else {
-        "✅ Comando Concluído".to_string()
+        tr("✅ Comando Concluído")
     };
-    let body = format!("`{trimmed}` finalizou em {elapsed_secs}s.");
+    let body = tr_fmt(
+        "`{cmd}` finalizou em {secs}s.",
+        &[("cmd", trimmed), ("secs", &elapsed_secs.to_string())],
+    );
 
     Some(DesktopNotificationPayload {
         title,
@@ -238,6 +245,12 @@ M  crates/onyxsh-app/src/window.rs
         let notif =
             evaluate_command_notification("cargo build --release", 0, 15, 10, false).unwrap();
         assert!(!notif.is_error);
-        assert!(notif.body.contains("15s"));
+        assert_eq!(
+            notif.body,
+            tr_fmt(
+                "`{cmd}` finalizou em {secs}s.",
+                &[("cmd", "cargo build --release"), ("secs", "15")],
+            )
+        );
     }
 }

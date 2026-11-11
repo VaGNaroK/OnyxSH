@@ -1,6 +1,7 @@
 //! Post-Execution Sanity Verifier for the Zero-Trust Agent.
 //! Port of `src/onyxsh/agent/verifier.py`.
 
+use onyxsh_core::i18n::{tr, tr_fmt};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
@@ -64,7 +65,10 @@ pub fn infer_verifications(commands: &[String]) -> Vec<VerificationCheck> {
                     target_command: trimmed.to_string(),
                     check_command: format!("systemctl is-active {svc}"),
                     check_type: "service_active".to_string(),
-                    description: format!("Verificar se o serviço '{svc}' está ativo"),
+                    description: tr_fmt(
+                        "Verificar se o serviço '{svc}' está ativo",
+                        &[("svc", &svc)],
+                    ),
                     expected_exit_code: 0,
                     failure_diagnostic_command: Some(format!(
                         "journalctl -u {svc} -n 25 --no-pager"
@@ -74,7 +78,10 @@ pub fn infer_verifications(commands: &[String]) -> Vec<VerificationCheck> {
                     target_command: trimmed.to_string(),
                     check_command: format!("systemctl is-enabled {svc}"),
                     check_type: "service_enabled".to_string(),
-                    description: format!("Verificar se o serviço '{svc}' foi habilitado no boot"),
+                    description: tr_fmt(
+                        "Verificar se o serviço '{svc}' foi habilitado no boot",
+                        &[("svc", &svc)],
+                    ),
                     expected_exit_code: 0,
                     failure_diagnostic_command: Some(format!(
                         "systemctl status {svc} --no-pager"
@@ -84,7 +91,10 @@ pub fn infer_verifications(commands: &[String]) -> Vec<VerificationCheck> {
                     target_command: trimmed.to_string(),
                     check_command: format!("systemctl is-active {svc}"),
                     check_type: "service_stopped".to_string(),
-                    description: format!("Verificar se o serviço '{svc}' foi parado"),
+                    description: tr_fmt(
+                        "Verificar se o serviço '{svc}' foi parado",
+                        &[("svc", &svc)],
+                    ),
                     expected_exit_code: 3,
                     failure_diagnostic_command: Some(format!(
                         "systemctl status {svc} --no-pager"
@@ -108,7 +118,7 @@ pub fn infer_verifications(commands: &[String]) -> Vec<VerificationCheck> {
                 target_command: trimmed.to_string(),
                 check_command: "nginx -t".to_string(),
                 check_type: "syntax_test".to_string(),
-                description: "Testar integridade da sintaxe de configuração do Nginx".to_string(),
+                description: tr("Testar integridade da sintaxe de configuração do Nginx"),
                 expected_exit_code: 0,
                 failure_diagnostic_command: Some("nginx -t".to_string()),
             };

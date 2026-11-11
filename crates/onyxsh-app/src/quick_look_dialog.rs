@@ -25,6 +25,7 @@ use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
+use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_filemanager::quick_look::{load_local_preview, select_quick_look_entry, PreviewKind};
 use onyxsh_filemanager::FileEntry;
@@ -89,24 +90,24 @@ fn save_file_as_root(path: &Path, content: &str) -> Result<(), String> {
 
     let mut child = cmd
         .spawn()
-        .map_err(|e| format!("Falha ao iniciar processo privilegiado pkexec: {e}"))?;
+        .map_err(|e| tr_fmt("Falha ao iniciar processo privilegiado pkexec: {err}", &[("err", &e.to_string())]))?;
 
     if let Some(mut stdin) = child.stdin.take() {
         stdin
             .write_all(content_bytes)
-            .map_err(|e| format!("Falha ao escrever dados no stdin de pkexec: {e}"))?;
+            .map_err(|e| tr_fmt("Falha ao escrever dados no stdin de pkexec: {err}", &[("err", &e.to_string())]))?;
     }
 
     let output = child
         .wait_with_output()
-        .map_err(|e| format!("Falha ao aguardar processo pkexec: {e}"))?;
+        .map_err(|e| tr_fmt("Falha ao aguardar processo pkexec: {err}", &[("err", &e.to_string())]))?;
 
     if output.status.success() {
         Ok(())
     } else {
         let stderr = String::from_utf8_lossy(&output.stderr);
         Err(if stderr.trim().is_empty() {
-            "Operação cancelada ou negada pelo usuário.".to_string()
+            tr("Operação cancelada ou negada pelo usuário.")
         } else {
             stderr.trim().to_string()
         })
@@ -132,7 +133,7 @@ pub fn show_quick_look_dialog(
     let dlg = adw::Window::builder()
         .transient_for(parent)
         .modal(true)
-        .title("Quick Look")
+        .title(&tr("Quick Look"))
         .default_width(840)
         .default_height(620)
         .build();
@@ -145,11 +146,11 @@ pub fn show_quick_look_dialog(
     nav_box.add_css_class("linked");
     let btn_prev = gtk4::Button::builder()
         .icon_name("go-previous-symbolic")
-        .tooltip_text("Arquivo Anterior (Seta Cima / k)")
+        .tooltip_text(&tr("Arquivo Anterior (Seta Cima / k)"))
         .build();
     let btn_next = gtk4::Button::builder()
         .icon_name("go-next-symbolic")
-        .tooltip_text("Próximo Arquivo (Seta Baixo / j)")
+        .tooltip_text(&tr("Próximo Arquivo (Seta Baixo / j)"))
         .build();
     nav_box.append(&btn_prev);
     nav_box.append(&btn_next);
@@ -195,21 +196,21 @@ pub fn show_quick_look_dialog(
 
     let menu_btn = gtk4::MenuButton::builder()
         .icon_name("view-more-symbolic")
-        .tooltip_text("Mais Opções")
+        .tooltip_text(&tr("More Options"))
         .popover(&popover)
         .build();
     menu_btn.add_css_class("flat");
 
     let save_sudo_btn = gtk4::Button::builder()
         .icon_name("security-high-symbolic")
-        .tooltip_text("Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)")
+        .tooltip_text(&tr("Salvar com privilégios de Administrador / Root (Ctrl+Shift+S)"))
         .visible(false)
         .build();
     save_sudo_btn.add_css_class("flat");
 
     let save_btn = gtk4::Button::builder()
         .icon_name("document-save-symbolic")
-        .tooltip_text("Salvar alterações (Ctrl+S)")
+        .tooltip_text(&tr("Save changes (Ctrl+S)"))
         .sensitive(false)
         .visible(false)
         .build();
@@ -217,7 +218,7 @@ pub fn show_quick_look_dialog(
 
     let edit_toggle_btn = gtk4::ToggleButton::builder()
         .icon_name("document-edit-symbolic")
-        .tooltip_text("Alternar Modo Edição (Ctrl+E)")
+        .tooltip_text(&tr("Alternar Modo Edição (Ctrl+E)"))
         .build();
     edit_toggle_btn.add_css_class("flat");
 
@@ -239,7 +240,7 @@ pub fn show_quick_look_dialog(
     let text_container = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
 
     let readonly_banner = adw::Banner::builder()
-        .title("Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root).")
+        .title(&tr("Este arquivo é somente leitura. Edições podem ser salvas com privilégios de Administrador (Root)."))
         .revealed(false)
         .build();
     text_container.append(&readonly_banner);
@@ -278,7 +279,7 @@ pub fn show_quick_look_dialog(
         .build();
 
     let mode_badge = gtk4::Label::builder()
-        .label("Modo Visualização")
+        .label(&tr("Preview Mode"))
         .css_classes(["badge-pill", "caption", "dim-label"])
         .build();
 
@@ -374,12 +375,14 @@ pub fn show_quick_look_dialog(
         Rc::new(move |on_discard: Rc<dyn Fn()>| {
             let confirm_dlg = adw::MessageDialog::builder()
                 .transient_for(&dlg_parent)
-                .heading("Descartar Alterações?")
-                .body("Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?")
+                .heading(&tr("Discard Changes?"))
+                .body(&tr(
+                    "Você possui alterações não salvas neste arquivo que serão perdidas. Deseja realmente descartá-las?",
+                ))
                 .close_response("cancel")
                 .build();
-            confirm_dlg.add_response("cancel", "Cancelar");
-            confirm_dlg.add_response("discard", "Descartar");
+            confirm_dlg.add_response("cancel", &tr("Cancelar"));
+            confirm_dlg.add_response("discard", &tr("Discard"));
             confirm_dlg.set_response_appearance("discard", adw::ResponseAppearance::Destructive);
 
             let dirty_c = Rc::clone(&dirty_ref);
@@ -437,7 +440,9 @@ pub fn show_quick_look_dialog(
                         if let Some(ref rf) = refresh_cb {
                             rf();
                         }
-                        toast("Arquivo salvo com sucesso com privilégios de Administrador (Root)!");
+                        toast(&tr(
+                            "Arquivo salvo com sucesso com privilégios de Administrador (Root)!",
+                        ));
                         if let Some(ref cb) = on_success {
                             cb();
                         }
@@ -445,11 +450,11 @@ pub fn show_quick_look_dialog(
                     Err(e) => {
                         let err_dlg = adw::MessageDialog::builder()
                             .transient_for(&dlg_parent)
-                            .heading("Falha ao Salvar como Root")
+                            .heading(&tr("Falha ao Salvar como Root"))
                             .body(&e)
                             .close_response("ok")
                             .build();
-                        err_dlg.add_response("ok", "OK");
+                        err_dlg.add_response("ok", &tr("OK"));
                         err_dlg.present();
                     }
                 }
@@ -463,7 +468,7 @@ pub fn show_quick_look_dialog(
                         if let Some(ref rf) = refresh_cb {
                             rf();
                         }
-                        toast("Arquivo salvo com sucesso!");
+                        toast(&tr("Arquivo salvo com sucesso!"));
                         if let Some(ref cb) = on_success {
                             cb();
                         }
@@ -472,15 +477,15 @@ pub fn show_quick_look_dialog(
                         if e.kind() == std::io::ErrorKind::PermissionDenied {
                             let perm_dlg = adw::MessageDialog::builder()
                                 .transient_for(&dlg_parent)
-                                .heading("Permissão Negada")
-                                .body(&format!(
-                                    "Você não possui permissão para modificar '{}'. Deseja salvar utilizando privilégios de Administrador (Root)?",
-                                    entry.name
+                                .heading(&tr("Permissão Negada"))
+                                .body(&tr_fmt(
+                                    "Você não possui permissão para modificar '{name}'. Deseja salvar utilizando privilégios de Administrador (Root)?",
+                                    &[("name", &entry.name)],
                                 ))
                                 .close_response("cancel")
                                 .build();
-                            perm_dlg.add_response("cancel", "Cancelar");
-                            perm_dlg.add_response("root_save", "Salvar como Root");
+                            perm_dlg.add_response("cancel", &tr("Cancelar"));
+                            perm_dlg.add_response("root_save", &tr("Save as Root"));
                             perm_dlg.set_response_appearance("root_save", adw::ResponseAppearance::Suggested);
 
                             let root_save_path = path.to_path_buf();
@@ -504,16 +509,18 @@ pub fn show_quick_look_dialog(
                                             if let Some(ref rf) = rf_c {
                                                 rf();
                                             }
-                                            t_c("Arquivo salvo com privilégios de Administrador (Root)!");
+                                            t_c(&tr(
+                                                "Arquivo salvo com privilégios de Administrador (Root)!",
+                                            ));
                                         }
                                         Err(err_msg) => {
                                             let ed = adw::MessageDialog::builder()
                                                 .transient_for(&parent_w)
-                                                .heading("Falha ao Salvar como Root")
+                                                .heading(&tr("Falha ao Salvar como Root"))
                                                 .body(&err_msg)
                                                 .close_response("ok")
                                                 .build();
-                                            ed.add_response("ok", "OK");
+                                            ed.add_response("ok", &tr("OK"));
                                             ed.present();
                                         }
                                     }
@@ -523,11 +530,14 @@ pub fn show_quick_look_dialog(
                         } else {
                             let err_dlg = adw::MessageDialog::builder()
                                 .transient_for(&dlg_parent)
-                                .heading("Erro ao Salvar Arquivo")
-                                .body(&format!("Não foi possível gravar as alterações: {e}"))
+                                .heading(&tr("Erro ao Salvar Arquivo"))
+                                .body(&tr_fmt(
+                                    "Não foi possível gravar as alterações: {err}",
+                                    &[("err", &e.to_string())],
+                                ))
                                 .close_response("ok")
                                 .build();
-                            err_dlg.add_response("ok", "OK");
+                            err_dlg.add_response("ok", &tr("OK"));
                             err_dlg.present();
                         }
                     }
@@ -575,7 +585,7 @@ pub fn show_quick_look_dialog(
                 hb.set_margin_top(4);
                 hb.set_margin_bottom(4);
                 hb.append(&gtk4::Image::from_icon_name("document-open-symbolic"));
-                let l = gtk4::Label::new(Some("Abrir com aplicativo externo"));
+                let l = gtk4::Label::new(Some(&tr("Abrir com aplicativo externo")));
                 l.set_xalign(0.0);
                 hb.append(&l);
                 btn.set_child(Some(&hb));
@@ -606,7 +616,7 @@ pub fn show_quick_look_dialog(
                 hb.set_margin_top(4);
                 hb.set_margin_bottom(4);
                 hb.append(&gtk4::Image::from_icon_name("system-search-symbolic"));
-                let l = gtk4::Label::new(Some("Explicar com IA"));
+                let l = gtk4::Label::new(Some(&tr("Explain with AI")));
                 l.set_xalign(0.0);
                 hb.append(&l);
                 btn.set_child(Some(&hb));
@@ -618,15 +628,15 @@ pub fn show_quick_look_dialog(
                         let (s, e) = (buffer.start_iter(), buffer.end_iter());
                         let txt = buffer.text(&s, &e, true);
                         let sample: String = txt.lines().take(80).collect::<Vec<_>>().join("\n");
-                        let prompt = format!(
-                            "Por favor, analise e explique o código/conteúdo do arquivo '{}', sua finalidade, estrutura e pontos importantes:\n```\n{}\n```",
-                            name_c, sample
+                        let prompt = tr_fmt(
+                            "Por favor, analise e explique o código/conteúdo do arquivo '{name}', sua finalidade, estrutura e pontos importantes:\n```\n{code}\n```",
+                            &[("name", &name_c), ("code", &sample)],
                         );
                         ai(&prompt);
-                        toast_c("Análise solicitada ao Assistente de IA.");
+                        toast_c(&tr("Análise solicitada ao Assistente de IA."));
                         dlg_c.close();
                     } else {
-                        toast_c("Assistente de IA não está conectado.");
+                        toast_c(&tr("Assistente de IA não está conectado."));
                     }
                 });
                 vbox.append(&btn);
@@ -648,7 +658,7 @@ pub fn show_quick_look_dialog(
                 hb.set_margin_top(4);
                 hb.set_margin_bottom(4);
                 hb.append(&gtk4::Image::from_icon_name("accessories-calculator-symbolic"));
-                let l = gtk4::Label::new(Some("Calcular / Verificar Hash..."));
+                let l = gtk4::Label::new(Some(&tr("Calculate / Verify Hash...")));
                 l.set_xalign(0.0);
                 hb.append(&l);
                 btn.set_child(Some(&hb));
@@ -681,7 +691,7 @@ pub fn show_quick_look_dialog(
                 hb.set_margin_top(4);
                 hb.set_margin_bottom(4);
                 hb.append(&gtk4::Image::from_icon_name("edit-copy-symbolic"));
-                let l = gtk4::Label::new(Some("Copiar Conteúdo"));
+                let l = gtk4::Label::new(Some(&tr("Copy Content")));
                 l.set_xalign(0.0);
                 hb.append(&l);
                 btn.set_child(Some(&hb));
@@ -693,7 +703,7 @@ pub fn show_quick_look_dialog(
                     let txt = buffer.text(&s, &e, true);
                     if let Some(display) = gdk::Display::default() {
                         display.clipboard().set_text(&txt);
-                        toast_c("Conteúdo copiado para a área de transferência.");
+                        toast_c(&tr("Conteúdo copiado para a área de transferência."));
                     }
                 });
                 vbox.append(&btn);
@@ -715,7 +725,7 @@ pub fn show_quick_look_dialog(
                 hb.set_margin_top(4);
                 hb.set_margin_bottom(4);
                 hb.append(&gtk4::Image::from_icon_name("view-refresh-symbolic"));
-                let l = gtk4::Label::new(Some("Recarregar do Disco"));
+                let l = gtk4::Label::new(Some(&tr("Reload from Disk")));
                 l.set_xalign(0.0);
                 hb.append(&l);
                 btn.set_child(Some(&hb));
@@ -729,7 +739,7 @@ pub fn show_quick_look_dialog(
                     let reload_action = Rc::new(move || {
                         if let Ok(fresh) = fs::read_to_string(&p2) {
                             tv2.buffer().set_text(&fresh);
-                            t2("Arquivo recarregado do disco.");
+                            t2(&tr("Arquivo recarregado do disco."));
                         }
                     });
 
@@ -800,9 +810,13 @@ pub fn show_quick_look_dialog(
                 let icon = gtk4::Image::from_icon_name("folder-symbolic");
                 icon.set_pixel_size(64);
                 bin_card.append(&icon);
-                let info = gtk4::Label::new(Some(&format!(
-                    "Diretório: {}\nCaminho: {}\nPermissões: {}",
-                    entry.name, entry.path, entry.formatted_permissions()
+                let info = gtk4::Label::new(Some(&tr_fmt(
+                    "Diretório: {name}\nCaminho: {path}\nPermissões: {perms}",
+                    &[
+                        ("name", &entry.name),
+                        ("path", &entry.path),
+                        ("perms", &entry.formatted_permissions()),
+                    ],
                 )));
                 info.set_justify(gtk4::Justification::Center);
                 bin_card.append(&info);
@@ -847,19 +861,23 @@ pub fn show_quick_look_dialog(
 
                             let lines_count = raw_text.lines().count();
                             let mime = guess_mime_type(&entry.name);
-                            info_lbl.set_text(&format!(
-                                "{lines_count} linhas • {} • {mime} • UTF-8",
-                                entry.formatted_size_clean()
+                            info_lbl.set_text(&tr_fmt(
+                                "{lines} linhas • {size} • {mime} • UTF-8",
+                                &[
+                                    ("lines", &lines_count.to_string()),
+                                    ("size", &entry.formatted_size_clean()),
+                                    ("mime", mime),
+                                ],
                             ));
 
                             if editing {
                                 tv.set_editable(true);
-                                badge_lbl.set_text("Modo Edição");
+                                badge_lbl.set_text(&tr("Edit Mode"));
                                 badge_lbl.remove_css_class("dim-label");
                                 badge_lbl.add_css_class("badge-exec");
                             } else {
                                 tv.set_editable(false);
-                                badge_lbl.set_text("Modo Visualização");
+                                badge_lbl.set_text(&tr("Preview Mode"));
                                 badge_lbl.remove_css_class("badge-exec");
                                 badge_lbl.add_css_class("dim-label");
                             }
@@ -876,12 +894,14 @@ pub fn show_quick_look_dialog(
                             let icon = gtk4::Image::from_icon_name("application-x-executable-symbolic");
                             icon.set_pixel_size(64);
                             bin_card.append(&icon);
-                            let info = gtk4::Label::new(Some(&format!(
-                                "Arquivo Binário: {}\nCaminho: {}\nTamanho: {}\nPermissões: {}",
-                                entry.name,
-                                entry.path,
-                                entry.formatted_size_clean(),
-                                entry.formatted_permissions()
+                            let info = gtk4::Label::new(Some(&tr_fmt(
+                                "Arquivo Binário: {name}\nCaminho: {path}\nTamanho: {size}\nPermissões: {perms}",
+                                &[
+                                    ("name", &entry.name),
+                                    ("path", &entry.path),
+                                    ("size", &entry.formatted_size_clean()),
+                                    ("perms", &entry.formatted_permissions()),
+                                ],
                             )));
                             info.set_justify(gtk4::Justification::Center);
                             bin_card.append(&info);
@@ -895,9 +915,9 @@ pub fn show_quick_look_dialog(
                         while let Some(child) = bin_card.first_child() {
                             bin_card.remove(&child);
                         }
-                        let info = gtk4::Label::new(Some(&format!(
-                            "Não foi possível carregar o item: {}",
-                            entry.name
+                        let info = gtk4::Label::new(Some(&tr_fmt(
+                            "Não foi possível carregar o item: {name}",
+                            &[("name", &entry.name)],
                         )));
                         bin_card.append(&info);
                         stack.set_visible_child_name("binary");
@@ -949,7 +969,7 @@ pub fn show_quick_look_dialog(
                 tv.set_editable(true);
                 sb.set_visible(true);
                 ss.set_visible(true);
-                badge_lbl.set_text("Modo Edição");
+                badge_lbl.set_text(&tr("Edit Mode"));
                 badge_lbl.remove_css_class("dim-label");
                 badge_lbl.add_css_class("badge-exec");
                 tv.grab_focus();
@@ -967,7 +987,7 @@ pub fn show_quick_look_dialog(
                         tv2.set_editable(false);
                         sb2.set_visible(false);
                         ss2.set_visible(false);
-                        b_lbl.set_text("Modo Visualização");
+                        b_lbl.set_text(&tr("Preview Mode"));
                         b_lbl.remove_css_class("badge-exec");
                         b_lbl.add_css_class("dim-label");
                         btn_tog.set_active(false);
@@ -977,7 +997,7 @@ pub fn show_quick_look_dialog(
                     tv.set_editable(false);
                     sb.set_visible(false);
                     ss.set_visible(false);
-                    badge_lbl.set_text("Modo Visualização");
+                    badge_lbl.set_text(&tr("Preview Mode"));
                     badge_lbl.remove_css_class("badge-exec");
                     badge_lbl.add_css_class("dim-label");
                 }
@@ -1073,16 +1093,17 @@ pub fn show_quick_look_dialog(
 
                 let confirm = adw::MessageDialog::builder()
                     .transient_for(&dlg_w)
-                    .heading("Alterações não Salvas")
-                    .body(&format!(
-                        "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?"
+                    .heading(&tr("Unsaved Changes"))
+                    .body(&tr_fmt(
+                        "Você possui alterações não salvas em '{fname}'. O que deseja fazer antes de fechar?",
+                        &[("fname", &fname)],
                     ))
                     .close_response("cancel")
                     .build();
 
-                confirm.add_response("cancel", "Cancelar");
-                confirm.add_response("discard", "Descartar");
-                confirm.add_response("save", "Salvar & Fechar");
+                confirm.add_response("cancel", &tr("Cancelar"));
+                confirm.add_response("discard", &tr("Discard"));
+                confirm.add_response("save", &tr("Salvar & Fechar"));
                 confirm.set_response_appearance("discard", adw::ResponseAppearance::Destructive);
                 confirm.set_response_appearance("save", adw::ResponseAppearance::Suggested);
 
