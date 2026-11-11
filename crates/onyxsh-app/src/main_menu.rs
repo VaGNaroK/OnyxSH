@@ -233,36 +233,43 @@ pub fn menu_custom_css() -> &'static str {
         color: rgba(255, 255, 255, 0.85);
         min-width: 160px;
     }
-    .file-manager-grid-view flowboxchild {
-        padding: 0px;
-        margin: 0px;
-        border-radius: 6px;
+    .file-manager-grid-view {
         background: transparent;
-        transition: background-color 100ms ease;
+        padding: 8px 10px;
     }
-    .file-manager-grid-view flowboxchild:hover {
-        background-color: rgba(255, 255, 255, 0.08);
+    .file-manager-grid-view > child,
+    .file-manager-grid-view listitem {
+        padding: 3px;
+        margin: 3px;
+        border-radius: 10px;
+        background: transparent;
+        transition: background-color 150ms ease-out;
     }
-    .file-manager-grid-view flowboxchild:selected {
-        background-color: rgba(53, 132, 228, 0.35);
+    .file-manager-grid-view > child:hover,
+    .file-manager-grid-view listitem:hover {
+        background-color: rgba(255, 255, 255, 0.10);
+    }
+    .file-manager-grid-view > child:selected,
+    .file-manager-grid-view listitem:selected {
+        background-color: rgba(53, 132, 228, 0.28);
+    }
+    .file-manager-grid-view > child:selected:hover,
+    .file-manager-grid-view listitem:selected:hover {
+        background-color: rgba(53, 132, 228, 0.36);
     }
     .file-grid-card {
-        padding: 2px 2px;
-        border-radius: 6px;
-        min-width: 58px;
-        transition: background-color 100ms ease;
-    }
-    .file-grid-card:hover {
-        background-color: rgba(255, 255, 255, 0.08);
+        padding: 6px 4px;
+        border-radius: 10px;
+        min-width: 90px;
     }
     .file-grid-card-icon {
-        margin-bottom: 2px;
+        margin-bottom: 4px;
     }
     .file-grid-card-label {
-        font-size: 0.72rem;
+        font-size: 0.85rem;
     }
     .file-grid-card-size {
-        font-size: 0.62rem;
+        font-size: 0.75rem;
     }
     .file-manager-tree-view {
         background: transparent;
@@ -406,5 +413,14 @@ mod tests {
         assert!(css.contains(".themeselector checkbutton.terminal"));
         assert!(css.contains("object-select-symbolic"));
         assert!(css.contains("border-radius: 9999px"));
+    }
+
+    #[test]
+    fn test_file_manager_grid_css_matches_gtk_gridview() {
+        let css = menu_custom_css();
+        assert!(css.contains(".file-manager-grid-view > child"));
+        assert!(css.contains(".file-manager-grid-view listitem"));
+        assert!(!css.contains(".file-manager-grid-view flowboxchild"));
+        assert!(css.contains("min-width: 90px;"));
     }
 }

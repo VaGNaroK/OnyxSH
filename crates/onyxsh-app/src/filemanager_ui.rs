@@ -2,8 +2,8 @@
 //! `local_pane.py`, `dual_pane.py`, `quick_look.py`, `transfer_dialog.py`).
 //!
 //! Provides:
-//! - 3 View Modes (`gtk4::Stack`): Detailed List (sortable columns), Thumbnail/Icon Grid (`FlowBox`
-//!   with real image thumbnails via `gtk4::Picture`), and Inline Directory Tree (`gtk4::Expander`).
+//! - 3 View Modes (`gtk4::Stack`): Detailed List (sortable columns), Thumbnail/Icon Grid (`gtk4::GridView`
+//!   + `gtk4::SignalListItemFactory` matching Python `manager.py`), and Inline Directory Tree (`gtk4::ListBox`).
 //! - Clickable Breadcrumbs path bar + direct path entry, Up, Home, Refresh, New Folder, Hidden toggle,
 //!   and live search filter.
 //! - Quick Look modal preview window (Spacebar or button) with `< Prev` / `Next >` cycling,
@@ -13,6 +13,7 @@
 //! - File operations: Rename, Chmod permissions, SHA-256 Checksum, Delete, and "CD in Terminal".
 
 use gtk4::gdk;
+use gtk4::gio;
 use gtk4::glib;
 use gtk4::prelude::*;
 use libadwaita as adw;
@@ -154,26 +155,24 @@ pub fn compare_directory_entries(
     }
 }
 
-/// Checks if a file entry is an image suitable for direct thumbnail rendering.
-fn is_image_entry(entry: &FileEntry) -> bool {
+/// Resolves the `gio::Icon` for a GridView item matching Python `models.py` (`folder-symbolic` for
+/// directories including `..`, and `gio::functions::content_type_guess` / `content_type_get_icon`
+/// for files so `GridView` always uses fixed 48x48 `gtk4::Image` icons without 4K `GtkPicture` bloat).
+fn resolve_grid_item_gicon(entry: &FileEntry) -> gio::Icon {
     if entry.is_dir {
-        return false;
+        return gio::ThemedIcon::new(icon_for_entry(entry)).upcast();
     }
-    let ext = Path::new(&entry.name)
-        .extension()
-        .and_then(|e| e.to_str())
-        .unwrap_or("")
-        .to_ascii_lowercase();
-    matches!(
-        ext.as_str(),
-        "png" | "jpg" | "jpeg" | "gif" | "webp" | "svg" | "bmp" | "ico"
-    )
+    let (mime_type, _uncertain) = gio::functions::content_type_guess(Some(&entry.name), &[]);
+    if !mime_type.is_empty() {
+        return gio::functions::content_type_get_icon(mime_type.as_str());
+    }
+    gio::ThemedIcon::new(icon_for_entry(entry)).upcast()
 }
 
 /// Chooses a symbolic icon name for a [`FileEntry`], supporting specialized folders and MIME classifications.
 fn icon_for_entry(entry: &FileEntry) -> &'static str {
     if entry.name == ".." {
-        return "folder";
+        return "folder-symbolic";
     }
     if entry.is_dir {
         let lower = entry.name.to_lowercase();
@@ -2188,6 +2187,261 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
     }
 }
 
+#[derive(Clone)]
+struct GridContextDeps {
+    grid_selection: gtk4::MultiSelection,
+    pane_vbox: gtk4::Box,
+    active_popover: Rc<RefCell<Option<gtk4::Popover>>>,
+    cur_dir: Rc<RefCell<PathBuf>>,
+    parent_window: adw::ApplicationWindow,
+    status_lbl: gtk4::Label,
+    refresh_holder: Rc<RefCell<Option<Rc<dyn Fn()>>>>,
+    cd_cb: Rc<dyn Fn(&Path)>,
+    feed_cb: Rc<dyn Fn(&str)>,
+    ai_cb_opt: Option<Rc<dyn Fn(&str)>>,
+    clip_rc: Rc<RefCell<Option<FileManagerClipboardItem>>>,
+    vis_entries: Rc<RefCell<Vec<FileEntry>>>,
+    sel_entry: Rc<RefCell<Option<FileEntry>>>,
+    scol_rc: Rc<RefCell<SortColumn>>,
+    sasc_rc: Rc<RefCell<bool>>,
+    vm_rc: Rc<RefCell<FileManagerViewMode>>,
+    cs_rc: Rc<dyn Fn(SortColumn, Option<bool>)>,
+    svm_rc: Rc<dyn Fn(FileManagerViewMode)>,
+    ema_rc: Rc<Cell<bool>>,
+}
+
+/// Creates the virtualized `gtk4::GridView` + `gio::ListStore` + `gtk4::MultiSelection` +
+/// `gtk4::SignalListItemFactory` matching Python `manager.py::_create_icon_grid_view`.
+fn create_icon_grid_view() -> (
+    gtk4::GridView,
+    gio::ListStore,
+    gtk4::MultiSelection,
+    gtk4::SignalListItemFactory,
+) {
+    let grid_store = gio::ListStore::new::<glib::BoxedAnyObject>();
+    let grid_selection = gtk4::MultiSelection::new(Some(grid_store.clone()));
+    let factory = gtk4::SignalListItemFactory::new();
+
+    let grid_view = gtk4::GridView::new(Some(grid_selection.clone()), Some(factory.clone()));
+    grid_view.add_css_class("file-manager-grid-view");
+    grid_view.set_max_columns(24);
+    grid_view.set_min_columns(2);
+    grid_view.set_enable_rubberband(true);
+    grid_view.set_single_click_activate(false);
+    grid_view.set_hexpand(true);
+    grid_view.set_vexpand(true);
+
+    (grid_view, grid_store, grid_selection, factory)
+}
+
+/// Populates the badge pills row of a GridView card for executable or special file types.
+fn populate_grid_card_badges(badges_box: &gtk4::Box, entry: &FileEntry) {
+    while let Some(c) = badges_box.first_child() {
+        badges_box.remove(&c);
+    }
+    if entry.name == ".." {
+        badges_box.set_visible(false);
+        return;
+    }
+
+    let mut has_badge = false;
+    if entry.is_executable() && !entry.is_dir {
+        let badge = gtk4::Label::new(Some("+x"));
+        badge.add_css_class("badge-pill");
+        badge.add_css_class("badge-exec");
+        badge.set_tooltip_text(Some("Arquivo executável"));
+        badges_box.append(&badge);
+        has_badge = true;
+    }
+    if let Some((badge_text, badge_css)) = entry.file_type_badge() {
+        let badge = gtk4::Label::new(Some(badge_text));
+        badge.add_css_class("badge-pill");
+        badge.add_css_class(badge_css);
+        badges_box.append(&badge);
+        has_badge = true;
+    }
+    badges_box.set_visible(has_badge);
+}
+
+/// Connects `setup` and `bind` handlers on the GridView `SignalListItemFactory` matching Python
+/// `_setup_grid_item` and `_bind_grid_item`.
+fn wire_grid_factory(factory: &gtk4::SignalListItemFactory, deps: GridContextDeps) {
+    factory.connect_setup(move |_, item_obj| {
+        let Some(list_item) = item_obj.downcast_ref::<gtk4::ListItem>() else {
+            return;
+        };
+
+        let card = gtk4::Box::new(gtk4::Orientation::Vertical, 3);
+        card.add_css_class("file-grid-card");
+        card.set_valign(gtk4::Align::Center);
+        card.set_halign(gtk4::Align::Center);
+
+        let icon_box = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
+        icon_box.set_halign(gtk4::Align::Center);
+        let icon_img = gtk4::Image::new();
+        icon_img.set_pixel_size(48);
+        icon_img.add_css_class("file-grid-card-icon");
+        icon_box.append(&icon_img);
+        card.append(&icon_box);
+
+        let badges_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 2);
+        badges_box.set_halign(gtk4::Align::Center);
+        badges_box.set_visible(false);
+        card.append(&badges_box);
+
+        let name_lbl = gtk4::Label::builder()
+            .xalign(0.5)
+            .justify(gtk4::Justification::Center)
+            .wrap(true)
+            .wrap_mode(gtk4::pango::WrapMode::WordChar)
+            .width_chars(10)
+            .max_width_chars(16)
+            .lines(2)
+            .ellipsize(gtk4::pango::EllipsizeMode::Middle)
+            .build();
+        name_lbl.add_css_class("file-grid-card-label");
+        card.append(&name_lbl);
+
+        let sub_lbl = gtk4::Label::builder()
+            .xalign(0.5)
+            .justify(gtk4::Justification::Center)
+            .build();
+        sub_lbl.add_css_class("file-grid-card-size");
+        sub_lbl.add_css_class("dim-label");
+        sub_lbl.add_css_class("caption");
+        card.append(&sub_lbl);
+
+        let right_click = gtk4::GestureClick::new();
+        right_click.set_button(3);
+        let item_weak = list_item.downgrade();
+        let deps_c = deps.clone();
+        right_click.connect_pressed(move |gesture, _, x, y| {
+            let Some(item) = item_weak.upgrade() else {
+                return;
+            };
+            let Some(boxed) = item.item().and_downcast::<glib::BoxedAnyObject>() else {
+                return;
+            };
+            let entry = boxed.borrow::<FileEntry>().clone();
+            let pos = item.position();
+            let Some(card_widget) = item.child() else {
+                return;
+            };
+
+            gesture.set_state(gtk4::EventSequenceState::Claimed);
+            deps_c.ema_rc.set(true);
+            *deps_c.sel_entry.borrow_mut() = Some(entry.clone());
+            deps_c.grid_selection.select_item(pos, true);
+
+            if let Some(r) = deps_c.refresh_holder.borrow().as_ref() {
+                let clicked_widget = gesture.widget().unwrap_or(card_widget);
+                show_context_menu_for_entry(
+                    &clicked_widget,
+                    &deps_c.pane_vbox,
+                    &deps_c.active_popover,
+                    x,
+                    y,
+                    &entry,
+                    &deps_c.cur_dir,
+                    &deps_c.parent_window,
+                    &deps_c.status_lbl,
+                    r,
+                    &deps_c.cd_cb,
+                    &deps_c.feed_cb,
+                    &deps_c.ai_cb_opt,
+                    &deps_c.clip_rc,
+                    &deps_c.vis_entries,
+                    &deps_c.scol_rc,
+                    &deps_c.sasc_rc,
+                    &deps_c.vm_rc,
+                    &deps_c.cs_rc,
+                    &deps_c.svm_rc,
+                );
+            }
+        });
+        card.add_controller(right_click);
+
+        list_item.set_child(Some(&card));
+    });
+
+    factory.connect_bind(move |_, item_obj| {
+        let Some(list_item) = item_obj.downcast_ref::<gtk4::ListItem>() else {
+            return;
+        };
+        let Some(boxed) = list_item.item().and_downcast::<glib::BoxedAnyObject>() else {
+            return;
+        };
+        let entry = boxed.borrow::<FileEntry>();
+
+        let Some(card) = list_item.child().and_downcast::<gtk4::Box>() else {
+            return;
+        };
+        let Some(icon_box) = card.first_child().and_downcast::<gtk4::Box>() else {
+            return;
+        };
+        let Some(icon_img) = icon_box.first_child().and_downcast::<gtk4::Image>() else {
+            return;
+        };
+        let Some(badges_box) = icon_box.next_sibling().and_downcast::<gtk4::Box>() else {
+            return;
+        };
+        let Some(name_lbl) = badges_box.next_sibling().and_downcast::<gtk4::Label>() else {
+            return;
+        };
+        let Some(sub_lbl) = name_lbl.next_sibling().and_downcast::<gtk4::Label>() else {
+            return;
+        };
+
+        if entry.is_hidden() {
+            card.add_css_class("dim-label");
+        } else {
+            card.remove_css_class("dim-label");
+        }
+        card.set_tooltip_markup(Some(&build_entry_tooltip_markup(&entry)));
+
+        icon_img.set_from_gicon(&resolve_grid_item_gicon(&entry));
+        populate_grid_card_badges(&badges_box, &entry);
+
+        name_lbl.set_text(&entry.name);
+        if entry.is_dir {
+            name_lbl.add_css_class("heading");
+        } else {
+            name_lbl.remove_css_class("heading");
+        }
+
+        sub_lbl.set_text(&format_grid_subtitle(&entry));
+    });
+}
+
+/// Checks whether a right-click at `(x, y)` inside `scroll` landed on a file/folder row or grid card.
+fn is_entry_target_at_point(scroll: &gtk4::ScrolledWindow, x: f64, y: f64) -> bool {
+    let Some(target) = scroll.pick(x, y, gtk4::PickFlags::DEFAULT) else {
+        return false;
+    };
+    let scroll_widget = scroll.upcast_ref::<gtk4::Widget>();
+    let mut curr = Some(target);
+    while let Some(w) = curr {
+        if &w == scroll_widget {
+            break;
+        }
+        let css = w.css_name();
+        let classes = w.css_classes();
+        if css == "listitem"
+            || css == "child"
+            || css == "row"
+            || classes.iter().any(|c| {
+                c == "file-detailed-row" || c == "file-grid-card" || c == "file-tree-row"
+            })
+            || w.type_().name() == "GtkListBoxRow"
+            || w.type_().name() == "GtkFlowBoxChild"
+        {
+            return true;
+        }
+        curr = w.parent();
+    }
+    false
+}
+
 /// Builds a rich File Manager Pane with:
 /// - Navigation toolbar (`Home`, `Up`, `Refresh`, `New Folder`, clickable Breadcrumbs, Path entry, Hidden toggle, Search)
 /// - View Mode Switcher (`List`, `Grid` with thumbnails, `Tree` with inline expanders)
@@ -2362,6 +2616,8 @@ pub fn build_file_pane(
     // ── 2. Content Stack: List, Grid, Tree ───────────────────────────────────
     let view_stack = gtk4::Stack::new();
     view_stack.set_transition_type(gtk4::StackTransitionType::Crossfade);
+    view_stack.set_vhomogeneous(false);
+    view_stack.set_hhomogeneous(false);
     view_stack.set_hexpand(true);
     view_stack.set_vexpand(true);
 
@@ -2379,23 +2635,8 @@ pub fn build_file_pane(
     grid_scroll.set_hexpand(true);
     grid_scroll.set_vexpand(true);
     grid_scroll.set_policy(gtk4::PolicyType::Never, gtk4::PolicyType::Automatic);
-    let grid_flow = gtk4::FlowBox::new();
-    grid_flow.set_valign(gtk4::Align::Start);
-    grid_flow.set_halign(gtk4::Align::Fill);
-    grid_flow.set_hexpand(true);
-    grid_flow.set_homogeneous(true);
-    grid_flow.set_max_children_per_line(30);
-    grid_flow.set_min_children_per_line(2);
-    grid_flow.set_column_spacing(4);
-    grid_flow.set_row_spacing(8);
-    grid_flow.set_margin_start(4);
-    grid_flow.set_margin_end(4);
-    grid_flow.set_margin_top(4);
-    grid_flow.set_margin_bottom(4);
-    grid_flow.set_selection_mode(gtk4::SelectionMode::Single);
-    grid_flow.set_activate_on_single_click(false);
-    grid_flow.add_css_class("file-manager-grid-view");
-    grid_scroll.set_child(Some(&grid_flow));
+    let (grid_view, grid_store, grid_selection, grid_factory) = create_icon_grid_view();
+    grid_scroll.set_child(Some(&grid_view));
     view_stack.add_named(&grid_scroll, Some("grid"));
 
     let tree_scroll = gtk4::ScrolledWindow::new();
@@ -2579,6 +2820,10 @@ pub fn build_file_pane(
         let b_list = btn_mode_list.clone();
         let b_grid = btn_mode_grid.clone();
         let b_tree = btn_mode_tree.clone();
+        let ls = list_scroll.clone();
+        let gs = grid_scroll.clone();
+        let ts = tree_scroll.clone();
+        let gv = grid_view.clone();
         let rf = Rc::clone(&refresh_holder);
         Rc::new(move |mode: FileManagerViewMode| {
             *vm.borrow_mut() = mode;
@@ -2589,16 +2834,23 @@ pub fn build_file_pane(
                     if !b_list.is_active() {
                         b_list.set_active(true);
                     }
+                    ls.vadjustment().set_value(0.0);
+                    ls.hadjustment().set_value(0.0);
                 }
                 FileManagerViewMode::Grid => {
                     if !b_grid.is_active() {
                         b_grid.set_active(true);
                     }
+                    gs.vadjustment().set_value(0.0);
+                    gs.hadjustment().set_value(0.0);
+                    gv.queue_resize();
                 }
                 FileManagerViewMode::Tree => {
                     if !b_tree.is_active() {
                         b_tree.set_active(true);
                     }
+                    ts.vadjustment().set_value(0.0);
+                    ts.hadjustment().set_value(0.0);
                 }
             }
             let mode_str = match mode {
@@ -2616,6 +2868,31 @@ pub fn build_file_pane(
             }
         })
     };
+
+    wire_grid_factory(
+        &grid_factory,
+        GridContextDeps {
+            grid_selection: grid_selection.clone(),
+            pane_vbox: pane_vbox.clone(),
+            active_popover: Rc::clone(&active_popover),
+            cur_dir: Rc::clone(&current_dir),
+            parent_window: parent_window.clone(),
+            status_lbl: status_lbl.clone(),
+            refresh_holder: Rc::clone(&refresh_holder),
+            cd_cb: Rc::clone(&cd_in_terminal_cb),
+            feed_cb: Rc::clone(&feed_terminal_cb),
+            ai_cb_opt: ai_prompt_cb.clone(),
+            clip_rc: Rc::clone(&clipboard),
+            vis_entries: Rc::clone(&visible_entries),
+            sel_entry: Rc::clone(&selected_entry),
+            scol_rc: Rc::clone(&sort_col),
+            sasc_rc: Rc::clone(&sort_asc),
+            vm_rc: Rc::clone(&view_mode),
+            cs_rc: Rc::clone(&change_sort),
+            svm_rc: Rc::clone(&switch_view_mode),
+            ema_rc: Rc::clone(&entry_menu_active),
+        },
+    );
 
     // Background Right-Click Context Menus
     {
@@ -2645,31 +2922,8 @@ pub fn build_file_pane(
                 ema.set(false);
                 return;
             }
-
-            // Python-style pick check: ignore clicks on rows/items
-            if let Some(target) = scroll_ref.pick(x, y, gtk4::PickFlags::DEFAULT) {
-                let mut is_row_target = false;
-                let mut curr = Some(target);
-                while let Some(w) = curr {
-                    if &w == scroll_ref.upcast_ref::<gtk4::Widget>() {
-                        break;
-                    }
-                    let css = w.css_name();
-                    let classes = w.css_classes();
-                    if css == "listitem"
-                        || css == "row"
-                        || classes.iter().any(|c| c == "file-detailed-row" || c == "file-grid-card")
-                        || w.type_().name() == "GtkListBoxRow"
-                        || w.type_().name() == "GtkFlowBoxChild"
-                    {
-                        is_row_target = true;
-                        break;
-                    }
-                    curr = w.parent();
-                }
-                if is_row_target {
-                    return;
-                }
+            if is_entry_target_at_point(&scroll_ref, x, y) {
+                return;
             }
 
             gesture.set_state(gtk4::EventSequenceState::Claimed);
@@ -2704,7 +2958,7 @@ pub fn build_file_pane(
     {
         let bg_click_grid = gtk4::GestureClick::new();
         bg_click_grid.set_button(3);
-        let grid_ref = grid_flow.clone();
+        let grid_sel_ref = grid_selection.clone();
         let scroll_ref = grid_scroll.clone();
         let pane_ref = pane_vbox.clone();
         let act_pop = Rc::clone(&active_popover);
@@ -2728,34 +2982,12 @@ pub fn build_file_pane(
                 ema.set(false);
                 return;
             }
-
-            if let Some(target) = scroll_ref.pick(x, y, gtk4::PickFlags::DEFAULT) {
-                let mut is_row_target = false;
-                let mut curr = Some(target);
-                while let Some(w) = curr {
-                    if &w == scroll_ref.upcast_ref::<gtk4::Widget>() {
-                        break;
-                    }
-                    let css = w.css_name();
-                    let classes = w.css_classes();
-                    if css == "listitem"
-                        || css == "row"
-                        || classes.iter().any(|c| c == "file-detailed-row" || c == "file-grid-card")
-                        || w.type_().name() == "GtkListBoxRow"
-                        || w.type_().name() == "GtkFlowBoxChild"
-                    {
-                        is_row_target = true;
-                        break;
-                    }
-                    curr = w.parent();
-                }
-                if is_row_target {
-                    return;
-                }
+            if is_entry_target_at_point(&scroll_ref, x, y) {
+                return;
             }
 
             gesture.set_state(gtk4::EventSequenceState::Claimed);
-            grid_ref.unselect_all();
+            grid_sel_ref.unselect_all();
             *sel.borrow_mut() = None;
 
             if let Some(r) = rh.borrow().as_ref() {
@@ -2810,29 +3042,8 @@ pub fn build_file_pane(
                 ema.set(false);
                 return;
             }
-
-            if let Some(target) = scroll_ref.pick(x, y, gtk4::PickFlags::DEFAULT) {
-                let mut is_row_target = false;
-                let mut curr = Some(target);
-                while let Some(w) = curr {
-                    if &w == scroll_ref.upcast_ref::<gtk4::Widget>() {
-                        break;
-                    }
-                    let css = w.css_name();
-                    let classes = w.css_classes();
-                    if css == "listitem"
-                        || css == "row"
-                        || classes.iter().any(|c| c == "file-detailed-row" || c == "file-tree-row")
-                        || w.type_().name() == "GtkListBoxRow"
-                    {
-                        is_row_target = true;
-                        break;
-                    }
-                    curr = w.parent();
-                }
-                if is_row_target {
-                    return;
-                }
+            if is_entry_target_at_point(&scroll_ref, x, y) {
+                return;
             }
 
             gesture.set_state(gtk4::EventSequenceState::Claimed);
@@ -2882,7 +3093,7 @@ pub fn build_file_pane(
         let se = search_entry.clone();
         let rec_switch = recursive_switch.clone();
         let lb = list_box.clone();
-        let gf = grid_flow.clone();
+        let gs = grid_store.clone();
         let tl = tree_list.clone();
         let exp_dirs = Rc::clone(&expanded_dirs);
         let last_d = Rc::clone(&last_cur_dir);
@@ -3179,157 +3390,13 @@ pub fn build_file_pane(
                 lb.append(&list_row);
             }
 
-            // 2. Populate Thumbnail / Grid View (`grid_flow`) matching icongrade.png
-            gf.remove_all();
-            for entry in sorted.iter().take(300) {
-                let card = gtk4::Box::new(gtk4::Orientation::Vertical, 1);
-                card.add_css_class("file-grid-card");
-                card.set_width_request(60);
-                card.set_valign(gtk4::Align::Center);
-                card.set_halign(gtk4::Align::Center);
-                card.set_margin_start(1);
-                card.set_margin_end(1);
-                card.set_margin_top(2);
-                card.set_margin_bottom(2);
-                card.set_tooltip_markup(Some(&build_entry_tooltip_markup(entry)));
-
-                if entry.is_hidden() {
-                    card.add_css_class("dim-label");
-                }
-
-                let icon_box = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
-                icon_box.set_halign(gtk4::Align::Center);
-
-                if is_image_entry(entry) && entry.size <= 12 * 1024 * 1024 {
-                    // Render real image thumbnail
-                    let pic = gtk4::Picture::for_filename(&entry.path);
-                    pic.set_can_shrink(true);
-                    pic.set_size_request(44, 44);
-                    pic.set_halign(gtk4::Align::Center);
-                    pic.add_css_class("file-grid-card-icon");
-                    icon_box.append(&pic);
-                } else {
-                    let icon = gtk4::Image::from_icon_name(icon_for_entry(entry));
-                    icon.set_pixel_size(44);
-                    icon.add_css_class("file-grid-card-icon");
-                    icon_box.append(&icon);
-                }
-                card.append(&icon_box);
-
-                let badges_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 2);
-                badges_box.set_halign(gtk4::Align::Center);
-                let mut has_badge = false;
-                if entry.is_executable() && !entry.is_dir {
-                    let badge = gtk4::Label::new(Some("+x"));
-                    badge.add_css_class("badge-pill");
-                    badge.add_css_class("badge-exec");
-                    badge.set_tooltip_text(Some("Arquivo executável"));
-                    badges_box.append(&badge);
-                    has_badge = true;
-                }
-                if let Some((badge_text, badge_css)) = entry.file_type_badge() {
-                    let badge = gtk4::Label::new(Some(badge_text));
-                    badge.add_css_class("badge-pill");
-                    badge.add_css_class(badge_css);
-                    badges_box.append(&badge);
-                    has_badge = true;
-                }
-                if has_badge {
-                    card.append(&badges_box);
-                }
-
-                let name_lbl = gtk4::Label::new(Some(&entry.name));
-                name_lbl.set_halign(gtk4::Align::Center);
-                name_lbl.set_justify(gtk4::Justification::Center);
-                name_lbl.set_wrap(true);
-                name_lbl.set_wrap_mode(gtk4::pango::WrapMode::WordChar);
-                name_lbl.set_width_chars(6);
-                name_lbl.set_max_width_chars(9);
-                name_lbl.set_lines(2);
-                name_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::Middle);
-                name_lbl.add_css_class("file-grid-card-label");
-                if entry.is_dir {
-                    name_lbl.add_css_class("heading");
-                }
-                card.append(&name_lbl);
-
-                let sub_text = format_grid_subtitle(entry);
-                if !sub_text.is_empty() {
-                    let sub_lbl = gtk4::Label::new(Some(&sub_text));
-                    sub_lbl.set_halign(gtk4::Align::Center);
-                    sub_lbl.set_justify(gtk4::Justification::Center);
-                    sub_lbl.set_width_chars(6);
-                    sub_lbl.set_max_width_chars(10);
-                    sub_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::Middle);
-                    sub_lbl.add_css_class("file-grid-card-size");
-                    sub_lbl.add_css_class("dim-label");
-                    sub_lbl.add_css_class("caption");
-                    card.append(&sub_lbl);
-                }
-
-                let flow_child = gtk4::FlowBoxChild::new();
-                flow_child.set_child(Some(&card));
-
-                // Attach right-click context menu gesture to card and flow_child
-                let right_click = gtk4::GestureClick::new();
-                right_click.set_button(3);
-                let card_ref = flow_child.clone();
-                let card_box_ref = card.clone();
-                let gf_ref = gf.clone();
-                let pane_ref = pane_vbox_c.clone();
-                let act_pop = Rc::clone(&act_pop_rc);
-                let e_clone = entry.clone();
-                let cd = Rc::clone(&cur_dir);
-                let win = win_ref.clone();
-                let st = status.clone();
-                let rh = Rc::clone(&r_holder);
-                let cd_cb2 = Rc::clone(&cd_cb);
-                let feed_cb2 = Rc::clone(&feed_cb);
-                let ai_cb2 = ai_cb_opt.clone();
-                let clip2 = Rc::clone(&clip_rc);
-                let vis2 = Rc::clone(&vis_entries);
-                let sel2 = Rc::clone(&sel_entry);
-                let scol_c = Rc::clone(&scol_rc);
-                let sasc_c = Rc::clone(&sasc_rc);
-                let vm_c = Rc::clone(&vm_rc);
-                let cs_c = Rc::clone(&cs_rc);
-                let svm_c = Rc::clone(&svm_rc);
-                let ema = Rc::clone(&ema_rc);
-                right_click.connect_pressed(move |gesture, _, x, y| {
-                    gesture.set_state(gtk4::EventSequenceState::Claimed);
-                    ema.set(true);
-                    *sel2.borrow_mut() = Some(e_clone.clone());
-                    gf_ref.select_child(&card_ref);
-                    if let Some(r) = rh.borrow().as_ref() {
-                        let clicked_widget = gesture.widget().unwrap_or_else(|| card_box_ref.clone().upcast());
-                        show_context_menu_for_entry(
-                            &clicked_widget,
-                            &pane_ref,
-                            &act_pop,
-                            x,
-                            y,
-                            &e_clone,
-                            &cd,
-                            &win,
-                            &st,
-                            r,
-                            &cd_cb2,
-                            &feed_cb2,
-                            &ai_cb2,
-                            &clip2,
-                            &vis2,
-                            &scol_c,
-                            &sasc_c,
-                            &vm_c,
-                            &cs_c,
-                            &svm_c,
-                        );
-                    }
-                });
-                card.add_controller(right_click);
-
-                gf.append(&flow_child);
-            }
+            // 2. Populate Icon Grid View (`grid_store` -> `gtk4::GridView`) matching Python manager.py & icongrade.png
+            let grid_items: Vec<glib::BoxedAnyObject> = sorted
+                .iter()
+                .cloned()
+                .map(glib::BoxedAnyObject::new)
+                .collect();
+            gs.splice(0, gs.n_items(), &grid_items);
 
             // 3. Populate Hierarchical Tree View (`tree_list`) matching treehierarquic.png
             tl.remove_all();
@@ -3417,10 +3484,10 @@ pub fn build_file_pane(
     {
         let vis = Rc::clone(&visible_entries);
         let sel = Rc::clone(&selected_entry);
-        grid_flow.connect_selected_children_changed(move |gf| {
-            let selected = gf.selected_children();
-            if let Some(child) = selected.first() {
-                let idx = child.index() as usize;
+        grid_selection.connect_selection_changed(move |sel_model, _, _| {
+            let bitset = sel_model.selection();
+            if !bitset.is_empty() {
+                let idx = bitset.minimum() as usize;
                 if let Some(e) = vis.borrow().get(idx) {
                     *sel.borrow_mut() = Some(e.clone());
                 }
@@ -3435,8 +3502,8 @@ pub fn build_file_pane(
         let win_ref = parent_window.clone();
         let feed_cb = Rc::clone(&feed_terminal_cb);
         let ai_cb = ai_prompt_cb.clone();
-        grid_flow.connect_child_activated(move |_, child| {
-            let idx = child.index() as usize;
+        grid_view.connect_activate(move |_, pos| {
+            let idx = pos as usize;
             let entries = vis.borrow().clone();
             if let Some(entry) = entries.get(idx) {
                 *sel.borrow_mut() = Some(entry.clone());
@@ -3690,6 +3757,7 @@ pub fn build_file_pane(
         let ai_cb = ai_prompt_cb.clone();
         let refresh = Rc::clone(&refresh_fn);
         let key_ctrl = gtk4::EventControllerKey::new();
+        key_ctrl.set_propagation_phase(gtk4::PropagationPhase::Capture);
         key_ctrl.connect_key_pressed(move |_, key, _, _| {
             if key == gdk::Key::space {
                 let current_vm = *vm.borrow();
@@ -4305,8 +4373,58 @@ mod tests {
             permissions_octal: 0o755,
             owner: "vagnarok:vagnarok".to_string(),
         };
-        assert_eq!(icon_for_entry(&parent), "folder");
+        assert_eq!(icon_for_entry(&parent), "folder-symbolic");
         assert!(build_entry_tooltip_markup(&parent).contains("Subir para o diretório pai"));
+
+        let parent_gicon = resolve_grid_item_gicon(&parent);
+        let parent_themed = parent_gicon
+            .downcast::<gio::ThemedIcon>()
+            .expect("dir icon must be ThemedIcon");
+        assert_eq!(
+            parent_themed.names().first().map(|s| s.as_str()),
+            Some("folder-symbolic")
+        );
+
+        let readme = FileEntry {
+            name: "README.md".to_string(),
+            path: "/home/user/README.md".to_string(),
+            is_dir: false,
+            is_symlink: false,
+            size: 3072,
+            modified_epoch: 1234,
+            permissions_octal: 0o644,
+            owner: "vagnarok:vagnarok".to_string(),
+        };
+        let readme_gicon = resolve_grid_item_gicon(&readme);
+        if let Some(themed) = readme_gicon.downcast_ref::<gio::ThemedIcon>() {
+            assert!(
+                themed
+                    .names()
+                    .iter()
+                    .any(|n| n.contains("markdown") || n.contains("text")),
+                "expected markdown/text MIME icon for README.md, got {:?}",
+                themed.names()
+            );
+        }
+
+        let sample_img = FileEntry {
+            name: "sample.jpg".to_string(),
+            path: "/home/user/sample.jpg".to_string(),
+            is_dir: false,
+            is_symlink: false,
+            size: 4_000_000,
+            modified_epoch: 1234,
+            permissions_octal: 0o644,
+            owner: "vagnarok:vagnarok".to_string(),
+        };
+        let img_gicon = resolve_grid_item_gicon(&sample_img);
+        if let Some(themed) = img_gicon.downcast_ref::<gio::ThemedIcon>() {
+            assert!(
+                themed.names().iter().any(|n| n.contains("image")),
+                "expected image MIME icon for sample.jpg, got {:?}",
+                themed.names()
+            );
+        }
 
         let downloads = FileEntry {
             name: "Downloads".to_string(),
