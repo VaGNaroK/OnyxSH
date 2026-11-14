@@ -31,6 +31,8 @@ pub struct FileEntry {
     pub permissions_octal: u16,
     #[serde(default)]
     pub owner: String,
+    #[serde(default)]
+    pub symlink_target: Option<String>,
 }
 
 impl FileEntry {
@@ -297,6 +299,7 @@ mod tests {
                 modified_epoch: 100,
                 permissions_octal: 0o644,
                 owner: "user:user".to_string(),
+                symlink_target: None,
             },
             FileEntry {
                 name: "zebra.txt".to_string(),
@@ -307,6 +310,7 @@ mod tests {
                 modified_epoch: 200,
                 permissions_octal: 0o644,
                 owner: "user:user".to_string(),
+                symlink_target: None,
             },
             FileEntry {
                 name: "apps".to_string(),
@@ -317,6 +321,7 @@ mod tests {
                 modified_epoch: 150,
                 permissions_octal: 0o755,
                 owner: "user:user".to_string(),
+                symlink_target: None,
             },
         ];
 
@@ -341,6 +346,7 @@ mod tests {
             modified_epoch: 300,
             permissions_octal: 0o755,
             owner: "user:user".to_string(),
+            symlink_target: None,
         };
         assert!(script.is_executable());
         assert_eq!(script.file_type_badge(), Some(("SH", "badge-sh")));
@@ -354,6 +360,7 @@ mod tests {
             modified_epoch: 300,
             permissions_octal: 0o644,
             owner: "user:user".to_string(),
+            symlink_target: None,
         };
         assert!(!py.is_executable());
         assert_eq!(py.file_type_badge(), Some(("PY", "badge-py")));
@@ -367,6 +374,7 @@ mod tests {
             modified_epoch: 0,
             permissions_octal: 0o755,
             owner: "root:root".to_string(),
+            symlink_target: None,
         };
         assert!(!parent.is_hidden());
         assert_eq!(parent.formatted_size_clean(), "4.0 KB");
@@ -384,6 +392,7 @@ mod tests {
                 modified_epoch: 1,
                 permissions_octal: 0o644,
                 owner: "u:u".to_string(),
+                symlink_target: None,
             },
             FileEntry {
                 name: "backup.7z".to_string(),
@@ -394,6 +403,7 @@ mod tests {
                 modified_epoch: 2,
                 permissions_octal: 0o644,
                 owner: "u:u".to_string(),
+                symlink_target: None,
             },
             FileEntry {
                 name: "readme.txt".to_string(),
@@ -404,6 +414,7 @@ mod tests {
                 modified_epoch: 3,
                 permissions_octal: 0o644,
                 owner: "u:u".to_string(),
+                symlink_target: None,
             },
             FileEntry {
                 name: "archive.zip".to_string(),
@@ -414,6 +425,7 @@ mod tests {
                 modified_epoch: 4,
                 permissions_octal: 0o644,
                 owner: "u:u".to_string(),
+                symlink_target: None,
             },
             FileEntry {
                 name: "docs".to_string(),
@@ -424,6 +436,7 @@ mod tests {
                 modified_epoch: 5,
                 permissions_octal: 0o755,
                 owner: "u:u".to_string(),
+                symlink_target: None,
             },
         ];
 

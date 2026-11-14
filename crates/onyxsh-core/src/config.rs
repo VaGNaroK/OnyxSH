@@ -128,6 +128,18 @@ pub fn default_ai_panel_height() -> u32 {
     420
 }
 
+pub fn default_tftp_port() -> u16 {
+    6969
+}
+
+pub fn default_tftp_bind_addr() -> String {
+    "0.0.0.0".to_string()
+}
+
+pub fn default_tftp_dir() -> String {
+    crate::platform::home_dir().to_string_lossy().into_owned()
+}
+
 pub fn default_ai_agent_allowed_roots() -> Vec<String> {
     let home = crate::platform::home_dir();
     vec![
@@ -322,6 +334,13 @@ pub fn accelerator_to_label(accel: &str) -> String {
     parts.join("+")
 }
 
+/// File manager favorite directory entry (`file_manager_bookmarks` in `settings.json`).
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct BookmarkEntry {
+    pub name: String,
+    pub path: String,
+}
+
 /// Core settings model compatible with `~/.config/onyxsh/settings.json` (`src/onyxsh/settings/config.py`).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
@@ -352,6 +371,10 @@ pub struct AppSettings {
     pub file_manager_sort_ascending: bool,
     #[serde(default = "default_fm_view_mode")]
     pub file_manager_view_mode: String,
+    #[serde(default)]
+    pub file_manager_bookmarks: Vec<BookmarkEntry>,
+    #[serde(default)]
+    pub ignored_ssh_hosts: Vec<String>,
 
     // 2. Terminal
     pub new_instance_behavior: String,
@@ -389,6 +412,14 @@ pub struct AppSettings {
     pub ssh_auto_reconnect_attempts: u32,
     pub ssh_keepalive_interval: u32,
     pub ssh_control_persist_duration: u32,
+    #[serde(default = "default_tftp_port")]
+    pub tftp_server_port: u16,
+    #[serde(default = "default_tftp_bind_addr")]
+    pub tftp_server_bind_addr: String,
+    #[serde(default = "default_tftp_dir")]
+    pub tftp_server_upload_dir: String,
+    #[serde(default = "default_tftp_dir")]
+    pub tftp_server_download_dir: String,
 
     // 4. Advanced (Avançado)
     pub bidi_enabled: bool,
@@ -446,7 +477,7 @@ impl Default for AppSettings {
             font: "Ubuntu Mono Regular 12".to_string(),
             font_scale: 1.0,
             line_spacing: 1.0,
-            color_scheme: "onyx-dark".to_string(),
+            color_scheme: "onyx_dark".to_string(),
             transparency: 16,
             headerbar_transparency: 12,
             bold_is_bright: false,
@@ -495,6 +526,10 @@ impl Default for AppSettings {
             ssh_auto_reconnect_attempts: 5,
             ssh_keepalive_interval: 15,
             ssh_control_persist_duration: 600,
+            tftp_server_port: default_tftp_port(),
+            tftp_server_bind_addr: default_tftp_bind_addr(),
+            tftp_server_upload_dir: default_tftp_dir(),
+            tftp_server_download_dir: default_tftp_dir(),
 
             bidi_enabled: false,
             enable_shaping: false,
@@ -535,6 +570,8 @@ impl Default for AppSettings {
             ai_context_size: 8192,
             ai_panel_height: default_ai_panel_height(),
             ai_agent_allowed_roots: default_ai_agent_allowed_roots(),
+            file_manager_bookmarks: Vec::new(),
+            ignored_ssh_hosts: Vec::new(),
             shortcuts,
         }
     }
@@ -593,15 +630,28 @@ impl AppSettings {
         }
     }
 
-    /// Loads settings from a JSON file, repairing shortcuts if needed.
+    /// Parses settings JSON, unwrapping the Python `{"metadata": ..., "settings": {...}}` envelope if present.
+    pub fn load_from_str(raw: &str) -> Self {
+        let mut settings: Self = if let Ok(val) = serde_json::from_str::<serde_json::Value>(raw) {
+            let target = val.get("settings").filter(|v| v.is_object()).unwrap_or(&val);
+            serde_json::from_value(target.clone()).unwrap_or_default()
+        } else {
+            Self::default()
+        };
+        if settings.color_scheme == "onyx-dark" {
+            settings.color_scheme = "onyx_dark".to_string();
+        }
+        settings.repair_shortcuts();
+        settings
+    }
+
+    /// Loads settings from a JSON file, repairing shortcuts and supporting legacy Python envelopes.
     pub fn load_from_path(path: &Path) -> std::io::Result<Self> {
         if !path.exists() {
             return Ok(Self::default());
         }
         let raw = fs::read_to_string(path)?;
-        let mut settings: Self = serde_json::from_str(&raw).unwrap_or_default();
-        settings.repair_shortcuts();
-        Ok(settings)
+        Ok(Self::load_from_str(&raw))
     }
 
     /// Saves settings atomically via a temporary file + fsync + rename.
@@ -619,6 +669,45 @@ impl AppSettings {
         fs::rename(&tmp_path, path)?;
         Ok(())
     }
+}
+
+fn copy_dir_recursive_if_missing(src: &Path, dst: &Path) -> std::io::Result<()> {
+    if !src.exists() {
+        return Ok(());
+    }
+    fs::create_dir_all(dst)?;
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let src_path = entry.path();
+        let dst_path = dst.join(entry.file_name());
+        if src_path.is_dir() {
+            copy_dir_recursive_if_missing(&src_path, &dst_path)?;
+        } else if !dst_path.exists() {
+            fs::copy(&src_path, &dst_path)?;
+        }
+    }
+    Ok(())
+}
+
+/// Migrates legacy `~/.config/ash` or `~/.config/onyx-sh` into `target_config_dir` when neither
+/// `settings.json` nor `sessions.json` exists yet in `target_config_dir`.
+pub fn migrate_legacy_config_dirs_if_needed(target_config_dir: &Path) -> std::io::Result<Option<std::path::PathBuf>> {
+    if target_config_dir.join("settings.json").exists() || target_config_dir.join("sessions.json").exists() {
+        return Ok(None);
+    }
+    let Some(parent) = target_config_dir.parent() else {
+        return Ok(None);
+    };
+    for legacy_name in ["onyx-sh", "ash"] {
+        let legacy_dir = parent.join(legacy_name);
+        if legacy_dir != target_config_dir
+            && (legacy_dir.join("settings.json").exists() || legacy_dir.join("sessions.json").exists())
+        {
+            copy_dir_recursive_if_missing(&legacy_dir, target_config_dir)?;
+            return Ok(Some(legacy_dir));
+        }
+    }
+    Ok(None)
 }
 
 #[cfg(test)]
@@ -712,5 +801,45 @@ mod tests {
         assert_eq!(default_st.gtk_theme, "default");
         assert_eq!(default_st.ai_panel_height, 420);
         assert_eq!(default_st.ai_agent_allowed_roots.len(), 4);
+        assert_eq!(default_st.color_scheme, "onyx_dark");
+    }
+
+    #[test]
+    fn test_python_settings_wrapper_unwrap_and_legacy_migration() {
+        let python_envelope = r#"{
+            "metadata": { "version": "0.14.0", "last_saved": "2026-01-01T00:00:00Z" },
+            "settings": {
+                "color_scheme": "onyx-dark",
+                "transparency": 22,
+                "file_manager_bookmarks": [
+                    { "name": "Logs", "path": "/var/log" }
+                ],
+                "ignored_ssh_hosts": ["legacy-bastion"]
+            }
+        }"#;
+
+        let loaded = AppSettings::load_from_str(python_envelope);
+        assert_eq!(loaded.color_scheme, "onyx_dark");
+        assert_eq!(loaded.transparency, 22);
+        assert_eq!(loaded.file_manager_bookmarks.len(), 1);
+        assert_eq!(loaded.file_manager_bookmarks[0].name, "Logs");
+        assert_eq!(loaded.file_manager_bookmarks[0].path, "/var/log");
+        assert_eq!(loaded.ignored_ssh_hosts, vec!["legacy-bastion".to_string()]);
+
+        let base = std::env::temp_dir().join(format!("onyxsh_legacy_mig_{}", std::process::id()));
+        let _ = fs::remove_dir_all(&base);
+        let legacy = base.join("ash");
+        let target = base.join("onyxsh");
+        fs::create_dir_all(&legacy).unwrap();
+        fs::write(legacy.join("settings.json"), python_envelope).unwrap();
+
+        let migrated = migrate_legacy_config_dirs_if_needed(&target).unwrap();
+        assert_eq!(migrated.as_deref(), Some(legacy.as_path()));
+        assert!(target.join("settings.json").exists());
+        let target_loaded = AppSettings::load_from_path(&target.join("settings.json")).unwrap();
+        assert_eq!(target_loaded.transparency, 22);
+        assert_eq!(target_loaded.tftp_server_port, 6969);
+        assert_eq!(target_loaded.tftp_server_bind_addr, "0.0.0.0");
+        let _ = fs::remove_dir_all(&base);
     }
 }

@@ -7,19 +7,167 @@
 //! - Real-time bottom Search Entry (`sidebar_search_entry`) with automatic folder expansion
 //! - Modal Dialogs for Creating/Editing Sessions (with AES-256-CBC V2 password encryption) and Folders
 
+use gtk4::gio;
 use gtk4::prelude::*;
 use libadwaita as adw;
 use libadwaita::prelude::*;
-use onyxsh_core::crypto::{encrypt_session_password, is_securecrt_v2_password};
+use onyxsh_core::config::AppSettings;
+use onyxsh_core::crypto::{decrypt_session_password, encrypt_session_password, is_securecrt_v2_password};
 use onyxsh_core::i18n::{tr, tr_fmt};
+use onyxsh_core::importers::{import_securecrt_directory, parse_connection_uri};
+use onyxsh_core::keyring::{KeyringManager, SecretToolBackend};
 use onyxsh_core::platform;
 use onyxsh_core::security::{is_valid_host, is_valid_port, is_valid_username};
 use onyxsh_core::sessions::{SessionFolder, SessionItem, SessionsStorageData};
 use onyxsh_core::ssh_config::SshConfigParser;
 use onyxsh_core::window_state::{TabNodeState, WindowSessionState};
 use std::cell::RefCell;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashMap};
+use std::path::PathBuf;
 use std::rc::Rc;
+use vte4::prelude::*;
+
+thread_local! {
+    static PANE_SESSION_META: RefCell<HashMap<String, SessionItem>> = RefCell::new(HashMap::new());
+    static PANE_COUNTER: RefCell<u64> = const { RefCell::new(0) };
+}
+
+/// Associates live `SessionItem` metadata with a `vte4::Terminal` widget safely for split/layout capture.
+pub fn register_pane_session(term: &vte4::Terminal, session: Option<SessionItem>) {
+    let key = PANE_COUNTER.with(|c| {
+        let mut guard = c.borrow_mut();
+        *guard += 1;
+        format!("onyx-pane-{}", *guard)
+    });
+    term.set_widget_name(&key);
+    if let Some(sess) = session {
+        PANE_SESSION_META.with(|map| {
+            map.borrow_mut().insert(key, sess);
+        });
+    }
+}
+
+/// Returns the saved [`SessionItem`] metadata associated with a `vte4::Terminal`, if any.
+pub fn get_pane_session(term: &vte4::Terminal) -> Option<SessionItem> {
+    let key = term.widget_name();
+    PANE_SESSION_META.with(|map| map.borrow().get(key.as_str()).cloned())
+}
+
+fn current_pane_cwd(term: &vte4::Terminal) -> Option<String> {
+    let uri = term.current_directory_uri()?;
+    let raw = uri.as_str();
+    if let Some(stripped) = raw.strip_prefix("file://") {
+        let path_part = match stripped.find('/') {
+            Some(idx) => &stripped[idx..],
+            None => stripped,
+        };
+        if !path_part.is_empty() {
+            return Some(path_part.to_string());
+        }
+    }
+    None
+}
+
+/// Recursively inspects a GTK4 tab child widget tree into a serializable [`TabNodeState`].
+pub fn extract_tab_node_state(widget: &gtk4::Widget, fallback_title: &str) -> TabNodeState {
+    if let Ok(bx) = widget.clone().downcast::<gtk4::Box>() {
+        if let Some(inner) = bx.first_child() {
+            return extract_tab_node_state(&inner, fallback_title);
+        }
+    }
+
+    if let Ok(term) = widget.clone().downcast::<vte4::Terminal>() {
+        let pane_key = term.widget_name().to_string();
+        let sess = PANE_SESSION_META.with(|map| map.borrow().get(&pane_key).cloned());
+        let cwd = current_pane_cwd(&term);
+        let session_type = sess
+            .as_ref()
+            .map(|s| s.session_type.clone())
+            .unwrap_or_else(|| "local".to_string());
+        return TabNodeState::Terminal {
+            session_type,
+            title: fallback_title.to_string(),
+            working_directory: cwd,
+            session_data: sess,
+        };
+    }
+
+    if let Ok(paned) = widget.clone().downcast::<gtk4::Paned>() {
+        let orientation = if paned.orientation() == gtk4::Orientation::Vertical {
+            "vertical".to_string()
+        } else {
+            "horizontal".to_string()
+        };
+        let first = paned
+            .start_child()
+            .map(|w| extract_tab_node_state(&w, fallback_title))
+            .unwrap_or(TabNodeState::Terminal {
+                session_type: "local".to_string(),
+                title: fallback_title.to_string(),
+                working_directory: None,
+                session_data: None,
+            });
+        let second = paned
+            .end_child()
+            .map(|w| extract_tab_node_state(&w, fallback_title))
+            .unwrap_or(TabNodeState::Terminal {
+                session_type: "local".to_string(),
+                title: fallback_title.to_string(),
+                working_directory: None,
+                session_data: None,
+            });
+        let total = if paned.orientation() == gtk4::Orientation::Vertical {
+            paned.height()
+        } else {
+            paned.width()
+        };
+        let pos = paned.position();
+        let ratio = if total > 0 {
+            Some(((pos as f64) / (total as f64)).clamp(0.15, 0.85))
+        } else {
+            Some(0.5)
+        };
+        return TabNodeState::Paned {
+            orientation,
+            position: pos,
+            position_ratio: ratio,
+            child1: Box::new(first),
+            child2: Box::new(second),
+        };
+    }
+
+    TabNodeState::Terminal {
+        session_type: "local".to_string(),
+        title: fallback_title.to_string(),
+        working_directory: None,
+        session_data: None,
+    }
+}
+
+/// Captures the full live `adw::TabView` + panel visibility into [`WindowSessionState`].
+pub fn capture_window_session_state(
+    tab_view: &adw::TabView,
+    sidebar_visible: bool,
+    ai_panel_visible: bool,
+) -> WindowSessionState {
+    let n_pages = tab_view.n_pages();
+    let mut tabs = Vec::with_capacity(n_pages as usize);
+    let mut active_tab_index = 0usize;
+    let selected = tab_view.selected_page();
+    for i in 0..n_pages {
+        let page = tab_view.nth_page(i);
+        if selected.as_ref().is_some_and(|sel| sel == &page) {
+            active_tab_index = i as usize;
+        }
+        tabs.push(extract_tab_node_state(&page.child(), page.title().as_str()));
+    }
+    WindowSessionState {
+        tabs,
+        active_tab_index,
+        sidebar_visible,
+        ai_panel_visible,
+    }
+}
 
 /// Represents a folder group and its matching sessions for rendering in the sidebar tree.
 #[derive(Debug, Clone, PartialEq)]
@@ -195,14 +343,224 @@ pub fn remove_session_from_storage(storage: &mut SessionsStorageData, session_na
     storage.sessions.len() < before
 }
 
-/// Loads `~/.ssh/config` hosts as `SessionItem`s.
+/// Duplicates an existing session in [`SessionsStorageData`] under a unique name (`"<name> (Cópia)"`).
+pub fn clone_session_in_storage(
+    storage: &mut SessionsStorageData,
+    source_name: &str,
+) -> Option<SessionItem> {
+    let original = storage.sessions.iter().find(|s| s.name == source_name)?.clone();
+    let mut candidate = format!("{} (Cópia)", original.name);
+    let mut idx = 2usize;
+    while storage.sessions.iter().any(|s| s.name == candidate) {
+        candidate = format!("{} (Cópia {})", original.name, idx);
+        idx += 1;
+    }
+    let mut cloned = original;
+    cloned.name = candidate;
+    cloned.source = "manual".to_string();
+    storage.sessions.push(cloned.clone());
+    Some(cloned)
+}
+
+/// Moves a session into `target_folder` (normalized; empty string moves to root).
+pub fn move_session_to_folder(
+    storage: &mut SessionsStorageData,
+    session_name: &str,
+    target_folder: &str,
+) -> bool {
+    let clean_target = target_folder.trim().trim_matches('/').to_string();
+    let Some(pos) = storage.sessions.iter().position(|s| s.name == session_name) else {
+        return false;
+    };
+    if !clean_target.is_empty() {
+        upsert_folder_in_storage(storage, &clean_target);
+    }
+    storage.sessions[pos].folder_path = clean_target;
+    true
+}
+
+/// Renames a custom folder and updates nested folder paths and contained sessions.
+pub fn rename_folder_in_storage(
+    storage: &mut SessionsStorageData,
+    old_path: &str,
+    new_name: &str,
+) -> Option<String> {
+    let clean_old = old_path.trim().trim_matches('/').to_string();
+    let clean_new_leaf = new_name.trim().trim_matches('/').replace('/', "_");
+    if clean_old.is_empty() || clean_new_leaf.is_empty() {
+        return None;
+    }
+    let new_path = match clean_old.rsplit_once('/') {
+        Some((parent, _)) if !parent.is_empty() => format!("{}/{}", parent, clean_new_leaf),
+        _ => clean_new_leaf.clone(),
+    };
+    if new_path == clean_old {
+        return Some(new_path);
+    }
+    if storage
+        .folders
+        .iter()
+        .any(|f| f.path.trim_matches('/') == new_path)
+    {
+        return None;
+    }
+    let mut touched = false;
+    let old_prefix = format!("{}/", clean_old);
+    let new_prefix = format!("{}/", new_path);
+
+    for folder in &mut storage.folders {
+        let cur = folder.path.trim_matches('/').to_string();
+        if cur == clean_old {
+            folder.name = clean_new_leaf.clone();
+            folder.path = new_path.clone();
+            touched = true;
+        } else if let Some(rest) = cur.strip_prefix(&old_prefix) {
+            folder.path = format!("{}{}", new_prefix, rest);
+            touched = true;
+        }
+    }
+    if !touched {
+        return None;
+    }
+    for sess in &mut storage.sessions {
+        let cur = sess.folder_path.trim_matches('/').to_string();
+        if cur == clean_old {
+            sess.folder_path = new_path.clone();
+        } else if let Some(rest) = cur.strip_prefix(&old_prefix) {
+            sess.folder_path = format!("{}{}", new_prefix, rest);
+        }
+    }
+    Some(new_path)
+}
+
+/// Removes a folder (and nested subfolders); moves its sessions to root or deletes them.
+pub fn remove_folder_from_storage(
+    storage: &mut SessionsStorageData,
+    folder_path: &str,
+    move_sessions_to_root: bool,
+) -> bool {
+    let clean = folder_path.trim().trim_matches('/').to_string();
+    if clean.is_empty() {
+        return false;
+    }
+    let prefix = format!("{}/", clean);
+    let before = storage.folders.len();
+    storage.folders.retain(|f| {
+        let cur = f.path.trim_matches('/');
+        cur != clean && !cur.starts_with(&prefix)
+    });
+    if storage.folders.len() == before {
+        return false;
+    }
+    if move_sessions_to_root {
+        for sess in &mut storage.sessions {
+            let cur = sess.folder_path.trim_matches('/');
+            if cur == clean || cur.starts_with(&prefix) {
+                sess.folder_path.clear();
+            }
+        }
+    } else {
+        storage.sessions.retain(|sess| {
+            let cur = sess.folder_path.trim_matches('/');
+            cur != clean && !cur.starts_with(&prefix)
+        });
+    }
+    true
+}
+
+/// Resolves the plaintext password/key secret of a session (`02:` AES decrypt + system keyring fallback).
+pub fn resolve_session_secret(item: &SessionItem) -> String {
+    if item.auth_type != "password" {
+        return item.auth_value.clone();
+    }
+    if is_securecrt_v2_password(&item.auth_value) {
+        if let Ok(plain) = decrypt_session_password(&item.auth_value, "") {
+            return plain;
+        }
+    }
+    let mgr = KeyringManager::new(SecretToolBackend, "onyxsh");
+    mgr.resolve_secret(&item.name, &item.auth_value)
+}
+
+/// Filters SSH config items using an ignored host list.
+pub fn filter_ignored_ssh_hosts(items: Vec<SessionItem>, ignored: &[String]) -> Vec<SessionItem> {
+    if ignored.is_empty() {
+        return items;
+    }
+    items
+        .into_iter()
+        .filter(|item| !ignored.iter().any(|ig| ig == &item.name))
+        .collect()
+}
+
+/// Persists an OpenSSH config host alias in `settings.ignored_ssh_hosts` so it stays hidden.
+pub fn hide_ssh_config_host(host_name: &str) -> std::io::Result<()> {
+    let cfg_path = platform::config_dir().join("settings.json");
+    let mut settings = AppSettings::load_from_path(&cfg_path).unwrap_or_default();
+    if !settings.ignored_ssh_hosts.iter().any(|h| h == host_name) {
+        settings.ignored_ssh_hosts.push(host_name.to_string());
+        settings.save_to_path(&cfg_path)?;
+    }
+    Ok(())
+}
+
+/// Returns the directory holding named workspace layouts (`~/.config/onyxsh/layouts`).
+pub fn layouts_dir() -> PathBuf {
+    platform::config_dir().join("layouts")
+}
+
+/// Lists saved named layout identifiers (`layouts/<name>.json`).
+pub fn list_saved_layouts() -> Vec<String> {
+    let dir = layouts_dir();
+    let Ok(entries) = std::fs::read_dir(dir) else {
+        return Vec::new();
+    };
+    let mut names: Vec<String> = entries
+        .flatten()
+        .filter_map(|entry| {
+            let p = entry.path();
+            if p.is_file() && p.extension().and_then(|e| e.to_str()) == Some("json") {
+                p.file_stem().and_then(|s| s.to_str()).map(str::to_string)
+            } else {
+                None
+            }
+        })
+        .collect();
+    names.sort();
+    names
+}
+
+/// Saves a named layout file under `~/.config/onyxsh/layouts/<name>.json`.
+pub fn save_named_layout(name: &str, state: &WindowSessionState) -> std::io::Result<PathBuf> {
+    let safe_name: String = name
+        .trim()
+        .chars()
+        .map(|c| if c.is_ascii_alphanumeric() || c == '-' || c == '_' { c } else { '_' })
+        .collect();
+    let stem = if safe_name.is_empty() {
+        "layout".to_string()
+    } else {
+        safe_name
+    };
+    let dir = layouts_dir();
+    std::fs::create_dir_all(&dir)?;
+    let target = dir.join(format!("{}.json", stem));
+    state.save_to_path(&target)?;
+    Ok(target)
+}
+
+/// Loads `~/.ssh/config` hosts as `SessionItem`s, excluding `settings.ignored_ssh_hosts`.
 pub fn load_ssh_config_sessions() -> Vec<SessionItem> {
     let ssh_cfg_path = platform::home_dir().join(".ssh/config");
     if !ssh_cfg_path.exists() {
         return Vec::new();
     }
+    let cfg_path = platform::config_dir().join("settings.json");
+    let ignored = AppSettings::load_from_path(&cfg_path)
+        .map(|s| s.ignored_ssh_hosts)
+        .unwrap_or_default();
     let mut parser = SshConfigParser::new();
-    parser
+    let items: Vec<SessionItem> = parser
         .parse(&ssh_cfg_path)
         .into_iter()
         .map(|host_entry| {
@@ -217,7 +575,8 @@ pub fn load_ssh_config_sessions() -> Vec<SessionItem> {
             item.source = "ssh_config".to_string();
             item
         })
-        .collect()
+        .collect();
+    filter_ignored_ssh_hosts(items, &ignored)
 }
 
 /// Opens the Create Folder modal dialog (`show_folder_create_dialog`).
@@ -367,7 +726,7 @@ pub fn show_session_edit_dialog(
     // 8. Key Path or Password
     let auth_val_entry = gtk4::PasswordEntry::new();
     auth_val_entry.set_show_peek_icon(true);
-    auth_val_entry.set_text(&seed.auth_value);
+    auth_val_entry.set_text(&resolve_session_secret(&seed));
     form.append(&labeled_row(&tr("Chave SSH / Senha:"), &auth_val_entry));
 
     // 9. Post-login Command
@@ -456,6 +815,14 @@ pub fn show_session_edit_dialog(
         item.x11_forwarding = x11_sw.is_active();
         item.is_production = prod_sw.is_active();
 
+        if item.auth_type == "password" && !item.auth_value.is_empty() {
+            let mgr = KeyringManager::new(SecretToolBackend, "onyxsh");
+            let stored = mgr.store_or_encrypt(&item.name, &item.auth_value);
+            if !stored.is_empty() {
+                item.auth_value = stored;
+            }
+        }
+
         {
             let mut st = storage_rc.borrow_mut();
             upsert_session_in_storage(&mut st, orig_name.as_deref(), item);
@@ -486,6 +853,226 @@ fn labeled_row(label_text: &str, widget: &impl IsA<gtk4::Widget>) -> gtk4::Box {
     row.append(&lbl);
     row.append(widget);
     row
+}
+
+fn show_uri_import_dialog(
+    parent: &adw::ApplicationWindow,
+    storage_rc: Rc<RefCell<SessionsStorageData>>,
+    on_saved: Rc<dyn Fn()>,
+    status_lbl: gtk4::Label,
+    on_spawn: Rc<dyn Fn(&SessionItem, bool)>,
+) {
+    let dlg = adw::Window::builder()
+        .transient_for(parent)
+        .modal(true)
+        .title(&tr("Conectar por URI"))
+        .default_width(420)
+        .default_height(210)
+        .build();
+    dlg.add_css_class("onyxsh-dialog");
+
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+    let header = adw::HeaderBar::new();
+    vbox.append(&header);
+
+    let body = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
+    body.set_margin_start(14);
+    body.set_margin_end(14);
+    body.set_margin_bottom(14);
+
+    let uri_entry = gtk4::Entry::new();
+    uri_entry.set_placeholder_text(Some("ssh://user@host:22 | serial:///dev/ttyUSB0?baud=115200"));
+    body.append(&labeled_row(&tr("URI:"), &uri_entry));
+
+    let save_chk = gtk4::CheckButton::with_label(&tr("Salvar sessão na barra lateral"));
+    save_chk.set_active(true);
+    body.append(&save_chk);
+
+    let btn_row = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+    btn_row.set_halign(gtk4::Align::End);
+    let btn_connect = gtk4::Button::with_label(&tr("Connect"));
+    btn_connect.add_css_class("suggested-action");
+    btn_row.append(&btn_connect);
+    body.append(&btn_row);
+
+    let dlg_c = dlg.clone();
+    btn_connect.connect_clicked(move |_| {
+        let raw = uri_entry.text().trim().to_string();
+        match parse_connection_uri(&raw) {
+            Ok(item) => {
+                if save_chk.is_active() {
+                    let mut st = storage_rc.borrow_mut();
+                    upsert_session_in_storage(&mut st, None, item.clone());
+                    let sessions_path = platform::config_dir().join("sessions.json");
+                    let _ = st.save_to_path(&sessions_path);
+                    drop(st);
+                    on_saved();
+                }
+                on_spawn(&item, false);
+                dlg_c.close();
+            }
+            Err(err) => {
+                status_lbl.set_text(&err);
+            }
+        }
+    });
+
+    vbox.append(&body);
+    dlg.set_content(Some(&vbox));
+    dlg.present();
+}
+
+fn show_rename_folder_dialog(
+    parent: &adw::ApplicationWindow,
+    old_path: String,
+    storage_rc: Rc<RefCell<SessionsStorageData>>,
+    on_saved: Rc<dyn Fn()>,
+    status_lbl: gtk4::Label,
+) {
+    let dlg = adw::Window::builder()
+        .transient_for(parent)
+        .modal(true)
+        .title(&tr("Rename"))
+        .default_width(360)
+        .default_height(170)
+        .build();
+    dlg.add_css_class("onyxsh-dialog");
+
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+    vbox.append(&adw::HeaderBar::new());
+
+    let body = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
+    body.set_margin_start(14);
+    body.set_margin_end(14);
+    body.set_margin_bottom(14);
+
+    let leaf = old_path.rsplit('/').next().unwrap_or(&old_path);
+    let name_entry = gtk4::Entry::new();
+    name_entry.set_text(leaf);
+    body.append(&labeled_row(&tr("Nome:"), &name_entry));
+
+    let btn_save = gtk4::Button::with_label(&tr("Save"));
+    btn_save.add_css_class("suggested-action");
+    body.append(&btn_save);
+
+    let dlg_c = dlg.clone();
+    btn_save.connect_clicked(move |_| {
+        let new_name = name_entry.text().trim().to_string();
+        let mut st = storage_rc.borrow_mut();
+        if let Some(updated) = rename_folder_in_storage(&mut st, &old_path, &new_name) {
+            let sessions_path = platform::config_dir().join("sessions.json");
+            let _ = st.save_to_path(&sessions_path);
+            drop(st);
+            on_saved();
+            status_lbl.set_text(&updated);
+            dlg_c.close();
+        }
+    });
+
+    vbox.append(&body);
+    dlg.set_content(Some(&vbox));
+    dlg.present();
+}
+
+fn show_move_session_dialog(
+    parent: &adw::ApplicationWindow,
+    session_name: String,
+    storage_rc: Rc<RefCell<SessionsStorageData>>,
+    on_saved: Rc<dyn Fn()>,
+    status_lbl: gtk4::Label,
+) {
+    let dlg = adw::Window::builder()
+        .transient_for(parent)
+        .modal(true)
+        .title(&tr("Mover para Pasta"))
+        .default_width(360)
+        .default_height(180)
+        .build();
+    dlg.add_css_class("onyxsh-dialog");
+
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+    vbox.append(&adw::HeaderBar::new());
+
+    let body = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
+    body.set_margin_start(14);
+    body.set_margin_end(14);
+    body.set_margin_bottom(14);
+
+    let folder_entry = gtk4::Entry::new();
+    folder_entry.set_placeholder_text(Some("Ex: Produção/Web"));
+    body.append(&labeled_row(&tr("Pasta:"), &folder_entry));
+
+    let btn_move = gtk4::Button::with_label(&tr("Save"));
+    btn_move.add_css_class("suggested-action");
+    body.append(&btn_move);
+
+    let dlg_c = dlg.clone();
+    btn_move.connect_clicked(move |_| {
+        let target = folder_entry.text().to_string();
+        let mut st = storage_rc.borrow_mut();
+        if move_session_to_folder(&mut st, &session_name, &target) {
+            let sessions_path = platform::config_dir().join("sessions.json");
+            let _ = st.save_to_path(&sessions_path);
+            drop(st);
+            on_saved();
+            status_lbl.set_text(&session_name);
+            dlg_c.close();
+        }
+    });
+
+    vbox.append(&body);
+    dlg.set_content(Some(&vbox));
+    dlg.present();
+}
+
+fn show_save_named_layout_dialog(
+    parent: &adw::ApplicationWindow,
+    tab_view: &adw::TabView,
+    status_lbl: gtk4::Label,
+) {
+    let dlg = adw::Window::builder()
+        .transient_for(parent)
+        .modal(true)
+        .title(&tr("Salvar Layout Atual de Abas"))
+        .default_width(360)
+        .default_height(170)
+        .build();
+    dlg.add_css_class("onyxsh-dialog");
+
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+    vbox.append(&adw::HeaderBar::new());
+
+    let body = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
+    body.set_margin_start(14);
+    body.set_margin_end(14);
+    body.set_margin_bottom(14);
+
+    let name_entry = gtk4::Entry::new();
+    name_entry.set_placeholder_text(Some("Ex: prod-cluster"));
+    body.append(&labeled_row(&tr("Nome:"), &name_entry));
+
+    let btn_save = gtk4::Button::with_label(&tr("Save"));
+    btn_save.add_css_class("suggested-action");
+    body.append(&btn_save);
+
+    let dlg_c = dlg.clone();
+    let tv = tab_view.clone();
+    btn_save.connect_clicked(move |_| {
+        let name = name_entry.text().trim().to_string();
+        let win_state = capture_window_session_state(&tv, true, false);
+        let state_path = platform::config_dir().join("state.json");
+        let _ = win_state.save_to_path(&state_path);
+        if !name.is_empty() {
+            if let Ok(path) = save_named_layout(&name, &win_state) {
+                status_lbl.set_text(&path.display().to_string());
+            }
+        }
+        dlg_c.close();
+    });
+
+    vbox.append(&body);
+    dlg.set_content(Some(&vbox));
+    dlg.present();
 }
 
 /// Builds the complete Phase 11 Session Sidebar (`toolbar` + `tree` + `sidebar_search_entry`).
@@ -535,11 +1122,29 @@ pub fn build_session_sidebar(
     btn_remove_selected.add_css_class("destructive-action");
     btn_remove_selected.set_tooltip_text(Some(&tr("Remover Sessão Selecionada")));
 
+    let btn_more = gtk4::MenuButton::new();
+    btn_more.set_icon_name("view-more-symbolic");
+    btn_more.add_css_class("flat");
+    btn_more.set_tooltip_text(Some(&tr("Importar Sessões do SecureCRT")));
+
+    let more_menu = gio::Menu::new();
+    more_menu.append(Some(&tr("Conectar por URI")), Some("sidebar.connect-uri"));
+    more_menu.append(
+        Some(&tr("Importar Sessões do SecureCRT")),
+        Some("sidebar.import-securecrt"),
+    );
+    more_menu.append(
+        Some(&tr("Salvar Layout Atual de Abas")),
+        Some("sidebar.save-named-layout"),
+    );
+    btn_more.set_menu_model(Some(&more_menu));
+
     toolbar.append(&btn_add_session);
     toolbar.append(&btn_add_folder);
     toolbar.append(&btn_edit_selected);
     toolbar.append(&btn_save_layout);
     toolbar.append(&btn_remove_selected);
+    toolbar.append(&btn_more);
     sidebar_box.append(&toolbar);
 
     // Selected indicator label
@@ -561,6 +1166,8 @@ pub fn build_session_sidebar(
     sidebar_search_entry.set_placeholder_text(Some(&tr("Buscar sessões ou hosts...")));
     sidebar_box.append(&sidebar_search_entry);
 
+    let rebuild_ref: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
+
     // Tree rebuild closure
     let rebuild_tree: Rc<dyn Fn()> = {
         let tree_vbox = tree_vbox.clone();
@@ -569,6 +1176,9 @@ pub fn build_session_sidebar(
         let selected_rc = Rc::clone(&selected_session);
         let selected_lbl = selected_lbl.clone();
         let on_spawn = Rc::clone(&on_spawn_session);
+        let parent_win = parent_window.clone();
+        let status_ref = status_lbl.clone();
+        let r_ref = Rc::clone(&rebuild_ref);
 
         Rc::new(move || {
             while let Some(child) = tree_vbox.first_child() {
@@ -587,6 +1197,71 @@ pub fn build_session_sidebar(
                 let header_text = format!("{} ({})", group.display_name, group.sessions.len());
                 let expander = gtk4::Expander::new(Some(&header_text));
                 expander.set_expanded(group.expanded);
+
+                if !group.is_readonly_ssh_config && !group.folder_path.is_empty() {
+                    let f_menu = gio::Menu::new();
+                    f_menu.append(Some(&tr("Rename")), Some("folder.rename"));
+                    f_menu.append(Some(&tr("Delete")), Some("folder.delete"));
+                    let f_pop = gtk4::PopoverMenu::from_model(Some(&f_menu));
+                    f_pop.set_parent(&expander);
+                    f_pop.set_has_arrow(false);
+
+                    let f_group = gio::SimpleActionGroup::new();
+                    {
+                        let pw = parent_win.clone();
+                        let fp = group.folder_path.clone();
+                        let st_c = Rc::clone(&storage_rc);
+                        let rr = Rc::clone(&r_ref);
+                        let sl = status_ref.clone();
+                        let act = gio::SimpleAction::new("rename", None);
+                        act.connect_activate(move |_, _| {
+                            let rr_cb = Rc::clone(&rr);
+                            show_rename_folder_dialog(
+                                &pw,
+                                fp.clone(),
+                                Rc::clone(&st_c),
+                                Rc::new(move || {
+                                    if let Some(ref f) = *rr_cb.borrow() {
+                                        f();
+                                    }
+                                }),
+                                sl.clone(),
+                            );
+                        });
+                        f_group.add_action(&act);
+                    }
+                    {
+                        let fp = group.folder_path.clone();
+                        let st_c = Rc::clone(&storage_rc);
+                        let rr = Rc::clone(&r_ref);
+                        let sl = status_ref.clone();
+                        let act = gio::SimpleAction::new("delete", None);
+                        act.connect_activate(move |_, _| {
+                            let mut st = st_c.borrow_mut();
+                            if remove_folder_from_storage(&mut st, &fp, true) {
+                                let sessions_path = platform::config_dir().join("sessions.json");
+                                let _ = st.save_to_path(&sessions_path);
+                                drop(st);
+                                if let Some(ref f) = *rr.borrow() {
+                                    f();
+                                }
+                                sl.set_text(&fp);
+                            }
+                        });
+                        f_group.add_action(&act);
+                    }
+                    expander.insert_action_group("folder", Some(&f_group));
+
+                    let click = gtk4::GestureClick::builder().button(3).build();
+                    let pop_c = f_pop.clone();
+                    click.connect_pressed(move |_, _, x, y| {
+                        pop_c.set_pointing_to(Some(&gtk4::gdk::Rectangle::new(
+                            x as i32, y as i32, 1, 1,
+                        )));
+                        pop_c.popup();
+                    });
+                    expander.add_controller(click);
+                }
 
                 let group_list = gtk4::ListBox::new();
                 group_list.set_selection_mode(gtk4::SelectionMode::None);
@@ -680,6 +1355,153 @@ pub fn build_session_sidebar(
                     }
 
                     group_list.append(&row_vbox);
+
+                    // Inline right-click context menu per session row
+                    let s_menu = gio::Menu::new();
+                    s_menu.append(Some(&tr("Connect")), Some("sess.connect"));
+                    s_menu.append(Some(&tr("Split")), Some("sess.split"));
+                    if !group.is_readonly_ssh_config {
+                        s_menu.append(Some(&tr("Edit")), Some("sess.edit"));
+                        s_menu.append(Some(&tr("Duplicate")), Some("sess.clone"));
+                        s_menu.append(Some(&tr("Mover para Pasta")), Some("sess.move"));
+                        s_menu.append(Some(&tr("Delete")), Some("sess.delete"));
+                    } else {
+                        s_menu.append(Some(&tr("Hide")), Some("sess.hide-ssh"));
+                    }
+                    let s_pop = gtk4::PopoverMenu::from_model(Some(&s_menu));
+                    s_pop.set_parent(&row_vbox);
+                    s_pop.set_has_arrow(false);
+
+                    let s_group = gio::SimpleActionGroup::new();
+                    {
+                        let sc = sess.clone();
+                        let sp = Rc::clone(&on_spawn);
+                        let act = gio::SimpleAction::new("connect", None);
+                        act.connect_activate(move |_, _| sp(&sc, false));
+                        s_group.add_action(&act);
+                    }
+                    {
+                        let sc = sess.clone();
+                        let sp = Rc::clone(&on_spawn);
+                        let act = gio::SimpleAction::new("split", None);
+                        act.connect_activate(move |_, _| sp(&sc, true));
+                        s_group.add_action(&act);
+                    }
+                    {
+                        let sc = sess.clone();
+                        let pw = parent_win.clone();
+                        let st_c = Rc::clone(&storage_rc);
+                        let rr = Rc::clone(&r_ref);
+                        let sl = status_ref.clone();
+                        let act = gio::SimpleAction::new("edit", None);
+                        act.connect_activate(move |_, _| {
+                            let rr_cb = Rc::clone(&rr);
+                            show_session_edit_dialog(
+                                &pw,
+                                Some(sc.clone()),
+                                Rc::clone(&st_c),
+                                Rc::new(move || {
+                                    if let Some(ref f) = *rr_cb.borrow() {
+                                        f();
+                                    }
+                                }),
+                                sl.clone(),
+                            );
+                        });
+                        s_group.add_action(&act);
+                    }
+                    {
+                        let sname = sess.name.clone();
+                        let st_c = Rc::clone(&storage_rc);
+                        let rr = Rc::clone(&r_ref);
+                        let sl = status_ref.clone();
+                        let act = gio::SimpleAction::new("clone", None);
+                        act.connect_activate(move |_, _| {
+                            let mut st = st_c.borrow_mut();
+                            if let Some(cloned) = clone_session_in_storage(&mut st, &sname) {
+                                let sessions_path = platform::config_dir().join("sessions.json");
+                                let _ = st.save_to_path(&sessions_path);
+                                drop(st);
+                                if let Some(ref f) = *rr.borrow() {
+                                    f();
+                                }
+                                sl.set_text(&cloned.name);
+                            }
+                        });
+                        s_group.add_action(&act);
+                    }
+                    {
+                        let sname = sess.name.clone();
+                        let pw = parent_win.clone();
+                        let st_c = Rc::clone(&storage_rc);
+                        let rr = Rc::clone(&r_ref);
+                        let sl = status_ref.clone();
+                        let act = gio::SimpleAction::new("move", None);
+                        act.connect_activate(move |_, _| {
+                            let rr_cb = Rc::clone(&rr);
+                            show_move_session_dialog(
+                                &pw,
+                                sname.clone(),
+                                Rc::clone(&st_c),
+                                Rc::new(move || {
+                                    if let Some(ref f) = *rr_cb.borrow() {
+                                        f();
+                                    }
+                                }),
+                                sl.clone(),
+                            );
+                        });
+                        s_group.add_action(&act);
+                    }
+                    {
+                        let sname = sess.name.clone();
+                        let st_c = Rc::clone(&storage_rc);
+                        let rr = Rc::clone(&r_ref);
+                        let sl = status_ref.clone();
+                        let act = gio::SimpleAction::new("delete", None);
+                        act.connect_activate(move |_, _| {
+                            let mut st = st_c.borrow_mut();
+                            if remove_session_from_storage(&mut st, &sname) {
+                                let sessions_path = platform::config_dir().join("sessions.json");
+                                let _ = st.save_to_path(&sessions_path);
+                                drop(st);
+                                if let Some(ref f) = *rr.borrow() {
+                                    f();
+                                }
+                                sl.set_text(&tr_fmt(
+                                    "Sessão '{name}' removida.",
+                                    &[("name", &sname)],
+                                ));
+                            }
+                        });
+                        s_group.add_action(&act);
+                    }
+                    {
+                        let sname = sess.name.clone();
+                        let rr = Rc::clone(&r_ref);
+                        let sl = status_ref.clone();
+                        let act = gio::SimpleAction::new("hide-ssh", None);
+                        act.connect_activate(move |_, _| {
+                            if hide_ssh_config_host(&sname).is_ok() {
+                                if let Some(ref f) = *rr.borrow() {
+                                    f();
+                                }
+                                sl.set_text(&sname);
+                            }
+                        });
+                        s_group.add_action(&act);
+                    }
+                    row_vbox.insert_action_group("sess", Some(&s_group));
+
+                    let click = gtk4::GestureClick::builder().button(3).build();
+                    let pop_c = s_pop.clone();
+                    click.connect_pressed(move |_, _, x, y| {
+                        pop_c.set_pointing_to(Some(&gtk4::gdk::Rectangle::new(
+                            x as i32, y as i32, 1, 1,
+                        )));
+                        pop_c.popup();
+                    });
+                    row_vbox.add_controller(click);
                 }
 
                 expander.set_child(Some(&group_list));
@@ -688,7 +1510,78 @@ pub fn build_session_sidebar(
         })
     };
 
+    *rebuild_ref.borrow_mut() = Some(Rc::clone(&rebuild_tree));
     rebuild_tree();
+
+    // Wire sidebar toolbar overflow actions (URI, SecureCRT, Named Layout)
+    {
+        let sb_group = gio::SimpleActionGroup::new();
+        {
+            let win = parent_window.clone();
+            let st_rc = Rc::clone(&storage_rc);
+            let rt = Rc::clone(&rebuild_tree);
+            let status = status_lbl.clone();
+            let spawn = Rc::clone(&on_spawn_session);
+            let act = gio::SimpleAction::new("connect-uri", None);
+            act.connect_activate(move |_, _| {
+                show_uri_import_dialog(
+                    &win,
+                    Rc::clone(&st_rc),
+                    Rc::clone(&rt),
+                    status.clone(),
+                    Rc::clone(&spawn),
+                );
+            });
+            sb_group.add_action(&act);
+        }
+        {
+            let win = parent_window.clone();
+            let st_rc = Rc::clone(&storage_rc);
+            let rt = Rc::clone(&rebuild_tree);
+            let status = status_lbl.clone();
+            let act = gio::SimpleAction::new("import-securecrt", None);
+            act.connect_activate(move |_, _| {
+                let fd = gtk4::FileDialog::builder()
+                    .title(&tr("Importar Sessões do SecureCRT"))
+                    .build();
+                let st_c = Rc::clone(&st_rc);
+                let rt_c = Rc::clone(&rt);
+                let sl = status.clone();
+                fd.select_folder(Some(&win), gio::Cancellable::NONE, move |res| {
+                    if let Ok(folder) = res {
+                        if let Some(path) = folder.path() {
+                            let mut st = st_c.borrow_mut();
+                            match import_securecrt_directory(&path, &mut st) {
+                                Ok(report) => {
+                                    let sessions_path = platform::config_dir().join("sessions.json");
+                                    let _ = st.save_to_path(&sessions_path);
+                                    drop(st);
+                                    rt_c();
+                                    sl.set_text(&format!(
+                                        "SecureCRT: {} session(s), {} folder(s)",
+                                        report.imported_sessions, report.created_folders
+                                    ));
+                                }
+                                Err(err) => sl.set_text(&err),
+                            }
+                        }
+                    }
+                });
+            });
+            sb_group.add_action(&act);
+        }
+        {
+            let win = parent_window.clone();
+            let tv = tab_view.clone();
+            let status = status_lbl.clone();
+            let act = gio::SimpleAction::new("save-named-layout", None);
+            act.connect_activate(move |_, _| {
+                show_save_named_layout_dialog(&win, &tv, status.clone());
+            });
+            sb_group.add_action(&act);
+        }
+        sidebar_box.insert_action_group("sidebar", Some(&sb_group));
+    }
 
     // Wire search entry to live tree filter
     {
@@ -752,23 +1645,8 @@ pub fn build_session_sidebar(
         let tv = tab_view.clone();
         let status = status_lbl.clone();
         btn_save_layout.connect_clicked(move |_| {
-            let n_pages = tv.n_pages();
-            let mut tabs = Vec::new();
-            for i in 0..n_pages {
-                let page = tv.nth_page(i);
-                tabs.push(TabNodeState::Terminal {
-                    session_type: "local".to_string(),
-                    title: page.title().to_string(),
-                    working_directory: None,
-                    session_data: None,
-                });
-            }
-            let win_state = WindowSessionState {
-                tabs,
-                active_tab_index: 0,
-                sidebar_visible: true,
-                ai_panel_visible: false,
-            };
+            let win_state = capture_window_session_state(&tv, true, false);
+            let n_pages = win_state.tabs.len();
             let state_path = platform::config_dir().join("state.json");
             if win_state.save_to_path(&state_path).is_ok() {
                 status.set_text(&tr_fmt(
@@ -856,5 +1734,64 @@ mod tests {
 
         assert!(remove_session_from_storage(&mut storage, "Web-01"));
         assert!(storage.sessions.is_empty());
+    }
+
+    #[test]
+    fn test_session_clone_move_and_folder_rename_delete() {
+        let mut storage = SessionsStorageData::default();
+        upsert_folder_in_storage(&mut storage, "Infra/DB");
+        let mut s = SessionItem::default();
+        s.name = "Primary".to_string();
+        s.host = "10.0.0.5".to_string();
+        s.folder_path = "Infra/DB".to_string();
+        upsert_session_in_storage(&mut storage, None, s);
+
+        let cloned = clone_session_in_storage(&mut storage, "Primary").expect("clone session");
+        assert_eq!(cloned.name, "Primary (Cópia)");
+        assert_eq!(storage.sessions.len(), 2);
+
+        upsert_folder_in_storage(&mut storage, "Staging");
+        assert!(move_session_to_folder(&mut storage, "Primary (Cópia)", "Staging"));
+        assert_eq!(
+            storage
+                .sessions
+                .iter()
+                .find(|s| s.name == "Primary (Cópia)")
+                .unwrap()
+                .folder_path,
+            "Staging"
+        );
+
+        let renamed = rename_folder_in_storage(&mut storage, "Infra", "Production").expect("rename");
+        assert_eq!(renamed, "Production");
+        assert_eq!(
+            storage
+                .sessions
+                .iter()
+                .find(|s| s.name == "Primary")
+                .unwrap()
+                .folder_path,
+            "Production/DB"
+        );
+
+        assert!(remove_folder_from_storage(&mut storage, "Production", true));
+        assert_eq!(
+            storage
+                .sessions
+                .iter()
+                .find(|s| s.name == "Primary")
+                .unwrap()
+                .folder_path,
+            ""
+        );
+
+        let filtered = filter_ignored_ssh_hosts(
+            vec![SessionItem {
+                name: "bastion".to_string(),
+                ..SessionItem::default()
+            }],
+            &["bastion".to_string()],
+        );
+        assert!(filtered.is_empty());
     }
 }

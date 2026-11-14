@@ -3,6 +3,7 @@
 //! internationalization, and logging for OnyxSH.
 
 pub mod backup;
+pub mod command_history;
 pub mod config;
 pub mod crypto;
 pub mod i18n;
@@ -13,6 +14,7 @@ pub mod platform;
 pub mod security;
 pub mod sessions;
 pub mod snippets;
+pub mod ssh_command;
 pub mod ssh_config;
 pub mod window_state;
 

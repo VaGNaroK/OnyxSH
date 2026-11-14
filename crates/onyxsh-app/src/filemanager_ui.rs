@@ -21,18 +21,331 @@ use libadwaita::prelude::*;
 use onyxsh_core::config::AppSettings;
 use onyxsh_core::i18n::{tr, tr_fmt, tr_n};
 use onyxsh_core::platform;
-use onyxsh_filemanager::backend::{FileSystemBackend, LocalFsBackend};
-use onyxsh_filemanager::transfer::{TransferDirection, TransferItem, TransferStatus};
+use onyxsh_core::sessions::{SessionItem, SessionsStorageData};
+use onyxsh_filemanager::backend::{FileSystemBackend, LocalFsBackend, SftpFsBackend};
+use onyxsh_filemanager::transfer::{TransferDirection, TransferQueueController, TransferStatus};
 use onyxsh_filemanager::{
     filter_and_sort_entries, format_bytes, FileEntry, SortColumn,
 };
+use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::cell::{Cell, RefCell};
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs;
 use std::os::unix::fs::PermissionsExt;
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
+use std::sync::Arc;
+use std::time::Duration;
+
+const DIFF_MAX_FILE_BYTES: usize = 5 * 1024 * 1024;
+
+/// Active backend for a single File Manager pane.
+#[derive(Clone)]
+pub enum FilePaneBackend {
+    Local,
+    Sftp(SftpFsBackend),
+}
+
+impl FilePaneBackend {
+    pub fn is_sftp(&self) -> bool {
+        matches!(self, Self::Sftp(_))
+    }
+
+    pub fn display_label(&self) -> String {
+        match self {
+            Self::Local => tr("Local"),
+            Self::Sftp(sftp) => sftp.display_target(),
+        }
+    }
+
+    pub fn list_dir(&self, path: &Path) -> std::io::Result<Vec<FileEntry>> {
+        match self {
+            Self::Local => LocalFsBackend.list_dir(path),
+            Self::Sftp(sftp) => sftp.list_dir(path),
+        }
+    }
+
+    pub fn mkdir(&self, path: &Path) -> std::io::Result<()> {
+        match self {
+            Self::Local => LocalFsBackend.mkdir(path),
+            Self::Sftp(sftp) => sftp.mkdir(path),
+        }
+    }
+
+    pub fn rename(&self, from: &Path, to: &Path) -> std::io::Result<()> {
+        match self {
+            Self::Local => LocalFsBackend.rename(from, to),
+            Self::Sftp(sftp) => sftp.rename(from, to),
+        }
+    }
+
+    pub fn remove(&self, path: &Path) -> std::io::Result<()> {
+        match self {
+            Self::Local => LocalFsBackend.remove(path),
+            Self::Sftp(sftp) => sftp.remove(path),
+        }
+    }
+
+    pub fn chmod(&self, path: &Path, mode: u16) -> std::io::Result<()> {
+        match self {
+            Self::Local => LocalFsBackend.chmod(path, mode),
+            Self::Sftp(sftp) => sftp.chmod(path, mode),
+        }
+    }
+
+    pub fn create_empty_file(&self, path: &Path) -> std::io::Result<()> {
+        match self {
+            Self::Local => fs::File::create(path).map(|_| ()),
+            Self::Sftp(sftp) => sftp.write_bytes(path, &[]),
+        }
+    }
+
+    pub fn read_bytes(&self, path: &Path, max_bytes: Option<usize>) -> std::io::Result<Vec<u8>> {
+        match self {
+            Self::Local => LocalFsBackend.read_bytes(path, max_bytes),
+            Self::Sftp(sftp) => sftp.read_bytes(path, max_bytes),
+        }
+    }
+
+    pub fn free_space(&self, path: &Path) -> std::io::Result<(u64, u64)> {
+        match self {
+            Self::Local => LocalFsBackend.free_space(path),
+            Self::Sftp(sftp) => sftp.free_space(path),
+        }
+    }
+}
+
+/// Drag & Drop transfer payload serialized between Left and Right panes.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct DragTransferPayload {
+    pub source_pane: String,
+    pub path: String,
+    pub name: String,
+    pub is_dir: bool,
+    pub size_bytes: u64,
+}
+
+const DRAG_PAYLOAD_PREFIX: &str = "ONYXSH_FM_DND:";
+
+pub fn encode_drag_payload(payload: &DragTransferPayload) -> String {
+    serde_json::to_string(payload)
+        .map(|j| format!("{DRAG_PAYLOAD_PREFIX}{j}"))
+        .unwrap_or_default()
+}
+
+pub fn decode_drag_payload(raw: &str) -> Option<DragTransferPayload> {
+    let trimmed = raw.trim();
+    let json = trimmed.strip_prefix(DRAG_PAYLOAD_PREFIX)?;
+    serde_json::from_str(json).ok()
+}
+
+/// Computes a unified line-by-line text diff between `left_text` and `right_text`.
+pub fn generate_unified_diff(
+    left_label: &str,
+    right_label: &str,
+    left_text: &str,
+    right_text: &str,
+) -> String {
+    if left_text == right_text {
+        return tr("Os arquivos possuem conteúdo idêntico.");
+    }
+    let a: Vec<&str> = left_text.lines().collect();
+    let b: Vec<&str> = right_text.lines().collect();
+    if a.len() > 2500 || b.len() > 2500 {
+        // Fallback summary for very large files
+        let mut out = format!("--- {left_label}\n+++ {right_label}\n@@ -1,{} +1,{} @@\n", a.len(), b.len());
+        let max_lines = a.len().max(b.len()).min(200);
+        for i in 0..max_lines {
+            match (a.get(i), b.get(i)) {
+                (Some(la), Some(lb)) if la == lb => out.push_str(&format!(" {la}\n")),
+                (Some(la), Some(lb)) => {
+                    out.push_str(&format!("-{la}\n"));
+                    out.push_str(&format!("+{lb}\n"));
+                }
+                (Some(la), None) => out.push_str(&format!("-{la}\n")),
+                (None, Some(lb)) => out.push_str(&format!("+{lb}\n")),
+                (None, None) => {}
+            }
+        }
+        return out;
+    }
+
+    // LCS DP table
+    let n = a.len();
+    let m = b.len();
+    let mut dp = vec![vec![0u32; m + 1]; n + 1];
+    for i in (0..n).rev() {
+        for j in (0..m).rev() {
+            dp[i][j] = if a[i] == b[j] {
+                dp[i + 1][j + 1] + 1
+            } else {
+                dp[i + 1][j].max(dp[i][j + 1])
+            };
+        }
+    }
+
+    let mut out = format!("--- {left_label}\n+++ {right_label}\n@@ -1,{n} +1,{m} @@\n");
+    let (mut i, mut j) = (0, 0);
+    while i < n && j < m {
+        if a[i] == b[j] {
+            out.push_str(&format!(" {}\n", a[i]));
+            i += 1;
+            j += 1;
+        } else if dp[i + 1][j] >= dp[i][j + 1] {
+            out.push_str(&format!("-{}\n", a[i]));
+            i += 1;
+        } else {
+            out.push_str(&format!("+{}\n", b[j]));
+            j += 1;
+        }
+    }
+    while i < n {
+        out.push_str(&format!("-{}\n", a[i]));
+        i += 1;
+    }
+    while j < m {
+        out.push_str(&format!("+{}\n", b[j]));
+        j += 1;
+    }
+    out
+}
+
+fn open_quick_look_for_pane(
+    parent: &adw::ApplicationWindow,
+    entries: Vec<FileEntry>,
+    idx: usize,
+    backend: &FilePaneBackend,
+    feed_terminal_cb: Option<Rc<dyn Fn(&str)>>,
+    ai_prompt_cb: Option<Rc<dyn Fn(&str)>>,
+    refresh_fn: Option<Rc<dyn Fn()>>,
+) {
+    let ql_backend = match backend {
+        FilePaneBackend::Local => crate::quick_look_dialog::QuickLookBackend::Local,
+        FilePaneBackend::Sftp(sftp) => crate::quick_look_dialog::QuickLookBackend::Remote(sftp.clone()),
+    };
+    let cfg_path = platform::config_dir().join("settings.json");
+    let clear_on_exit = AppSettings::load_from_path(&cfg_path)
+        .map(|s| s.clear_remote_edit_files_on_exit)
+        .unwrap_or(true);
+    crate::quick_look_dialog::show_quick_look_dialog_with_backend(
+        parent,
+        entries,
+        idx,
+        ql_backend,
+        clear_on_exit,
+        feed_terminal_cb,
+        ai_prompt_cb,
+        refresh_fn,
+    );
+}
+
+fn run_backend_mutation<F>(
+    backend: &FilePaneBackend,
+    status_lbl: &gtk4::Label,
+    refresh_fn: &Rc<dyn Fn()>,
+    ok_msg: String,
+    err_prefix: String,
+    op: F,
+) where
+    F: FnOnce(&FilePaneBackend) -> std::io::Result<()> + Send + 'static,
+{
+    match backend {
+        FilePaneBackend::Local => match op(backend) {
+            Ok(()) => {
+                status_lbl.set_text(&ok_msg);
+                refresh_fn();
+            }
+            Err(e) => status_lbl.set_text(&format!("{err_prefix}: {e}")),
+        },
+        FilePaneBackend::Sftp(_) => {
+            let bk_bg = backend.clone();
+            let st_c = status_lbl.clone();
+            let rf_c = Rc::clone(refresh_fn);
+            status_lbl.set_text(&tr("Executando operação SFTP..."));
+            let (tx, rx) = std::sync::mpsc::sync_channel::<Result<(), String>>(1);
+            std::thread::spawn(move || {
+                let res = op(&bk_bg).map_err(|e| e.to_string());
+                let _ = tx.send(res);
+            });
+            glib::timeout_add_local(Duration::from_millis(40), move || match rx.try_recv() {
+                Ok(Ok(())) => {
+                    st_c.set_text(&ok_msg);
+                    rf_c();
+                    glib::ControlFlow::Break
+                }
+                Ok(Err(err)) => {
+                    st_c.set_text(&format!("{err_prefix}: {err}"));
+                    glib::ControlFlow::Break
+                }
+                Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+                Err(std::sync::mpsc::TryRecvError::Disconnected) => glib::ControlFlow::Break,
+            });
+        }
+    }
+}
+
+fn collect_local_tree_stats_depth(root: &Path, max_depth: Option<usize>) -> (usize, u64) {
+    fn walk(dir: &Path, depth: usize, max_depth: Option<usize>, items: &mut usize, bytes: &mut u64) {
+        if *items >= 10_000 {
+            return;
+        }
+        if let Some(md) = max_depth {
+            if depth > md {
+                return;
+            }
+        }
+        let Ok(rd) = fs::read_dir(dir) else {
+            return;
+        };
+        for ent in rd.flatten() {
+            let Ok(ft) = ent.file_type() else {
+                continue;
+            };
+            if ft.is_symlink() {
+                *items += 1;
+                continue;
+            }
+            if ft.is_dir() {
+                *items += 1;
+                walk(&ent.path(), depth + 1, max_depth, items, bytes);
+            } else {
+                *items += 1;
+                if let Ok(m) = ent.metadata() {
+                    *bytes = bytes.saturating_add(m.len());
+                }
+            }
+            if *items >= 10_000 {
+                break;
+            }
+        }
+    }
+    let mut items = 0usize;
+    let mut bytes = 0u64;
+    walk(root, 1, max_depth, &mut items, &mut bytes);
+    (items, bytes)
+}
+
+fn collect_sftp_tree_stats_limited(
+    sftp: &SftpFsBackend,
+    root: &Path,
+    depth_limit: usize,
+) -> (usize, u64, Vec<FileEntry>) {
+    let Ok(children) = sftp.list_dir(root) else {
+        return (0, 0, Vec::new());
+    };
+    let mut count = children.len();
+    let mut bytes: u64 = children.iter().filter(|c| !c.is_dir).map(|c| c.size).sum();
+    if depth_limit > 1 {
+        for sub in children.iter().filter(|c| c.is_dir).take(12) {
+            if let Ok(grand) = sftp.list_dir(Path::new(&sub.path)) {
+                count += grand.len();
+                bytes = bytes.saturating_add(grand.iter().filter(|g| !g.is_dir).map(|g| g.size).sum::<u64>());
+            }
+        }
+    }
+    (count, bytes, children)
+}
 
 /// Visual presentation mode for a File Manager pane.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -219,6 +532,25 @@ fn icon_for_entry(entry: &FileEntry) -> &'static str {
     }
 }
 
+/// Attaches a Pango-markup tooltip lazily via `query-tooltip` so widget creation does not
+/// trigger synchronous X11 pointer round-trips for every row.
+fn set_lazy_tooltip_markup(widget: &impl IsA<gtk4::Widget>, markup: String) {
+    widget.set_has_tooltip(true);
+    widget.connect_query_tooltip(move |_, _, _, _, tip| {
+        tip.set_markup(Some(&markup));
+        true
+    });
+}
+
+/// Attaches a plain-text tooltip lazily via `query-tooltip` (avoiding synchronous `XIQueryPointer`).
+fn set_lazy_tooltip_text(widget: &impl IsA<gtk4::Widget>, text: String) {
+    widget.set_has_tooltip(true);
+    widget.connect_query_tooltip(move |_, _, _, _, tip| {
+        tip.set_text(Some(&text));
+        true
+    });
+}
+
 /// Generates a rich, formatted Pango Markup tooltip for a file/directory row matching Python.
 fn build_entry_tooltip_markup(entry: &FileEntry) -> String {
     if entry.name == ".." {
@@ -378,14 +710,14 @@ pub fn show_quick_look_window(
 /// Opens the Transfer Queue dialog (`TransferManagerDialog`) showing active/completed transfers.
 pub fn show_transfer_queue_dialog(
     parent: &adw::ApplicationWindow,
-    transfers: &Rc<RefCell<Vec<TransferItem>>>,
+    controller: &Arc<TransferQueueController>,
 ) {
     let dlg = adw::Window::builder()
         .transient_for(parent)
-        .modal(true)
+        .modal(false)
         .title(&tr("Fila de Transferências — OnyxSH"))
-        .default_width(600)
-        .default_height(400)
+        .default_width(640)
+        .default_height(430)
         .build();
 
     let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
@@ -409,12 +741,12 @@ pub fn show_transfer_queue_dialog(
     list_box.set_margin_top(10);
     list_box.set_margin_bottom(14);
 
-    let populate = {
+    let populate: Rc<dyn Fn()> = {
         let lb = list_box.clone();
-        let tx_rc = Rc::clone(transfers);
+        let ctrl = Arc::clone(controller);
         Rc::new(move || {
             lb.remove_all();
-            let items = tx_rc.borrow();
+            let items = ctrl.snapshot();
             if items.is_empty() {
                 let empty = gtk4::Label::new(Some(&tr(
                     "Nenhuma transferência registrada na sessão.",
@@ -426,7 +758,7 @@ pub fn show_transfer_queue_dialog(
                 return;
             }
 
-            for item in items.iter().rev() {
+            for item in items.into_iter().rev() {
                 let row_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
                 row_vbox.set_margin_start(10);
                 row_vbox.set_margin_end(10);
@@ -447,24 +779,56 @@ pub fn show_transfer_queue_dialog(
                 name_lbl.set_halign(gtk4::Align::Start);
                 name_lbl.set_hexpand(true);
 
+                let speed_txt = if item.speed_bps > 1.0 && item.status == TransferStatus::InProgress {
+                    format!(" • {}/s", format_bytes(item.speed_bps as u64))
+                } else {
+                    String::new()
+                };
+                let eta_txt = item
+                    .eta_seconds()
+                    .filter(|_| item.status == TransferStatus::InProgress)
+                    .map(|s| format!(" • ETA {s}s"))
+                    .unwrap_or_default();
+
+                let status_str = match item.status {
+                    TransferStatus::Queued => tr("Na fila"),
+                    TransferStatus::InProgress => tr("Em andamento"),
+                    TransferStatus::Completed => tr("Concluído"),
+                    TransferStatus::Failed => tr("Falhou"),
+                    TransferStatus::Cancelled => tr("Cancelado"),
+                };
                 let status_lbl = gtk4::Label::new(Some(&format!(
-                    "{:?} ({}%)",
-                    item.status,
+                    "{status_str} ({}%){speed_txt}{eta_txt}",
                     item.progress_percent()
                 )));
                 status_lbl.add_css_class("caption");
                 top_hbox.append(&name_lbl);
                 top_hbox.append(&status_lbl);
+
+                if matches!(item.status, TransferStatus::Queued | TransferStatus::InProgress) {
+                    let cancel_btn = gtk4::Button::with_label(&tr("Cancelar"));
+                    cancel_btn.add_css_class("flat");
+                    cancel_btn.add_css_class("destructive-action");
+                    let ctrl_c = Arc::clone(&ctrl);
+                    let id_c = item.id.clone();
+                    cancel_btn.connect_clicked(move |_| {
+                        ctrl_c.cancel(&id_c);
+                    });
+                    top_hbox.append(&cancel_btn);
+                }
+
                 row_vbox.append(&top_hbox);
 
                 let pbar = gtk4::ProgressBar::new();
                 pbar.set_fraction(item.progress_fraction());
                 row_vbox.append(&pbar);
 
-                let paths_lbl = gtk4::Label::new(Some(&format!(
-                    "{}  ⟶  {}",
-                    item.source_path, item.destination_path
-                )));
+                let detail_str = if let Some(ref err) = item.error_message {
+                    format!("{} — {}  ⟶  {}", err, item.source_path, item.destination_path)
+                } else {
+                    format!("{}  ⟶  {}", item.source_path, item.destination_path)
+                };
+                let paths_lbl = gtk4::Label::new(Some(&detail_str));
                 paths_lbl.add_css_class("caption");
                 paths_lbl.add_css_class("dim-label");
                 paths_lbl.set_halign(gtk4::Align::Start);
@@ -479,13 +843,30 @@ pub fn show_transfer_queue_dialog(
     populate();
 
     {
-        let tx_rc = Rc::clone(transfers);
+        let ctrl_c = Arc::clone(controller);
         let pop = Rc::clone(&populate);
         clear_btn.connect_clicked(move |_| {
-            tx_rc
-                .borrow_mut()
-                .retain(|t| t.status == TransferStatus::InProgress);
+            ctrl_c.clear_finished();
             pop();
+        });
+    }
+
+    let timer_id: Rc<RefCell<Option<glib::SourceId>>> = Rc::new(RefCell::new(None));
+    {
+        let pop = Rc::clone(&populate);
+        let sid = glib::timeout_add_local(Duration::from_millis(300), move || {
+            pop();
+            glib::ControlFlow::Continue
+        });
+        *timer_id.borrow_mut() = Some(sid);
+    }
+    {
+        let tid = Rc::clone(&timer_id);
+        dlg.connect_close_request(move |_| {
+            if let Some(sid) = tid.borrow_mut().take() {
+                sid.remove();
+            }
+            glib::Propagation::Proceed
         });
     }
 
@@ -498,11 +879,14 @@ pub fn show_transfer_queue_dialog(
 /// Controller handle for a single File Manager Pane (Left or Right).
 #[derive(Clone)]
 pub struct FilePaneHandle {
+    pub pane_id: String,
     pub widget: gtk4::Box,
     pub current_dir: Rc<RefCell<PathBuf>>,
+    pub backend: Rc<RefCell<FilePaneBackend>>,
     pub selected_entry: Rc<RefCell<Option<FileEntry>>>,
     pub visible_entries: Rc<RefCell<Vec<FileEntry>>>,
     pub refresh: Rc<dyn Fn()>,
+    pub set_backend_and_dir: Rc<dyn Fn(FilePaneBackend, PathBuf)>,
     pub btn_toggle_dual: gtk4::ToggleButton,
 }
 
@@ -535,6 +919,7 @@ pub fn copy_dir_all(src: &Path, dst: &Path) -> std::io::Result<()> {
 fn execute_paste(
     clipboard: &Rc<RefCell<Option<FileManagerClipboardItem>>>,
     dest_dir: &Path,
+    dst_backend: &FilePaneBackend,
     status_lbl: &gtk4::Label,
     refresh_fn: &Rc<dyn Fn()>,
 ) {
@@ -551,6 +936,42 @@ fn execute_paste(
         }
     };
     let target = dest_dir.join(file_name);
+
+    if let FilePaneBackend::Sftp(sftp) = dst_backend {
+        if !item.path.exists() {
+            status_lbl.set_text(&tr("Colar entre pastas remotas na mesma sessão: use Mover/Renomear ou Painel Duplo."));
+            return;
+        }
+        let sftp_bg = sftp.clone();
+        let src_p = item.path.clone();
+        let dst_p = target.clone();
+        let rf_c = Rc::clone(refresh_fn);
+        let st_c = status_lbl.clone();
+        status_lbl.set_text(&tr("Enviando item colado via SFTP..."));
+        let (tx, rx) = std::sync::mpsc::sync_channel::<Result<(), String>>(1);
+        std::thread::spawn(move || {
+            let res = sftp_bg.upload_path(&src_p, &dst_p).map_err(|e| e.to_string());
+            let _ = tx.send(res);
+        });
+        let dst_disp = target;
+        glib::timeout_add_local(Duration::from_millis(40), move || match rx.try_recv() {
+            Ok(Ok(())) => {
+                st_c.set_text(&tr_fmt(
+                    "Item colado via SFTP: {path}",
+                    &[("path", &dst_disp.display().to_string())],
+                ));
+                rf_c();
+                glib::ControlFlow::Break
+            }
+            Ok(Err(e)) => {
+                st_c.set_text(&tr_fmt("Erro ao colar via SFTP: {err}", &[("err", &e)]));
+                glib::ControlFlow::Break
+            }
+            Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+            Err(std::sync::mpsc::TryRecvError::Disconnected) => glib::ControlFlow::Break,
+        });
+        return;
+    }
 
     if item.is_cut {
         match fs::rename(&item.path, &target) {
@@ -943,6 +1364,7 @@ fn show_context_menu_for_entry(
     y: f64,
     entry: &FileEntry,
     cur_dir: &Rc<RefCell<PathBuf>>,
+    pane_backend: &Rc<RefCell<FilePaneBackend>>,
     parent_window: &adw::ApplicationWindow,
     status_lbl: &gtk4::Label,
     refresh_fn: &Rc<dyn Fn()>,
@@ -1080,19 +1502,17 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "folder-new-symbolic", &tr("Nova Pasta Aqui..."), false, move || {
             let tdir = target_dir.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
+            let bk2 = Rc::clone(&bk);
             show_simple_input_dialog(&win, &tr("New Folder"), &tr("Nome da nova pasta:"), "nova_pasta", Rc::new(move |name| {
                 let p = tdir.join(name.trim());
-                match LocalFsBackend.mkdir(&p) {
-                    Ok(()) => {
-                        st2.set_text(&tr_fmt("Pasta criada: {path}", &[("path", &p.display().to_string())]));
-                        rf2();
-                    }
-                    Err(e) => st2.set_text(&tr_fmt("Erro ao criar pasta: {err}", &[("err", &e.to_string())])),
-                }
+                let ok_msg = tr_fmt("Pasta criada: {path}", &[("path", &p.display().to_string())]);
+                let bk_snap = bk2.borrow().clone();
+                run_backend_mutation(&bk_snap, &st2, &rf2, ok_msg, tr("Erro ao criar pasta"), move |b| b.mkdir(&p));
             }));
         });
 
@@ -1100,19 +1520,17 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "document-new-symbolic", &tr("Novo Arquivo Aqui..."), false, move || {
             let tdir = target_dir.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
+            let bk2 = Rc::clone(&bk);
             show_simple_input_dialog(&win, &tr("New File"), &tr("Nome do novo arquivo:"), "novo_arquivo.txt", Rc::new(move |name| {
                 let p = tdir.join(name.trim());
-                match fs::File::create(&p) {
-                    Ok(_) => {
-                        st2.set_text(&tr_fmt("Arquivo criado: {path}", &[("path", &p.display().to_string())]));
-                        rf2();
-                    }
-                    Err(e) => st2.set_text(&tr_fmt("Erro ao criar arquivo: {err}", &[("err", &e.to_string())])),
-                }
+                let ok_msg = tr_fmt("Arquivo criado: {path}", &[("path", &p.display().to_string())]);
+                let bk_snap = bk2.borrow().clone();
+                run_backend_mutation(&bk_snap, &st2, &rf2, ok_msg, tr("Erro ao criar arquivo"), move |b| b.create_empty_file(&p));
             }));
         });
 
@@ -1149,8 +1567,9 @@ fn show_context_menu_for_entry(
             let clip = Rc::clone(clipboard);
             let st = status_lbl.clone();
             let rf = Rc::clone(refresh_fn);
+            let bk = Rc::clone(pane_backend);
             add_menu_item(&menu_vbox, &popover, "edit-paste-symbolic", &tr("Colar Dentro desta Pasta"), false, move || {
-                execute_paste(&clip, &target_dir, &st, &rf);
+                execute_paste(&clip, &target_dir, &bk.borrow(), &st, &rf);
             });
         }
 
@@ -1161,20 +1580,19 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "document-edit-symbolic", &tr("Renomear..."), false, move || {
             let op = old_path.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
+            let bk2 = Rc::clone(&bk);
             show_simple_input_dialog(&win, &tr("Renomear Pasta"), &tr("Novo nome da pasta:"), &old_name, Rc::new(move |new_name| {
                 if let Some(parent) = op.parent() {
                     let np = parent.join(new_name.trim());
-                    match LocalFsBackend.rename(&op, &np) {
-                        Ok(()) => {
-                            st2.set_text(&tr_fmt("Pasta renomeada para '{name}'", &[("name", new_name.trim())]));
-                            rf2();
-                        }
-                        Err(e) => st2.set_text(&tr_fmt("Erro ao renomear: {err}", &[("err", &e.to_string())])),
-                    }
+                    let ok_msg = tr_fmt("Pasta renomeada para '{name}'", &[("name", new_name.trim())]);
+                    let bk_snap = bk2.borrow().clone();
+                    let op_bg = op.clone();
+                    run_backend_mutation(&bk_snap, &st2, &rf2, ok_msg, tr("Erro ao renomear"), move |b| b.rename(&op_bg, &np));
                 }
             }));
         });
@@ -1183,8 +1601,9 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", &tr("Permissões (chmod)..."), false, move || {
-            show_permissions_dialog(&win, &e_clone, Rc::clone(&rf), st.clone());
+            show_permissions_dialog_with_backend(&win, &e_clone, bk.borrow().clone(), Rc::clone(&rf), st.clone());
         });
 
         if let Some(ai_cb) = ai_prompt_cb.as_ref() {
@@ -1216,20 +1635,19 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "user-trash-symbolic", &tr("Excluir Pasta"), true, move || {
             let ec = e_clone.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
+            let bk2 = Rc::clone(&bk);
             let del_path = PathBuf::from(&ec.path);
             let del_name = ec.name.clone();
             show_confirm_delete_dialog(&win, &ec, Rc::new(move || {
-                match LocalFsBackend.remove(&del_path) {
-                    Ok(()) => {
-                        st2.set_text(&tr_fmt("Pasta excluída: {name}", &[("name", &del_name)]));
-                        rf2();
-                    }
-                    Err(e) => st2.set_text(&tr_fmt("Erro ao excluir pasta: {err}", &[("err", &e.to_string())])),
-                }
+                let ok_msg = tr_fmt("Pasta excluída: {name}", &[("name", &del_name)]);
+                let bk_snap = bk2.borrow().clone();
+                let dp = del_path.clone();
+                run_backend_mutation(&bk_snap, &st2, &rf2, ok_msg, tr("Erro ao excluir pasta"), move |b| b.remove(&dp));
             }));
         });
     } else {
@@ -1240,13 +1658,15 @@ fn show_context_menu_for_entry(
         let feed_cb = Rc::clone(feed_terminal_cb);
         let ai_cb = ai_prompt_cb.clone();
         let rf_cb = Rc::clone(refresh_fn);
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "find-location-symbolic", &tr("Quick Look (Pré-visualizar)"), false, move || {
             let entries = vis.borrow().clone();
             let idx = entries.iter().position(|e| e.path == path).unwrap_or(0);
-            crate::quick_look_dialog::show_quick_look_dialog(
+            open_quick_look_for_pane(
                 &win,
                 entries,
                 idx,
+                &bk.borrow(),
                 Some(Rc::clone(&feed_cb)),
                 ai_cb.clone(),
                 Some(Rc::clone(&rf_cb)),
@@ -1425,20 +1845,19 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "document-edit-symbolic", &tr("Renomear..."), false, move || {
             let op = old_path.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
+            let bk2 = Rc::clone(&bk);
             show_simple_input_dialog(&win, &tr("Renomear Arquivo"), &tr("Novo nome do arquivo:"), &old_name, Rc::new(move |new_name| {
                 if let Some(parent) = op.parent() {
                     let np = parent.join(new_name.trim());
-                    match LocalFsBackend.rename(&op, &np) {
-                        Ok(()) => {
-                            st2.set_text(&tr_fmt("Arquivo renomeado para '{name}'", &[("name", new_name.trim())]));
-                            rf2();
-                        }
-                        Err(e) => st2.set_text(&tr_fmt("Erro ao renomear: {err}", &[("err", &e.to_string())])),
-                    }
+                    let ok_msg = tr_fmt("Arquivo renomeado para '{name}'", &[("name", new_name.trim())]);
+                    let bk_snap = bk2.borrow().clone();
+                    let op_bg = op.clone();
+                    run_backend_mutation(&bk_snap, &st2, &rf2, ok_msg, tr("Erro ao renomear"), move |b| b.rename(&op_bg, &np));
                 }
             }));
         });
@@ -1447,8 +1866,9 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "channel-secure-symbolic", &tr("Permissões (chmod)..."), false, move || {
-            show_permissions_dialog(&win, &e_clone, Rc::clone(&rf), st.clone());
+            show_permissions_dialog_with_backend(&win, &e_clone, bk.borrow().clone(), Rc::clone(&rf), st.clone());
         });
 
         menu_vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
@@ -1457,23 +1877,19 @@ fn show_context_menu_for_entry(
         let win = parent_window.clone();
         let rf = Rc::clone(refresh_fn);
         let st = status_lbl.clone();
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "user-trash-symbolic", &tr("Delete File"), true, move || {
             let ec = e_clone.clone();
             let rf2 = Rc::clone(&rf);
             let st2 = st.clone();
+            let bk2 = Rc::clone(&bk);
             let del_path = PathBuf::from(&ec.path);
             let del_name = ec.name.clone();
             show_confirm_delete_dialog(&win, &ec, Rc::new(move || {
-                match LocalFsBackend.remove(&del_path) {
-                    Ok(()) => {
-                        st2.set_text(&tr_fmt("Arquivo excluído: {name}", &[("name", &del_name)]));
-                        rf2();
-                    }
-                    Err(e) => st2.set_text(&tr_fmt(
-                        "Erro ao excluir arquivo: {err}",
-                        &[("err", &e.to_string())],
-                    )),
-                }
+                let ok_msg = tr_fmt("Arquivo excluído: {name}", &[("name", &del_name)]);
+                let bk_snap = bk2.borrow().clone();
+                let dp = del_path.clone();
+                run_backend_mutation(&bk_snap, &st2, &rf2, ok_msg, tr("Erro ao excluir arquivo"), move |b| b.remove(&dp));
             }));
         });
     }
@@ -1509,6 +1925,7 @@ fn show_context_menu_for_background(
     x: f64,
     y: f64,
     cur_dir: &Rc<RefCell<PathBuf>>,
+    pane_backend: &Rc<RefCell<FilePaneBackend>>,
     parent_window: &adw::ApplicationWindow,
     status_lbl: &gtk4::Label,
     refresh_fn: &Rc<dyn Fn()>,
@@ -1594,19 +2011,17 @@ fn show_context_menu_for_background(
     let win = parent_window.clone();
     let rf = Rc::clone(refresh_fn);
     let st = status_lbl.clone();
+    let bk = Rc::clone(pane_backend);
     add_menu_item(&menu_vbox, &popover, "folder-new-symbolic", &tr("Nova Pasta..."), false, move || {
         let tdir = cd.borrow().clone();
         let rf2 = Rc::clone(&rf);
         let st2 = st.clone();
+        let bk2 = Rc::clone(&bk);
         show_simple_input_dialog(&win, &tr("New Folder"), &tr("Nome da nova pasta:"), "nova_pasta", Rc::new(move |name| {
             let p = tdir.join(name.trim());
-            match LocalFsBackend.mkdir(&p) {
-                Ok(()) => {
-                    st2.set_text(&tr_fmt("Pasta criada: {path}", &[("path", &p.display().to_string())]));
-                    rf2();
-                }
-                Err(e) => st2.set_text(&tr_fmt("Erro ao criar pasta: {err}", &[("err", &e.to_string())])),
-            }
+            let ok_msg = tr_fmt("Pasta criada: {path}", &[("path", &p.display().to_string())]);
+            let bk_snap = bk2.borrow().clone();
+            run_backend_mutation(&bk_snap, &st2, &rf2, ok_msg, tr("Erro ao criar pasta"), move |b| b.mkdir(&p));
         }));
     });
 
@@ -1614,19 +2029,17 @@ fn show_context_menu_for_background(
     let win = parent_window.clone();
     let rf = Rc::clone(refresh_fn);
     let st = status_lbl.clone();
+    let bk = Rc::clone(pane_backend);
     add_menu_item(&menu_vbox, &popover, "document-new-symbolic", &tr("Novo Arquivo..."), false, move || {
         let tdir = cd.borrow().clone();
         let rf2 = Rc::clone(&rf);
         let st2 = st.clone();
+        let bk2 = Rc::clone(&bk);
         show_simple_input_dialog(&win, &tr("New File"), &tr("Nome do novo arquivo:"), "novo_arquivo.txt", Rc::new(move |name| {
             let p = tdir.join(name.trim());
-            match fs::File::create(&p) {
-                Ok(_) => {
-                    st2.set_text(&tr_fmt("Arquivo criado: {path}", &[("path", &p.display().to_string())]));
-                    rf2();
-                }
-                Err(e) => st2.set_text(&tr_fmt("Erro ao criar arquivo: {err}", &[("err", &e.to_string())])),
-            }
+            let ok_msg = tr_fmt("Arquivo criado: {path}", &[("path", &p.display().to_string())]);
+            let bk_snap = bk2.borrow().clone();
+            run_backend_mutation(&bk_snap, &st2, &rf2, ok_msg, tr("Erro ao criar arquivo"), move |b| b.create_empty_file(&p));
         }));
     });
 
@@ -1635,8 +2048,9 @@ fn show_context_menu_for_background(
         let clip = Rc::clone(clipboard);
         let st = status_lbl.clone();
         let rf = Rc::clone(refresh_fn);
+        let bk = Rc::clone(pane_backend);
         add_menu_item(&menu_vbox, &popover, "edit-paste-symbolic", &tr("Colar Aqui"), false, move || {
-            execute_paste(&clip, &cd.borrow(), &st, &rf);
+            execute_paste(&clip, &cd.borrow(), &bk.borrow(), &st, &rf);
         });
     }
 
@@ -1730,6 +2144,7 @@ fn search_recursive_dir(root: &Path, query: &str, limit: usize) -> Vec<FileEntry
                             path: path.to_string_lossy().into_owned(),
                             is_dir,
                             is_symlink,
+                            symlink_target: None,
                             size,
                             modified_epoch,
                             permissions_octal,
@@ -1755,32 +2170,31 @@ pub struct FileManagerBookmark {
 
 pub fn load_bookmarks() -> Vec<FileManagerBookmark> {
     let settings_path = platform::config_dir().join("settings.json");
-    if let Ok(content) = fs::read_to_string(&settings_path) {
-        if let Ok(v) = serde_json::from_str::<serde_json::Value>(&content) {
-            if let Some(bm_val) = v.get("settings").and_then(|s| s.get("file_manager_bookmarks")) {
-                if let Ok(list) = serde_json::from_value::<Vec<FileManagerBookmark>>(bm_val.clone()) {
-                    return list;
-                }
-            }
-        }
+    if let Ok(settings) = onyxsh_core::config::AppSettings::load_from_path(&settings_path) {
+        return settings
+            .file_manager_bookmarks
+            .into_iter()
+            .map(|b| FileManagerBookmark {
+                name: b.name,
+                path: b.path,
+            })
+            .collect();
     }
     Vec::new()
 }
 
 pub fn save_bookmarks(bookmarks: &[FileManagerBookmark]) {
     let settings_path = platform::config_dir().join("settings.json");
-    if let Ok(content) = fs::read_to_string(&settings_path) {
-        if let Ok(mut v) = serde_json::from_str::<serde_json::Value>(&content) {
-            if let Some(s) = v.get_mut("settings") {
-                if let Ok(bm_json) = serde_json::to_value(bookmarks) {
-                    s["file_manager_bookmarks"] = bm_json;
-                    if let Ok(out) = serde_json::to_string_pretty(&v) {
-                        let _ = fs::write(&settings_path, out);
-                    }
-                }
-            }
-        }
-    }
+    let mut settings =
+        onyxsh_core::config::AppSettings::load_from_path(&settings_path).unwrap_or_default();
+    settings.file_manager_bookmarks = bookmarks
+        .iter()
+        .map(|b| onyxsh_core::config::BookmarkEntry {
+            name: b.name.clone(),
+            path: b.path.clone(),
+        })
+        .collect();
+    let _ = settings.save_to_path(&settings_path);
 }
 
 fn find_git_root(start: &Path) -> Option<PathBuf> {
@@ -1995,10 +2409,12 @@ fn show_quick_jump_popover(
 }
 
 struct TreeRenderContext<'a> {
+    pane_id: &'a str,
     tree_list: &'a gtk4::ListBox,
     pane_vbox: &'a gtk4::Box,
     active_popover: &'a Rc<RefCell<Option<gtk4::Popover>>>,
     cur_dir: &'a Rc<RefCell<PathBuf>>,
+    backend: &'a Rc<RefCell<FilePaneBackend>>,
     parent_window: &'a adw::ApplicationWindow,
     status_lbl: &'a gtk4::Label,
     refresh_holder: &'a Rc<RefCell<Option<Rc<dyn Fn()>>>>,
@@ -2015,8 +2431,49 @@ struct TreeRenderContext<'a> {
     svm_rc: &'a Rc<dyn Fn(FileManagerViewMode)>,
     ema_rc: &'a Rc<Cell<bool>>,
     expanded_dirs: &'a Rc<RefCell<HashSet<PathBuf>>>,
+    tree_metrics_cache: &'a Rc<RefCell<HashMap<PathBuf, (usize, u64)>>>,
+    tree_children_cache: &'a Rc<RefCell<HashMap<PathBuf, Vec<FileEntry>>>>,
+    tree_fetching: &'a Rc<RefCell<HashSet<PathBuf>>>,
     show_hidden: bool,
     search_query: &'a str,
+}
+
+fn format_cached_tree_summary(entry: &FileEntry, cached: Option<(usize, u64)>) -> String {
+    if entry.name == ".." {
+        return String::new();
+    }
+    if !entry.is_dir {
+        return format_bytes(entry.size);
+    }
+    if let Some((count, bytes)) = cached {
+        let items_str = tr_n("item", "itens", count as u64);
+        let size_str = format_bytes(bytes);
+        return format!("{size_str} ({count} {items_str})");
+    }
+    String::new()
+}
+
+fn attach_row_drag_source(widget: &impl IsA<gtk4::Widget>, pane_id: &str, entry: &FileEntry) {
+    if entry.name == ".." {
+        return;
+    }
+    let payload = DragTransferPayload {
+        source_pane: pane_id.to_string(),
+        path: entry.path.clone(),
+        name: entry.name.clone(),
+        is_dir: entry.is_dir,
+        size_bytes: entry.size,
+    };
+    let encoded = encode_drag_payload(&payload);
+    if encoded.is_empty() {
+        return;
+    }
+    let drag_src = gtk4::DragSource::new();
+    drag_src.set_actions(gdk::DragAction::COPY);
+    drag_src.connect_prepare(move |_, _, _| {
+        Some(gdk::ContentProvider::for_value(&encoded.to_value()))
+    });
+    widget.add_controller(drag_src);
 }
 
 fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: usize) {
@@ -2039,7 +2496,7 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
         row_hbox.set_margin_end(16);
         row_hbox.set_margin_top(2);
         row_hbox.set_margin_bottom(2);
-        row_hbox.set_tooltip_markup(Some(&build_entry_tooltip_markup(entry)));
+        set_lazy_tooltip_markup(&row_hbox, build_entry_tooltip_markup(entry));
 
         if entry.is_hidden() {
             row_hbox.add_css_class("dim-label");
@@ -2110,7 +2567,7 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
 
         if entry.is_symlink {
             let sym_icon = gtk4::Image::from_icon_name("emblem-symbolic-link-symbolic");
-            sym_icon.set_tooltip_text(Some(&tr("Symbolic Link")));
+            set_lazy_tooltip_text(&sym_icon, tr("Symbolic Link"));
             name_box.append(&sym_icon);
         }
 
@@ -2119,7 +2576,7 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
             let badge_exec = gtk4::Label::new(Some("+x"));
             badge_exec.add_css_class("badge-pill");
             badge_exec.add_css_class("badge-exec");
-            badge_exec.set_tooltip_text(Some(&tr("Executable file")));
+            set_lazy_tooltip_text(&badge_exec, tr("Executable file"));
             badges_box.append(&badge_exec);
         }
         if let Some((badge_text, badge_css)) = entry.file_type_badge() {
@@ -2130,7 +2587,18 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
         }
         name_box.append(&badges_box);
 
-        let size_str = format_tree_size_summary(entry);
+        let cached_stat = if entry.is_dir && entry.name != ".." {
+            ctx.tree_metrics_cache.borrow().get(Path::new(&entry.path)).copied()
+        } else {
+            None
+        };
+        let size_str = if entry.is_dir && cached_stat.is_none() && ctx.backend.borrow().is_sftp() {
+            if entry.name == ".." { String::new() } else { "—".to_string() }
+        } else if entry.is_dir && cached_stat.is_some() {
+            format_cached_tree_summary(entry, cached_stat)
+        } else {
+            format_tree_size_summary(entry)
+        };
         let size_lbl = gtk4::Label::new(Some(&size_str));
         size_lbl.add_css_class("file-detailed-col-size");
         size_lbl.add_css_class("monospace");
@@ -2146,10 +2614,13 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
         let perm_lbl = gtk4::Label::new(Some(&entry.formatted_permissions()));
         perm_lbl.add_css_class("file-detailed-col-perms");
         perm_lbl.add_css_class("monospace");
-        perm_lbl.set_tooltip_text(Some(&tr_fmt(
-            "Octal: {mode}",
-            &[("mode", &entry.permissions_octal_str())],
-        )));
+        set_lazy_tooltip_text(
+            &perm_lbl,
+            tr_fmt(
+                "Octal: {mode}",
+                &[("mode", &entry.permissions_octal_str())],
+            ),
+        );
         perm_lbl.set_width_request(110);
         perm_lbl.set_xalign(0.5);
 
@@ -2179,9 +2650,10 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
         let pane_ref = ctx.pane_vbox.clone();
         let act_pop = Rc::clone(ctx.active_popover);
         let e_clone = entry.clone();
-        let cd = Rc::clone(ctx.cur_dir);
-        let win = ctx.parent_window.clone();
-        let st = ctx.status_lbl.clone();
+        let cur_dir_c = Rc::clone(ctx.cur_dir);
+        let bk_c = Rc::clone(ctx.backend);
+        let win_ref = ctx.parent_window.clone();
+        let st_c = ctx.status_lbl.clone();
         let rh = Rc::clone(ctx.refresh_holder);
         let cd_cb2 = Rc::clone(ctx.cd_cb);
         let feed_cb2 = Rc::clone(ctx.feed_cb);
@@ -2209,9 +2681,10 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
                     x,
                     y,
                     &e_clone,
-                    &cd,
-                    &win,
-                    &st,
+                    &cur_dir_c,
+                    &bk_c,
+                    &win_ref,
+                    &st_c,
                     r,
                     &cd_cb2,
                     &feed_cb2,
@@ -2227,12 +2700,133 @@ fn populate_tree_level(ctx: &TreeRenderContext, entries: &[FileEntry], depth: us
             }
         });
         row_hbox.add_controller(right_click);
+        attach_row_drag_source(&row_hbox, ctx.pane_id, entry);
 
         ctx.tree_list.append(&list_row);
 
+        // Trigger async deep Local metrics or depth<=2 SFTP metrics for directories
+        if entry.is_dir && entry.name != ".." {
+            let dir_pb = PathBuf::from(&entry.path);
+            let already_cached = ctx.tree_metrics_cache.borrow().contains_key(&dir_pb);
+            let already_fetching = ctx.tree_fetching.borrow().contains(&dir_pb);
+            if !already_cached && !already_fetching && (depth == 0 || is_expanded) {
+                match ctx.backend.borrow().clone() {
+                    FilePaneBackend::Local => {
+                        ctx.tree_fetching.borrow_mut().insert(dir_pb.clone());
+                        let cache_c = Rc::clone(ctx.tree_metrics_cache);
+                        let fetch_c = Rc::clone(ctx.tree_fetching);
+                        let lbl_weak = size_lbl.downgrade();
+                        let entry_snap = entry.clone();
+                        let p_bg = dir_pb.clone();
+                        let (tx, rx) = std::sync::mpsc::sync_channel::<(usize, u64)>(1);
+                        let p_thread = p_bg.clone();
+                        std::thread::spawn(move || {
+                            let res = collect_local_tree_stats_depth(&p_thread, None);
+                            let _ = tx.send(res);
+                        });
+                        glib::timeout_add_local(Duration::from_millis(50), move || match rx.try_recv() {
+                            Ok((cnt, bytes)) => {
+                                fetch_c.borrow_mut().remove(&p_bg);
+                                cache_c.borrow_mut().insert(p_bg.clone(), (cnt, bytes));
+                                if let Some(lbl) = lbl_weak.upgrade() {
+                                    lbl.set_text(&format_cached_tree_summary(
+                                        &entry_snap,
+                                        Some((cnt, bytes)),
+                                    ));
+                                }
+                                glib::ControlFlow::Break
+                            }
+                            Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+                            Err(std::sync::mpsc::TryRecvError::Disconnected) => {
+                                fetch_c.borrow_mut().remove(&p_bg);
+                                glib::ControlFlow::Break
+                            }
+                        });
+                    }
+                    FilePaneBackend::Sftp(sftp) if is_expanded || depth <= 1 => {
+                        ctx.tree_fetching.borrow_mut().insert(dir_pb.clone());
+                        let cache_c = Rc::clone(ctx.tree_metrics_cache);
+                        let ch_cache = Rc::clone(ctx.tree_children_cache);
+                        let fetch_c = Rc::clone(ctx.tree_fetching);
+                        let lbl_weak = size_lbl.downgrade();
+                        let entry_snap = entry.clone();
+                        let p_bg = dir_pb.clone();
+                        let sub_depth = if is_expanded && depth == 0 { 2 } else { 1 };
+                        let (tx, rx) = std::sync::mpsc::sync_channel::<(usize, u64, Vec<FileEntry>)>(1);
+                        let p_thread = p_bg.clone();
+                        std::thread::spawn(move || {
+                            let res = collect_sftp_tree_stats_limited(&sftp, &p_thread, sub_depth);
+                            let _ = tx.send(res);
+                        });
+                        glib::timeout_add_local(Duration::from_millis(60), move || match rx.try_recv() {
+                            Ok((cnt, bytes, children)) => {
+                                fetch_c.borrow_mut().remove(&p_bg);
+                                cache_c.borrow_mut().insert(p_bg.clone(), (cnt, bytes));
+                                ch_cache.borrow_mut().insert(p_bg.clone(), children);
+                                if let Some(lbl) = lbl_weak.upgrade() {
+                                    lbl.set_text(&format_cached_tree_summary(
+                                        &entry_snap,
+                                        Some((cnt, bytes)),
+                                    ));
+                                }
+                                glib::ControlFlow::Break
+                            }
+                            Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+                            Err(std::sync::mpsc::TryRecvError::Disconnected) => {
+                                fetch_c.borrow_mut().remove(&p_bg);
+                                glib::ControlFlow::Break
+                            }
+                        });
+                    }
+                    _ => {}
+                }
+            }
+        }
+
         // If directory is expanded, recursively populate its children
         if is_expanded {
-            if let Ok(children) = LocalFsBackend.list_dir(Path::new(&entry.path)) {
+            let entry_pb = PathBuf::from(&entry.path);
+            let children_opt = match ctx.backend.borrow().clone() {
+                FilePaneBackend::Local => LocalFsBackend.list_dir(&entry_pb).ok(),
+                FilePaneBackend::Sftp(sftp) => {
+                    if let Some(cached) = ctx.tree_children_cache.borrow().get(&entry_pb).cloned() {
+                        Some(cached)
+                    } else if !ctx.tree_fetching.borrow().contains(&entry_pb) && depth < 3 {
+                        ctx.tree_fetching.borrow_mut().insert(entry_pb.clone());
+                        let ch_cache = Rc::clone(ctx.tree_children_cache);
+                        let cache_c = Rc::clone(ctx.tree_metrics_cache);
+                        let fetch_c = Rc::clone(ctx.tree_fetching);
+                        let rf_c = Rc::clone(ctx.refresh_holder);
+                        let p_bg = entry_pb.clone();
+                        let p_thread = p_bg.clone();
+                        let (tx, rx) = std::sync::mpsc::sync_channel::<(usize, u64, Vec<FileEntry>)>(1);
+                        std::thread::spawn(move || {
+                            let res = collect_sftp_tree_stats_limited(&sftp, &p_thread, 2);
+                            let _ = tx.send(res);
+                        });
+                        glib::timeout_add_local(Duration::from_millis(60), move || match rx.try_recv() {
+                            Ok((cnt, bytes, ch)) => {
+                                fetch_c.borrow_mut().remove(&p_bg);
+                                cache_c.borrow_mut().insert(p_bg.clone(), (cnt, bytes));
+                                ch_cache.borrow_mut().insert(p_bg.clone(), ch);
+                                if let Some(r) = rf_c.borrow().as_ref() {
+                                    r();
+                                }
+                                glib::ControlFlow::Break
+                            }
+                            Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+                            Err(std::sync::mpsc::TryRecvError::Disconnected) => {
+                                fetch_c.borrow_mut().remove(&p_bg);
+                                glib::ControlFlow::Break
+                            }
+                        });
+                        None
+                    } else {
+                        None
+                    }
+                }
+            };
+            if let Some(children) = children_opt {
                 let sub_sorted = filter_and_sort_entries(
                     &children,
                     ctx.show_hidden,
@@ -2253,6 +2847,7 @@ struct GridContextDeps {
     pane_vbox: gtk4::Box,
     active_popover: Rc<RefCell<Option<gtk4::Popover>>>,
     cur_dir: Rc<RefCell<PathBuf>>,
+    backend: Rc<RefCell<FilePaneBackend>>,
     parent_window: adw::ApplicationWindow,
     status_lbl: gtk4::Label,
     refresh_holder: Rc<RefCell<Option<Rc<dyn Fn()>>>>,
@@ -2309,7 +2904,7 @@ fn populate_grid_card_badges(badges_box: &gtk4::Box, entry: &FileEntry) {
         let badge = gtk4::Label::new(Some("+x"));
         badge.add_css_class("badge-pill");
         badge.add_css_class("badge-exec");
-        badge.set_tooltip_text(Some(&tr("Executable file")));
+        set_lazy_tooltip_text(&badge, tr("Executable file"));
         badges_box.append(&badge);
         has_badge = true;
     }
@@ -2335,6 +2930,19 @@ fn wire_grid_factory(factory: &gtk4::SignalListItemFactory, deps: GridContextDep
         card.add_css_class("file-grid-card");
         card.set_valign(gtk4::Align::Center);
         card.set_halign(gtk4::Align::Center);
+        card.set_has_tooltip(true);
+        let li_tip = list_item.downgrade();
+        card.connect_query_tooltip(move |_, _, _, _, tip| {
+            let Some(li) = li_tip.upgrade() else {
+                return false;
+            };
+            let Some(boxed) = li.item().and_downcast::<glib::BoxedAnyObject>() else {
+                return false;
+            };
+            let entry = boxed.borrow::<FileEntry>();
+            tip.set_markup(Some(&build_entry_tooltip_markup(&entry)));
+            true
+        });
 
         let icon_box = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
         icon_box.set_halign(gtk4::Align::Center);
@@ -2403,6 +3011,7 @@ fn wire_grid_factory(factory: &gtk4::SignalListItemFactory, deps: GridContextDep
                     y,
                     &entry,
                     &deps_c.cur_dir,
+                    &deps_c.backend,
                     &deps_c.parent_window,
                     &deps_c.status_lbl,
                     r,
@@ -2457,7 +3066,6 @@ fn wire_grid_factory(factory: &gtk4::SignalListItemFactory, deps: GridContextDep
         } else {
             card.remove_css_class("dim-label");
         }
-        card.set_tooltip_markup(Some(&build_entry_tooltip_markup(&entry)));
 
         icon_img.set_from_gicon(&resolve_grid_item_gicon(&entry));
         populate_grid_card_badges(&badges_box, &entry);
@@ -2502,11 +3110,7 @@ fn is_entry_target_at_point(scroll: &gtk4::ScrolledWindow, x: f64, y: f64) -> bo
     false
 }
 
-/// Builds a rich File Manager Pane with:
-/// - Navigation toolbar (`Home`, `Up`, `Refresh`, `New Folder`, clickable Breadcrumbs, Path entry, Hidden toggle, Search)
-/// - View Mode Switcher (`List`, `Grid` with thumbnails, `Tree` with inline expanders)
-/// - File Action Bar (`Quick Look`, `Rename`, `Chmod`, `SHA-256`, `Delete`, `CD in Terminal`)
-/// - Context Popover Menu on Right-Click (Folder actions, File actions, Background actions, Clipboard, Terminal, AI)
+/// Builds a rich File Manager Pane with Local backend (`pane_id = "left"`).
 pub fn build_file_pane(
     parent_window: &adw::ApplicationWindow,
     initial_dir: PathBuf,
@@ -2516,6 +3120,33 @@ pub fn build_file_pane(
     ai_prompt_cb: Option<Rc<dyn Fn(&str)>>,
     clipboard: Rc<RefCell<Option<FileManagerClipboardItem>>>,
 ) -> FilePaneHandle {
+    build_file_pane_with_options(
+        parent_window,
+        initial_dir,
+        status_lbl,
+        cd_in_terminal_cb,
+        feed_terminal_cb,
+        ai_prompt_cb,
+        clipboard,
+        "left",
+        None,
+    )
+}
+
+/// Builds a rich File Manager Pane with explicit pane ID (`"left"` / `"right"`) and shared transfer queue controller.
+#[allow(clippy::too_many_arguments)]
+pub fn build_file_pane_with_options(
+    parent_window: &adw::ApplicationWindow,
+    initial_dir: PathBuf,
+    status_lbl: &gtk4::Label,
+    cd_in_terminal_cb: Rc<dyn Fn(&Path)>,
+    feed_terminal_cb: Rc<dyn Fn(&str)>,
+    ai_prompt_cb: Option<Rc<dyn Fn(&str)>>,
+    clipboard: Rc<RefCell<Option<FileManagerClipboardItem>>>,
+    pane_id: &str,
+    transfer_ctrl: Option<Arc<TransferQueueController>>,
+) -> FilePaneHandle {
+    let pane_id_owned = pane_id.to_string();
     let cfg_path = platform::config_dir().join("settings.json");
     let (initial_sort, initial_asc, initial_vm) = if let Ok(st) = AppSettings::load_from_path(&cfg_path) {
         let col = match st.file_manager_sort_by.as_str() {
@@ -2538,6 +3169,13 @@ pub fn build_file_pane(
     };
 
     let current_dir = Rc::new(RefCell::new(initial_dir));
+    let pane_backend: Rc<RefCell<FilePaneBackend>> = Rc::new(RefCell::new(FilePaneBackend::Local));
+    let refresh_gen: Rc<Cell<u64>> = Rc::new(Cell::new(0));
+    let tree_metrics_cache: Rc<RefCell<HashMap<PathBuf, (usize, u64)>>> =
+        Rc::new(RefCell::new(HashMap::new()));
+    let tree_children_cache: Rc<RefCell<HashMap<PathBuf, Vec<FileEntry>>>> =
+        Rc::new(RefCell::new(HashMap::new()));
+    let tree_fetching: Rc<RefCell<HashSet<PathBuf>>> = Rc::new(RefCell::new(HashSet::new()));
     let selected_entry: Rc<RefCell<Option<FileEntry>>> = Rc::new(RefCell::new(None));
     let visible_entries: Rc<RefCell<Vec<FileEntry>>> = Rc::new(RefCell::new(Vec::new()));
     let show_hidden = Rc::new(RefCell::new(false));
@@ -2722,6 +3360,25 @@ pub fn build_file_pane(
     let action_bar = gtk4::ActionBar::new();
     action_bar.add_css_class("file-manager-action-bar");
 
+    let source_btn_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+    let source_icon = gtk4::Image::from_icon_name("computer-symbolic");
+    let source_lbl = gtk4::Label::new(Some(&tr("Local")));
+    source_lbl.add_css_class("caption");
+    source_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::End);
+    source_lbl.set_max_width_chars(18);
+    source_btn_box.append(&source_icon);
+    source_btn_box.append(&source_lbl);
+    let source_btn = gtk4::MenuButton::builder()
+        .child(&source_btn_box)
+        .tooltip_text(tr("Alternar Origem: Sistema Local ou Sessão SFTP"))
+        .has_frame(false)
+        .build();
+    source_btn.add_css_class("flat");
+    action_bar.pack_start(&source_btn);
+
+    let sep0 = gtk4::Separator::new(gtk4::Orientation::Vertical);
+    action_bar.pack_start(&sep0);
+
     let btn_refresh = gtk4::Button::builder()
         .icon_name("view-refresh-symbolic")
         .tooltip_text(tr("Atualizar (F5)"))
@@ -2839,6 +3496,21 @@ pub fn build_file_pane(
 
     pane_vbox.append(&action_bar);
 
+    // Subtle Pane Footer (Item count + Free disk space + Backend)
+    let footer_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+    footer_box.set_margin_start(10);
+    footer_box.set_margin_end(10);
+    footer_box.set_margin_top(2);
+    footer_box.set_margin_bottom(2);
+    let footer_lbl = gtk4::Label::new(Some(""));
+    footer_lbl.add_css_class("caption");
+    footer_lbl.add_css_class("dim-label");
+    footer_lbl.set_halign(gtk4::Align::Start);
+    footer_lbl.set_hexpand(true);
+    footer_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::End);
+    footer_box.append(&footer_lbl);
+    pane_vbox.append(&footer_box);
+
     // ── 5. Master Refresh Closure & Background Context Menus ─────────────────
     let refresh_holder: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
     let entry_menu_active = Rc::new(Cell::new(false));
@@ -2936,6 +3608,7 @@ pub fn build_file_pane(
             pane_vbox: pane_vbox.clone(),
             active_popover: Rc::clone(&active_popover),
             cur_dir: Rc::clone(&current_dir),
+            backend: Rc::clone(&pane_backend),
             parent_window: parent_window.clone(),
             status_lbl: status_lbl.clone(),
             refresh_holder: Rc::clone(&refresh_holder),
@@ -2963,6 +3636,7 @@ pub fn build_file_pane(
         let pane_ref = pane_vbox.clone();
         let act_pop = Rc::clone(&active_popover);
         let cd = Rc::clone(&current_dir);
+        let pane_bk = Rc::clone(&pane_backend);
         let win = parent_window.clone();
         let st = status_lbl.clone();
         let rh = Rc::clone(&refresh_holder);
@@ -2998,6 +3672,7 @@ pub fn build_file_pane(
                     x,
                     y,
                     &cd,
+                    &pane_bk,
                     &win,
                     &st,
                     r,
@@ -3023,6 +3698,7 @@ pub fn build_file_pane(
         let pane_ref = pane_vbox.clone();
         let act_pop = Rc::clone(&active_popover);
         let cd = Rc::clone(&current_dir);
+        let pane_bk = Rc::clone(&pane_backend);
         let win = parent_window.clone();
         let st = status_lbl.clone();
         let rh = Rc::clone(&refresh_holder);
@@ -3058,6 +3734,7 @@ pub fn build_file_pane(
                     x,
                     y,
                     &cd,
+                    &pane_bk,
                     &win,
                     &st,
                     r,
@@ -3083,6 +3760,7 @@ pub fn build_file_pane(
         let pane_ref = pane_vbox.clone();
         let act_pop = Rc::clone(&active_popover);
         let cd = Rc::clone(&current_dir);
+        let pane_bk = Rc::clone(&pane_backend);
         let win = parent_window.clone();
         let st = status_lbl.clone();
         let rh = Rc::clone(&refresh_holder);
@@ -3118,6 +3796,7 @@ pub fn build_file_pane(
                     x,
                     y,
                     &cd,
+                    &pane_bk,
                     &win,
                     &st,
                     r,
@@ -3138,6 +3817,8 @@ pub fn build_file_pane(
 
     let refresh_fn: Rc<dyn Fn()> = {
         let cur_dir = Rc::clone(&current_dir);
+        let bk_rc = Rc::clone(&pane_backend);
+        let gen_rc = Rc::clone(&refresh_gen);
         let sel_entry = Rc::clone(&selected_entry);
         let vis_entries = Rc::clone(&visible_entries);
         let hidden_rc = Rc::clone(&show_hidden);
@@ -3148,6 +3829,7 @@ pub fn build_file_pane(
         let svm_rc = Rc::clone(&switch_view_mode);
         let ema_rc = Rc::clone(&entry_menu_active);
         let pane_vbox_c = pane_vbox.clone();
+        let pane_id_c = pane_id_owned.clone();
         let act_pop_rc = Rc::clone(&active_popover);
         let bc_box = breadcrumb_box.clone();
         let se = search_entry.clone();
@@ -3158,12 +3840,18 @@ pub fn build_file_pane(
         let exp_dirs = Rc::clone(&expanded_dirs);
         let last_d = Rc::clone(&last_cur_dir);
         let vis_tree = Rc::clone(&visible_tree_entries);
+        let tree_metrics_c = Rc::clone(&tree_metrics_cache);
+        let tree_children_c = Rc::clone(&tree_children_cache);
+        let tree_fetch_c = Rc::clone(&tree_fetching);
         let ico_name = icon_name_sort.clone();
         let ico_size = icon_size_sort.clone();
         let ico_mod = icon_mod_sort.clone();
         let ico_perm = icon_perm_sort.clone();
         let ico_owner = icon_owner_sort.clone();
         let status = status_lbl.clone();
+        let foot = footer_lbl.clone();
+        let src_lbl = source_lbl.clone();
+        let src_ico = source_icon.clone();
         let r_holder = Rc::clone(&refresh_holder);
         let cd_cb = Rc::clone(&cd_in_terminal_cb);
         let feed_cb = Rc::clone(&feed_terminal_cb);
@@ -3174,6 +3862,16 @@ pub fn build_file_pane(
 
         Rc::new(move || {
             let dir_path = cur_dir.borrow().clone();
+            let backend_snap = bk_rc.borrow().clone();
+            let my_gen = gen_rc.get().wrapping_add(1);
+            gen_rc.set(my_gen);
+
+            src_lbl.set_text(&backend_snap.display_label());
+            src_ico.set_icon_name(Some(if backend_snap.is_sftp() {
+                "network-server-symbolic"
+            } else {
+                "computer-symbolic"
+            }));
 
             // Update sort column indicators
             let col = *scol_rc.borrow();
@@ -3235,270 +3933,402 @@ pub fn build_file_pane(
 
             let is_recursive = rec_switch.is_active();
             let query = se.text().to_string();
+            let hidden = *hidden_rc.borrow();
 
-            let raw_entries = if is_recursive && !query.is_empty() {
-                search_recursive_dir(&dir_path, &query, 300)
-            } else {
-                let backend = LocalFsBackend;
-                match backend.list_dir(&dir_path) {
-                    Ok(list) => list,
-                    Err(e) => {
-                        status.set_text(&tr_fmt(
-                            "Erro ao listar {path}: {err}",
-                            &[
-                                ("path", &dir_path.display().to_string()),
-                                ("err", &e.to_string()),
-                            ],
-                        ));
-                        Vec::new()
+            let render_dir_results: Rc<dyn Fn(Vec<FileEntry>, Option<(u64, u64)>)> = {
+                let cur_dir = Rc::clone(&cur_dir);
+                let bk_rc = Rc::clone(&bk_rc);
+                let sel_entry = Rc::clone(&sel_entry);
+                let vis_entries = Rc::clone(&vis_entries);
+                let scol_rc = Rc::clone(&scol_rc);
+                let sasc_rc = Rc::clone(&sasc_rc);
+                let vm_rc = Rc::clone(&vm_rc);
+                let cs_rc = Rc::clone(&cs_rc);
+                let svm_rc = Rc::clone(&svm_rc);
+                let ema_rc = Rc::clone(&ema_rc);
+                let pane_vbox_c = pane_vbox_c.clone();
+                let pane_id_r = pane_id_c.clone();
+                let act_pop_rc = Rc::clone(&act_pop_rc);
+                let lb = lb.clone();
+                let gs = gs.clone();
+                let tl = tl.clone();
+                let exp_dirs = Rc::clone(&exp_dirs);
+                let last_d = Rc::clone(&last_d);
+                let vis_tree = Rc::clone(&vis_tree);
+                let tree_metrics_c = Rc::clone(&tree_metrics_c);
+                let tree_children_c = Rc::clone(&tree_children_c);
+                let tree_fetch_c = Rc::clone(&tree_fetch_c);
+                let status = status.clone();
+                let foot = foot.clone();
+                let r_holder = Rc::clone(&r_holder);
+                let cd_cb = Rc::clone(&cd_cb);
+                let feed_cb = Rc::clone(&feed_cb);
+                let ai_cb_opt = ai_cb_opt.clone();
+                let clip_rc = Rc::clone(&clip_rc);
+                let win_ref = win_ref.clone();
+                let dir_path_r = dir_path.clone();
+                let query_r = query.clone();
+                let backend_label = backend_snap.display_label();
+                let is_sftp_r = backend_snap.is_sftp();
+
+                Rc::new(move |raw_entries: Vec<FileEntry>, free_space_opt: Option<(u64, u64)>| {
+                    let mut sorted = filter_and_sort_entries(
+                        &raw_entries,
+                        hidden,
+                        &query_r,
+                        col,
+                        asc,
+                        true,
+                    );
+
+                    // Prepend ".." parent directory entry if not at root and no filter query
+                    if query_r.is_empty() && dir_path_r.parent().is_some() && dir_path_r != Path::new("/") {
+                        let parent_path = dir_path_r.parent().unwrap();
+                        let (modified, perms, owner) = if !is_sftp_r {
+                            if let Ok(m) = fs::symlink_metadata(parent_path) {
+                                let m_epoch = m
+                                    .modified()
+                                    .ok()
+                                    .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
+                                    .map(|d| d.as_secs())
+                                    .unwrap_or(0);
+                                let p = (m.permissions().mode() & 0o777) as u16;
+                                #[cfg(unix)]
+                                let o = {
+                                    use std::os::unix::fs::MetadataExt;
+                                    onyxsh_filemanager::backend::resolve_posix_owner(m.uid(), m.gid())
+                                };
+                                #[cfg(not(unix))]
+                                let o = "user:group".to_string();
+                                (m_epoch, p, o)
+                            } else {
+                                (0, 0o755, "root:root".to_string())
+                            }
+                        } else {
+                            (0, 0o755, "remote".to_string())
+                        };
+
+                        let parent_entry = FileEntry {
+                            name: "..".to_string(),
+                            path: parent_path.to_string_lossy().into_owned(),
+                            is_dir: true,
+                            is_symlink: false,
+                            symlink_target: None,
+                            size: 4096,
+                            modified_epoch: modified,
+                            permissions_octal: perms,
+                            owner,
+                        };
+                        sorted.insert(0, parent_entry);
                     }
-                }
-            };
 
-            let mut sorted = filter_and_sort_entries(
-                &raw_entries,
-                *hidden_rc.borrow(),
-                &query,
-                col,
-                asc,
-                true,
-            );
-
-            // Prepend ".." parent directory entry if not at root and no filter query
-            if query.is_empty() && dir_path.parent().is_some() && dir_path != Path::new("/") {
-                let parent_path = dir_path.parent().unwrap();
-                let parent_meta = fs::symlink_metadata(parent_path).ok();
-                let (modified, perms, owner) = if let Some(m) = parent_meta {
-                    let m_epoch = m
-                        .modified()
-                        .ok()
-                        .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
-                        .map(|d| d.as_secs())
-                        .unwrap_or(0);
-                    let p = (m.permissions().mode() & 0o777) as u16;
-                    #[cfg(unix)]
-                    let o = {
-                        use std::os::unix::fs::MetadataExt;
-                        onyxsh_filemanager::backend::resolve_posix_owner(m.uid(), m.gid())
+                    let display_count = sorted.iter().filter(|e| e.name != "..").count();
+                    let items_word = tr_n("item", "itens", display_count as u64);
+                    let space_part = match free_space_opt {
+                        Some((avail, total)) if total > 0 => format!(
+                            " • {} {} {}",
+                            format_bytes(avail),
+                            tr("livres de"),
+                            format_bytes(total)
+                        ),
+                        _ => String::new(),
                     };
-                    #[cfg(not(unix))]
-                    let o = "user:group".to_string();
-                    (m_epoch, p, o)
-                } else {
-                    (0, 0o755, "root:root".to_string())
-                };
+                    foot.set_text(&format!("{display_count} {items_word}{space_part} • {backend_label}"));
 
-                let parent_entry = FileEntry {
-                    name: "..".to_string(),
-                    path: parent_path.to_string_lossy().into_owned(),
-                    is_dir: true,
-                    is_symlink: false,
-                    size: 4096,
-                    modified_epoch: modified,
-                    permissions_octal: perms,
-                    owner,
-                };
-                sorted.insert(0, parent_entry);
-            }
+                    *vis_entries.borrow_mut() = sorted.clone();
+                    *sel_entry.borrow_mut() = sorted.first().cloned();
 
-            *vis_entries.borrow_mut() = sorted.clone();
-            *sel_entry.borrow_mut() = sorted.first().cloned();
+                    let active_vm = *vm_rc.borrow();
 
-            // 1. Populate Detailed List View (`list_box`)
-            lb.remove_all();
-            for entry in sorted.iter().take(300) {
-                let row_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
-                row_hbox.add_css_class("file-detailed-row");
-                row_hbox.set_hexpand(true);
-                row_hbox.set_halign(gtk4::Align::Fill);
-                row_hbox.set_margin_start(4);
-                row_hbox.set_margin_end(16);
-                row_hbox.set_margin_top(2);
-                row_hbox.set_margin_bottom(2);
-                row_hbox.set_tooltip_markup(Some(&build_entry_tooltip_markup(entry)));
+                    // 1. Populate Detailed List View (`list_box`) only when active
+                    lb.remove_all();
+                    if active_vm == FileManagerViewMode::List {
+                        for entry in sorted.iter().take(300) {
+                        let row_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
+                        row_hbox.add_css_class("file-detailed-row");
+                        row_hbox.set_hexpand(true);
+                        row_hbox.set_halign(gtk4::Align::Fill);
+                        row_hbox.set_margin_start(4);
+                        row_hbox.set_margin_end(16);
+                        row_hbox.set_margin_top(2);
+                        row_hbox.set_margin_bottom(2);
+                        set_lazy_tooltip_markup(&row_hbox, build_entry_tooltip_markup(entry));
 
-                if entry.is_hidden() {
-                    row_hbox.add_css_class("dim-label");
-                }
+                        if entry.is_hidden() {
+                            row_hbox.add_css_class("dim-label");
+                        }
 
-                let icon = gtk4::Image::from_icon_name(icon_for_entry(entry));
+                        let icon = gtk4::Image::from_icon_name(icon_for_entry(entry));
 
-                let name_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
-                name_box.set_hexpand(true);
-                name_box.set_halign(gtk4::Align::Fill);
-                name_box.append(&icon);
+                        let name_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 6);
+                        name_box.set_hexpand(true);
+                        name_box.set_halign(gtk4::Align::Fill);
+                        name_box.append(&icon);
 
-                let name_lbl = gtk4::Label::new(Some(&entry.name));
-                name_lbl.set_halign(gtk4::Align::Start);
-                name_lbl.set_hexpand(true);
-                name_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::End);
-                if entry.is_dir {
-                    name_lbl.add_css_class("heading");
-                }
-                name_box.append(&name_lbl);
+                        let name_lbl = gtk4::Label::new(Some(&entry.name));
+                        name_lbl.set_halign(gtk4::Align::Start);
+                        name_lbl.set_hexpand(true);
+                        name_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::End);
+                        if entry.is_dir {
+                            name_lbl.add_css_class("heading");
+                        }
+                        name_box.append(&name_lbl);
 
-                if entry.is_symlink {
-                    let sym_icon = gtk4::Image::from_icon_name("emblem-symbolic-link-symbolic");
-                    sym_icon.set_tooltip_text(Some(&tr("Symbolic Link")));
-                    name_box.append(&sym_icon);
-                }
+                        if entry.is_symlink {
+                            let sym_icon = gtk4::Image::from_icon_name("emblem-symbolic-link-symbolic");
+                            if let Some(ref target) = entry.symlink_target {
+                                set_lazy_tooltip_text(&sym_icon, format!("→ {target}"));
+                            } else {
+                                set_lazy_tooltip_text(&sym_icon, tr("Symbolic Link"));
+                            }
+                            name_box.append(&sym_icon);
+                        }
 
-                let badges_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
-                if entry.is_executable() {
-                    let badge_exec = gtk4::Label::new(Some("+x"));
-                    badge_exec.add_css_class("badge-pill");
-                    badge_exec.add_css_class("badge-exec");
-                    badge_exec.set_tooltip_text(Some(&tr("Executable file")));
-                    badges_box.append(&badge_exec);
-                }
-                if let Some((badge_text, badge_css)) = entry.file_type_badge() {
-                    let badge_type = gtk4::Label::new(Some(badge_text));
-                    badge_type.add_css_class("badge-pill");
-                    badge_type.add_css_class(badge_css);
-                    badges_box.append(&badge_type);
-                }
-                name_box.append(&badges_box);
+                        let badges_box = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+                        if entry.is_executable() {
+                            let badge_exec = gtk4::Label::new(Some("+x"));
+                            badge_exec.add_css_class("badge-pill");
+                            badge_exec.add_css_class("badge-exec");
+                            set_lazy_tooltip_text(&badge_exec, tr("Executable file"));
+                            badges_box.append(&badge_exec);
+                        }
+                        if let Some((badge_text, badge_css)) = entry.file_type_badge() {
+                            let badge_type = gtk4::Label::new(Some(badge_text));
+                            badge_type.add_css_class("badge-pill");
+                            badge_type.add_css_class(badge_css);
+                            badges_box.append(&badge_type);
+                        }
+                        name_box.append(&badges_box);
 
-                let size_lbl = gtk4::Label::new(Some(&entry.formatted_size_clean()));
-                size_lbl.add_css_class("file-detailed-col-size");
-                size_lbl.add_css_class("monospace");
-                size_lbl.set_width_request(130);
-                size_lbl.set_xalign(1.0);
+                        let size_lbl = gtk4::Label::new(Some(&entry.formatted_size_clean()));
+                        size_lbl.add_css_class("file-detailed-col-size");
+                        size_lbl.add_css_class("monospace");
+                        size_lbl.set_width_request(130);
+                        size_lbl.set_xalign(1.0);
 
-                let mod_lbl = gtk4::Label::new(Some(&format_epoch_short(entry.modified_epoch)));
-                mod_lbl.add_css_class("file-detailed-col-date");
-                mod_lbl.add_css_class("monospace");
-                mod_lbl.set_width_request(150);
-                mod_lbl.set_xalign(0.5);
+                        let mod_lbl = gtk4::Label::new(Some(&format_epoch_short(entry.modified_epoch)));
+                        mod_lbl.add_css_class("file-detailed-col-date");
+                        mod_lbl.add_css_class("monospace");
+                        mod_lbl.set_width_request(150);
+                        mod_lbl.set_xalign(0.5);
 
-                let perm_lbl = gtk4::Label::new(Some(&entry.formatted_permissions()));
-                perm_lbl.add_css_class("file-detailed-col-perms");
-                perm_lbl.add_css_class("monospace");
-                perm_lbl.set_tooltip_text(Some(&tr_fmt(
-                    "Octal: {mode}",
-                    &[("mode", &entry.permissions_octal_str())],
-                )));
-                perm_lbl.set_width_request(110);
-                perm_lbl.set_xalign(0.5);
-
-                let owner_lbl = gtk4::Label::new(Some(&entry.owner));
-                owner_lbl.add_css_class("file-detailed-col-owner");
-                owner_lbl.add_css_class("monospace");
-                owner_lbl.set_width_request(160);
-                owner_lbl.set_xalign(0.0);
-
-                row_hbox.append(&name_box);
-                row_hbox.append(&size_lbl);
-                row_hbox.append(&mod_lbl);
-                row_hbox.append(&perm_lbl);
-                row_hbox.append(&owner_lbl);
-
-                let list_row = gtk4::ListBoxRow::new();
-                list_row.set_child(Some(&row_hbox));
-                list_row.set_selectable(true);
-                list_row.set_activatable(true);
-
-                // Attach right-click context menu gesture to row_hbox and list_row
-                let right_click = gtk4::GestureClick::new();
-                right_click.set_button(3);
-                let row_ref = list_row.clone();
-                let hbox_ref = row_hbox.clone();
-                let lb_ref = lb.clone();
-                let pane_ref = pane_vbox_c.clone();
-                let act_pop = Rc::clone(&act_pop_rc);
-                let e_clone = entry.clone();
-                let cd = Rc::clone(&cur_dir);
-                let win = win_ref.clone();
-                let st = status.clone();
-                let rh = Rc::clone(&r_holder);
-                let cd_cb2 = Rc::clone(&cd_cb);
-                let feed_cb2 = Rc::clone(&feed_cb);
-                let ai_cb2 = ai_cb_opt.clone();
-                let clip2 = Rc::clone(&clip_rc);
-                let vis2 = Rc::clone(&vis_entries);
-                let sel2 = Rc::clone(&sel_entry);
-                let scol_c = Rc::clone(&scol_rc);
-                let sasc_c = Rc::clone(&sasc_rc);
-                let vm_c = Rc::clone(&vm_rc);
-                let cs_c = Rc::clone(&cs_rc);
-                let svm_c = Rc::clone(&svm_rc);
-                let ema = Rc::clone(&ema_rc);
-                right_click.connect_pressed(move |gesture, _, x, y| {
-                    gesture.set_state(gtk4::EventSequenceState::Claimed);
-                    ema.set(true);
-                    *sel2.borrow_mut() = Some(e_clone.clone());
-                    lb_ref.select_row(Some(&row_ref));
-                    if let Some(r) = rh.borrow().as_ref() {
-                        let clicked_widget = gesture.widget().unwrap_or_else(|| hbox_ref.clone().upcast());
-                        show_context_menu_for_entry(
-                            &clicked_widget,
-                            &pane_ref,
-                            &act_pop,
-                            x,
-                            y,
-                            &e_clone,
-                            &cd,
-                            &win,
-                            &st,
-                            r,
-                            &cd_cb2,
-                            &feed_cb2,
-                            &ai_cb2,
-                            &clip2,
-                            &vis2,
-                            &scol_c,
-                            &sasc_c,
-                            &vm_c,
-                            &cs_c,
-                            &svm_c,
+                        let perm_lbl = gtk4::Label::new(Some(&entry.formatted_permissions()));
+                        perm_lbl.add_css_class("file-detailed-col-perms");
+                        perm_lbl.add_css_class("monospace");
+                        set_lazy_tooltip_text(
+                            &perm_lbl,
+                            tr_fmt(
+                                "Octal: {mode}",
+                                &[("mode", &entry.permissions_octal_str())],
+                            ),
                         );
+                        perm_lbl.set_width_request(110);
+                        perm_lbl.set_xalign(0.5);
+
+                        let owner_lbl = gtk4::Label::new(Some(&entry.owner));
+                        owner_lbl.add_css_class("file-detailed-col-owner");
+                        owner_lbl.add_css_class("monospace");
+                        owner_lbl.set_width_request(160);
+                        owner_lbl.set_xalign(0.0);
+
+                        row_hbox.append(&name_box);
+                        row_hbox.append(&size_lbl);
+                        row_hbox.append(&mod_lbl);
+                        row_hbox.append(&perm_lbl);
+                        row_hbox.append(&owner_lbl);
+
+                        let list_row = gtk4::ListBoxRow::new();
+                        list_row.set_child(Some(&row_hbox));
+                        list_row.set_selectable(true);
+                        list_row.set_activatable(true);
+
+                        let right_click = gtk4::GestureClick::new();
+                        right_click.set_button(3);
+                        let row_ref = list_row.clone();
+                        let hbox_ref = row_hbox.clone();
+                        let lb_ref = lb.clone();
+                        let pane_ref = pane_vbox_c.clone();
+                        let act_pop = Rc::clone(&act_pop_rc);
+                        let e_clone = entry.clone();
+                        let cd = Rc::clone(&cur_dir);
+                        let bk2 = Rc::clone(&bk_rc);
+                        let win = win_ref.clone();
+                        let st = status.clone();
+                        let rh = Rc::clone(&r_holder);
+                        let cd_cb2 = Rc::clone(&cd_cb);
+                        let feed_cb2 = Rc::clone(&feed_cb);
+                        let ai_cb2 = ai_cb_opt.clone();
+                        let clip2 = Rc::clone(&clip_rc);
+                        let vis2 = Rc::clone(&vis_entries);
+                        let sel2 = Rc::clone(&sel_entry);
+                        let scol_c = Rc::clone(&scol_rc);
+                        let sasc_c = Rc::clone(&sasc_rc);
+                        let vm_c = Rc::clone(&vm_rc);
+                        let cs_c = Rc::clone(&cs_rc);
+                        let svm_c = Rc::clone(&svm_rc);
+                        let ema = Rc::clone(&ema_rc);
+                        right_click.connect_pressed(move |gesture, _, x, y| {
+                            gesture.set_state(gtk4::EventSequenceState::Claimed);
+                            ema.set(true);
+                            *sel2.borrow_mut() = Some(e_clone.clone());
+                            lb_ref.select_row(Some(&row_ref));
+                            if let Some(r) = rh.borrow().as_ref() {
+                                let clicked_widget = gesture.widget().unwrap_or_else(|| hbox_ref.clone().upcast());
+                                show_context_menu_for_entry(
+                                    &clicked_widget,
+                                    &pane_ref,
+                                    &act_pop,
+                                    x,
+                                    y,
+                                    &e_clone,
+                                    &cd,
+                                    &bk2,
+                                    &win,
+                                    &st,
+                                    r,
+                                    &cd_cb2,
+                                    &feed_cb2,
+                                    &ai_cb2,
+                                    &clip2,
+                                    &vis2,
+                                    &scol_c,
+                                    &sasc_c,
+                                    &vm_c,
+                                    &cs_c,
+                                    &svm_c,
+                                );
+                            }
+                        });
+                        row_hbox.add_controller(right_click);
+                        attach_row_drag_source(&row_hbox, &pane_id_r, entry);
+
+                        lb.append(&list_row);
+                        }
                     }
-                });
-                row_hbox.add_controller(right_click);
 
-                lb.append(&list_row);
-            }
+                    // 2. Populate Icon Grid View (`grid_store` -> `gtk4::GridView`) only when active
+                    if active_vm == FileManagerViewMode::Grid {
+                        let grid_items: Vec<glib::BoxedAnyObject> = sorted
+                            .iter()
+                            .cloned()
+                            .map(glib::BoxedAnyObject::new)
+                            .collect();
+                        gs.splice(0, gs.n_items(), &grid_items);
+                    } else if gs.n_items() > 0 {
+                        gs.remove_all();
+                    }
 
-            // 2. Populate Icon Grid View (`grid_store` -> `gtk4::GridView`) matching Python manager.py & icongrade.png
-            let grid_items: Vec<glib::BoxedAnyObject> = sorted
-                .iter()
-                .cloned()
-                .map(glib::BoxedAnyObject::new)
-                .collect();
-            gs.splice(0, gs.n_items(), &grid_items);
-
-            // 3. Populate Hierarchical Tree View (`tree_list`) matching treehierarquic.png
-            tl.remove_all();
-            vis_tree.borrow_mut().clear();
-            if dir_path != *last_d.borrow() {
-                exp_dirs.borrow_mut().clear();
-                *last_d.borrow_mut() = dir_path.clone();
-            }
-            let tree_ctx = TreeRenderContext {
-                tree_list: &tl,
-                pane_vbox: &pane_vbox_c,
-                active_popover: &act_pop_rc,
-                cur_dir: &cur_dir,
-                parent_window: &win_ref,
-                status_lbl: &status,
-                refresh_holder: &r_holder,
-                cd_cb: &cd_cb,
-                feed_cb: &feed_cb,
-                ai_cb_opt: &ai_cb_opt,
-                clip_rc: &clip_rc,
-                vis_tree: &vis_tree,
-                sel_entry: &sel_entry,
-                scol_rc: &scol_rc,
-                sasc_rc: &sasc_rc,
-                vm_rc: &vm_rc,
-                cs_rc: &cs_rc,
-                svm_rc: &svm_rc,
-                ema_rc: &ema_rc,
-                expanded_dirs: &exp_dirs,
-                show_hidden: *hidden_rc.borrow(),
-                search_query: &query,
+                    // 3. Populate Hierarchical Tree View (`tree_list`) only when active
+                    tl.remove_all();
+                    vis_tree.borrow_mut().clear();
+                    if dir_path_r != *last_d.borrow() {
+                        exp_dirs.borrow_mut().clear();
+                        *last_d.borrow_mut() = dir_path_r.clone();
+                    }
+                    if active_vm == FileManagerViewMode::Tree {
+                        let tree_ctx = TreeRenderContext {
+                            pane_id: &pane_id_r,
+                            tree_list: &tl,
+                            pane_vbox: &pane_vbox_c,
+                            active_popover: &act_pop_rc,
+                            cur_dir: &cur_dir,
+                            backend: &bk_rc,
+                            parent_window: &win_ref,
+                            status_lbl: &status,
+                            refresh_holder: &r_holder,
+                            cd_cb: &cd_cb,
+                            feed_cb: &feed_cb,
+                            ai_cb_opt: &ai_cb_opt,
+                            clip_rc: &clip_rc,
+                            vis_tree: &vis_tree,
+                            sel_entry: &sel_entry,
+                            scol_rc: &scol_rc,
+                            sasc_rc: &sasc_rc,
+                            vm_rc: &vm_rc,
+                            cs_rc: &cs_rc,
+                            svm_rc: &svm_rc,
+                            ema_rc: &ema_rc,
+                            expanded_dirs: &exp_dirs,
+                            tree_metrics_cache: &tree_metrics_c,
+                            tree_children_cache: &tree_children_c,
+                            tree_fetching: &tree_fetch_c,
+                            show_hidden: hidden,
+                            search_query: &query_r,
+                        };
+                        populate_tree_level(&tree_ctx, &sorted, 0);
+                    }
+                })
             };
-            populate_tree_level(&tree_ctx, &sorted, 0);
+
+            match backend_snap {
+                FilePaneBackend::Local => {
+                    let raw_entries = if is_recursive && !query.is_empty() {
+                        search_recursive_dir(&dir_path, &query, 300)
+                    } else {
+                        match LocalFsBackend.list_dir(&dir_path) {
+                            Ok(list) => list,
+                            Err(e) => {
+                                status.set_text(&tr_fmt(
+                                    "Erro ao listar {path}: {err}",
+                                    &[
+                                        ("path", &dir_path.display().to_string()),
+                                        ("err", &e.to_string()),
+                                    ],
+                                ));
+                                Vec::new()
+                            }
+                        }
+                    };
+                    let space = LocalFsBackend.free_space(&dir_path).ok();
+                    render_dir_results(raw_entries, space);
+                }
+                FilePaneBackend::Sftp(sftp) => {
+                    foot.set_text(&tr_fmt(
+                        "Listando diretório remoto via SFTP ({target})...",
+                        &[("target", &sftp.display_target())],
+                    ));
+                    let gen_c = Rc::clone(&gen_rc);
+                    let render_c = Rc::clone(&render_dir_results);
+                    let status_c = status.clone();
+                    let foot_c = foot.clone();
+                    let dp_bg = dir_path.clone();
+                    let dp_thread = dp_bg.clone();
+                    let (tx, rx) = std::sync::mpsc::sync_channel::<(
+                        std::io::Result<Vec<FileEntry>>,
+                        Option<(u64, u64)>,
+                    )>(1);
+                    std::thread::spawn(move || {
+                        let res = sftp.list_dir(&dp_thread);
+                        let space = sftp.free_space(&dp_thread).ok();
+                        let _ = tx.send((res, space));
+                    });
+                    glib::timeout_add_local(Duration::from_millis(40), move || match rx.try_recv() {
+                        Ok((res, space)) => {
+                            if gen_c.get() != my_gen {
+                                return glib::ControlFlow::Break;
+                            }
+                            match res {
+                                Ok(list) => render_c(list, space),
+                                Err(e) => {
+                                    let msg = tr_fmt(
+                                        "Erro SFTP ao listar {path}: {err}",
+                                        &[
+                                            ("path", &dp_bg.display().to_string()),
+                                            ("err", &e.to_string()),
+                                        ],
+                                    );
+                                    status_c.set_text(&msg);
+                                    foot_c.set_text(&msg);
+                                    render_c(Vec::new(), None);
+                                }
+                            }
+                            glib::ControlFlow::Break
+                        }
+                        Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+                        Err(std::sync::mpsc::TryRecvError::Disconnected) => glib::ControlFlow::Break,
+                    });
+                }
+            }
         })
     };
 
@@ -3521,6 +4351,7 @@ pub fn build_file_pane(
     {
         let vis = Rc::clone(&visible_entries);
         let cur_dir = Rc::clone(&current_dir);
+        let bk_c = Rc::clone(&pane_backend);
         let refresh = Rc::clone(&refresh_fn);
         let win_ref = parent_window.clone();
         let feed_cb = Rc::clone(&feed_terminal_cb);
@@ -3538,10 +4369,11 @@ pub fn build_file_pane(
                     *cur_dir.borrow_mut() = PathBuf::from(&entry.path);
                     refresh();
                 } else {
-                    crate::quick_look_dialog::show_quick_look_dialog(
+                    open_quick_look_for_pane(
                         &win_ref,
                         entries,
                         idx,
+                        &bk_c.borrow(),
                         Some(Rc::clone(&feed_cb)),
                         ai_cb.clone(),
                         Some(Rc::clone(&refresh)),
@@ -3567,6 +4399,7 @@ pub fn build_file_pane(
         let vis = Rc::clone(&visible_entries);
         let sel = Rc::clone(&selected_entry);
         let cur_dir = Rc::clone(&current_dir);
+        let bk_c = Rc::clone(&pane_backend);
         let refresh = Rc::clone(&refresh_fn);
         let win_ref = parent_window.clone();
         let feed_cb = Rc::clone(&feed_terminal_cb);
@@ -3585,10 +4418,11 @@ pub fn build_file_pane(
                     *cur_dir.borrow_mut() = PathBuf::from(&entry.path);
                     refresh();
                 } else {
-                    crate::quick_look_dialog::show_quick_look_dialog(
+                    open_quick_look_for_pane(
                         &win_ref,
                         entries,
                         idx,
+                        &bk_c.borrow(),
                         Some(Rc::clone(&feed_cb)),
                         ai_cb.clone(),
                         Some(Rc::clone(&refresh)),
@@ -3614,6 +4448,7 @@ pub fn build_file_pane(
         let sel = Rc::clone(&selected_entry);
         let cur_dir = Rc::clone(&current_dir);
         let exp_dirs = Rc::clone(&expanded_dirs);
+        let bk_c = Rc::clone(&pane_backend);
         let refresh = Rc::clone(&refresh_fn);
         let win_ref = parent_window.clone();
         let feed_cb = Rc::clone(&feed_terminal_cb);
@@ -3639,10 +4474,11 @@ pub fn build_file_pane(
                     drop(set);
                     refresh();
                 } else {
-                    crate::quick_look_dialog::show_quick_look_dialog(
+                    open_quick_look_for_pane(
                         &win_ref,
                         entries,
                         idx,
+                        &bk_c.borrow(),
                         Some(Rc::clone(&feed_cb)),
                         ai_cb.clone(),
                         Some(Rc::clone(&refresh)),
@@ -3712,10 +4548,119 @@ pub fn build_file_pane(
         let refresh = Rc::clone(&refresh_fn);
         recursive_switch.connect_active_notify(move |_| refresh());
     }
+    let set_backend_and_dir: Rc<dyn Fn(FilePaneBackend, PathBuf)> = {
+        let bk_rc = Rc::clone(&pane_backend);
+        let cd_rc = Rc::clone(&current_dir);
+        let tmc = Rc::clone(&tree_metrics_cache);
+        let tcc = Rc::clone(&tree_children_cache);
+        let tf = Rc::clone(&tree_fetching);
+        let exp = Rc::clone(&expanded_dirs);
+        let rf = Rc::clone(&refresh_fn);
+        Rc::new(move |new_backend: FilePaneBackend, new_dir: PathBuf| {
+            *bk_rc.borrow_mut() = new_backend;
+            *cd_rc.borrow_mut() = new_dir;
+            tmc.borrow_mut().clear();
+            tcc.borrow_mut().clear();
+            tf.borrow_mut().clear();
+            exp.borrow_mut().clear();
+            rf();
+        })
+    };
+
+    // Wire Pane Source Selector (Local vs Saved SSH / SFTP Sessions)
+    {
+        let src_pop = gtk4::Popover::new();
+        src_pop.add_css_class("onyxsh-popover");
+        let set_bk = Rc::clone(&set_backend_and_dir);
+        let st_c = status_lbl.clone();
+        let src_pop_ref = src_pop.clone();
+        source_btn.set_popover(Some(&src_pop));
+
+        src_pop.connect_show(move |pop| {
+            let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+            vbox.set_margin_start(6);
+            vbox.set_margin_end(6);
+            vbox.set_margin_top(6);
+            vbox.set_margin_bottom(6);
+            vbox.set_width_request(240);
+
+            let sb = Rc::clone(&set_bk);
+            let st_local = st_c.clone();
+            add_menu_item(&vbox, pop, "computer-symbolic", &tr("Local (Este Computador)"), false, move || {
+                sb(FilePaneBackend::Local, platform::home_dir());
+                st_local.set_text(&tr("Painel alterado para sistema de arquivos local."));
+            });
+
+            let mut ssh_sessions = Vec::new();
+            let sess_path = platform::config_dir().join("sessions.json");
+            if let Ok(storage) = SessionsStorageData::load_from_path(&sess_path) {
+                for s in storage.sessions {
+                    if s.is_ssh() && !s.host.is_empty() {
+                        ssh_sessions.push(s);
+                    }
+                }
+            }
+            for s in crate::session_sidebar::load_ssh_config_sessions() {
+                if !s.host.is_empty() && !ssh_sessions.iter().any(|x| x.name == s.name && x.host == s.host) {
+                    ssh_sessions.push(s);
+                }
+            }
+
+            if !ssh_sessions.is_empty() {
+                vbox.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+                for sess in ssh_sessions {
+                    let label = format!("SFTP: {} ({})", sess.name, sess.connection_string());
+                    let sb_ssh = Rc::clone(&set_bk);
+                    let st_ssh = st_c.clone();
+                    let sess_c = sess.clone();
+                    add_menu_item(&vbox, pop, "network-server-symbolic", &label, false, move || {
+                        let secret = crate::session_sidebar::resolve_session_secret(&sess_c);
+                        let pw_opt = (!secret.is_empty()).then_some(secret);
+                        let sftp = SftpFsBackend::new(sess_c.clone(), pw_opt);
+                        let target = sftp.display_target();
+                        st_ssh.set_text(&tr_fmt(
+                            "Conectando painel SFTP em {target}...",
+                            &[("target", &target)],
+                        ));
+                        let sb_done = Rc::clone(&sb_ssh);
+                        let st_done = st_ssh.clone();
+                        let sftp_ui = sftp.clone();
+                        let (tx, rx) = std::sync::mpsc::sync_channel::<PathBuf>(1);
+                        std::thread::spawn(move || {
+                            let home = sftp.resolve_home_dir().unwrap_or_else(|_| PathBuf::from("/"));
+                            let _ = tx.send(home);
+                        });
+                        glib::timeout_add_local(Duration::from_millis(50), move || match rx.try_recv() {
+                            Ok(home) => {
+                                sb_done(FilePaneBackend::Sftp(sftp_ui.clone()), home.clone());
+                                st_done.set_text(&tr_fmt(
+                                    "Conectado via SFTP em {target} ({path})",
+                                    &[("target", &target), ("path", &home.display().to_string())],
+                                ));
+                                glib::ControlFlow::Break
+                            }
+                            Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+                            Err(std::sync::mpsc::TryRecvError::Disconnected) => glib::ControlFlow::Break,
+                        });
+                    });
+                }
+            }
+
+            pop.set_child(Some(&vbox));
+        });
+        let _ = src_pop_ref;
+    }
+
     {
         let st = status_lbl.clone();
+        let win_h = parent_window.clone();
+        let tx_opt = transfer_ctrl.clone();
         btn_history.connect_clicked(move |_| {
-            st.set_text(&tr("Fila de transferências vazia (0 tarefas em andamento)."));
+            if let Some(ref ctrl) = tx_opt {
+                show_transfer_queue_dialog(&win_h, ctrl);
+            } else {
+                st.set_text(&tr("Fila de transferências vazia (0 tarefas em andamento)."));
+            }
         });
     }
 
@@ -3824,6 +4769,7 @@ pub fn build_file_pane(
         let sel = Rc::clone(&selected_entry);
         let feed_cb = Rc::clone(&feed_terminal_cb);
         let ai_cb = ai_prompt_cb.clone();
+        let bk_c = Rc::clone(&pane_backend);
         let refresh = Rc::clone(&refresh_fn);
         let key_ctrl = gtk4::EventControllerKey::new();
         key_ctrl.set_propagation_phase(gtk4::PropagationPhase::Capture);
@@ -3841,10 +4787,11 @@ pub fn build_file_pane(
                         .as_ref()
                         .and_then(|s| entries.iter().position(|e| e.path == s.path))
                         .unwrap_or(0);
-                    crate::quick_look_dialog::show_quick_look_dialog(
+                    open_quick_look_for_pane(
                         &win_ref,
                         entries,
                         idx,
+                        &bk_c.borrow(),
                         Some(Rc::clone(&feed_cb)),
                         ai_cb.clone(),
                         Some(Rc::clone(&refresh)),
@@ -3858,11 +4805,14 @@ pub fn build_file_pane(
     }
 
     FilePaneHandle {
+        pane_id: pane_id_owned,
         widget: pane_vbox,
         current_dir,
+        backend: pane_backend,
         selected_entry,
         visible_entries,
         refresh: refresh_fn,
+        set_backend_and_dir,
         btn_toggle_dual,
     }
 }
@@ -3872,6 +4822,23 @@ pub fn build_file_pane(
 pub fn show_permissions_dialog(
     parent: &adw::ApplicationWindow,
     entry: &FileEntry,
+    refresh_fn: Rc<dyn Fn()>,
+    status_lbl: gtk4::Label,
+) {
+    show_permissions_dialog_with_backend(
+        parent,
+        entry,
+        FilePaneBackend::Local,
+        refresh_fn,
+        status_lbl,
+    );
+}
+
+/// Displays the rich Libadwaita permissions dialog for Local or SFTP backends.
+pub fn show_permissions_dialog_with_backend(
+    parent: &adw::ApplicationWindow,
+    entry: &FileEntry,
+    backend: FilePaneBackend,
     refresh_fn: Rc<dyn Fn()>,
     status_lbl: gtk4::Label,
 ) {
@@ -4023,22 +4990,15 @@ pub fn show_permissions_dialog(
     dialog.connect_response(None, move |_, response| {
         if response == "apply" {
             let (mode_val, mode_str) = calc_mode();
-            let perms = fs::Permissions::from_mode(mode_val);
-            match fs::set_permissions(&path, perms) {
-                Ok(()) => {
-                    status_lbl.set_text(&tr_fmt(
-                        "Permissões de '{name}' alteradas para {mode}",
-                        &[("name", &name), ("mode", &mode_str)],
-                    ));
-                    refresh_fn();
-                }
-                Err(e) => {
-                    status_lbl.set_text(&tr_fmt(
-                        "Erro ao alterar permissões de '{name}': {err}",
-                        &[("name", &name), ("err", &e.to_string())],
-                    ));
-                }
-            }
+            let p = PathBuf::from(&path);
+            let ok_msg = tr_fmt(
+                "Permissões de '{name}' alteradas para {mode}",
+                &[("name", &name), ("mode", &mode_str)],
+            );
+            let err_prefix = tr_fmt("Erro ao alterar permissões de '{name}'", &[("name", &name)]);
+            run_backend_mutation(&backend, &status_lbl, &refresh_fn, ok_msg, err_prefix, move |b| {
+                b.chmod(&p, mode_val as u16)
+            });
         }
     });
 
@@ -4104,53 +5064,601 @@ fn show_simple_input_dialog(
     dlg.present();
 }
 
-/// Copies a file or directory recursively from `src` to `dst_dir` and records a [`TransferItem`].
-fn copy_entry_and_record_transfer(
-    entry: &FileEntry,
-    dst_dir: &Path,
-    direction: TransferDirection,
-    transfers: &Rc<RefCell<Vec<TransferItem>>>,
-) -> std::io::Result<PathBuf> {
-    let src_path = Path::new(&entry.path);
-    let dst_path = dst_dir.join(&entry.name);
-
-    if entry.is_dir {
-        copy_dir_recursive(src_path, &dst_path)?;
-    } else {
-        fs::copy(src_path, &dst_path)?;
+/// Computes total byte size of a local file or directory tree for transfer sizing.
+fn compute_local_path_size(path: &Path) -> u64 {
+    let Ok(meta) = fs::symlink_metadata(path) else {
+        return 0;
+    };
+    if !meta.is_dir() {
+        return meta.len();
     }
-
-    let mut tx_list = transfers.borrow_mut();
-    let tx_id = format!("tx_{}", tx_list.len() + 1);
-    tx_list.push(TransferItem {
-        id: tx_id,
-        filename: entry.name.clone(),
-        source_path: entry.path.clone(),
-        destination_path: dst_path.to_string_lossy().into_owned(),
-        direction,
-        status: TransferStatus::Completed,
-        total_bytes: entry.size.max(1),
-        transferred_bytes: entry.size.max(1),
-        speed_bps: (entry.size.max(1024)) as f64,
-        error_message: None,
-    });
-
-    Ok(dst_path)
+    let mut total = 0u64;
+    if let Ok(entries) = fs::read_dir(path) {
+        for ent in entries.flatten() {
+            total = total.saturating_add(compute_local_path_size(&ent.path()));
+        }
+    }
+    total
 }
 
-fn copy_dir_recursive(src: &Path, dst: &Path) -> std::io::Result<()> {
+/// Resolves semantic transfer direction from source and destination pane backends/sides.
+fn resolve_transfer_direction(
+    src_backend: &FilePaneBackend,
+    dst_backend: &FilePaneBackend,
+    fallback: TransferDirection,
+) -> TransferDirection {
+    match (src_backend, dst_backend) {
+        (FilePaneBackend::Local, FilePaneBackend::Sftp(_)) => TransferDirection::Upload,
+        (FilePaneBackend::Sftp(_), FilePaneBackend::Local) => TransferDirection::Download,
+        _ => fallback,
+    }
+}
+
+/// Copies a single local file in 64 KiB chunks while reporting progress and honoring cancellation.
+fn copy_file_chunked_with_progress(
+    src: &Path,
+    dst: &Path,
+    tx_id: &str,
+    cancel_flag: &std::sync::atomic::AtomicBool,
+    ctrl: &onyxsh_filemanager::transfer::TransferQueueController,
+    done_so_far: &mut u64,
+    total_bytes: u64,
+    started_at: std::time::Instant,
+) -> std::io::Result<()> {
+    use std::io::{Read, Write};
+    use std::sync::atomic::Ordering;
+
+    if let Some(parent) = dst.parent() {
+        fs::create_dir_all(parent)?;
+    }
+    let mut reader = fs::File::open(src)?;
+    let mut writer = fs::File::create(dst)?;
+    let mut buf = [0u8; 64 * 1024];
+
+    loop {
+        if cancel_flag.load(Ordering::Relaxed) || ctrl.is_cancelled(tx_id) {
+            drop(writer);
+            let _ = fs::remove_file(dst);
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::Interrupted,
+                tr("Transferência cancelada pelo usuário."),
+            ));
+        }
+        let n = reader.read(&mut buf)?;
+        if n == 0 {
+            break;
+        }
+        writer.write_all(&buf[..n])?;
+        *done_so_far = done_so_far.saturating_add(n as u64);
+        let elapsed = started_at.elapsed().as_secs_f64().max(0.001);
+        let speed_bps = *done_so_far as f64 / elapsed;
+        ctrl.update_progress(tx_id, *done_so_far, Some(total_bytes.max(*done_so_far)), speed_bps);
+    }
+    writer.flush()?;
+    Ok(())
+}
+
+/// Recursively copies a local directory tree with chunked file progress and cancellation checks.
+fn copy_dir_chunked_with_progress(
+    src: &Path,
+    dst: &Path,
+    tx_id: &str,
+    cancel_flag: &std::sync::atomic::AtomicBool,
+    ctrl: &onyxsh_filemanager::transfer::TransferQueueController,
+    done_so_far: &mut u64,
+    total_bytes: u64,
+    started_at: std::time::Instant,
+) -> std::io::Result<()> {
+    use std::sync::atomic::Ordering;
+
     fs::create_dir_all(dst)?;
     for entry in fs::read_dir(src)? {
+        if cancel_flag.load(Ordering::Relaxed) || ctrl.is_cancelled(tx_id) {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::Interrupted,
+                tr("Transferência cancelada pelo usuário."),
+            ));
+        }
         let entry = entry?;
         let ty = entry.file_type()?;
         let dst_child = dst.join(entry.file_name());
         if ty.is_dir() {
-            copy_dir_recursive(&entry.path(), &dst_child)?;
+            copy_dir_chunked_with_progress(
+                &entry.path(),
+                &dst_child,
+                tx_id,
+                cancel_flag,
+                ctrl,
+                done_so_far,
+                total_bytes,
+                started_at,
+            )?;
         } else {
-            fs::copy(entry.path(), dst_child)?;
+            copy_file_chunked_with_progress(
+                &entry.path(),
+                &dst_child,
+                tx_id,
+                cancel_flag,
+                ctrl,
+                done_so_far,
+                total_bytes,
+                started_at,
+            )?;
         }
     }
     Ok(())
+}
+
+/// Dispatches a Local or SFTP file/directory transfer asynchronously onto [`TransferQueueController`].
+fn start_async_transfer(
+    src_backend: FilePaneBackend,
+    src_entry: FileEntry,
+    dst_backend: FilePaneBackend,
+    dst_dir: PathBuf,
+    direction: TransferDirection,
+    controller: Arc<onyxsh_filemanager::transfer::TransferQueueController>,
+    status_lbl: gtk4::Label,
+    on_done: Rc<dyn Fn()>,
+) {
+    if src_entry.name == ".." {
+        status_lbl.set_text(&tr("Selecione um arquivo ou pasta válido para transferir."));
+        return;
+    }
+
+    let dst_path = dst_dir.join(&src_entry.name);
+    let initial_bytes = if src_backend.is_sftp() {
+        src_entry.size.max(1)
+    } else {
+        compute_local_path_size(Path::new(&src_entry.path)).max(src_entry.size).max(1)
+    };
+
+    let (tx_id, cancel_flag) = controller.enqueue(
+        src_entry.name.clone(),
+        src_entry.path.clone(),
+        dst_path.to_string_lossy().into_owned(),
+        direction,
+        initial_bytes,
+    );
+
+    status_lbl.set_text(&tr_fmt(
+        "Transferindo {name} ({id})...",
+        &[("name", &src_entry.name), ("id", &tx_id)],
+    ));
+
+    let (tx_res, rx_res) = std::sync::mpsc::sync_channel::<Result<PathBuf, String>>(1);
+    let ctrl_bg = Arc::clone(&controller);
+    let id_bg = tx_id.clone();
+    let dst_dir_bg = dst_dir.clone();
+    let dst_path_bg = dst_path.clone();
+
+    std::thread::spawn(move || {
+        use std::sync::atomic::Ordering;
+
+        if cancel_flag.load(Ordering::Relaxed) || ctrl_bg.is_cancelled(&id_bg) {
+            ctrl_bg.mark_failed(&id_bg, tr("Transferência cancelada antes de iniciar."));
+            let _ = tx_res.send(Err(tr("Transferência cancelada.")));
+            return;
+        }
+
+        ctrl_bg.mark_in_progress(&id_bg);
+
+        let avail = dst_backend.free_space(&dst_dir_bg).ok().map(|(free, _)| free);
+        if let Err(space_err) =
+            onyxsh_filemanager::transfer::check_sufficient_space(initial_bytes, avail)
+        {
+            ctrl_bg.mark_failed(&id_bg, space_err.clone());
+            let _ = tx_res.send(Err(space_err));
+            return;
+        }
+
+        let started_at = std::time::Instant::now();
+        let src_path = PathBuf::from(&src_entry.path);
+
+        let outcome: std::io::Result<()> = match (&src_backend, &dst_backend) {
+            (FilePaneBackend::Local, FilePaneBackend::Local) => {
+                let mut done = 0u64;
+                let res = if src_entry.is_dir {
+                    copy_dir_chunked_with_progress(
+                        &src_path,
+                        &dst_path_bg,
+                        &id_bg,
+                        &cancel_flag,
+                        &ctrl_bg,
+                        &mut done,
+                        initial_bytes,
+                        started_at,
+                    )
+                } else {
+                    copy_file_chunked_with_progress(
+                        &src_path,
+                        &dst_path_bg,
+                        &id_bg,
+                        &cancel_flag,
+                        &ctrl_bg,
+                        &mut done,
+                        initial_bytes,
+                        started_at,
+                    )
+                };
+                res
+            }
+            (FilePaneBackend::Local, FilePaneBackend::Sftp(sftp)) => {
+                ctrl_bg.update_progress(&id_bg, 0, Some(initial_bytes), 0.0);
+                let res = sftp.upload_path(&src_path, &dst_path_bg);
+                if res.is_ok() {
+                    let elapsed = started_at.elapsed().as_secs_f64().max(0.001);
+                    ctrl_bg.update_progress(
+                        &id_bg,
+                        initial_bytes,
+                        Some(initial_bytes),
+                        initial_bytes as f64 / elapsed,
+                    );
+                }
+                res
+            }
+            (FilePaneBackend::Sftp(sftp), FilePaneBackend::Local) => {
+                ctrl_bg.update_progress(&id_bg, 0, Some(initial_bytes), 0.0);
+                let res = sftp.download_path(&src_path, &dst_path_bg, src_entry.is_dir);
+                if res.is_ok() {
+                    let elapsed = started_at.elapsed().as_secs_f64().max(0.001);
+                    ctrl_bg.update_progress(
+                        &id_bg,
+                        initial_bytes,
+                        Some(initial_bytes),
+                        initial_bytes as f64 / elapsed,
+                    );
+                }
+                res
+            }
+            (FilePaneBackend::Sftp(src_sftp), FilePaneBackend::Sftp(dst_sftp)) => {
+                let relay_dir = std::env::temp_dir()
+                    .join(format!("onyxsh_relay_{}_{}", std::process::id(), id_bg));
+                let relay_target = relay_dir.join(&src_entry.name);
+                if let Err(e) = fs::create_dir_all(&relay_dir) {
+                    Err(e)
+                } else {
+                    let dl = src_sftp.download_path(&src_path, &relay_target, src_entry.is_dir);
+                    let res = match dl {
+                        Ok(()) => {
+                            if cancel_flag.load(Ordering::Relaxed) || ctrl_bg.is_cancelled(&id_bg) {
+                                Err(std::io::Error::new(
+                                    std::io::ErrorKind::Interrupted,
+                                    tr("Transferência cancelada pelo usuário."),
+                                ))
+                            } else {
+                                let mid = initial_bytes / 2;
+                                let elapsed = started_at.elapsed().as_secs_f64().max(0.001);
+                                ctrl_bg.update_progress(
+                                    &id_bg,
+                                    mid,
+                                    Some(initial_bytes),
+                                    mid as f64 / elapsed,
+                                );
+                                dst_sftp.upload_path(&relay_target, &dst_path_bg)
+                            }
+                        }
+                        Err(e) => Err(e),
+                    };
+                    let _ = fs::remove_dir_all(&relay_dir);
+                    res
+                }
+            }
+        };
+
+        if cancel_flag.load(Ordering::Relaxed) || ctrl_bg.is_cancelled(&id_bg) {
+            let msg = tr("Transferência cancelada pelo usuário.");
+            ctrl_bg.mark_failed(&id_bg, msg.clone());
+            let _ = tx_res.send(Err(msg));
+            return;
+        }
+
+        match outcome {
+            Ok(()) => {
+                let elapsed = started_at.elapsed().as_secs_f64().max(0.001);
+                ctrl_bg.update_progress(
+                    &id_bg,
+                    initial_bytes,
+                    Some(initial_bytes),
+                    initial_bytes as f64 / elapsed,
+                );
+                ctrl_bg.mark_completed(&id_bg);
+                let _ = tx_res.send(Ok(dst_path_bg));
+            }
+            Err(e) => {
+                let msg = e.to_string();
+                ctrl_bg.mark_failed(&id_bg, msg.clone());
+                let _ = tx_res.send(Err(msg));
+            }
+        }
+    });
+
+    glib::timeout_add_local(std::time::Duration::from_millis(50), move || {
+        match rx_res.try_recv() {
+            Ok(Ok(dst_final)) => {
+                status_lbl.set_text(&tr_fmt(
+                    "Copiado para {path}",
+                    &[("path", &dst_final.display().to_string())],
+                ));
+                on_done();
+                glib::ControlFlow::Break
+            }
+            Ok(Err(err)) => {
+                status_lbl.set_text(&tr_fmt(
+                    "Falha na transferência: {err}",
+                    &[("err", &err)],
+                ));
+                glib::ControlFlow::Break
+            }
+            Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+            Err(std::sync::mpsc::TryRecvError::Disconnected) => glib::ControlFlow::Break,
+        }
+    });
+}
+
+/// Opens the Dual-Pane Directory Comparison & Side-by-Side Unified Diff dialog.
+#[allow(clippy::too_many_arguments)]
+fn show_dir_compare_and_diff_dialog(
+    parent_window: &adw::ApplicationWindow,
+    left_dir: PathBuf,
+    left_backend: FilePaneBackend,
+    left_entries: Vec<FileEntry>,
+    right_dir: PathBuf,
+    right_backend: FilePaneBackend,
+    right_entries: Vec<FileEntry>,
+    left_selected: Option<FileEntry>,
+    right_selected: Option<FileEntry>,
+    cmp: DirectoryComparison,
+) {
+    let dlg = adw::Window::builder()
+        .title(tr("Comparação de Diretórios e Diff"))
+        .transient_for(parent_window)
+        .modal(true)
+        .default_width(880)
+        .default_height(600)
+        .build();
+
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 6);
+    let header = adw::HeaderBar::new();
+    vbox.append(&header);
+
+    let summary_lbl = gtk4::Label::new(Some(&tr_fmt(
+        "{identical} idênticos · {left_only} apenas Esquerda · {right_only} apenas Direita · {diff} tamanho diferente",
+        &[
+            ("identical", &cmp.identical_count.to_string()),
+            ("left_only", &cmp.only_in_left.len().to_string()),
+            ("right_only", &cmp.only_in_right.len().to_string()),
+            ("diff", &cmp.size_differs.len().to_string()),
+        ],
+    )));
+    summary_lbl.set_halign(gtk4::Align::Start);
+    summary_lbl.set_margin_start(12);
+    summary_lbl.set_margin_end(12);
+    summary_lbl.add_css_class("caption");
+    vbox.append(&summary_lbl);
+
+    let body_paned = gtk4::Paned::new(gtk4::Orientation::Horizontal);
+    body_paned.set_position(280);
+    body_paned.set_hexpand(true);
+    body_paned.set_vexpand(true);
+    body_paned.set_margin_start(10);
+    body_paned.set_margin_end(10);
+    body_paned.set_margin_bottom(10);
+
+    let list_scroll = gtk4::ScrolledWindow::builder()
+        .hexpand(true)
+        .vexpand(true)
+        .build();
+    let list_box = gtk4::ListBox::new();
+    list_box.add_css_class("boxed-list");
+    list_scroll.set_child(Some(&list_box));
+
+    let diff_scroll = gtk4::ScrolledWindow::builder()
+        .hexpand(true)
+        .vexpand(true)
+        .build();
+    let diff_view = gtk4::TextView::new();
+    diff_view.set_editable(false);
+    diff_view.set_monospace(true);
+    diff_view.set_left_margin(8);
+    diff_view.set_right_margin(8);
+    diff_view.set_top_margin(6);
+    diff_view.set_bottom_margin(6);
+    diff_scroll.set_child(Some(&diff_view));
+
+    let buf = diff_view.buffer();
+    let tag_add = buf
+        .create_tag(Some("diff-add"), &[("foreground", &"#a6e3a1")])
+        .unwrap();
+    let tag_del = buf
+        .create_tag(Some("diff-del"), &[("foreground", &"#f38ba8")])
+        .unwrap();
+    let tag_hunk = buf
+        .create_tag(Some("diff-hunk"), &[("foreground", &"#89b4fa")])
+        .unwrap();
+    let tag_hdr = buf
+        .create_tag(Some("diff-hdr"), &[("foreground", &"#f9e2af")])
+        .unwrap();
+
+    let load_pair_diff: Rc<dyn Fn(PathBuf, String, PathBuf, String)> = {
+        let lb = left_backend.clone();
+        let rb = right_backend.clone();
+        let tv = diff_view.clone();
+        let t_add = tag_add.clone();
+        let t_del = tag_del.clone();
+        let t_hunk = tag_hunk.clone();
+        let t_hdr = tag_hdr.clone();
+
+        Rc::new(move |lp: PathBuf, l_label: String, rp: PathBuf, r_label: String| {
+            let b = tv.buffer();
+            b.set_text(&tr("Carregando Diff..."));
+            let lb_bg = lb.clone();
+            let rb_bg = rb.clone();
+            let (tx, rx) = std::sync::mpsc::sync_channel::<Result<String, String>>(1);
+
+            std::thread::spawn(move || {
+                let read_checked = |bk: &FilePaneBackend, p: &Path| -> Result<String, String> {
+                    let bytes = bk
+                        .read_bytes(p, Some(DIFF_MAX_FILE_BYTES + 1))
+                        .map_err(|e| format!("{}: {e}", p.display()))?;
+                    if bytes.len() > DIFF_MAX_FILE_BYTES {
+                        return Err(tr_fmt(
+                            "Arquivo excede o limite de 5 MiB para Diff: {path}",
+                            &[("path", &p.display().to_string())],
+                        ));
+                    }
+                    if bytes.contains(&0) {
+                        return Err(tr_fmt(
+                            "Arquivo binário — comparação Diff indisponível: {path}",
+                            &[("path", &p.display().to_string())],
+                        ));
+                    }
+                    Ok(String::from_utf8_lossy(&bytes).into_owned())
+                };
+
+                let res = match (read_checked(&lb_bg, &lp), read_checked(&rb_bg, &rp)) {
+                    (Ok(lt), Ok(rt)) => Ok(generate_unified_diff(&l_label, &r_label, &lt, &rt)),
+                    (Err(e), _) | (_, Err(e)) => Err(e),
+                };
+                let _ = tx.send(res);
+            });
+
+            let tv_ui = tv.clone();
+            let t_add_ui = t_add.clone();
+            let t_del_ui = t_del.clone();
+            let t_hunk_ui = t_hunk.clone();
+            let t_hdr_ui = t_hdr.clone();
+            glib::timeout_add_local(std::time::Duration::from_millis(40), move || {
+                match rx.try_recv() {
+                    Ok(Ok(diff_text)) => {
+                        let b = tv_ui.buffer();
+                        b.set_text("");
+                        if diff_text.trim().is_empty() {
+                            b.set_text(&tr("Nenhuma diferença textual encontrada."));
+                        } else {
+                            let mut iter = b.end_iter();
+                            for line in diff_text.split_inclusive('\n') {
+                                let start_offset = iter.offset();
+                                b.insert(&mut iter, line);
+                                let start = b.iter_at_offset(start_offset);
+                                if line.starts_with("--- ") || line.starts_with("+++ ") {
+                                    b.apply_tag(&t_hdr_ui, &start, &iter);
+                                } else if line.starts_with("@@") {
+                                    b.apply_tag(&t_hunk_ui, &start, &iter);
+                                } else if line.starts_with('+') {
+                                    b.apply_tag(&t_add_ui, &start, &iter);
+                                } else if line.starts_with('-') {
+                                    b.apply_tag(&t_del_ui, &start, &iter);
+                                }
+                            }
+                        }
+                        glib::ControlFlow::Break
+                    }
+                    Ok(Err(msg)) => {
+                        tv_ui.buffer().set_text(&msg);
+                        glib::ControlFlow::Break
+                    }
+                    Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+                    Err(std::sync::mpsc::TryRecvError::Disconnected) => glib::ControlFlow::Break,
+                }
+            });
+        })
+    };
+
+    let mut pairs: Vec<(String, PathBuf, PathBuf, String)> = Vec::new();
+    for (name, lsize, rsize) in &cmp.size_differs {
+        if let (Some(le), Some(re)) = (
+            left_entries.iter().find(|e| &e.name == name && !e.is_dir),
+            right_entries.iter().find(|e| &e.name == name && !e.is_dir),
+        ) {
+            pairs.push((
+                format!("{name} ({lsize} B ≠ {rsize} B)"),
+                PathBuf::from(&le.path),
+                PathBuf::from(&re.path),
+                name.clone(),
+            ));
+        }
+    }
+
+    if let (Some(ls), Some(rs)) = (&left_selected, &right_selected) {
+        if !ls.is_dir && !rs.is_dir && ls.name != ".." && rs.name != ".." {
+            let lp = PathBuf::from(&ls.path);
+            let rp = PathBuf::from(&rs.path);
+            if !pairs.iter().any(|(_, a, b, _)| a == &lp && b == &rp) {
+                pairs.insert(
+                    0,
+                    (
+                        format!("{} ⇄ {}", ls.name, rs.name),
+                        lp,
+                        rp,
+                        format!("{} / {}", ls.name, rs.name),
+                    ),
+                );
+            }
+        }
+    }
+
+    if pairs.is_empty() {
+        let mut msg = tr("Selecione dois arquivos (um em cada painel) ou compare diretórios com arquivos de mesmo nome.\n\n");
+        if !cmp.only_in_left.is_empty() {
+            msg.push_str(&tr("Apenas na Esquerda:\n"));
+            for name in cmp.only_in_left.iter().take(40) {
+                msg.push_str(&format!("  - {name}\n"));
+            }
+            msg.push('\n');
+        }
+        if !cmp.only_in_right.is_empty() {
+            msg.push_str(&tr("Apenas na Direita:\n"));
+            for name in cmp.only_in_right.iter().take(40) {
+                msg.push_str(&format!("  + {name}\n"));
+            }
+        }
+        diff_view.buffer().set_text(&msg);
+    } else {
+        for (title, lp, rp, name) in &pairs {
+            let row_btn = gtk4::Button::builder()
+                .label(title)
+                .has_frame(false)
+                .halign(gtk4::Align::Fill)
+                .build();
+            let lp_c = lp.clone();
+            let rp_c = rp.clone();
+            let l_lbl = format!("Esquerda ({})/{}", left_dir.display(), name);
+            let r_lbl = format!("Direita ({})/{}", right_dir.display(), name);
+            let loader = Rc::clone(&load_pair_diff);
+            row_btn.connect_clicked(move |_| {
+                loader(lp_c.clone(), l_lbl.clone(), rp_c.clone(), r_lbl.clone());
+            });
+            list_box.append(&row_btn);
+        }
+
+        for name in &cmp.only_in_left {
+            let lbl = gtk4::Label::new(Some(&format!("← {name}")));
+            lbl.set_halign(gtk4::Align::Start);
+            lbl.set_margin_start(8);
+            lbl.add_css_class("dim-label");
+            list_box.append(&lbl);
+        }
+        for name in &cmp.only_in_right {
+            let lbl = gtk4::Label::new(Some(&format!("→ {name}")));
+            lbl.set_halign(gtk4::Align::Start);
+            lbl.set_margin_start(8);
+            lbl.add_css_class("dim-label");
+            list_box.append(&lbl);
+        }
+
+        if let Some((_, lp, rp, name)) = pairs.first() {
+            let l_lbl = format!("Esquerda ({})/{}", left_dir.display(), name);
+            let r_lbl = format!("Direita ({})/{}", right_dir.display(), name);
+            load_pair_diff(lp.clone(), l_lbl, rp.clone(), r_lbl);
+        }
+    }
+
+    body_paned.set_start_child(Some(&list_scroll));
+    body_paned.set_end_child(Some(&diff_scroll));
+    vbox.append(&body_paned);
+
+    dlg.set_content(Some(&vbox));
+    dlg.present();
 }
 
 /// Builds the complete Dual-Pane File Manager container.
@@ -4161,7 +5669,25 @@ pub fn build_complete_file_manager(
     feed_terminal_cb: Rc<dyn Fn(&str)>,
     ai_prompt_cb: Option<Rc<dyn Fn(&str)>>,
 ) -> gtk4::Box {
-    let transfers: Rc<RefCell<Vec<TransferItem>>> = Rc::new(RefCell::new(Vec::new()));
+    build_complete_file_manager_with_controls(
+        parent_window,
+        status_lbl,
+        cd_in_terminal_cb,
+        feed_terminal_cb,
+        ai_prompt_cb,
+    )
+    .0
+}
+
+/// Builds the Dual-Pane File Manager widget and returns `(container, sync_local_dir, connect_sftp_session)` controls.
+pub fn build_complete_file_manager_with_controls(
+    parent_window: &adw::ApplicationWindow,
+    status_lbl: &gtk4::Label,
+    cd_in_terminal_cb: Rc<dyn Fn(&Path)>,
+    feed_terminal_cb: Rc<dyn Fn(&str)>,
+    ai_prompt_cb: Option<Rc<dyn Fn(&str)>>,
+) -> (gtk4::Box, Rc<dyn Fn(&Path)>, Rc<dyn Fn(&SessionItem)>) {
+    let transfer_ctrl = Arc::new(onyxsh_filemanager::transfer::TransferQueueController::new());
     let clipboard: Rc<RefCell<Option<FileManagerClipboardItem>>> = Rc::new(RefCell::new(None));
 
     let container = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
@@ -4178,7 +5704,7 @@ pub fn build_complete_file_manager(
     main_hbox.set_hexpand(true);
     main_hbox.set_vexpand(true);
 
-    let left_pane = build_file_pane(
+    let left_pane = build_file_pane_with_options(
         parent_window,
         platform::home_dir(),
         status_lbl,
@@ -4186,8 +5712,10 @@ pub fn build_complete_file_manager(
         Rc::clone(&feed_terminal_cb),
         ai_prompt_cb.clone(),
         Rc::clone(&clipboard),
+        "left",
+        Some(Arc::clone(&transfer_ctrl)),
     );
-    let right_pane = build_file_pane(
+    let right_pane = build_file_pane_with_options(
         parent_window,
         PathBuf::from("/tmp"),
         status_lbl,
@@ -4195,6 +5723,8 @@ pub fn build_complete_file_manager(
         Rc::clone(&feed_terminal_cb),
         ai_prompt_cb,
         Rc::clone(&clipboard),
+        "right",
+        Some(Arc::clone(&transfer_ctrl)),
     );
 
     // Center Transfer Action Bar (`DualPaneTransferBar`)
@@ -4243,12 +5773,111 @@ pub fn build_complete_file_manager(
         });
     }
 
+    // Wire Drag & Drop between Left <-> Right panes
+    {
+        let drop_right =
+            gtk4::DropTarget::new(String::static_type(), gtk4::gdk::DragAction::COPY);
+        let lp_bk = Rc::clone(&left_pane.backend);
+        let rp_bk = Rc::clone(&right_pane.backend);
+        let rp_dir = Rc::clone(&right_pane.current_dir);
+        let rp_refresh = Rc::clone(&right_pane.refresh);
+        let tx_ctrl = Arc::clone(&transfer_ctrl);
+        let status = status_lbl.clone();
+        drop_right.connect_drop(move |_dt, val, _x, _y| {
+            let Ok(raw) = val.get::<String>() else {
+                return false;
+            };
+            let Some(payload) = decode_drag_payload(&raw) else {
+                return false;
+            };
+            if payload.source_pane == "right" || payload.name == ".." {
+                return false;
+            }
+            let src_bk = lp_bk.borrow().clone();
+            let dst_bk = rp_bk.borrow().clone();
+            let dst_dir = rp_dir.borrow().clone();
+            let dir = resolve_transfer_direction(&src_bk, &dst_bk, TransferDirection::Upload);
+            let entry = FileEntry {
+                name: payload.name,
+                path: payload.path,
+                is_dir: payload.is_dir,
+                is_symlink: false,
+                symlink_target: None,
+                size: payload.size_bytes,
+                modified_epoch: 0,
+                permissions_octal: 0o644,
+                owner: String::new(),
+            };
+            start_async_transfer(
+                src_bk,
+                entry,
+                dst_bk,
+                dst_dir,
+                dir,
+                Arc::clone(&tx_ctrl),
+                status.clone(),
+                Rc::clone(&rp_refresh),
+            );
+            true
+        });
+        right_pane.widget.add_controller(drop_right);
+
+        let drop_left =
+            gtk4::DropTarget::new(String::static_type(), gtk4::gdk::DragAction::COPY);
+        let rp_bk = Rc::clone(&right_pane.backend);
+        let lp_bk = Rc::clone(&left_pane.backend);
+        let lp_dir = Rc::clone(&left_pane.current_dir);
+        let lp_refresh = Rc::clone(&left_pane.refresh);
+        let tx_ctrl = Arc::clone(&transfer_ctrl);
+        let status = status_lbl.clone();
+        drop_left.connect_drop(move |_dt, val, _x, _y| {
+            let Ok(raw) = val.get::<String>() else {
+                return false;
+            };
+            let Some(payload) = decode_drag_payload(&raw) else {
+                return false;
+            };
+            if payload.source_pane == "left" || payload.name == ".." {
+                return false;
+            }
+            let src_bk = rp_bk.borrow().clone();
+            let dst_bk = lp_bk.borrow().clone();
+            let dst_dir = lp_dir.borrow().clone();
+            let dir = resolve_transfer_direction(&src_bk, &dst_bk, TransferDirection::Download);
+            let entry = FileEntry {
+                name: payload.name,
+                path: payload.path,
+                is_dir: payload.is_dir,
+                is_symlink: false,
+                symlink_target: None,
+                size: payload.size_bytes,
+                modified_epoch: 0,
+                permissions_octal: 0o644,
+                owner: String::new(),
+            };
+            start_async_transfer(
+                src_bk,
+                entry,
+                dst_bk,
+                dst_dir,
+                dir,
+                Arc::clone(&tx_ctrl),
+                status.clone(),
+                Rc::clone(&lp_refresh),
+            );
+            true
+        });
+        left_pane.widget.add_controller(drop_left);
+    }
+
     // Wire Copy Left -> Right
     {
         let lp_sel = Rc::clone(&left_pane.selected_entry);
+        let lp_bk = Rc::clone(&left_pane.backend);
+        let rp_bk = Rc::clone(&right_pane.backend);
         let rp_dir = Rc::clone(&right_pane.current_dir);
         let rp_refresh = Rc::clone(&right_pane.refresh);
-        let tx_rc = Rc::clone(&transfers);
+        let tx_ctrl = Arc::clone(&transfer_ctrl);
         let status = status_lbl.clone();
 
         btn_copy_to_right.connect_clicked(move |_| {
@@ -4256,30 +5885,31 @@ pub fn build_complete_file_manager(
                 status.set_text(&tr("Selecione um item no painel esquerdo para enviar (→)."));
                 return;
             };
+            let src_bk = lp_bk.borrow().clone();
+            let dst_bk = rp_bk.borrow().clone();
             let dst_dir = rp_dir.borrow().clone();
-            match copy_entry_and_record_transfer(&entry, &dst_dir, TransferDirection::Upload, &tx_rc)
-            {
-                Ok(dst_path) => {
-                    status.set_text(&tr_fmt(
-                        "Copiado para {path}",
-                        &[("path", &dst_path.display().to_string())],
-                    ));
-                    rp_refresh();
-                }
-                Err(e) => status.set_text(&tr_fmt(
-                    "Falha na transferência (→): {err}",
-                    &[("err", &e.to_string())],
-                )),
-            }
+            let dir = resolve_transfer_direction(&src_bk, &dst_bk, TransferDirection::Upload);
+            start_async_transfer(
+                src_bk,
+                entry,
+                dst_bk,
+                dst_dir,
+                dir,
+                Arc::clone(&tx_ctrl),
+                status.clone(),
+                Rc::clone(&rp_refresh),
+            );
         });
     }
 
     // Wire Copy Right -> Left
     {
         let rp_sel = Rc::clone(&right_pane.selected_entry);
+        let rp_bk = Rc::clone(&right_pane.backend);
+        let lp_bk = Rc::clone(&left_pane.backend);
         let lp_dir = Rc::clone(&left_pane.current_dir);
         let lp_refresh = Rc::clone(&left_pane.refresh);
-        let tx_rc = Rc::clone(&transfers);
+        let tx_ctrl = Arc::clone(&transfer_ctrl);
         let status = status_lbl.clone();
 
         btn_copy_to_left.connect_clicked(move |_| {
@@ -4287,35 +5917,39 @@ pub fn build_complete_file_manager(
                 status.set_text(&tr("Selecione um item no painel direito para baixar (←)."));
                 return;
             };
+            let src_bk = rp_bk.borrow().clone();
+            let dst_bk = lp_bk.borrow().clone();
             let dst_dir = lp_dir.borrow().clone();
-            match copy_entry_and_record_transfer(
-                &entry,
-                &dst_dir,
-                TransferDirection::Download,
-                &tx_rc,
-            ) {
-                Ok(dst_path) => {
-                    status.set_text(&tr_fmt(
-                        "Copiado para {path}",
-                        &[("path", &dst_path.display().to_string())],
-                    ));
-                    lp_refresh();
-                }
-                Err(e) => status.set_text(&tr_fmt(
-                    "Falha na transferência (←): {err}",
-                    &[("err", &e.to_string())],
-                )),
-            }
+            let dir = resolve_transfer_direction(&src_bk, &dst_bk, TransferDirection::Download);
+            start_async_transfer(
+                src_bk,
+                entry,
+                dst_bk,
+                dst_dir,
+                dir,
+                Arc::clone(&tx_ctrl),
+                status.clone(),
+                Rc::clone(&lp_refresh),
+            );
         });
     }
 
-    // Wire Compare Directories (Left <-> Right)
+    // Wire Compare Directories (Left <-> Right) + Diff Dialog
     {
+        let parent = parent_window.clone();
+        let lp_dir = Rc::clone(&left_pane.current_dir);
+        let lp_bk = Rc::clone(&left_pane.backend);
         let lp_vis = Rc::clone(&left_pane.visible_entries);
+        let lp_sel = Rc::clone(&left_pane.selected_entry);
+        let rp_dir = Rc::clone(&right_pane.current_dir);
+        let rp_bk = Rc::clone(&right_pane.backend);
         let rp_vis = Rc::clone(&right_pane.visible_entries);
+        let rp_sel = Rc::clone(&right_pane.selected_entry);
         let status = status_lbl.clone();
         btn_compare_dirs.connect_clicked(move |_| {
-            let cmp = compare_directory_entries(&lp_vis.borrow(), &rp_vis.borrow());
+            let l_entries = lp_vis.borrow().clone();
+            let r_entries = rp_vis.borrow().clone();
+            let cmp = compare_directory_entries(&l_entries, &r_entries);
             status.set_text(&tr_fmt(
                 "Comparação Dual-Pane: {identical} idênticos | {left_only} apenas na Esquerda | {right_only} apenas na Direita | {diff} com tamanho diferente",
                 &[
@@ -4325,10 +5959,96 @@ pub fn build_complete_file_manager(
                     ("diff", &cmp.size_differs.len().to_string()),
                 ],
             ));
+            show_dir_compare_and_diff_dialog(
+                &parent,
+                lp_dir.borrow().clone(),
+                lp_bk.borrow().clone(),
+                l_entries,
+                rp_dir.borrow().clone(),
+                rp_bk.borrow().clone(),
+                r_entries,
+                lp_sel.borrow().clone(),
+                rp_sel.borrow().clone(),
+                cmp,
+            );
         });
     }
 
-    container
+    let sync_local_dir: Rc<dyn Fn(&Path)> = {
+        let lp_bk = Rc::clone(&left_pane.backend);
+        let lp_dir = Rc::clone(&left_pane.current_dir);
+        let lp_refresh = Rc::clone(&left_pane.refresh);
+        Rc::new(move |new_dir: &Path| {
+            if lp_bk.borrow().is_sftp() || !new_dir.is_dir() {
+                return;
+            }
+            if *lp_dir.borrow() != new_dir {
+                *lp_dir.borrow_mut() = new_dir.to_path_buf();
+                lp_refresh();
+            }
+        })
+    };
+
+    let connect_sftp_session: Rc<dyn Fn(&SessionItem)> = {
+        let rp_set_backend = Rc::clone(&right_pane.set_backend_and_dir);
+        let btn_dual = left_pane.btn_toggle_dual.clone();
+        let status = status_lbl.clone();
+        Rc::new(move |sess: &SessionItem| {
+            if sess.session_type != "ssh" || sess.host.is_empty() {
+                return;
+            }
+            if !btn_dual.is_active() {
+                btn_dual.set_active(true);
+            }
+            let target = sess.connection_string();
+            let secret = crate::session_sidebar::resolve_session_secret(sess);
+            let pw_opt = if secret.is_empty() { None } else { Some(secret) };
+            let sftp = onyxsh_filemanager::backend::SftpFsBackend::new(sess.clone(), pw_opt);
+
+            status.set_text(&tr_fmt(
+                "Conectando painel SFTP nativo a {target}...",
+                &[("target", &target)],
+            ));
+
+            let (tx, rx) = std::sync::mpsc::sync_channel::<Result<PathBuf, String>>(1);
+            let sftp_bg = sftp.clone();
+            std::thread::spawn(move || {
+                let res = sftp_bg.resolve_home_dir().map_err(|e| e.to_string());
+                let _ = tx.send(res);
+            });
+
+            let sftp_ui = sftp.clone();
+            let set_fn = Rc::clone(&rp_set_backend);
+            let status_ui = status.clone();
+            let target_ui = target.clone();
+            glib::timeout_add_local(std::time::Duration::from_millis(50), move || {
+                match rx.try_recv() {
+                    Ok(Ok(home)) => {
+                        let home_str = home.display().to_string();
+                        set_fn(FilePaneBackend::Sftp(sftp_ui.clone()), home);
+                        status_ui.set_text(&tr_fmt(
+                            "Painel SFTP conectado a {target} ({path})",
+                            &[("target", &target_ui), ("path", &home_str)],
+                        ));
+                        glib::ControlFlow::Break
+                    }
+                    Ok(Err(err)) => {
+                        // Still open root so user can inspect or retry, while surfacing the error
+                        set_fn(FilePaneBackend::Sftp(sftp_ui.clone()), PathBuf::from("/"));
+                        status_ui.set_text(&tr_fmt(
+                            "Aviso ao resolver home SFTP em {target}: {err}",
+                            &[("target", &target_ui), ("err", &err)],
+                        ));
+                        glib::ControlFlow::Break
+                    }
+                    Err(std::sync::mpsc::TryRecvError::Empty) => glib::ControlFlow::Continue,
+                    Err(std::sync::mpsc::TryRecvError::Disconnected) => glib::ControlFlow::Break,
+                }
+            });
+        })
+    };
+
+    (container, sync_local_dir, connect_sftp_session)
 }
 
 /// Calculates the target file manager height and paned divider position.
@@ -4385,6 +6105,7 @@ mod tests {
                 path: "/l/common.txt".to_string(),
                 is_dir: false,
                 is_symlink: false,
+                symlink_target: None,
                 size: 100,
                 modified_epoch: 0,
                 permissions_octal: 0o644,
@@ -4395,6 +6116,7 @@ mod tests {
                 path: "/l/changed.cfg".to_string(),
                 is_dir: false,
                 is_symlink: false,
+                symlink_target: None,
                 size: 200,
                 modified_epoch: 0,
                 permissions_octal: 0o644,
@@ -4405,6 +6127,7 @@ mod tests {
                 path: "/l/left_only.sh".to_string(),
                 is_dir: false,
                 is_symlink: false,
+                symlink_target: None,
                 size: 50,
                 modified_epoch: 0,
                 permissions_octal: 0o755,
@@ -4418,6 +6141,7 @@ mod tests {
                 path: "/r/common.txt".to_string(),
                 is_dir: false,
                 is_symlink: false,
+                symlink_target: None,
                 size: 100,
                 modified_epoch: 0,
                 permissions_octal: 0o644,
@@ -4428,6 +6152,7 @@ mod tests {
                 path: "/r/changed.cfg".to_string(),
                 is_dir: false,
                 is_symlink: false,
+                symlink_target: None,
                 size: 350,
                 modified_epoch: 0,
                 permissions_octal: 0o644,
@@ -4460,6 +6185,7 @@ mod tests {
             path: "/home".to_string(),
             is_dir: true,
             is_symlink: false,
+            symlink_target: None,
             size: 4096,
             modified_epoch: 0,
             permissions_octal: 0o755,
@@ -4482,6 +6208,7 @@ mod tests {
             path: "/home/user/README.md".to_string(),
             is_dir: false,
             is_symlink: false,
+            symlink_target: None,
             size: 3072,
             modified_epoch: 1234,
             permissions_octal: 0o644,
@@ -4504,6 +6231,7 @@ mod tests {
             path: "/home/user/sample.jpg".to_string(),
             is_dir: false,
             is_symlink: false,
+            symlink_target: None,
             size: 4_000_000,
             modified_epoch: 1234,
             permissions_octal: 0o644,
@@ -4523,6 +6251,7 @@ mod tests {
             path: "/home/user/Downloads".to_string(),
             is_dir: true,
             is_symlink: false,
+            symlink_target: None,
             size: 4096,
             modified_epoch: 1234,
             permissions_octal: 0o755,
@@ -4535,6 +6264,7 @@ mod tests {
             path: "/home/user/deploy.sh".to_string(),
             is_dir: false,
             is_symlink: false,
+            symlink_target: None,
             size: 2048,
             modified_epoch: 5678,
             permissions_octal: 0o755,
@@ -4605,6 +6335,7 @@ mod tests {
             path: "/games/Crash Team Racing Turbocharged".to_string(),
             is_dir: true,
             is_symlink: false,
+            symlink_target: None,
             size: 4096,
             modified_epoch: 0,
             permissions_octal: 0o775,
@@ -4712,6 +6443,7 @@ mod tests {
             path: "/test/scripts".to_string(),
             is_dir: true,
             is_symlink: false,
+            symlink_target: None,
             size: 4096,
             modified_epoch: 1724457120,
             permissions_octal: 0o755,
@@ -4727,6 +6459,7 @@ mod tests {
             path: "/test/Cargo.lock".to_string(),
             is_dir: false,
             is_symlink: false,
+            symlink_target: None,
             size: 41472, // 40.5 KB
             modified_epoch: 1724457120,
             permissions_octal: 0o644,
@@ -4739,6 +6472,7 @@ mod tests {
             path: "/test".to_string(),
             is_dir: true,
             is_symlink: false,
+            symlink_target: None,
             size: 4096,
             modified_epoch: 1724457120,
             permissions_octal: 0o755,
@@ -4754,6 +6488,7 @@ mod tests {
             path: "/test/quality-check.sh".to_string(),
             is_dir: false,
             is_symlink: false,
+            symlink_target: None,
             size: 7065, // ~6.9 KB
             modified_epoch: 0,
             permissions_octal: 0o755,
@@ -4766,6 +6501,7 @@ mod tests {
             path: "/test".to_string(),
             is_dir: true,
             is_symlink: false,
+            symlink_target: None,
             size: 4096,
             modified_epoch: 0,
             permissions_octal: 0o755,
@@ -4785,6 +6521,7 @@ mod tests {
             path: tmp_dir.to_string_lossy().to_string(),
             is_dir: true,
             is_symlink: false,
+            symlink_target: None,
             size: 4096,
             modified_epoch: 0,
             permissions_octal: 0o755,
@@ -4798,5 +6535,49 @@ mod tests {
         );
 
         let _ = std::fs::remove_dir_all(&tmp_dir);
+    }
+
+    #[test]
+    fn test_drag_payload_roundtrip() {
+        let payload = DragTransferPayload {
+            source_pane: "left".to_string(),
+            path: "/tmp/archive.tar.gz".to_string(),
+            name: "archive.tar.gz".to_string(),
+            is_dir: false,
+            size_bytes: 4096,
+        };
+        let encoded = encode_drag_payload(&payload);
+        let decoded = decode_drag_payload(&encoded).expect("valid payload must decode");
+        assert_eq!(decoded, payload);
+        assert!(decode_drag_payload("invalid-prefix:{}").is_none());
+    }
+
+    #[test]
+    fn test_generate_unified_diff_output() {
+        let left = "alpha\nbeta\ngamma\n";
+        let right = "alpha\nbeta2\ngamma\ndelta\n";
+        let diff = generate_unified_diff("left.txt", "right.txt", left, right);
+        assert!(diff.contains("--- left.txt"));
+        assert!(diff.contains("+++ right.txt"));
+        assert!(diff.contains("-beta"));
+        assert!(diff.contains("+beta2"));
+        assert!(diff.contains("+delta"));
+    }
+
+    #[test]
+    fn test_file_pane_backend_properties() {
+        let local = FilePaneBackend::Local;
+        assert!(!local.is_sftp());
+
+        let mut sess = SessionItem::default();
+        sess.session_type = "ssh".to_string();
+        sess.user = "deploy".to_string();
+        sess.host = "prod.example.com".to_string();
+        sess.port = 2222;
+        let sftp = onyxsh_filemanager::backend::SftpFsBackend::new(sess, None);
+        let remote = FilePaneBackend::Sftp(sftp);
+        assert!(remote.is_sftp());
+        let label = remote.display_label();
+        assert!(label.contains("prod.example.com"), "unexpected label: {label}");
     }
 }

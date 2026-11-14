@@ -26,7 +26,8 @@ use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_terminal::exporter::{format_direct_export, ExportMetadata};
 use onyxsh_terminal::osc7::create_display_path;
-use onyxsh_terminal::runbook::{RunbookData, RunbookMetadata};
+use onyxsh_terminal::runbook::{RunbookData, RunbookMetadata, RunbookStep};
+use onyxsh_terminal::semantic_tracker::SemanticCommand;
 use std::cell::RefCell;
 use std::rc::Rc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -184,11 +185,15 @@ pub fn extract_terminal_buffer_text(term: &vte4::Terminal, selection_only: bool)
 
 /// Builds initial [`RunbookData`] from raw terminal text and [`ExportMetadata`].
 pub fn build_runbook_data_from_text(raw_text: &str, meta: &ExportMetadata) -> RunbookData {
+    let steps = RunbookData::parse_fallback_steps(raw_text);
+    build_runbook_data_from_steps(steps, meta)
+}
+
+fn build_runbook_data_from_steps(steps: Vec<RunbookStep>, meta: &ExportMetadata) -> RunbookData {
     let author = std::env::var("USER")
         .or_else(|_| std::env::var("USERNAME"))
         .unwrap_or_else(|_| "operador".to_string());
 
-    let steps = RunbookData::parse_fallback_steps(raw_text);
     let total_commands = steps.len();
 
     RunbookData {
@@ -206,6 +211,89 @@ pub fn build_runbook_data_from_text(raw_text: &str, meta: &ExportMetadata) -> Ru
         },
         steps,
     }
+}
+
+/// Converts captured [`SemanticCommand`] entries into [`RunbookStep`] records using an output extractor.
+pub fn build_runbook_steps_from_semantic<F>(
+    cmds: &[SemanticCommand],
+    mut extract_output: F,
+) -> Vec<RunbookStep>
+where
+    F: FnMut(i64, i64) -> String,
+{
+    cmds.iter()
+        .filter(|c| !c.command_text.trim().is_empty())
+        .map(|cmd| {
+            let output = match cmd.output_end_row {
+                Some(end_row) if end_row >= cmd.output_start_row => {
+                    extract_output(cmd.output_start_row, end_row)
+                }
+                _ => String::new(),
+            };
+            RunbookStep {
+                command: cmd.command_text.clone(),
+                output,
+                exit_code: cmd.exit_code,
+                duration_str: cmd.formatted_duration(),
+                timestamp_str: String::new(),
+                cwd: cmd.cwd.clone(),
+                annotation: String::new(),
+                included: true,
+            }
+        })
+        .collect()
+}
+
+/// Builds initial [`RunbookData`] for a live VTE terminal, preferring captured OSC 133 semantic
+/// commands when available and falling back to regex prompt parsing from `raw_text`.
+pub fn build_runbook_data_for_terminal(
+    term: &vte4::Terminal,
+    raw_text: &str,
+    meta: &ExportMetadata,
+) -> RunbookData {
+    let recorded = crate::terminal_ux::recorded_semantic_commands_for(term);
+    if !recorded.is_empty() {
+        let cols = (term.column_count().max(1) - 1).max(0);
+        let steps: Vec<RunbookStep> = recorded
+            .iter()
+            .filter(|cmd| !cmd.command_text.trim().is_empty())
+            .map(|cmd| {
+                let output = crate::terminal_ux::captured_output_for_command_id(term, &cmd.command_id)
+                    .unwrap_or_else(|| {
+                        if let Some(end_row) = cmd.output_end_row {
+                            let start = cmd.output_start_row.min(end_row);
+                            let end = cmd.output_start_row.max(end_row);
+                            let (txt_opt, _) = term.text_range_format(
+                                vte4::Format::Text,
+                                start,
+                                0,
+                                end,
+                                cols,
+                            );
+                            txt_opt
+                                .map(|g| g.to_string().trim_end().to_string())
+                                .unwrap_or_default()
+                        } else {
+                            String::new()
+                        }
+                    });
+                RunbookStep {
+                    command: cmd.command_text.clone(),
+                    output,
+                    exit_code: cmd.exit_code,
+                    duration_str: cmd.formatted_duration(),
+                    timestamp_str: String::new(),
+                    cwd: cmd.cwd.clone(),
+                    annotation: String::new(),
+                    included: true,
+                }
+            })
+            .collect();
+        if !steps.is_empty() {
+            return build_runbook_data_from_steps(steps, meta);
+        }
+    }
+    build_runbook_data_from_text(raw_text, meta)
 }
 
 /// Truncates formatted export content for the 25-line Live Preview box (`_update_preview` in Python).
@@ -287,7 +375,7 @@ pub fn show_export_terminal_dialog(
         String::new()
     };
     let export_meta = extract_terminal_export_metadata(term, tab_title);
-    let runbook_data = build_runbook_data_from_text(&full_buffer_text, &export_meta);
+    let runbook_data = build_runbook_data_for_terminal(term, &full_buffer_text, &export_meta);
 
     let state_rc = Rc::new(RefCell::new(ExportDialogState {
         is_runbook_mode: start_in_runbook_mode,
@@ -966,5 +1054,43 @@ mod tests {
         assert!(snippet.contains("Line 25"));
         assert!(!snippet.contains("Line 26"));
         assert!(snippet.contains(&tr("... (restante da saída truncado na pré-visualização)")));
+    }
+
+    #[test]
+    fn test_build_runbook_steps_from_semantic_commands() {
+        let cmds = vec![
+            SemanticCommand {
+                command_id: "cmd_1".to_string(),
+                command_text: "systemctl status nginx".to_string(),
+                prompt_row: 1,
+                command_row: 1,
+                output_start_row: 2,
+                output_end_row: Some(4),
+                duration_secs: Some(1.5),
+                exit_code: Some(0),
+                cwd: "/etc/nginx".to_string(),
+            },
+            SemanticCommand {
+                command_id: "cmd_2".to_string(),
+                command_text: "   ".to_string(),
+                prompt_row: 5,
+                command_row: 5,
+                output_start_row: 6,
+                output_end_row: Some(6),
+                duration_secs: Some(0.1),
+                exit_code: Some(0),
+                cwd: "/etc/nginx".to_string(),
+            },
+        ];
+        let steps = build_runbook_steps_from_semantic(&cmds, |start, end| {
+            format!("rows {start}..={end} active (running)")
+        });
+        assert_eq!(steps.len(), 1);
+        assert_eq!(steps[0].command, "systemctl status nginx");
+        assert_eq!(steps[0].output, "rows 2..=4 active (running)");
+        assert_eq!(steps[0].exit_code, Some(0));
+        assert_eq!(steps[0].duration_str, "1.5s");
+        assert_eq!(steps[0].cwd, "/etc/nginx");
+        assert!(steps[0].included);
     }
 }

@@ -904,8 +904,41 @@ pub fn build_complete_ai_assistant_panel(
     vbox.append(&input_container);
 
     // Helper closure to append a code block card with `[Inserir]`, `[Executar]`, `[Copiar]`
+    let execute_command_with_guard: Rc<dyn Fn(&str)> = {
+        let win_ref = parent_window.clone();
+        let act_term = Rc::clone(&active_term_cb);
+        let status = status_lbl.clone();
+        Rc::new(move |code_str: &str| {
+            let Some(term) = act_term() else {
+                return;
+            };
+            let run_now = {
+                let t = term.clone();
+                let st = status.clone();
+                let cs = code_str.to_string();
+                move || {
+                    let cmd = format!("{cs}\n");
+                    t.feed_child(cmd.as_bytes());
+                    st.set_text(&tr_fmt("Executado no terminal: {cmd}", &[("cmd", &cs)]));
+                }
+            };
+            if let Some(violation) = ProductionGuard::new().evaluate_command(code_str) {
+                let expected_host = crate::terminal_ux::resolve_production_target_hostname(Some(&term));
+                crate::terminal_ux::show_production_confirm_dialog(
+                    &win_ref,
+                    &violation,
+                    Some(expected_host.as_str()),
+                    Rc::new(run_now),
+                );
+            } else {
+                run_now();
+            }
+        })
+    };
+
     let append_code_card = {
         let act_term = Rc::clone(&active_term_cb);
+        let exec_guarded = Rc::clone(&execute_command_with_guard);
         let status = status_lbl.clone();
 
         Rc::new(move |parent_box: &gtk4::Box, lang: &str, code: &str| {
@@ -977,17 +1010,9 @@ pub fn build_complete_ai_assistant_panel(
             }
             {
                 let code_str = code.to_string();
-                let at = Rc::clone(&act_term);
-                let st = status.clone();
+                let eg = Rc::clone(&exec_guarded);
                 btn_run.connect_clicked(move |_| {
-                    if let Some(term) = at() {
-                        let cmd = format!("{code_str}\n");
-                        term.feed_child(cmd.as_bytes());
-                        st.set_text(&tr_fmt(
-                            "Executado no terminal: {cmd}",
-                            &[("cmd", &code_str)],
-                        ));
-                    }
+                    eg(&code_str);
                 });
             }
             {
@@ -1083,8 +1108,8 @@ pub fn build_complete_ai_assistant_panel(
         let store_rc_sub = Rc::clone(&history_store_rc);
         let sync_h_sub = Rc::clone(&sync_history_rc);
         let code_card_fn = Rc::clone(&append_code_card);
-        let act_term = Rc::clone(&active_term_cb);
-        let status = status_lbl.clone();
+        let exec_guarded_sub = Rc::clone(&execute_command_with_guard);
+        let _status = status_lbl.clone();
 
         Rc::new(move |raw_input: &str, as_plan: bool| {
             let trimmed = raw_input.trim();
@@ -1197,17 +1222,11 @@ pub fn build_complete_ai_assistant_panel(
 
                     let exec_step_btn = gtk4::Button::with_label(&tr("Aprovar & Executar"));
                     exec_step_btn.add_css_class("flat");
-                    let at = Rc::clone(&act_term);
-                    let st_l = status.clone();
+                    let eg = Rc::clone(&exec_guarded_sub);
+                    let cj = cmd_joined.clone();
                     exec_step_btn.connect_clicked(move |btn| {
-                        if let Some(term) = at() {
-                            term.feed_child(format!("{cmd_joined}\n").as_bytes());
-                            btn.set_label(&tr("✅ Executado"));
-                            st_l.set_text(&tr_fmt(
-                                "Passo executado: {cmd}",
-                                &[("cmd", &cmd_joined)],
-                            ));
-                        }
+                        eg(&cj);
+                        btn.set_label(&tr("✅ Executado"));
                     });
 
                     h_cmd.append(&c_lbl);

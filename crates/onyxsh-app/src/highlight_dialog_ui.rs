@@ -10,7 +10,10 @@
 //!    cargo, apt/dnf/pacman, npm/yarn, kubectl, python, ping, ip, ls, grep.
 
 use crate::preferences_ui::apply_all_settings_to_terminal;
-use crate::theme_engine::{all_builtin_schemes, generate_theme_css, get_palette, TerminalPalette};
+use crate::theme_engine::{
+    all_available_schemes, delete_custom_scheme, generate_theme_css, resolve_palette,
+    save_custom_scheme, slugify_scheme_id, OwnedTerminalPalette,
+};
 use gtk4::gdk;
 use gtk4::glib;
 use gtk4::prelude::*;
@@ -22,6 +25,31 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 /// Sets the cairo context color from a `#RRGGBB` or `#RGB` hex string.
+fn sgr_name_to_preview_hex(spec: Option<&str>) -> String {
+    let raw = spec.unwrap_or("yellow").trim();
+    if raw.starts_with('#') && raw.len() == 7 {
+        return raw.to_string();
+    }
+    let lower = raw.to_lowercase();
+    if lower.contains("red") {
+        "#ff5555".to_string()
+    } else if lower.contains("green") {
+        "#50fa7b".to_string()
+    } else if lower.contains("yellow") {
+        "#f1fa8c".to_string()
+    } else if lower.contains("blue") {
+        "#58a6ff".to_string()
+    } else if lower.contains("magenta") {
+        "#bd93f9".to_string()
+    } else if lower.contains("cyan") {
+        "#8be9fd".to_string()
+    } else if lower.contains("white") {
+        "#f8f8f2".to_string()
+    } else {
+        "#ffb86c".to_string()
+    }
+}
+
 pub fn set_cairo_color_from_hex(cr: &gtk4::cairo::Context, hex: &str) {
     let clean = hex.trim_start_matches('#');
     let (r, g, b) = match clean.len() {
@@ -92,109 +120,200 @@ pub fn show_highlight_dialog(
         .build();
     scheme_listbox.add_css_class("boxed-list");
 
-    let all_schemes = all_builtin_schemes();
-    let current_scheme_id = settings_rc.borrow().color_scheme.clone();
+    let schemes_rc: Rc<RefCell<Vec<OwnedTerminalPalette>>> = Rc::new(RefCell::new(Vec::new()));
+    let check_icons_rc: Rc<RefCell<Vec<(String, gtk4::Image, adw::ActionRow)>>> =
+        Rc::new(RefCell::new(Vec::new()));
 
-    // Store checkmark icons and row widgets to update selection in real-time
-    let mut check_icons: Vec<(String, gtk4::Image, adw::ActionRow)> = Vec::new();
+    let rebuild_scheme_list: Rc<dyn Fn()> = {
+        let listbox = scheme_listbox.clone();
+        let schemes_ref = Rc::clone(&schemes_rc);
+        let icons_ref = Rc::clone(&check_icons_rc);
+        let win_parent = win.clone();
+        let st_rc = Rc::clone(&settings_rc);
+        let terms_rc = Rc::clone(&terminals_rc);
+        let css_prov = css_provider.clone();
+        let st_lbl = status_lbl.clone();
 
-    for scheme in all_schemes {
-        let escaped_name = glib::markup_escape_text(scheme.name);
-        let row = adw::ActionRow::builder()
-            .title(escaped_name.as_str())
-            .activatable(true)
-            .build();
+        Rc::new(move || {
+            let slot: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
+            fn build_list(
+                listbox: &gtk4::ListBox,
+                schemes_ref: &Rc<RefCell<Vec<OwnedTerminalPalette>>>,
+                icons_ref: &Rc<RefCell<Vec<(String, gtk4::Image, adw::ActionRow)>>>,
+                win_parent: &adw::PreferencesWindow,
+                st_rc: &Rc<RefCell<AppSettings>>,
+                terminals_rc: &Rc<RefCell<Vec<vte4::Terminal>>>,
+                css_prov: &gtk4::CssProvider,
+                st_lbl: &gtk4::Label,
+            ) {
+                while let Some(child) = listbox.first_child() {
+                    listbox.remove(&child);
+                }
+                icons_ref.borrow_mut().clear();
 
-        // 1.1 Preview strip using DrawingArea (120x32): 30% bg, 15% fg, 55% 8 palette swatches
-        let preview = gtk4::DrawingArea::builder()
-            .content_width(120)
-            .content_height(32)
-            .valign(gtk4::Align::Center)
-            .margin_end(12)
-            .build();
+                let all_schemes = all_available_schemes();
+                *schemes_ref.borrow_mut() = all_schemes.clone();
+                let current_scheme_id = st_rc.borrow().color_scheme.clone();
 
-        let bg_str = scheme.background.to_string();
-        let fg_str = scheme.foreground.to_string();
-        let pal_slice: Vec<String> = scheme.ansi.iter().take(8).map(|s| s.to_string()).collect();
+                for scheme in all_schemes {
+                    let escaped_name = glib::markup_escape_text(&scheme.name);
+                    let row = adw::ActionRow::builder()
+                        .title(escaped_name.as_str())
+                        .activatable(true)
+                        .build();
 
-        preview.set_draw_func(move |_area, cr, width_f, height_f| {
-            let w = width_f as f64;
-            let h = height_f as f64;
+                    let preview = gtk4::DrawingArea::builder()
+                        .content_width(120)
+                        .content_height(32)
+                        .valign(gtk4::Align::Center)
+                        .margin_end(12)
+                        .build();
 
-            // Draw background (30%)
-            set_cairo_color_from_hex(cr, &bg_str);
-            cr.rectangle(0.0, 0.0, w * 0.3, h);
-            let _ = cr.fill();
+                    let bg_str = scheme.background.clone();
+                    let fg_str = scheme.foreground.clone();
+                    let pal_slice: Vec<String> = scheme.ansi.iter().take(8).cloned().collect();
 
-            // Draw foreground (15%)
-            set_cairo_color_from_hex(cr, &fg_str);
-            cr.rectangle(w * 0.3, 0.0, w * 0.15, h);
-            let _ = cr.fill();
+                    preview.set_draw_func(move |_area, cr, width_f, height_f| {
+                        let w = width_f as f64;
+                        let h = height_f as f64;
 
-            // Draw palette colors (55%)
-            let num_colors = pal_slice.len().min(8);
-            if num_colors > 0 {
-                let col_w = (w * 0.55) / (num_colors as f64);
-                let x_offset = w * 0.45;
-                for (i, col) in pal_slice.iter().enumerate() {
-                    set_cairo_color_from_hex(cr, col);
-                    cr.rectangle(x_offset + (i as f64) * col_w, 0.0, col_w, h);
-                    let _ = cr.fill();
+                        set_cairo_color_from_hex(cr, &bg_str);
+                        cr.rectangle(0.0, 0.0, w * 0.3, h);
+                        let _ = cr.fill();
+
+                        set_cairo_color_from_hex(cr, &fg_str);
+                        cr.rectangle(w * 0.3, 0.0, w * 0.15, h);
+                        let _ = cr.fill();
+
+                        let num_colors = pal_slice.len().min(8);
+                        if num_colors > 0 {
+                            let col_w = (w * 0.55) / (num_colors as f64);
+                            let x_offset = w * 0.45;
+                            for (i, col) in pal_slice.iter().enumerate() {
+                                set_cairo_color_from_hex(cr, col);
+                                cr.rectangle(x_offset + (i as f64) * col_w, 0.0, col_w, h);
+                                let _ = cr.fill();
+                            }
+                        }
+
+                        cr.set_source_rgba(0.5, 0.5, 0.5, 0.3);
+                        cr.set_line_width(1.0);
+                        cr.rectangle(0.5, 0.5, w - 1.0, h - 1.0);
+                        let _ = cr.stroke();
+                    });
+
+                    row.add_prefix(&preview);
+
+                    if scheme.is_custom {
+                        let del_btn = gtk4::Button::builder()
+                            .icon_name("user-trash-symbolic")
+                            .valign(gtk4::Align::Center)
+                            .tooltip_text(&tr("Delete"))
+                            .build();
+                        del_btn.add_css_class("flat");
+                        let del_id = scheme.id.clone();
+                        let lb_d = listbox.clone();
+                        let sr_d = Rc::clone(schemes_ref);
+                        let ir_d = Rc::clone(icons_ref);
+                        let wp_d = win_parent.clone();
+                        let st_d = Rc::clone(st_rc);
+                        let tm_d = Rc::clone(terminals_rc);
+                        let cp_d = css_prov.clone();
+                        let sl_d = st_lbl.clone();
+                        del_btn.connect_clicked(move |_| {
+                            if delete_custom_scheme(&del_id).unwrap_or(false) {
+                                {
+                                    let mut st = st_d.borrow_mut();
+                                    if st.color_scheme == del_id {
+                                        st.color_scheme = "onyx_dark".to_string();
+                                        let opacity_pct = 100u8.saturating_sub(st.transparency.min(100));
+                                        let css = generate_theme_css(&st.color_scheme, opacity_pct);
+                                        cp_d.load_from_string(&css);
+                                        for term in tm_d.borrow().iter() {
+                                            apply_all_settings_to_terminal(term, &st);
+                                        }
+                                        let cfg_path = onyxsh_core::platform::config_dir().join("settings.json");
+                                        let _ = st.save_to_path(&cfg_path);
+                                    }
+                                }
+                                build_list(&lb_d, &sr_d, &ir_d, &wp_d, &st_d, &tm_d, &cp_d, &sl_d);
+                            }
+                        });
+                        row.add_suffix(&del_btn);
+                    }
+
+                    let edit_btn = gtk4::Button::builder()
+                        .icon_name("document-edit-symbolic")
+                        .valign(gtk4::Align::Center)
+                        .tooltip_text(&tr("Editar esquema de cores ou criar variante personalizada"))
+                        .build();
+                    edit_btn.add_css_class("flat");
+
+                    {
+                        let wp = win_parent.clone();
+                        let s_data = scheme.clone();
+                        let st_c = Rc::clone(st_rc);
+                        let tm_c = Rc::clone(terminals_rc);
+                        let cp_c = css_prov.clone();
+                        let sl_c = st_lbl.clone();
+                        let lb_e = listbox.clone();
+                        let sr_e = Rc::clone(schemes_ref);
+                        let ir_e = Rc::clone(icons_ref);
+                        edit_btn.connect_clicked(move |_| {
+                            let wp2 = wp.clone();
+                            let lb2 = lb_e.clone();
+                            let sr2 = Rc::clone(&sr_e);
+                            let ir2 = Rc::clone(&ir_e);
+                            let st2 = Rc::clone(&st_c);
+                            let tm2 = Rc::clone(&tm_c);
+                            let cp2 = cp_c.clone();
+                            let sl2 = sl_c.clone();
+                            show_scheme_editor_dialog(
+                                &wp,
+                                &s_data,
+                                !s_data.is_custom,
+                                Rc::clone(&st_c),
+                                Rc::clone(&tm_c),
+                                cp_c.clone(),
+                                &sl_c,
+                                Some(Rc::new(move || {
+                                    build_list(&lb2, &sr2, &ir2, &wp2, &st2, &tm2, &cp2, &sl2);
+                                })),
+                            );
+                        });
+                    }
+                    row.add_suffix(&edit_btn);
+
+                    let check_icon = gtk4::Image::from_icon_name("emblem-ok-symbolic");
+                    let is_selected = scheme.id == current_scheme_id
+                        || (current_scheme_id == "onyx_dark" && scheme.id == "dark");
+                    check_icon.set_visible(is_selected);
+                    row.add_suffix(&check_icon);
+
+                    icons_ref.borrow_mut().push((scheme.id.clone(), check_icon, row.clone()));
+                    listbox.append(&row);
                 }
             }
+            let _ = slot;
+            build_list(
+                &listbox,
+                &schemes_ref,
+                &icons_ref,
+                &win_parent,
+                &st_rc,
+                &terms_rc,
+                &css_prov,
+                &st_lbl,
+            );
+        })
+    };
 
-            // Draw subtle border
-            cr.set_source_rgba(0.5, 0.5, 0.5, 0.3);
-            cr.set_line_width(1.0);
-            cr.rectangle(0.5, 0.5, w - 1.0, h - 1.0);
-            let _ = cr.stroke();
-        });
-
-        row.add_prefix(&preview);
-
-        // 1.2 Edit button (pencil icon)
-        let edit_btn = gtk4::Button::builder()
-            .icon_name("document-edit-symbolic")
-            .valign(gtk4::Align::Center)
-            .tooltip_text(&tr("Editar esquema de cores ou criar variante personalizada"))
-            .build();
-        edit_btn.add_css_class("flat");
-
-        {
-            let win_parent = win.clone();
-            let s_data = scheme.clone();
-            let st_rc = Rc::clone(&settings_rc);
-            let terms_rc = Rc::clone(&terminals_rc);
-            let css_prov = css_provider.clone();
-            let st_lbl = status_lbl.clone();
-            edit_btn.connect_clicked(move |_| {
-                show_scheme_editor_dialog(
-                    &win_parent,
-                    &s_data,
-                    false,
-                    Rc::clone(&st_rc),
-                    Rc::clone(&terms_rc),
-                    css_prov.clone(),
-                    &st_lbl,
-                );
-            });
-        }
-        row.add_suffix(&edit_btn);
-
-        // 1.3 Checkmark icon for selected scheme
-        let check_icon = gtk4::Image::from_icon_name("emblem-ok-symbolic");
-        let is_selected = scheme.id == current_scheme_id
-            || (current_scheme_id == "onyx_dark" && scheme.id == "dark");
-        check_icon.set_visible(is_selected);
-        row.add_suffix(&check_icon);
-
-        check_icons.push((scheme.id.to_string(), check_icon, row.clone()));
-        scheme_listbox.append(&row);
-    }
+    rebuild_scheme_list();
 
     // Connect row activation to apply scheme in real-time
     {
-        let icons_rc = Rc::new(RefCell::new(check_icons));
+        let icons_rc = Rc::clone(&check_icons_rc);
+        let schemes_ref = Rc::clone(&schemes_rc);
         let st_rc = Rc::clone(&settings_rc);
         let terms_rc = Rc::clone(&terminals_rc);
         let css_prov = css_provider.clone();
@@ -202,18 +321,17 @@ pub fn show_highlight_dialog(
 
         scheme_listbox.connect_row_activated(move |_, list_row| {
             let idx = list_row.index();
-            if idx >= 0 && (idx as usize) < all_schemes.len() {
-                let chosen = &all_schemes[idx as usize];
+            let schemes = schemes_ref.borrow();
+            if idx >= 0 && (idx as usize) < schemes.len() {
+                let chosen = &schemes[idx as usize];
 
-                // Update checkmarks
                 for (id, chk, _) in icons_rc.borrow().iter() {
-                    chk.set_visible(id == chosen.id);
+                    chk.set_visible(id == &chosen.id);
                 }
 
-                // Apply to AppSettings and all open VTE terminals
                 {
                     let mut st = st_rc.borrow_mut();
-                    st.color_scheme = chosen.id.to_string();
+                    st.color_scheme = chosen.id.clone();
                     let opacity_pct = 100u8.saturating_sub(st.transparency.min(100));
                     let css = generate_theme_css(&st.color_scheme, opacity_pct);
                     css_prov.load_from_string(&css);
@@ -227,7 +345,7 @@ pub fn show_highlight_dialog(
 
                 st_lbl.set_text(&tr_fmt(
                     "Esquema de cores aplicado: {name}",
-                    &[("name", chosen.name)],
+                    &[("name", &chosen.name)],
                 ));
             }
         });
@@ -259,17 +377,19 @@ pub fn show_highlight_dialog(
         let terms_rc = Rc::clone(&terminals_rc);
         let css_prov = css_provider.clone();
         let st_lbl = status_lbl.clone();
+        let refresh_cb = Rc::clone(&rebuild_scheme_list);
         new_btn.connect_clicked(move |_| {
             let active_id = st_rc.borrow().color_scheme.clone();
-            let base_scheme = get_palette(&active_id);
+            let base_scheme = resolve_palette(&active_id);
             show_scheme_editor_dialog(
                 &win_parent,
-                base_scheme,
+                &base_scheme,
                 true,
                 Rc::clone(&st_rc),
                 Rc::clone(&terms_rc),
                 css_prov.clone(),
                 &st_lbl,
+                Some(Rc::clone(&refresh_cb)),
             );
         });
     }
@@ -283,6 +403,10 @@ pub fn show_highlight_dialog(
     // ──────────────────────────────────────────────────────────────────────────
     // 2. ABA 2: Destaque de Saída (Output Highlighting & Global Rules)
     // ──────────────────────────────────────────────────────────────────────────
+    let hl_cfg_rc = Rc::new(RefCell::new(
+        onyxsh_terminal::highlighter::HighlightConfig::load_default(),
+    ));
+
     let page_output = adw::PreferencesPage::builder()
         .title(&tr("Output Highlighting"))
         .icon_name("view-list-symbolic")
@@ -306,13 +430,31 @@ pub fn show_highlight_dialog(
     let row_local = adw::SwitchRow::builder()
         .title(&tr("Local Terminals"))
         .subtitle(&tr("Aplicar destaque de saída a sessões de terminal locais"))
-        .active(true)
+        .active(hl_cfg_rc.borrow().output_highlighting_enabled)
         .build();
     let row_ssh = adw::SwitchRow::builder()
         .title(&tr("Sessões SSH"))
         .subtitle(&tr("Aplicar destaque de saída a conexões SSH"))
-        .active(true)
+        .active(hl_cfg_rc.borrow().output_highlighting_enabled)
         .build();
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        let rs = row_ssh.clone();
+        row_local.connect_active_notify(move |r| {
+            let active = r.is_active();
+            cfg.borrow_mut().output_highlighting_enabled = active || rs.is_active();
+            let _ = cfg.borrow().save_default();
+        });
+    }
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        let rl = row_local.clone();
+        row_ssh.connect_active_notify(move |r| {
+            let active = r.is_active();
+            cfg.borrow_mut().output_highlighting_enabled = active || rl.is_active();
+            let _ = cfg.borrow().save_default();
+        });
+    }
 
     group_activation.add(&row_local);
     group_activation.add(&row_ssh);
@@ -329,8 +471,15 @@ pub fn show_highlight_dialog(
     let row_cat_enable = adw::SwitchRow::builder()
         .title(&tr("Ativar Colorização do 'cat'"))
         .subtitle(&tr("Aplica destaque de sintaxe à saída do comando 'cat'"))
-        .active(true)
+        .active(hl_cfg_rc.borrow().cat_colorization_enabled)
         .build();
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        row_cat_enable.connect_active_notify(move |r| {
+            cfg.borrow_mut().cat_colorization_enabled = r.is_active();
+            let _ = cfg.borrow().save_default();
+        });
+    }
 
     let mode_auto = tr("Auto");
     let mode_manual = tr("Manual");
@@ -395,8 +544,15 @@ pub fn show_highlight_dialog(
         .subtitle(&tr(
             "Colore comandos em tempo real enquanto você digita no terminal",
         ))
-        .active(true)
+        .active(hl_cfg_rc.borrow().shell_input_highlighting_enabled)
         .build();
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        row_shell_input_enable.connect_active_notify(move |r| {
+            cfg.borrow_mut().shell_input_highlighting_enabled = r.is_active();
+            let _ = cfg.borrow().save_default();
+        });
+    }
 
     let shell_mode_model = gtk4::StringList::new(&[&mode_auto, &mode_manual]);
     let row_shell_mode = adw::ComboRow::builder()
@@ -428,16 +584,11 @@ pub fn show_highlight_dialog(
 
     // 2.4 Comandos Ignorados (ExpanderRow)
     let group_ignored = adw::PreferencesGroup::new();
-    let initial_ignored = vec![
-        "top", "htop", "btop", "vim", "nvim", "nano", "less", "more", "man", "tmux", "screen",
-        "tig",
-    ];
-
     let expander_ignored = adw::ExpanderRow::builder()
         .title(&tr("Ignored Commands"))
         .subtitle(&tr_fmt(
             "{count} comando(s) • Clique para expandir/recolher",
-            &[("count", &initial_ignored.len().to_string())],
+            &[("count", &hl_cfg_rc.borrow().ignored_commands.len().to_string())],
         ))
         .expanded(false)
         .build();
@@ -473,21 +624,103 @@ pub fn show_highlight_dialog(
     row_add_ignored.set_activatable_widget(Some(&btn_add_ignored));
     expander_ignored.add_row(&row_add_ignored);
 
-    for cmd in &initial_ignored {
-        let row_cmd = adw::ActionRow::builder().title(*cmd).build();
-        let del_btn = gtk4::Button::builder()
-            .icon_name("user-trash-symbolic")
-            .valign(gtk4::Align::Center)
-            .tooltip_text(&tr("Remove from ignored list"))
-            .build();
-        del_btn.add_css_class("flat");
-        let r_c = row_cmd.clone();
-        let exp_c = expander_ignored.clone();
-        del_btn.connect_clicked(move |_| {
-            exp_c.remove(&r_c);
+    let ignored_rows_rc: Rc<RefCell<Vec<adw::ActionRow>>> = Rc::new(RefCell::new(Vec::new()));
+    let rebuild_ignored_rc: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        let cfg_cb = Rc::clone(&cfg);
+        let exp = expander_ignored.clone();
+        let rows_store = Rc::clone(&ignored_rows_rc);
+        let rebuild_weak = Rc::downgrade(&rebuild_ignored_rc);
+        let rebuild: Rc<dyn Fn()> = Rc::new(move || {
+            for r in rows_store.borrow_mut().drain(..) {
+                exp.remove(&r);
+            }
+            let cmds = cfg_cb.borrow().ignored_commands.clone();
+            exp.set_subtitle(&tr_fmt(
+                "{count} comando(s) • Clique para expandir/recolher",
+                &[("count", &cmds.len().to_string())],
+            ));
+            for cmd in cmds {
+                let row_cmd = adw::ActionRow::builder().title(&cmd).build();
+                let del_btn = gtk4::Button::builder()
+                    .icon_name("user-trash-symbolic")
+                    .valign(gtk4::Align::Center)
+                    .tooltip_text(&tr("Remove from ignored list"))
+                    .build();
+                del_btn.add_css_class("flat");
+                let cfg_d = Rc::clone(&cfg_cb);
+                let cmd_d = cmd.clone();
+                let rw = rebuild_weak.clone();
+                del_btn.connect_clicked(move |_| {
+                    cfg_d
+                        .borrow_mut()
+                        .ignored_commands
+                        .retain(|c| c != &cmd_d);
+                    let _ = cfg_d.borrow().save_default();
+                    if let Some(rc) = rw.upgrade() {
+                        if let Some(f) = rc.borrow().as_ref() {
+                            f();
+                        }
+                    }
+                });
+                row_cmd.add_suffix(&del_btn);
+                exp.add_row(&row_cmd);
+                rows_store.borrow_mut().push(row_cmd);
+            }
         });
-        row_cmd.add_suffix(&del_btn);
-        expander_ignored.add_row(&row_cmd);
+        *rebuild_ignored_rc.borrow_mut() = Some(Rc::clone(&rebuild));
+        rebuild();
+
+        let cfg_r = Rc::clone(&cfg);
+        let reb_r = Rc::clone(&rebuild);
+        btn_restore_ignored.connect_clicked(move |_| {
+            cfg_r.borrow_mut().ignored_commands = onyxsh_terminal::highlighter::DEFAULT_IGNORED_COMMANDS
+                .iter()
+                .map(|s| (*s).to_string())
+                .collect();
+            let _ = cfg_r.borrow().save_default();
+            reb_r();
+        });
+
+        let cfg_a = Rc::clone(&cfg);
+        let reb_a = Rc::clone(&rebuild);
+        let win_ref = win.clone();
+        btn_add_ignored.connect_clicked(move |_| {
+            let dlg = adw::Window::builder()
+                .transient_for(&win_ref)
+                .modal(true)
+                .title(&tr("Add Ignored Command"))
+                .default_width(360)
+                .default_height(180)
+                .build();
+            let vb = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+            vb.append(&adw::HeaderBar::new());
+            let inner = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+            inner.set_margin_start(14);
+            inner.set_margin_end(14);
+            inner.set_margin_bottom(14);
+            let entry = gtk4::Entry::builder().placeholder_text("htop").build();
+            inner.append(&entry);
+            let btn_save = gtk4::Button::with_label(&tr("Salvar"));
+            btn_save.add_css_class("suggested-action");
+            let d_c = dlg.clone();
+            let c_c = Rc::clone(&cfg_a);
+            let r_c = Rc::clone(&reb_a);
+            btn_save.connect_clicked(move |_| {
+                let txt = entry.text().trim().to_string();
+                if !txt.is_empty() && !c_c.borrow().ignored_commands.contains(&txt) {
+                    c_c.borrow_mut().ignored_commands.push(txt);
+                    let _ = c_c.borrow().save_default();
+                    r_c();
+                }
+                d_c.close();
+            });
+            inner.append(&btn_save);
+            vb.append(&inner);
+            dlg.set_content(Some(&vb));
+            dlg.present();
+        });
     }
 
     group_ignored.add(&expander_ignored);
@@ -524,65 +757,216 @@ pub fn show_highlight_dialog(
     row_reset_rules.set_activatable_widget(Some(&btn_reset_rules));
     group_global_rules.add(&row_reset_rules);
 
-    let default_rules = [
-        ("Erros e Falhas Críticas", r"\b(?:ERROR|CRITICAL|FATAL|PANIC|FAILED)\b", "#ff5555"),
-        ("Avisos e Depreciações", r"\b(?:WARN|WARNING|DEPRECATED|CAUTION)\b", "#ffb86c"),
-        ("Sucesso e Operação", r"\b(?:OK|SUCCESS|PASSED|ACTIVE|RUNNING)\b", "#50fa7b"),
-        ("Informações e Diagnóstico", r"\b(?:INFO|NOTICE|DEBUG|TRACE)\b", "#8be9fd"),
-        ("Endereços IPv4", r"\b(?:\d{1,3}\.){3}\d{1,3}\b", "#bd93f9"),
-        ("URLs e Hyperlinks", r"https?://[^\s<>']+", "#58a6ff"),
-        ("Identificadores UUID", r"\b[0-9a-fA-F-]{36}\b", "#d2a8ff"),
-        ("Constantes Numéricas & Hex", r"\b(?:0x[0-9a-fA-F]+|\d+)\b", "#fab795"),
-        ("Caminhos de Arquivos Unix", r"(?:^|\s)/(?:[a-zA-Z0-9_\.\-]+/)+[a-zA-Z0-9_\.\-]*", "#79c0ff"),
-    ];
+    let global_rule_rows: Rc<RefCell<Vec<adw::ActionRow>>> = Rc::new(RefCell::new(Vec::new()));
+    let rebuild_global_holder: Rc<RefCell<Option<Rc<dyn Fn()>>>> = Rc::new(RefCell::new(None));
 
-    for (name, pattern, hex_col) in default_rules {
-        let escaped_name = glib::markup_escape_text(&tr(name));
-        let escaped_pattern = glib::markup_escape_text(pattern);
-        let rule_row = adw::ActionRow::builder()
-            .title(escaped_name.as_str())
-            .subtitle(escaped_pattern.as_str())
-            .build();
+    let show_rule_editor = {
+        let win_ref = win.clone();
+        let cfg_ref = Rc::clone(&hl_cfg_rc);
+        let reb_holder = Rc::clone(&rebuild_global_holder);
+        move |edit_idx: Option<usize>| {
+            let initial = edit_idx
+                .and_then(|idx| cfg_ref.borrow().global_rules.get(idx).cloned())
+                .unwrap_or_default();
+            let dlg = adw::Window::builder()
+                .transient_for(&win_ref)
+                .modal(true)
+                .title(&tr("Regras Globais de Destaque"))
+                .default_width(440)
+                .default_height(300)
+                .build();
+            let vb = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+            vb.append(&adw::HeaderBar::new());
+            let inner = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+            inner.set_margin_start(16);
+            inner.set_margin_end(16);
+            inner.set_margin_bottom(16);
 
-        let badge = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
-        badge.set_size_request(24, 24);
-        badge.set_valign(gtk4::Align::Center);
-        badge.set_margin_end(8);
-        badge.add_css_class("card");
-        let h_col = hex_col.to_string();
-        let draw_b = gtk4::DrawingArea::builder()
-            .content_width(24)
-            .content_height(24)
-            .build();
-        draw_b.set_draw_func(move |_, cr, w, h| {
-            set_cairo_color_from_hex(cr, &h_col);
-            cr.rectangle(0.0, 0.0, w as f64, h as f64);
-            let _ = cr.fill();
+            let name_e = gtk4::Entry::builder()
+                .text(&initial.name)
+                .placeholder_text(&tr("Nome"))
+                .build();
+            let pat_e = gtk4::Entry::builder()
+                .text(&initial.pattern)
+                .placeholder_text("Regex (ex: \\bERROR\\b)")
+                .build();
+            pat_e.add_css_class("monospace");
+            let col_initial = initial
+                .colors
+                .first()
+                .and_then(|c| c.as_deref())
+                .unwrap_or("bold yellow");
+            let col_e = gtk4::Entry::builder()
+                .text(col_initial)
+                .placeholder_text("bold red / #ff5555")
+                .build();
+            inner.append(&name_e);
+            inner.append(&pat_e);
+            inner.append(&col_e);
+
+            let act_row = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+            act_row.set_halign(gtk4::Align::End);
+            let btn_cancel = gtk4::Button::with_label(&tr("Cancel"));
+            let btn_save = gtk4::Button::with_label(&tr("Salvar"));
+            btn_save.add_css_class("suggested-action");
+            act_row.append(&btn_cancel);
+            act_row.append(&btn_save);
+            inner.append(&act_row);
+
+            let d1 = dlg.clone();
+            btn_cancel.connect_clicked(move |_| d1.close());
+            let d2 = dlg.clone();
+            let c_s = Rc::clone(&cfg_ref);
+            let rh = Rc::clone(&reb_holder);
+            btn_save.connect_clicked(move |_| {
+                let pat = pat_e.text().trim().to_string();
+                if pat.is_empty() || regex::Regex::new(&pat).is_err() {
+                    return;
+                }
+                let nm = name_e.text().trim().to_string();
+                let col_str = col_e.text().trim().to_string();
+                let updated = onyxsh_terminal::highlighter::ProfileRuleConfig {
+                    name: if nm.is_empty() { "Custom Rule".to_string() } else { nm },
+                    pattern: pat,
+                    colors: vec![Some(if col_str.is_empty() {
+                        "bold yellow".to_string()
+                    } else {
+                        col_str
+                    })],
+                    enabled: initial.enabled,
+                    description: initial.description.clone(),
+                    comment: initial.comment.clone(),
+                };
+                {
+                    let mut cfg = c_s.borrow_mut();
+                    if let Some(i) = edit_idx {
+                        if let Some(slot) = cfg.global_rules.get_mut(i) {
+                            *slot = updated;
+                        }
+                    } else {
+                        cfg.global_rules.push(updated);
+                    }
+                    let _ = cfg.save_default();
+                }
+                if let Some(ref f) = *rh.borrow() {
+                    f();
+                }
+                d2.close();
+            });
+
+            vb.append(&inner);
+            dlg.set_content(Some(&vb));
+            dlg.present();
+        }
+    };
+    let show_rule_editor = Rc::new(show_rule_editor);
+
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        let cfg_cb = Rc::clone(&cfg);
+        let grp = group_global_rules.clone();
+        let rows_store = Rc::clone(&global_rule_rows);
+        let editor = Rc::clone(&show_rule_editor);
+        let reb_weak = Rc::downgrade(&rebuild_global_holder);
+        let rebuild: Rc<dyn Fn()> = Rc::new(move || {
+            for r in rows_store.borrow_mut().drain(..) {
+                grp.remove(&r);
+            }
+            let rules = cfg_cb.borrow().global_rules.clone();
+            for (idx, rule) in rules.iter().enumerate() {
+                let escaped_name = glib::markup_escape_text(&tr(&rule.name));
+                let escaped_pattern = glib::markup_escape_text(&rule.pattern);
+                let rule_row = adw::ActionRow::builder()
+                    .title(escaped_name.as_str())
+                    .subtitle(escaped_pattern.as_str())
+                    .build();
+
+                let badge = gtk4::Box::new(gtk4::Orientation::Horizontal, 0);
+                badge.set_size_request(24, 24);
+                badge.set_valign(gtk4::Align::Center);
+                badge.set_margin_end(8);
+                badge.add_css_class("card");
+                let h_col = sgr_name_to_preview_hex(rule.colors.first().and_then(|c| c.as_deref()));
+                let draw_b = gtk4::DrawingArea::builder()
+                    .content_width(24)
+                    .content_height(24)
+                    .build();
+                draw_b.set_draw_func(move |_, cr, w, h| {
+                    set_cairo_color_from_hex(cr, &h_col);
+                    cr.rectangle(0.0, 0.0, w as f64, h as f64);
+                    let _ = cr.fill();
+                });
+                badge.append(&draw_b);
+                rule_row.add_prefix(&badge);
+
+                let sw = gtk4::Switch::builder()
+                    .active(rule.enabled)
+                    .valign(gtk4::Align::Center)
+                    .build();
+                let cfg_sw = Rc::clone(&cfg_cb);
+                sw.connect_state_set(move |_, active| {
+                    if let Some(r) = cfg_sw.borrow_mut().global_rules.get_mut(idx) {
+                        r.enabled = active;
+                    }
+                    let _ = cfg_sw.borrow().save_default();
+                    glib::Propagation::Proceed
+                });
+                rule_row.add_suffix(&sw);
+
+                let edit_b = gtk4::Button::builder()
+                    .icon_name("document-edit-symbolic")
+                    .valign(gtk4::Align::Center)
+                    .build();
+                edit_b.add_css_class("flat");
+                let ed_c = Rc::clone(&editor);
+                edit_b.connect_clicked(move |_| ed_c(Some(idx)));
+                rule_row.add_suffix(&edit_b);
+
+                let del_b = gtk4::Button::builder()
+                    .icon_name("user-trash-symbolic")
+                    .valign(gtk4::Align::Center)
+                    .build();
+                del_b.add_css_class("flat");
+                let cfg_del = Rc::clone(&cfg_cb);
+                let rw = reb_weak.clone();
+                del_b.connect_clicked(move |_| {
+                    if idx < cfg_del.borrow().global_rules.len() {
+                        cfg_del.borrow_mut().global_rules.remove(idx);
+                        let _ = cfg_del.borrow().save_default();
+                        if let Some(rc) = rw.upgrade() {
+                            if let Some(f) = rc.borrow().as_ref() {
+                                f();
+                            }
+                        }
+                    }
+                });
+                rule_row.add_suffix(&del_b);
+
+                grp.add(&rule_row);
+                rows_store.borrow_mut().push(rule_row);
+            }
         });
-        badge.append(&draw_b);
-        rule_row.add_prefix(&badge);
+        *rebuild_global_holder.borrow_mut() = Some(Rc::clone(&rebuild));
+        rebuild();
 
-        let sw = gtk4::Switch::builder()
-            .active(true)
-            .valign(gtk4::Align::Center)
-            .build();
-        rule_row.add_suffix(&sw);
+        let ed_add = Rc::clone(&show_rule_editor);
+        btn_add_rule.connect_clicked(move |_| ed_add(None));
 
-        let edit_b = gtk4::Button::builder()
-            .icon_name("document-edit-symbolic")
-            .valign(gtk4::Align::Center)
-            .build();
-        edit_b.add_css_class("flat");
-        rule_row.add_suffix(&edit_b);
-
-        group_global_rules.add(&rule_row);
+        let cfg_reset = Rc::clone(&cfg);
+        let reb_reset = Rc::clone(&rebuild);
+        btn_reset_rules.connect_clicked(move |_| {
+            cfg_reset.borrow_mut().global_rules =
+                onyxsh_terminal::highlighter::default_global_rules_from_bundle();
+            let _ = cfg_reset.borrow().save_default();
+            reb_reset();
+        });
     }
 
     page_output.add(&group_global_rules);
     win.add(&page_output);
 
     // ──────────────────────────────────────────────────────────────────────────
-    // 3. ABA 3: Específico do Comando (Per-Command Context Highlighting)
+    // 3. ABA 3: Específico do Comando (Per-Command Context Highlighting — 51 Perfis)
     // ──────────────────────────────────────────────────────────────────────────
     let page_cmd = adw::PreferencesPage::builder()
         .title(&tr("Command-Specific"))
@@ -598,8 +982,15 @@ pub fn show_highlight_dialog(
         .subtitle(&tr(
             "Aplica regras contextuais automaticamente ao detectar o comando em execução",
         ))
-        .active(true)
+        .active(hl_cfg_rc.borrow().command_highlighting_enabled)
         .build();
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        row_cmd_aware.connect_active_notify(move |r| {
+            cfg.borrow_mut().command_highlighting_enabled = r.is_active();
+            let _ = cfg.borrow().save_default();
+        });
+    }
     group_cmd_settings.add(&row_cmd_aware);
     page_cmd.add(&group_cmd_settings);
 
@@ -655,74 +1046,240 @@ pub fn show_highlight_dialog(
         .title(&tr("Available Commands"))
         .build();
 
-    let contexts = [
-        ("git", "Conventional commits, status, branches, diffs", 18),
-        ("docker", "Containers, imagens, portas, status UP/Exited", 12),
-        ("systemctl", "Units ativas/inativas, falhas, dead, serviços", 10),
-        ("cargo", "Compiling, Finished, test result ok/FAILED", 8),
-        ("apt", "Instalação de pacotes, dependências, repositórios", 14),
-        ("npm", "Dependências instaladas, vulnerabilidades, scripts", 9),
-        ("kubectl", "Pods, namespaces, status Running/CrashLoopBackOff", 15),
-        ("python", "Tracebacks, exceções, arquivos e linhas de erro", 11),
-        ("ping", "RTT, pacotes transmitidos, perda % e latência ms", 7),
-        ("ip", "Interfaces de rede, inet, mtu, flags UP/LOWER_UP", 10),
-        ("ls", "Permissões de arquivos, links simbólicos e tamanhos", 8),
-        ("grep", "Casamentos de regex, números de linha e arquivos", 6),
-    ];
+    let cmd_rows_store: Rc<RefCell<Vec<adw::ActionRow>>> = Rc::new(RefCell::new(Vec::new()));
+    let cmd_switches_store: Rc<RefCell<Vec<gtk4::Switch>>> = Rc::new(RefCell::new(Vec::new()));
 
-    let mut switches: Vec<gtk4::Switch> = Vec::new();
+    let rebuild_cmd_profiles: Rc<dyn Fn()> = {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        let grp = group_available_cmds.clone();
+        let rows_st = Rc::clone(&cmd_rows_store);
+        let sw_st = Rc::clone(&cmd_switches_store);
+        let win_ref = win.clone();
 
-    for (cmd_name, desc, rule_count) in contexts {
-        let escaped_cmd = glib::markup_escape_text(cmd_name);
-        let escaped_desc = glib::markup_escape_text(&tr(desc));
-        let row_ctx = adw::ActionRow::builder()
-            .title(escaped_cmd.as_str())
-            .subtitle(escaped_desc.as_str())
-            .build();
-
-        let badge = gtk4::Label::new(Some(&tr_fmt(
-            "{count} regras",
-            &[("count", &rule_count.to_string())],
-        )));
-        badge.add_css_class("dim-label");
-        badge.add_css_class("caption");
-        badge.set_valign(gtk4::Align::Center);
-        badge.set_margin_end(8);
-        row_ctx.add_suffix(&badge);
-
-        let sw = gtk4::Switch::builder()
-            .active(true)
-            .valign(gtk4::Align::Center)
-            .build();
-        switches.push(sw.clone());
-        row_ctx.add_suffix(&sw);
-
-        let cfg_btn = gtk4::Button::builder()
-            .icon_name("go-next-symbolic")
-            .valign(gtk4::Align::Center)
-            .tooltip_text(&tr("Configurar regras deste comando"))
-            .build();
-        cfg_btn.add_css_class("flat");
-        row_ctx.add_suffix(&cfg_btn);
-
-        group_available_cmds.add(&row_ctx);
-    }
-
-    // Connect bulk actions
-    {
-        let sw_list = switches.clone();
-        btn_enable_all.connect_clicked(move |_| {
-            for sw in &sw_list {
-                sw.set_active(true);
+        Rc::new(move || {
+            for r in rows_st.borrow_mut().drain(..) {
+                grp.remove(&r);
             }
+            sw_st.borrow_mut().clear();
+
+            let profiles: Vec<(String, onyxsh_terminal::highlighter::HighlightProfile)> = cfg
+                .borrow()
+                .profiles
+                .iter()
+                .map(|(k, v)| (k.clone(), v.clone()))
+                .collect();
+
+            for (prof_key, prof) in profiles {
+                let escaped_cmd = glib::markup_escape_text(&prof.name);
+                let triggers_txt = if prof.triggers.is_empty() {
+                    prof.name.clone()
+                } else {
+                    prof.triggers.join(", ")
+                };
+                let raw_desc = if prof.description.trim().is_empty() {
+                    triggers_txt
+                } else {
+                    format!("{} ({triggers_txt})", prof.description)
+                };
+                let escaped_desc = glib::markup_escape_text(&raw_desc);
+                let row_ctx = adw::ActionRow::builder()
+                    .title(escaped_cmd.as_str())
+                    .subtitle(escaped_desc.as_str())
+                    .build();
+
+                let badge = gtk4::Label::new(Some(&tr_fmt(
+                    "{count} regras",
+                    &[("count", &prof.rules.len().to_string())],
+                )));
+                badge.add_css_class("dim-label");
+                badge.add_css_class("caption");
+                badge.set_valign(gtk4::Align::Center);
+                badge.set_margin_end(8);
+                row_ctx.add_suffix(&badge);
+
+                let sw = gtk4::Switch::builder()
+                    .active(prof.enabled)
+                    .valign(gtk4::Align::Center)
+                    .build();
+                {
+                    let cfg_s = Rc::clone(&cfg);
+                    let pk = prof_key.clone();
+                    sw.connect_state_set(move |_, active| {
+                        if let Some(p) = cfg_s.borrow_mut().profiles.get_mut(&pk) {
+                            p.enabled = active;
+                        }
+                        let _ = cfg_s.borrow().save_default();
+                        glib::Propagation::Proceed
+                    });
+                }
+                sw_st.borrow_mut().push(sw.clone());
+                row_ctx.add_suffix(&sw);
+
+                let cfg_btn = gtk4::Button::builder()
+                    .icon_name("go-next-symbolic")
+                    .valign(gtk4::Align::Center)
+                    .tooltip_text(&tr("Configurar regras deste comando"))
+                    .build();
+                cfg_btn.add_css_class("flat");
+                {
+                    let cfg_p = Rc::clone(&cfg);
+                    let pk = prof_key.clone();
+                    let w_ref = win_ref.clone();
+                    cfg_btn.connect_clicked(move |_| {
+                        let maybe_prof = cfg_p.borrow().profiles.get(&pk).cloned();
+                        let Some(p_val) = maybe_prof else {
+                            return;
+                        };
+                        let dlg = adw::Window::builder()
+                            .transient_for(&w_ref)
+                            .modal(true)
+                            .title(&p_val.name)
+                            .default_width(540)
+                            .default_height(460)
+                            .build();
+                        let vb = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
+                        vb.append(&adw::HeaderBar::new());
+                        let scroll = gtk4::ScrolledWindow::builder().vexpand(true).build();
+                        let list = gtk4::ListBox::new();
+                        list.add_css_class("boxed-list");
+                        list.set_margin_start(14);
+                        list.set_margin_end(14);
+                        list.set_margin_top(12);
+                        list.set_margin_bottom(12);
+
+                        for (ridx, rule) in p_val.rules.iter().enumerate() {
+                            let r_row = adw::ActionRow::builder()
+                                .title(glib::markup_escape_text(&rule.name).as_str())
+                                .subtitle(glib::markup_escape_text(&rule.pattern).as_str())
+                                .build();
+                            let r_sw = gtk4::Switch::builder()
+                                .active(rule.enabled)
+                                .valign(gtk4::Align::Center)
+                                .build();
+                            let c_inner = Rc::clone(&cfg_p);
+                            let pk_inner = pk.clone();
+                            r_sw.connect_state_set(move |_, active| {
+                                if let Some(prof_mut) = c_inner.borrow_mut().profiles.get_mut(&pk_inner) {
+                                    if let Some(r_mut) = prof_mut.rules.get_mut(ridx) {
+                                        r_mut.enabled = active;
+                                    }
+                                }
+                                let _ = c_inner.borrow().save_default();
+                                glib::Propagation::Proceed
+                            });
+                            r_row.add_suffix(&r_sw);
+                            list.append(&r_row);
+                        }
+
+                        scroll.set_child(Some(&list));
+                        vb.append(&scroll);
+                        dlg.set_content(Some(&vb));
+                        dlg.present();
+                    });
+                }
+                row_ctx.add_suffix(&cfg_btn);
+
+                grp.add(&row_ctx);
+                rows_st.borrow_mut().push(row_ctx);
+            }
+        })
+    };
+    rebuild_cmd_profiles();
+
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        let reb = Rc::clone(&rebuild_cmd_profiles);
+        btn_enable_all.connect_clicked(move |_| {
+            for prof in cfg.borrow_mut().profiles.values_mut() {
+                prof.enabled = true;
+            }
+            let _ = cfg.borrow().save_default();
+            reb();
         });
     }
     {
-        let sw_list = switches.clone();
+        let cfg = Rc::clone(&hl_cfg_rc);
+        let reb = Rc::clone(&rebuild_cmd_profiles);
         btn_disable_all.connect_clicked(move |_| {
-            for sw in &sw_list {
-                sw.set_active(false);
+            for prof in cfg.borrow_mut().profiles.values_mut() {
+                prof.enabled = false;
             }
+            let _ = cfg.borrow().save_default();
+            reb();
+        });
+    }
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        let reb = Rc::clone(&rebuild_cmd_profiles);
+        btn_reset_cmds.connect_clicked(move |_| {
+            let defaults = onyxsh_terminal::highlighter::HighlightConfig::default();
+            cfg.borrow_mut().profiles = defaults.profiles;
+            let _ = cfg.borrow().save_default();
+            reb();
+        });
+    }
+    {
+        let cfg = Rc::clone(&hl_cfg_rc);
+        let reb = Rc::clone(&rebuild_cmd_profiles);
+        let w_ref = win.clone();
+        btn_add_cmd.connect_clicked(move |_| {
+            let dlg = adw::Window::builder()
+                .transient_for(&w_ref)
+                .modal(true)
+                .title(&tr("Add Command"))
+                .default_width(380)
+                .default_height(240)
+                .build();
+            let vb = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+            vb.append(&adw::HeaderBar::new());
+            let inner = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
+            inner.set_margin_start(14);
+            inner.set_margin_end(14);
+            inner.set_margin_bottom(14);
+            let cmd_e = gtk4::Entry::builder().placeholder_text("kubectl / helm").build();
+            let pat_e = gtk4::Entry::builder().placeholder_text("Regex (ex: Running|Pending)").build();
+            pat_e.add_css_class("monospace");
+            let col_e = gtk4::Entry::builder().text("bold cyan").build();
+            inner.append(&cmd_e);
+            inner.append(&pat_e);
+            inner.append(&col_e);
+
+            let btn_save = gtk4::Button::with_label(&tr("Salvar"));
+            btn_save.add_css_class("suggested-action");
+            let d_c = dlg.clone();
+            let c_c = Rc::clone(&cfg);
+            let r_c = Rc::clone(&reb);
+            btn_save.connect_clicked(move |_| {
+                let name = cmd_e.text().trim().to_string();
+                let pat = pat_e.text().trim().to_string();
+                if name.is_empty() || pat.is_empty() || regex::Regex::new(&pat).is_err() {
+                    return;
+                }
+                let col = col_e.text().trim().to_string();
+                let prof = onyxsh_terminal::highlighter::HighlightProfile {
+                    name: name.clone(),
+                    description: String::new(),
+                    triggers: vec![name.clone()],
+                    enabled: true,
+                    use_global_rules: true,
+                    rules: vec![onyxsh_terminal::highlighter::ProfileRuleConfig {
+                        name: name.clone(),
+                        pattern: pat,
+                        colors: vec![Some(if col.is_empty() { "bold cyan".to_string() } else { col })],
+                        enabled: true,
+                        description: String::new(),
+                        comment: String::new(),
+                    }],
+                };
+                c_c.borrow_mut().profiles.insert(name, prof);
+                let _ = c_c.borrow().save_default();
+                r_c();
+                d_c.close();
+            });
+            inner.append(&btn_save);
+            vb.append(&inner);
+            dlg.set_content(Some(&vb));
+            dlg.present();
         });
     }
 
@@ -735,12 +1292,13 @@ pub fn show_highlight_dialog(
 /// Sub-dialog for creating or editing a color scheme (`_SchemeEditorDialog` in `src/onyxsh/ui/color_scheme_dialog.py`).
 pub fn show_scheme_editor_dialog(
     parent: &adw::PreferencesWindow,
-    base_scheme: &TerminalPalette,
+    base_scheme: &OwnedTerminalPalette,
     is_new: bool,
     settings_rc: Rc<RefCell<AppSettings>>,
     terminals_rc: Rc<RefCell<Vec<vte4::Terminal>>>,
     css_provider: gtk4::CssProvider,
     status_lbl: &gtk4::Label,
+    on_saved: Option<Rc<dyn Fn()>>,
 ) {
     let title = if is_new {
         tr("Novo Esquema de Cores")
@@ -835,9 +1393,9 @@ pub fn show_scheme_editor_dialog(
         .build();
 
     let name_val = if is_new {
-        tr_fmt("Cópia de {name}", &[("name", base_scheme.name)])
+        tr_fmt("Cópia de {name}", &[("name", &base_scheme.name)])
     } else {
-        base_scheme.name.to_string()
+        base_scheme.name.clone()
     };
 
     let name_entry = adw::EntryRow::builder()
@@ -848,7 +1406,7 @@ pub fn show_scheme_editor_dialog(
 
     let fg_entry = adw::EntryRow::builder()
         .title(&tr("Texto de Primeiro Plano (Foreground)"))
-        .text(base_scheme.foreground)
+        .text(&base_scheme.foreground)
         .build();
     fg_entry.add_css_class("monospace");
     {
@@ -863,7 +1421,7 @@ pub fn show_scheme_editor_dialog(
 
     let bg_entry = adw::EntryRow::builder()
         .title(&tr("Plano de Fundo (Background)"))
-        .text(base_scheme.background)
+        .text(&base_scheme.background)
         .build();
     bg_entry.add_css_class("monospace");
     {
@@ -878,7 +1436,7 @@ pub fn show_scheme_editor_dialog(
 
     let cursor_entry = adw::EntryRow::builder()
         .title(&tr("Cursor"))
-        .text(base_scheme.cursor)
+        .text(&base_scheme.cursor)
         .build();
     cursor_entry.add_css_class("monospace");
     group_general.add(&cursor_entry);
@@ -913,7 +1471,7 @@ pub fn show_scheme_editor_dialog(
 
     for i in 0..16 {
         let col_hex = if i < base_scheme.ansi.len() {
-            base_scheme.ansi[i]
+            base_scheme.ansi[i].as_str()
         } else {
             "#ffffff"
         };
@@ -955,13 +1513,47 @@ pub fn show_scheme_editor_dialog(
         let css_prov = css_provider.clone();
         let st_lbl = status_lbl.clone();
         let n_entry = name_entry.clone();
-        let base_id = base_scheme.id.to_string();
+        let fg_e = fg_entry.clone();
+        let bg_e = bg_entry.clone();
+        let cur_e = cursor_entry.clone();
+        let pal_entries = palette_entries.clone();
+        let existing_id = base_scheme.id.clone();
+        let existing_is_custom = base_scheme.is_custom;
 
         save_btn.connect_clicked(move |_| {
             let new_name = n_entry.text().to_string();
+            let trimmed_name = if new_name.trim().is_empty() {
+                "Custom Scheme".to_string()
+            } else {
+                new_name.trim().to_string()
+            };
+            let target_id = if !is_new && existing_is_custom {
+                existing_id.clone()
+            } else {
+                slugify_scheme_id(&trimmed_name)
+            };
+
+            let custom_palette = OwnedTerminalPalette {
+                id: target_id.clone(),
+                name: trimmed_name.clone(),
+                foreground: fg_e.text().trim().to_string(),
+                background: bg_e.text().trim().to_string(),
+                cursor: cur_e.text().trim().to_string(),
+                ansi: std::array::from_fn(|i| {
+                    pal_entries
+                        .get(i)
+                        .map(|e| e.text().trim().to_string())
+                        .filter(|s| !s.is_empty())
+                        .unwrap_or_else(|| "#ffffff".to_string())
+                }),
+                is_custom: true,
+            };
+
+            let _ = save_custom_scheme(&custom_palette);
+
             {
                 let mut st = st_rc.borrow_mut();
-                st.color_scheme = base_id.clone();
+                st.color_scheme = target_id.clone();
                 let opacity_pct = 100u8.saturating_sub(st.transparency.min(100));
                 let css = generate_theme_css(&st.color_scheme, opacity_pct);
                 css_prov.load_from_string(&css);
@@ -973,9 +1565,13 @@ pub fn show_scheme_editor_dialog(
                 let _ = st.save_to_path(&cfg_path);
             }
 
+            if let Some(ref cb) = on_saved {
+                cb();
+            }
+
             st_lbl.set_text(&tr_fmt(
                 "Esquema de cores salvo: {name}",
-                &[("name", &new_name)],
+                &[("name", &trimmed_name)],
             ));
             d_c.close();
         });
@@ -987,6 +1583,7 @@ pub fn show_scheme_editor_dialog(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::theme_engine::all_builtin_schemes;
 
     #[test]
     fn test_set_cairo_color_from_hex() {

@@ -11,6 +11,7 @@ pub mod highlighter;
 pub mod osc52;
 pub mod osc7;
 pub mod production_guard;
+pub mod pty_proxy;
 pub mod runbook;
 pub mod semantic_tracker;
 pub mod spawner;

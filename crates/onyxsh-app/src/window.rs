@@ -6,7 +6,7 @@ use crate::main_menu::{
     apply_gtk_theme_mode, change_font_size, menu_custom_css, parse_font_string, GtkThemeMode,
 };
 use crate::terminal_search::{apply_vte_search, format_occurrence_counter};
-use crate::theme_engine::{generate_theme_css, get_palette, is_light_hex_color};
+use crate::theme_engine::{generate_theme_css, is_light_hex_color, resolve_palette};
 use gtk4::gdk;
 use gtk4::gio;
 use gtk4::glib;
@@ -17,83 +17,937 @@ use onyxsh_core::config::AppSettings;
 use onyxsh_core::i18n::{tr, tr_fmt};
 use onyxsh_core::platform;
 use onyxsh_core::sessions::SessionItem;
+use onyxsh_core::window_state::{TabNodeState, WindowSessionState};
 use onyxsh_core::{
     APP_ID, APP_NAME, APP_VERSION, COPYRIGHT, DEVELOPERS, DEVELOPER_NAME, ISSUE_URL, WEBSITE,
 };
-use onyxsh_filemanager::backend::UdpTftpServer;
+use crate::tftp_server_dialog::{show_tftp_server_dialog, TftpServerState};
 use onyxsh_system::{
     calculate_cpu_usage_percent, parse_proc_meminfo, parse_proc_net_dev, parse_proc_stat,
 };
+use onyxsh_core::platform::CommandBuilder;
+use onyxsh_terminal::pty_proxy::{spawn_proxied_pty, OscStreamEvent, ProxiedPtyHandle};
+use onyxsh_terminal::spawner::{
+    build_session_launch, prepare_local_shell_launch, PreparedLaunch, ProcessTracker,
+};
+use onyxsh_terminal::ssh_health::{SshHealthRegistry, SshHealthStatus};
 use std::cell::{Cell, RefCell};
+use std::collections::HashMap;
+use std::net::{SocketAddr, TcpStream, ToSocketAddrs};
 use std::rc::Rc;
+use std::sync::atomic::{AtomicU64, Ordering};
+use std::time::{Duration, Instant};
 use vte4::prelude::*;
+
+static NEXT_TERM_SEQ: AtomicU64 = AtomicU64::new(1);
+
+thread_local! {
+    static PROXIED_PTYS: RefCell<HashMap<String, ProxiedPtyHandle>> = RefCell::new(HashMap::new());
+    static PROCESS_TRACKER: RefCell<ProcessTracker> = RefCell::new(ProcessTracker::new());
+    static SSH_HEALTH_REGISTRY: RefCell<SshHealthRegistry> = RefCell::new(SshHealthRegistry::new());
+}
+
+fn assign_unique_term_name(term: &vte4::Terminal) -> (String, u64) {
+    let id = NEXT_TERM_SEQ.fetch_add(1, Ordering::Relaxed);
+    let name = format!("onyx-term-{id}");
+    term.set_widget_name(&name);
+    (name, id)
+}
+
+fn term_u64_id(term: &vte4::Terminal) -> u64 {
+    term.widget_name()
+        .as_str()
+        .strip_prefix("onyx-term-")
+        .and_then(|s| s.parse::<u64>().ok())
+        .unwrap_or(0)
+}
+
+/// Wraps a terminal/paned tree in an expandable container box so split transitions
+/// can replace the tab's root widget in-place without destroying the `adw::TabPage`.
+fn create_tab_slot_box(inner: &impl IsA<gtk4::Widget>) -> gtk4::Box {
+    let slot = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
+    slot.set_hexpand(true);
+    slot.set_vexpand(true);
+    slot.append(inner);
+    slot
+}
+
+/// Collects every leaf `vte4::Terminal` inside a tab's widget tree in visual DFS order.
+fn collect_terminals_in_widget(widget: &gtk4::Widget) -> Vec<vte4::Terminal> {
+    let mut out = Vec::new();
+    if let Ok(term) = widget.clone().downcast::<vte4::Terminal>() {
+        out.push(term);
+        return out;
+    }
+    if let Ok(paned) = widget.clone().downcast::<gtk4::Paned>() {
+        if let Some(start) = paned.start_child() {
+            out.extend(collect_terminals_in_widget(&start));
+        }
+        if let Some(end) = paned.end_child() {
+            out.extend(collect_terminals_in_widget(&end));
+        }
+        return out;
+    }
+    if let Ok(bx) = widget.clone().downcast::<gtk4::Box>() {
+        let mut child = bx.first_child();
+        while let Some(c) = child {
+            out.extend(collect_terminals_in_widget(&c));
+            child = c.next_sibling();
+        }
+    }
+    out
+}
+
+fn find_tab_page_for_terminal(
+    tab_view: &adw::TabView,
+    target: &vte4::Terminal,
+) -> Option<adw::TabPage> {
+    let n = tab_view.n_pages();
+    for i in 0..n {
+        let page = tab_view.nth_page(i);
+        if collect_terminals_in_widget(&page.child())
+            .iter()
+            .any(|t| t == target)
+        {
+            return Some(page);
+        }
+    }
+    None
+}
+
+fn find_focused_terminal_in_tab(tab_view: &adw::TabView) -> Option<vte4::Terminal> {
+    let page = tab_view.selected_page()?;
+    let terms = collect_terminals_in_widget(&page.child());
+    terms
+        .iter()
+        .find(|t| t.has_focus() || t.is_focus())
+        .cloned()
+        .or_else(|| terms.into_iter().next())
+}
+
+/// Replaces `old_child` inside its direct parent (`gtk4::Paned` or `gtk4::Box` tab slot) with `new_child`.
+fn replace_widget_in_parent(
+    parent: &gtk4::Widget,
+    old_child: &gtk4::Widget,
+    new_child: &gtk4::Widget,
+) -> bool {
+    if let Ok(paned) = parent.clone().downcast::<gtk4::Paned>() {
+        let is_start = paned.start_child().is_some_and(|w| &w == old_child);
+        let is_end = paned.end_child().is_some_and(|w| &w == old_child);
+        if is_start {
+            paned.set_start_child(None::<&gtk4::Widget>);
+            paned.set_start_child(Some(new_child));
+            return true;
+        }
+        if is_end {
+            paned.set_end_child(None::<&gtk4::Widget>);
+            paned.set_end_child(Some(new_child));
+            return true;
+        }
+        return false;
+    }
+    if let Ok(bx) = parent.clone().downcast::<gtk4::Box>() {
+        bx.remove(old_child);
+        bx.append(new_child);
+        return true;
+    }
+    false
+}
+
+/// Splits the currently focused terminal pane in-place using a nested `gtk4::Paned`.
+fn split_focused_pane(
+    tab_view: &adw::TabView,
+    orientation: gtk4::Orientation,
+    new_term: vte4::Terminal,
+    status_lbl: &gtk4::Label,
+) -> bool {
+    let Some(focused) = find_focused_terminal_in_tab(tab_view) else {
+        return false;
+    };
+    let focused_w: gtk4::Widget = focused.clone().upcast();
+    let Some(parent) = focused_w.parent() else {
+        return false;
+    };
+
+    let alloc_size = if orientation == gtk4::Orientation::Horizontal {
+        focused_w.width()
+    } else {
+        focused_w.height()
+    };
+
+    let new_paned = gtk4::Paned::new(orientation);
+    new_paned.set_wide_handle(true);
+    new_paned.set_hexpand(true);
+    new_paned.set_vexpand(true);
+    new_paned.set_resize_start_child(true);
+    new_paned.set_shrink_start_child(false);
+    new_paned.set_resize_end_child(true);
+    new_paned.set_shrink_end_child(false);
+
+    let new_paned_w: gtk4::Widget = new_paned.clone().upcast();
+    if !replace_widget_in_parent(&parent, &focused_w, &new_paned_w) {
+        return false;
+    }
+
+    new_paned.set_start_child(Some(&focused));
+    new_paned.set_end_child(Some(&new_term));
+    if alloc_size > 80 {
+        new_paned.set_position(alloc_size / 2);
+    }
+    new_term.grab_focus();
+    status_lbl.set_text(&if orientation == gtk4::Orientation::Horizontal {
+        tr("Terminal dividido horizontalmente.")
+    } else {
+        tr("Terminal dividido verticalmente.")
+    });
+    true
+}
+
+/// Detaches `target_w` from its parent `gtk4::Paned`, collapses `paned` back into its
+/// remaining sibling inside `grandparent`, and returns the sibling widget if collapsed.
+fn collapse_paned_removing_child(
+    paned: &gtk4::Paned,
+    target_w: &gtk4::Widget,
+) -> Option<gtk4::Widget> {
+    let start = paned.start_child();
+    let end = paned.end_child();
+    let sibling_opt = if start.as_ref().is_some_and(|w| w == target_w) {
+        end
+    } else {
+        start
+    };
+    // Clear focus child before detaching children so GtkPaned doesn't log focus warnings.
+    paned.set_focus_child(None::<&gtk4::Widget>);
+    paned.set_start_child(None::<&gtk4::Widget>);
+    paned.set_end_child(None::<&gtk4::Widget>);
+
+    if let Some(sibling) = sibling_opt {
+        let paned_w: gtk4::Widget = paned.clone().upcast();
+        if let Some(grandparent) = paned_w.parent() {
+            if replace_widget_in_parent(&grandparent, &paned_w, &sibling) {
+                return Some(sibling);
+            }
+        }
+    }
+    None
+}
+
+/// Closes `target` terminal pane inside a split container (collapsing parent `Paned` back to its sibling),
+/// or closes its `adw::TabPage` (and optionally the window if `close_last_tab_window` is true).
+fn close_terminal_pane(
+    tab_view: &adw::TabView,
+    target: &vte4::Terminal,
+    window: Option<&adw::ApplicationWindow>,
+    status_lbl: &gtk4::Label,
+    close_last_tab_window: bool,
+) -> bool {
+    let Some(page) = find_tab_page_for_terminal(tab_view, target) else {
+        return false;
+    };
+    let target_w: gtk4::Widget = target.clone().upcast();
+    if let Some(parent) = target_w.parent() {
+        if let Ok(paned) = parent.downcast::<gtk4::Paned>() {
+            if let Some(sibling) = collapse_paned_removing_child(&paned, &target_w) {
+                if let Some(first_term) = collect_terminals_in_widget(&sibling).into_iter().next() {
+                    first_term.grab_focus();
+                }
+                status_lbl.set_text(&tr("Painel dividido encerrado."));
+                return true;
+            }
+        }
+    }
+
+    if tab_view.n_pages() > 1 {
+        tab_view.close_page(&page);
+        status_lbl.set_text(&tr("Painel/Aba encerrado."));
+        return true;
+    }
+
+    if close_last_tab_window {
+        if let Some(win) = window {
+            win.close();
+            return true;
+        }
+    }
+    false
+}
+
+/// Closes the focused pane inside a split container or closes its tab when >1 tabs exist.
+fn close_focused_pane(tab_view: &adw::TabView, status_lbl: &gtk4::Label) -> bool {
+    let Some(focused) = find_focused_terminal_in_tab(tab_view) else {
+        return false;
+    };
+    close_terminal_pane(tab_view, &focused, None, status_lbl, false)
+}
+
+/// Moves the focused split pane out into its own standalone `adw::TabPage`.
+fn move_focused_pane_to_new_tab(tab_view: &adw::TabView, status_lbl: &gtk4::Label) -> bool {
+    let Some(focused) = find_focused_terminal_in_tab(tab_view) else {
+        return false;
+    };
+    let focused_w: gtk4::Widget = focused.clone().upcast();
+    let Some(parent) = focused_w.parent() else {
+        return false;
+    };
+    let Ok(paned) = parent.downcast::<gtk4::Paned>() else {
+        return false;
+    };
+
+    let _ = collapse_paned_removing_child(&paned, &focused_w);
+
+    let slot = create_tab_slot_box(&focused);
+    let page = tab_view.append(&slot);
+    let title = crate::session_sidebar::get_pane_session(&focused)
+        .map(|s| s.name)
+        .unwrap_or_else(|| format!("Terminal {}", tab_view.n_pages()));
+    page.set_title(&title);
+    tab_view.set_selected_page(&page);
+    focused.grab_focus();
+    status_lbl.set_text(&tr("Painel movido para nova aba."));
+    true
+}
+
+/// Cycles focus across split panes in the active tab (`forward` vs `backward`).
+fn focus_adjacent_pane(
+    tab_view: &adw::TabView,
+    forward: bool,
+    status_lbl: &gtk4::Label,
+) -> bool {
+    let Some(page) = tab_view.selected_page() else {
+        return false;
+    };
+    let terms = collect_terminals_in_widget(&page.child());
+    if terms.len() <= 1 {
+        return false;
+    }
+    let idx = terms
+        .iter()
+        .position(|t| t.has_focus() || t.is_focus())
+        .unwrap_or(0);
+    let next_idx = if forward {
+        (idx + 1) % terms.len()
+    } else if idx == 0 {
+        terms.len() - 1
+    } else {
+        idx - 1
+    };
+    terms[next_idx].grab_focus();
+    status_lbl.set_text(&tr_fmt(
+        "Foco no painel {idx}/{total}",
+        &[
+            ("idx", &(next_idx + 1).to_string()),
+            ("total", &terms.len().to_string()),
+        ],
+    ));
+    true
+}
+
+/// Scrolls the terminal `vadjustment` to the exact OSC 133 previous/next prompt row if available.
+fn scroll_to_prompt_row(term: &vte4::Terminal, previous: bool) -> bool {
+    let adj = match term.vadjustment() {
+        Some(a) => a,
+        None => return false,
+    };
+    let current_row = adj.value().round() as i64;
+    let target_row_opt = if previous {
+        crate::terminal_ux::previous_prompt_row_for(term, current_row)
+            .or_else(|| crate::terminal_ux::previous_prompt_row_for(term, term.cursor_position().1))
+    } else {
+        crate::terminal_ux::next_prompt_row_for(term, current_row)
+    };
+
+    if let Some(target_row) = target_row_opt {
+        let clamped = (target_row as f64)
+            .max(adj.lower())
+            .min((adj.upper() - adj.page_size()).max(adj.lower()));
+        adj.set_value(clamped);
+        return true;
+    }
+
+    // Fallback delta when shell didn't emit OSC 133 prompt marks yet
+    let delta = if previous {
+        -adj.step_increment() * 5.0
+    } else {
+        adj.step_increment() * 5.0
+    };
+    let new_val = (adj.value() + delta)
+        .max(adj.lower())
+        .min((adj.upper() - adj.page_size()).max(adj.lower()));
+    adj.set_value(new_val);
+    false
+}
+
+#[derive(Clone)]
+struct TermSpawnRuntime {
+    window: adw::ApplicationWindow,
+    tab_view: adw::TabView,
+    settings_rc: Rc<RefCell<AppSettings>>,
+    terminals_rc: Rc<RefCell<Vec<vte4::Terminal>>>,
+    ai_widget: gtk4::Box,
+    btn_ai: gtk4::ToggleButton,
+    submit_ai_prompt_cb: Rc<dyn Fn(&str)>,
+    status_lbl: gtk4::Label,
+    clicked_url_rc: Rc<RefCell<Option<String>>>,
+    fm_sync_cwd_cb: Rc<dyn Fn(&std::path::Path)>,
+    fm_sftp_cb: Rc<dyn Fn(&SessionItem)>,
+    btn_fm: gtk4::ToggleButton,
+}
+
+fn spawn_terminal_with_runtime(
+    rt: &TermSpawnRuntime,
+    working_dir: Option<&str>,
+    session: Option<&SessionItem>,
+    argv_override: &[&str],
+) -> vte4::Terminal {
+    let settings = rt.settings_rc.borrow().clone();
+    let term = vte4::Terminal::new();
+    let (term_key, term_id) = assign_unique_term_name(&term);
+    term.set_hexpand(true);
+    term.set_vexpand(true);
+    term.set_allow_hyperlink(true);
+    apply_terminal_appearance(&term, &settings);
+
+    // PCRE2_MULTILINE (0x0000_0400) is required by VTE's match regex engine.
+    if let Ok(regex) = vte4::Regex::for_match(r"https?://[^\s<>\]\[(){}'\x22]+", 0x0000_0400) {
+        let tag = term.match_add_regex(&regex, 0);
+        term.match_set_cursor_name(tag, "pointer");
+    }
+
+    let eff_cwd = working_dir
+        .filter(|s| !s.is_empty())
+        .map(str::to_string)
+        .or_else(|| {
+            session
+                .and_then(|s| (!s.local_working_directory.is_empty()).then(|| s.local_working_directory.clone()))
+        })
+        .unwrap_or_else(|| platform::home_dir().to_string_lossy().into_owned());
+
+    let is_prod = session.is_some_and(|s| s.is_production);
+    crate::session_sidebar::register_pane_session(&term, session.cloned());
+    crate::terminal_ux::init_terminal_ux_state(&term, is_prod, &eff_cwd);
+    if is_prod {
+        crate::terminal_ux::set_terminal_production_mode(&term, true);
+    }
+
+    crate::terminal_ux::attach_vte_ux_controllers(
+        &term,
+        Rc::clone(&rt.clicked_url_rc),
+        &rt.window,
+        &rt.ai_widget,
+        &rt.btn_ai,
+        Rc::clone(&rt.submit_ai_prompt_cb),
+        &rt.status_lbl,
+        &rt.settings_rc,
+    );
+
+    let launch_res: Result<PreparedLaunch, String> = if !argv_override.is_empty() {
+        let builder = CommandBuilder::new();
+        let raw_argv: Vec<String> = argv_override.iter().map(|s| (*s).to_string()).collect();
+        let mut env = HashMap::new();
+        env.insert("TERM".to_string(), "xterm-256color".to_string());
+        env.insert("COLORTERM".to_string(), "truecolor".to_string());
+        let argv = builder.wrap_host_command(&raw_argv, Some(&eff_cwd), Some(&env));
+        Ok(PreparedLaunch {
+            argv,
+            env,
+            working_directory: eff_cwd.clone(),
+            temp_dir: None,
+        })
+    } else if let Some(sess) = session {
+        let secret = crate::session_sidebar::resolve_session_secret(sess);
+        build_session_launch(
+            Some(sess),
+            working_dir,
+            (!secret.is_empty()).then_some(secret),
+            &settings,
+            Some(&CommandBuilder::new()),
+        )
+    } else {
+        Ok(prepare_local_shell_launch(
+            None,
+            Some(&eff_cwd),
+            settings.use_login_shell,
+            true,
+        ))
+    };
+
+    let destroyed = Rc::new(Cell::new(false));
+    {
+        let key_d = term_key.clone();
+        let terms_d = Rc::clone(&rt.terminals_rc);
+        let term_d = term.clone();
+        let dest_flag = Rc::clone(&destroyed);
+        term.connect_destroy(move |_| {
+            dest_flag.set(true);
+            terms_d.borrow_mut().retain(|t| t != &term_d);
+            crate::terminal_ux::remove_terminal_ux_state(&term_d);
+            SSH_HEALTH_REGISTRY.with(|reg| {
+                reg.borrow_mut().unregister(term_id);
+            });
+            let handle_opt = PROXIED_PTYS.with(|map| map.borrow_mut().remove(&key_d));
+            if let Some(mut handle) = handle_opt {
+                PROCESS_TRACKER.with(|tr| {
+                    tr.borrow_mut().unregister(handle.child_pid);
+                });
+                handle.shutdown();
+            }
+        });
+    }
+
+    match launch_res {
+        Ok(launch) => {
+            let (ev_tx, ev_rx) = std::sync::mpsc::channel::<OscStreamEvent>();
+            match spawn_proxied_pty(&launch, settings.enable_osc52_clipboard, ev_tx) {
+                Ok((vte_master_fd, handle)) => {
+                    let child_pid = handle.child_pid;
+                    PROCESS_TRACKER.with(|tr| {
+                        tr.borrow_mut().register(
+                            child_pid,
+                            &launch.argv.join(" "),
+                            launch.temp_dir.clone(),
+                        );
+                    });
+                    if let Ok(vte_pty) =
+                        vte4::Pty::foreign_sync(vte_master_fd, gio::Cancellable::NONE)
+                    {
+                        term.set_pty(Some(&vte_pty));
+                    }
+                    PROXIED_PTYS.with(|map| {
+                        map.borrow_mut().insert(term_key.clone(), handle);
+                    });
+
+                    let post_login_cmd: Option<String> = session.and_then(|s| {
+                        if s.post_login_command_enabled && !s.post_login_command.trim().is_empty() {
+                            Some(s.post_login_command.trim().to_string())
+                        } else {
+                            None
+                        }
+                    });
+                    let post_login_sent = Rc::new(Cell::new(false));
+                    if let Some(ref plc) = post_login_cmd {
+                        let t_plc = term.clone();
+                        let plc_copy = plc.clone();
+                        let sent_flag = Rc::clone(&post_login_sent);
+                        let dest_flag = Rc::clone(&destroyed);
+                        glib::timeout_add_local_once(Duration::from_millis(1200), move || {
+                            if !dest_flag.get() && !sent_flag.get() {
+                                sent_flag.set(true);
+                                let payload = format!("{plc_copy}\n");
+                                t_plc.feed_child(payload.as_bytes());
+                            }
+                        });
+                    }
+
+                    let rt_pump = rt.clone();
+                    let term_pump = term.clone();
+                    let key_pump = term_key.clone();
+                    let dest_pump = Rc::clone(&destroyed);
+                    let plc_opt = post_login_cmd;
+                    let sent_pump = Rc::clone(&post_login_sent);
+
+                    let is_remote = session.is_some_and(|s| s.session_type != "local");
+                    let is_ssh_or_sftp = session
+                        .is_some_and(|s| matches!(s.session_type.as_str(), "ssh" | "sftp"));
+                    let cwd_sync_cb: Rc<dyn Fn(&str)> = {
+                        let fm_sync = Rc::clone(&rt.fm_sync_cwd_cb);
+                        Rc::new(move |display_path: &str| {
+                            if !is_remote {
+                                let expanded = platform::expand_user_path(display_path);
+                                fm_sync(&expanded);
+                            }
+                        })
+                    };
+
+                    glib::timeout_add_local(Duration::from_millis(40), move || {
+                        if dest_pump.get() {
+                            return glib::ControlFlow::Break;
+                        }
+                        let page_opt = find_tab_page_for_terminal(&rt_pump.tab_view, &term_pump);
+                        let st_snapshot = rt_pump.settings_rc.borrow().clone();
+
+                        while let Ok(ev) = ev_rx.try_recv() {
+                            if matches!(ev, OscStreamEvent::PromptStart) {
+                                if let Some(ref plc) = plc_opt {
+                                    if !sent_pump.get() {
+                                        sent_pump.set(true);
+                                        let payload = format!("{plc}\n");
+                                        term_pump.feed_child(payload.as_bytes());
+                                    }
+                                }
+                            }
+                            crate::terminal_ux::handle_osc_stream_event(
+                                &term_pump,
+                                &ev,
+                                &st_snapshot,
+                                &rt_pump.window,
+                                page_opt.as_ref(),
+                                &rt_pump.status_lbl,
+                                Some(&cwd_sync_cb),
+                            );
+                            if let OscStreamEvent::ChildExited(status) = ev {
+                                PROCESS_TRACKER.with(|tr| {
+                                    tr.borrow_mut().unregister(child_pid);
+                                });
+                                PROXIED_PTYS.with(|map| {
+                                    map.borrow_mut().remove(&key_pump);
+                                });
+                                let keep_open_ssh_err = is_ssh_or_sftp && status != 0;
+                                if keep_open_ssh_err {
+                                    let msg = tr_fmt(
+                                        "Processo do terminal encerrado (código {code}).",
+                                        &[("code", &status.to_string())],
+                                    );
+                                    rt_pump.status_lbl.set_text(&msg);
+                                    if let Some(ref page) = page_opt {
+                                        let err_icon =
+                                            gio::ThemedIcon::new("network-error-symbolic");
+                                        page.set_icon(Some(&err_icon));
+                                        page.set_indicator_icon(Some(&err_icon));
+                                        page.set_indicator_activatable(true);
+                                        page.set_indicator_tooltip(&msg);
+                                        page.set_tooltip(&msg);
+                                    }
+                                } else {
+                                    close_terminal_pane(
+                                        &rt_pump.tab_view,
+                                        &term_pump,
+                                        Some(&rt_pump.window),
+                                        &rt_pump.status_lbl,
+                                        true,
+                                    );
+                                }
+                                return glib::ControlFlow::Break;
+                            }
+                        }
+                        glib::ControlFlow::Continue
+                    });
+                }
+                Err(_) => {
+                    let rt_fb = rt.clone();
+                    let term_fb = term.clone();
+                    let is_ssh_or_sftp_fb = session
+                        .is_some_and(|s| matches!(s.session_type.as_str(), "ssh" | "sftp"));
+                    term.connect_child_exited(move |t, status| {
+                        if !(is_ssh_or_sftp_fb && status != 0) {
+                            close_terminal_pane(
+                                &rt_fb.tab_view,
+                                t,
+                                Some(&rt_fb.window),
+                                &rt_fb.status_lbl,
+                                true,
+                            );
+                        } else {
+                            rt_fb.status_lbl.set_text(&tr_fmt(
+                                "Processo do terminal encerrado (código {code}).",
+                                &[("code", &status.to_string())],
+                            ));
+                        }
+                    });
+                    let arg_refs: Vec<&str> = launch.argv.iter().map(String::as_str).collect();
+                    let env_strs: Vec<String> =
+                        launch.env.iter().map(|(k, v)| format!("{k}={v}")).collect();
+                    let env_refs: Vec<&str> = env_strs.iter().map(String::as_str).collect();
+                    term_fb.spawn_async(
+                        vte4::PtyFlags::DEFAULT,
+                        Some(&launch.working_directory),
+                        &arg_refs,
+                        &env_refs,
+                        glib::SpawnFlags::SEARCH_PATH,
+                        || {},
+                        -1,
+                        gio::Cancellable::NONE,
+                        |_| {},
+                    );
+                }
+            }
+        }
+        Err(err_msg) => {
+            rt.status_lbl.set_text(&err_msg);
+            let banner = format!("\r\n\x1b[1;31m⚠️  {err_msg}\x1b[0m\r\n");
+            term.feed(banner.as_bytes());
+        }
+    }
+
+    if let Some(sess) = session {
+        if sess.session_type == "ssh" && !sess.host.is_empty() {
+            SSH_HEALTH_REGISTRY.with(|reg| {
+                reg.borrow_mut()
+                    .register(term_id, &sess.name, &sess.host, sess.port);
+            });
+        }
+        if sess.sftp_session_enabled {
+            rt.btn_fm.set_active(true);
+            (rt.fm_sftp_cb)(sess);
+        }
+    }
+
+    rt.terminals_rc.borrow_mut().push(term.clone());
+    term
+}
+
+/// Starts the proactive SSH Health Monitor timer (RTT probe in background thread + auto-reconnect countdown).
+fn start_ssh_health_monitor_timer(rt: &TermSpawnRuntime) {
+    let last_probe_at = Rc::new(RefCell::new(Instant::now() - Duration::from_secs(60)));
+    let probe_in_flight = Rc::new(Cell::new(false));
+    let rt_timer = rt.clone();
+
+    glib::timeout_add_seconds_local(1, move || {
+        let settings = rt_timer.settings_rc.borrow().clone();
+        if !settings.ssh_health_check_enabled {
+            return glib::ControlFlow::Continue;
+        }
+
+        // Collect all active SSH terminals for probe/countdown
+        let active_terms: Vec<(u64, vte4::Terminal, SessionItem)> = rt_timer
+            .terminals_rc
+            .borrow()
+            .iter()
+            .filter_map(|t| {
+                let sess = crate::session_sidebar::get_pane_session(t)?;
+                if sess.session_type == "ssh" && !sess.host.is_empty() {
+                    Some((term_u64_id(t), t.clone(), sess))
+                } else {
+                    None
+                }
+            })
+            .collect();
+
+        if active_terms.is_empty() {
+            return glib::ControlFlow::Continue;
+        }
+
+        // Tick countdowns every 1s for reconnecting terminals
+        for (tid, term, sess) in &active_terms {
+            let mut trigger_reconnect = false;
+            SSH_HEALTH_REGISTRY.with(|reg| {
+                let mut r = reg.borrow_mut();
+                if let Some(rec) = r.get_mut(*tid) {
+                    if rec.is_auto_reconnecting && rec.countdown_seconds > 0 {
+                        rec.countdown_seconds -= 1;
+                        if rec.countdown_seconds == 0 && settings.ssh_auto_reconnect_enabled {
+                            trigger_reconnect = true;
+                        }
+                    }
+                }
+            });
+            if trigger_reconnect {
+                let port = sess.port;
+                let target = sess.connection_string();
+                rt_timer.status_lbl.set_text(&tr_fmt(
+                    "Reconectando sessão SSH {name}...",
+                    &[("name", &sess.name)],
+                ));
+                let cmd = format!("\rssh -p {port} {target}\n");
+                term.feed_child(cmd.as_bytes());
+            }
+        }
+
+        let interval_secs = settings.ssh_health_check_interval.max(5) as u64;
+        if !probe_in_flight.get()
+            && last_probe_at.borrow().elapsed() >= Duration::from_secs(interval_secs)
+        {
+            *last_probe_at.borrow_mut() = Instant::now();
+            probe_in_flight.set(true);
+
+            let targets: Vec<(u64, String, u16)> = active_terms
+                .iter()
+                .map(|(tid, _, s)| (*tid, s.host.clone(), s.port))
+                .collect();
+            let (tx, rx) = std::sync::mpsc::channel::<(u64, Result<f64, String>)>();
+            std::thread::spawn(move || {
+                for (tid, host, port) in targets {
+                    let t0 = Instant::now();
+                    let addr_res: Result<Vec<SocketAddr>, _> = (host.as_str(), port)
+                        .to_socket_addrs()
+                        .map(|iter| iter.collect());
+                    let outcome = match addr_res {
+                        Ok(addrs) if !addrs.is_empty() => {
+                            let timeout = Duration::from_secs(3);
+                            let mut connected = Err("Connection failed".to_string());
+                            for addr in addrs {
+                                match TcpStream::connect_timeout(&addr, timeout) {
+                                    Ok(_) => {
+                                        connected = Ok(t0.elapsed().as_secs_f64() * 1000.0);
+                                        break;
+                                    }
+                                    Err(e) => connected = Err(e.to_string()),
+                                }
+                            }
+                            connected
+                        }
+                        Ok(_) => Err("DNS empty".to_string()),
+                        Err(e) => Err(e.to_string()),
+                    };
+                    if tx.send((tid, outcome)).is_err() {
+                        break;
+                    }
+                }
+            });
+
+            let in_flight_done = Rc::clone(&probe_in_flight);
+            let rt_res = rt_timer.clone();
+            glib::timeout_add_local(Duration::from_millis(120), move || {
+                let st_now = rt_res.settings_rc.borrow().clone();
+                loop {
+                    match rx.try_recv() {
+                        Ok((tid, outcome)) => {
+                            let badge_opt = SSH_HEALTH_REGISTRY.with(|reg| {
+                                let mut r = reg.borrow_mut();
+                                let rec = r.get_mut(tid)?;
+                                rec.max_reconnect_attempts = st_now.ssh_auto_reconnect_attempts;
+                                match outcome {
+                                    Ok(rtt_ms) => rec.record_probe_success(rtt_ms),
+                                    Err(err) => rec.record_probe_failure(
+                                        &err,
+                                        st_now.ssh_auto_reconnect_enabled,
+                                        5,
+                                    ),
+                                }
+                                Some((rec.status, rec.badge_label()))
+                            });
+                            if let Some((health_status, badge)) = badge_opt {
+                                if let Some((_, term, sess)) = active_terms.iter().find(|(id, _, _)| *id == tid) {
+                                    if let Some(page) = find_tab_page_for_terminal(&rt_res.tab_view, term) {
+                                        page.set_tooltip(&format!("{} — {badge}", sess.name));
+                                        if matches!(
+                                            health_status,
+                                            SshHealthStatus::Unreachable | SshHealthStatus::Reconnecting
+                                        ) {
+                                            let warn_icon =
+                                                gio::ThemedIcon::new("network-error-symbolic");
+                                            page.set_indicator_icon(Some(&warn_icon));
+                                        }
+                                    }
+                                    if find_focused_terminal_in_tab(&rt_res.tab_view)
+                                        .is_some_and(|ft| &ft == term)
+                                    {
+                                        rt_res
+                                            .status_lbl
+                                            .set_text(&format!("SSH {}: {badge}", sess.name));
+                                    }
+                                }
+                            }
+                        }
+                        Err(std::sync::mpsc::TryRecvError::Empty) => {
+                            return glib::ControlFlow::Continue;
+                        }
+                        Err(std::sync::mpsc::TryRecvError::Disconnected) => {
+                            in_flight_done.set(false);
+                            return glib::ControlFlow::Break;
+                        }
+                    }
+                }
+            });
+        }
+
+        glib::ControlFlow::Continue
+    });
+}
 
 /// Applies the palette, font, cursor, and VTE options from `AppSettings` to an existing `vte4::Terminal`.
 fn apply_terminal_appearance(term: &vte4::Terminal, settings: &AppSettings) {
     crate::preferences_ui::apply_all_settings_to_terminal(term, settings);
 }
 
-/// Creates and configures a live `vte4::Terminal` widget and spawns `argv` inside a PTY.
-fn create_vte_terminal(
-    settings: &AppSettings,
-    working_dir: Option<&str>,
-    argv: &[&str],
-    registry: &Rc<RefCell<Vec<vte4::Terminal>>>,
-) -> vte4::Terminal {
-    let term = vte4::Terminal::new();
-    term.set_hexpand(true);
-    term.set_vexpand(true);
-    term.set_scroll_on_output(false);
-    term.set_scroll_on_keystroke(true);
-    term.set_audible_bell(false);
-
-    apply_terminal_appearance(&term, settings);
-
-    let default_shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/bash".to_string());
-    let spawn_argv: Vec<&str> = if argv.is_empty() {
-        vec![default_shell.as_str()]
-    } else {
-        argv.to_vec()
-    };
-
-    let home_dir = platform::home_dir().to_string_lossy().to_string();
-    let cwd = working_dir.unwrap_or(&home_dir);
-
-    term.spawn_async(
-        vte4::PtyFlags::DEFAULT,
-        Some(cwd),
-        &spawn_argv,
-        &[],
-        glib::SpawnFlags::SEARCH_PATH,
-        || {},
-        -1,
-        gio::Cancellable::NONE,
-        |res| {
-            if let Err(err) = res {
-                tracing::warn!("Failed to spawn PTY process: {err}");
-            }
-        },
-    );
-
-    registry.borrow_mut().push(term.clone());
-    term
-}
-
 /// Resolves the active `vte4::Terminal` inside the currently selected `adw::TabPage`.
 fn get_active_vte_terminal(tab_view: &adw::TabView) -> Option<vte4::Terminal> {
-    let page = tab_view.selected_page()?;
-    let child = page.child();
-    if let Ok(term) = child.clone().downcast::<vte4::Terminal>() {
-        return Some(term);
-    }
-    if let Ok(paned) = child.downcast::<gtk4::Paned>() {
-        if let Some(start) = paned.start_child() {
-            if let Ok(term) = start.downcast::<vte4::Terminal>() {
-                return Some(term);
+    find_focused_terminal_in_tab(tab_view)
+}
+
+/// Recursively restores a [`TabNodeState`] tree into GTK4 `vte4::Terminal` / `gtk4::Paned` widgets.
+fn build_restored_tab_widget(
+    node: &TabNodeState,
+    rt: &TermSpawnRuntime,
+    auto_reconnect_ssh: bool,
+) -> (gtk4::Widget, String) {
+    match node {
+        TabNodeState::Terminal {
+            session_type,
+            title,
+            working_directory,
+            session_data,
+        } => {
+            let parsed_sess: Option<SessionItem> = session_data.clone();
+            let active_sess = if auto_reconnect_ssh && session_type == "ssh" {
+                parsed_sess.as_ref().filter(|s| !s.host.is_empty())
+            } else if session_type == "local" {
+                parsed_sess.as_ref()
+            } else {
+                None
+            };
+            let term = spawn_terminal_with_runtime(
+                rt,
+                working_directory.as_deref(),
+                active_sess,
+                &[],
+            );
+            if active_sess.is_none() && parsed_sess.is_some() {
+                crate::session_sidebar::register_pane_session(&term, parsed_sess);
             }
+            (term.upcast(), title.clone())
+        }
+        TabNodeState::Paned {
+            orientation,
+            position,
+            position_ratio: _,
+            child1,
+            child2,
+        } => {
+            let gtk_orient = if orientation == "vertical" {
+                gtk4::Orientation::Vertical
+            } else {
+                gtk4::Orientation::Horizontal
+            };
+            let paned = gtk4::Paned::new(gtk_orient);
+            paned.set_wide_handle(true);
+            paned.set_hexpand(true);
+            paned.set_vexpand(true);
+            let (w1, t1) = build_restored_tab_widget(child1, rt, auto_reconnect_ssh);
+            let (w2, _) = build_restored_tab_widget(child2, rt, auto_reconnect_ssh);
+            paned.set_start_child(Some(&w1));
+            paned.set_end_child(Some(&w2));
+            if *position > 0 {
+                paned.set_position(*position);
+            }
+            (paned.upcast(), t1)
         }
     }
-    None
+}
+
+/// Applies a [`WindowSessionState`] snapshot into `tab_view`, removing any pre-existing tabs.
+fn restore_state_into_tab_view(
+    state: &WindowSessionState,
+    tab_view: &adw::TabView,
+    rt: &TermSpawnRuntime,
+    btn_sidebar: &gtk4::ToggleButton,
+    btn_ai: &gtk4::ToggleButton,
+) {
+    if state.tabs.is_empty() {
+        return;
+    }
+    let settings = rt.settings_rc.borrow().clone();
+    let old_pages: Vec<adw::TabPage> = (0..tab_view.n_pages())
+        .map(|i| tab_view.nth_page(i))
+        .collect();
+    let mut restored_pages = Vec::new();
+    for tab_node in &state.tabs {
+        let (widget, title) =
+            build_restored_tab_widget(tab_node, rt, settings.session_restore_ssh_auto_reconnect);
+        let slot = create_tab_slot_box(&widget);
+        let page = tab_view.append(&slot);
+        page.set_title(if title.is_empty() { "Terminal" } else { &title });
+        restored_pages.push(page);
+    }
+    for old in old_pages {
+        tab_view.close_page(&old);
+    }
+    if let Some(target) = restored_pages.get(state.active_tab_index.min(restored_pages.len().saturating_sub(1))) {
+        tab_view.set_selected_page(target);
+    }
+    if settings.session_restore_ui_panels {
+        btn_sidebar.set_active(state.sidebar_visible);
+        btn_ai.set_active(state.ai_panel_visible);
+    }
 }
 
 /// Opens the SSH Tunnel Manager dialog (`win.show-tunnel-manager`).
@@ -105,17 +959,17 @@ fn show_tunnel_manager_dialog(parent: &adw::ApplicationWindow, status_label: &gt
 /// matching `CORRIGIR/menucontext3.jpg`, `src/onyxsh/ui/menus.py` and `src/onyxsh/app.py`.
 fn setup_terminal_window_actions(
     app: &adw::Application,
-    window: &adw::ApplicationWindow,
-    tab_view: &adw::TabView,
+    rt: &TermSpawnRuntime,
     active_term_cb: &Rc<dyn Fn() -> Option<vte4::Terminal>>,
-    ai_widget: &gtk4::Box,
-    btn_ai: &gtk4::ToggleButton,
-    submit_ai_prompt_cb: &Rc<dyn Fn(&str)>,
-    btn_split: &gtk4::Button,
-    settings_rc: &Rc<RefCell<AppSettings>>,
-    status_lbl: &gtk4::Label,
-    clicked_url_rc: &Rc<RefCell<Option<String>>>,
 ) {
+    let window = &rt.window;
+    let tab_view = &rt.tab_view;
+    let ai_widget = &rt.ai_widget;
+    let btn_ai = &rt.btn_ai;
+    let submit_ai_prompt_cb = &rt.submit_ai_prompt_cb;
+    let settings_rc = &rt.settings_rc;
+    let status_lbl = &rt.status_lbl;
+    let clicked_url_rc = &rt.clicked_url_rc;
     // 1. Copy (`win.copy`)
     {
         let act = Rc::clone(active_term_cb);
@@ -208,12 +1062,8 @@ fn setup_terminal_window_actions(
         let action = gio::SimpleAction::new("jump-previous-prompt", None);
         action.connect_activate(move |_, _| {
             if let Some(term) = act() {
-                if let Some(adj) = term.vadjustment() {
-                    let step = adj.step_increment() * 5.0;
-                    let new_val = (adj.value() - step).max(adj.lower());
-                    adj.set_value(new_val);
-                    st.set_text(&tr("Pular para o prompt anterior."));
-                }
+                scroll_to_prompt_row(&term, true);
+                st.set_text(&tr("Pular para o prompt anterior."));
             }
         });
         window.add_action(&action);
@@ -226,12 +1076,8 @@ fn setup_terminal_window_actions(
         let action = gio::SimpleAction::new("jump-next-prompt", None);
         action.connect_activate(move |_, _| {
             if let Some(term) = act() {
-                if let Some(adj) = term.vadjustment() {
-                    let step = adj.step_increment() * 5.0;
-                    let new_val = (adj.value() + step).min(adj.upper() - adj.page_size());
-                    adj.set_value(new_val);
-                    st.set_text(&tr("Pular para o próximo prompt."));
-                }
+                scroll_to_prompt_row(&term, false);
+                st.set_text(&tr("Pular para o próximo prompt."));
             }
         });
         window.add_action(&action);
@@ -360,20 +1206,42 @@ fn setup_terminal_window_actions(
 
     // 14. Split Horizontal (`win.split-horizontal`)
     {
-        let bsp = btn_split.clone();
+        let rt_sh = rt.clone();
         let action = gio::SimpleAction::new("split-horizontal", None);
         action.connect_activate(move |_, _| {
-            bsp.emit_clicked();
+            let new_term = spawn_terminal_with_runtime(&rt_sh, None, None, &[]);
+            if !split_focused_pane(
+                &rt_sh.tab_view,
+                gtk4::Orientation::Horizontal,
+                new_term.clone(),
+                &rt_sh.status_lbl,
+            ) {
+                let slot = create_tab_slot_box(&new_term);
+                let page = rt_sh.tab_view.append(&slot);
+                page.set_title(&format!("Terminal {}", rt_sh.tab_view.n_pages()));
+                rt_sh.tab_view.set_selected_page(&page);
+            }
         });
         window.add_action(&action);
     }
 
     // 15. Split Vertical (`win.split-vertical`)
     {
-        let bsp = btn_split.clone();
+        let rt_sv = rt.clone();
         let action = gio::SimpleAction::new("split-vertical", None);
         action.connect_activate(move |_, _| {
-            bsp.emit_clicked();
+            let new_term = spawn_terminal_with_runtime(&rt_sv, None, None, &[]);
+            if !split_focused_pane(
+                &rt_sv.tab_view,
+                gtk4::Orientation::Vertical,
+                new_term.clone(),
+                &rt_sv.status_lbl,
+            ) {
+                let slot = create_tab_slot_box(&new_term);
+                let page = rt_sv.tab_view.append(&slot);
+                page.set_title(&format!("Terminal {}", rt_sv.tab_view.n_pages()));
+                rt_sv.tab_view.set_selected_page(&page);
+            }
         });
         window.add_action(&action);
     }
@@ -384,12 +1252,63 @@ fn setup_terminal_window_actions(
         let st = status_lbl.clone();
         let action = gio::SimpleAction::new("close-pane", None);
         action.connect_activate(move |_, _| {
-            if let Some(page) = tv.selected_page() {
-                if tv.n_pages() > 1 {
-                    tv.close_page(&page);
-                    st.set_text(&tr("Painel/Aba encerrado."));
+            close_focused_pane(&tv, &st);
+        });
+        window.add_action(&action);
+    }
+
+    // 17. Copy Last Output (`win.copy-last-output`)
+    {
+        let act = Rc::clone(active_term_cb);
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("copy-last-output", None);
+        action.connect_activate(move |_, _| {
+            let Some(term) = act() else {
+                return;
+            };
+            if let Some((cmd_name, out_txt)) = crate::terminal_ux::last_command_output_for(&term) {
+                let payload = if out_txt.trim().is_empty() {
+                    cmd_name.clone()
+                } else {
+                    out_txt
+                };
+                if let Some(display) = gdk::Display::default() {
+                    display.clipboard().set_text(&payload);
+                    st.set_text(&tr_fmt(
+                        "Saída copiada para a área de transferência ({cmd}).",
+                        &[("cmd", &cmd_name)],
+                    ));
                 }
+            } else {
+                st.set_text(&tr("Nenhum comando anterior registrado neste terminal."));
             }
+        });
+        window.add_action(&action);
+    }
+
+    // 18. Move Pane to New Tab (`win.move-pane-to-tab`)
+    {
+        let tv = tab_view.clone();
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new("move-pane-to-tab", None);
+        action.connect_activate(move |_, _| {
+            move_focused_pane_to_new_tab(&tv, &st);
+        });
+        window.add_action(&action);
+    }
+
+    // 19. Focus Pane Up/Left/Down/Right
+    for (act_name, forward) in [
+        ("focus-pane-up", false),
+        ("focus-pane-left", false),
+        ("focus-pane-down", true),
+        ("focus-pane-right", true),
+    ] {
+        let tv = tab_view.clone();
+        let st = status_lbl.clone();
+        let action = gio::SimpleAction::new(act_name, None);
+        action.connect_activate(move |_, _| {
+            focus_adjacent_pane(&tv, forward, &st);
         });
         window.add_action(&action);
     }
@@ -443,19 +1362,32 @@ fn setup_terminal_window_actions(
 pub fn build_main_window(
     app: &adw::Application,
     initial_settings: AppSettings,
-    initial_cwd: Option<String>,
+    initial_cli: crate::CliOptions,
 ) {
+    let _ = build_main_window_internal(app, initial_settings, initial_cli, false);
+}
+
+fn build_main_window_internal(
+    app: &adw::Application,
+    initial_settings: AppSettings,
+    initial_cli: crate::CliOptions,
+    skip_initial_tab: bool,
+) -> adw::TabView {
     let settings_rc = Rc::new(RefCell::new(initial_settings));
     let terminals_rc: Rc<RefCell<Vec<vte4::Terminal>>> = Rc::new(RefCell::new(Vec::new()));
-    let active_tftp_server: Rc<RefCell<Option<UdpTftpServer>>> = Rc::new(RefCell::new(None));
+    let active_tftp_server: Rc<RefCell<TftpServerState>> =
+        Rc::new(RefCell::new(TftpServerState::default()));
+    let tftp_lbl = gtk4::Label::new(Some(&tr("Servidor TFTP...")));
+    tftp_lbl.set_halign(gtk4::Align::Start);
+    tftp_lbl.set_hexpand(true);
     let clicked_url_rc: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
     {
         let initial_theme_mode = GtkThemeMode::from_setting(&settings_rc.borrow().gtk_theme);
-        let initial_pal = get_palette(&settings_rc.borrow().color_scheme);
+        let initial_pal = resolve_palette(&settings_rc.borrow().color_scheme);
         apply_gtk_theme_mode(
             initial_theme_mode,
-            is_light_hex_color(initial_pal.background),
+            is_light_hex_color(&initial_pal.background),
         );
     }
 
@@ -660,9 +1592,29 @@ pub fn build_main_window(
     let tab_view = adw::TabView::new();
     tab_view.set_hexpand(true);
     tab_view.set_vexpand(true);
+    {
+        let app_cw = app.clone();
+        let st_cw = Rc::clone(&settings_rc);
+        tab_view.connect_create_window(move |_| {
+            Some(build_main_window_internal(
+                &app_cw,
+                st_cw.borrow().clone(),
+                crate::CliOptions::default(),
+                true,
+            ))
+        });
+        tab_view.connect_indicator_activated(|_, page| {
+            page.set_icon(None::<&gio::Icon>);
+            page.set_indicator_icon(None::<&gio::Icon>);
+            page.set_indicator_activatable(false);
+            page.set_indicator_tooltip("");
+            page.set_tooltip("");
+        });
+    }
 
     let tab_bar = adw::TabBar::new();
     tab_bar.set_view(Some(&tab_view));
+    tab_bar.set_autohide(false);
     root_vbox.append(&tab_bar);
 
     // Wire Search Execution State (`current_match_idx`, `total_matches`)
@@ -783,72 +1735,61 @@ pub fn build_main_window(
     footer_box.append(&metrics_lbl);
 
     // ── 5. Phase 11: Complete Session Sidebar (5-Button CRUD + Folder Tree + Search) ──
-    let attach_ux_holder: Rc<RefCell<Option<Rc<dyn Fn(&vte4::Terminal)>>>> =
-        Rc::new(RefCell::new(None));
+    let spawn_rt_holder: Rc<RefCell<Option<TermSpawnRuntime>>> = Rc::new(RefCell::new(None));
 
     let spawn_session_cb: Rc<dyn Fn(&SessionItem, bool)> = {
-        let tv = tab_view.clone();
-        let st_rc = Rc::clone(&settings_rc);
-        let terms_rc = Rc::clone(&terminals_rc);
-        let status = status_lbl.clone();
-        let att_holder = Rc::clone(&attach_ux_holder);
+        let rt_h = Rc::clone(&spawn_rt_holder);
 
         Rc::new(move |sess: &SessionItem, in_split: bool| {
-            let st = st_rc.borrow();
-            let make_term = || {
-                let term = if sess.session_type == "ssh" && !sess.host.is_empty() {
-                    let port_str = sess.port.to_string();
-                    let target = if sess.user.is_empty() {
-                        sess.host.clone()
-                    } else {
-                        format!("{}@{}", sess.user, sess.host)
-                    };
-                    let mut args = vec!["ssh".to_string(), "-p".to_string(), port_str];
-                    if sess.x11_forwarding {
-                        args.push("-X".to_string());
-                    }
-                    args.push(target);
-                    let arg_refs: Vec<&str> = args.iter().map(String::as_str).collect();
-                    create_vte_terminal(&st, None, &arg_refs, &terms_rc)
-                } else {
-                    let cwd = if sess.local_working_directory.is_empty() {
-                        None
-                    } else {
-                        Some(sess.local_working_directory.as_str())
-                    };
-                    create_vte_terminal(&st, cwd, &[], &terms_rc)
-                };
-                if let Some(ref att) = *att_holder.borrow() {
-                    att(&term);
-                }
-                term
+            let Some(rt) = rt_h.borrow().clone() else {
+                return;
             };
+
+            let auto_tunnels = crate::tunnel_ui::auto_start_tunnels_for_session(&sess.name);
+            let make_term = || spawn_terminal_with_runtime(&rt, None, Some(sess), &[]);
 
             if in_split {
                 let paned = gtk4::Paned::new(gtk4::Orientation::Horizontal);
                 paned.set_wide_handle(true);
+                paned.set_hexpand(true);
+                paned.set_vexpand(true);
                 let t1 = make_term();
                 let t2 = make_term();
                 paned.set_start_child(Some(&t1));
                 paned.set_end_child(Some(&t2));
-                let page = tv.append(&paned);
+                let slot = create_tab_slot_box(&paned);
+                let page = rt.tab_view.append(&slot);
                 page.set_title(&format!("{} (Split)", sess.name));
-                tv.set_selected_page(&page);
+                rt.tab_view.set_selected_page(&page);
+                t1.grab_focus();
             } else {
                 let term = make_term();
-                let page = tv.append(&term);
+                let slot = create_tab_slot_box(&term);
+                let page = rt.tab_view.append(&slot);
                 let title = if sess.is_production {
                     format!("🔴 [PROD] {}", sess.name)
                 } else {
                     sess.name.clone()
                 };
                 page.set_title(&title);
-                tv.set_selected_page(&page);
+                rt.tab_view.set_selected_page(&page);
+                term.grab_focus();
             }
-            status.set_text(&tr_fmt(
-                "Conectado à sessão: {name}",
-                &[("name", &sess.name)],
-            ));
+
+            if auto_tunnels.is_empty() {
+                rt.status_lbl.set_text(&tr_fmt(
+                    "Conectado à sessão: {name}",
+                    &[("name", &sess.name)],
+                ));
+            } else {
+                rt.status_lbl.set_text(&tr_fmt(
+                    "Conectado à sessão: {name} ({count} túnel(eis) SSH iniciados)",
+                    &[
+                        ("name", &sess.name),
+                        ("count", &auto_tunnels.len().to_string()),
+                    ],
+                ));
+            }
         })
     };
 
@@ -857,7 +1798,7 @@ pub fn build_main_window(
             &window,
             &tab_view,
             &status_lbl,
-            spawn_session_cb,
+            Rc::clone(&spawn_session_cb),
         );
 
     // Phase 13: Command Toolbar (Pinned Buttons) + Broadcast Bar
@@ -1018,14 +1959,32 @@ pub fn build_main_window(
         })
     };
 
-    let fm_widget = crate::filemanager_ui::build_complete_file_manager(
-        &window,
-        &status_lbl,
-        cd_in_terminal_cb,
-        feed_terminal_cb,
-        Some(ai_prompt_cb),
-    );
+    let (fm_widget, fm_sync_cwd_cb, fm_sftp_cb) =
+        crate::filemanager_ui::build_complete_file_manager_with_controls(
+            &window,
+            &status_lbl,
+            cd_in_terminal_cb,
+            feed_terminal_cb,
+            Some(ai_prompt_cb),
+        );
     fm_widget.set_visible(false);
+
+    let spawn_rt = TermSpawnRuntime {
+        window: window.clone(),
+        tab_view: tab_view.clone(),
+        settings_rc: Rc::clone(&settings_rc),
+        terminals_rc: Rc::clone(&terminals_rc),
+        ai_widget: ai_widget.clone(),
+        btn_ai: btn_ai.clone(),
+        submit_ai_prompt_cb: Rc::clone(&submit_ai_prompt_cb),
+        status_lbl: status_lbl.clone(),
+        clicked_url_rc: Rc::clone(&clicked_url_rc),
+        fm_sync_cwd_cb,
+        fm_sftp_cb,
+        btn_fm: btn_fm.clone(),
+    };
+    *spawn_rt_holder.borrow_mut() = Some(spawn_rt.clone());
+    start_ssh_health_monitor_timer(&spawn_rt);
 
     // Vertical GtkPaned allowing user to resize file manager height up/down
     let fm_paned = gtk4::Paned::new(gtk4::Orientation::Vertical);
@@ -1125,8 +2084,8 @@ pub fn build_main_window(
             rb_system.connect_toggled(move |btn| {
                 if btn.is_active() {
                     st.borrow_mut().gtk_theme = "default".to_string();
-                    let pal = get_palette(&st.borrow().color_scheme);
-                    apply_gtk_theme_mode(GtkThemeMode::System, is_light_hex_color(pal.background));
+                    let pal = resolve_palette(&st.borrow().color_scheme);
+                    apply_gtk_theme_mode(GtkThemeMode::System, is_light_hex_color(&pal.background));
                     let cfg_path = platform::config_dir().join("settings.json");
                     let _ = st.borrow().save_to_path(&cfg_path);
                 }
@@ -1137,8 +2096,8 @@ pub fn build_main_window(
             rb_light.connect_toggled(move |btn| {
                 if btn.is_active() {
                     st.borrow_mut().gtk_theme = "light".to_string();
-                    let pal = get_palette(&st.borrow().color_scheme);
-                    apply_gtk_theme_mode(GtkThemeMode::Light, is_light_hex_color(pal.background));
+                    let pal = resolve_palette(&st.borrow().color_scheme);
+                    apply_gtk_theme_mode(GtkThemeMode::Light, is_light_hex_color(&pal.background));
                     let cfg_path = platform::config_dir().join("settings.json");
                     let _ = st.borrow().save_to_path(&cfg_path);
                 }
@@ -1149,8 +2108,8 @@ pub fn build_main_window(
             rb_dark.connect_toggled(move |btn| {
                 if btn.is_active() {
                     st.borrow_mut().gtk_theme = "dark".to_string();
-                    let pal = get_palette(&st.borrow().color_scheme);
-                    apply_gtk_theme_mode(GtkThemeMode::Dark, is_light_hex_color(pal.background));
+                    let pal = resolve_palette(&st.borrow().color_scheme);
+                    apply_gtk_theme_mode(GtkThemeMode::Dark, is_light_hex_color(&pal.background));
                     let cfg_path = platform::config_dir().join("settings.json");
                     let _ = st.borrow().save_to_path(&cfg_path);
                 }
@@ -1161,10 +2120,10 @@ pub fn build_main_window(
             rb_terminal.connect_toggled(move |btn| {
                 if btn.is_active() {
                     st.borrow_mut().gtk_theme = "terminal".to_string();
-                    let pal = get_palette(&st.borrow().color_scheme);
+                    let pal = resolve_palette(&st.borrow().color_scheme);
                     apply_gtk_theme_mode(
                         GtkThemeMode::TerminalMatch,
-                        is_light_hex_color(pal.background),
+                        is_light_hex_color(&pal.background),
                     );
                     let cfg_path = platform::config_dir().join("settings.json");
                     let _ = st.borrow().save_to_path(&cfg_path);
@@ -1270,7 +2229,7 @@ pub fn build_main_window(
             mi_new_win.connect_clicked(move |_| {
                 pop.popdown();
                 let st = st_rc.borrow().clone();
-                build_main_window(&app_clone, st, None);
+                build_main_window(&app_clone, st, crate::CliOptions::default());
             });
         }
         menu_vbox.append(&mi_new_win);
@@ -1467,10 +2426,7 @@ pub fn build_main_window(
         }
         menu_vbox.append(&mi_tunnels);
 
-        // 9. Iniciar / Parar Servidor TFTP
-        let tftp_lbl = gtk4::Label::new(Some(&tr("Iniciar Servidor TFTP")));
-        tftp_lbl.set_halign(gtk4::Align::Start);
-        tftp_lbl.set_hexpand(true);
+        // 9. Servidor TFTP (RFC 1350)
         let mi_tftp = gtk4::Button::new();
         mi_tftp.add_css_class("flat");
         let tftp_hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
@@ -1478,38 +2434,25 @@ pub fn build_main_window(
         tftp_hbox.append(&tftp_lbl);
         mi_tftp.set_child(Some(&tftp_hbox));
         {
+            let win_clone = window.clone();
+            let st_rc = Rc::clone(&settings_rc);
             let tftp_rc = Rc::clone(&active_tftp_server);
             let lbl_clone = tftp_lbl.clone();
             let status = status_lbl.clone();
             let pop = menu_popover.clone();
             mi_tftp.connect_clicked(move |_| {
                 pop.popdown();
-                let mut guard = tftp_rc.borrow_mut();
-                if guard.is_some() {
-                    *guard = None;
-                    lbl_clone.set_text(&tr("Iniciar Servidor TFTP"));
-                    status.set_text(&tr("Servidor TFTP encerrado."));
-                } else {
-                    let root = platform::home_dir();
-                    if let Ok(srv) = UdpTftpServer::bind("127.0.0.1:0", &root) {
-                        let addr = srv
-                            .local_addr()
-                            .map(|a| a.to_string())
-                            .unwrap_or_else(|_| "127.0.0.1:6969".to_string());
-                        lbl_clone.set_text(&tr_fmt(
-                            "Parar Servidor TFTP ({addr})",
+                let lbl_upd = lbl_clone.clone();
+                show_tftp_server_dialog(&win_clone, &st_rc, &tftp_rc, &status, move |active_addr| {
+                    if let Some(addr) = active_addr {
+                        lbl_upd.set_text(&tr_fmt(
+                            "Servidor TFTP ({addr})",
                             &[("addr", &addr)],
                         ));
-                        status.set_text(&tr_fmt(
-                            "Servidor TFTP Read-Only ativo em {addr} (raiz: {root})",
-                            &[
-                                ("addr", &addr),
-                                ("root", &root.display().to_string()),
-                            ],
-                        ));
-                        *guard = Some(srv);
+                    } else {
+                        lbl_upd.set_text(&tr("Servidor TFTP..."));
                     }
-                }
+                });
             });
         }
         menu_vbox.append(&mi_tftp);
@@ -1588,44 +2531,119 @@ pub fn build_main_window(
         btn_menu.set_popover(Some(&menu_popover));
     }
 
-    // ── 7. Spawn Initial Terminal Tab & Wire Window Shortcuts / Buttons ───────
-    let initial_term = create_vte_terminal(
-        &settings_rc.borrow(),
-        initial_cwd.as_deref(),
-        &[],
-        &terminals_rc,
-    );
-    crate::terminal_ux::attach_vte_ux_controllers(
-        &initial_term,
-        Rc::clone(&clicked_url_rc),
-        &window,
-        &ai_widget,
-        &btn_ai,
-        Rc::clone(&submit_ai_prompt_cb),
-        &status_lbl,
-    );
-    let first_page = tab_view.append(&initial_term);
-    first_page.set_title("Terminal 1");
-    tab_view.set_selected_page(&first_page);
+    // ── 7. Spawn Initial Terminal Tab (or Restore state.json) & Wire Shortcuts ─
+    let state_path = platform::config_dir().join("state.json");
+    let saved_state = if state_path.exists() {
+        WindowSessionState::load_from_path(&state_path).ok()
+    } else {
+        None
+    };
 
+    let cli_has_override =
+        initial_cli.execute_command.is_some() || initial_cli.working_directory.is_some();
+    let policy = settings_rc.borrow().session_restore_policy.clone();
+
+    if skip_initial_tab {
+        // Detached window receiving a dragged `AdwTabPage` via `create-window`
+    } else if !cli_has_override
+        && policy == "always"
+        && saved_state.as_ref().is_some_and(|s| !s.tabs.is_empty())
     {
-        let c_url = Rc::clone(&clicked_url_rc);
-        let win_c = window.clone();
-        let ai_w = ai_widget.clone();
-        let ai_b = btn_ai.clone();
-        let sub = Rc::clone(&submit_ai_prompt_cb);
-        let st = status_lbl.clone();
-        *attach_ux_holder.borrow_mut() = Some(Rc::new(move |t: &vte4::Terminal| {
-            crate::terminal_ux::attach_vte_ux_controllers(
-                t,
-                Rc::clone(&c_url),
-                &win_c,
-                &ai_w,
-                &ai_b,
-                Rc::clone(&sub),
-                &st,
-            );
-        }));
+        if let Some(ref state) = saved_state {
+            restore_state_into_tab_view(state, &tab_view, &spawn_rt, &btn_sidebar, &btn_ai);
+        }
+    } else {
+        let initial_term = if let Some(ref cmd) = initial_cli.execute_command {
+            let argv = ["/bin/sh", "-c", cmd.as_str()];
+            spawn_terminal_with_runtime(
+                &spawn_rt,
+                initial_cli.working_directory.as_deref(),
+                None,
+                &argv,
+            )
+        } else {
+            spawn_terminal_with_runtime(
+                &spawn_rt,
+                initial_cli.working_directory.as_deref(),
+                None,
+                &[],
+            )
+        };
+        let first_slot = create_tab_slot_box(&initial_term);
+        let first_page = tab_view.append(&first_slot);
+        first_page.set_title("Terminal 1");
+        tab_view.set_selected_page(&first_page);
+
+        if !cli_has_override && policy == "ask" {
+            if let Some(state) = saved_state {
+                let has_interesting_state = state.tabs.len() > 1
+                    || state.tabs.iter().any(|t| t.terminal_count() > 1);
+                if has_interesting_state {
+                    let dialog = adw::MessageDialog::builder()
+                        .transient_for(&window)
+                        .modal(true)
+                        .heading(&tr("Restaurar Sessão Anterior"))
+                        .body(&tr_fmt(
+                            "Deseja restaurar {count} aba(s) da sessão anterior?",
+                            &[("count", &state.tabs.len().to_string())],
+                        ))
+                        .default_response("restore")
+                        .close_response("dismiss")
+                        .build();
+                    dialog.add_response("dismiss", &tr("Cancel"));
+                    dialog.add_response("restore", &tr("Restaurar Sessão"));
+                    dialog.set_response_appearance("restore", adw::ResponseAppearance::Suggested);
+
+                    let tv_r = tab_view.clone();
+                    let rt_r = spawn_rt.clone();
+                    let bs_r = btn_sidebar.clone();
+                    let ba_r = btn_ai.clone();
+                    dialog.connect_response(None, move |dlg, resp| {
+                        if resp == "restore" {
+                            restore_state_into_tab_view(&state, &tv_r, &rt_r, &bs_r, &ba_r);
+                        }
+                        dlg.close();
+                    });
+                    dialog.present();
+                }
+            }
+        }
+    }
+
+    // Window action for secondary single-instance CLI invocations (`win.open-cli-tab`)
+    {
+        let rt_cli = spawn_rt.clone();
+        let act = gio::SimpleAction::new("open-cli-tab", Some(glib::VariantTy::STRING));
+        act.connect_activate(move |_, param| {
+            let Some(raw) = param.and_then(|v| v.str()) else {
+                return;
+            };
+            let Ok(opts) = serde_json::from_str::<crate::CliOptions>(raw) else {
+                return;
+            };
+            let term = if let Some(ref cmd) = opts.execute_command {
+                let argv = ["/bin/sh", "-c", cmd.as_str()];
+                spawn_terminal_with_runtime(
+                    &rt_cli,
+                    opts.working_directory.as_deref(),
+                    None,
+                    &argv,
+                )
+            } else {
+                spawn_terminal_with_runtime(
+                    &rt_cli,
+                    opts.working_directory.as_deref(),
+                    None,
+                    &[],
+                )
+            };
+            let slot = create_tab_slot_box(&term);
+            let page = rt_cli.tab_view.append(&slot);
+            page.set_title(&format!("Terminal {}", rt_cli.tab_view.n_pages()));
+            rt_cli.tab_view.set_selected_page(&page);
+            rt_cli.window.present();
+        });
+        window.add_action(&act);
     }
 
     {
@@ -1883,88 +2901,38 @@ pub fn build_main_window(
         });
     }
     {
-        let tv = tab_view.clone();
-        let st = Rc::clone(&settings_rc);
-        let terms = Rc::clone(&terminals_rc);
-        let win_ref = window.clone();
-        let c_url = Rc::clone(&clicked_url_rc);
-        let ai_w = ai_widget.clone();
-        let ai_b = btn_ai.clone();
-        let sub_ai = Rc::clone(&submit_ai_prompt_cb);
-        let status = status_lbl.clone();
+        let rt_nt = spawn_rt.clone();
         let counter = Rc::new(RefCell::new(1u32));
         btn_new_tab.connect_clicked(move |_| {
             let mut n = counter.borrow_mut();
             *n += 1;
-            let term = create_vte_terminal(&st.borrow(), None, &[], &terms);
-            crate::terminal_ux::attach_vte_ux_controllers(
-                &term,
-                Rc::clone(&c_url),
-                &win_ref,
-                &ai_w,
-                &ai_b,
-                Rc::clone(&sub_ai),
-                &status,
-            );
-            let page = tv.append(&term);
+            let term = spawn_terminal_with_runtime(&rt_nt, None, None, &[]);
+            let slot = create_tab_slot_box(&term);
+            let page = rt_nt.tab_view.append(&slot);
             page.set_title(&format!("Terminal {}", *n));
-            tv.set_selected_page(&page);
+            rt_nt.tab_view.set_selected_page(&page);
+            term.grab_focus();
         });
     }
     {
-        let tv = tab_view.clone();
-        let st = Rc::clone(&settings_rc);
-        let terms = Rc::clone(&terminals_rc);
-        let win_ref = window.clone();
-        let c_url = Rc::clone(&clicked_url_rc);
-        let ai_w = ai_widget.clone();
-        let ai_b = btn_ai.clone();
-        let sub_ai = Rc::clone(&submit_ai_prompt_cb);
-        let status = status_lbl.clone();
+        let rt_sp = spawn_rt.clone();
         btn_split.connect_clicked(move |_| {
-            let paned = gtk4::Paned::new(gtk4::Orientation::Horizontal);
-            paned.set_wide_handle(true);
-            let t1 = create_vte_terminal(&st.borrow(), None, &[], &terms);
-            let t2 = create_vte_terminal(&st.borrow(), None, &[], &terms);
-            crate::terminal_ux::attach_vte_ux_controllers(
-                &t1,
-                Rc::clone(&c_url),
-                &win_ref,
-                &ai_w,
-                &ai_b,
-                Rc::clone(&sub_ai),
-                &status,
-            );
-            crate::terminal_ux::attach_vte_ux_controllers(
-                &t2,
-                Rc::clone(&c_url),
-                &win_ref,
-                &ai_w,
-                &ai_b,
-                Rc::clone(&sub_ai),
-                &status,
-            );
-            paned.set_start_child(Some(&t1));
-            paned.set_end_child(Some(&t2));
-            let page = tv.append(&paned);
-            page.set_title(&tr("Split Terminal"));
-            tv.set_selected_page(&page);
+            let new_term = spawn_terminal_with_runtime(&rt_sp, None, None, &[]);
+            if !split_focused_pane(
+                &rt_sp.tab_view,
+                gtk4::Orientation::Horizontal,
+                new_term.clone(),
+                &rt_sp.status_lbl,
+            ) {
+                let slot = create_tab_slot_box(&new_term);
+                let page = rt_sp.tab_view.append(&slot);
+                page.set_title(&tr("Split Terminal"));
+                rt_sp.tab_view.set_selected_page(&page);
+            }
         });
     }
 
-    setup_terminal_window_actions(
-        app,
-        &window,
-        &tab_view,
-        &active_term_cb,
-        &ai_widget,
-        &btn_ai,
-        &submit_ai_prompt_cb,
-        &btn_split,
-        &settings_rc,
-        &status_lbl,
-        &clicked_url_rc,
-    );
+    setup_terminal_window_actions(app, &spawn_rt, &active_term_cb);
 
     // Global Search (`Ctrl+Shift+G`) & Command History (`Ctrl+H`) HeaderBar Buttons
     {
@@ -1973,21 +2941,17 @@ pub fn build_main_window(
         let cmds_rc = Rc::clone(&cmd_buttons_rc);
         let act_term = Rc::clone(&active_term_cb);
         let status = status_lbl.clone();
+        let sp_sess = Rc::clone(&spawn_session_cb);
 
         btn_global_search.connect_clicked(move |_| {
-            let at_sess = Rc::clone(&act_term);
+            let sp_cb = Rc::clone(&sp_sess);
             let st_sess = status.clone();
             let on_sess: Rc<dyn Fn(&SessionItem)> = Rc::new(move |sess: &SessionItem| {
-                if let Some(term) = at_sess() {
-                    if sess.session_type == "ssh" && !sess.host.is_empty() {
-                        let cmd = format!("ssh -p {} {}\n", sess.port, sess.connection_string());
-                        term.feed_child(cmd.as_bytes());
-                    }
-                    st_sess.set_text(&tr_fmt(
-                        "Conectando via Busca Global: {name}",
-                        &[("name", &sess.name)],
-                    ));
-                }
+                sp_cb(sess, false);
+                st_sess.set_text(&tr_fmt(
+                    "Conectando via Busca Global: {name}",
+                    &[("name", &sess.name)],
+                ));
             });
             crate::global_search_and_shortcuts::show_global_search_dialog(
                 &win_ref,
@@ -2075,7 +3039,14 @@ pub fn build_main_window(
                 "previous-tab" => {
                     tv_c.select_previous_page();
                 }
-                "split" | "split-vertical" => b_sp_c.emit_clicked(),
+                "split" => b_sp_c.emit_clicked(),
+                "split-vertical" => {
+                    let _ = gtk4::prelude::WidgetExt::activate_action(
+                        &win_c,
+                        "win.split-vertical",
+                        None,
+                    );
+                }
                 "export-terminal-buffer" => {
                     if let Some(term) = at_act() {
                         let tab_title = tv_c.selected_page().map(|p| p.title().to_string());
@@ -2173,21 +3144,7 @@ pub fn build_main_window(
                     }
                 }
                 "backup-config" => {
-                    let cfg_dir = platform::config_dir();
-                    let out_path = platform::home_dir().join("onyxsh_config_backup.json");
-                    match onyxsh_core::backup::create_config_backup(&cfg_dir, &out_path) {
-                        Ok(bundle) => st_act.set_text(&tr_fmt(
-                            "Backup SHA-256 criado ({count} arquivos): {path}",
-                            &[
-                                ("count", &bundle.files.len().to_string()),
-                                ("path", &out_path.display().to_string()),
-                            ],
-                        )),
-                        Err(e) => st_act.set_text(&tr_fmt(
-                            "Erro ao criar backup: {err}",
-                            &[("err", &e.to_string())],
-                        )),
-                    }
+                    crate::preferences_ui::run_encrypted_backup_flow(&win_c, &st_act);
                 }
                 "show-tunnel-manager" => {
                     crate::tunnel_ui::show_tunnel_manager_window(&win_c, &st_act);
@@ -2256,7 +3213,6 @@ pub fn build_main_window(
         let bgs = btn_global_search.clone();
         let bch = btn_cmd_history.clone();
         let bnt = btn_new_tab.clone();
-        let bsp = btn_split.clone();
         let bsb = btn_sidebar.clone();
         let bfm = btn_fm.clone();
         let bai = btn_ai.clone();
@@ -2266,6 +3222,8 @@ pub fn build_main_window(
         let brm = btn_resource_monitor.clone();
         let act_term_k = Rc::clone(&active_term_cb);
         let status_k = status_lbl.clone();
+        let tftp_k = Rc::clone(&active_tftp_server);
+        let tftp_lbl_k = tftp_lbl.clone();
 
         key_ctrl.connect_key_pressed(move |_, keyval, _, state| {
             let is_mod_only = matches!(
@@ -2322,7 +3280,7 @@ pub fn build_main_window(
             }
             if matches_action("new-window") {
                 let st_clone = st_k.borrow().clone();
-                build_main_window(&app_k, st_clone, None);
+                build_main_window(&app_k, st_clone, crate::CliOptions::default());
                 return glib::Propagation::Stop;
             }
             if matches_action("quit") {
@@ -2331,39 +3289,34 @@ pub fn build_main_window(
             }
 
             // 2. Splitting & Panes
-            if matches_action("split-horizontal") || matches_action("split-vertical") {
-                bsp.emit_clicked();
+            if matches_action("split-horizontal") {
+                let _ = gtk4::prelude::WidgetExt::activate_action(
+                    &win_k,
+                    "win.split-horizontal",
+                    None,
+                );
+                return glib::Propagation::Stop;
+            }
+            if matches_action("split-vertical") {
+                let _ = gtk4::prelude::WidgetExt::activate_action(
+                    &win_k,
+                    "win.split-vertical",
+                    None,
+                );
                 return glib::Propagation::Stop;
             }
             if matches_action("close-pane") {
-                if let Some(page) = tv_k.selected_page() {
-                    if tv_k.n_pages() > 1 {
-                        tv_k.close_page(&page);
-                        status_k.set_text(&tr("Painel/Aba encerrado."));
-                    }
-                }
+                close_focused_pane(&tv_k, &status_k);
                 return glib::Propagation::Stop;
             }
             if matches_action("focus-pane-up") || matches_action("focus-pane-left") {
-                if let Some(page) = tv_k.selected_page() {
-                    if let Ok(paned) = page.child().downcast::<gtk4::Paned>() {
-                        if let Some(w) = paned.start_child() {
-                            w.grab_focus();
-                            status_k.set_text(&tr("Foco alterado para o primeiro painel."));
-                            return glib::Propagation::Stop;
-                        }
-                    }
+                if focus_adjacent_pane(&tv_k, false, &status_k) {
+                    return glib::Propagation::Stop;
                 }
             }
             if matches_action("focus-pane-down") || matches_action("focus-pane-right") {
-                if let Some(page) = tv_k.selected_page() {
-                    if let Ok(paned) = page.child().downcast::<gtk4::Paned>() {
-                        if let Some(w) = paned.end_child() {
-                            w.grab_focus();
-                            status_k.set_text(&tr("Foco alterado para o segundo painel."));
-                            return glib::Propagation::Stop;
-                        }
-                    }
+                if focus_adjacent_pane(&tv_k, true, &status_k) {
+                    return glib::Propagation::Stop;
                 }
             }
 
@@ -2427,21 +3380,15 @@ pub fn build_main_window(
             }
             if matches_action("jump-previous-prompt") {
                 if let Some(term) = act_term_k() {
-                    if let Some(adj) = term.vadjustment() {
-                        let new_val = (adj.value() - adj.step_increment() * 5.0).max(adj.lower());
-                        adj.set_value(new_val);
-                        status_k.set_text(&tr("Pular para o prompt anterior."));
-                    }
+                    scroll_to_prompt_row(&term, true);
+                    status_k.set_text(&tr("Pular para o prompt anterior."));
                 }
                 return glib::Propagation::Stop;
             }
             if matches_action("jump-next-prompt") {
                 if let Some(term) = act_term_k() {
-                    if let Some(adj) = term.vadjustment() {
-                        let new_val = (adj.value() + adj.step_increment() * 5.0).min(adj.upper() - adj.page_size());
-                        adj.set_value(new_val);
-                        status_k.set_text(&tr("Pular para o próximo prompt."));
-                    }
+                    scroll_to_prompt_row(&term, false);
+                    status_k.set_text(&tr("Pular para o próximo prompt."));
                 }
                 return glib::Propagation::Stop;
             }
@@ -2454,7 +3401,17 @@ pub fn build_main_window(
                 return glib::Propagation::Stop;
             }
             if matches_action("toggle-tftp-server") {
-                status_k.set_text(&tr("Servidor TFTP alternado."));
+                let lbl_upd = tftp_lbl_k.clone();
+                show_tftp_server_dialog(&win_k, &st_k, &tftp_k, &status_k, move |active_addr| {
+                    if let Some(addr) = active_addr {
+                        lbl_upd.set_text(&tr_fmt(
+                            "Servidor TFTP ({addr})",
+                            &[("addr", &addr)],
+                        ));
+                    } else {
+                        lbl_upd.set_text(&tr("Servidor TFTP..."));
+                    }
+                });
                 return glib::Propagation::Stop;
             }
 
@@ -2578,13 +3535,36 @@ pub fn build_main_window(
 
     {
         let st_close = Rc::clone(&settings_rc);
+        let tv_close = tab_view.clone();
+        let sb_close = sidebar_box.clone();
+        let ai_close = ai_widget.clone();
+        let win_close = window.clone();
+        let tftp_close = Rc::clone(&active_tftp_server);
         window.connect_close_request(move |_| {
-            let cfg_path = platform::config_dir().join("settings.json");
+            tftp_close.borrow_mut().stop();
+            let cfg_dir = platform::config_dir();
+            let cfg_path = cfg_dir.join("settings.json");
             let _ = st_close.borrow().save_to_path(&cfg_path);
+            let win_state = crate::session_sidebar::capture_window_session_state(
+                &tv_close,
+                sb_close.is_visible(),
+                ai_close.is_visible(),
+            );
+            let _ = win_state.save_to_path(&cfg_dir.join("state.json"));
+            let is_last_window = win_close
+                .application()
+                .is_none_or(|app| app.windows().len() <= 1);
+            if is_last_window {
+                crate::tunnel_ui::stop_all_tunnel_processes();
+                if st_close.borrow().clear_remote_edit_files_on_exit {
+                    crate::quick_look_dialog::cleanup_remote_temp_files();
+                }
+            }
             glib::Propagation::Proceed
         });
     }
 
     window.set_content(Some(&root_vbox));
     window.present();
+    tab_view
 }

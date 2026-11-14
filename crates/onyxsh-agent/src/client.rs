@@ -5,6 +5,9 @@
 use crate::router::RouteDecision;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
+use std::io::{BufRead, BufReader};
+use std::time::Duration;
+use ureq::Agent;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum MessageRole {
@@ -264,6 +267,137 @@ pub fn parse_ollama_ps_models_to_evict(ps_json: &str, active_model: &str) -> Vec
         .collect()
 }
 
+/// Errors returned by live HTTP / SSE LLM provider transport.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum ClientHttpError {
+    Network(String),
+    HttpStatus { status: u16, body: String },
+    Cancelled,
+}
+
+impl std::fmt::Display for ClientHttpError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Network(msg) => write!(f, "HTTP network error: {msg}"),
+            Self::HttpStatus { status, body } => write!(f, "HTTP {status}: {body}"),
+            Self::Cancelled => write!(f, "Streaming cancelled by caller"),
+        }
+    }
+}
+
+impl std::error::Error for ClientHttpError {}
+
+fn build_http_agent(timeout_secs: u64) -> Agent {
+    Agent::config_builder()
+        .timeout_global(Some(Duration::from_secs(timeout_secs.max(5))))
+        .http_status_as_error(false)
+        .build()
+        .into()
+}
+
+/// Executes an SSE streaming POST request for [`LlmHttpRequest`], invoking `on_delta` for each
+/// incremental token and returning the accumulated assistant response.
+/// If `on_delta` returns `false`, streaming stops early with [`ClientHttpError::Cancelled`].
+pub fn execute_streaming_request<F>(
+    req: &LlmHttpRequest,
+    provider: &str,
+    timeout_secs: u64,
+    mut on_delta: F,
+) -> Result<String, ClientHttpError>
+where
+    F: FnMut(&str) -> bool,
+{
+    let agent = build_http_agent(timeout_secs);
+    let mut builder = agent.post(&req.url);
+    for (k, v) in &req.headers {
+        builder = builder.header(k.as_str(), v.as_str());
+    }
+
+    let mut response = builder
+        .send(req.body_json.as_str())
+        .map_err(|e| ClientHttpError::Network(e.to_string()))?;
+
+    let status = response.status().as_u16();
+    if !(200..300).contains(&status) {
+        let body = response.body_mut().read_to_string().unwrap_or_default();
+        return Err(ClientHttpError::HttpStatus { status, body });
+    }
+
+    let mut reader = BufReader::new(response.body_mut().as_reader());
+    let mut accumulated = String::new();
+    let mut line = String::new();
+
+    loop {
+        line.clear();
+        let n = reader
+            .read_line(&mut line)
+            .map_err(|e| ClientHttpError::Network(e.to_string()))?;
+        if n == 0 {
+            break;
+        }
+        if let Some(delta) = parse_sse_line(provider, &line) {
+            accumulated.push_str(&delta);
+            if !on_delta(&delta) {
+                return Err(ClientHttpError::Cancelled);
+            }
+        }
+    }
+
+    Ok(accumulated)
+}
+
+/// Performs an HTTP GET request and parses the JSON response (used for model discovery & Ollama checks).
+pub fn execute_get_json(
+    url: &str,
+    headers: &[(&str, &str)],
+    timeout_secs: u64,
+) -> Result<Value, ClientHttpError> {
+    let agent = build_http_agent(timeout_secs);
+    let mut builder = agent.get(url);
+    for &(k, v) in headers {
+        builder = builder.header(k, v);
+    }
+    let mut response = builder
+        .call()
+        .map_err(|e| ClientHttpError::Network(e.to_string()))?;
+    let status = response.status().as_u16();
+    let body = response
+        .body_mut()
+        .read_to_string()
+        .map_err(|e| ClientHttpError::Network(e.to_string()))?;
+    if !(200..300).contains(&status) {
+        return Err(ClientHttpError::HttpStatus { status, body });
+    }
+    serde_json::from_str(&body).map_err(|e| ClientHttpError::Network(e.to_string()))
+}
+
+/// Performs a non-streaming HTTP POST JSON request (used for Ollama preload/unload & API validation).
+pub fn execute_json_post(
+    req: &LlmHttpRequest,
+    timeout_secs: u64,
+) -> Result<Value, ClientHttpError> {
+    let agent = build_http_agent(timeout_secs);
+    let mut builder = agent.post(&req.url);
+    for (k, v) in &req.headers {
+        builder = builder.header(k.as_str(), v.as_str());
+    }
+    let mut response = builder
+        .send(req.body_json.as_str())
+        .map_err(|e| ClientHttpError::Network(e.to_string()))?;
+    let status = response.status().as_u16();
+    let body = response
+        .body_mut()
+        .read_to_string()
+        .map_err(|e| ClientHttpError::Network(e.to_string()))?;
+    if !(200..300).contains(&status) {
+        return Err(ClientHttpError::HttpStatus { status, body });
+    }
+    if body.trim().is_empty() {
+        return Ok(json!({}));
+    }
+    serde_json::from_str(&body).map_err(|e| ClientHttpError::Network(e.to_string()))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -327,5 +461,61 @@ mod tests {
             r#"data: {"type":"content_block_delta","delta":{"type":"text_delta","text":"systemctl status"}}"#,
         );
         assert_eq!(claude_delta.as_deref(), Some("systemctl status"));
+    }
+
+    #[test]
+    fn test_live_http_streaming_and_get_json_against_local_server() {
+        use std::io::{Read, Write};
+        use std::net::TcpListener;
+
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let addr = listener.local_addr().unwrap();
+
+        let server_handle = std::thread::spawn(move || {
+            for idx in 0..2 {
+                let (mut stream, _) = listener.accept().unwrap();
+                let mut req_buf = [0u8; 2048];
+                let _ = stream.read(&mut req_buf);
+                if idx == 0 {
+                    let sse = concat!(
+                        "HTTP/1.1 200 OK\r\n",
+                        "Content-Type: text/event-stream\r\n",
+                        "Connection: close\r\n\r\n",
+                        "data: {\"choices\":[{\"delta\":{\"content\":\"systemctl \"}}]}\n\n",
+                        "data: {\"choices\":[{\"delta\":{\"content\":\"status\"}}]}\n\n",
+                        "data: [DONE]\n\n"
+                    );
+                    stream.write_all(sse.as_bytes()).unwrap();
+                } else {
+                    let body = r#"{"models":[{"name":"qwen2.5-coder:7b"}]}"#;
+                    let resp = format!(
+                        "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",
+                        body.len(),
+                        body
+                    );
+                    stream.write_all(resp.as_bytes()).unwrap();
+                }
+            }
+        });
+
+        let req = LlmHttpRequest {
+            url: format!("http://{addr}/v1/chat/completions"),
+            headers: vec![("Content-Type".to_string(), "application/json".to_string())],
+            body_json: r#"{"model":"local","stream":true}"#.to_string(),
+        };
+        let mut chunks = Vec::new();
+        let full = execute_streaming_request(&req, "openai", 5, |delta| {
+            chunks.push(delta.to_string());
+            true
+        })
+        .unwrap();
+
+        assert_eq!(chunks, vec!["systemctl ", "status"]);
+        assert_eq!(full, "systemctl status");
+
+        let tags = execute_get_json(&format!("http://{addr}/api/tags"), &[], 5).unwrap();
+        assert_eq!(tags["models"][0]["name"], "qwen2.5-coder:7b");
+
+        server_handle.join().unwrap();
     }
 }

@@ -27,6 +27,14 @@ pub enum FieldType {
     Number,
     Switch,
     Dropdown,
+    TextArea,
+    Slider,
+    FilePath,
+    DirectoryPath,
+    DateTime,
+    Color,
+    Radio,
+    MultiSelect,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -783,6 +791,9 @@ pub fn show_command_form_dialog(
                 let slist = gtk4::StringList::new(&str_refs);
                 let dd = gtk4::DropDown::new(Some(slist), gtk4::Expression::NONE);
                 let opts = field.options.clone();
+                if let Some(pos) = opts.iter().position(|o| o == &field.default_value) {
+                    dd.set_selected(pos as u32);
+                }
                 dd.connect_selected_notify(move |d| {
                     let idx = d.selected() as usize;
                     if let Some(chosen) = opts.get(idx) {
@@ -791,6 +802,206 @@ pub fn show_command_form_dialog(
                     }
                 });
                 row.append(&dd);
+            }
+            FieldType::TextArea => {
+                let scroll = gtk4::ScrolledWindow::builder()
+                    .min_content_width(240)
+                    .min_content_height(72)
+                    .build();
+                scroll.add_css_class("card");
+                let tv = gtk4::TextView::new();
+                tv.buffer().set_text(&field.default_value);
+                tv.buffer().connect_changed(move |buf| {
+                    let (start, end) = buf.bounds();
+                    vmap.borrow_mut().insert(fid.clone(), buf.text(&start, &end, false).to_string());
+                    up();
+                });
+                scroll.set_child(Some(&tv));
+                row.append(&scroll);
+            }
+            FieldType::Slider => {
+                let min_v: f64 = field.options.first().and_then(|s| s.parse().ok()).unwrap_or(0.0);
+                let max_v: f64 = field.options.get(1).and_then(|s| s.parse().ok()).unwrap_or(100.0);
+                let step_v: f64 = field.options.get(2).and_then(|s| s.parse().ok()).unwrap_or(1.0);
+                let init_v: f64 = field.default_value.parse().unwrap_or(min_v);
+                let scale = gtk4::Scale::with_range(
+                    gtk4::Orientation::Horizontal,
+                    min_v,
+                    max_v.max(min_v + 1.0),
+                    step_v.max(0.1),
+                );
+                scale.set_value(init_v);
+                scale.set_draw_value(true);
+                scale.set_size_request(190, -1);
+                scale.connect_value_changed(move |s| {
+                    let v = s.value();
+                    let formatted = if (v.fract()).abs() < f64::EPSILON {
+                        format!("{:.0}", v)
+                    } else {
+                        format!("{:.2}", v)
+                    };
+                    vmap.borrow_mut().insert(fid.clone(), formatted);
+                    up();
+                });
+                row.append(&scale);
+            }
+            FieldType::FilePath | FieldType::DirectoryPath => {
+                let is_dir = field.field_type == FieldType::DirectoryPath;
+                let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+                let entry = gtk4::Entry::builder()
+                    .text(&field.default_value)
+                    .hexpand(true)
+                    .build();
+                let entry_c = entry.clone();
+                let vmap_c = Rc::clone(&vmap);
+                let fid_c = fid.clone();
+                let up_c = Rc::clone(&up);
+                entry.connect_changed(move |e| {
+                    vmap_c.borrow_mut().insert(fid_c.clone(), e.text().to_string());
+                    up_c();
+                });
+                let btn_browse = gtk4::Button::builder()
+                    .icon_name("folder-open-symbolic")
+                    .build();
+                let d_win = dlg.clone();
+                btn_browse.connect_clicked(move |_| {
+                    let fd = gtk4::FileDialog::new();
+                    let ec = entry_c.clone();
+                    if is_dir {
+                        fd.select_folder(Some(&d_win), gtk4::gio::Cancellable::NONE, move |res| {
+                            if let Ok(file) = res {
+                                if let Some(path) = file.path() {
+                                    ec.set_text(&path.to_string_lossy());
+                                }
+                            }
+                        });
+                    } else {
+                        fd.open(Some(&d_win), gtk4::gio::Cancellable::NONE, move |res| {
+                            if let Ok(file) = res {
+                                if let Some(path) = file.path() {
+                                    ec.set_text(&path.to_string_lossy());
+                                }
+                            }
+                        });
+                    }
+                });
+                hbox.append(&entry);
+                hbox.append(&btn_browse);
+                row.append(&hbox);
+            }
+            FieldType::DateTime => {
+                let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 4);
+                let entry = gtk4::Entry::builder()
+                    .text(&field.default_value)
+                    .placeholder_text("YYYY-MM-DD HH:MM")
+                    .hexpand(true)
+                    .build();
+                let entry_c = entry.clone();
+                entry.connect_changed(move |e| {
+                    vmap.borrow_mut().insert(fid.clone(), e.text().to_string());
+                    up();
+                });
+                let cal_btn = gtk4::MenuButton::builder()
+                    .icon_name("x-office-calendar-symbolic")
+                    .build();
+                let cal_pop = gtk4::Popover::new();
+                let cal = gtk4::Calendar::new();
+                let cp = cal_pop.clone();
+                cal.connect_day_selected(move |c| {
+                    let dt = c.date();
+                    entry_c.set_text(&format!(
+                        "{:04}-{:02}-{:02} 00:00",
+                        dt.year(),
+                        dt.month(),
+                        dt.day_of_month()
+                    ));
+                    cp.popdown();
+                });
+                cal_pop.set_child(Some(&cal));
+                cal_btn.set_popover(Some(&cal_pop));
+                hbox.append(&entry);
+                hbox.append(&cal_btn);
+                row.append(&hbox);
+            }
+            FieldType::Color => {
+                let rgba = gdk::RGBA::parse(&field.default_value)
+                    .unwrap_or_else(|_| gdk::RGBA::new(0.2, 0.6, 1.0, 1.0));
+                let cd = gtk4::ColorDialog::new();
+                let cbtn = gtk4::ColorDialogButton::new(Some(cd));
+                cbtn.set_rgba(&rgba);
+                cbtn.connect_rgba_notify(move |b| {
+                    let c = b.rgba();
+                    let hex = format!(
+                        "#{:02x}{:02x}{:02x}",
+                        (c.red() * 255.0).round() as u8,
+                        (c.green() * 255.0).round() as u8,
+                        (c.blue() * 255.0).round() as u8
+                    );
+                    vmap.borrow_mut().insert(fid.clone(), hex);
+                    up();
+                });
+                row.append(&cbtn);
+            }
+            FieldType::Radio => {
+                let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+                let mut first_btn: Option<gtk4::CheckButton> = None;
+                for opt in &field.options {
+                    let cb = gtk4::CheckButton::with_label(opt);
+                    if let Some(ref root) = first_btn {
+                        cb.set_group(Some(root));
+                    } else {
+                        first_btn = Some(cb.clone());
+                    }
+                    if opt == &field.default_value {
+                        cb.set_active(true);
+                    }
+                    let opt_c = opt.clone();
+                    let vmap_c = Rc::clone(&vmap);
+                    let fid_c = fid.clone();
+                    let up_c = Rc::clone(&up);
+                    cb.connect_toggled(move |b| {
+                        if b.is_active() {
+                            vmap_c.borrow_mut().insert(fid_c.clone(), opt_c.clone());
+                            up_c();
+                        }
+                    });
+                    vbox.append(&cb);
+                }
+                row.append(&vbox);
+            }
+            FieldType::MultiSelect => {
+                let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+                let sep = if field.default_value.contains(',') { "," } else { " " };
+                let defaults: Vec<String> = field
+                    .default_value
+                    .split([',', ' '])
+                    .map(|s| s.trim().to_string())
+                    .filter(|s| !s.is_empty())
+                    .collect();
+                let selected_set = Rc::new(RefCell::new(defaults));
+                for opt in &field.options {
+                    let cb = gtk4::CheckButton::with_label(opt);
+                    cb.set_active(selected_set.borrow().contains(opt));
+                    let opt_c = opt.clone();
+                    let sel_c = Rc::clone(&selected_set);
+                    let vmap_c = Rc::clone(&vmap);
+                    let fid_c = fid.clone();
+                    let up_c = Rc::clone(&up);
+                    cb.connect_toggled(move |b| {
+                        let mut list = sel_c.borrow_mut();
+                        if b.is_active() {
+                            if !list.contains(&opt_c) {
+                                list.push(opt_c.clone());
+                            }
+                        } else {
+                            list.retain(|x| x != &opt_c);
+                        }
+                        vmap_c.borrow_mut().insert(fid_c.clone(), list.join(sep));
+                        up_c();
+                    });
+                    vbox.append(&cb);
+                }
+                row.append(&vbox);
             }
         }
 
@@ -1599,16 +1810,111 @@ pub fn build_command_and_broadcast_bars(
     bc_badge.add_css_class("heading");
     broadcast_bar.append(&bc_badge);
 
+    let scope_rc = Rc::new(RefCell::new(BroadcastScope::AllTerminals));
+    let custom_targets_rc: Rc<RefCell<Vec<usize>>> = Rc::new(RefCell::new(Vec::new()));
+
+    let target_btn = gtk4::MenuButton::builder()
+        .label(&tr("All Terminals"))
+        .build();
+    let target_pop = gtk4::Popover::new();
+    let target_box = gtk4::Box::new(gtk4::Orientation::Vertical, 6);
+    target_box.set_margin_start(10);
+    target_box.set_margin_end(10);
+    target_box.set_margin_top(10);
+    target_box.set_margin_bottom(10);
+
+    let rb_tab = gtk4::CheckButton::with_label(&tr("Terminal Focado / Aba Atual"));
+    let rb_all = gtk4::CheckButton::with_label(&tr("All Terminals"));
+    let rb_custom = gtk4::CheckButton::with_label(&tr("Seleção Personalizada"));
+    rb_all.set_group(Some(&rb_tab));
+    rb_custom.set_group(Some(&rb_tab));
+    rb_all.set_active(true);
+
+    let custom_checks_vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+    target_box.append(&rb_tab);
+    target_box.append(&rb_all);
+    target_box.append(&rb_custom);
+    target_box.append(&gtk4::Separator::new(gtk4::Orientation::Horizontal));
+    target_box.append(&custom_checks_vbox);
+    target_pop.set_child(Some(&target_box));
+    target_btn.set_popover(Some(&target_pop));
+
+    {
+        let sr = Rc::clone(&scope_rc);
+        let tb = target_btn.clone();
+        rb_tab.connect_toggled(move |b| {
+            if b.is_active() {
+                *sr.borrow_mut() = BroadcastScope::CurrentTabSplits;
+                tb.set_label(&tr("Aba Atual"));
+            }
+        });
+    }
+    {
+        let sr = Rc::clone(&scope_rc);
+        let tb = target_btn.clone();
+        rb_all.connect_toggled(move |b| {
+            if b.is_active() {
+                *sr.borrow_mut() = BroadcastScope::AllTerminals;
+                tb.set_label(&tr("All Terminals"));
+            }
+        });
+    }
+    {
+        let sr = Rc::clone(&scope_rc);
+        let tb = target_btn.clone();
+        rb_custom.connect_toggled(move |b| {
+            if b.is_active() {
+                *sr.borrow_mut() = BroadcastScope::CustomSelection;
+                tb.set_label(&tr("Seleção"));
+            }
+        });
+    }
+    {
+        let terms_pop = Rc::clone(&terminals_rc);
+        let custom_box = custom_checks_vbox.clone();
+        let custom_sel = Rc::clone(&custom_targets_rc);
+        target_pop.connect_show(move |_| {
+            while let Some(c) = custom_box.first_child() {
+                custom_box.remove(&c);
+            }
+            let list = terms_pop.borrow();
+            if custom_sel.borrow().is_empty() {
+                *custom_sel.borrow_mut() = (0..list.len()).collect();
+            }
+            for (idx, t) in list.iter().enumerate() {
+                let sess_label = crate::session_sidebar::get_pane_session(t)
+                    .map(|s| s.name)
+                    .unwrap_or_else(|| format!("Terminal #{}", idx + 1));
+                let chk = gtk4::CheckButton::with_label(&sess_label);
+                chk.set_active(custom_sel.borrow().contains(&idx));
+                let cs = Rc::clone(&custom_sel);
+                chk.connect_toggled(move |c| {
+                    let mut v = cs.borrow_mut();
+                    if c.is_active() {
+                        if !v.contains(&idx) {
+                            v.push(idx);
+                        }
+                    } else {
+                        v.retain(|i| *i != idx);
+                    }
+                });
+                custom_box.append(&chk);
+            }
+        });
+    }
+
+    broadcast_bar.append(&target_btn);
+
     let bc_entry = gtk4::Entry::builder()
         .placeholder_text(&tr(
-            "Digite um comando para enviar a TODOS os terminais abertos...",
+            "Digite um comando para enviar aos terminais selecionados...",
         ))
         .hexpand(true)
         .build();
     bc_entry.add_css_class("monospace");
     broadcast_bar.append(&bc_entry);
 
-    let bc_send_btn = gtk4::Button::with_label(&tr("Enviar p/ Todos"));
+    let bc_send_btn = gtk4::Button::with_label(&tr("Enviar"));
     bc_send_btn.add_css_class("suggested-action");
     broadcast_bar.append(&bc_send_btn);
 
@@ -1627,13 +1933,108 @@ pub fn build_command_and_broadcast_bars(
     }
 
     {
-        let disp = Rc::clone(&dispatch_cb);
+        let terms_all = Rc::clone(&terminals_rc);
+        let active_fn = Rc::clone(&active_term_cb);
+        let sr = Rc::clone(&scope_rc);
+        let cs = Rc::clone(&custom_targets_rc);
+        let status = status_lbl.clone();
+        let win_bc = parent_window.clone();
         let be = bc_entry.clone();
+
         let send_fn = move || {
             let txt = be.text().trim().to_string();
-            if !txt.is_empty() {
-                disp(&txt, true, true);
-                be.set_text("");
+            if txt.is_empty() {
+                return;
+            }
+            let scope = *sr.borrow();
+            let list = terms_all.borrow().clone();
+            let focused_id = active_fn()
+                .and_then(|act| list.iter().position(|t| t == &act))
+                .unwrap_or(0) as u64;
+            let all_ids: Vec<u64> = (0..list.len() as u64).collect();
+            let tab_ids: Vec<u64> = if let Some(act) = active_fn() {
+                if let Some(root_tab) = act.parent().and_then(|p| {
+                    let mut cur = p;
+                    while let Some(next) = cur.parent() {
+                        if next.is::<libadwaita::TabView>() {
+                            break;
+                        }
+                        cur = next;
+                    }
+                    Some(cur)
+                }) {
+                    all_ids
+                        .iter()
+                        .copied()
+                        .filter(|idx| {
+                            list.get(*idx as usize)
+                                .is_some_and(|t| t == &root_tab || t.is_ancestor(&root_tab))
+                        })
+                        .collect()
+                } else {
+                    vec![focused_id]
+                }
+            } else {
+                vec![focused_id]
+            };
+
+            let mut router = BroadcastRouter::new(scope, true);
+            if scope == BroadcastScope::CustomSelection {
+                for &idx in cs.borrow().iter() {
+                    router.toggle_custom_target(idx as u64);
+                }
+            }
+
+            let dispatch_targets = |targets: &[u64], cmd_text: &str| {
+                let payload = format!("{cmd_text}\n");
+                for &idx in targets {
+                    if let Some(t) = list.get(idx as usize) {
+                        t.feed_child(payload.as_bytes());
+                    }
+                }
+                status.set_text(&tr_fmt(
+                    "📡 Comando enviado em Broadcast para {count} terminal(is).",
+                    &[("count", &targets.len().to_string())],
+                ));
+            };
+
+            match router.dispatch_command(focused_id, &tab_ids, &all_ids, &txt) {
+                BroadcastOutcome::BlockedByGuard { violation, targets } => {
+                    let txt_c = txt.clone();
+                    let list_c = list.clone();
+                    let st_c = status.clone();
+                    let target_term = targets
+                        .first()
+                        .and_then(|&idx| list.get(idx as usize))
+                        .or_else(|| list.first());
+                    let expected_host =
+                        crate::terminal_ux::resolve_production_target_hostname(target_term);
+                    crate::terminal_ux::show_production_confirm_dialog(
+                        &win_bc,
+                        &violation,
+                        Some(expected_host.as_str()),
+                        Rc::new(move || {
+                            let payload = format!("{txt_c}\n");
+                            for &idx in &targets {
+                                if let Some(t) = list_c.get(idx as usize) {
+                                    t.feed_child(payload.as_bytes());
+                                }
+                            }
+                            st_c.set_text(&tr_fmt(
+                                "📡 Broadcast confirmado após alerta para {count} terminal(is).",
+                                &[("count", &targets.len().to_string())],
+                            ));
+                        }),
+                    );
+                }
+                BroadcastOutcome::FanOut { targets, .. } => {
+                    dispatch_targets(&targets, &txt);
+                    be.set_text("");
+                }
+                BroadcastOutcome::SingleTarget(tid) => {
+                    dispatch_targets(&[tid], &txt);
+                    be.set_text("");
+                }
             }
         };
         let send_rc = Rc::new(send_fn);
@@ -1753,5 +2154,83 @@ mod tests {
             assert!(btn.is_builtin);
             assert!(!btn.hidden);
         }
+    }
+
+    #[test]
+    fn test_extended_command_field_types_roundtrip_and_render() {
+        let fields = vec![
+            CommandFormField {
+                id: "notes".to_string(),
+                label: "Notas".to_string(),
+                field_type: FieldType::TextArea,
+                default_value: "line1".to_string(),
+                options: vec![],
+            },
+            CommandFormField {
+                id: "count".to_string(),
+                label: "Qtd".to_string(),
+                field_type: FieldType::Slider,
+                default_value: "25".to_string(),
+                options: vec!["0".into(), "100".into(), "5".into()],
+            },
+            CommandFormField {
+                id: "cfg".to_string(),
+                label: "Arquivo".to_string(),
+                field_type: FieldType::FilePath,
+                default_value: "/etc/hosts".to_string(),
+                options: vec![],
+            },
+            CommandFormField {
+                id: "out_dir".to_string(),
+                label: "Pasta".to_string(),
+                field_type: FieldType::DirectoryPath,
+                default_value: "/tmp".to_string(),
+                options: vec![],
+            },
+            CommandFormField {
+                id: "when".to_string(),
+                label: "Data".to_string(),
+                field_type: FieldType::DateTime,
+                default_value: "2026-11-13 10:00".to_string(),
+                options: vec![],
+            },
+            CommandFormField {
+                id: "tint".to_string(),
+                label: "Cor".to_string(),
+                field_type: FieldType::Color,
+                default_value: "#ff5555".to_string(),
+                options: vec![],
+            },
+            CommandFormField {
+                id: "mode".to_string(),
+                label: "Modo".to_string(),
+                field_type: FieldType::Radio,
+                default_value: "fast".to_string(),
+                options: vec!["fast".into(), "safe".into()],
+            },
+            CommandFormField {
+                id: "flags".to_string(),
+                label: "Flags".to_string(),
+                field_type: FieldType::MultiSelect,
+                default_value: "-a -v".to_string(),
+                options: vec!["-a".into(), "-v".into(), "-n".into()],
+            },
+        ];
+        let json = serde_json::to_string(&fields).unwrap();
+        let decoded: Vec<CommandFormField> = serde_json::from_str(&json).unwrap();
+        assert_eq!(decoded, fields);
+
+        let mut vals = BTreeMap::new();
+        for f in &decoded {
+            vals.insert(f.id.clone(), f.default_value.clone());
+        }
+        let rendered = render_command_template(
+            "tool --mode {{mode}} {{flags}} --out {{out_dir}} --file {{cfg}} --color {{tint}} --limit {{count}}",
+            &vals,
+        );
+        assert_eq!(
+            rendered,
+            "tool --mode fast -a -v --out /tmp --file /etc/hosts --color #ff5555 --limit 25"
+        );
     }
 }

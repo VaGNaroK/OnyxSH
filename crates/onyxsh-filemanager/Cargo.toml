@@ -10,4 +10,5 @@ onyxsh-core.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 tracing.workspace = true
+syntect.workspace = true
 libc = "0.2"

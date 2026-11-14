@@ -346,6 +346,149 @@ pub fn get_palette(scheme_id: &str) -> &'static TerminalPalette {
     &DARK_PALETTE
 }
 
+/// Owned, serializable terminal palette used for built-in and user-customized color schemes.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, PartialEq, Eq)]
+pub struct OwnedTerminalPalette {
+    pub id: String,
+    pub name: String,
+    pub foreground: String,
+    pub background: String,
+    pub cursor: String,
+    pub ansi: [String; 16],
+    #[serde(default)]
+    pub is_custom: bool,
+}
+
+impl From<&TerminalPalette> for OwnedTerminalPalette {
+    fn from(p: &TerminalPalette) -> Self {
+        Self {
+            id: p.id.to_string(),
+            name: p.name.to_string(),
+            foreground: p.foreground.to_string(),
+            background: p.background.to_string(),
+            cursor: p.cursor.to_string(),
+            ansi: std::array::from_fn(|i| p.ansi[i].to_string()),
+            is_custom: false,
+        }
+    }
+}
+
+/// Returns the custom color schemes file path (`~/.config/onyxsh/custom_schemes.json`).
+pub fn custom_schemes_path() -> std::path::PathBuf {
+    onyxsh_core::platform::config_dir().join("custom_schemes.json")
+}
+
+/// Loads user-defined color schemes from `path`.
+pub fn load_custom_schemes_from_path(path: &std::path::Path) -> Vec<OwnedTerminalPalette> {
+    let Ok(raw) = std::fs::read_to_string(path) else {
+        return Vec::new();
+    };
+    let mut parsed: Vec<OwnedTerminalPalette> = serde_json::from_str(&raw).unwrap_or_default();
+    for s in &mut parsed {
+        s.is_custom = true;
+    }
+    parsed
+}
+
+/// Loads user-defined color schemes from `~/.config/onyxsh/custom_schemes.json`.
+pub fn load_custom_schemes() -> Vec<OwnedTerminalPalette> {
+    load_custom_schemes_from_path(&custom_schemes_path())
+}
+
+/// Saves or updates a custom color scheme in `path`.
+pub fn save_custom_scheme_to_path(
+    path: &std::path::Path,
+    scheme: &OwnedTerminalPalette,
+) -> std::io::Result<()> {
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent)?;
+    }
+    let mut schemes = load_custom_schemes_from_path(path);
+    let mut item = scheme.clone();
+    item.is_custom = true;
+    if let Some(existing) = schemes.iter_mut().find(|s| s.id == item.id) {
+        *existing = item;
+    } else {
+        schemes.push(item);
+    }
+    let json = serde_json::to_string_pretty(&schemes)
+        .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))?;
+    std::fs::write(path, json)
+}
+
+/// Saves or updates a custom color scheme in `~/.config/onyxsh/custom_schemes.json`.
+pub fn save_custom_scheme(scheme: &OwnedTerminalPalette) -> std::io::Result<()> {
+    save_custom_scheme_to_path(&custom_schemes_path(), scheme)
+}
+
+/// Deletes a custom color scheme by ID from `path`.
+pub fn delete_custom_scheme_from_path(
+    path: &std::path::Path,
+    scheme_id: &str,
+) -> std::io::Result<bool> {
+    let mut schemes = load_custom_schemes_from_path(path);
+    let before = schemes.len();
+    schemes.retain(|s| s.id != scheme_id);
+    if schemes.len() == before {
+        return Ok(false);
+    }
+    let json = serde_json::to_string_pretty(&schemes)
+        .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))?;
+    std::fs::write(path, json)?;
+    Ok(true)
+}
+
+/// Deletes a custom color scheme by ID from `~/.config/onyxsh/custom_schemes.json`.
+pub fn delete_custom_scheme(scheme_id: &str) -> std::io::Result<bool> {
+    delete_custom_scheme_from_path(&custom_schemes_path(), scheme_id)
+}
+
+/// Generates a filesystem- and config-safe scheme ID from a display name.
+pub fn slugify_scheme_id(name: &str) -> String {
+    let slug: String = name
+        .trim()
+        .to_lowercase()
+        .chars()
+        .map(|c| if c.is_ascii_alphanumeric() { c } else { '_' })
+        .collect();
+    let trimmed = slug.trim_matches('_').to_string();
+    if trimmed.is_empty() {
+        "custom_scheme".to_string()
+    } else {
+        format!("custom_{}", trimmed)
+    }
+}
+
+/// Resolves any built-in or user-customized terminal palette by ID.
+pub fn resolve_palette(scheme_id: &str) -> OwnedTerminalPalette {
+    let custom = load_custom_schemes();
+    if let Some(found) = custom.into_iter().find(|s| s.id == scheme_id) {
+        return found;
+    }
+    OwnedTerminalPalette::from(get_palette(scheme_id))
+}
+
+/// Returns built-in schemes merged with custom schemes (custom overrides built-in on ID match).
+pub fn all_available_schemes() -> Vec<OwnedTerminalPalette> {
+    let custom = load_custom_schemes();
+    let mut result: Vec<OwnedTerminalPalette> = BUILTIN_SCHEMES
+        .iter()
+        .map(|s| {
+            custom
+                .iter()
+                .find(|c| c.id == s.id)
+                .cloned()
+                .unwrap_or_else(|| OwnedTerminalPalette::from(s))
+        })
+        .collect();
+    for c in custom {
+        if !result.iter().any(|r| r.id == c.id) {
+            result.push(c);
+        }
+    }
+    result
+}
+
 /// Computes relative luminance of a `#RRGGBB` hex color to determine whether a palette is light.
 pub fn is_light_hex_color(hex: &str) -> bool {
     let clean = hex.trim_start_matches('#');
@@ -361,7 +504,7 @@ pub fn is_light_hex_color(hex: &str) -> bool {
 
 /// Generates dynamic GTK4 CSS rules matching the selected palette and background opacity.
 pub fn generate_theme_css(scheme_id: &str, opacity_percent: u8) -> String {
-    let palette = get_palette(scheme_id);
+    let palette = resolve_palette(scheme_id);
     let alpha = (opacity_percent.clamp(20, 100) as f64) / 100.0;
     format!(
         "window {{ background-color: {bg}; color: {fg}; opacity: {alpha:.2}; }}\n\
@@ -391,5 +534,27 @@ mod tests {
         assert_eq!(all_builtin_schemes().len(), 30);
         let github = get_palette("github_dark");
         assert_eq!(github.name, "GitHub Dark");
+    }
+
+    #[test]
+    fn test_custom_color_scheme_roundtrip_and_delete() {
+        let tmp = std::env::temp_dir().join(format!("onyxsh_custom_schemes_{}.json", std::process::id()));
+        let _ = std::fs::remove_file(&tmp);
+
+        let mut scheme = OwnedTerminalPalette::from(get_palette("dracula"));
+        scheme.id = slugify_scheme_id("My Neon");
+        scheme.name = "My Neon".to_string();
+        scheme.background = "#101018".to_string();
+        save_custom_scheme_to_path(&tmp, &scheme).expect("save custom scheme");
+
+        let loaded = load_custom_schemes_from_path(&tmp);
+        assert_eq!(loaded.len(), 1);
+        assert_eq!(loaded[0].id, "custom_my_neon");
+        assert_eq!(loaded[0].background, "#101018");
+        assert!(loaded[0].is_custom);
+
+        assert!(delete_custom_scheme_from_path(&tmp, "custom_my_neon").unwrap());
+        assert!(load_custom_schemes_from_path(&tmp).is_empty());
+        let _ = std::fs::remove_file(&tmp);
     }
 }

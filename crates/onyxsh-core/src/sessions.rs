@@ -121,6 +121,15 @@ impl SessionItem {
         self.is_ssh() && self.auth_type == "password"
     }
 
+    /// Returns `port` or defaults to `22` when unset (`0`).
+    pub fn effective_port(&self) -> u16 {
+        if self.port == 0 {
+            22
+        } else {
+            self.port
+        }
+    }
+
     pub fn connection_string(&self) -> String {
         if self.is_local() {
             return tr("Local Terminal");

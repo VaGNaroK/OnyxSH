@@ -33,7 +33,7 @@
 //!    - `Redefinir Todas as Configurações` (`Redefinir`)
 
 use crate::main_menu::menu_custom_css;
-use crate::theme_engine::{generate_theme_css, get_palette};
+use crate::theme_engine::{generate_theme_css, resolve_palette};
 use gtk4::gdk;
 use gtk4::gio;
 use gtk4::glib;
@@ -110,12 +110,12 @@ pub fn apply_all_settings_to_terminal(term: &vte4::Terminal, settings: &AppSetti
     };
     term.set_delete_binding(erase_del);
 
-    let palette = get_palette(&settings.color_scheme);
-    let fg = parse_rgba(palette.foreground);
-    let mut bg = parse_rgba(palette.background);
+    let palette = resolve_palette(&settings.color_scheme);
+    let fg = parse_rgba(&palette.foreground);
+    let mut bg = parse_rgba(&palette.background);
     let alpha = (100u8.saturating_sub(settings.transparency.min(100))) as f32 / 100.0;
     bg.set_alpha(alpha);
-    let cursor = parse_rgba(palette.cursor);
+    let cursor = parse_rgba(&palette.cursor);
     let ansi_colors: Vec<gdk::RGBA> = palette.ansi.iter().map(|c| parse_rgba(c)).collect();
     let ansi_refs: Vec<&gdk::RGBA> = ansi_colors.iter().collect();
 
@@ -148,6 +148,228 @@ fn sync_and_persist_settings(
 
     let cfg_path = platform::config_dir().join("settings.json");
     let _ = st.save_to_path(&cfg_path);
+}
+
+fn prompt_backup_password(
+    parent: &impl IsA<gtk4::Window>,
+    title: &str,
+    require_confirm: bool,
+    status_lbl: &gtk4::Label,
+    on_password: Rc<dyn Fn(String)>,
+) {
+    let dlg = adw::Window::builder()
+        .transient_for(parent)
+        .modal(true)
+        .title(title)
+        .default_width(380)
+        .default_height(if require_confirm { 230 } else { 180 })
+        .build();
+    dlg.add_css_class("onyxsh-dialog");
+
+    let vbox = gtk4::Box::new(gtk4::Orientation::Vertical, 10);
+    vbox.append(&adw::HeaderBar::new());
+
+    let body = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
+    body.set_margin_start(14);
+    body.set_margin_end(14);
+    body.set_margin_bottom(14);
+
+    let pass1 = gtk4::PasswordEntry::new();
+    pass1.set_show_peek_icon(true);
+    pass1.set_placeholder_text(Some(&tr("Password:")));
+    body.append(&pass1);
+
+    let pass2 = gtk4::PasswordEntry::new();
+    pass2.set_show_peek_icon(true);
+    if require_confirm {
+        pass2.set_placeholder_text(Some(&tr("Confirm Password:")));
+        body.append(&pass2);
+    }
+
+    let ok_btn = gtk4::Button::with_label(&tr("OK"));
+    ok_btn.add_css_class("suggested-action");
+    ok_btn.set_halign(gtk4::Align::End);
+    body.append(&ok_btn);
+
+    let dlg_c = dlg.clone();
+    let sl = status_lbl.clone();
+    ok_btn.connect_clicked(move |_| {
+        let p1 = pass1.text().to_string();
+        if p1.is_empty() {
+            sl.set_text(&tr("A senha não pode estar vazia."));
+            return;
+        }
+        if require_confirm && p1 != pass2.text().as_str() {
+            sl.set_text(&tr("As senhas não conferem."));
+            return;
+        }
+        on_password(p1);
+        dlg_c.close();
+    });
+
+    vbox.append(&body);
+    dlg.set_content(Some(&vbox));
+    dlg.present();
+}
+
+/// Interactive encrypted `.7z` backup flow (`settings.json`, `sessions.json`, `state.json`, keyring secrets).
+pub fn run_encrypted_backup_flow(parent: &impl IsA<gtk4::Window>, status_lbl: &gtk4::Label) {
+    let parent_win: gtk4::Window = parent.as_ref().clone();
+    let status_outer = status_lbl.clone();
+    let file_dialog = gtk4::FileDialog::builder()
+        .title(&tr("Salvar Backup do OnyxSH"))
+        .initial_name("onyxsh_backup.7z")
+        .build();
+    file_dialog.save(Some(&parent_win.clone()), gio::Cancellable::NONE, move |res| {
+        if let Ok(file) = res {
+            if let Some(out_path) = file.path() {
+                let status_pw = status_outer.clone();
+                let status_err = status_outer.clone();
+                prompt_backup_password(
+                    &parent_win,
+                    &tr("Create Backup..."),
+                    true,
+                    &status_err,
+                    Rc::new(move |password| {
+                        let cfg_dir = platform::config_dir();
+                        let sessions_path = cfg_dir.join("sessions.json");
+                        let mut exported_passwords = std::collections::BTreeMap::new();
+                        if let Ok(storage) =
+                            onyxsh_core::sessions::SessionsStorageData::load_from_path(&sessions_path)
+                        {
+                            let mgr = onyxsh_core::keyring::KeyringManager::new(
+                                onyxsh_core::keyring::SecretToolBackend,
+                                "onyxsh",
+                            );
+                            for sess in &storage.sessions {
+                                if sess.auth_type == "password" {
+                                    let resolved = mgr.resolve_secret(&sess.name, &sess.auth_value);
+                                    if !resolved.is_empty() {
+                                        exported_passwords.insert(sess.name.clone(), resolved);
+                                    }
+                                }
+                            }
+                        }
+                        match onyxsh_core::backup::create_encrypted_7z_backup(
+                            &cfg_dir,
+                            &out_path,
+                            &password,
+                            Some(&exported_passwords),
+                        ) {
+                            Ok(()) => {
+                                status_pw.set_text(&tr_fmt(
+                                    "Backup criptografado .7z salvo em: {path}",
+                                    &[("path", &out_path.display().to_string())],
+                                ));
+                            }
+                            Err(e) => {
+                                status_pw.set_text(&tr_fmt(
+                                    "Falha ao criar backup: {err}",
+                                    &[("err", &e.to_string())],
+                                ));
+                            }
+                        }
+                    }),
+                );
+            }
+        }
+    });
+}
+
+/// Interactive encrypted `.7z` (with JSON fallback) restore flow.
+pub fn run_encrypted_restore_flow(
+    parent: &impl IsA<gtk4::Window>,
+    settings_rc: Rc<RefCell<AppSettings>>,
+    apply_cb: Rc<dyn Fn()>,
+    status_lbl: &gtk4::Label,
+) {
+    let parent_win: gtk4::Window = parent.as_ref().clone();
+    let status_outer = status_lbl.clone();
+    let file_dialog = gtk4::FileDialog::builder()
+        .title(&tr("Selecionar Arquivo de Backup do OnyxSH"))
+        .build();
+    file_dialog.open(Some(&parent_win.clone()), gio::Cancellable::NONE, move |res| {
+        if let Ok(file) = res {
+            if let Some(in_path) = file.path() {
+                let is_json = in_path
+                    .extension()
+                    .and_then(|e| e.to_str())
+                    .map(|e| e.eq_ignore_ascii_case("json"))
+                    .unwrap_or(false);
+                if is_json {
+                    let cfg_dir = platform::config_dir();
+                    match onyxsh_core::backup::restore_config_backup(&in_path, &cfg_dir) {
+                        Ok(count) => {
+                            if let Ok(loaded) =
+                                AppSettings::load_from_path(&cfg_dir.join("settings.json"))
+                            {
+                                *settings_rc.borrow_mut() = loaded;
+                                apply_cb();
+                            }
+                            status_outer.set_text(&tr_fmt(
+                                "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256).",
+                                &[("count", &count.to_string())],
+                            ));
+                        }
+                        Err(e) => {
+                            status_outer.set_text(&tr_fmt(
+                                "Falha ao restaurar backup: {err}",
+                                &[("err", &e.to_string())],
+                            ));
+                        }
+                    }
+                    return;
+                }
+
+                let st_inner = Rc::clone(&settings_rc);
+                let apply_inner = Rc::clone(&apply_cb);
+                let status_pw = status_outer.clone();
+                let status_err = status_outer.clone();
+                prompt_backup_password(
+                    &parent_win,
+                    &tr("Restore from Backup"),
+                    false,
+                    &status_err,
+                    Rc::new(move |password| {
+                        let cfg_dir = platform::config_dir();
+                        match onyxsh_core::backup::restore_encrypted_7z_backup(
+                            &in_path,
+                            &cfg_dir,
+                            &password,
+                        ) {
+                            Ok(report) => {
+                                if !report.passwords.is_empty() {
+                                    let mgr = onyxsh_core::keyring::KeyringManager::new(
+                                        onyxsh_core::keyring::SecretToolBackend,
+                                        "onyxsh",
+                                    );
+                                    for (account, secret) in &report.passwords {
+                                        let _ = mgr.store_or_encrypt(account, secret);
+                                    }
+                                }
+                                if let Ok(loaded) =
+                                    AppSettings::load_from_path(&cfg_dir.join("settings.json"))
+                                {
+                                    *st_inner.borrow_mut() = loaded;
+                                    apply_inner();
+                                }
+                                status_pw.set_text(&tr_fmt(
+                                    "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256).",
+                                    &[("count", &report.restored_files.len().to_string())],
+                                ));
+                            }
+                            Err(e) => {
+                                status_pw.set_text(&tr_fmt(
+                                    "Falha ao restaurar backup: {err}",
+                                    &[("err", &e.to_string())],
+                                ));
+                            }
+                        }
+                    }),
+                );
+            }
+        }
+    });
 }
 
 /// Opens the complete 4-tab `adw::PreferencesWindow` (`src/onyxsh/ui/dialogs/preferences_dialog.py`).
@@ -980,35 +1202,7 @@ pub fn show_preferences_window(
         let pw_ref = prefs_win.clone();
         let status = status_lbl.clone();
         backup_now_btn.connect_clicked(move |_| {
-            let file_dialog = gtk4::FileDialog::builder()
-                .title(&tr("Salvar Backup do OnyxSH"))
-                .initial_name("onyxsh_config_backup.json")
-                .build();
-            let status_inner = status.clone();
-            file_dialog.save(Some(&pw_ref), gio::Cancellable::NONE, move |res| {
-                if let Ok(file) = res {
-                    if let Some(out_path) = file.path() {
-                        let cfg_dir = platform::config_dir();
-                        match onyxsh_core::backup::create_config_backup(&cfg_dir, &out_path) {
-                            Ok(bundle) => {
-                                status_inner.set_text(&tr_fmt(
-                                    "Backup SHA-256 salvo ({count} arquivos): {path}",
-                                    &[
-                                        ("count", &bundle.files.len().to_string()),
-                                        ("path", &out_path.display().to_string()),
-                                    ],
-                                ));
-                            }
-                            Err(e) => {
-                                status_inner.set_text(&tr_fmt(
-                                    "Falha ao criar backup: {err}",
-                                    &[("err", &e.to_string())],
-                                ));
-                            }
-                        }
-                    }
-                }
-            });
+            run_encrypted_backup_flow(&pw_ref, &status);
         });
     }
     backup_now_row.add_suffix(&backup_now_btn);
@@ -1026,38 +1220,7 @@ pub fn show_preferences_window(
         let apply = Rc::clone(&apply_cb);
         let status = status_lbl.clone();
         restore_btn.connect_clicked(move |_| {
-            let file_dialog = gtk4::FileDialog::builder()
-                .title(&tr("Selecionar Arquivo de Backup do OnyxSH"))
-                .build();
-            let st_inner = Rc::clone(&st_rc);
-            let apply_inner = Rc::clone(&apply);
-            let status_inner = status.clone();
-            file_dialog.open(Some(&pw_ref), gio::Cancellable::NONE, move |res| {
-                if let Ok(file) = res {
-                    if let Some(in_path) = file.path() {
-                        let cfg_dir = platform::config_dir();
-                        match onyxsh_core::backup::restore_config_backup(&in_path, &cfg_dir) {
-                            Ok(count) => {
-                                let cfg_path = cfg_dir.join("settings.json");
-                                if let Ok(loaded) = AppSettings::load_from_path(&cfg_path) {
-                                    *st_inner.borrow_mut() = loaded;
-                                    apply_inner();
-                                }
-                                status_inner.set_text(&tr_fmt(
-                                    "Backup restaurado com sucesso ({count} arquivos verificados via SHA-256).",
-                                    &[("count", &count.to_string())],
-                                ));
-                            }
-                            Err(e) => {
-                                status_inner.set_text(&tr_fmt(
-                                    "Falha ao restaurar backup: {err}",
-                                    &[("err", &e.to_string())],
-                                ));
-                            }
-                        }
-                    }
-                }
-            });
+            run_encrypted_restore_flow(&pw_ref, Rc::clone(&st_rc), Rc::clone(&apply), &status);
         });
     }
     restore_row.add_suffix(&restore_btn);

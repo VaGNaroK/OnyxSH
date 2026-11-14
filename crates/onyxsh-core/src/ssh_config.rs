@@ -100,8 +100,10 @@ impl SshConfigParser {
                     if let Some(dir) = base_dir {
                         for pat in values {
                             let candidate = expand_include_path(pat, dir);
-                            if candidate.is_file() {
-                                self.parse_file(&candidate);
+                            for expanded in expand_glob_candidates(&candidate) {
+                                if expanded.is_file() {
+                                    self.parse_file(&expanded);
+                                }
                             }
                         }
                     }
@@ -193,4 +195,102 @@ Match host 192.168.*
         assert_eq!(hosts[0].forward_x11, Some(true));
         assert_eq!(hosts[1].alias, "prod-api");
     }
+
+    #[test]
+    fn test_include_glob_expansion() {
+        let base = std::env::temp_dir().join(format!("onyxsh_ssh_glob_{}", std::process::id()));
+        let conf_d = base.join("conf.d");
+        let _ = std::fs::remove_dir_all(&base);
+        std::fs::create_dir_all(&conf_d).unwrap();
+
+        std::fs::write(
+            base.join("config"),
+            "Include conf.d/*.conf\n\nHost root-box\n    HostName 10.0.0.1\n",
+        )
+        .unwrap();
+        std::fs::write(
+            conf_d.join("01-prod.conf"),
+            "Host prod-db\n    HostName 10.0.1.5\n    User postgres\n",
+        )
+        .unwrap();
+        std::fs::write(
+            conf_d.join("02-stage.conf"),
+            "Host stage-app\n    HostName 10.0.2.9\n    Port 2200\n",
+        )
+        .unwrap();
+        std::fs::write(
+            conf_d.join("ignored.txt"),
+            "Host should-ignore\n    HostName 127.0.0.1\n",
+        )
+        .unwrap();
+
+        let mut parser = SshConfigParser::new();
+        let hosts = parser.parse(&base.join("config"));
+        let aliases: Vec<&str> = hosts.iter().map(|h| h.alias.as_str()).collect();
+        assert_eq!(aliases, vec!["prod-db", "stage-app", "root-box"]);
+        assert_eq!(hosts[0].user.as_deref(), Some("postgres"));
+        assert_eq!(hosts[1].port, Some(2200));
+
+        let _ = std::fs::remove_dir_all(&base);
+    }
+}
+
+fn expand_glob_candidates(pattern_path: &Path) -> Vec<PathBuf> {
+    let raw = pattern_path.to_string_lossy();
+    if !raw.contains('*') && !raw.contains('?') {
+        return vec![pattern_path.to_path_buf()];
+    }
+    let Some(parent) = pattern_path.parent() else {
+        return Vec::new();
+    };
+    let Some(file_pat) = pattern_path.file_name().and_then(|s| s.to_str()) else {
+        return Vec::new();
+    };
+    let parent_dirs = if parent.to_string_lossy().contains('*') || parent.to_string_lossy().contains('?') {
+        expand_glob_candidates(parent)
+    } else {
+        vec![parent.to_path_buf()]
+    };
+
+    let mut matches = Vec::new();
+    for dir in parent_dirs {
+        if let Ok(entries) = std::fs::read_dir(&dir) {
+            for entry in entries.flatten() {
+                let name = entry.file_name();
+                let name_str = name.to_string_lossy();
+                if wildcard_match(file_pat, &name_str) {
+                    matches.push(entry.path());
+                }
+            }
+        }
+    }
+    matches.sort();
+    matches
+}
+
+fn wildcard_match(pattern: &str, text: &str) -> bool {
+    let p: Vec<char> = pattern.chars().collect();
+    let t: Vec<char> = text.chars().collect();
+    let (mut pi, mut ti) = (0usize, 0usize);
+    let (mut star_pi, mut match_ti) = (None, 0usize);
+    while ti < t.len() {
+        if pi < p.len() && (p[pi] == '?' || p[pi] == t[ti]) {
+            pi += 1;
+            ti += 1;
+        } else if pi < p.len() && p[pi] == '*' {
+            star_pi = Some(pi);
+            match_ti = ti;
+            pi += 1;
+        } else if let Some(sp) = star_pi {
+            pi = sp + 1;
+            match_ti += 1;
+            ti = match_ti;
+        } else {
+            return false;
+        }
+    }
+    while pi < p.len() && p[pi] == '*' {
+        pi += 1;
+    }
+    pi == p.len()
 }
