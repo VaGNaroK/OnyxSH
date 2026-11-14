@@ -21215,3 +21215,623 @@ msgstr "🟢 {rtt}ms"
 msgid "🤖 Rota: {route}"
 msgstr "🤖 Reitti: {route}"
 
+# 
+msgid "A senha não pode estar vazia."
+msgstr "Salasana ei voi olla tyhjä."
+
+# 
+msgid "As senhas não conferem."
+msgstr "Salasanat eivät täsmää."
+
+# 
+msgid "Backup criptografado .7z salvo em: {path}"
+msgstr "Salattu .7z-varmuuskopio tallennettu kohteeseen: {path}"
+
+# 
+msgid "Conectar por URI"
+msgstr "Yhdistä URI-osoitteella"
+
+# 
+msgid "Confirm Password:"
+msgstr "Vahvista salasana:"
+
+# 
+msgid "Connect"
+msgstr "Yhdistä"
+
+# 
+msgid "Deseja restaurar {count} aba(s) da sessão anterior?"
+msgstr "Haluatko palauttaa {count} välilehteä edellisestä istunnosta?"
+
+# 
+msgid "Mover para Pasta"
+msgstr "Siirrä kansioon"
+
+# 
+msgid "Password:"
+msgstr "Salasana:"
+
+# 
+msgid "Restaurar Sessão Anterior"
+msgstr "Palauta edellinen istunto"
+
+# 
+msgid "Salvar sessão na barra lateral"
+msgstr "Tallenna istunto sivupalkkiin"
+
+# 
+msgid "Split"
+msgstr "Jaa"
+
+# 
+msgid "URI:"
+msgstr "URI:"
+
+# 
+msgid "Aba Atual"
+msgstr "Nykyinen välilehti"
+
+# 
+msgid "All Terminals"
+msgstr "Kaikki päätteet"
+
+# 
+msgid "Comando SSH vazio para o túnel."
+msgstr "Tyhjä SSH-komento tunnelille."
+
+# 
+msgid "Conectado à sessão: {name} ({count} túnel(eis) SSH iniciados)"
+msgstr "Yhdistetty istuntoon: {name} ({count} SSH-tunnelia käynnistetty)"
+
+# 
+msgid "Conteúdo recebido via OSC 52 copiado para área de transferência."
+msgstr "OSC 52:n kautta vastaanotettu sisältö kopioitiin leikepöydälle."
+
+# 
+msgid "Digite um comando para enviar aos terminais selecionados..."
+msgstr "Kirjoita komento lähetettäväksi valittuihin päätteisiin..."
+
+# 
+msgid "Dispositivo serial não informado (ex: /dev/ttyUSB0)."
+msgstr "Sarjalaitetta ei ole määritetty (esim. /dev/ttyUSB0)."
+
+# 
+msgid "Enviar"
+msgstr "Lähetä"
+
+# 
+msgid "Erro no túnel SSH: {err}"
+msgstr "SSH-tunnelivirhe: {err}"
+
+# 
+msgid "Explicar"
+msgstr "Selitä"
+
+# 
+msgid "Explique de forma objetiva o seguinte comando ou erro do terminal:\n\n<untrusted>\n{sel}\n</untrusted>"
+msgstr "Selitä objektiivisesti seuraava päätekomento tai virhe:\n\n<untrusted>\n{sel}\n</untrusted>"
+
+# 
+msgid "Falha ao iniciar processo SSH do túnel: {err}"
+msgstr "SSH-tunneliprosessin käynnistys epäonnistui: {err}"
+
+# 
+msgid "File Manager conectado via GVFS SFTP: {target}"
+msgstr "Tiedostonhallinta yhdistetty GVFS SFTP:n kautta: {target}"
+
+# 
+msgid "Foco no painel {idx}/{total}"
+msgstr "Kohdistus ruudussa {idx}/{total}"
+
+# 
+msgid "Host SSH não informado na sessão."
+msgstr "SSH-isäntää ei ole määritetty istunnossa."
+
+# 
+msgid "Host Telnet não informado na sessão."
+msgstr "Telnet-isäntää ei ole määritetty istunnossa."
+
+# 
+msgid "Mover painel para nova aba"
+msgstr "Siirrä ruutu uuteen välilehteen"
+
+# 
+msgid "Nenhum comando anterior registrado neste terminal."
+msgstr "Tässä päätteessä ei ole tallennettu aiempaa komentoa."
+
+# 
+msgid "Nenhuma ferramenta serial encontrada (picocom, tio ou screen). Instale picocom ou tio para conexões seriais."
+msgstr "Sarjatyökalua ei löytynyt (picocom, tio tai screen). Asenna picocom tai tio sarjayhteyksiä varten."
+
+# 
+msgid "Nome"
+msgstr "Nimi"
+
+# 
+msgid "Painel de arquivos aberto para sessão SFTP: {target}"
+msgstr "Tiedostopaneeli avattu SFTP-istunnolle: {target}"
+
+# 
+msgid "Painel dividido encerrado."
+msgstr "Jaettu ruutu suljettu."
+
+# 
+msgid "Painel movido para nova aba."
+msgstr "Ruutu siirretty uuteen välilehteen."
+
+# 
+msgid "Para confirmar esta operação crítica em produção, digite o hostname '{host}':"
+msgstr "Vahvista tämä kriittinen tuotantotoiminto kirjoittamalla isäntänimi '{host}':"
+
+# 
+msgid "Processo do terminal encerrado (código {code})."
+msgstr "Pääteprosessi päättyi (koodi {code})."
+
+# 
+msgid "Protocolo de sessão desconhecido: {proto}"
+msgstr "Tuntematon istuntoprotokolla: {proto}"
+
+# 
+msgid "Protocolo de sessão não suportado: {proto}"
+msgstr "Ei-tuettu istuntoprotokolla: {proto}"
+
+# 
+msgid "Reconectando sessão SSH {name}..."
+msgstr "Yhdistetään uudelleen SSH-istuntoon {name}..."
+
+# 
+msgid "Salvar"
+msgstr "Tallenna"
+
+# 
+msgid "Saída copiada para a área de transferência ({cmd})."
+msgstr "Tuloste kopioitu leikepöydälle ({cmd})."
+
+# 
+msgid "Seleção"
+msgstr "Valinta"
+
+# 
+msgid "Seleção Personalizada"
+msgstr "Mukautettu valinta"
+
+# 
+msgid "Sessão SSH '{name}' não encontrada para iniciar o túnel."
+msgstr "SSH-istuntoa '{name}' ei löytynyt tunnelin käynnistämiseksi."
+
+# 
+msgid "Terminal Focado / Aba Atual"
+msgstr "Kohdistettu pääte / Nykyinen välilehti"
+
+# 
+msgid "Terminal dividido horizontalmente."
+msgstr "Pääte jaettu vaakasuoraan."
+
+# 
+msgid "Terminal dividido verticalmente."
+msgstr "Pääte jaettu pystysuoraan."
+
+# 
+msgid "Túnel ativo em {src}"
+msgstr "Tunneli aktiivinen osoitteessa {src}"
+
+# 
+msgid "Utilitário 'telnet' não encontrado no PATH. Instale o pacote telnet ou netkit-telnet."
+msgstr "Apuohjelmaa 'telnet' ei löytynyt PATH-polusta. Asenna paketti telnet tai netkit-telnet."
+
+# 
+msgid "Último comando falhou (código {code}, {dur}s)"
+msgstr "Viimeisin komento epäonnistui (koodi {code}, {dur}s)"
+
+# 
+msgid "✅ Comando concluído ({dur}s)"
+msgstr "✅ Komento suoritettu ({dur}s)"
+
+# 
+msgid "❌ Comando falhou (código {code}, {dur}s)"
+msgstr "❌ Komento epäonnistui (koodi {code}, {dur}s)"
+
+# 
+msgid "📡 Broadcast confirmado após alerta para {count} terminal(is)."
+msgstr "📡 Lähetys vahvistettu varoituksen jälkeen {count} päätteelle."
+
+# 
+msgid "(Arquivo vazio — 0 bytes)"
+msgstr "(Empty file — 0 bytes)"
+
+# 
+msgid "< Anterior"
+msgstr "< Previous"
+
+# 
+msgid "Aguardando pacotes RRQ (leitura) ou WRQ (escrita)..."
+msgstr "Waiting for RRQ (read) or WRQ (write) packets..."
+
+# 
+msgid "Ajustar"
+msgstr "Fit"
+
+# 
+msgid "Alternar Origem: Sistema Local ou Sessão SFTP"
+msgstr "Switch Source: Local Filesystem or SFTP Session"
+
+# 
+msgid "Apenas na Direita:\n"
+msgstr "Right Pane Only:\n"
+
+# 
+msgid "Apenas na Esquerda:\n"
+msgstr "Left Pane Only:\n"
+
+# 
+msgid "Arquivo Binário: {name} • {size} • {perms}"
+msgstr "Binary File: {name} • {size} • {perms}"
+
+# 
+msgid "Arquivo binário — comparação Diff indisponível: {path}"
+msgstr "Binary file — Diff comparison unavailable: {path}"
+
+# 
+msgid "Arquivo excede o limite de 5 MiB para Diff: {path}"
+msgstr "File exceeds the 5 MiB limit for Diff: {path}"
+
+# 
+msgid "Arquivo recarregado via SFTP."
+msgstr "File reloaded via SFTP."
+
+# 
+msgid "Arquivo remoto salvo via SFTP!"
+msgstr "Remote file saved via SFTP!"
+
+# 
+msgid "Arquivo salvo com privilégios de Administrador (sudo)!"
+msgstr "File saved with Administrator privileges (sudo)!"
+
+# 
+msgid "Ativo: {addr}"
+msgstr "Active: {addr}"
+
+# 
+msgid "Aumentar zoom"
+msgstr "Zoom in"
+
+# 
+msgid "Autenticar e Salvar"
+msgstr "Authenticate and Save"
+
+# 
+msgid "Autenticação Sudo Necessária"
+msgstr "Sudo Authentication Required"
+
+# 
+msgid "Aviso ao resolver home SFTP em {target}: {err}"
+msgstr "Warning resolving SFTP home on {target}: {err}"
+
+# 
+msgid "Cancelado"
+msgstr "Cancelled"
+
+# 
+msgid "Carregando '{name}' via SFTP..."
+msgstr "Loading '{name}' via SFTP..."
+
+# 
+msgid "Carregando Diff..."
+msgstr "Loading Diff..."
+
+# 
+msgid "Colar entre pastas remotas na mesma sessão: use Mover/Renomear ou Painel Duplo."
+msgstr "Pasting across remote folders in the same session: use Move/Rename or Dual-Pane."
+
+# 
+msgid "Comparação de Diretórios e Diff"
+msgstr "Directory Comparison & Diff"
+
+# 
+msgid "Conectado via SFTP em {target} ({path})"
+msgstr "Connected via SFTP on {target} ({path})"
+
+# 
+msgid "Conectando painel SFTP em {target}..."
+msgstr "Connecting SFTP pane to {target}..."
+
+# 
+msgid "Conectando painel SFTP nativo a {target}..."
+msgstr "Connecting native SFTP pane to {target}..."
+
+# 
+msgid "Digite sua senha sudo para gravar '{path}' com privilégios de administrador."
+msgstr "Enter your sudo password to write '{path}' with administrator privileges."
+
+# 
+msgid "Diminuir zoom"
+msgstr "Zoom out"
+
+# 
+msgid "Diretório de download (WRQ) inválido: {path}"
+msgstr "Invalid download directory (WRQ): {path}"
+
+# 
+msgid "Diretório de upload (RRQ) inválido: {path}"
+msgstr "Invalid upload directory (RRQ): {path}"
+
+# 
+msgid "Diretórios do Servidor"
+msgstr "Server Directories"
+
+# 
+msgid "Em andamento"
+msgstr "In Progress"
+
+# 
+msgid "Endereço de escuta (Bind)"
+msgstr "Listen Address (Bind)"
+
+# 
+msgid "Enviando item colado via SFTP..."
+msgstr "Uploading pasted item via SFTP..."
+
+# 
+msgid "Erro SFTP ao listar {path}: {err}"
+msgstr "SFTP error listing {path}: {err}"
+
+# 
+msgid "Erro ao Salvar Arquivo Remoto"
+msgstr "Error Saving Remote File"
+
+# 
+msgid "Erro ao alterar permissões de '{name}'"
+msgstr "Error changing permissions of '{name}'"
+
+# 
+msgid "Erro ao colar via SFTP: {err}"
+msgstr "Error pasting via SFTP: {err}"
+
+# 
+msgid "Erro ao criar arquivo"
+msgstr "Error creating file"
+
+# 
+msgid "Erro ao criar pasta"
+msgstr "Error creating folder"
+
+# 
+msgid "Erro ao excluir arquivo"
+msgstr "Error deleting file"
+
+# 
+msgid "Erro ao excluir pasta"
+msgstr "Error deleting folder"
+
+# 
+msgid "Erro ao renomear"
+msgstr "Error renaming"
+
+# 
+msgid "Escolher pasta de Download (WRQ)"
+msgstr "Choose Download folder (WRQ)"
+
+# 
+msgid "Escolher pasta de Upload (RRQ)"
+msgstr "Choose Upload folder (RRQ)"
+
+# 
+msgid "Executando operação SFTP..."
+msgstr "Running SFTP operation..."
+
+# 
+msgid "Falha SFTP ao abrir '{name}': {err}"
+msgstr "SFTP failed to open '{name}': {err}"
+
+# 
+msgid "Falha ao executar sudo: {err}"
+msgstr "Failed to execute sudo: {err}"
+
+# 
+msgid "Falha ao gravar via sudo: {err}"
+msgstr "Failed to write via sudo: {err}"
+
+# 
+msgid "Falha ao iniciar servidor TFTP em {bind}:{port}: {err}"
+msgstr "Failed to start TFTP server on {bind}:{port}: {err}"
+
+# 
+msgid "Falha na transferência: {err}"
+msgstr "Transfer failed: {err}"
+
+# 
+msgid "Falhou"
+msgstr "Failed"
+
+# 
+msgid "Fallback via sudo -S (pkexec indisponível: {reason})"
+msgstr "Fallback via sudo -S (pkexec unavailable: {reason})"
+
+# 
+msgid "Histórico SQLite"
+msgstr "SQLite History"
+
+# 
+msgid "Histórico SQLite recente"
+msgstr "Recent SQLite History"
+
+# 
+msgid "Informe uma porta UDP válida (1–65535)."
+msgstr "Enter a valid UDP port (1–65535)."
+
+# 
+msgid "Iniciar Servidor"
+msgstr "Start Server"
+
+# 
+msgid "Item colado via SFTP: {path}"
+msgstr "Item pasted via SFTP: {path}"
+
+# 
+msgid "Limpar Log"
+msgstr "Clear Log"
+
+# 
+msgid "Listando diretório remoto via SFTP ({target})..."
+msgstr "Listing remote directory via SFTP ({target})..."
+
+# 
+msgid "Local"
+msgstr "Local"
+
+# 
+msgid "Log de Transferências ao Vivo"
+msgstr "Live Transfer Log"
+
+# 
+msgid "Na fila"
+msgstr "Queued"
+
+# 
+msgid "Nenhuma diferença textual encontrada."
+msgstr "No textual differences found."
+
+# 
+msgid "Nenhuma sugestão disponível para o texto atual."
+msgstr "No suggestions available for the current text."
+
+# 
+msgid "Nenhuma transferência registrada ainda."
+msgstr "No transfers recorded yet."
+
+# 
+msgid "Nota: no Linux, portas abaixo de 1024 exigem privilégios elevados. Padrão recomendado: 6969."
+msgstr "Note: on Linux, ports below 1024 require elevated privileges. Recommended default: 6969."
+
+# 
+msgid "Os arquivos possuem conteúdo idêntico."
+msgstr "The files have identical content."
+
+# 
+msgid "Painel SFTP conectado a {target} ({path})"
+msgstr "SFTP pane connected to {target} ({path})"
+
+# 
+msgid "Painel alterado para sistema de arquivos local."
+msgstr "Pane switched to local filesystem."
+
+# 
+msgid "Parado"
+msgstr "Stopped"
+
+# 
+msgid "Parar Servidor"
+msgstr "Stop Server"
+
+# 
+msgid "Pasta de Download (WRQ — clientes enviam)"
+msgstr "Download Folder (WRQ — clients upload)"
+
+# 
+msgid "Pasta de Upload (RRQ — clientes leem)"
+msgstr "Upload Folder (RRQ — clients read)"
+
+# 
+msgid "Porta UDP"
+msgstr "UDP Port"
+
+# 
+msgid "Próxima >"
+msgstr "Next >"
+
+# 
+msgid "Página"
+msgstr "Page"
+
+# 
+msgid "Realce de Sintaxe / Severidade de Logs"
+msgstr "Syntax Highlighting / Log Severity"
+
+# 
+msgid "Rede e Porta UDP"
+msgstr "Network and UDP Port"
+
+# 
+msgid "Salvamento como Root local não se aplica a arquivos SFTP remotos."
+msgstr "Local Root save does not apply to remote SFTP files."
+
+# 
+msgid "Selecionar Pasta de Download (WRQ)"
+msgstr "Select Download Folder (WRQ)"
+
+# 
+msgid "Selecionar Pasta de Upload (RRQ)"
+msgstr "Select Upload Folder (RRQ)"
+
+# 
+msgid "Selecione dois arquivos (um em cada painel) ou compare diretórios com arquivos de mesmo nome.\n\n"
+msgstr "Select two files (one in each pane) or compare directories containing files with matching names.\n\n"
+
+# 
+msgid "Selecione um arquivo ou pasta válido para transferir."
+msgstr "Select a valid file or folder to transfer."
+
+# 
+msgid "Senha sudo incorreta ou não autorizada."
+msgstr "Incorrect or unauthorized sudo password."
+
+# 
+msgid "Servidor TFTP ({addr})"
+msgstr "TFTP Server ({addr})"
+
+# 
+msgid "Servidor TFTP Integrado (RFC 1350)"
+msgstr "Built-in TFTP Server (RFC 1350)"
+
+# 
+msgid "Servidor TFTP UDP ativo em {addr} (RRQ/WRQ)."
+msgstr "UDP TFTP server active on {addr} (RRQ/WRQ)."
+
+# 
+msgid "Servidor TFTP ativo em {addr} (RRQ/WRQ)."
+msgstr "TFTP server active on {addr} (RRQ/WRQ)."
+
+# 
+msgid "Servidor TFTP parado."
+msgstr "TFTP server stopped."
+
+# 
+msgid "Servidor TFTP..."
+msgstr "TFTP Server..."
+
+# 
+msgid "Todos os caminhos ficam confinados estritamente dentro destas pastas."
+msgstr "All paths remain strictly confined inside these folders."
+
+# 
+msgid "Transferindo {name} ({id})..."
+msgstr "Transferring {name} ({id})..."
+
+# 
+msgid "Transferência cancelada antes de iniciar."
+msgstr "Transfer cancelled before starting."
+
+# 
+msgid "Transferência cancelada pelo usuário."
+msgstr "Transfer cancelled by user."
+
+# 
+msgid "Transferência cancelada."
+msgstr "Transfer cancelled."
+
+# 
+msgid "Use 6969 para evitar necessidade de root, ou 69 com CAP_NET_BIND_SERVICE"
+msgstr "Use 6969 to avoid root privileges, or 69 with CAP_NET_BIND_SERVICE"
+
+# 
+msgid "livres de"
+msgstr "free of"
+
+# 
+msgid "sudo recusou a gravação do arquivo."
+msgstr "sudo refused to write the file."
+
+# 
+msgid "{identical} idênticos · {left_only} apenas Esquerda · {right_only} apenas Direita · {diff} tamanho diferente"
+msgstr "{identical} identical · {left_only} Left only · {right_only} Right only · {diff} size differs"
+
